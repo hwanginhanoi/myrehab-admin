@@ -1,0 +1,1 @@
+{"type":"object","properties":{"exerciseId":{"type":"integer","format":"int64"},"orderIndex":{"type":"integer","format":"int32"},"sets":{"type":"integer","format":"int32"},"repsPerSet":{"type":"integer","format":"int32"},"durationSeconds":{"type":"integer","format":"int32"}},"required":["exerciseId","orderIndex"],"x-readme-ref-name":"PlanExerciseCreateRequest"}

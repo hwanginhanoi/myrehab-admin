@@ -1,0 +1,5 @@
+import { planSchema } from "./planSchema";
+import { z } from "zod";
+
+
+export const exerciseSchema = z.object({ "id": z.number().int(), "name": z.string(), "description": z.string(), "instructions": z.string(), "videoUrl": z.string().optional(), "imageUrl": z.string().optional(), "durationSeconds": z.number().int().optional(), "sets": z.number().int().optional(), "repsPerSet": z.number().int().optional(), "timePerRepSeconds": z.number().int().optional(), "cautions": z.string().optional(), "targetAreas": z.array(z.enum(["LOWER_BACK", "UPPER_BACK", "NECK", "SHOULDERS", "ARMS", "CHEST", "CORE", "HIPS", "GLUTES", "QUADS", "HAMSTRINGS", "CALVES", "ANKLES", "WRISTS", "FULL_BODY"])), "restBetweenSets": z.number().int().optional(), "equipmentNeeded": z.string().optional(), "difficulty": z.enum(["EASY", "MEDIUM", "HARD"]), "plans": z.array(z.lazy(() => planSchema)) });

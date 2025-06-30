@@ -4,6 +4,7 @@ import "./globals.css";
 import React from "react";
 import NextTopLoader from "nextjs-toploader";
 import {Toaster} from "sonner";
+import { NuqsAdapter } from 'nuqs/adapters/next/app';
 
 const comfortaa = Comfortaa({
   variable: "--font-comfortaa",
@@ -27,7 +28,9 @@ export default function RootLayout({
       >
       <NextTopLoader showSpinner={false}/>
       <Toaster />
-      {children}
+      <NuqsAdapter>
+        {children}
+      </NuqsAdapter>
       </body>
     </html>
   );
