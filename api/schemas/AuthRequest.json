@@ -1,1 +1,1 @@
-{"type":"object","properties":{"email":{"type":"string"},"password":{"type":"string"}},"required":["email","password"],"x-readme-ref-name":"AuthRequest"}
+{"type":"object","properties":{"email":{"type":"string"},"password":{"type":"string"}},"x-readme-ref-name":"AuthRequest"}

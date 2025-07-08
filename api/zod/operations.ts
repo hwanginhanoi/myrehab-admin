@@ -1,19 +1,118 @@
+import { getCourseByIdQueryResponseSchema, getCourseByIdPathParamsSchema } from "./getCourseByIdSchema";
+import { updateCourseMutationRequestSchema, updateCourseMutationResponseSchema, updateCoursePathParamsSchema } from "./updateCourseSchema";
+import { deleteCourseMutationResponseSchema, deleteCoursePathParamsSchema } from "./deleteCourseSchema";
+import { getPatientByIdQueryResponseSchema, getPatientByIdPathParamsSchema } from "./getPatientByIdSchema";
+import { updatePatientMutationRequestSchema, updatePatientMutationResponseSchema, updatePatientPathParamsSchema } from "./updatePatientSchema";
+import { deletePatientMutationResponseSchema, deletePatientPathParamsSchema } from "./deletePatientSchema";
+import { getAllCoursesQueryResponseSchema } from "./getAllCoursesSchema";
+import { createCourseMutationRequestSchema, createCourseMutationResponseSchema } from "./createCourseSchema";
 import { registerMutationRequestSchema, registerMutationResponseSchema } from "./registerSchema";
-import { refreshTokenMutationRequestSchema, refreshTokenMutationResponseSchema } from "./refreshTokenSchema";
-import { authenticateMutationRequestSchema, authenticateMutationResponseSchema } from "./authenticateSchema";
-import { getAllPlansQueryResponseSchema } from "./getAllPlansSchema";
-import { createPlanMutationRequestSchema, createPlanMutationResponseSchema } from "./createPlanSchema";
-import { getAllExercisesQueryResponseSchema } from "./getAllExercisesSchema";
-import { createExerciseMutationRequestSchema, createExerciseMutationResponseSchema } from "./createExerciseSchema";
-import { getAllPlans1QueryResponseSchema } from "./getAllPlans1Schema";
-import { getPlanByIdQueryResponseSchema, getPlanByIdPathParamsSchema } from "./getPlanByIdSchema";
-import { getPlansByCategoryQueryResponseSchema, getPlansByCategoryPathParamsSchema } from "./getPlansByCategorySchema";
-import { getPatientInfoQueryResponseSchema, getPatientInfoPathParamsSchema } from "./getPatientInfoSchema";
-import { getPlanById1QueryResponseSchema, getPlanById1PathParamsSchema } from "./getPlanById1Schema";
-import { getExerciseByIdQueryResponseSchema, getExerciseByIdPathParamsSchema } from "./getExerciseByIdSchema";
-import { deleteExerciseMutationResponseSchema, deleteExercisePathParamsSchema } from "./deleteExerciseSchema";
+import { loginMutationRequestSchema, loginMutationResponseSchema } from "./loginSchema";
+import { getAllPatientsQueryResponseSchema } from "./getAllPatientsSchema";
+import { createPatientMutationRequestSchema, createPatientMutationResponseSchema } from "./createPatientSchema";
+import { assignCourseToPatientMutationResponseSchema, assignCourseToPatientPathParamsSchema } from "./assignCourseToPatientSchema";
+import { searchCoursesByTitleQueryResponseSchema, searchCoursesByTitleQueryParamsSchema } from "./searchCoursesByTitleSchema";
+import { getCoursesByCategoryIdQueryResponseSchema, getCoursesByCategoryIdPathParamsSchema } from "./getCoursesByCategoryIdSchema";
+import { searchPatientsQueryResponseSchema, searchPatientsQueryParamsSchema } from "./searchPatientsSchema";
+import { removeCourseFromPatientMutationResponseSchema, removeCourseFromPatientPathParamsSchema } from "./removeCourseFromPatientSchema";
 
- export const operations = { "register": {
+ export const operations = { "getCourseById": {
+        request: undefined,
+        parameters: {
+            path: getCourseByIdPathParamsSchema,
+            query: undefined,
+            header: undefined
+        },
+        responses: {
+            200: getCourseByIdQueryResponseSchema,
+            default: getCourseByIdQueryResponseSchema
+        },
+        errors: {}
+    }, "updateCourse": {
+        request: updateCourseMutationRequestSchema,
+        parameters: {
+            path: updateCoursePathParamsSchema,
+            query: undefined,
+            header: undefined
+        },
+        responses: {
+            200: updateCourseMutationResponseSchema,
+            default: updateCourseMutationResponseSchema
+        },
+        errors: {}
+    }, "deleteCourse": {
+        request: undefined,
+        parameters: {
+            path: deleteCoursePathParamsSchema,
+            query: undefined,
+            header: undefined
+        },
+        responses: {
+            200: deleteCourseMutationResponseSchema,
+            default: deleteCourseMutationResponseSchema
+        },
+        errors: {}
+    }, "getPatientById": {
+        request: undefined,
+        parameters: {
+            path: getPatientByIdPathParamsSchema,
+            query: undefined,
+            header: undefined
+        },
+        responses: {
+            200: getPatientByIdQueryResponseSchema,
+            default: getPatientByIdQueryResponseSchema
+        },
+        errors: {}
+    }, "updatePatient": {
+        request: updatePatientMutationRequestSchema,
+        parameters: {
+            path: updatePatientPathParamsSchema,
+            query: undefined,
+            header: undefined
+        },
+        responses: {
+            200: updatePatientMutationResponseSchema,
+            default: updatePatientMutationResponseSchema
+        },
+        errors: {}
+    }, "deletePatient": {
+        request: undefined,
+        parameters: {
+            path: deletePatientPathParamsSchema,
+            query: undefined,
+            header: undefined
+        },
+        responses: {
+            200: deletePatientMutationResponseSchema,
+            default: deletePatientMutationResponseSchema
+        },
+        errors: {}
+    }, "getAllCourses": {
+        request: undefined,
+        parameters: {
+            path: undefined,
+            query: undefined,
+            header: undefined
+        },
+        responses: {
+            200: getAllCoursesQueryResponseSchema,
+            default: getAllCoursesQueryResponseSchema
+        },
+        errors: {}
+    }, "createCourse": {
+        request: createCourseMutationRequestSchema,
+        parameters: {
+            path: undefined,
+            query: undefined,
+            header: undefined
+        },
+        responses: {
+            200: createCourseMutationResponseSchema,
+            default: createCourseMutationResponseSchema
+        },
+        errors: {}
+    }, "register": {
         request: registerMutationRequestSchema,
         parameters: {
             path: undefined,
@@ -25,31 +124,19 @@ import { deleteExerciseMutationResponseSchema, deleteExercisePathParamsSchema } 
             default: registerMutationResponseSchema
         },
         errors: {}
-    }, "refreshToken": {
-        request: refreshTokenMutationRequestSchema,
+    }, "login": {
+        request: loginMutationRequestSchema,
         parameters: {
             path: undefined,
             query: undefined,
             header: undefined
         },
         responses: {
-            200: refreshTokenMutationResponseSchema,
-            default: refreshTokenMutationResponseSchema
+            200: loginMutationResponseSchema,
+            default: loginMutationResponseSchema
         },
         errors: {}
-    }, "authenticate": {
-        request: authenticateMutationRequestSchema,
-        parameters: {
-            path: undefined,
-            query: undefined,
-            header: undefined
-        },
-        responses: {
-            200: authenticateMutationResponseSchema,
-            default: authenticateMutationResponseSchema
-        },
-        errors: {}
-    }, "getAllPlans": {
+    }, "getAllPatients": {
         request: undefined,
         parameters: {
             path: undefined,
@@ -57,154 +144,109 @@ import { deleteExerciseMutationResponseSchema, deleteExercisePathParamsSchema } 
             header: undefined
         },
         responses: {
-            200: getAllPlansQueryResponseSchema,
-            default: getAllPlansQueryResponseSchema
+            200: getAllPatientsQueryResponseSchema,
+            default: getAllPatientsQueryResponseSchema
         },
         errors: {}
-    }, "createPlan": {
-        request: createPlanMutationRequestSchema,
+    }, "createPatient": {
+        request: createPatientMutationRequestSchema,
         parameters: {
             path: undefined,
             query: undefined,
             header: undefined
         },
         responses: {
-            200: createPlanMutationResponseSchema,
-            default: createPlanMutationResponseSchema
+            200: createPatientMutationResponseSchema,
+            default: createPatientMutationResponseSchema
         },
         errors: {}
-    }, "getAllExercises": {
+    }, "assignCourseToPatient": {
+        request: undefined,
+        parameters: {
+            path: assignCourseToPatientPathParamsSchema,
+            query: undefined,
+            header: undefined
+        },
+        responses: {
+            200: assignCourseToPatientMutationResponseSchema,
+            default: assignCourseToPatientMutationResponseSchema
+        },
+        errors: {}
+    }, "searchCoursesByTitle": {
         request: undefined,
         parameters: {
             path: undefined,
-            query: undefined,
+            query: searchCoursesByTitleQueryParamsSchema,
             header: undefined
         },
         responses: {
-            200: getAllExercisesQueryResponseSchema,
-            default: getAllExercisesQueryResponseSchema
+            200: searchCoursesByTitleQueryResponseSchema,
+            default: searchCoursesByTitleQueryResponseSchema
         },
         errors: {}
-    }, "createExercise": {
-        request: createExerciseMutationRequestSchema,
+    }, "getCoursesByCategoryId": {
+        request: undefined,
         parameters: {
-            path: undefined,
+            path: getCoursesByCategoryIdPathParamsSchema,
             query: undefined,
             header: undefined
         },
         responses: {
-            200: createExerciseMutationResponseSchema,
-            default: createExerciseMutationResponseSchema
+            200: getCoursesByCategoryIdQueryResponseSchema,
+            default: getCoursesByCategoryIdQueryResponseSchema
         },
         errors: {}
-    }, "getAllPlans_1": {
+    }, "searchPatients": {
         request: undefined,
         parameters: {
             path: undefined,
-            query: undefined,
+            query: searchPatientsQueryParamsSchema,
             header: undefined
         },
         responses: {
-            200: getAllPlans1QueryResponseSchema,
-            default: getAllPlans1QueryResponseSchema
+            200: searchPatientsQueryResponseSchema,
+            default: searchPatientsQueryResponseSchema
         },
         errors: {}
-    }, "getPlanById": {
+    }, "removeCourseFromPatient": {
         request: undefined,
         parameters: {
-            path: getPlanByIdPathParamsSchema,
+            path: removeCourseFromPatientPathParamsSchema,
             query: undefined,
             header: undefined
         },
         responses: {
-            200: getPlanByIdQueryResponseSchema,
-            default: getPlanByIdQueryResponseSchema
-        },
-        errors: {}
-    }, "getPlansByCategory": {
-        request: undefined,
-        parameters: {
-            path: getPlansByCategoryPathParamsSchema,
-            query: undefined,
-            header: undefined
-        },
-        responses: {
-            200: getPlansByCategoryQueryResponseSchema,
-            default: getPlansByCategoryQueryResponseSchema
-        },
-        errors: {}
-    }, "getPatientInfo": {
-        request: undefined,
-        parameters: {
-            path: getPatientInfoPathParamsSchema,
-            query: undefined,
-            header: undefined
-        },
-        responses: {
-            200: getPatientInfoQueryResponseSchema,
-            default: getPatientInfoQueryResponseSchema
-        },
-        errors: {}
-    }, "getPlanById_1": {
-        request: undefined,
-        parameters: {
-            path: getPlanById1PathParamsSchema,
-            query: undefined,
-            header: undefined
-        },
-        responses: {
-            200: getPlanById1QueryResponseSchema,
-            default: getPlanById1QueryResponseSchema
-        },
-        errors: {}
-    }, "getExerciseById": {
-        request: undefined,
-        parameters: {
-            path: getExerciseByIdPathParamsSchema,
-            query: undefined,
-            header: undefined
-        },
-        responses: {
-            200: getExerciseByIdQueryResponseSchema,
-            default: getExerciseByIdQueryResponseSchema
-        },
-        errors: {}
-    }, "deleteExercise": {
-        request: undefined,
-        parameters: {
-            path: deleteExercisePathParamsSchema,
-            query: undefined,
-            header: undefined
-        },
-        responses: {
-            200: deleteExerciseMutationResponseSchema,
-            default: deleteExerciseMutationResponseSchema
+            200: removeCourseFromPatientMutationResponseSchema,
+            default: removeCourseFromPatientMutationResponseSchema
         },
         errors: {}
     } } as const;
-export const paths = { "/api/auth/register": {
+export const paths = { "/api/courses/{id}": {
+        get: operations["getCourseById"],
+        put: operations["updateCourse"],
+        delete: operations["deleteCourse"]
+    }, "/api/admin/patients/{id}": {
+        get: operations["getPatientById"],
+        put: operations["updatePatient"],
+        delete: operations["deletePatient"]
+    }, "/api/courses": {
+        get: operations["getAllCourses"],
+        post: operations["createCourse"]
+    }, "/api/auth/register": {
         post: operations["register"]
-    }, "/api/auth/refresh": {
-        post: operations["refreshToken"]
     }, "/api/auth/login": {
-        post: operations["authenticate"]
-    }, "/api/admin/plans": {
-        get: operations["getAllPlans"],
-        post: operations["createPlan"]
-    }, "/api/admin/exercises": {
-        get: operations["getAllExercises"],
-        post: operations["createExercise"]
-    }, "/api/plans": {
-        get: operations["getAllPlans_1"]
-    }, "/api/plans/{id}": {
-        get: operations["getPlanById"]
-    }, "/api/plans/category/{category}": {
-        get: operations["getPlansByCategory"]
-    }, "/api/patients/{id}": {
-        get: operations["getPatientInfo"]
-    }, "/api/admin/plans/{id}": {
-        get: operations["getPlanById_1"]
-    }, "/api/admin/exercises/{id}": {
-        get: operations["getExerciseById"],
-        delete: operations["deleteExercise"]
+        post: operations["login"]
+    }, "/api/admin/patients": {
+        get: operations["getAllPatients"],
+        post: operations["createPatient"]
+    }, "/api/admin/patients/{patientId}/assign-course/{courseId}": {
+        post: operations["assignCourseToPatient"]
+    }, "/api/courses/search": {
+        get: operations["searchCoursesByTitle"]
+    }, "/api/courses/category/{categoryId}": {
+        get: operations["getCoursesByCategoryId"]
+    }, "/api/admin/patients/search": {
+        get: operations["searchPatients"]
+    }, "/api/admin/patients/{patientId}/remove-course/{courseId}": {
+        delete: operations["removeCourseFromPatient"]
     } } as const;

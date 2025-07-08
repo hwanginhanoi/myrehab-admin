@@ -1,10 +1,10 @@
 export type AuthRequest = {
     /**
-     * @type string
+     * @type string | undefined
     */
-    email: string;
+    email?: string;
     /**
-     * @type string
+     * @type string | undefined
     */
-    password: string;
+    password?: string;
 };

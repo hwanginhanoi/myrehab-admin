@@ -1,4 +1,0 @@
-import { z } from "zod";
-
-
-export const exerciseCreateRequestSchema = z.object({ "name": z.string(), "description": z.string(), "instructions": z.string(), "targetAreas": z.array(z.enum(["LOWER_BACK", "UPPER_BACK", "NECK", "SHOULDERS", "ARMS", "CHEST", "CORE", "HIPS", "GLUTES", "QUADS", "HAMSTRINGS", "CALVES", "ANKLES", "WRISTS", "FULL_BODY"])), "difficulty": z.enum(["EASY", "MEDIUM", "HARD"]), "sets": z.number().int().optional(), "repsPerSet": z.number().int().optional(), "durationSeconds": z.number().int().optional(), "restBetweenSets": z.number().int().optional(), "cautions": z.string().optional(), "equipmentNeeded": z.string().optional(), "videoUrl": z.string().optional(), "imageUrl": z.string().optional() });

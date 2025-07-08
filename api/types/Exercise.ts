@@ -1,92 +1,42 @@
-import type { Plan } from "./Plan";
+import type { Course } from "./Course";
+import type { Category } from "./Category";
+import type { Patient } from "./Patient";
 
- export const exerciseTargetAreas = {
-    "LOWER_BACK": "LOWER_BACK",
-    "UPPER_BACK": "UPPER_BACK",
-    "NECK": "NECK",
-    "SHOULDERS": "SHOULDERS",
-    "ARMS": "ARMS",
-    "CHEST": "CHEST",
-    "CORE": "CORE",
-    "HIPS": "HIPS",
-    "GLUTES": "GLUTES",
-    "QUADS": "QUADS",
-    "HAMSTRINGS": "HAMSTRINGS",
-    "CALVES": "CALVES",
-    "ANKLES": "ANKLES",
-    "WRISTS": "WRISTS",
-    "FULL_BODY": "FULL_BODY"
-} as const;
-export type ExerciseTargetAreas = (typeof exerciseTargetAreas)[keyof typeof exerciseTargetAreas];
-export const exerciseDifficulty = {
-    "EASY": "EASY",
-    "MEDIUM": "MEDIUM",
-    "HARD": "HARD"
-} as const;
-export type ExerciseDifficulty = (typeof exerciseDifficulty)[keyof typeof exerciseDifficulty];
-export type Exercise = {
+ export type Exercise = {
     /**
-     * @type integer, int64
+     * @type integer | undefined, int64
     */
-    id: number;
-    /**
-     * @type string
-    */
-    name: string;
-    /**
-     * @type string
-    */
-    description: string;
-    /**
-     * @type string
-    */
-    instructions: string;
+    id?: number;
     /**
      * @type string | undefined
     */
-    videoUrl?: string;
+    title?: string;
+    /**
+     * @type string | undefined
+    */
+    description?: string;
     /**
      * @type string | undefined
     */
     imageUrl?: string;
     /**
-     * @type integer | undefined, int32
-    */
-    durationSeconds?: number;
-    /**
-     * @type integer | undefined, int32
-    */
-    sets?: number;
-    /**
-     * @type integer | undefined, int32
-    */
-    repsPerSet?: number;
-    /**
-     * @type integer | undefined, int32
-    */
-    timePerRepSeconds?: number;
-    /**
      * @type string | undefined
     */
-    cautions?: string;
+    videoUrl?: string;
     /**
-     * @type array
+     * @type number | undefined
     */
-    targetAreas: ExerciseTargetAreas[];
+    price?: number;
     /**
-     * @type integer | undefined, int32
+     * @type array | undefined
     */
-    restBetweenSets?: number;
+    courses?: Course[];
     /**
-     * @type string | undefined
+     * @type array | undefined
     */
-    equipmentNeeded?: string;
+    categories?: Category[];
     /**
-     * @type string
+     * @type array | undefined
     */
-    difficulty: ExerciseDifficulty;
-    /**
-     * @type array
-    */
-    plans: Plan[];
+    purchasingPatients?: Patient[];
 };

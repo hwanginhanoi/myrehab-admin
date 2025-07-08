@@ -1,0 +1,87 @@
+{
+  "common": {
+    "welcome": "Welcome",
+    "search": "Search",
+    "save": "Save",
+    "cancel": "Cancel",
+    "delete": "Delete",
+    "edit": "Edit",
+    "create": "Create",
+    "loading": "Loading...",
+    "error": "Error",
+    "success": "Success",
+    "confirm": "Confirm",
+    "actions": "Actions",
+    "settings": "Settings",
+    "logout": "Logout",
+    "profile": "Profile",
+    "language": "Language",
+    "noResults": "No results found",
+    "noData": "No data available"
+  },
+  "navigation": {
+    "dashboard": "Dashboard",
+    "patients": "Patients",
+    "exercises": "Exercises",
+    "plans": "Treatment Plans",
+    "reports": "Reports",
+    "settings": "Settings"
+  },
+  "auth": {
+    "login": "Login",
+    "email": "Email",
+    "password": "Password",
+    "rememberMe": "Remember me",
+    "forgotPassword": "Forgot password?",
+    "loginSuccess": "Login successful",
+    "loginError": "Invalid email or password"
+  },
+  "exercise": {
+    "title": "Exercises",
+    "name": "Exercise name",
+    "description": "Description",
+    "category": "Category",
+    "difficulty": "Difficulty",
+    "duration": "Duration",
+    "createExercise": "Create new exercise",
+    "editExercise": "Edit exercise",
+    "deleteConfirm": "Are you sure you want to delete this exercise?"
+  },
+  "plan": {
+    "title": "Treatment Plans",
+    "name": "Plan name",
+    "description": "Description",
+    "startDate": "Start date",
+    "endDate": "End date",
+    "exercises": "Exercise list",
+    "createPlan": "Create new plan",
+    "editPlan": "Edit plan",
+    "assignToPatient": "Assign to patient"
+  },
+  "patient": {
+    "title": "Patients",
+    "name": "Full name",
+    "email": "Email",
+    "phone": "Phone number",
+    "dateOfBirth": "Date of birth",
+    "gender": "Gender",
+    "address": "Address",
+    "medicalHistory": "Medical history",
+    "currentPlan": "Current plan",
+    "createPatient": "Add new patient",
+    "editPatient": "Edit patient information",
+    "deletePatient": "Delete patient",
+    "noPatients": "No patients available",
+    "noSearchResults": "No patients found matching your search",
+    "searchPlaceholder": "Search by name, email or phone number"
+  },
+  "messages": {
+    "saveSuccess": "Saved successfully",
+    "saveError": "Error saving data",
+    "deleteSuccess": "Deleted successfully",
+    "deleteError": "Error deleting data",
+    "createSuccess": "Created successfully",
+    "updateSuccess": "Updated successfully",
+    "loadingData": "Loading data..."
+  }
+} 

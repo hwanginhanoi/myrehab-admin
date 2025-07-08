@@ -1,1 +1,0 @@
-{"type":"object","properties":{"id":{"type":"integer","format":"int64"},"email":{"type":"string"},"firstName":{"type":"string"},"lastName":{"type":"string"},"phoneNumber":{"type":"string"},"medicalHistory":{"type":"string"},"dateOfBirth":{"type":"string"},"gender":{"type":"string"}},"required":["email","firstName","id","lastName"],"x-readme-ref-name":"PatientInfoResponse"}

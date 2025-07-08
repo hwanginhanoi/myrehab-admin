@@ -1,26 +1,18 @@
 export type RegisterRequest = {
     /**
-     * @type string
+     * @type string | undefined
     */
-    email: string;
-    /**
-     * @type string
-    */
-    password: string;
-    /**
-     * @type string
-    */
-    firstName: string;
-    /**
-     * @type string
-    */
-    lastName: string;
+    firstName?: string;
     /**
      * @type string | undefined
     */
-    dateOfBirth?: string;
+    lastName?: string;
     /**
      * @type string | undefined
     */
-    phone?: string;
+    email?: string;
+    /**
+     * @type string | undefined
+    */
+    password?: string;
 };

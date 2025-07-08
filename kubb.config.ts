@@ -37,7 +37,7 @@ export default defineConfig({
 
             },
             client: {
-                importPath: 'axios',
+                importPath: '@/lib/api-client',
             },
             group: {
                 type: 'tag'

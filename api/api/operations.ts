@@ -1,58 +1,70 @@
 export const operations = {
+    "getCourseById": {
+        "path": "/api/courses/:id",
+        "method": "get"
+    },
+    "updateCourse": {
+        "path": "/api/courses/:id",
+        "method": "put"
+    },
+    "deleteCourse": {
+        "path": "/api/courses/:id",
+        "method": "delete"
+    },
+    "getPatientById": {
+        "path": "/api/admin/patients/:id",
+        "method": "get"
+    },
+    "updatePatient": {
+        "path": "/api/admin/patients/:id",
+        "method": "put"
+    },
+    "deletePatient": {
+        "path": "/api/admin/patients/:id",
+        "method": "delete"
+    },
+    "getAllCourses": {
+        "path": "/api/courses",
+        "method": "get"
+    },
+    "createCourse": {
+        "path": "/api/courses",
+        "method": "post"
+    },
     "register": {
         "path": "/api/auth/register",
         "method": "post"
     },
-    "refreshToken": {
-        "path": "/api/auth/refresh",
-        "method": "post"
-    },
-    "authenticate": {
+    "login": {
         "path": "/api/auth/login",
         "method": "post"
     },
-    "getAllPlans": {
-        "path": "/api/admin/plans",
+    "getAllPatients": {
+        "path": "/api/admin/patients",
         "method": "get"
     },
-    "createPlan": {
-        "path": "/api/admin/plans",
+    "createPatient": {
+        "path": "/api/admin/patients",
         "method": "post"
     },
-    "getAllExercises": {
-        "path": "/api/admin/exercises",
-        "method": "get"
-    },
-    "createExercise": {
-        "path": "/api/admin/exercises",
+    "assignCourseToPatient": {
+        "path": "/api/admin/patients/:patientId/assign-course/:courseId",
         "method": "post"
     },
-    "getAllPlans_1": {
-        "path": "/api/plans",
+    "searchCoursesByTitle": {
+        "path": "/api/courses/search",
         "method": "get"
     },
-    "getPlanById": {
-        "path": "/api/plans/:id",
+    "getCoursesByCategoryId": {
+        "path": "/api/courses/category/:categoryId",
         "method": "get"
     },
-    "getPlansByCategory": {
-        "path": "/api/plans/category/:category",
+    "searchPatients": {
+        "path": "/api/admin/patients/search",
         "method": "get"
     },
-    "getPatientInfo": {
-        "path": "/api/patients/:id",
-        "method": "get"
-    },
-    "getPlanById_1": {
-        "path": "/api/admin/plans/:id",
-        "method": "get"
-    },
-    "getExerciseById": {
-        "path": "/api/admin/exercises/:id",
-        "method": "get"
-    },
-    "deleteExercise": {
-        "path": "/api/admin/exercises/:id",
+    "removeCourseFromPatient": {
+        "path": "/api/admin/patients/:patientId/remove-course/:courseId",
         "method": "delete"
     }
 } as const;
