@@ -1,4 +1,16 @@
 export const operations = {
+    "getExerciseById": {
+        "path": "/api/exercises/:id",
+        "method": "get"
+    },
+    "updateExercise": {
+        "path": "/api/exercises/:id",
+        "method": "put"
+    },
+    "deleteExercise": {
+        "path": "/api/exercises/:id",
+        "method": "delete"
+    },
     "getCourseById": {
         "path": "/api/courses/:id",
         "method": "get"
@@ -11,16 +23,40 @@ export const operations = {
         "path": "/api/courses/:id",
         "method": "delete"
     },
-    "getPatientById": {
-        "path": "/api/admin/patients/:id",
+    "getCategoryById": {
+        "path": "/api/categories/:id",
         "method": "get"
     },
-    "updatePatient": {
-        "path": "/api/admin/patients/:id",
+    "updateCategory": {
+        "path": "/api/categories/:id",
         "method": "put"
     },
-    "deletePatient": {
-        "path": "/api/admin/patients/:id",
+    "deleteCategory": {
+        "path": "/api/categories/:id",
+        "method": "delete"
+    },
+    "assignCourseToPatient": {
+        "path": "/api/patients/:patientId/courses/:courseId/assign",
+        "method": "post"
+    },
+    "removeCourseFromPatient": {
+        "path": "/api/patients/:patientId/courses/:courseId/assign",
+        "method": "delete"
+    },
+    "getAllExercises": {
+        "path": "/api/exercises",
+        "method": "get"
+    },
+    "createExercise": {
+        "path": "/api/exercises",
+        "method": "post"
+    },
+    "addCategoryToExercise": {
+        "path": "/api/exercises/:exerciseId/categories/:categoryId",
+        "method": "post"
+    },
+    "removeCategoryFromExercise": {
+        "path": "/api/exercises/:exerciseId/categories/:categoryId",
         "method": "delete"
     },
     "getAllCourses": {
@@ -29,6 +65,22 @@ export const operations = {
     },
     "createCourse": {
         "path": "/api/courses",
+        "method": "post"
+    },
+    "addExerciseToCourse": {
+        "path": "/api/courses/:courseId/exercises/:exerciseId",
+        "method": "post"
+    },
+    "removeExerciseFromCourse": {
+        "path": "/api/courses/:courseId/exercises/:exerciseId",
+        "method": "delete"
+    },
+    "getAllCategories": {
+        "path": "/api/categories",
+        "method": "get"
+    },
+    "createCategory": {
+        "path": "/api/categories",
         "method": "post"
     },
     "register": {
@@ -40,31 +92,43 @@ export const operations = {
         "method": "post"
     },
     "getAllPatients": {
-        "path": "/api/admin/patients",
+        "path": "/api/patients",
         "method": "get"
     },
-    "createPatient": {
-        "path": "/api/admin/patients",
-        "method": "post"
+    "getPurchasedExercises": {
+        "path": "/api/patients/:patientId/exercises/purchased",
+        "method": "get"
     },
-    "assignCourseToPatient": {
-        "path": "/api/admin/patients/:patientId/assign-course/:courseId",
-        "method": "post"
+    "getPurchasedCourses": {
+        "path": "/api/patients/:patientId/courses/purchased",
+        "method": "get"
     },
-    "searchCoursesByTitle": {
+    "getAssignedCourses": {
+        "path": "/api/patients/:patientId/courses/assigned",
+        "method": "get"
+    },
+    "getPatientById": {
+        "path": "/api/patients/:id",
+        "method": "get"
+    },
+    "searchExercises": {
+        "path": "/api/exercises/search",
+        "method": "get"
+    },
+    "getExercisesByCategory": {
+        "path": "/api/exercises/category/:categoryId",
+        "method": "get"
+    },
+    "searchCourses": {
         "path": "/api/courses/search",
         "method": "get"
     },
-    "getCoursesByCategoryId": {
+    "getCoursesByCategory": {
         "path": "/api/courses/category/:categoryId",
         "method": "get"
     },
-    "searchPatients": {
-        "path": "/api/admin/patients/search",
+    "getCategoriesByType": {
+        "path": "/api/categories/type/:type",
         "method": "get"
-    },
-    "removeCourseFromPatient": {
-        "path": "/api/admin/patients/:patientId/remove-course/:courseId",
-        "method": "delete"
     }
 } as const;

@@ -1,4 +1,4 @@
-import type { Course } from "./Course";
+import type { CourseDto } from "./CourseDto";
 
  export type UpdateCoursePathParams = {
     /**
@@ -9,12 +9,12 @@ import type { Course } from "./Course";
 /**
  * @description OK
 */
-export type UpdateCourse200 = Course;
-export type UpdateCourseMutationRequest = Course;
+export type UpdateCourse200 = CourseDto;
+export type UpdateCourseMutationRequest = CourseDto;
 /**
  * @description OK
 */
-export type UpdateCourseMutationResponse = Course;
+export type UpdateCourseMutationResponse = CourseDto;
 export type UpdateCourseMutation = {
     Response: UpdateCourseMutationResponse;
     Request: UpdateCourseMutationRequest;

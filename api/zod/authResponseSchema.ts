@@ -1,4 +1,4 @@
 import { z } from "zod";
 
 
-export const authResponseSchema = z.object({ "userId": z.number().int().optional(), "token": z.string().optional(), "message": z.string().optional() });
+export const authResponseSchema = z.object({ "token": z.string().optional(), "tokenType": z.string().optional(), "email": z.string().optional(), "role": z.string().optional() });

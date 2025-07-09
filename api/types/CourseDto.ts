@@ -1,5 +1,5 @@
-import type { ExerciseDto } from "./ExerciseDto";
 import type { CategoryDto } from "./CategoryDto";
+import type { ExerciseDto } from "./ExerciseDto";
 
  export type CourseDto = {
     /**
@@ -25,9 +25,9 @@ import type { CategoryDto } from "./CategoryDto";
     /**
      * @type array | undefined
     */
-    exercises?: ExerciseDto[];
+    categories?: CategoryDto[];
     /**
      * @type array | undefined
     */
-    categories?: CategoryDto[];
+    exercises?: ExerciseDto[];
 };

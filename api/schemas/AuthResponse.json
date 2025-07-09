@@ -1,1 +1,1 @@
-{"type":"object","properties":{"userId":{"type":"integer","format":"int64"},"token":{"type":"string"},"message":{"type":"string"}},"x-readme-ref-name":"AuthResponse"}
+{"type":"object","properties":{"token":{"type":"string"},"tokenType":{"type":"string"},"email":{"type":"string"},"role":{"type":"string"}},"x-readme-ref-name":"AuthResponse"}

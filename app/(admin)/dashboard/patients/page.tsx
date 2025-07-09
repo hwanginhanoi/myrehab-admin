@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { useTranslations } from 'next-intl';
-import { getAllPatients } from '@/api/api/patientManagementController/getAllPatients';
+import { getAllPatients } from '@/api/api/patientControllerController';
 import type { PatientDto } from '@/api/types/PatientDto';
 import {
   Table,
@@ -68,9 +68,9 @@ export default function PatientsPage() {
   const filteredPatients = patients.filter((patient) => {
     const searchLower = searchQuery.toLowerCase();
     return (
-      patient.firstName.toLowerCase().includes(searchLower) ||
-      patient.lastName.toLowerCase().includes(searchLower) ||
-      patient.email.toLowerCase().includes(searchLower)
+      patient.firstName?.toLowerCase().includes(searchLower) ||
+      patient.lastName?.toLowerCase().includes(searchLower) ||
+      patient.email?.toLowerCase().includes(searchLower)
     );
   });
 
@@ -129,7 +129,6 @@ export default function PatientsPage() {
                       <TableHead>{t('patient.name')}</TableHead>
                       <TableHead>{t('patient.email')}</TableHead>
                       <TableHead>Status</TableHead>
-                      <TableHead>Courses</TableHead>
                       <TableHead className="text-right">{t('common.actions')}</TableHead>
                     </TableRow>
                   </TableHeader>
@@ -145,9 +144,6 @@ export default function PatientsPage() {
                             {patient.enabled ? 'Active' : 'Inactive'}
                           </span>
                         </TableCell>
-                        <TableCell>
-                          {patient.assignedCourses?.length || 0} assigned, {patient.purchasedCourses?.length || 0} purchased
-                        </TableCell>
                         <TableCell className="text-right space-x-2">
                           <Button variant="outline" size="sm">
                             {t('common.edit')}
@@ -160,7 +156,7 @@ export default function PatientsPage() {
                     ))}
                     {filteredPatients.length === 0 && (
                       <TableRow>
-                        <TableCell colSpan={5} className="text-center h-24">
+                        <TableCell colSpan={4} className="text-center h-24">
                           {searchQuery
                             ? t('patient.noSearchResults')
                             : t('patient.noPatients')}

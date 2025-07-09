@@ -1,14 +1,18 @@
 export type AuthResponse = {
     /**
-     * @type integer | undefined, int64
-    */
-    userId?: number;
-    /**
      * @type string | undefined
     */
     token?: string;
     /**
      * @type string | undefined
     */
-    message?: string;
+    tokenType?: string;
+    /**
+     * @type string | undefined
+    */
+    email?: string;
+    /**
+     * @type string | undefined
+    */
+    role?: string;
 };

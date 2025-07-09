@@ -1,41 +1,22 @@
-import type { CourseDto } from "./CourseDto";
-import type { ExerciseDto } from "./ExerciseDto";
-
- export type PatientDto = {
+export type PatientDto = {
     /**
      * @type integer | undefined, int64
     */
     id?: number;
     /**
-     * @type string
+     * @type string | undefined
     */
-    firstName: string;
-    /**
-     * @type string
-    */
-    lastName: string;
-    /**
-     * @type string
-    */
-    email: string;
+    email?: string;
     /**
      * @type string | undefined
     */
-    password?: string;
+    firstName?: string;
+    /**
+     * @type string | undefined
+    */
+    lastName?: string;
     /**
      * @type boolean | undefined
     */
     enabled?: boolean;
-    /**
-     * @type array | undefined
-    */
-    assignedCourses?: CourseDto[];
-    /**
-     * @type array | undefined
-    */
-    purchasedCourses?: CourseDto[];
-    /**
-     * @type array | undefined
-    */
-    purchasedExercises?: ExerciseDto[];
 };

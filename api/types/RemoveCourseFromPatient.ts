@@ -1,6 +1,4 @@
-import type { PatientDto } from "./PatientDto";
-
- export type RemoveCourseFromPatientPathParams = {
+export type RemoveCourseFromPatientPathParams = {
     /**
      * @type integer, int64
     */
@@ -13,11 +11,8 @@ import type { PatientDto } from "./PatientDto";
 /**
  * @description OK
 */
-export type RemoveCourseFromPatient200 = PatientDto;
-/**
- * @description OK
-*/
-export type RemoveCourseFromPatientMutationResponse = PatientDto;
+export type RemoveCourseFromPatient200 = any;
+export type RemoveCourseFromPatientMutationResponse = any;
 export type RemoveCourseFromPatientMutation = {
     Response: RemoveCourseFromPatientMutationResponse;
     PathParams: RemoveCourseFromPatientPathParams;

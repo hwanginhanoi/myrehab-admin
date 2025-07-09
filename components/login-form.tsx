@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
-import { login } from '@/api/api/authController/login';
+import { login } from '@/api/api/authControllerController';
 import { useAuth } from '@/contexts/auth-context';
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
@@ -47,7 +47,9 @@ export function LoginForm({
       
       if (response.token) {
         // Use auth context to handle login
-        authLogin(response.token, response.userId?.toString() || '');
+        // Since AuthResponse doesn't include userId, we'll use email as the user identifier
+        const userIdentifier = response.email || 'user';
+        authLogin(response.token, userIdentifier);
         
         // Redirect to dashboard
         router.push('/dashboard');

@@ -32,18 +32,20 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
     if (storedToken && storedUserId) {
       setToken(storedToken);
-      setUser({ id: storedUserId, email: '' }); // Email will be fetched from API if needed
+      // The storedUserId is actually the email, so we use it as both id and email
+      setUser({ id: storedUserId, email: storedUserId });
     }
     setIsLoading(false);
   }, []);
 
-  const login = (newToken: string, userId: string) => {
+  const login = (newToken: string, userIdentifier: string) => {
     localStorage.setItem('authToken', newToken);
-    localStorage.setItem('userId', userId);
+    localStorage.setItem('userId', userIdentifier);
     // Also set as cookie for middleware
     document.cookie = `authToken=${newToken}; path=/; max-age=${60 * 60 * 24 * 7}`; // 7 days
     setToken(newToken);
-    setUser({ id: userId, email: '' });
+    // The userIdentifier is the email, so we use it as both id and email
+    setUser({ id: userIdentifier, email: userIdentifier });
   };
 
   const logout = () => {

@@ -16,6 +16,7 @@ import {
   Users,
   Calendar,
   FileText,
+  Tags,
 } from "lucide-react"
 import { useTranslations } from "next-intl"
 
@@ -77,15 +78,30 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         items: [
           {
             title: "All Exercises",
-            url: "/exercises",
+            url: "/dashboard/exercises",
           },
           {
             title: "Create Exercise",
-            url: "/exercises/new",
+            url: "/dashboard/exercises/create",
           },
           {
             title: "Categories",
-            url: "/exercises/categories",
+            url: "/dashboard/categories",
+          },
+        ],
+      },
+      {
+        title: t('categories'),
+        url: "/categories",
+        icon: Tags,
+        items: [
+          {
+            title: "All Categories",
+            url: "/dashboard/categories",
+          },
+          {
+            title: "Create Category",
+            url: "/dashboard/categories/create",
           },
         ],
       },

@@ -1,6 +1,4 @@
-import type { PatientDto } from "./PatientDto";
-
- export type AssignCourseToPatientPathParams = {
+export type AssignCourseToPatientPathParams = {
     /**
      * @type integer, int64
     */
@@ -13,11 +11,8 @@ import type { PatientDto } from "./PatientDto";
 /**
  * @description OK
 */
-export type AssignCourseToPatient200 = PatientDto;
-/**
- * @description OK
-*/
-export type AssignCourseToPatientMutationResponse = PatientDto;
+export type AssignCourseToPatient200 = any;
+export type AssignCourseToPatientMutationResponse = any;
 export type AssignCourseToPatientMutation = {
     Response: AssignCourseToPatientMutationResponse;
     PathParams: AssignCourseToPatientPathParams;
