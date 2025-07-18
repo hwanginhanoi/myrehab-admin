@@ -17,6 +17,7 @@ import {
   Calendar,
   FileText,
   Tags,
+  GraduationCap,
 } from "lucide-react"
 import { useTranslations } from "next-intl"
 
@@ -87,6 +88,21 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
           {
             title: "Categories",
             url: "/dashboard/categories",
+          },
+        ],
+      },
+      {
+        title: t('courses'),
+        url: "/courses",
+        icon: GraduationCap,
+        items: [
+          {
+            title: "All Courses",
+            url: "/dashboard/courses",
+          },
+          {
+            title: "Create Course",
+            url: "/dashboard/courses/create",
           },
         ],
       },
