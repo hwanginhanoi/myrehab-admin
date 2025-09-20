@@ -1,0 +1,56 @@
+import type { CategoryResponse } from "./CategoryResponse";
+
+ export type ExerciseResponse = {
+    /**
+     * @type integer | undefined, int64
+    */
+    id?: number;
+    /**
+     * @type string | undefined
+    */
+    title?: string;
+    /**
+     * @type string | undefined
+    */
+    description?: string;
+    /**
+     * @type string | undefined
+    */
+    imageUrl?: string;
+    /**
+     * @type string | undefined
+    */
+    videoUrl?: string;
+    /**
+     * @type integer | undefined, int32
+    */
+    durationMinutes?: number;
+    /**
+     * @type integer | undefined, int32
+    */
+    repetitions?: number;
+    /**
+     * @type integer | undefined, int32
+    */
+    sets?: number;
+    /**
+     * @type number | undefined
+    */
+    price?: number;
+    /**
+     * @type boolean | undefined
+    */
+    isActive?: boolean;
+    /**
+     * @type object | undefined
+    */
+    category?: CategoryResponse;
+    /**
+     * @type string | undefined, date-time
+    */
+    createdAt?: string;
+    /**
+     * @type string | undefined, date-time
+    */
+    updatedAt?: string;
+};

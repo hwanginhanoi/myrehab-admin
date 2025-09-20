@@ -1,0 +1,1 @@
+{"type":"object","properties":{"uploadUrl":{"type":"string"},"fileUrl":{"type":"string"},"fileName":{"type":"string"},"folder":{"type":"string"},"expiresAt":{"type":"string","format":"date-time"},"contentType":{"type":"string"}},"x-readme-ref-name":"PresignedUrlResponse"}

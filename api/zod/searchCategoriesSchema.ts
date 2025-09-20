@@ -1,0 +1,13 @@
+import { z } from "zod";
+import { categoryResponseSchema } from "./categoryResponseSchema";
+
+
+export const searchCategoriesQueryParamsSchema = z.object({ "keyword": z.string().describe("Search keyword") });
+/**
+ * @description OK
+ */
+export const searchCategories200Schema = z.array(z.lazy(() => categoryResponseSchema));
+/**
+ * @description OK
+ */
+export const searchCategoriesQueryResponseSchema = z.array(z.lazy(() => categoryResponseSchema));

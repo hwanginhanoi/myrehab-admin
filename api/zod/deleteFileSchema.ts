@@ -1,0 +1,10 @@
+import { z } from "zod";
+
+
+export const deleteFileQueryParamsSchema = z.object({ "fileUrl": z.string().describe("S3 file URL to delete") });
+/**
+ * @description OK
+ */
+export const deleteFile200Schema = z.any();
+
+ export const deleteFileMutationResponseSchema = z.any();

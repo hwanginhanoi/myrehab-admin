@@ -1,0 +1,1 @@
+{"type":"object","properties":{"phoneNumber":{"type":"string","minLength":1,"pattern":"^\\+?[1-9]\\d{1,14}$"},"otpCode":{"type":"string","minLength":1,"pattern":"^\\d{6}$"}},"required":["otpCode","phoneNumber"],"x-readme-ref-name":"OtpVerificationRequest"}

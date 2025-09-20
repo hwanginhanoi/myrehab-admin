@@ -1,0 +1,1 @@
+{"type":"object","properties":{"fileName":{"type":"string","minLength":1},"contentType":{"type":"string","minLength":1,"pattern":"^(video|image)/.*"},"fileType":{"type":"string","pattern":"^(video|image)$"},"durationMinutes":{"type":"integer","format":"int32"}},"required":["contentType","fileName"],"x-readme-ref-name":"PresignedUrlRequest"}
