@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Comfortaa } from "next/font/google";
+import { Inter } from "next/font/google";
 import "./globals.css";
 import React from "react";
 import NextTopLoader from "nextjs-toploader";
@@ -7,8 +7,8 @@ import {Toaster} from "sonner";
 import { NuqsAdapter } from 'nuqs/adapters/next/app';
 import { Providers } from "@/components/providers";
 
-const comfortaa = Comfortaa({
-  variable: "--font-comfortaa",
+const inter = Inter({
+  variable: "--font-inter",
   subsets: ["latin"],
 });
 
@@ -25,7 +25,7 @@ export default function RootLayout({
   return (
     <html lang="vi" suppressHydrationWarning>
       <body
-        className={`${comfortaa.variable} font-sans antialiased`}
+        className={`${inter.variable} font-sans antialiased`}
       >
       <Providers>
         <NextTopLoader showSpinner={false}/>

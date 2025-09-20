@@ -29,16 +29,6 @@ apiClient.interceptors.response.use(
     return response;
   },
   (error) => {
-    // If we get a 401, clear the token and redirect to login
-    if (error.response?.status === 401) {
-      localStorage.removeItem('authToken');
-      localStorage.removeItem('userId');
-      // Clear cookie
-      document.cookie = 'authToken=; path=/; expires=Thu, 01 Jan 1970 00:00:01 GMT';
-      // Redirect to login
-      window.location.href = '/auth/login';
-    }
-    
     return Promise.reject(error);
   }
 );

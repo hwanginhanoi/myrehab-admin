@@ -1,19 +1,20 @@
-import type { CourseDto } from "./CourseDto";
+import type { CourseResponse } from "./CourseResponse";
 
  export type SearchCoursesQueryParams = {
     /**
+     * @description Search keyword
      * @type string
     */
-    title: string;
+    keyword: string;
 };
 /**
  * @description OK
 */
-export type SearchCourses200 = CourseDto[];
+export type SearchCourses200 = CourseResponse[];
 /**
  * @description OK
 */
-export type SearchCoursesQueryResponse = CourseDto[];
+export type SearchCoursesQueryResponse = CourseResponse[];
 export type SearchCoursesQuery = {
     Response: SearchCoursesQueryResponse;
     QueryParams: SearchCoursesQueryParams;

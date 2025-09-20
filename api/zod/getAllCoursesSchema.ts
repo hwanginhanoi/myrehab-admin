@@ -1,11 +1,11 @@
 import { z } from "zod";
-import { courseDtoSchema } from "./courseDtoSchema";
+import { courseResponseSchema } from "./courseResponseSchema";
 
  /**
  * @description OK
  */
-export const getAllCourses200Schema = z.array(z.lazy(() => courseDtoSchema));
+export const getAllCourses200Schema = z.array(z.lazy(() => courseResponseSchema));
 /**
  * @description OK
  */
-export const getAllCoursesQueryResponseSchema = z.array(z.lazy(() => courseDtoSchema));
+export const getAllCoursesQueryResponseSchema = z.array(z.lazy(() => courseResponseSchema));

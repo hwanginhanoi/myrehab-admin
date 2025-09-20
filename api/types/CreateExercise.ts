@@ -1,14 +1,15 @@
-import type { ExerciseDto } from "./ExerciseDto";
+import type { ExerciseResponse } from "./ExerciseResponse";
+import type { CreateExerciseRequest } from "./CreateExerciseRequest";
 
  /**
  * @description OK
 */
-export type CreateExercise200 = ExerciseDto;
-export type CreateExerciseMutationRequest = ExerciseDto;
+export type CreateExercise200 = ExerciseResponse;
+export type CreateExerciseMutationRequest = CreateExerciseRequest;
 /**
  * @description OK
 */
-export type CreateExerciseMutationResponse = ExerciseDto;
+export type CreateExerciseMutationResponse = ExerciseResponse;
 export type CreateExerciseMutation = {
     Response: CreateExerciseMutationResponse;
     Request: CreateExerciseMutationRequest;

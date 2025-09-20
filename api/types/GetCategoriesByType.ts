@@ -1,9 +1,11 @@
-import type { CategoryDto } from "./CategoryDto";
+import type { CategoryResponse } from "./CategoryResponse";
 
  export const getCategoriesByTypePathParamsType = {
     "BODY_PART": "BODY_PART",
     "RECOVERY_STAGE": "RECOVERY_STAGE",
-    "HEALTH_CONDITION": "HEALTH_CONDITION"
+    "HEALTH_CONDITION": "HEALTH_CONDITION",
+    "DIFFICULTY_LEVEL": "DIFFICULTY_LEVEL",
+    "EXERCISE_TYPE": "EXERCISE_TYPE"
 } as const;
 export type GetCategoriesByTypePathParamsType = (typeof getCategoriesByTypePathParamsType)[keyof typeof getCategoriesByTypePathParamsType];
 export type GetCategoriesByTypePathParams = {
@@ -15,11 +17,11 @@ export type GetCategoriesByTypePathParams = {
 /**
  * @description OK
 */
-export type GetCategoriesByType200 = CategoryDto[];
+export type GetCategoriesByType200 = CategoryResponse[];
 /**
  * @description OK
 */
-export type GetCategoriesByTypeQueryResponse = CategoryDto[];
+export type GetCategoriesByTypeQueryResponse = CategoryResponse[];
 export type GetCategoriesByTypeQuery = {
     Response: GetCategoriesByTypeQueryResponse;
     PathParams: GetCategoriesByTypePathParams;

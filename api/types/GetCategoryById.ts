@@ -1,4 +1,4 @@
-import type { CategoryDto } from "./CategoryDto";
+import type { CategoryResponse } from "./CategoryResponse";
 
  export type GetCategoryByIdPathParams = {
     /**
@@ -9,11 +9,11 @@ import type { CategoryDto } from "./CategoryDto";
 /**
  * @description OK
 */
-export type GetCategoryById200 = CategoryDto;
+export type GetCategoryById200 = CategoryResponse;
 /**
  * @description OK
 */
-export type GetCategoryByIdQueryResponse = CategoryDto;
+export type GetCategoryByIdQueryResponse = CategoryResponse;
 export type GetCategoryByIdQuery = {
     Response: GetCategoryByIdQueryResponse;
     PathParams: GetCategoryByIdPathParams;

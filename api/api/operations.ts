@@ -1,28 +1,4 @@
 export const operations = {
-    "getExerciseById": {
-        "path": "/api/exercises/:id",
-        "method": "get"
-    },
-    "updateExercise": {
-        "path": "/api/exercises/:id",
-        "method": "put"
-    },
-    "deleteExercise": {
-        "path": "/api/exercises/:id",
-        "method": "delete"
-    },
-    "getCourseById": {
-        "path": "/api/courses/:id",
-        "method": "get"
-    },
-    "updateCourse": {
-        "path": "/api/courses/:id",
-        "method": "put"
-    },
-    "deleteCourse": {
-        "path": "/api/courses/:id",
-        "method": "delete"
-    },
     "getCategoryById": {
         "path": "/api/categories/:id",
         "method": "get"
@@ -35,13 +11,17 @@ export const operations = {
         "path": "/api/categories/:id",
         "method": "delete"
     },
-    "assignCourseToPatient": {
-        "path": "/api/patients/:patientId/courses/:courseId/assign",
+    "uploadVideo": {
+        "path": "/api/files/upload/video",
         "method": "post"
     },
-    "removeCourseFromPatient": {
-        "path": "/api/patients/:patientId/courses/:courseId/assign",
-        "method": "delete"
+    "uploadImage": {
+        "path": "/api/files/upload/image",
+        "method": "post"
+    },
+    "generatePresignedUploadUrl": {
+        "path": "/api/files/presigned-url",
+        "method": "post"
     },
     "getAllExercises": {
         "path": "/api/exercises",
@@ -51,14 +31,6 @@ export const operations = {
         "path": "/api/exercises",
         "method": "post"
     },
-    "addCategoryToExercise": {
-        "path": "/api/exercises/:exerciseId/categories/:categoryId",
-        "method": "post"
-    },
-    "removeCategoryFromExercise": {
-        "path": "/api/exercises/:exerciseId/categories/:categoryId",
-        "method": "delete"
-    },
     "getAllCourses": {
         "path": "/api/courses",
         "method": "get"
@@ -66,14 +38,6 @@ export const operations = {
     "createCourse": {
         "path": "/api/courses",
         "method": "post"
-    },
-    "addExerciseToCourse": {
-        "path": "/api/courses/:courseId/exercises/:exerciseId",
-        "method": "post"
-    },
-    "removeExerciseFromCourse": {
-        "path": "/api/courses/:courseId/exercises/:exerciseId",
-        "method": "delete"
     },
     "getAllCategories": {
         "path": "/api/categories",
@@ -83,44 +47,56 @@ export const operations = {
         "path": "/api/categories",
         "method": "post"
     },
-    "register": {
-        "path": "/api/auth/register",
+    "verifyOtpAndLogin": {
+        "path": "/api/auth/user/verify-otp",
         "method": "post"
     },
-    "login": {
-        "path": "/api/auth/login",
+    "sendOtpForUser": {
+        "path": "/api/auth/user/send-otp",
         "method": "post"
     },
-    "getAllPatients": {
-        "path": "/api/patients",
+    "staffLogin": {
+        "path": "/api/auth/staff/login",
+        "method": "post"
+    },
+    "refreshToken": {
+        "path": "/api/auth/refresh-token",
+        "method": "post"
+    },
+    "logout": {
+        "path": "/api/auth/logout",
+        "method": "post"
+    },
+    "generatePresignedAccessUrl": {
+        "path": "/api/files/presigned-url/:folder/:fileName",
         "method": "get"
     },
-    "getPurchasedExercises": {
-        "path": "/api/patients/:patientId/exercises/purchased",
-        "method": "get"
-    },
-    "getPurchasedCourses": {
-        "path": "/api/patients/:patientId/courses/purchased",
-        "method": "get"
-    },
-    "getAssignedCourses": {
-        "path": "/api/patients/:patientId/courses/assigned",
-        "method": "get"
-    },
-    "getPatientById": {
-        "path": "/api/patients/:id",
+    "getExerciseById": {
+        "path": "/api/exercises/:id",
         "method": "get"
     },
     "searchExercises": {
         "path": "/api/exercises/search",
         "method": "get"
     },
+    "getAllExercisesPaginated": {
+        "path": "/api/exercises/paginated",
+        "method": "get"
+    },
     "getExercisesByCategory": {
         "path": "/api/exercises/category/:categoryId",
         "method": "get"
     },
+    "getCourseById": {
+        "path": "/api/courses/:id",
+        "method": "get"
+    },
     "searchCourses": {
         "path": "/api/courses/search",
+        "method": "get"
+    },
+    "getAllCoursesPaginated": {
+        "path": "/api/courses/paginated",
         "method": "get"
     },
     "getCoursesByCategory": {
@@ -130,5 +106,25 @@ export const operations = {
     "getCategoriesByType": {
         "path": "/api/categories/type/:type",
         "method": "get"
+    },
+    "getCategoriesByTypePaginated": {
+        "path": "/api/categories/type/:type/paginated",
+        "method": "get"
+    },
+    "searchCategories": {
+        "path": "/api/categories/search",
+        "method": "get"
+    },
+    "searchCategoriesPaginated": {
+        "path": "/api/categories/search/paginated",
+        "method": "get"
+    },
+    "getAllCategoriesPaginated": {
+        "path": "/api/categories/paginated",
+        "method": "get"
+    },
+    "deleteFile": {
+        "path": "/api/files/delete",
+        "method": "delete"
     }
 } as const;

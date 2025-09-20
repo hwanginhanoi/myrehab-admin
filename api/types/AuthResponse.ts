@@ -1,3 +1,9 @@
+export const authResponseRole = {
+    "USER": "USER",
+    "DOCTOR": "DOCTOR",
+    "ADMIN": "ADMIN"
+} as const;
+export type AuthResponseRole = (typeof authResponseRole)[keyof typeof authResponseRole];
 export type AuthResponse = {
     /**
      * @type string | undefined
@@ -6,7 +12,7 @@ export type AuthResponse = {
     /**
      * @type string | undefined
     */
-    tokenType?: string;
+    refreshToken?: string;
     /**
      * @type string | undefined
     */
@@ -14,5 +20,9 @@ export type AuthResponse = {
     /**
      * @type string | undefined
     */
-    role?: string;
+    role?: AuthResponseRole;
+    /**
+     * @type string | undefined
+    */
+    fullName?: string;
 };

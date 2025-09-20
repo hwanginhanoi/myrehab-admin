@@ -1,13 +1,13 @@
-import type { ExerciseDto } from "./ExerciseDto";
+import type { ExerciseResponse } from "./ExerciseResponse";
 
  /**
  * @description OK
 */
-export type GetAllExercises200 = ExerciseDto[];
+export type GetAllExercises200 = ExerciseResponse[];
 /**
  * @description OK
 */
-export type GetAllExercisesQueryResponse = ExerciseDto[];
+export type GetAllExercisesQueryResponse = ExerciseResponse[];
 export type GetAllExercisesQuery = {
     Response: GetAllExercisesQueryResponse;
 };

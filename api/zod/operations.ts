@@ -1,110 +1,37 @@
-import { getExerciseByIdQueryResponseSchema, getExerciseByIdPathParamsSchema } from "./getExerciseByIdSchema";
-import { updateExerciseMutationRequestSchema, updateExerciseMutationResponseSchema, updateExercisePathParamsSchema } from "./updateExerciseSchema";
-import { deleteExerciseMutationResponseSchema, deleteExercisePathParamsSchema } from "./deleteExerciseSchema";
-import { getCourseByIdQueryResponseSchema, getCourseByIdPathParamsSchema } from "./getCourseByIdSchema";
-import { updateCourseMutationRequestSchema, updateCourseMutationResponseSchema, updateCoursePathParamsSchema } from "./updateCourseSchema";
-import { deleteCourseMutationResponseSchema, deleteCoursePathParamsSchema } from "./deleteCourseSchema";
 import { getCategoryByIdQueryResponseSchema, getCategoryByIdPathParamsSchema } from "./getCategoryByIdSchema";
 import { updateCategoryMutationRequestSchema, updateCategoryMutationResponseSchema, updateCategoryPathParamsSchema } from "./updateCategorySchema";
 import { deleteCategoryMutationResponseSchema, deleteCategoryPathParamsSchema } from "./deleteCategorySchema";
-import { assignCourseToPatientMutationResponseSchema, assignCourseToPatientPathParamsSchema } from "./assignCourseToPatientSchema";
-import { removeCourseFromPatientMutationResponseSchema, removeCourseFromPatientPathParamsSchema } from "./removeCourseFromPatientSchema";
+import { uploadVideoMutationRequestSchema, uploadVideoMutationResponseSchema } from "./uploadVideoSchema";
+import { uploadImageMutationRequestSchema, uploadImageMutationResponseSchema } from "./uploadImageSchema";
+import { generatePresignedUploadUrlMutationRequestSchema, generatePresignedUploadUrlMutationResponseSchema } from "./generatePresignedUploadUrlSchema";
 import { getAllExercisesQueryResponseSchema } from "./getAllExercisesSchema";
 import { createExerciseMutationRequestSchema, createExerciseMutationResponseSchema } from "./createExerciseSchema";
-import { addCategoryToExerciseMutationResponseSchema, addCategoryToExercisePathParamsSchema } from "./addCategoryToExerciseSchema";
-import { removeCategoryFromExerciseMutationResponseSchema, removeCategoryFromExercisePathParamsSchema } from "./removeCategoryFromExerciseSchema";
 import { getAllCoursesQueryResponseSchema } from "./getAllCoursesSchema";
 import { createCourseMutationRequestSchema, createCourseMutationResponseSchema } from "./createCourseSchema";
-import { addExerciseToCourseMutationResponseSchema, addExerciseToCoursePathParamsSchema } from "./addExerciseToCourseSchema";
-import { removeExerciseFromCourseMutationResponseSchema, removeExerciseFromCoursePathParamsSchema } from "./removeExerciseFromCourseSchema";
 import { getAllCategoriesQueryResponseSchema } from "./getAllCategoriesSchema";
 import { createCategoryMutationRequestSchema, createCategoryMutationResponseSchema } from "./createCategorySchema";
-import { registerMutationRequestSchema, registerMutationResponseSchema } from "./registerSchema";
-import { loginMutationRequestSchema, loginMutationResponseSchema } from "./loginSchema";
-import { getAllPatientsQueryResponseSchema } from "./getAllPatientsSchema";
-import { getPurchasedExercisesQueryResponseSchema, getPurchasedExercisesPathParamsSchema } from "./getPurchasedExercisesSchema";
-import { getPurchasedCoursesQueryResponseSchema, getPurchasedCoursesPathParamsSchema } from "./getPurchasedCoursesSchema";
-import { getAssignedCoursesQueryResponseSchema, getAssignedCoursesPathParamsSchema } from "./getAssignedCoursesSchema";
-import { getPatientByIdQueryResponseSchema, getPatientByIdPathParamsSchema } from "./getPatientByIdSchema";
+import { verifyOtpAndLoginMutationRequestSchema, verifyOtpAndLoginMutationResponseSchema } from "./verifyOtpAndLoginSchema";
+import { sendOtpForUserMutationRequestSchema, sendOtpForUserMutationResponseSchema } from "./sendOtpForUserSchema";
+import { staffLoginMutationRequestSchema, staffLoginMutationResponseSchema } from "./staffLoginSchema";
+import { refreshTokenMutationRequestSchema, refreshTokenMutationResponseSchema } from "./refreshTokenSchema";
+import { logoutMutationRequestSchema, logoutMutationResponseSchema } from "./logoutSchema";
+import { generatePresignedAccessUrlQueryResponseSchema, generatePresignedAccessUrlPathParamsSchema, generatePresignedAccessUrlQueryParamsSchema } from "./generatePresignedAccessUrlSchema";
+import { getExerciseByIdQueryResponseSchema, getExerciseByIdPathParamsSchema } from "./getExerciseByIdSchema";
 import { searchExercisesQueryResponseSchema, searchExercisesQueryParamsSchema } from "./searchExercisesSchema";
+import { getAllExercisesPaginatedQueryResponseSchema, getAllExercisesPaginatedQueryParamsSchema } from "./getAllExercisesPaginatedSchema";
 import { getExercisesByCategoryQueryResponseSchema, getExercisesByCategoryPathParamsSchema } from "./getExercisesByCategorySchema";
+import { getCourseByIdQueryResponseSchema, getCourseByIdPathParamsSchema } from "./getCourseByIdSchema";
 import { searchCoursesQueryResponseSchema, searchCoursesQueryParamsSchema } from "./searchCoursesSchema";
+import { getAllCoursesPaginatedQueryResponseSchema, getAllCoursesPaginatedQueryParamsSchema } from "./getAllCoursesPaginatedSchema";
 import { getCoursesByCategoryQueryResponseSchema, getCoursesByCategoryPathParamsSchema } from "./getCoursesByCategorySchema";
 import { getCategoriesByTypeQueryResponseSchema, getCategoriesByTypePathParamsSchema } from "./getCategoriesByTypeSchema";
+import { getCategoriesByTypePaginatedQueryResponseSchema, getCategoriesByTypePaginatedPathParamsSchema, getCategoriesByTypePaginatedQueryParamsSchema } from "./getCategoriesByTypePaginatedSchema";
+import { searchCategoriesQueryResponseSchema, searchCategoriesQueryParamsSchema } from "./searchCategoriesSchema";
+import { searchCategoriesPaginatedQueryResponseSchema, searchCategoriesPaginatedQueryParamsSchema } from "./searchCategoriesPaginatedSchema";
+import { getAllCategoriesPaginatedQueryResponseSchema, getAllCategoriesPaginatedQueryParamsSchema } from "./getAllCategoriesPaginatedSchema";
+import { deleteFileMutationResponseSchema, deleteFileQueryParamsSchema } from "./deleteFileSchema";
 
- export const operations = { "getExerciseById": {
-        request: undefined,
-        parameters: {
-            path: getExerciseByIdPathParamsSchema,
-            query: undefined,
-            header: undefined
-        },
-        responses: {
-            200: getExerciseByIdQueryResponseSchema,
-            default: getExerciseByIdQueryResponseSchema
-        },
-        errors: {}
-    }, "updateExercise": {
-        request: updateExerciseMutationRequestSchema,
-        parameters: {
-            path: updateExercisePathParamsSchema,
-            query: undefined,
-            header: undefined
-        },
-        responses: {
-            200: updateExerciseMutationResponseSchema,
-            default: updateExerciseMutationResponseSchema
-        },
-        errors: {}
-    }, "deleteExercise": {
-        request: undefined,
-        parameters: {
-            path: deleteExercisePathParamsSchema,
-            query: undefined,
-            header: undefined
-        },
-        responses: {
-            200: deleteExerciseMutationResponseSchema,
-            default: deleteExerciseMutationResponseSchema
-        },
-        errors: {}
-    }, "getCourseById": {
-        request: undefined,
-        parameters: {
-            path: getCourseByIdPathParamsSchema,
-            query: undefined,
-            header: undefined
-        },
-        responses: {
-            200: getCourseByIdQueryResponseSchema,
-            default: getCourseByIdQueryResponseSchema
-        },
-        errors: {}
-    }, "updateCourse": {
-        request: updateCourseMutationRequestSchema,
-        parameters: {
-            path: updateCoursePathParamsSchema,
-            query: undefined,
-            header: undefined
-        },
-        responses: {
-            200: updateCourseMutationResponseSchema,
-            default: updateCourseMutationResponseSchema
-        },
-        errors: {}
-    }, "deleteCourse": {
-        request: undefined,
-        parameters: {
-            path: deleteCoursePathParamsSchema,
-            query: undefined,
-            header: undefined
-        },
-        responses: {
-            200: deleteCourseMutationResponseSchema,
-            default: deleteCourseMutationResponseSchema
-        },
-        errors: {}
-    }, "getCategoryById": {
+ export const operations = { "getCategoryById": {
         request: undefined,
         parameters: {
             path: getCategoryByIdPathParamsSchema,
@@ -140,28 +67,40 @@ import { getCategoriesByTypeQueryResponseSchema, getCategoriesByTypePathParamsSc
             default: deleteCategoryMutationResponseSchema
         },
         errors: {}
-    }, "assignCourseToPatient": {
-        request: undefined,
+    }, "uploadVideo": {
+        request: uploadVideoMutationRequestSchema,
         parameters: {
-            path: assignCourseToPatientPathParamsSchema,
+            path: undefined,
             query: undefined,
             header: undefined
         },
         responses: {
-            200: assignCourseToPatientMutationResponseSchema,
-            default: assignCourseToPatientMutationResponseSchema
+            200: uploadVideoMutationResponseSchema,
+            default: uploadVideoMutationResponseSchema
         },
         errors: {}
-    }, "removeCourseFromPatient": {
-        request: undefined,
+    }, "uploadImage": {
+        request: uploadImageMutationRequestSchema,
         parameters: {
-            path: removeCourseFromPatientPathParamsSchema,
+            path: undefined,
             query: undefined,
             header: undefined
         },
         responses: {
-            200: removeCourseFromPatientMutationResponseSchema,
-            default: removeCourseFromPatientMutationResponseSchema
+            200: uploadImageMutationResponseSchema,
+            default: uploadImageMutationResponseSchema
+        },
+        errors: {}
+    }, "generatePresignedUploadUrl": {
+        request: generatePresignedUploadUrlMutationRequestSchema,
+        parameters: {
+            path: undefined,
+            query: undefined,
+            header: undefined
+        },
+        responses: {
+            200: generatePresignedUploadUrlMutationResponseSchema,
+            default: generatePresignedUploadUrlMutationResponseSchema
         },
         errors: {}
     }, "getAllExercises": {
@@ -188,30 +127,6 @@ import { getCategoriesByTypeQueryResponseSchema, getCategoriesByTypePathParamsSc
             default: createExerciseMutationResponseSchema
         },
         errors: {}
-    }, "addCategoryToExercise": {
-        request: undefined,
-        parameters: {
-            path: addCategoryToExercisePathParamsSchema,
-            query: undefined,
-            header: undefined
-        },
-        responses: {
-            200: addCategoryToExerciseMutationResponseSchema,
-            default: addCategoryToExerciseMutationResponseSchema
-        },
-        errors: {}
-    }, "removeCategoryFromExercise": {
-        request: undefined,
-        parameters: {
-            path: removeCategoryFromExercisePathParamsSchema,
-            query: undefined,
-            header: undefined
-        },
-        responses: {
-            200: removeCategoryFromExerciseMutationResponseSchema,
-            default: removeCategoryFromExerciseMutationResponseSchema
-        },
-        errors: {}
     }, "getAllCourses": {
         request: undefined,
         parameters: {
@@ -234,30 +149,6 @@ import { getCategoriesByTypeQueryResponseSchema, getCategoriesByTypePathParamsSc
         responses: {
             200: createCourseMutationResponseSchema,
             default: createCourseMutationResponseSchema
-        },
-        errors: {}
-    }, "addExerciseToCourse": {
-        request: undefined,
-        parameters: {
-            path: addExerciseToCoursePathParamsSchema,
-            query: undefined,
-            header: undefined
-        },
-        responses: {
-            200: addExerciseToCourseMutationResponseSchema,
-            default: addExerciseToCourseMutationResponseSchema
-        },
-        errors: {}
-    }, "removeExerciseFromCourse": {
-        request: undefined,
-        parameters: {
-            path: removeExerciseFromCoursePathParamsSchema,
-            query: undefined,
-            header: undefined
-        },
-        responses: {
-            200: removeExerciseFromCourseMutationResponseSchema,
-            default: removeExerciseFromCourseMutationResponseSchema
         },
         errors: {}
     }, "getAllCategories": {
@@ -284,88 +175,88 @@ import { getCategoriesByTypeQueryResponseSchema, getCategoriesByTypePathParamsSc
             default: createCategoryMutationResponseSchema
         },
         errors: {}
-    }, "register": {
-        request: registerMutationRequestSchema,
+    }, "verifyOtpAndLogin": {
+        request: verifyOtpAndLoginMutationRequestSchema,
         parameters: {
             path: undefined,
             query: undefined,
             header: undefined
         },
         responses: {
-            200: registerMutationResponseSchema,
-            default: registerMutationResponseSchema
+            200: verifyOtpAndLoginMutationResponseSchema,
+            default: verifyOtpAndLoginMutationResponseSchema
         },
         errors: {}
-    }, "login": {
-        request: loginMutationRequestSchema,
+    }, "sendOtpForUser": {
+        request: sendOtpForUserMutationRequestSchema,
         parameters: {
             path: undefined,
             query: undefined,
             header: undefined
         },
         responses: {
-            200: loginMutationResponseSchema,
-            default: loginMutationResponseSchema
+            200: sendOtpForUserMutationResponseSchema,
+            default: sendOtpForUserMutationResponseSchema
         },
         errors: {}
-    }, "getAllPatients": {
-        request: undefined,
+    }, "staffLogin": {
+        request: staffLoginMutationRequestSchema,
         parameters: {
             path: undefined,
             query: undefined,
             header: undefined
         },
         responses: {
-            200: getAllPatientsQueryResponseSchema,
-            default: getAllPatientsQueryResponseSchema
+            200: staffLoginMutationResponseSchema,
+            default: staffLoginMutationResponseSchema
         },
         errors: {}
-    }, "getPurchasedExercises": {
-        request: undefined,
+    }, "refreshToken": {
+        request: refreshTokenMutationRequestSchema,
         parameters: {
-            path: getPurchasedExercisesPathParamsSchema,
+            path: undefined,
             query: undefined,
             header: undefined
         },
         responses: {
-            200: getPurchasedExercisesQueryResponseSchema,
-            default: getPurchasedExercisesQueryResponseSchema
+            200: refreshTokenMutationResponseSchema,
+            default: refreshTokenMutationResponseSchema
         },
         errors: {}
-    }, "getPurchasedCourses": {
-        request: undefined,
+    }, "logout": {
+        request: logoutMutationRequestSchema,
         parameters: {
-            path: getPurchasedCoursesPathParamsSchema,
+            path: undefined,
             query: undefined,
             header: undefined
         },
         responses: {
-            200: getPurchasedCoursesQueryResponseSchema,
-            default: getPurchasedCoursesQueryResponseSchema
+            200: logoutMutationResponseSchema,
+            default: logoutMutationResponseSchema
         },
         errors: {}
-    }, "getAssignedCourses": {
+    }, "generatePresignedAccessUrl": {
         request: undefined,
         parameters: {
-            path: getAssignedCoursesPathParamsSchema,
+            path: generatePresignedAccessUrlPathParamsSchema,
+            query: generatePresignedAccessUrlQueryParamsSchema,
+            header: undefined
+        },
+        responses: {
+            200: generatePresignedAccessUrlQueryResponseSchema,
+            default: generatePresignedAccessUrlQueryResponseSchema
+        },
+        errors: {}
+    }, "getExerciseById": {
+        request: undefined,
+        parameters: {
+            path: getExerciseByIdPathParamsSchema,
             query: undefined,
             header: undefined
         },
         responses: {
-            200: getAssignedCoursesQueryResponseSchema,
-            default: getAssignedCoursesQueryResponseSchema
-        },
-        errors: {}
-    }, "getPatientById": {
-        request: undefined,
-        parameters: {
-            path: getPatientByIdPathParamsSchema,
-            query: undefined,
-            header: undefined
-        },
-        responses: {
-            200: getPatientByIdQueryResponseSchema,
-            default: getPatientByIdQueryResponseSchema
+            200: getExerciseByIdQueryResponseSchema,
+            default: getExerciseByIdQueryResponseSchema
         },
         errors: {}
     }, "searchExercises": {
@@ -380,6 +271,18 @@ import { getCategoriesByTypeQueryResponseSchema, getCategoriesByTypePathParamsSc
             default: searchExercisesQueryResponseSchema
         },
         errors: {}
+    }, "getAllExercisesPaginated": {
+        request: undefined,
+        parameters: {
+            path: undefined,
+            query: getAllExercisesPaginatedQueryParamsSchema,
+            header: undefined
+        },
+        responses: {
+            200: getAllExercisesPaginatedQueryResponseSchema,
+            default: getAllExercisesPaginatedQueryResponseSchema
+        },
+        errors: {}
     }, "getExercisesByCategory": {
         request: undefined,
         parameters: {
@@ -392,6 +295,18 @@ import { getCategoriesByTypeQueryResponseSchema, getCategoriesByTypePathParamsSc
             default: getExercisesByCategoryQueryResponseSchema
         },
         errors: {}
+    }, "getCourseById": {
+        request: undefined,
+        parameters: {
+            path: getCourseByIdPathParamsSchema,
+            query: undefined,
+            header: undefined
+        },
+        responses: {
+            200: getCourseByIdQueryResponseSchema,
+            default: getCourseByIdQueryResponseSchema
+        },
+        errors: {}
     }, "searchCourses": {
         request: undefined,
         parameters: {
@@ -402,6 +317,18 @@ import { getCategoriesByTypeQueryResponseSchema, getCategoriesByTypePathParamsSc
         responses: {
             200: searchCoursesQueryResponseSchema,
             default: searchCoursesQueryResponseSchema
+        },
+        errors: {}
+    }, "getAllCoursesPaginated": {
+        request: undefined,
+        parameters: {
+            path: undefined,
+            query: getAllCoursesPaginatedQueryParamsSchema,
+            header: undefined
+        },
+        responses: {
+            200: getAllCoursesPaginatedQueryResponseSchema,
+            default: getAllCoursesPaginatedQueryResponseSchema
         },
         errors: {}
     }, "getCoursesByCategory": {
@@ -428,59 +355,124 @@ import { getCategoriesByTypeQueryResponseSchema, getCategoriesByTypePathParamsSc
             default: getCategoriesByTypeQueryResponseSchema
         },
         errors: {}
+    }, "getCategoriesByTypePaginated": {
+        request: undefined,
+        parameters: {
+            path: getCategoriesByTypePaginatedPathParamsSchema,
+            query: getCategoriesByTypePaginatedQueryParamsSchema,
+            header: undefined
+        },
+        responses: {
+            200: getCategoriesByTypePaginatedQueryResponseSchema,
+            default: getCategoriesByTypePaginatedQueryResponseSchema
+        },
+        errors: {}
+    }, "searchCategories": {
+        request: undefined,
+        parameters: {
+            path: undefined,
+            query: searchCategoriesQueryParamsSchema,
+            header: undefined
+        },
+        responses: {
+            200: searchCategoriesQueryResponseSchema,
+            default: searchCategoriesQueryResponseSchema
+        },
+        errors: {}
+    }, "searchCategoriesPaginated": {
+        request: undefined,
+        parameters: {
+            path: undefined,
+            query: searchCategoriesPaginatedQueryParamsSchema,
+            header: undefined
+        },
+        responses: {
+            200: searchCategoriesPaginatedQueryResponseSchema,
+            default: searchCategoriesPaginatedQueryResponseSchema
+        },
+        errors: {}
+    }, "getAllCategoriesPaginated": {
+        request: undefined,
+        parameters: {
+            path: undefined,
+            query: getAllCategoriesPaginatedQueryParamsSchema,
+            header: undefined
+        },
+        responses: {
+            200: getAllCategoriesPaginatedQueryResponseSchema,
+            default: getAllCategoriesPaginatedQueryResponseSchema
+        },
+        errors: {}
+    }, "deleteFile": {
+        request: undefined,
+        parameters: {
+            path: undefined,
+            query: deleteFileQueryParamsSchema,
+            header: undefined
+        },
+        responses: {
+            200: deleteFileMutationResponseSchema,
+            default: deleteFileMutationResponseSchema
+        },
+        errors: {}
     } } as const;
-export const paths = { "/api/exercises/{id}": {
-        get: operations["getExerciseById"],
-        put: operations["updateExercise"],
-        delete: operations["deleteExercise"]
-    }, "/api/courses/{id}": {
-        get: operations["getCourseById"],
-        put: operations["updateCourse"],
-        delete: operations["deleteCourse"]
-    }, "/api/categories/{id}": {
+export const paths = { "/api/categories/{id}": {
         get: operations["getCategoryById"],
         put: operations["updateCategory"],
         delete: operations["deleteCategory"]
-    }, "/api/patients/{patientId}/courses/{courseId}/assign": {
-        post: operations["assignCourseToPatient"],
-        delete: operations["removeCourseFromPatient"]
+    }, "/api/files/upload/video": {
+        post: operations["uploadVideo"]
+    }, "/api/files/upload/image": {
+        post: operations["uploadImage"]
+    }, "/api/files/presigned-url": {
+        post: operations["generatePresignedUploadUrl"]
     }, "/api/exercises": {
         get: operations["getAllExercises"],
         post: operations["createExercise"]
-    }, "/api/exercises/{exerciseId}/categories/{categoryId}": {
-        post: operations["addCategoryToExercise"],
-        delete: operations["removeCategoryFromExercise"]
     }, "/api/courses": {
         get: operations["getAllCourses"],
         post: operations["createCourse"]
-    }, "/api/courses/{courseId}/exercises/{exerciseId}": {
-        post: operations["addExerciseToCourse"],
-        delete: operations["removeExerciseFromCourse"]
     }, "/api/categories": {
         get: operations["getAllCategories"],
         post: operations["createCategory"]
-    }, "/api/auth/register": {
-        post: operations["register"]
-    }, "/api/auth/login": {
-        post: operations["login"]
-    }, "/api/patients": {
-        get: operations["getAllPatients"]
-    }, "/api/patients/{patientId}/exercises/purchased": {
-        get: operations["getPurchasedExercises"]
-    }, "/api/patients/{patientId}/courses/purchased": {
-        get: operations["getPurchasedCourses"]
-    }, "/api/patients/{patientId}/courses/assigned": {
-        get: operations["getAssignedCourses"]
-    }, "/api/patients/{id}": {
-        get: operations["getPatientById"]
+    }, "/api/auth/user/verify-otp": {
+        post: operations["verifyOtpAndLogin"]
+    }, "/api/auth/user/send-otp": {
+        post: operations["sendOtpForUser"]
+    }, "/api/auth/staff/login": {
+        post: operations["staffLogin"]
+    }, "/api/auth/refresh-token": {
+        post: operations["refreshToken"]
+    }, "/api/auth/logout": {
+        post: operations["logout"]
+    }, "/api/files/presigned-url/{folder}/{fileName}": {
+        get: operations["generatePresignedAccessUrl"]
+    }, "/api/exercises/{id}": {
+        get: operations["getExerciseById"]
     }, "/api/exercises/search": {
         get: operations["searchExercises"]
+    }, "/api/exercises/paginated": {
+        get: operations["getAllExercisesPaginated"]
     }, "/api/exercises/category/{categoryId}": {
         get: operations["getExercisesByCategory"]
+    }, "/api/courses/{id}": {
+        get: operations["getCourseById"]
     }, "/api/courses/search": {
         get: operations["searchCourses"]
+    }, "/api/courses/paginated": {
+        get: operations["getAllCoursesPaginated"]
     }, "/api/courses/category/{categoryId}": {
         get: operations["getCoursesByCategory"]
     }, "/api/categories/type/{type}": {
         get: operations["getCategoriesByType"]
+    }, "/api/categories/type/{type}/paginated": {
+        get: operations["getCategoriesByTypePaginated"]
+    }, "/api/categories/search": {
+        get: operations["searchCategories"]
+    }, "/api/categories/search/paginated": {
+        get: operations["searchCategoriesPaginated"]
+    }, "/api/categories/paginated": {
+        get: operations["getAllCategoriesPaginated"]
+    }, "/api/files/delete": {
+        delete: operations["deleteFile"]
     } } as const;

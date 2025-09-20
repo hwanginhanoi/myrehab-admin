@@ -86,7 +86,7 @@ lib/
 - **Framework**: TailwindCSS v4
 - **Components**: Shadcn/ui (new-york style)
 - **Icons**: Lucide React
-- **Font**: Comfortaa (Google Fonts)
+- **Font**: Inter (Google Fonts)
 - **Theme**: Light/dark mode support via next-themes
 
 ## Important Notes

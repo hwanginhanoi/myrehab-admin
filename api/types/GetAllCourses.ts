@@ -1,13 +1,13 @@
-import type { CourseDto } from "./CourseDto";
+import type { CourseResponse } from "./CourseResponse";
 
  /**
  * @description OK
 */
-export type GetAllCourses200 = CourseDto[];
+export type GetAllCourses200 = CourseResponse[];
 /**
  * @description OK
 */
-export type GetAllCoursesQueryResponse = CourseDto[];
+export type GetAllCoursesQueryResponse = CourseResponse[];
 export type GetAllCoursesQuery = {
     Response: GetAllCoursesQueryResponse;
 };

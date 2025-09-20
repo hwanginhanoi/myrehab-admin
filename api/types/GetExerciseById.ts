@@ -1,4 +1,4 @@
-import type { ExerciseDto } from "./ExerciseDto";
+import type { ExerciseResponse } from "./ExerciseResponse";
 
  export type GetExerciseByIdPathParams = {
     /**
@@ -9,11 +9,11 @@ import type { ExerciseDto } from "./ExerciseDto";
 /**
  * @description OK
 */
-export type GetExerciseById200 = ExerciseDto;
+export type GetExerciseById200 = ExerciseResponse;
 /**
  * @description OK
 */
-export type GetExerciseByIdQueryResponse = ExerciseDto;
+export type GetExerciseByIdQueryResponse = ExerciseResponse;
 export type GetExerciseByIdQuery = {
     Response: GetExerciseByIdQueryResponse;
     PathParams: GetExerciseByIdPathParams;

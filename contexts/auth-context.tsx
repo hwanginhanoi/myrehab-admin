@@ -6,12 +6,15 @@ import { useRouter } from 'next/navigation';
 interface User {
   id: string;
   email: string;
+  role: 'DOCTOR' | 'ADMIN';
+  firstName?: string;
+  lastName?: string;
 }
 
 interface AuthContextType {
   user: User | null;
   token: string | null;
-  login: (token: string, userId: string) => void;
+  login: (token: string, userData: Partial<User>) => void;
   logout: () => void;
   isAuthenticated: boolean;
   isLoading: boolean;
@@ -28,29 +31,34 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   // Initialize auth state from localStorage
   useEffect(() => {
     const storedToken = localStorage.getItem('authToken');
-    const storedUserId = localStorage.getItem('userId');
+    const storedUserData = localStorage.getItem('userData');
 
-    if (storedToken && storedUserId) {
-      setToken(storedToken);
-      // The storedUserId is actually the email, so we use it as both id and email
-      setUser({ id: storedUserId, email: storedUserId });
+    if (storedToken && storedUserData) {
+      try {
+        const userData = JSON.parse(storedUserData);
+        setToken(storedToken);
+        setUser(userData);
+      } catch (error) {
+        // Clear invalid stored data
+        localStorage.removeItem('authToken');
+        localStorage.removeItem('userData');
+      }
     }
     setIsLoading(false);
   }, []);
 
-  const login = (newToken: string, userIdentifier: string) => {
+  const login = (newToken: string, userData: Partial<User>) => {
     localStorage.setItem('authToken', newToken);
-    localStorage.setItem('userId', userIdentifier);
+    localStorage.setItem('userData', JSON.stringify(userData));
     // Also set as cookie for middleware
     document.cookie = `authToken=${newToken}; path=/; max-age=${60 * 60 * 24 * 7}`; // 7 days
     setToken(newToken);
-    // The userIdentifier is the email, so we use it as both id and email
-    setUser({ id: userIdentifier, email: userIdentifier });
+    setUser(userData as User);
   };
 
   const logout = () => {
     localStorage.removeItem('authToken');
-    localStorage.removeItem('userId');
+    localStorage.removeItem('userData');
     // Remove cookie
     document.cookie = 'authToken=; path=/; expires=Thu, 01 Jan 1970 00:00:01 GMT';
     setToken(null);

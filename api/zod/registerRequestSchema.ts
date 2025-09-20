@@ -1,4 +1,0 @@
-import { z } from "zod";
-
-
-export const registerRequestSchema = z.object({ "email": z.string().min(1), "password": z.string().min(6).max(2147483647), "firstName": z.string().min(1), "lastName": z.string().min(1), "role": z.enum(["ADMIN", "DOCTOR", "PATIENT"]), "specialization": z.string().optional() });

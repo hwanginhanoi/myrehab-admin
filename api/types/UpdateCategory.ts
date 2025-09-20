@@ -1,4 +1,5 @@
-import type { CategoryDto } from "./CategoryDto";
+import type { CategoryResponse } from "./CategoryResponse";
+import type { UpdateCategoryRequest } from "./UpdateCategoryRequest";
 
  export type UpdateCategoryPathParams = {
     /**
@@ -9,12 +10,12 @@ import type { CategoryDto } from "./CategoryDto";
 /**
  * @description OK
 */
-export type UpdateCategory200 = CategoryDto;
-export type UpdateCategoryMutationRequest = CategoryDto;
+export type UpdateCategory200 = CategoryResponse;
+export type UpdateCategoryMutationRequest = UpdateCategoryRequest;
 /**
  * @description OK
 */
-export type UpdateCategoryMutationResponse = CategoryDto;
+export type UpdateCategoryMutationResponse = CategoryResponse;
 export type UpdateCategoryMutation = {
     Response: UpdateCategoryMutationResponse;
     Request: UpdateCategoryMutationRequest;

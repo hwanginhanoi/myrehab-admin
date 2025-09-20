@@ -1,4 +1,4 @@
-import type { CourseDto } from "./CourseDto";
+import type { CourseResponse } from "./CourseResponse";
 
  export type GetCourseByIdPathParams = {
     /**
@@ -9,11 +9,11 @@ import type { CourseDto } from "./CourseDto";
 /**
  * @description OK
 */
-export type GetCourseById200 = CourseDto;
+export type GetCourseById200 = CourseResponse;
 /**
  * @description OK
 */
-export type GetCourseByIdQueryResponse = CourseDto;
+export type GetCourseByIdQueryResponse = CourseResponse;
 export type GetCourseByIdQuery = {
     Response: GetCourseByIdQueryResponse;
     PathParams: GetCourseByIdPathParams;
