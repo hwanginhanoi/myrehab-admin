@@ -1,0 +1,347 @@
+'use client';
+
+import { useState, useRef, useCallback } from 'react';
+import { Button } from '@/components/ui/button';
+import { Progress } from '@/components/ui/progress';
+import { Card, CardContent } from '@/components/ui/card';
+import { Upload, X, FileImage, FileVideo, AlertCircle, CheckCircle } from 'lucide-react';
+import { generatePresignedUploadUrl } from '@/api/api/fileUploadController/generatePresignedUploadUrl';
+import { PresignedUrlRequest } from '@/api/types/PresignedUrlRequest';
+import { toast } from 'sonner';
+import { cn } from '@/lib/utils';
+
+interface FileUploadProps {
+  onUploadComplete: (fileUrl: string) => void;
+  onUploadStart?: () => void;
+  onUploadError?: (error: string) => void;
+  acceptedTypes: string[];
+  fileType: 'image' | 'video';
+  maxFileSize?: number; // in MB
+  className?: string;
+  disabled?: boolean;
+}
+
+interface UploadState {
+  file: File | null;
+  uploading: boolean;
+  progress: number;
+  uploadUrl: string | null;
+  fileUrl: string | null;
+  error: string | null;
+  completed: boolean;
+}
+
+export function FileUpload({
+  onUploadComplete,
+  onUploadStart,
+  onUploadError,
+  acceptedTypes,
+  fileType,
+  maxFileSize = 50, // Default 50MB
+  className,
+  disabled = false,
+}: FileUploadProps) {
+  const [uploadState, setUploadState] = useState<UploadState>({
+    file: null,
+    uploading: false,
+    progress: 0,
+    uploadUrl: null,
+    fileUrl: null,
+    error: null,
+    completed: false,
+  });
+
+  const fileInputRef = useRef<HTMLInputElement>(null);
+
+  const validateFile = useCallback((file: File): string | null => {
+    // Check file type
+    const isValidType = acceptedTypes.some(type => {
+      if (type.endsWith('/*')) {
+        return file.type.startsWith(type.slice(0, -1));
+      }
+      return file.type === type;
+    });
+
+    if (!isValidType) {
+      return `Invalid file type. Accepted types: ${acceptedTypes.join(', ')}`;
+    }
+
+    // Check file size
+    const fileSizeMB = file.size / (1024 * 1024);
+    if (fileSizeMB > maxFileSize) {
+      return `File size too large. Maximum size: ${maxFileSize}MB`;
+    }
+
+    return null;
+  }, [acceptedTypes, maxFileSize]);
+
+  const uploadToS3 = useCallback(async (file: File, uploadUrl: string): Promise<void> => {
+    return new Promise((resolve, reject) => {
+      const xhr = new XMLHttpRequest();
+
+      xhr.upload.addEventListener('progress', (event) => {
+        if (event.lengthComputable) {
+          const progress = Math.round((event.loaded / event.total) * 100);
+          setUploadState(prev => ({ ...prev, progress }));
+        }
+      });
+
+      xhr.addEventListener('load', () => {
+        console.log('Upload response status:', xhr.status);
+        console.log('Upload response text:', xhr.responseText);
+        if (xhr.status >= 200 && xhr.status < 300) {
+          resolve();
+        } else {
+          reject(new Error(`Upload failed with status ${xhr.status}: ${xhr.responseText || 'Unknown error'}`));
+        }
+      });
+
+      xhr.addEventListener('error', (event) => {
+        console.error('Upload error event:', event);
+        reject(new Error('Upload failed due to network error'));
+      });
+
+      xhr.addEventListener('abort', () => {
+        reject(new Error('Upload was aborted'));
+      });
+
+      console.log('Starting upload to:', uploadUrl);
+      console.log('File details:', { name: file.name, type: file.type, size: file.size });
+
+      xhr.open('PUT', uploadUrl);
+
+      // Don't set Content-Type header - let the browser set it automatically for S3
+      // Some S3 configurations are sensitive to the Content-Type header
+
+      xhr.send(file);
+    });
+  }, []);
+
+  const handleFileSelect = useCallback(async (file: File) => {
+    const validationError = validateFile(file);
+    if (validationError) {
+      setUploadState(prev => ({ ...prev, error: validationError }));
+      onUploadError?.(validationError);
+      toast.error('File validation failed', { description: validationError });
+      return;
+    }
+
+    setUploadState({
+      file,
+      uploading: true,
+      progress: 0,
+      uploadUrl: null,
+      fileUrl: null,
+      error: null,
+      completed: false,
+    });
+
+    onUploadStart?.();
+
+    try {
+      // Generate presigned URL
+      const presignedRequest: PresignedUrlRequest = {
+        fileName: file.name,
+        contentType: file.type,
+        fileType: fileType,
+      };
+
+      console.log('Requesting presigned URL with:', presignedRequest);
+      const presignedResponse = await generatePresignedUploadUrl(presignedRequest);
+      console.log('Presigned URL response:', presignedResponse);
+
+      if (!presignedResponse.uploadUrl || !presignedResponse.fileUrl) {
+        throw new Error('Failed to get upload URL from server');
+      }
+
+      setUploadState(prev => ({
+        ...prev,
+        uploadUrl: presignedResponse.uploadUrl!,
+        fileUrl: presignedResponse.fileUrl!,
+      }));
+
+      // Upload to S3
+      await uploadToS3(file, presignedResponse.uploadUrl);
+
+      setUploadState(prev => ({
+        ...prev,
+        uploading: false,
+        progress: 100,
+        completed: true,
+      }));
+
+      onUploadComplete(presignedResponse.fileUrl!);
+      toast.success('File uploaded successfully!', {
+        description: `${file.name} has been uploaded.`
+      });
+
+    } catch (error) {
+      const errorMessage = error instanceof Error ? error.message : 'Upload failed';
+      setUploadState(prev => ({
+        ...prev,
+        uploading: false,
+        error: errorMessage,
+        completed: false,
+      }));
+      onUploadError?.(errorMessage);
+      toast.error('Upload failed', { description: errorMessage });
+    }
+  }, [validateFile, fileType, onUploadStart, onUploadComplete, onUploadError, uploadToS3]);
+
+  const handleFileInputChange = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (file) {
+      handleFileSelect(file);
+    }
+  }, [handleFileSelect]);
+
+  const handleDrop = useCallback((event: React.DragEvent<HTMLDivElement>) => {
+    event.preventDefault();
+    const file = event.dataTransfer.files[0];
+    if (file) {
+      handleFileSelect(file);
+    }
+  }, [handleFileSelect]);
+
+  const handleDragOver = useCallback((event: React.DragEvent<HTMLDivElement>) => {
+    event.preventDefault();
+  }, []);
+
+  const handleClear = useCallback(() => {
+    setUploadState({
+      file: null,
+      uploading: false,
+      progress: 0,
+      uploadUrl: null,
+      fileUrl: null,
+      error: null,
+      completed: false,
+    });
+    if (fileInputRef.current) {
+      fileInputRef.current.value = '';
+    }
+  }, []);
+
+  const handleUploadClick = useCallback(() => {
+    fileInputRef.current?.click();
+  }, []);
+
+  const getFileIcon = () => {
+    if (fileType === 'image') {
+      return <FileImage className="h-8 w-8 text-muted-foreground" />;
+    }
+    return <FileVideo className="h-8 w-8 text-muted-foreground" />;
+  };
+
+  const getAcceptString = () => acceptedTypes.join(',');
+
+  return (
+    <div className={cn('w-full', className)}>
+      <input
+        ref={fileInputRef}
+        type="file"
+        accept={getAcceptString()}
+        onChange={handleFileInputChange}
+        className="hidden"
+        disabled={disabled || uploadState.uploading}
+      />
+
+      {!uploadState.file ? (
+        <Card
+          className={cn(
+            'border-2 border-dashed border-muted-foreground/25 hover:border-muted-foreground/50 transition-colors cursor-pointer',
+            disabled && 'opacity-50 cursor-not-allowed'
+          )}
+          onClick={!disabled ? handleUploadClick : undefined}
+          onDrop={!disabled ? handleDrop : undefined}
+          onDragOver={!disabled ? handleDragOver : undefined}
+        >
+          <CardContent className="flex flex-col items-center justify-center p-6 text-center">
+            <div className="mb-4">
+              {getFileIcon()}
+            </div>
+            <div className="space-y-2">
+              <h3 className="font-medium">
+                Upload {fileType === 'image' ? 'Image' : 'Video'}
+              </h3>
+              <p className="text-sm text-muted-foreground">
+                Drag and drop your {fileType} here, or click to browse
+              </p>
+              <p className="text-xs text-muted-foreground">
+                Accepted formats: {acceptedTypes.map(type => type.split('/')[1]).join(', ')}
+              </p>
+              <p className="text-xs text-muted-foreground">
+                Maximum size: {maxFileSize}MB
+              </p>
+            </div>
+            <Button
+              type="button"
+              variant="outline"
+              size="sm"
+              className="mt-4"
+              disabled={disabled}
+            >
+              <Upload className="mr-2 h-4 w-4" />
+              Choose File
+            </Button>
+          </CardContent>
+        </Card>
+      ) : (
+        <Card>
+          <CardContent className="p-4">
+            <div className="flex items-start justify-between mb-3">
+              <div className="flex items-center gap-3">
+                {getFileIcon()}
+                <div className="min-w-0">
+                  <p className="font-medium text-sm truncate">{uploadState.file.name}</p>
+                  <p className="text-xs text-muted-foreground">
+                    {(uploadState.file.size / (1024 * 1024)).toFixed(2)} MB
+                  </p>
+                </div>
+              </div>
+              <div className="flex items-center gap-2">
+                {uploadState.completed && (
+                  <CheckCircle className="h-4 w-4 text-green-600" />
+                )}
+                {uploadState.error && (
+                  <AlertCircle className="h-4 w-4 text-red-600" />
+                )}
+                <Button
+                  type="button"
+                  variant="ghost"
+                  size="sm"
+                  onClick={handleClear}
+                  disabled={uploadState.uploading}
+                >
+                  <X className="h-4 w-4" />
+                </Button>
+              </div>
+            </div>
+
+            {uploadState.uploading && (
+              <div className="space-y-2">
+                <div className="flex justify-between text-sm">
+                  <span>Uploading...</span>
+                  <span>{uploadState.progress}%</span>
+                </div>
+                <Progress value={uploadState.progress} className="w-full" />
+              </div>
+            )}
+
+            {uploadState.completed && (
+              <div className="text-sm text-green-600 font-medium">
+                ✓ Upload completed successfully
+              </div>
+            )}
+
+            {uploadState.error && (
+              <div className="text-sm text-red-600">
+                ✗ {uploadState.error}
+              </div>
+            )}
+          </CardContent>
+        </Card>
+      )}
+    </div>
+  );
+}

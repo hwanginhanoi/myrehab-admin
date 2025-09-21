@@ -17,7 +17,8 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { Textarea } from '@/components/ui/textarea';
+import { FileUpload } from '@/components/ui/file-upload';
+import { toast } from 'sonner';
 import {
   Select,
   SelectContent,
@@ -31,6 +32,7 @@ import { createExercise } from '@/api/api/exerciseManagementController';
 import { getAllCategories } from '@/api/api/categoryManagementController';
 import { CategoryResponse } from '@/api/types/CategoryResponse';
 import { CreateExerciseRequest } from '@/api/types/CreateExerciseRequest';
+import {Textarea} from "@/components/ui/textarea";
 
 interface ExerciseFormData {
   title: string;
@@ -89,6 +91,21 @@ export default function CreateExercisePage() {
   }, [fetchCategories]);
 
   const onSubmit = async (data: ExerciseFormData) => {
+    // Validate required fields
+    if (!data.imageUrl) {
+      toast.error('Image is required', {
+        description: 'Please upload an exercise image before creating the exercise.'
+      });
+      return;
+    }
+
+    if (!data.videoUrl) {
+      toast.error('Video is required', {
+        description: 'Please upload an exercise video before creating the exercise.'
+      });
+      return;
+    }
+
     try {
       setSaving(true);
 
@@ -362,33 +379,33 @@ export default function CreateExercisePage() {
                 )}
               </div>
 
-              {/* Media URLs */}
+              {/* Media Upload */}
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div className="space-y-2">
-                  <Label htmlFor="imageUrl">Image URL</Label>
-                  <Input
-                    id="imageUrl"
-                    type="url"
-                    placeholder="https://example.com/image.jpg"
-                    {...register('imageUrl')}
+                  <Label>Exercise Image *</Label>
+                  <FileUpload
+                    onUploadComplete={(fileUrl) => setValue('imageUrl', fileUrl)}
+                    acceptedTypes={['image/jpeg', 'image/png', 'image/webp']}
+                    fileType="image"
+                    maxFileSize={10}
+                    disabled={saving}
                   />
-                  {errors.imageUrl && (
-                    <p className="text-sm text-red-500">{errors.imageUrl.message}</p>
+                  {watch('imageUrl') && (
+                    <p className="text-xs text-green-600">✓ Image uploaded successfully</p>
                   )}
                 </div>
 
                 <div className="space-y-2">
-                  <Label htmlFor="videoUrl">Video URL *</Label>
-                  <Input
-                    id="videoUrl"
-                    type="url"
-                    placeholder="https://example.com/video.mp4"
-                    {...register('videoUrl', {
-                      required: 'Video URL is required'
-                    })}
+                  <Label>Exercise Video *</Label>
+                  <FileUpload
+                    onUploadComplete={(fileUrl) => setValue('videoUrl', fileUrl)}
+                    acceptedTypes={['video/mp4', 'video/webm', 'video/quicktime']}
+                    fileType="video"
+                    maxFileSize={100}
+                    disabled={saving}
                   />
-                  {errors.videoUrl && (
-                    <p className="text-sm text-red-500">{errors.videoUrl.message}</p>
+                  {watch('videoUrl') && (
+                    <p className="text-xs text-green-600">✓ Video uploaded successfully</p>
                   )}
                 </div>
               </div>
