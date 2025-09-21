@@ -79,6 +79,10 @@ export const operations = {
         "path": "/api/auth/logout",
         "method": "post"
     },
+    "generateVideoViewingUrl": {
+        "path": "/api/files/view/video",
+        "method": "get"
+    },
     "generatePresignedAccessUrl": {
         "path": "/api/files/presigned-url/:folder/:fileName",
         "method": "get"

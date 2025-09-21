@@ -19,6 +19,7 @@ export * from "./ExerciseResponse";
 export * from "./FileUploadResponse";
 export * from "./GeneratePresignedAccessUrl";
 export * from "./GeneratePresignedUploadUrl";
+export * from "./GenerateVideoViewingUrl";
 export * from "./GetAllCategories";
 export * from "./GetAllCategoriesPaginated";
 export * from "./GetAllCourses";

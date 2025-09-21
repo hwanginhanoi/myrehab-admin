@@ -1,11 +1,14 @@
 'use client';
 
-import { useState, useRef, useCallback } from 'react';
+import { useState, useRef, useCallback, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Progress } from '@/components/ui/progress';
 import { Card, CardContent } from '@/components/ui/card';
-import { Upload, X, FileImage, FileVideo, AlertCircle, CheckCircle } from 'lucide-react';
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
+import { Upload, X, FileImage, FileVideo, AlertCircle, CheckCircle, Eye } from 'lucide-react';
+import Image from 'next/image';
 import { generatePresignedUploadUrl } from '@/api/api/fileUploadController/generatePresignedUploadUrl';
+import { generateVideoViewingUrl } from '@/api/api/fileUploadController/generateVideoViewingUrl';
 import { PresignedUrlRequest } from '@/api/types/PresignedUrlRequest';
 import { toast } from 'sonner';
 import { cn } from '@/lib/utils';
@@ -27,6 +30,7 @@ interface UploadState {
   progress: number;
   uploadUrl: string | null;
   fileUrl: string | null;
+  videoViewingUrl: string | null; // For videos, this will be the presigned viewing URL
   error: string | null;
   completed: boolean;
 }
@@ -47,11 +51,42 @@ export function FileUpload({
     progress: 0,
     uploadUrl: null,
     fileUrl: null,
+    videoViewingUrl: null,
     error: null,
     completed: false,
   });
 
+  const [previewOpen, setPreviewOpen] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
+
+  // Function to get video viewing URL
+  const getVideoViewingUrl = useCallback(async (fileUrl: string): Promise<string | null> => {
+    try {
+      const viewingUrl = await generateVideoViewingUrl({
+        fileUrl,
+        durationMinutes: 5, // 5 minutes expiry as mentioned in the docs
+      });
+      return viewingUrl;
+    } catch (error) {
+      console.error('Failed to generate video viewing URL:', error);
+      toast.error('Failed to load video preview');
+      return null;
+    }
+  }, []);
+
+  // Effect to generate video viewing URL when needed
+  useEffect(() => {
+    if (uploadState.completed && fileType === 'video' && uploadState.fileUrl && !uploadState.videoViewingUrl) {
+      getVideoViewingUrl(uploadState.fileUrl).then((viewingUrl) => {
+        if (viewingUrl) {
+          setUploadState(prev => ({
+            ...prev,
+            videoViewingUrl: viewingUrl,
+          }));
+        }
+      });
+    }
+  }, [uploadState.completed, uploadState.fileUrl, uploadState.videoViewingUrl, fileType, getVideoViewingUrl]);
 
   const validateFile = useCallback((file: File): string | null => {
     // Check file type
@@ -132,6 +167,7 @@ export function FileUpload({
       progress: 0,
       uploadUrl: null,
       fileUrl: null,
+      videoViewingUrl: null,
       error: null,
       completed: false,
     });
@@ -214,6 +250,7 @@ export function FileUpload({
       progress: 0,
       uploadUrl: null,
       fileUrl: null,
+      videoViewingUrl: null,
       error: null,
       completed: false,
     });
@@ -225,6 +262,21 @@ export function FileUpload({
   const handleUploadClick = useCallback(() => {
     fileInputRef.current?.click();
   }, []);
+
+  const handlePreviewOpen = useCallback(async () => {
+    // For videos, refresh the viewing URL when opening the modal
+    // since URLs expire after 5 minutes
+    if (fileType === 'video' && uploadState.fileUrl) {
+      const freshViewingUrl = await getVideoViewingUrl(uploadState.fileUrl);
+      if (freshViewingUrl) {
+        setUploadState(prev => ({
+          ...prev,
+          videoViewingUrl: freshViewingUrl,
+        }));
+      }
+    }
+    setPreviewOpen(true);
+  }, [fileType, uploadState.fileUrl, getVideoViewingUrl]);
 
   const getFileIcon = () => {
     if (fileType === 'image') {
@@ -329,8 +381,56 @@ export function FileUpload({
             )}
 
             {uploadState.completed && (
-              <div className="text-sm text-green-600 font-medium">
-                ✓ Upload completed successfully
+              <div className="space-y-3">
+                <div className="text-sm text-green-600 font-medium">
+                  ✓ Upload completed successfully
+                </div>
+
+                {/* Preview Section */}
+                {uploadState.fileUrl && (
+                  <div className="space-y-2">
+                    <div className="flex items-center justify-between">
+                      <span className="text-sm font-medium">Preview:</span>
+                      <Button
+                        type="button"
+                        variant="outline"
+                        size="sm"
+                        onClick={handlePreviewOpen}
+                        disabled={fileType === 'video' && !uploadState.videoViewingUrl}
+                      >
+                        <Eye className="mr-2 h-4 w-4" />
+                        View Full Size
+                      </Button>
+                    </div>
+
+                    {fileType === 'image' ? (
+                      <div className="relative w-full h-24 rounded-lg overflow-hidden bg-muted">
+                        <Image
+                          src={uploadState.fileUrl}
+                          alt="Preview"
+                          fill
+                          className="object-cover"
+                          sizes="(max-width: 768px) 100vw, 50vw"
+                        />
+                      </div>
+                    ) : (
+                      <div className="space-y-2">
+                        {uploadState.videoViewingUrl ? (
+                          <video
+                            src={uploadState.videoViewingUrl}
+                            className="w-full h-24 rounded-lg object-cover bg-muted"
+                            controls
+                            preload="metadata"
+                          />
+                        ) : (
+                          <div className="w-full h-24 rounded-lg bg-muted flex items-center justify-center">
+                            <span className="text-sm text-muted-foreground">Loading video preview...</span>
+                          </div>
+                        )}
+                      </div>
+                    )}
+                  </div>
+                )}
               </div>
             )}
 
@@ -342,6 +442,43 @@ export function FileUpload({
           </CardContent>
         </Card>
       )}
+
+      {/* Full Size Preview Modal */}
+      <Dialog open={previewOpen} onOpenChange={setPreviewOpen}>
+        <DialogContent className="max-w-4xl max-h-[90vh] overflow-hidden">
+          <DialogHeader>
+            <DialogTitle>
+              {fileType === 'image' ? 'Image Preview' : 'Video Preview'} - {uploadState.file?.name}
+            </DialogTitle>
+          </DialogHeader>
+          {uploadState.fileUrl && (
+            <div className="relative w-full flex items-center justify-center">
+              {fileType === 'image' ? (
+                <div className="relative w-full h-[600px] rounded-lg overflow-hidden">
+                  <Image
+                    src={uploadState.fileUrl}
+                    alt="Full size preview"
+                    fill
+                    className="object-contain"
+                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 70vw"
+                  />
+                </div>
+              ) : uploadState.videoViewingUrl ? (
+                <video
+                  src={uploadState.videoViewingUrl}
+                  className="w-full max-h-[600px] rounded-lg"
+                  controls
+                  autoPlay={false}
+                />
+              ) : (
+                <div className="w-full h-[600px] flex items-center justify-center bg-muted rounded-lg">
+                  <span className="text-muted-foreground">Loading video...</span>
+                </div>
+              )}
+            </div>
+          )}
+        </DialogContent>
+      </Dialog>
     </div>
   );
 }

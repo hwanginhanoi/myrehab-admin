@@ -8,9 +8,9 @@ export type CreateExerciseRequest = {
     */
     description?: string;
     /**
-     * @type string | undefined
+     * @type string
     */
-    imageUrl?: string;
+    imageUrl: string;
     /**
      * @type string
     */

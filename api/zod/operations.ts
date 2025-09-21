@@ -18,6 +18,7 @@ import { sendOtpForUserMutationRequestSchema, sendOtpForUserMutationResponseSche
 import { staffLoginMutationRequestSchema, staffLoginMutationResponseSchema } from "./staffLoginSchema";
 import { refreshTokenMutationRequestSchema, refreshTokenMutationResponseSchema } from "./refreshTokenSchema";
 import { logoutMutationRequestSchema, logoutMutationResponseSchema } from "./logoutSchema";
+import { generateVideoViewingUrlQueryResponseSchema, generateVideoViewingUrlQueryParamsSchema } from "./generateVideoViewingUrlSchema";
 import { generatePresignedAccessUrlQueryResponseSchema, generatePresignedAccessUrlPathParamsSchema, generatePresignedAccessUrlQueryParamsSchema } from "./generatePresignedAccessUrlSchema";
 import { searchExercisesQueryResponseSchema, searchExercisesQueryParamsSchema } from "./searchExercisesSchema";
 import { getAllExercisesPaginatedQueryResponseSchema, getAllExercisesPaginatedQueryParamsSchema } from "./getAllExercisesPaginatedSchema";
@@ -273,6 +274,18 @@ import { deleteFileMutationResponseSchema, deleteFileQueryParamsSchema } from ".
             default: logoutMutationResponseSchema
         },
         errors: {}
+    }, "generateVideoViewingUrl": {
+        request: undefined,
+        parameters: {
+            path: undefined,
+            query: generateVideoViewingUrlQueryParamsSchema,
+            header: undefined
+        },
+        responses: {
+            200: generateVideoViewingUrlQueryResponseSchema,
+            default: generateVideoViewingUrlQueryResponseSchema
+        },
+        errors: {}
     }, "generatePresignedAccessUrl": {
         request: undefined,
         parameters: {
@@ -475,6 +488,8 @@ export const paths = { "/api/exercises/{id}": {
         post: operations["refreshToken"]
     }, "/api/auth/logout": {
         post: operations["logout"]
+    }, "/api/files/view/video": {
+        get: operations["generateVideoViewingUrl"]
     }, "/api/files/presigned-url/{folder}/{fileName}": {
         get: operations["generatePresignedAccessUrl"]
     }, "/api/exercises/search": {

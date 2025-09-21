@@ -19,6 +19,7 @@ export * from "./exerciseResponseSchema";
 export * from "./fileUploadResponseSchema";
 export * from "./generatePresignedAccessUrlSchema";
 export * from "./generatePresignedUploadUrlSchema";
+export * from "./generateVideoViewingUrlSchema";
 export * from "./getAllCategoriesPaginatedSchema";
 export * from "./getAllCategoriesSchema";
 export * from "./getAllCoursesPaginatedSchema";
