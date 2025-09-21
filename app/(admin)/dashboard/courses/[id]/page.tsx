@@ -239,7 +239,10 @@ export default function CourseDetailsPage() {
               {course.description && (
                 <div>
                   <label className="text-sm font-medium text-muted-foreground">Description</label>
-                  <p className="text-sm mt-1 whitespace-pre-wrap">{course.description}</p>
+                  <div
+                    className="prose prose-sm max-w-none mt-1"
+                    dangerouslySetInnerHTML={{ __html: course.description }}
+                  />
                 </div>
               )}
 

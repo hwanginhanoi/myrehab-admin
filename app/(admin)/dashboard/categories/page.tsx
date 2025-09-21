@@ -33,30 +33,31 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
-import { MoreHorizontal, Eye, Plus } from 'lucide-react';
-import { getAllCoursesPaginated } from '@/api/api/courseManagementController/getAllCoursesPaginated';
-import { CourseResponse } from '@/api/types/CourseResponse';
-import { PageCourseResponse } from '@/api/types/PageCourseResponse';
+import { MoreHorizontal, Eye, Edit, Plus } from 'lucide-react';
+import { getAllCategoriesPaginated } from '@/api/api/categoryManagementController/getAllCategoriesPaginated';
+import { CategoryResponse } from '@/api/types/CategoryResponse';
+import { PageCategoryResponse } from '@/api/types/PageCategoryResponse';
+import { toast } from 'sonner';
 
-const columnHelper = createColumnHelper<CourseResponse>();
+const columnHelper = createColumnHelper<CategoryResponse>();
 
-export default function CoursesPage() {
+export default function CategoriesPage() {
   const router = useRouter();
-  const [courses, setCourses] = useState<CourseResponse[]>([]);
+  const [categories, setCategories] = useState<CategoryResponse[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  const [pageData, setPageData] = useState<PageCourseResponse | null>(null);
+  const [pageData, setPageData] = useState<PageCategoryResponse | null>(null);
   const [pagination, setPagination] = useState({
     pageIndex: 0,
     pageSize: 10,
   });
 
-  const fetchCourses = useCallback(async () => {
+  const fetchCategories = useCallback(async () => {
     try {
       setLoading(true);
       setError(null);
 
-      const data = await getAllCoursesPaginated({
+      const data = await getAllCategoriesPaginated({
         page: pagination.pageIndex,
         size: pagination.pageSize,
         sortBy: 'createdAt',
@@ -64,25 +65,21 @@ export default function CoursesPage() {
       });
 
       setPageData(data);
-      setCourses(data.content || []);
+      setCategories(data.content || []);
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'Failed to fetch courses');
+      const errorMessage = err instanceof Error ? err.message : 'Failed to fetch categories';
+      setError(errorMessage);
+      toast.error('Failed to load categories', {
+        description: errorMessage,
+      });
     } finally {
       setLoading(false);
     }
   }, [pagination.pageIndex, pagination.pageSize]);
 
   useEffect(() => {
-    fetchCourses();
-  }, [fetchCourses]);
-
-  const formatCurrency = (amount?: number) => {
-    if (!amount) return '-';
-    return new Intl.NumberFormat('vi-VN', {
-      style: 'currency',
-      currency: 'VND',
-    }).format(amount);
-  };
+    fetchCategories();
+  }, [fetchCategories]);
 
   const formatDate = (dateString?: string) => {
     if (!dateString) return '-';
@@ -96,32 +93,31 @@ export default function CoursesPage() {
         <span className="font-medium">{info.getValue()}</span>
       ),
     }),
-    columnHelper.accessor('title', {
-      header: 'Title',
-      cell: (info) => (
-        <div className="font-medium">{info.getValue()}</div>
-      ),
-    }),
-    columnHelper.accessor('category.name', {
-      header: 'Category',
+    columnHelper.accessor('name', {
+      header: 'Name',
       cell: (info) => {
-        const categoryName = info.getValue();
-        return categoryName ? (
-          <Badge variant="outline">{categoryName}</Badge>
-        ) : (
-          '-'
+        const category = info.row.original;
+        return (
+          <div>
+            <div className="font-medium">{info.getValue()}</div>
+            {category.description && (
+              <div className="text-sm text-muted-foreground truncate max-w-xs">
+                {category.description}
+              </div>
+            )}
+          </div>
         );
       },
     }),
-    columnHelper.accessor('price', {
-      header: 'Price',
-      cell: (info) => formatCurrency(info.getValue()),
-    }),
-    columnHelper.accessor('durationDays', {
-      header: 'Duration',
+    columnHelper.accessor('type', {
+      header: 'Type',
       cell: (info) => {
-        const days = info.getValue();
-        return days ? `${days} days` : '-';
+        const type = info.getValue();
+        return type ? (
+          <Badge variant="outline">{type}</Badge>
+        ) : (
+          '-'
+        );
       },
     }),
     columnHelper.accessor('isActive', {
@@ -140,7 +136,7 @@ export default function CoursesPage() {
       id: 'actions',
       header: 'Actions',
       cell: (info) => {
-        const course = info.row.original;
+        const category = info.row.original;
         return (
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
@@ -152,13 +148,23 @@ export default function CoursesPage() {
             <DropdownMenuContent align="end">
               <DropdownMenuItem
                 onClick={() => {
-                  if (course.id) {
-                    router.push(`/dashboard/courses/${course.id}`);
+                  if (category.id) {
+                    router.push(`/dashboard/categories/${category.id}`);
                   }
                 }}
               >
                 <Eye className="mr-2 h-4 w-4" />
                 View details
+              </DropdownMenuItem>
+              <DropdownMenuItem
+                onClick={() => {
+                  if (category.id) {
+                    router.push(`/dashboard/categories/${category.id}/edit`);
+                  }
+                }}
+              >
+                <Edit className="mr-2 h-4 w-4" />
+                Edit category
               </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
@@ -168,7 +174,7 @@ export default function CoursesPage() {
   ];
 
   const table = useReactTable({
-    data: courses,
+    data: categories,
     columns,
     pageCount: pageData?.totalPages ?? 0,
     state: {
@@ -188,7 +194,7 @@ export default function CoursesPage() {
           <Breadcrumb>
             <BreadcrumbList>
               <BreadcrumbItem>
-                <BreadcrumbPage>Courses</BreadcrumbPage>
+                <BreadcrumbPage>Categories</BreadcrumbPage>
               </BreadcrumbItem>
             </BreadcrumbList>
           </Breadcrumb>
@@ -200,21 +206,21 @@ export default function CoursesPage() {
           <CardHeader>
             <div className="flex items-center justify-between">
               <div>
-                <CardTitle>Course Management</CardTitle>
+                <CardTitle>Category Management</CardTitle>
                 <CardDescription>
-                  Manage rehabilitation courses and their details
+                  Manage exercise and course categories
                 </CardDescription>
               </div>
-              <Button onClick={() => router.push('/dashboard/courses/create')}>
+              <Button onClick={() => router.push('/dashboard/categories/create')}>
                 <Plus className="mr-2 h-4 w-4" />
-                Create Course
+                Create Category
               </Button>
             </div>
           </CardHeader>
           <CardContent>
             {loading ? (
               <div className="flex items-center justify-center h-32">
-                <p>Loading courses...</p>
+                <p>Loading categories...</p>
               </div>
             ) : error ? (
               <div className="flex items-center justify-center h-32">

@@ -28,12 +28,19 @@ import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+} from '@/components/ui/dialog';
+import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import { MoreHorizontal, Eye, Edit, Plus } from 'lucide-react';
+import Image from 'next/image';
 import { getAllExercisesPaginated } from '@/api/api/exerciseManagementController/getAllExercisesPaginated';
 import { ExerciseResponse } from '@/api/types/ExerciseResponse';
 import { PageExerciseResponse } from '@/api/types/PageExerciseResponse';
@@ -50,6 +57,10 @@ export default function ExercisesPage() {
     pageIndex: 0,
     pageSize: 10,
   });
+  const [selectedImage, setSelectedImage] = useState<{
+    url: string;
+    title: string;
+  } | null>(null);
 
   const fetchExercises = useCallback(async () => {
     try {
@@ -95,6 +106,36 @@ export default function ExercisesPage() {
       cell: (info) => (
         <span className="font-medium">{info.getValue()}</span>
       ),
+    }),
+    columnHelper.accessor('imageUrl', {
+      header: 'Image',
+      cell: (info) => {
+        const exercise = info.row.original;
+        return exercise.imageUrl ? (
+          <div
+            className="relative w-24 h-16 rounded-md overflow-hidden bg-muted cursor-pointer hover:opacity-80 transition-opacity"
+            onClick={() => setSelectedImage({
+              url: exercise.imageUrl!,
+              title: exercise.title || 'Exercise image'
+            })}
+          >
+            <Image
+              src={exercise.imageUrl}
+              alt={exercise.title || 'Exercise image'}
+              fill
+              className="object-cover"
+              sizes="96px"
+            />
+            <div className="absolute inset-0 bg-black/0 hover:bg-black/20 transition-colors flex items-center justify-center">
+              <Eye className="h-4 w-4 text-white opacity-0 hover:opacity-100 transition-opacity" />
+            </div>
+          </div>
+        ) : (
+          <div className="w-24 h-16 rounded-md bg-muted flex items-center justify-center">
+            <span className="text-xs text-muted-foreground">No image</span>
+          </div>
+        );
+      },
     }),
     columnHelper.accessor('title', {
       header: 'Title',
@@ -335,6 +376,26 @@ export default function ExercisesPage() {
           </CardContent>
         </Card>
       </div>
+
+      {/* Image Viewer Modal */}
+      <Dialog open={!!selectedImage} onOpenChange={() => setSelectedImage(null)}>
+        <DialogContent className="max-w-4xl max-h-[90vh] overflow-hidden">
+          <DialogHeader>
+            <DialogTitle>{selectedImage?.title}</DialogTitle>
+          </DialogHeader>
+          {selectedImage && (
+            <div className="relative w-full h-[600px] rounded-lg overflow-hidden">
+              <Image
+                src={selectedImage.url}
+                alt={selectedImage.title}
+                fill
+                className="object-contain"
+                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 70vw"
+              />
+            </div>
+          )}
+        </DialogContent>
+      </Dialog>
     </>
   );
 }

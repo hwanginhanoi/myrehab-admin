@@ -1,4 +1,16 @@
 export const operations = {
+    "getExerciseById": {
+        "path": "/api/exercises/:id",
+        "method": "get"
+    },
+    "updateExercise": {
+        "path": "/api/exercises/:id",
+        "method": "put"
+    },
+    "deleteExercise": {
+        "path": "/api/exercises/:id",
+        "method": "delete"
+    },
     "getCategoryById": {
         "path": "/api/categories/:id",
         "method": "get"
@@ -69,10 +81,6 @@ export const operations = {
     },
     "generatePresignedAccessUrl": {
         "path": "/api/files/presigned-url/:folder/:fileName",
-        "method": "get"
-    },
-    "getExerciseById": {
-        "path": "/api/exercises/:id",
         "method": "get"
     },
     "searchExercises": {

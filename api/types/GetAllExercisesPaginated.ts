@@ -21,7 +21,7 @@ import type { PageExerciseResponse } from "./PageExerciseResponse";
     sortBy?: string;
     /**
      * @description Sort direction
-     * @default "desc"
+     * @default "asc"
      * @type string | undefined
     */
     sortDir?: string;

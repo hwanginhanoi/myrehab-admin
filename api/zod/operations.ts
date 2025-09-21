@@ -1,3 +1,6 @@
+import { getExerciseByIdQueryResponseSchema, getExerciseByIdPathParamsSchema } from "./getExerciseByIdSchema";
+import { updateExerciseMutationRequestSchema, updateExerciseMutationResponseSchema, updateExercisePathParamsSchema } from "./updateExerciseSchema";
+import { deleteExerciseMutationResponseSchema, deleteExercisePathParamsSchema } from "./deleteExerciseSchema";
 import { getCategoryByIdQueryResponseSchema, getCategoryByIdPathParamsSchema } from "./getCategoryByIdSchema";
 import { updateCategoryMutationRequestSchema, updateCategoryMutationResponseSchema, updateCategoryPathParamsSchema } from "./updateCategorySchema";
 import { deleteCategoryMutationResponseSchema, deleteCategoryPathParamsSchema } from "./deleteCategorySchema";
@@ -16,7 +19,6 @@ import { staffLoginMutationRequestSchema, staffLoginMutationResponseSchema } fro
 import { refreshTokenMutationRequestSchema, refreshTokenMutationResponseSchema } from "./refreshTokenSchema";
 import { logoutMutationRequestSchema, logoutMutationResponseSchema } from "./logoutSchema";
 import { generatePresignedAccessUrlQueryResponseSchema, generatePresignedAccessUrlPathParamsSchema, generatePresignedAccessUrlQueryParamsSchema } from "./generatePresignedAccessUrlSchema";
-import { getExerciseByIdQueryResponseSchema, getExerciseByIdPathParamsSchema } from "./getExerciseByIdSchema";
 import { searchExercisesQueryResponseSchema, searchExercisesQueryParamsSchema } from "./searchExercisesSchema";
 import { getAllExercisesPaginatedQueryResponseSchema, getAllExercisesPaginatedQueryParamsSchema } from "./getAllExercisesPaginatedSchema";
 import { getExercisesByCategoryQueryResponseSchema, getExercisesByCategoryPathParamsSchema } from "./getExercisesByCategorySchema";
@@ -31,7 +33,43 @@ import { searchCategoriesPaginatedQueryResponseSchema, searchCategoriesPaginated
 import { getAllCategoriesPaginatedQueryResponseSchema, getAllCategoriesPaginatedQueryParamsSchema } from "./getAllCategoriesPaginatedSchema";
 import { deleteFileMutationResponseSchema, deleteFileQueryParamsSchema } from "./deleteFileSchema";
 
- export const operations = { "getCategoryById": {
+ export const operations = { "getExerciseById": {
+        request: undefined,
+        parameters: {
+            path: getExerciseByIdPathParamsSchema,
+            query: undefined,
+            header: undefined
+        },
+        responses: {
+            200: getExerciseByIdQueryResponseSchema,
+            default: getExerciseByIdQueryResponseSchema
+        },
+        errors: {}
+    }, "updateExercise": {
+        request: updateExerciseMutationRequestSchema,
+        parameters: {
+            path: updateExercisePathParamsSchema,
+            query: undefined,
+            header: undefined
+        },
+        responses: {
+            200: updateExerciseMutationResponseSchema,
+            default: updateExerciseMutationResponseSchema
+        },
+        errors: {}
+    }, "deleteExercise": {
+        request: undefined,
+        parameters: {
+            path: deleteExercisePathParamsSchema,
+            query: undefined,
+            header: undefined
+        },
+        responses: {
+            200: deleteExerciseMutationResponseSchema,
+            default: deleteExerciseMutationResponseSchema
+        },
+        errors: {}
+    }, "getCategoryById": {
         request: undefined,
         parameters: {
             path: getCategoryByIdPathParamsSchema,
@@ -247,18 +285,6 @@ import { deleteFileMutationResponseSchema, deleteFileQueryParamsSchema } from ".
             default: generatePresignedAccessUrlQueryResponseSchema
         },
         errors: {}
-    }, "getExerciseById": {
-        request: undefined,
-        parameters: {
-            path: getExerciseByIdPathParamsSchema,
-            query: undefined,
-            header: undefined
-        },
-        responses: {
-            200: getExerciseByIdQueryResponseSchema,
-            default: getExerciseByIdQueryResponseSchema
-        },
-        errors: {}
     }, "searchExercises": {
         request: undefined,
         parameters: {
@@ -416,7 +442,11 @@ import { deleteFileMutationResponseSchema, deleteFileQueryParamsSchema } from ".
         },
         errors: {}
     } } as const;
-export const paths = { "/api/categories/{id}": {
+export const paths = { "/api/exercises/{id}": {
+        get: operations["getExerciseById"],
+        put: operations["updateExercise"],
+        delete: operations["deleteExercise"]
+    }, "/api/categories/{id}": {
         get: operations["getCategoryById"],
         put: operations["updateCategory"],
         delete: operations["deleteCategory"]
@@ -447,8 +477,6 @@ export const paths = { "/api/categories/{id}": {
         post: operations["logout"]
     }, "/api/files/presigned-url/{folder}/{fileName}": {
         get: operations["generatePresignedAccessUrl"]
-    }, "/api/exercises/{id}": {
-        get: operations["getExerciseById"]
     }, "/api/exercises/search": {
         get: operations["searchExercises"]
     }, "/api/exercises/paginated": {

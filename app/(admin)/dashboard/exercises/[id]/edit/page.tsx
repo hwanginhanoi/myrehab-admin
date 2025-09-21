@@ -29,9 +29,12 @@ import { Switch } from '@/components/ui/switch';
 import { Skeleton } from '@/components/ui/skeleton';
 import { ArrowLeft, Save } from 'lucide-react';
 import { getExerciseById } from '@/api/api/exerciseManagementController/getExerciseById';
+import { updateExercise } from '@/api/api/exerciseManagementController/updateExercise';
 import { getAllCategories } from '@/api/api/categoryManagementController/getAllCategories';
 import { ExerciseResponse } from '@/api/types/ExerciseResponse';
 import { CategoryResponse } from '@/api/types/CategoryResponse';
+import { UpdateExerciseRequest } from '@/api/types/UpdateExerciseRequest';
+import { toast } from 'sonner';
 
 interface ExerciseFormData {
   title: string;
@@ -110,20 +113,37 @@ export default function EditExercisePage() {
   }, [fetchData]);
 
   const onSubmit = async (data: ExerciseFormData) => {
+    if (!exerciseId) {
+      toast.error('Invalid exercise ID');
+      return;
+    }
+
     try {
       setSaving(true);
 
-      // TODO: Implement updateExercise API call when backend is ready
-      console.log('Form data to submit:', data);
+      const updateData: UpdateExerciseRequest = {
+        title: data.title,
+        description: data.description || undefined,
+        imageUrl: data.imageUrl || undefined,
+        videoUrl: data.videoUrl || '',
+        durationMinutes: data.durationMinutes,
+        repetitions: data.repetitions,
+        sets: data.sets,
+        price: data.price,
+        categoryId: data.categoryId && data.categoryId !== '0' ? parseInt(data.categoryId, 10) : undefined,
+      };
 
-      // Simulate API call
-      await new Promise(resolve => setTimeout(resolve, 1000));
+      const updatedExercise = await updateExercise(exerciseId, updateData);
 
-      alert('Exercise update functionality is not yet implemented in the backend API. The form data has been logged to the console.');
+      toast.success('Exercise updated successfully!', {
+        description: `"${data.title}" has been updated.`
+      });
 
-      // router.push(`/dashboard/exercises/${exerciseId}`);
+      router.push(`/dashboard/exercises/${exerciseId}`);
     } catch (err) {
-      alert(err instanceof Error ? err.message : 'Failed to update exercise');
+      toast.error('Failed to update exercise', {
+        description: err instanceof Error ? err.message : 'An unexpected error occurred while updating the exercise.'
+      });
     } finally {
       setSaving(false);
     }
