@@ -4,7 +4,7 @@ import { useState, useRef, useCallback, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Progress } from '@/components/ui/progress';
 import { Card, CardContent } from '@/components/ui/card';
-import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
+import { MediaViewerDialog } from '@/components/ui/media-viewer-dialog';
 import { Upload, X, FileImage, FileVideo, AlertCircle, CheckCircle, Eye } from 'lucide-react';
 import Image from 'next/image';
 import { generatePresignedUploadUrl } from '@/api/api/fileUploadController/generatePresignedUploadUrl';
@@ -301,14 +301,14 @@ export function FileUpload({
       {!uploadState.file ? (
         <Card
           className={cn(
-            'border-2 border-dashed border-muted-foreground/25 hover:border-muted-foreground/50 transition-colors cursor-pointer',
+            'border-2 border-dashed border-muted-foreground/25 hover:border-muted-foreground/50 transition-colors cursor-pointer min-h-[200px]',
             disabled && 'opacity-50 cursor-not-allowed'
           )}
           onClick={!disabled ? handleUploadClick : undefined}
           onDrop={!disabled ? handleDrop : undefined}
           onDragOver={!disabled ? handleDragOver : undefined}
         >
-          <CardContent className="flex flex-col items-center justify-center p-6 text-center">
+          <CardContent className="flex flex-col items-center justify-center p-6 text-center min-h-[188px]">
             <div className="mb-4">
               {getFileIcon()}
             </div>
@@ -340,12 +340,14 @@ export function FileUpload({
         </Card>
       ) : (
         <Card>
-          <CardContent className="p-4">
+          <CardContent className="p-4 min-h-[200px]">
             <div className="flex items-start justify-between mb-3">
-              <div className="flex items-center gap-3">
+              <div className="flex items-center gap-3 min-w-0 flex-1">
                 {getFileIcon()}
-                <div className="min-w-0">
-                  <p className="font-medium text-sm truncate">{uploadState.file.name}</p>
+                <div className="min-w-0 flex-1">
+                  <p className="font-medium text-sm truncate" title={uploadState.file.name}>
+                    {uploadState.file.name}
+                  </p>
                   <p className="text-xs text-muted-foreground">
                     {(uploadState.file.size / (1024 * 1024)).toFixed(2)} MB
                   </p>
@@ -389,22 +391,13 @@ export function FileUpload({
                 {/* Preview Section */}
                 {uploadState.fileUrl && (
                   <div className="space-y-2">
-                    <div className="flex items-center justify-between">
-                      <span className="text-sm font-medium">Preview:</span>
-                      <Button
-                        type="button"
-                        variant="outline"
-                        size="sm"
-                        onClick={handlePreviewOpen}
-                        disabled={fileType === 'video' && !uploadState.videoViewingUrl}
-                      >
-                        <Eye className="mr-2 h-4 w-4" />
-                        View Full Size
-                      </Button>
-                    </div>
+                    <span className="text-sm font-medium">Preview:</span>
 
                     {fileType === 'image' ? (
-                      <div className="relative w-full h-24 rounded-lg overflow-hidden bg-muted">
+                      <div
+                        className="relative w-full aspect-video rounded-lg overflow-hidden bg-muted cursor-pointer hover:opacity-80 transition-opacity"
+                        onClick={handlePreviewOpen}
+                      >
                         <Image
                           src={uploadState.fileUrl}
                           alt="Preview"
@@ -412,18 +405,33 @@ export function FileUpload({
                           className="object-cover"
                           sizes="(max-width: 768px) 100vw, 50vw"
                         />
+                        <div className="absolute inset-0 flex items-center justify-center bg-black/20 opacity-0 hover:opacity-100 transition-opacity">
+                          <Eye className="h-8 w-8 text-white" />
+                        </div>
                       </div>
                     ) : (
                       <div className="space-y-2">
                         {uploadState.videoViewingUrl ? (
-                          <video
-                            src={uploadState.videoViewingUrl}
-                            className="w-full h-24 rounded-lg object-cover bg-muted"
-                            controls
-                            preload="metadata"
-                          />
+                          <div
+                            className="relative w-full aspect-video rounded-lg overflow-hidden bg-muted cursor-pointer hover:opacity-80 transition-opacity"
+                            onClick={handlePreviewOpen}
+                          >
+                            <video
+                              src={uploadState.videoViewingUrl}
+                              className="w-full h-full object-cover"
+                              preload="metadata"
+                              muted
+                            />
+                            <div className="absolute inset-0 flex items-center justify-center bg-black/20 opacity-0 hover:opacity-100 transition-opacity">
+                              <div className="bg-white/90 rounded-full p-3">
+                                <svg className="h-8 w-8 text-black" fill="currentColor" viewBox="0 0 24 24">
+                                  <path d="M8 5v14l11-7z"/>
+                                </svg>
+                              </div>
+                            </div>
+                          </div>
                         ) : (
-                          <div className="w-full h-24 rounded-lg bg-muted flex items-center justify-center">
+                          <div className="w-full aspect-video rounded-lg bg-muted flex items-center justify-center">
                             <span className="text-sm text-muted-foreground">Loading video preview...</span>
                           </div>
                         )}
@@ -443,42 +451,14 @@ export function FileUpload({
         </Card>
       )}
 
-      {/* Full Size Preview Modal */}
-      <Dialog open={previewOpen} onOpenChange={setPreviewOpen}>
-        <DialogContent className="max-w-4xl max-h-[90vh] overflow-hidden">
-          <DialogHeader>
-            <DialogTitle>
-              {fileType === 'image' ? 'Image Preview' : 'Video Preview'} - {uploadState.file?.name}
-            </DialogTitle>
-          </DialogHeader>
-          {uploadState.fileUrl && (
-            <div className="relative w-full flex items-center justify-center">
-              {fileType === 'image' ? (
-                <div className="relative w-full h-[600px] rounded-lg overflow-hidden">
-                  <Image
-                    src={uploadState.fileUrl}
-                    alt="Full size preview"
-                    fill
-                    className="object-contain"
-                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 70vw"
-                  />
-                </div>
-              ) : uploadState.videoViewingUrl ? (
-                <video
-                  src={uploadState.videoViewingUrl}
-                  className="w-full max-h-[600px] rounded-lg"
-                  controls
-                  autoPlay={false}
-                />
-              ) : (
-                <div className="w-full h-[600px] flex items-center justify-center bg-muted rounded-lg">
-                  <span className="text-muted-foreground">Loading video...</span>
-                </div>
-              )}
-            </div>
-          )}
-        </DialogContent>
-      </Dialog>
+      <MediaViewerDialog
+        open={previewOpen}
+        onOpenChange={setPreviewOpen}
+        fileType={fileType}
+        fileName={uploadState.file?.name || ''}
+        imageUrl={fileType === 'image' ? uploadState.fileUrl || undefined : undefined}
+        videoUrl={fileType === 'video' ? uploadState.videoViewingUrl || undefined : undefined}
+      />
     </div>
   );
 }

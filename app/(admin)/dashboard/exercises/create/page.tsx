@@ -124,6 +124,10 @@ export default function CreateExercisePage() {
 
       const createdExercise = await createExercise(requestData);
 
+      toast.success('Exercise created successfully!', {
+        description: `${data.title} has been created and added to the system.`
+      });
+
       // Redirect to the created exercise details page
       if (createdExercise.id) {
         router.push(`/dashboard/exercises/${createdExercise.id}`);
@@ -131,7 +135,9 @@ export default function CreateExercisePage() {
         router.push('/dashboard/exercises');
       }
     } catch (err) {
-      alert(err instanceof Error ? err.message : 'Failed to create exercise');
+      toast.error('Failed to create exercise', {
+        description: err instanceof Error ? err.message : 'An unexpected error occurred while creating the exercise.'
+      });
     } finally {
       setSaving(false);
     }

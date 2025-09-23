@@ -16,9 +16,13 @@ import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Skeleton } from '@/components/ui/skeleton';
-import { ArrowLeft, Play, Image } from 'lucide-react';
+import { MediaViewerDialog } from '@/components/ui/media-viewer-dialog';
+import { ArrowLeft, Play, Image, Eye } from 'lucide-react';
+import NextImage from 'next/image';
 import { getExerciseById } from '@/api/api/exerciseManagementController/getExerciseById';
+import { generateVideoViewingUrl } from '@/api/api/fileUploadController/generateVideoViewingUrl';
 import { ExerciseResponse } from '@/api/types/ExerciseResponse';
+import { toast } from 'sonner';
 
 export default function ExerciseDetailsPage() {
   const params = useParams();
@@ -28,6 +32,12 @@ export default function ExerciseDetailsPage() {
   const [exercise, setExercise] = useState<ExerciseResponse | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [selectedMedia, setSelectedMedia] = useState<{
+    url: string;
+    title: string;
+    type: 'image' | 'video';
+  } | null>(null);
+  const [videoViewingUrl, setVideoViewingUrl] = useState<string | null>(null);
 
   const fetchExerciseDetails = useCallback(async () => {
     if (!exerciseId) {
@@ -51,6 +61,33 @@ export default function ExerciseDetailsPage() {
   useEffect(() => {
     fetchExerciseDetails();
   }, [fetchExerciseDetails]);
+
+  const handleVideoView = async (videoUrl: string, title: string) => {
+    try {
+      // Generate viewing URL for videos
+      const viewingUrl = await generateVideoViewingUrl({
+        fileUrl: videoUrl,
+        durationMinutes: 5,
+      });
+      setVideoViewingUrl(viewingUrl);
+      setSelectedMedia({
+        url: videoUrl,
+        title,
+        type: 'video'
+      });
+    } catch (error) {
+      console.error('Failed to generate video viewing URL:', error);
+      toast.error('Failed to load video');
+    }
+  };
+
+  const handleImageView = (imageUrl: string, title: string) => {
+    setSelectedMedia({
+      url: imageUrl,
+      title,
+      type: 'image'
+    });
+  };
 
   const formatCurrency = (amount?: number) => {
     if (!amount) return '-';
@@ -305,40 +342,19 @@ export default function ExerciseDetailsPage() {
                           <Image className="h-4 w-4" />
                           Exercise Image
                         </label>
-                        <div className="border rounded-lg overflow-hidden bg-muted/50">
-                          <div className="aspect-video relative bg-gray-100">
-                            <img
-                              src={exercise.imageUrl}
-                              alt={exercise.title || 'Exercise image'}
-                              className="w-full h-full object-cover"
-                              onError={(e) => {
-                                const target = e.target as HTMLImageElement;
-                                target.style.display = 'none';
-                                const parent = target.parentElement;
-                                if (parent) {
-                                  parent.innerHTML = `
-                                    <div class="flex items-center justify-center h-full text-muted-foreground">
-                                      <div class="text-center">
-                                        <svg class="mx-auto h-12 w-12 mb-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                                        </svg>
-                                        <p class="text-sm">Failed to load image</p>
-                                      </div>
-                                    </div>
-                                  `;
-                                }
-                              }}
-                            />
-                          </div>
-                          <div className="p-3 bg-white">
-                            <a
-                              href={exercise.imageUrl}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                              className="text-blue-600 hover:text-blue-800 text-xs break-all"
-                            >
-                              View full size
-                            </a>
+                        <div
+                          className="relative aspect-video rounded-lg overflow-hidden bg-muted cursor-pointer hover:opacity-80 transition-opacity border"
+                          onClick={() => handleImageView(exercise.imageUrl!, exercise.title || 'Exercise image')}
+                        >
+                          <NextImage
+                            src={exercise.imageUrl}
+                            alt={exercise.title || 'Exercise image'}
+                            fill
+                            className="object-cover"
+                            sizes="(max-width: 768px) 100vw, 50vw"
+                          />
+                          <div className="absolute inset-0 bg-black/0 hover:bg-black/20 transition-colors flex items-center justify-center">
+                            <Eye className="h-8 w-8 text-white opacity-0 hover:opacity-100 transition-opacity" />
                           </div>
                         </div>
                       </div>
@@ -350,15 +366,21 @@ export default function ExerciseDetailsPage() {
                           <Play className="h-4 w-4" />
                           Exercise Video
                         </label>
-                        <div className="border rounded-lg p-4 bg-muted/50">
-                          <a
-                            href={exercise.videoUrl}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="text-blue-600 hover:text-blue-800 text-sm break-all"
-                          >
-                            {exercise.videoUrl}
-                          </a>
+                        <div
+                          className="relative aspect-video rounded-lg overflow-hidden bg-black cursor-pointer hover:opacity-80 transition-opacity border"
+                          onClick={() => handleVideoView(exercise.videoUrl!, exercise.title || 'Exercise video')}
+                        >
+                          <video
+                            src={exercise.videoUrl}
+                            className="w-full h-full object-cover"
+                            muted
+                            preload="metadata"
+                          />
+                          <div className="absolute inset-0 bg-black/0 hover:bg-black/20 transition-colors flex items-center justify-center">
+                            <div className="bg-white/90 rounded-full p-3">
+                              <Play className="h-8 w-8 text-black" />
+                            </div>
+                          </div>
                         </div>
                       </div>
                     )}
@@ -369,6 +391,19 @@ export default function ExerciseDetailsPage() {
           </CardContent>
         </Card>
       </div>
+
+      {/* Media Viewer Dialog */}
+      <MediaViewerDialog
+        open={!!selectedMedia}
+        onOpenChange={() => {
+          setSelectedMedia(null);
+          setVideoViewingUrl(null);
+        }}
+        fileType={selectedMedia?.type || 'image'}
+        fileName={selectedMedia?.title || ''}
+        imageUrl={selectedMedia?.type === 'image' ? selectedMedia.url : undefined}
+        videoUrl={selectedMedia?.type === 'video' ? videoViewingUrl || undefined : undefined}
+      />
     </>
   );
 }
