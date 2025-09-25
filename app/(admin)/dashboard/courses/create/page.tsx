@@ -41,6 +41,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { RichTextEditor } from '@/components/ui/rich-text-editor';
+import { FileUpload } from '@/components/ui/file-upload';
 import {
   Select,
   SelectContent,
@@ -1084,13 +1085,17 @@ export default function CreateCoursePage() {
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="imageUrl">Image URL</Label>
-                <Input
-                  id="imageUrl"
-                  type="url"
-                  placeholder="https://example.com/image.jpg"
-                  {...register('imageUrl')}
+                <Label>Course Image</Label>
+                <FileUpload
+                  onUploadComplete={(fileUrl) => setValue('imageUrl', fileUrl)}
+                  acceptedTypes={['image/jpeg', 'image/png', 'image/webp']}
+                  fileType="image"
+                  maxFileSize={10}
+                  disabled={saving}
                 />
+                {watch('imageUrl') && (
+                  <p className="text-xs text-green-600">✓ Image uploaded successfully</p>
+                )}
               </div>
             </CardContent>
           </Card>

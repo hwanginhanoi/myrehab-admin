@@ -113,7 +113,7 @@ export default function CreateExercisePage() {
       const requestData: CreateExerciseRequest = {
         title: data.title,
         description: data.description || undefined,
-        imageUrl: data.imageUrl || undefined,
+        imageUrl: data.imageUrl,
         videoUrl: data.videoUrl,
         durationMinutes: data.durationMinutes,
         repetitions: data.repetitions,

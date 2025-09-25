@@ -16,7 +16,9 @@ import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Skeleton } from '@/components/ui/skeleton';
-import { ArrowLeft } from 'lucide-react';
+import { MediaViewerDialog } from '@/components/ui/media-viewer-dialog';
+import { ArrowLeft, Image, Eye } from 'lucide-react';
+import NextImage from 'next/image';
 import { getCourseById } from '@/api/api/courseManagementController/getCourseById';
 import { CourseResponse } from '@/api/types/CourseResponse';
 
@@ -28,6 +30,11 @@ export default function CourseDetailsPage() {
   const [course, setCourse] = useState<CourseResponse | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [selectedMedia, setSelectedMedia] = useState<{
+    url: string;
+    title: string;
+    type: 'image' | 'video';
+  } | null>(null);
 
   const fetchCourseDetails = useCallback(async () => {
     if (!courseId) {
@@ -63,6 +70,14 @@ export default function CourseDetailsPage() {
   const formatDate = (dateString?: string) => {
     if (!dateString) return '-';
     return new Date(dateString).toLocaleDateString('vi-VN');
+  };
+
+  const handleImageView = (imageUrl: string, title: string) => {
+    setSelectedMedia({
+      url: imageUrl,
+      title,
+      type: 'image'
+    });
   };
 
   if (loading) {
@@ -273,17 +288,6 @@ export default function CourseDetailsPage() {
                 </div>
 
                 <div className="space-y-4">
-                  {course.imageUrl && (
-                    <div>
-                      <label className="text-sm font-medium text-muted-foreground">Image URL</label>
-                      <p className="text-sm mt-1 break-all text-blue-600 hover:text-blue-800">
-                        <a href={course.imageUrl} target="_blank" rel="noopener noreferrer">
-                          {course.imageUrl}
-                        </a>
-                      </p>
-                    </div>
-                  )}
-
                   <div>
                     <label className="text-sm font-medium text-muted-foreground">Created At</label>
                     <p className="text-sm mt-1">{formatDate(course.createdAt)}</p>
@@ -295,6 +299,34 @@ export default function CourseDetailsPage() {
                   </div>
                 </div>
               </div>
+
+              {/* Media Section */}
+              {course.imageUrl && (
+                <div className="border-t pt-6">
+                  <label className="text-lg font-medium mb-4 block">Media</label>
+                  <div>
+                    <label className="text-sm font-medium text-muted-foreground mb-2 flex items-center gap-2">
+                      <Image className="h-4 w-4" />
+                      Course Image
+                    </label>
+                    <div
+                      className="relative aspect-video rounded-lg overflow-hidden bg-muted cursor-pointer hover:opacity-80 transition-opacity border max-w-md"
+                      onClick={() => handleImageView(course.imageUrl!, course.title || 'Course image')}
+                    >
+                      <NextImage
+                        src={course.imageUrl}
+                        alt={course.title || 'Course image'}
+                        fill
+                        className="object-cover"
+                        sizes="(max-width: 768px) 100vw, 50vw"
+                      />
+                      <div className="absolute inset-0 bg-black/0 hover:bg-black/20 transition-colors flex items-center justify-center">
+                        <Eye className="h-8 w-8 text-white opacity-0 hover:opacity-100 transition-opacity" />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              )}
 
               {course.courseDays && course.courseDays.length > 0 && (
                 <div className="border-t pt-6">
@@ -334,10 +366,29 @@ export default function CourseDetailsPage() {
                                         <span className="flex-shrink-0 w-6 h-6 bg-primary text-primary-foreground rounded-full flex items-center justify-center text-xs font-medium">
                                           {exercise.orderInDay || index + 1}
                                         </span>
+                                        {exercise.exercise?.imageUrl && (
+                                          <div className="flex-shrink-0">
+                                            <div
+                                              className="relative w-16 h-10 rounded-md overflow-hidden bg-muted cursor-pointer hover:opacity-80 transition-opacity"
+                                              onClick={() => handleImageView(exercise.exercise!.imageUrl!, exercise.exercise!.title || 'Exercise image')}
+                                            >
+                                              <NextImage
+                                                src={exercise.exercise.imageUrl}
+                                                alt={exercise.exercise.title || 'Exercise image'}
+                                                fill
+                                                className="object-cover"
+                                                sizes="64px"
+                                              />
+                                              <div className="absolute inset-0 bg-black/0 hover:bg-black/20 transition-colors flex items-center justify-center">
+                                                <Eye className="h-3 w-3 text-white opacity-0 hover:opacity-100 transition-opacity" />
+                                              </div>
+                                            </div>
+                                          </div>
+                                        )}
                                         <div className="flex-1 min-w-0">
                                           <div className="flex items-center gap-2 mb-1">
                                             <h5 className="font-medium text-sm">
-                                              {exercise.exercise?.name || 'Exercise'}
+                                              {exercise.exercise?.title || 'Exercise'}
                                             </h5>
                                             <Badge
                                               variant={exercise.isActive ? 'outline' : 'secondary'}
@@ -384,6 +435,16 @@ export default function CourseDetailsPage() {
           </CardContent>
         </Card>
       </div>
+
+      {/* Media Viewer Dialog */}
+      <MediaViewerDialog
+        open={!!selectedMedia}
+        onOpenChange={() => setSelectedMedia(null)}
+        fileType={selectedMedia?.type || 'image'}
+        fileName={selectedMedia?.title || ''}
+        imageUrl={selectedMedia?.type === 'image' ? selectedMedia.url : undefined}
+        videoUrl={selectedMedia?.type === 'video' ? selectedMedia.url : undefined}
+      />
     </>
   );
 }
