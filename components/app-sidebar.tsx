@@ -2,29 +2,16 @@
 
 import * as React from "react"
 import {
-  AudioWaveform,
-  BookOpen,
-  Bot,
-  Command,
   Frame,
   GalleryVerticalEnd,
   Map,
   PieChart,
-  Settings2,
   SquareTerminal,
-  Activity,
-  Users,
-  Calendar,
-  FileText,
-  Tags,
-  GraduationCap,
 } from "lucide-react"
-import { useTranslations } from "next-intl"
 
 import { NavMain } from "@/components/nav-main"
-import { NavProjects } from "@/components/nav-projects"
-import { NavUser } from "@/components/nav-user"
 import { TeamSwitcher } from "@/components/team-switcher"
+import { NavUserBottom } from "@/components/nav-user-bottom"
 import {
   Sidebar,
   SidebarContent,
@@ -34,7 +21,6 @@ import {
 } from "@/components/ui/sidebar"
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
-  const t = useTranslations('navigation');
   
   const data = {
     user: {
@@ -51,126 +37,38 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
     ],
     navMain: [
       {
-        title: t('dashboard'),
-        url: "/",
-        icon: SquareTerminal,
-        isActive: true,
-        items: [],
-      },
-      {
-        title: t('patients'),
-        url: "/patients",
-        icon: Users,
-        items: [
-          {
-            title: "All Patients",
-            url: "/dashboard/patients",
-          },
-          {
-            title: "Add Patient",
-            url: "/patients/new",
-          },
-        ],
-      },
-      {
-        title: t('exercises'),
+        title: "Bài tập",
         url: "/exercises",
-        icon: Activity,
+        icon: SquareTerminal,
+        isActive: false,
         items: [
           {
-            title: "All Exercises",
+            title: "Danh sách bài tập",
             url: "/dashboard/exercises",
           },
-          {
-            title: "Create Exercise",
-            url: "/dashboard/exercises/create",
-          },
-          {
-            title: "Categories",
-            url: "/dashboard/categories",
-          },
         ],
       },
       {
-        title: t('courses'),
+        title: "Lộ trình",
         url: "/courses",
-        icon: GraduationCap,
+        icon: SquareTerminal,
+        isActive: false,
         items: [
           {
-            title: "All Courses",
+            title: "Danh sách lộ trình",
             url: "/dashboard/courses",
           },
-          {
-            title: "Create Course",
-            url: "/dashboard/courses/create",
-          },
         ],
       },
       {
-        title: t('categories'),
+        title: "Danh mục",
         url: "/categories",
-        icon: Tags,
+        icon: SquareTerminal,
+        isActive: true,
         items: [
           {
-            title: "All Categories",
+            title: "Danh sách danh mục",
             url: "/dashboard/categories",
-          },
-          {
-            title: "Create Category",
-            url: "/dashboard/categories/create",
-          },
-        ],
-      },
-      {
-        title: t('plans'),
-        url: "/plans",
-        icon: Calendar,
-        items: [
-          {
-            title: "All Plans",
-            url: "/plans",
-          },
-          {
-            title: "Create Plan",
-            url: "/plans/new",
-          },
-          {
-            title: "Templates",
-            url: "/plans/templates",
-          },
-        ],
-      },
-      {
-        title: t('reports'),
-        url: "/reports",
-        icon: FileText,
-        items: [
-          {
-            title: "Patient Progress",
-            url: "/reports/progress",
-          },
-          {
-            title: "Exercise Analytics",
-            url: "/reports/analytics",
-          },
-        ],
-      },
-      {
-        title: t('settings'),
-        url: "/settings",
-        icon: Settings2,
-        items: [
-          {
-            title: "General",
-            url: "/settings/general",
-          },
-          {
-            title: "Clinic Info",
-            url: "/settings/clinic",
-          },
-          {
-            title: "Staff",
-            url: "/settings/staff",
           },
         ],
       },
@@ -195,17 +93,18 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   }
 
   return (
-    <Sidebar collapsible="icon" {...props}>
-      <SidebarHeader>
-        <TeamSwitcher teams={data.teams} />
-      </SidebarHeader>
-      <SidebarContent>
-        <NavMain items={data.navMain} />
-        <NavProjects projects={data.projects} />
-      </SidebarContent>
-      <SidebarFooter>
-        <NavUser user={data.user} />
-      </SidebarFooter>
+    <Sidebar collapsible="icon" {...props} className="border-r-0">
+      <div className="flex flex-col h-full bg-sidebar border-r border-sidebar-border">
+        <SidebarHeader className="border-b-0 p-0">
+          <TeamSwitcher teams={data.teams} />
+        </SidebarHeader>
+        <SidebarContent className="flex-1 p-0">
+          <NavMain items={data.navMain} />
+        </SidebarContent>
+        <SidebarFooter className="p-0">
+          <NavUserBottom />
+        </SidebarFooter>
+      </div>
       <SidebarRail />
     </Sidebar>
   )
