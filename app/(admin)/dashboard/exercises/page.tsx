@@ -54,7 +54,7 @@ export default function ExercisesPage() {
   const [pageData, setPageData] = useState<PageExerciseResponse | null>(null);
   const [pagination, setPagination] = useState({
     pageIndex: 0,
-    pageSize: 10,
+    pageSize: 5,
   });
   const [selectedImage, setSelectedImage] = useState<{
     url: string;
@@ -102,6 +102,98 @@ export default function ExercisesPage() {
     if (!dateString) return '-';
     return new Date(dateString).toLocaleDateString('vi-VN');
   };
+
+  const columns = [
+    columnHelper.accessor('id', {
+      header: 'ID',
+      cell: (info) => (
+        <span className="font-medium">{info.getValue()}</span>
+      ),
+    }),
+    columnHelper.accessor('title', {
+      header: 'Title',
+      cell: (info) => {
+        const exercise = info.row.original;
+        return (
+          <div>
+            <div className="font-medium">{info.getValue()}</div>
+            {exercise.description && (
+              <div className="text-sm text-muted-foreground truncate max-w-xs">
+                {exercise.description}
+              </div>
+            )}
+          </div>
+        );
+      },
+    }),
+    columnHelper.accessor('category.name', {
+      header: 'Category',
+      cell: (info) => {
+        const categoryName = info.getValue();
+        return categoryName ? (
+          <span className="px-2 py-1 bg-gray-100 rounded-md text-sm">
+            {categoryName}
+          </span>
+        ) : (
+          '-'
+        );
+      },
+    }),
+    columnHelper.accessor('durationMinutes', {
+      header: 'Duration',
+      cell: (info) => {
+        const duration = info.getValue();
+        return duration ? `${duration} phút` : '-';
+      },
+    }),
+    columnHelper.accessor('price', {
+      header: 'Price',
+      cell: (info) => formatCurrency(info.getValue()),
+    }),
+    columnHelper.accessor('createdAt', {
+      header: 'Created',
+      cell: (info) => formatDate(info.getValue()),
+    }),
+    columnHelper.display({
+      id: 'actions',
+      header: 'Actions',
+      cell: (info) => {
+        const exercise = info.row.original;
+        return (
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Button variant="ghost" className="h-8 w-8 p-0">
+                <span className="sr-only">Open menu</span>
+                <MoreHorizontal className="h-4 w-4" />
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align="end">
+              <DropdownMenuItem
+                onClick={() => {
+                  if (exercise.id) {
+                    router.push(`/dashboard/exercises/${exercise.id}`);
+                  }
+                }}
+              >
+                <Eye className="mr-2 h-4 w-4" />
+                View details
+              </DropdownMenuItem>
+              <DropdownMenuItem
+                onClick={() => {
+                  if (exercise.id) {
+                    router.push(`/dashboard/exercises/${exercise.id}/edit`);
+                  }
+                }}
+              >
+                <Edit className="mr-2 h-4 w-4" />
+                Edit exercise
+              </DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
+        );
+      },
+    }),
+  ];
 
   const table = useReactTable({
     data: exercises,
