@@ -171,25 +171,9 @@ export default function ExercisesPage() {
         return duration ? `${duration} min` : '-';
       },
     }),
-    columnHelper.accessor('sets', {
-      header: 'Sets',
-      cell: (info) => info.getValue() || '-',
-    }),
-    columnHelper.accessor('repetitions', {
-      header: 'Reps',
-      cell: (info) => info.getValue() || '-',
-    }),
     columnHelper.accessor('price', {
       header: 'Price',
       cell: (info) => formatCurrency(info.getValue()),
-    }),
-    columnHelper.accessor('isActive', {
-      header: 'Status',
-      cell: (info) => (
-        <Badge variant={info.getValue() ? 'default' : 'secondary'}>
-          {info.getValue() ? 'Active' : 'Inactive'}
-        </Badge>
-      ),
     }),
     columnHelper.accessor('createdAt', {
       header: 'Created',

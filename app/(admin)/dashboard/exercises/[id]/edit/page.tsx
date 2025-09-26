@@ -25,7 +25,6 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
-import { Switch } from '@/components/ui/switch';
 import { Skeleton } from '@/components/ui/skeleton';
 import { ArrowLeft, Save } from 'lucide-react';
 import { getExerciseById } from '@/api/api/exerciseManagementController/getExerciseById';
@@ -42,11 +41,8 @@ interface ExerciseFormData {
   imageUrl: string;
   videoUrl: string;
   durationMinutes: number;
-  repetitions: number;
-  sets: number;
   price: number;
   categoryId: string;
-  isActive: boolean;
 }
 
 export default function EditExercisePage() {
@@ -68,7 +64,6 @@ export default function EditExercisePage() {
     formState: { errors, isDirty },
   } = useForm<ExerciseFormData>();
 
-  const isActive = watch('isActive');
 
   const fetchData = useCallback(async () => {
     if (!exerciseId) {
@@ -96,11 +91,8 @@ export default function EditExercisePage() {
       setValue('imageUrl', exerciseData.imageUrl || '');
       setValue('videoUrl', exerciseData.videoUrl || '');
       setValue('durationMinutes', exerciseData.durationMinutes || 0);
-      setValue('repetitions', exerciseData.repetitions || 0);
-      setValue('sets', exerciseData.sets || 0);
       setValue('price', exerciseData.price || 0);
       setValue('categoryId', exerciseData.category?.id?.toString() || '0');
-      setValue('isActive', exerciseData.isActive || false);
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Failed to fetch data');
     } finally {
@@ -127,8 +119,6 @@ export default function EditExercisePage() {
         imageUrl: data.imageUrl || undefined,
         videoUrl: data.videoUrl || '',
         durationMinutes: data.durationMinutes,
-        repetitions: data.repetitions,
-        sets: data.sets,
         price: data.price,
         categoryId: data.categoryId && data.categoryId !== '0' ? parseInt(data.categoryId, 10) : undefined,
       };
@@ -369,25 +359,6 @@ export default function EditExercisePage() {
                   />
                 </div>
 
-                <div className="space-y-2">
-                  <Label htmlFor="sets">Sets</Label>
-                  <Input
-                    id="sets"
-                    type="number"
-                    min="0"
-                    {...register('sets', { valueAsNumber: true })}
-                  />
-                </div>
-
-                <div className="space-y-2">
-                  <Label htmlFor="repetitions">Repetitions</Label>
-                  <Input
-                    id="repetitions"
-                    type="number"
-                    min="0"
-                    {...register('repetitions', { valueAsNumber: true })}
-                  />
-                </div>
               </div>
 
               <div className="space-y-2">
@@ -424,15 +395,6 @@ export default function EditExercisePage() {
                 </div>
               </div>
 
-              {/* Status */}
-              <div className="flex items-center space-x-2">
-                <Switch
-                  id="isActive"
-                  checked={isActive}
-                  onCheckedChange={(checked) => setValue('isActive', checked)}
-                />
-                <Label htmlFor="isActive">Active exercise</Label>
-              </div>
 
               {/* Actions */}
               <div className="flex items-center gap-4 pt-6">

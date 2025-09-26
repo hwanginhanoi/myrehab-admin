@@ -120,14 +120,6 @@ export default function CategoriesPage() {
         );
       },
     }),
-    columnHelper.accessor('isActive', {
-      header: 'Status',
-      cell: (info) => (
-        <Badge variant={info.getValue() ? 'default' : 'secondary'}>
-          {info.getValue() ? 'Active' : 'Inactive'}
-        </Badge>
-      ),
-    }),
     columnHelper.accessor('createdAt', {
       header: 'Created',
       cell: (info) => formatDate(info.getValue()),

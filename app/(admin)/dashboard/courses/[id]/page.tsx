@@ -244,9 +244,6 @@ export default function CourseDetailsPage() {
                   Course ID: {course.id}
                 </CardDescription>
               </div>
-              <Badge variant={course.isActive ? 'default' : 'secondary'}>
-                {course.isActive ? 'Active' : 'Inactive'}
-              </Badge>
             </div>
           </CardHeader>
           <CardContent>
@@ -341,9 +338,6 @@ export default function CourseDetailsPage() {
                               <CardTitle className="text-lg">
                                 Day {day.dayNumber || 'N/A'}
                               </CardTitle>
-                              <Badge variant={day.isActive ? 'default' : 'secondary'}>
-                                {day.isActive ? 'Active' : 'Inactive'}
-                              </Badge>
                             </div>
                             {day.dayDescription && (
                               <CardDescription>{day.dayDescription}</CardDescription>
@@ -391,10 +385,10 @@ export default function CourseDetailsPage() {
                                               {exercise.exercise?.title || 'Exercise'}
                                             </h5>
                                             <Badge
-                                              variant={exercise.isActive ? 'outline' : 'secondary'}
+                                              variant="outline"
                                               className="text-xs"
                                             >
-                                              {exercise.isActive ? 'Active' : 'Inactive'}
+                                              Active
                                             </Badge>
                                           </div>
 

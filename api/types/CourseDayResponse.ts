@@ -14,10 +14,6 @@ import type { DayExerciseResponse } from "./DayExerciseResponse";
     */
     dayDescription?: string;
     /**
-     * @type boolean | undefined
-    */
-    isActive?: boolean;
-    /**
      * @type array | undefined
     */
     dayExercises?: DayExerciseResponse[];

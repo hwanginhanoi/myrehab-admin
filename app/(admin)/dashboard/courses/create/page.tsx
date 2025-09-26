@@ -13,7 +13,6 @@ import {
   DragEndEvent,
   DragOverlay,
   DragStartEvent,
-  rectIntersection,
   closestCorners,
 } from '@dnd-kit/core';
 import {
@@ -174,11 +173,6 @@ function DraggableExercise({ exercise, onImageClick }: DraggableExerciseProps) {
                   {exercise.durationMinutes}min
                 </span>
               )}
-              {exercise.sets && exercise.repetitions && (
-                <span className="text-xs text-muted-foreground">
-                  {exercise.sets}×{exercise.repetitions}
-                </span>
-              )}
             </div>
           </div>
         </div>
@@ -334,9 +328,6 @@ function SortableDayExercise({
                 )}
                 {exerciseTyped.durationMinutes && (
                   <span className="text-xs text-muted-foreground">{exerciseTyped.durationMinutes}min</span>
-                )}
-                {exerciseTyped.sets && exerciseTyped.repetitions && (
-                  <span className="text-xs text-muted-foreground">{exerciseTyped.sets}×{exerciseTyped.repetitions}</span>
                 )}
               </div>
             </div>
@@ -771,8 +762,8 @@ export default function CreateCoursePage() {
     const newExercise = {
       exerciseId: exercise.id?.toString() || '',
       orderInDay: currentExercises.length + 1,
-      customRepetitions: exercise.repetitions || 0,
-      customSets: exercise.sets || 0,
+      customRepetitions: 0,
+      customSets: 0,
       customDurationMinutes: exercise.durationMinutes || 0,
       notes: '',
       exercise: exercise // Store the full exercise data for display
@@ -1212,11 +1203,6 @@ export default function CreateCoursePage() {
                               {activeExercise.durationMinutes && (
                                 <span className="text-xs text-primary/70">
                                   {activeExercise.durationMinutes}min
-                                </span>
-                              )}
-                              {activeExercise.sets && activeExercise.repetitions && (
-                                <span className="text-xs text-primary/70">
-                                  {activeExercise.sets}×{activeExercise.repetitions}
                                 </span>
                               )}
                             </div>

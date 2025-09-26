@@ -26,10 +26,6 @@ import type { ExerciseInfo } from "./ExerciseInfo";
     */
     notes?: string;
     /**
-     * @type boolean | undefined
-    */
-    isActive?: boolean;
-    /**
      * @type object | undefined
     */
     exercise?: ExerciseInfo;

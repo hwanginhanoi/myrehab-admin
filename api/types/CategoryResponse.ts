@@ -16,10 +16,6 @@ export type CategoryResponse = {
     */
     type?: string;
     /**
-     * @type boolean | undefined
-    */
-    isActive?: boolean;
-    /**
      * @type string | undefined, date-time
     */
     createdAt?: string;

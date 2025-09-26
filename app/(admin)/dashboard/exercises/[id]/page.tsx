@@ -266,9 +266,6 @@ export default function ExerciseDetailsPage() {
                   Exercise ID: {exercise.id}
                 </CardDescription>
               </div>
-              <Badge variant={exercise.isActive ? 'default' : 'secondary'}>
-                {exercise.isActive ? 'Active' : 'Inactive'}
-              </Badge>
             </div>
           </CardHeader>
           <CardContent>
@@ -299,17 +296,6 @@ export default function ExerciseDetailsPage() {
                       <p className="text-sm mt-1">
                         {exercise.durationMinutes ? `${exercise.durationMinutes} minutes` : 'Not specified'}
                       </p>
-                    </div>
-                    <div>
-                      <label className="text-sm font-medium text-muted-foreground">Sets</label>
-                      <p className="text-sm mt-1">{exercise.sets || 'Not specified'}</p>
-                    </div>
-                  </div>
-
-                  <div className="grid grid-cols-2 gap-4">
-                    <div>
-                      <label className="text-sm font-medium text-muted-foreground">Repetitions</label>
-                      <p className="text-sm mt-1">{exercise.repetitions || 'Not specified'}</p>
                     </div>
                     <div>
                       <label className="text-sm font-medium text-muted-foreground">Price</label>

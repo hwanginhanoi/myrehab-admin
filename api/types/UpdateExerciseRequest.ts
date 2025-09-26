@@ -20,14 +20,6 @@ export type UpdateExerciseRequest = {
     */
     durationMinutes: number;
     /**
-     * @type integer, int32
-    */
-    repetitions: number;
-    /**
-     * @type integer, int32
-    */
-    sets: number;
-    /**
      * @type number
     */
     price: number;

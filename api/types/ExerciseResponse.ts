@@ -26,21 +26,9 @@ import type { CategoryResponse } from "./CategoryResponse";
     */
     durationMinutes?: number;
     /**
-     * @type integer | undefined, int32
-    */
-    repetitions?: number;
-    /**
-     * @type integer | undefined, int32
-    */
-    sets?: number;
-    /**
      * @type number | undefined
     */
     price?: number;
-    /**
-     * @type boolean | undefined
-    */
-    isActive?: boolean;
     /**
      * @type object | undefined
     */

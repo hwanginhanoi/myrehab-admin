@@ -40,8 +40,6 @@ interface ExerciseFormData {
   imageUrl: string;
   videoUrl: string;
   durationMinutes: number;
-  repetitions: number;
-  sets: number;
   price: number;
   categoryId: string;
 }
@@ -66,8 +64,6 @@ export default function CreateExercisePage() {
       imageUrl: '',
       videoUrl: '',
       durationMinutes: 0,
-      repetitions: 0,
-      sets: 0,
       price: 0,
       categoryId: '0',
     },
@@ -116,8 +112,6 @@ export default function CreateExercisePage() {
         imageUrl: data.imageUrl,
         videoUrl: data.videoUrl,
         durationMinutes: data.durationMinutes,
-        repetitions: data.repetitions,
-        sets: data.sets,
         price: data.price,
         categoryId: data.categoryId && data.categoryId !== '0' ? parseInt(data.categoryId, 10) : undefined,
       };
@@ -329,41 +323,6 @@ export default function CreateExercisePage() {
                   )}
                 </div>
 
-                <div className="space-y-2">
-                  <Label htmlFor="sets">Sets *</Label>
-                  <Input
-                    id="sets"
-                    type="number"
-                    min="0"
-                    {...register('sets', {
-                      required: 'Sets is required',
-                      valueAsNumber: true,
-                      min: { value: 0, message: 'Sets must be positive' }
-                    })}
-                    placeholder="3"
-                  />
-                  {errors.sets && (
-                    <p className="text-sm text-red-500">{errors.sets.message}</p>
-                  )}
-                </div>
-
-                <div className="space-y-2">
-                  <Label htmlFor="repetitions">Repetitions *</Label>
-                  <Input
-                    id="repetitions"
-                    type="number"
-                    min="0"
-                    {...register('repetitions', {
-                      required: 'Repetitions is required',
-                      valueAsNumber: true,
-                      min: { value: 0, message: 'Repetitions must be positive' }
-                    })}
-                    placeholder="12"
-                  />
-                  {errors.repetitions && (
-                    <p className="text-sm text-red-500">{errors.repetitions.message}</p>
-                  )}
-                </div>
               </div>
 
               <div className="space-y-2">

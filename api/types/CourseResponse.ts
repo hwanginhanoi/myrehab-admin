@@ -27,10 +27,6 @@ import type { CourseDayResponse } from "./CourseDayResponse";
     */
     durationDays?: number;
     /**
-     * @type boolean | undefined
-    */
-    isActive?: boolean;
-    /**
      * @type object | undefined
     */
     category?: CategoryResponse;
