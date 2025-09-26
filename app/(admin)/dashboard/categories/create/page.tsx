@@ -3,7 +3,6 @@
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { Button } from '@/components/ui/button';
-import { Card, CardContent } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import {
@@ -71,24 +70,27 @@ export default function CreateCategoryPage() {
 
   return (
     <div className="flex flex-1 flex-col">
-      {/* Main Content Card */}
+      {/* Back Button */}
       <div className="m-9 mt-9 mb-6">
-        <Card className="shadow-lg border border-[#E5E7EB] rounded-xl">
-          <CardContent>
+        <Button
+          variant="outline"
+          onClick={handleCancel}
+          disabled={isSubmitting}
+          className="border-[#6DBAD6] text-[#6DBAD6] hover:bg-[#6DBAD6] hover:text-white px-4 py-2 rounded-md flex items-center gap-2"
+        >
+          <ArrowLeft className="w-5 h-5" />
+          Quay lại
+        </Button>
+      </div>
+
+      {/* Main Content */}
+      <div className="m-9 mt-0 mb-6">
             {/* Header Section */}
             <div className="flex items-center justify-between mb-6">
               <div>
                 <h1 className="text-4xl font-bold text-[#EF7F26] mb-2">Tạo danh mục mới</h1>
                 <p className="text-base text-[#71717A]">Danh mục các loại bài tập và lộ trình</p>
               </div>
-              <Button
-                variant="outline"
-                onClick={handleCancel}
-                className="border-[#6DBAD6] text-[#6DBAD6] hover:bg-[#6DBAD6] hover:text-white px-4 py-2 rounded-md flex items-center gap-2"
-              >
-                <ArrowLeft className="w-5 h-5" />
-                Quay lại
-              </Button>
             </div>
 
             {/* Form Section */}
@@ -162,8 +164,6 @@ export default function CreateCategoryPage() {
                 </Button>
               </div>
             </div>
-          </CardContent>
-        </Card>
       </div>
     </div>
   );

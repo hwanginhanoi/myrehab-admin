@@ -2,19 +2,8 @@
 
 import { useEffect, useState, useCallback } from 'react';
 import { useRouter } from 'next/navigation';
-import { useForm } from 'react-hook-form';
-import {
-  Breadcrumb,
-  BreadcrumbItem,
-  BreadcrumbLink,
-  BreadcrumbList,
-  BreadcrumbPage,
-  BreadcrumbSeparator,
-} from '@/components/ui/breadcrumb';
-import { Separator } from '@/components/ui/separator';
-import { SidebarTrigger } from '@/components/ui/sidebar';
 import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { Card, CardContent } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { FileUpload } from '@/components/ui/file-upload';
@@ -26,23 +15,12 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
-import { Skeleton } from '@/components/ui/skeleton';
 import { ArrowLeft, Save } from 'lucide-react';
-import { createExercise } from '@/api/api/exerciseManagementController';
-import { getAllCategories } from '@/api/api/categoryManagementController';
+import { createExercise } from '@/api/api/exerciseManagementController/createExercise';
+import { getAllCategories } from '@/api/api/categoryManagementController/getAllCategories';
 import { CategoryResponse } from '@/api/types/CategoryResponse';
 import { CreateExerciseRequest } from '@/api/types/CreateExerciseRequest';
-import {Textarea} from "@/components/ui/textarea";
-
-interface ExerciseFormData {
-  title: string;
-  description: string;
-  imageUrl: string;
-  videoUrl: string;
-  durationMinutes: number;
-  price: number;
-  categoryId: string;
-}
+import { Textarea } from "@/components/ui/textarea";
 
 export default function CreateExercisePage() {
   const router = useRouter();
@@ -50,24 +28,22 @@ export default function CreateExercisePage() {
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState<string | null>(null);
-
-  const {
-    register,
-    handleSubmit,
-    setValue,
-    watch,
-    formState: { errors },
-  } = useForm<ExerciseFormData>({
-    defaultValues: {
-      title: '',
-      description: '',
-      imageUrl: '',
-      videoUrl: '',
-      durationMinutes: 0,
-      price: 0,
-      categoryId: '0',
-    },
+  const [formData, setFormData] = useState({
+    title: '',
+    description: '',
+    imageUrl: '',
+    videoUrl: '',
+    durationMinutes: '',
+    price: '',
+    categoryId: '',
   });
+
+  const handleInputChange = (field: string, value: string) => {
+    setFormData(prev => ({
+      ...prev,
+      [field]: value,
+    }));
+  };
 
   const fetchCategories = useCallback(async () => {
     try {
@@ -86,19 +62,30 @@ export default function CreateExercisePage() {
     fetchCategories();
   }, [fetchCategories]);
 
-  const onSubmit = async (data: ExerciseFormData) => {
+  const handleSubmit = async () => {
     // Validate required fields
-    if (!data.imageUrl) {
-      toast.error('Image is required', {
-        description: 'Please upload an exercise image before creating the exercise.'
-      });
+    if (!formData.title.trim()) {
+      toast.error('Vui lòng nhập tên bài tập');
       return;
     }
 
-    if (!data.videoUrl) {
-      toast.error('Video is required', {
-        description: 'Please upload an exercise video before creating the exercise.'
-      });
+    if (!formData.durationMinutes || parseInt(formData.durationMinutes) <= 0) {
+      toast.error('Vui lòng nhập thời lượng hợp lệ');
+      return;
+    }
+
+    if (!formData.price || parseInt(formData.price) < 0) {
+      toast.error('Vui lòng nhập giá hợp lệ');
+      return;
+    }
+
+    if (!formData.imageUrl) {
+      toast.error('Vui lòng tải lên hình ảnh bài tập');
+      return;
+    }
+
+    if (!formData.videoUrl) {
+      toast.error('Vui lòng tải lên video bài tập');
       return;
     }
 
@@ -107,19 +94,19 @@ export default function CreateExercisePage() {
 
       // Prepare the request data according to API schema
       const requestData: CreateExerciseRequest = {
-        title: data.title,
-        description: data.description || undefined,
-        imageUrl: data.imageUrl,
-        videoUrl: data.videoUrl,
-        durationMinutes: data.durationMinutes,
-        price: data.price,
-        categoryId: data.categoryId && data.categoryId !== '0' ? parseInt(data.categoryId, 10) : undefined,
+        title: formData.title.trim(),
+        description: formData.description.trim() || undefined,
+        imageUrl: formData.imageUrl,
+        videoUrl: formData.videoUrl,
+        durationMinutes: parseInt(formData.durationMinutes),
+        price: parseInt(formData.price),
+        categoryId: formData.categoryId && formData.categoryId !== '0' ? parseInt(formData.categoryId) : undefined,
       };
 
       const createdExercise = await createExercise(requestData);
 
-      toast.success('Exercise created successfully!', {
-        description: `${data.title} has been created and added to the system.`
+      toast.success('Tạo bài tập thành công!', {
+        description: `${formData.title} đã được tạo và thêm vào hệ thống.`
       });
 
       // Redirect to the created exercise details page
@@ -129,280 +116,230 @@ export default function CreateExercisePage() {
         router.push('/dashboard/exercises');
       }
     } catch (err) {
-      toast.error('Failed to create exercise', {
-        description: err instanceof Error ? err.message : 'An unexpected error occurred while creating the exercise.'
+      toast.error('Không thể tạo bài tập', {
+        description: err instanceof Error ? err.message : 'Đã xảy ra lỗi khi tạo bài tập.'
       });
     } finally {
       setSaving(false);
     }
   };
 
+  const handleCancel = () => {
+    router.push('/dashboard/exercises');
+  };
+
   if (loading) {
     return (
-      <>
-        <header className="flex h-16 shrink-0 items-center gap-2 transition-[width,height] ease-linear group-has-data-[collapsible=icon]/sidebar-wrapper:h-12">
-          <div className="flex items-center gap-2 px-4">
-            <SidebarTrigger className="-ml-1" />
-            <Separator orientation="vertical" className="mr-2 h-4" />
-            <Breadcrumb>
-              <BreadcrumbList>
-                <BreadcrumbItem>
-                  <BreadcrumbLink href="/dashboard/exercises">Exercises</BreadcrumbLink>
-                </BreadcrumbItem>
-                <BreadcrumbSeparator />
-                <BreadcrumbItem>
-                  <BreadcrumbPage>Loading...</BreadcrumbPage>
-                </BreadcrumbItem>
-              </BreadcrumbList>
-            </Breadcrumb>
-          </div>
-        </header>
-
-        <div className="flex flex-1 flex-col gap-4 p-4 pt-0">
-          <Card>
-            <CardHeader>
-              <Skeleton className="h-8 w-1/3" />
-              <Skeleton className="h-4 w-2/3" />
-            </CardHeader>
-            <CardContent>
-              <div className="space-y-6">
-                {Array.from({ length: 6 }).map((_, i) => (
-                  <div key={i} className="space-y-2">
-                    <Skeleton className="h-4 w-24" />
-                    <Skeleton className="h-10 w-full" />
-                  </div>
-                ))}
-              </div>
+      <div className="flex flex-1 flex-col">
+        <div className="m-9 mt-9 mb-6">
+          <Card className="shadow-lg border border-[#E5E7EB] rounded-xl">
+            <CardContent className="flex items-center justify-center h-64">
+              <p>Loading categories...</p>
             </CardContent>
           </Card>
         </div>
-      </>
+      </div>
     );
   }
 
   if (error) {
     return (
-      <>
-        <header className="flex h-16 shrink-0 items-center gap-2 transition-[width,height] ease-linear group-has-data-[collapsible=icon]/sidebar-wrapper:h-12">
-          <div className="flex items-center gap-2 px-4">
-            <SidebarTrigger className="-ml-1" />
-            <Separator orientation="vertical" className="mr-2 h-4" />
-            <Breadcrumb>
-              <BreadcrumbList>
-                <BreadcrumbItem>
-                  <BreadcrumbLink href="/dashboard/exercises">Exercises</BreadcrumbLink>
-                </BreadcrumbItem>
-                <BreadcrumbSeparator />
-                <BreadcrumbItem>
-                  <BreadcrumbPage>Error</BreadcrumbPage>
-                </BreadcrumbItem>
-              </BreadcrumbList>
-            </Breadcrumb>
-          </div>
-        </header>
-
-        <div className="flex flex-1 flex-col gap-4 p-4 pt-0">
-          <Card>
-            <CardContent className="pt-6">
-              <div className="text-center py-8">
+      <div className="flex flex-1 flex-col">
+        <div className="m-9 mt-9 mb-6">
+          <Card className="shadow-lg border border-[#E5E7EB] rounded-xl">
+            <CardContent className="flex items-center justify-center h-64">
+              <div className="text-center">
                 <p className="text-red-500 mb-4">Error: {error}</p>
-                <Button onClick={() => router.push('/dashboard/exercises')}>
-                  <ArrowLeft className="mr-2 h-4 w-4" />
-                  Back to Exercises
+                <Button onClick={handleCancel}>
+                  <ArrowLeft className="w-4 h-4 mr-2" />
+                  Quay lại
                 </Button>
               </div>
             </CardContent>
           </Card>
         </div>
-      </>
+      </div>
     );
   }
 
   return (
-    <>
-      <header className="flex h-16 shrink-0 items-center gap-2 transition-[width,height] ease-linear group-has-data-[collapsible=icon]/sidebar-wrapper:h-12">
-        <div className="flex items-center gap-2 px-4">
-          <SidebarTrigger className="-ml-1" />
-          <Separator orientation="vertical" className="mr-2 h-4" />
-          <Breadcrumb>
-            <BreadcrumbList>
-              <BreadcrumbItem>
-                <BreadcrumbLink href="/dashboard/exercises">Exercises</BreadcrumbLink>
-              </BreadcrumbItem>
-              <BreadcrumbSeparator />
-              <BreadcrumbItem>
-                <BreadcrumbPage>Create Exercise</BreadcrumbPage>
-              </BreadcrumbItem>
-            </BreadcrumbList>
-          </Breadcrumb>
-        </div>
-      </header>
+    <div className="flex flex-1 flex-col">
+      {/* Back Button */}
+      <div className="m-9 mt-9 mb-6">
+        <Button
+          variant="outline"
+          onClick={handleCancel}
+          disabled={saving}
+          className="border-[#6DBAD6] text-[#6DBAD6] hover:bg-[#6DBAD6] hover:text-white px-4 py-2 rounded-md flex items-center gap-2"
+        >
+          <ArrowLeft className="w-5 h-5" />
+          Quay lại
+        </Button>
+      </div>
 
-      <div className="flex flex-1 flex-col gap-4 p-4 pt-0">
-        <div className="flex items-center gap-4 mb-6">
-          <Button
-            variant="outline"
-            onClick={() => router.push('/dashboard/exercises')}
-          >
-            <ArrowLeft className="mr-2 h-4 w-4" />
-            Back to Exercises
-          </Button>
-        </div>
+      {/* Main Content */}
+      <div className="m-9 mt-0 mb-6">
+            {/* Header Section */}
+            <div className="flex items-center justify-between mb-6">
+              <div>
+                <h1 className="text-4xl font-bold text-[#EF7F26] mb-2">Tạo bài tập</h1>
+              </div>
+            </div>
 
-        <form onSubmit={handleSubmit(onSubmit)}>
-          <Card>
-            <CardHeader>
-              <CardTitle>Create New Exercise</CardTitle>
-              <CardDescription>
-                Add a new rehabilitation exercise to the system
-              </CardDescription>
-            </CardHeader>
-            <CardContent className="space-y-6">
-              {/* Basic Information */}
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {/* Form Section */}
+            <div className="flex gap-6">
+              {/* Left Column */}
+              <div className="flex-1 space-y-6">
+                {/* Exercise Name Input */}
                 <div className="space-y-2">
-                  <Label htmlFor="title">Title *</Label>
+                  <Label htmlFor="exercise-name" className="text-base font-medium text-[#09090B]">
+                    Tên bài tập
+                  </Label>
                   <Input
-                    id="title"
-                    {...register('title', { required: 'Title is required' })}
-                    placeholder="Enter exercise title"
+                    id="exercise-name"
+                    placeholder="Tên bài tập"
+                    value={formData.title}
+                    onChange={(e) => handleInputChange('title', e.target.value)}
+                    disabled={saving}
+                    className="w-full"
                   />
-                  {errors.title && (
-                    <p className="text-sm text-red-500">{errors.title.message}</p>
-                  )}
                 </div>
 
-                <div className="space-y-2">
-                  <Label htmlFor="categoryId">Category</Label>
-                  <Select
-                    value={watch('categoryId')}
-                    onValueChange={(value) => setValue('categoryId', value)}
-                  >
-                    <SelectTrigger>
-                      <SelectValue placeholder="Select a category" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="0">No category</SelectItem>
-                      {categories.map((category) => (
-                        <SelectItem key={category.id} value={category.id?.toString() || '0'}>
-                          {category.name}
-                        </SelectItem>
-                      ))}
-                    </SelectContent>
-                  </Select>
+                {/* Category and Price Row */}
+                <div className="grid grid-cols-2 gap-6">
+                  {/* Category Select */}
+                  <div className="space-y-2">
+                    <Label htmlFor="exercise-category" className="text-base font-medium text-[#09090B]">
+                      Danh mục
+                    </Label>
+                    <Select
+                      value={formData.categoryId}
+                      onValueChange={(value) => handleInputChange('categoryId', value)}
+                      disabled={saving}
+                    >
+                      <SelectTrigger className="w-full">
+                        <SelectValue placeholder="Danh mục" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="0">Không có danh mục</SelectItem>
+                        {categories.map((category) => (
+                          <SelectItem key={category.id} value={category.id?.toString() || '0'}>
+                            {category.name}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                  </div>
+
+                  {/* Price Input */}
+                  <div className="space-y-2">
+                    <Label htmlFor="exercise-price" className="text-base font-medium text-[#09090B]">
+                      Giá
+                    </Label>
+                    <div className="relative">
+                      <Input
+                        id="exercise-price"
+                        type="number"
+                        min="0"
+                        step="1000"
+                        placeholder="100,000"
+                        value={formData.price}
+                        onChange={(e) => handleInputChange('price', e.target.value)}
+                        disabled={saving}
+                        className="w-full pr-12"
+                      />
+                      <div className="absolute right-3 top-1/2 transform -translate-y-1/2 text-[#BDBEC0]">
+                        VND
+                      </div>
+                    </div>
+                  </div>
                 </div>
-              </div>
 
-              <div className="space-y-2">
-                <Label htmlFor="description">Description</Label>
-                <Textarea
-                  id="description"
-                  rows={4}
-                  {...register('description')}
-                  placeholder="Describe the exercise..."
-                />
-              </div>
-
-              {/* Exercise Parameters */}
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                {/* Description Input */}
                 <div className="space-y-2">
-                  <Label htmlFor="durationMinutes">Duration (minutes) *</Label>
+                  <Label htmlFor="exercise-description" className="text-base font-medium text-[#09090B]">
+                    Mô tả
+                  </Label>
+                  <Textarea
+                    id="exercise-description"
+                    placeholder="Mô tả"
+                    value={formData.description}
+                    onChange={(e) => handleInputChange('description', e.target.value)}
+                    disabled={saving}
+                    className="w-full min-h-[100px] resize-none"
+                  />
+                </div>
+
+                {/* Duration Input */}
+                <div className="space-y-2">
+                  <Label htmlFor="exercise-duration" className="text-base font-medium text-[#09090B]">
+                    Thời lượng
+                  </Label>
                   <Input
-                    id="durationMinutes"
+                    id="exercise-duration"
                     type="number"
                     min="0"
-                    {...register('durationMinutes', {
-                      required: 'Duration is required',
-                      valueAsNumber: true,
-                      min: { value: 0, message: 'Duration must be positive' }
-                    })}
-                    placeholder="30"
+                    placeholder="Thời lượng (phút)"
+                    value={formData.durationMinutes}
+                    onChange={(e) => handleInputChange('durationMinutes', e.target.value)}
+                    disabled={saving}
+                    className="w-full"
                   />
-                  {errors.durationMinutes && (
-                    <p className="text-sm text-red-500">{errors.durationMinutes.message}</p>
-                  )}
                 </div>
-
               </div>
 
-              <div className="space-y-2">
-                <Label htmlFor="price">Price (VND) *</Label>
-                <Input
-                  id="price"
-                  type="number"
-                  min="0"
-                  step="1000"
-                  {...register('price', {
-                    required: 'Price is required',
-                    valueAsNumber: true,
-                    min: { value: 0, message: 'Price must be positive' }
-                  })}
-                  placeholder="50000"
-                />
-                {errors.price && (
-                  <p className="text-sm text-red-500">{errors.price.message}</p>
-                )}
-              </div>
-
-              {/* Media Upload */}
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              {/* Right Column - File Uploads */}
+              <div className="flex-1 space-y-6">
+                {/* Image Upload */}
                 <div className="space-y-2">
-                  <Label>Exercise Image *</Label>
+                  <Label className="text-base font-medium text-[#09090B]">
+                    Tải lên ảnh
+                  </Label>
                   <FileUpload
-                    onUploadComplete={(fileUrl) => setValue('imageUrl', fileUrl)}
+                    onUploadComplete={(fileUrl) => handleInputChange('imageUrl', fileUrl)}
                     acceptedTypes={['image/jpeg', 'image/png', 'image/webp']}
                     fileType="image"
                     maxFileSize={10}
                     disabled={saving}
                   />
-                  {watch('imageUrl') && (
-                    <p className="text-xs text-green-600">✓ Image uploaded successfully</p>
-                  )}
                 </div>
 
+                {/* Video Upload */}
                 <div className="space-y-2">
-                  <Label>Exercise Video *</Label>
+                  <Label className="text-base font-medium text-[#09090B]">
+                    Tải lên video
+                  </Label>
                   <FileUpload
-                    onUploadComplete={(fileUrl) => setValue('videoUrl', fileUrl)}
+                    onUploadComplete={(fileUrl) => handleInputChange('videoUrl', fileUrl)}
                     acceptedTypes={['video/mp4', 'video/webm', 'video/quicktime']}
                     fileType="video"
                     maxFileSize={100}
                     disabled={saving}
                   />
-                  {watch('videoUrl') && (
-                    <p className="text-xs text-green-600">✓ Video uploaded successfully</p>
-                  )}
                 </div>
               </div>
+            </div>
 
-              {/* Actions */}
-              <div className="flex items-center gap-4 pt-6">
-                <Button
-                  type="submit"
-                  disabled={saving}
-                  className="min-w-[120px]"
-                >
-                  {saving ? (
-                    'Creating...'
-                  ) : (
-                    <>
-                      <Save className="mr-2 h-4 w-4" />
-                      Create Exercise
-                    </>
-                  )}
-                </Button>
-                <Button
-                  type="button"
-                  variant="outline"
-                  onClick={() => router.push('/dashboard/exercises')}
-                >
-                  Cancel
-                </Button>
-              </div>
-            </CardContent>
-          </Card>
-        </form>
+            {/* Action Buttons */}
+            <div className="flex gap-3 pt-6">
+              <Button
+                onClick={handleSubmit}
+                disabled={saving}
+                className="bg-[#6DBAD6] text-white px-4 py-2 rounded-md flex items-center gap-2 shadow-sm hover:bg-[#6DBAD6]/90"
+              >
+                <Save className="w-5 h-5" />
+                {saving ? 'Đang lưu...' : 'Tạo bài tập'}
+              </Button>
+              <Button
+                variant="outline"
+                onClick={handleCancel}
+                disabled={saving}
+                className="border-[#6DBAD6] text-[#6DBAD6] hover:bg-[#6DBAD6] hover:text-white px-4 py-2 rounded-md"
+              >
+                Huỷ
+              </Button>
+            </div>
       </div>
-    </>
+    </div>
   );
 }

@@ -8,7 +8,6 @@ import {
   useReactTable,
 } from '@tanstack/react-table';
 import { Button } from '@/components/ui/button';
-import { Card, CardContent } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import {
   Select,
@@ -195,10 +194,8 @@ export default function CategoriesPage() {
 
   return (
     <div className="flex flex-1 flex-col">
-      {/* Main Content Card */}
+      {/* Main Content */}
       <div className="m-9 mt-9 mb-6">
-        <Card className="shadow-lg border border-[#E5E7EB] rounded-xl">
-          <CardContent>
             {/* Header Section */}
             <div className="flex items-center justify-between mb-6">
               <div>
@@ -363,8 +360,6 @@ export default function CategoriesPage() {
                 </Button>
               </div>
             </div>
-          </CardContent>
-        </Card>
       </div>
     </div>
   );
