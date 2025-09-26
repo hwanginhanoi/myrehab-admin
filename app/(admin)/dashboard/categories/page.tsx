@@ -39,6 +39,24 @@ import { toast } from 'sonner';
 
 const columnHelper = createColumnHelper<CategoryResponse>();
 
+// Vietnamese translations for category types
+const getCategoryTypeLabel = (type?: string): string => {
+  switch (type) {
+    case 'BODY_PART':
+      return 'Vùng cơ thể';
+    case 'RECOVERY_STAGE':
+      return 'Giai đoạn phục hồi';
+    case 'HEALTH_CONDITION':
+      return 'Tình trạng sức khỏe';
+    case 'DIFFICULTY_LEVEL':
+      return 'Mức độ khó';
+    case 'EXERCISE_TYPE':
+      return 'Loại bài tập';
+    default:
+      return 'Không xác định';
+  }
+};
+
 export default function CategoriesPage() {
   const router = useRouter();
   const [categories, setCategories] = useState<CategoryResponse[]>([]);
@@ -111,10 +129,10 @@ export default function CategoriesPage() {
       header: 'Type',
       cell: (info) => {
         const type = info.getValue();
-        return type ? (
-          <span className="px-2 py-1 bg-gray-100 rounded-md text-sm">{type}</span>
-        ) : (
-          '-'
+        return (
+          <span className="px-2 py-1 bg-gray-100 rounded-md text-sm">
+            {getCategoryTypeLabel(type)}
+          </span>
         );
       },
     }),
@@ -211,9 +229,11 @@ export default function CategoriesPage() {
                     <SelectValue placeholder="Phân loại" />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="exercise">Vùng cơ thể</SelectItem>
-                    <SelectItem value="course">Mục tiêu</SelectItem>
-                    <SelectItem value="goal">Nhóm bệnh lý</SelectItem>
+                    <SelectItem value="BODY_PART">Vùng cơ thể</SelectItem>
+                    <SelectItem value="RECOVERY_STAGE">Giai đoạn phục hồi</SelectItem>
+                    <SelectItem value="HEALTH_CONDITION">Tình trạng sức khỏe</SelectItem>
+                    <SelectItem value="DIFFICULTY_LEVEL">Mức độ khó</SelectItem>
+                    <SelectItem value="EXERCISE_TYPE">Loại bài tập</SelectItem>
                   </SelectContent>
                 </Select>
               </div>
@@ -259,7 +279,7 @@ export default function CategoriesPage() {
                               {category.name}
                             </TableCell>
                             <TableCell>
-                              {category.type || 'Vùng cơ thể'}
+                              {getCategoryTypeLabel(category.type)}
                             </TableCell>
                             <TableCell>
                               <DropdownMenu>

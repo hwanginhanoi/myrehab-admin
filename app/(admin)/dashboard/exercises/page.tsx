@@ -4,18 +4,19 @@ import { useEffect, useState, useCallback } from 'react';
 import { useRouter } from 'next/navigation';
 import {
   createColumnHelper,
-  flexRender,
   getCoreRowModel,
   useReactTable,
 } from '@tanstack/react-table';
+import { Button } from '@/components/ui/button';
+import { Card, CardContent } from '@/components/ui/card';
+import { Input } from '@/components/ui/input';
 import {
-  Breadcrumb,
-  BreadcrumbItem,
-  BreadcrumbList,
-  BreadcrumbPage,
-} from '@/components/ui/breadcrumb';
-import { Separator } from '@/components/ui/separator';
-import { SidebarTrigger } from '@/components/ui/sidebar';
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select';
 import {
   Table,
   TableBody,
@@ -24,26 +25,24 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table';
-import { Badge } from '@/components/ui/badge';
-import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import {
-  Dialog,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-} from '@/components/ui/dialog';
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
-import { MoreHorizontal, Eye, Edit, Plus } from 'lucide-react';
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+} from '@/components/ui/dialog';
+import { MoreHorizontal, Eye, Edit, Plus, Search } from 'lucide-react';
 import Image from 'next/image';
 import { getAllExercisesPaginated } from '@/api/api/exerciseManagementController/getAllExercisesPaginated';
 import { ExerciseResponse } from '@/api/types/ExerciseResponse';
 import { PageExerciseResponse } from '@/api/types/PageExerciseResponse';
+import { toast } from 'sonner';
 
 const columnHelper = createColumnHelper<ExerciseResponse>();
 
@@ -77,7 +76,11 @@ export default function ExercisesPage() {
       setPageData(data);
       setExercises(data.content || []);
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'Failed to fetch exercises');
+      const errorMessage = err instanceof Error ? err.message : 'Failed to fetch exercises';
+      setError(errorMessage);
+      toast.error('Failed to load exercises', {
+        description: errorMessage,
+      });
     } finally {
       setLoading(false);
     }
@@ -100,126 +103,6 @@ export default function ExercisesPage() {
     return new Date(dateString).toLocaleDateString('vi-VN');
   };
 
-  const columns = [
-    columnHelper.accessor('id', {
-      header: 'ID',
-      cell: (info) => (
-        <span className="font-medium">{info.getValue()}</span>
-      ),
-    }),
-    columnHelper.accessor('imageUrl', {
-      header: 'Image',
-      cell: (info) => {
-        const exercise = info.row.original;
-        return exercise.imageUrl ? (
-          <div
-            className="relative w-24 h-16 rounded-md overflow-hidden bg-muted cursor-pointer hover:opacity-80 transition-opacity"
-            onClick={() => setSelectedImage({
-              url: exercise.imageUrl!,
-              title: exercise.title || 'Exercise image'
-            })}
-          >
-            <Image
-              src={exercise.imageUrl}
-              alt={exercise.title || 'Exercise image'}
-              fill
-              className="object-cover"
-              sizes="96px"
-            />
-            <div className="absolute inset-0 bg-black/0 hover:bg-black/20 transition-colors flex items-center justify-center">
-              <Eye className="h-4 w-4 text-white opacity-0 hover:opacity-100 transition-opacity" />
-            </div>
-          </div>
-        ) : (
-          <div className="w-24 h-16 rounded-md bg-muted flex items-center justify-center">
-            <span className="text-xs text-muted-foreground">No image</span>
-          </div>
-        );
-      },
-    }),
-    columnHelper.accessor('title', {
-      header: 'Title',
-      cell: (info) => {
-        const exercise = info.row.original;
-        return (
-          <div>
-            <div className="font-medium">{info.getValue()}</div>
-            {exercise.description && (
-              <div className="text-sm text-muted-foreground truncate max-w-xs">
-                {exercise.description}
-              </div>
-            )}
-          </div>
-        );
-      },
-    }),
-    columnHelper.accessor('category.name', {
-      header: 'Category',
-      cell: (info) => {
-        const categoryName = info.getValue();
-        return categoryName ? (
-          <Badge variant="outline">{categoryName}</Badge>
-        ) : (
-          '-'
-        );
-      },
-    }),
-    columnHelper.accessor('durationMinutes', {
-      header: 'Duration',
-      cell: (info) => {
-        const duration = info.getValue();
-        return duration ? `${duration} min` : '-';
-      },
-    }),
-    columnHelper.accessor('price', {
-      header: 'Price',
-      cell: (info) => formatCurrency(info.getValue()),
-    }),
-    columnHelper.accessor('createdAt', {
-      header: 'Created',
-      cell: (info) => formatDate(info.getValue()),
-    }),
-    columnHelper.display({
-      id: 'actions',
-      header: 'Actions',
-      cell: (info) => {
-        const exercise = info.row.original;
-        return (
-          <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-              <Button variant="ghost" className="h-8 w-8 p-0">
-                <span className="sr-only">Open menu</span>
-                <MoreHorizontal className="h-4 w-4" />
-              </Button>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent align="end">
-              <DropdownMenuItem
-                onClick={() => {
-                  if (exercise.id) {
-                    router.push(`/dashboard/exercises/${exercise.id}`);
-                  }
-                }}
-              >
-                <Eye className="mr-2 h-4 w-4" />
-                View details
-              </DropdownMenuItem>
-              <DropdownMenuItem
-                onClick={() => {
-                  if (exercise.id) {
-                    router.push(`/dashboard/exercises/${exercise.id}/edit`);
-                  }
-                }}
-              >
-                <Edit className="mr-2 h-4 w-4" />
-                Edit exercise
-              </DropdownMenuItem>
-            </DropdownMenuContent>
-          </DropdownMenu>
-        );
-      },
-    }),
-  ];
-
   const table = useReactTable({
     data: exercises,
     columns,
@@ -233,130 +116,213 @@ export default function ExercisesPage() {
   });
 
   return (
-    <>
-      <header className="flex h-16 shrink-0 items-center gap-2 transition-[width,height] ease-linear group-has-data-[collapsible=icon]/sidebar-wrapper:h-12">
-        <div className="flex items-center gap-2 px-4">
-          <SidebarTrigger className="-ml-1" />
-          <Separator orientation="vertical" className="mr-2 h-4" />
-          <Breadcrumb>
-            <BreadcrumbList>
-              <BreadcrumbItem>
-                <BreadcrumbPage>Exercises</BreadcrumbPage>
-              </BreadcrumbItem>
-            </BreadcrumbList>
-          </Breadcrumb>
-        </div>
-      </header>
-
-      <div className="flex flex-1 flex-col gap-4 p-4 pt-0">
-        <Card>
-          <CardHeader>
-            <div className="flex items-center justify-between">
+    <div className="flex flex-1 flex-col">
+      {/* Main Content Card */}
+      <div className="m-9 mt-9 mb-6">
+        <Card className="shadow-lg border border-[#E5E7EB] rounded-xl">
+          <CardContent>
+            {/* Header Section */}
+            <div className="flex items-center justify-between mb-6">
               <div>
-                <CardTitle>Exercise Management</CardTitle>
-                <CardDescription>
-                  Manage rehabilitation exercises and their details
-                </CardDescription>
+                <h1 className="text-4xl font-bold text-[#EF7F26] mb-2">Bài tập</h1>
+                <p className="text-base text-[#71717A]">Quản lý các bài tập phục hồi chức năng</p>
               </div>
-              <Button onClick={() => router.push('/dashboard/exercises/create')}>
-                <Plus className="mr-2 h-4 w-4" />
-                Create Exercise
+              <Button
+                className="bg-[#6DBAD6] text-white px-4 py-2 rounded-md flex items-center gap-2 shadow-sm hover:bg-[#6DBAD6]/90"
+                onClick={() => router.push('/dashboard/exercises/create')}
+              >
+                <Plus className="w-5 h-5" />
+                Bài tập mới
               </Button>
             </div>
-          </CardHeader>
-          <CardContent>
-            {loading ? (
-              <div className="flex items-center justify-center h-32">
-                <p>Loading exercises...</p>
-              </div>
-            ) : error ? (
-              <div className="flex items-center justify-center h-32">
-                <p className="text-red-500">Error: {error}</p>
-              </div>
-            ) : (
-              <div className="space-y-4">
-                {/* Table */}
-                <div className="rounded-md border">
-                  <Table>
-                    <TableHeader>
-                      {table.getHeaderGroups().map((headerGroup) => (
-                        <TableRow key={headerGroup.id}>
-                          {headerGroup.headers.map((header) => (
-                            <TableHead key={header.id}>
-                              {header.isPlaceholder ? null : (
-                                flexRender(
-                                  header.column.columnDef.header,
-                                  header.getContext()
-                                )
-                              )}
-                            </TableHead>
-                          ))}
-                        </TableRow>
-                      ))}
-                    </TableHeader>
-                    <TableBody>
-                      {table.getRowModel().rows?.length ? (
-                        table.getRowModel().rows.map((row) => (
-                          <TableRow
-                            key={row.id}
-                            data-state={row.getIsSelected() && 'selected'}
-                          >
-                            {row.getVisibleCells().map((cell) => (
-                              <TableCell key={cell.id}>
-                                {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                              </TableCell>
-                            ))}
-                          </TableRow>
-                        ))
-                      ) : (
-                        <TableRow>
-                          <TableCell
-                            colSpan={columns.length}
-                            className="h-24 text-center"
-                          >
-                            No results.
-                          </TableCell>
-                        </TableRow>
-                      )}
-                    </TableBody>
-                  </Table>
-                </div>
 
-                {/* Pagination */}
-                <div className="flex items-center justify-between space-x-2 py-4">
-                  <div className="flex-1 text-sm text-muted-foreground">
-                    {pageData && (
-                      <>
-                        Showing {pagination.pageIndex * pagination.pageSize + 1} to{' '}
-                        {Math.min(
-                          (pagination.pageIndex + 1) * pagination.pageSize,
-                          pageData.totalElements || 0
-                        )}{' '}
-                        of {pageData.totalElements || 0} entries
-                      </>
-                    )}
-                  </div>
-                  <div className="flex items-center space-x-2">
-                    <Button
-                      variant="outline"
-                      size="sm"
-                      onClick={() => table.previousPage()}
-                      disabled={!table.getCanPreviousPage()}
-                    >
-                      Previous
-                    </Button>
-                    <Button
-                      variant="outline"
-                      size="sm"
-                      onClick={() => table.nextPage()}
-                      disabled={!table.getCanNextPage()}
-                    >
-                      Next
-                    </Button>
-                  </div>
-                </div>
+            {/* Search and Filter Section */}
+            <div className="flex items-center gap-4 mb-6">
+              <div className="flex-1 max-w-md">
+                <Input
+                  type="text"
+                  placeholder="Tìm kiếm bài tập..."
+                  className="w-full"
+                />
               </div>
-            )}
+              <div className="w-48">
+                <Select>
+                  <SelectTrigger className="w-full">
+                    <SelectValue placeholder="Danh mục" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="all">Tất cả danh mục</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+              <Button
+                variant="outline"
+                className="border-[#6DBAD6] text-[#6DBAD6] hover:bg-[#6DBAD6] hover:text-white px-4 py-2 rounded-md flex items-center gap-2"
+              >
+                <Search className="w-5 h-5" />
+                Tìm kiếm
+              </Button>
+            </div>
+
+            {/* Table */}
+            <div className="rounded-md border">
+              {loading ? (
+                <div className="flex items-center justify-center h-32">
+                  <p>Loading exercises...</p>
+                </div>
+              ) : error ? (
+                <div className="flex items-center justify-center h-32">
+                  <p className="text-red-500">Error: {error}</p>
+                </div>
+              ) : (
+                <Table>
+                  <TableHeader>
+                    <TableRow>
+                      <TableHead className="w-24 text-[#6DBAD6] font-bold">STT</TableHead>
+                      <TableHead className="w-32 text-[#6DBAD6] font-bold">Hình ảnh</TableHead>
+                      <TableHead className="w-96 text-[#6DBAD6] font-bold">Bài tập</TableHead>
+                      <TableHead className="w-44 text-[#6DBAD6] font-bold">Danh mục</TableHead>
+                      <TableHead className="w-32 text-[#6DBAD6] font-bold">Thời lượng</TableHead>
+                      <TableHead className="w-32 text-[#6DBAD6] font-bold">Giá</TableHead>
+                      <TableHead className="w-44 text-[#6DBAD6] font-bold">Tác vụ</TableHead>
+                    </TableRow>
+                  </TableHeader>
+                  <TableBody>
+                    {table.getRowModel().rows?.length ? (
+                      table.getRowModel().rows.map((row, index) => {
+                        const exercise = row.original;
+                        return (
+                          <TableRow key={row.id}>
+                            <TableCell>
+                              {pagination.pageIndex * pagination.pageSize + index + 1}
+                            </TableCell>
+                            <TableCell>
+                              {exercise.imageUrl ? (
+                                <div
+                                  className="relative w-24 h-16 rounded-md overflow-hidden bg-muted cursor-pointer hover:opacity-80 transition-opacity"
+                                  onClick={() => setSelectedImage({
+                                    url: exercise.imageUrl!,
+                                    title: exercise.title || 'Exercise image'
+                                  })}
+                                >
+                                  <Image
+                                    src={exercise.imageUrl}
+                                    alt={exercise.title || 'Exercise image'}
+                                    fill
+                                    className="object-cover"
+                                    sizes="96px"
+                                  />
+                                  <div className="absolute inset-0 bg-black/0 hover:bg-black/20 transition-colors flex items-center justify-center">
+                                    <Eye className="h-4 w-4 text-white opacity-0 hover:opacity-100 transition-opacity" />
+                                  </div>
+                                </div>
+                              ) : (
+                                <div className="w-24 h-16 rounded-md bg-muted flex items-center justify-center">
+                                  <span className="text-xs text-muted-foreground">No image</span>
+                                </div>
+                              )}
+                            </TableCell>
+                            <TableCell>
+                              <div>
+                                <div className="font-medium">{exercise.title}</div>
+                                {exercise.description && (
+                                  <div className="text-sm text-muted-foreground truncate max-w-xs">
+                                    {exercise.description}
+                                  </div>
+                                )}
+                              </div>
+                            </TableCell>
+                            <TableCell>
+                              {exercise.category?.name || '-'}
+                            </TableCell>
+                            <TableCell>
+                              {exercise.durationMinutes ? `${exercise.durationMinutes} phút` : '-'}
+                            </TableCell>
+                            <TableCell>
+                              {formatCurrency(exercise.price)}
+                            </TableCell>
+                            <TableCell>
+                              <DropdownMenu>
+                                <DropdownMenuTrigger asChild>
+                                  <Button variant="ghost" className="h-8 w-8 p-0">
+                                    <MoreHorizontal className="h-4 w-4" />
+                                  </Button>
+                                </DropdownMenuTrigger>
+                                <DropdownMenuContent align="end">
+                                  <DropdownMenuItem
+                                    onClick={() => {
+                                      if (exercise.id) {
+                                        router.push(`/dashboard/exercises/${exercise.id}`);
+                                      }
+                                    }}
+                                  >
+                                    <Eye className="mr-2 h-4 w-4" />
+                                    View details
+                                  </DropdownMenuItem>
+                                  <DropdownMenuItem
+                                    onClick={() => {
+                                      if (exercise.id) {
+                                        router.push(`/dashboard/exercises/${exercise.id}/edit`);
+                                      }
+                                    }}
+                                  >
+                                    <Edit className="mr-2 h-4 w-4" />
+                                    Edit exercise
+                                  </DropdownMenuItem>
+                                </DropdownMenuContent>
+                              </DropdownMenu>
+                            </TableCell>
+                          </TableRow>
+                        );
+                      })
+                    ) : (
+                      <TableRow>
+                        <TableCell colSpan={7} className="h-24 text-center">
+                          No results.
+                        </TableCell>
+                      </TableRow>
+                    )}
+                  </TableBody>
+                </Table>
+              )}
+            </div>
+
+            {/* Footer with Pagination */}
+            <div className="flex items-center justify-between pt-4 mt-4 border-t-0">
+              <div className="text-base text-[#71717A]">
+                {pageData && (
+                  <>
+                    Hiển thị <span className="font-bold">{Math.min(
+                      pagination.pageIndex * pagination.pageSize + 1,
+                      pageData.totalElements || 0
+                    )}-{Math.min(
+                      (pagination.pageIndex + 1) * pagination.pageSize,
+                      pageData.totalElements || 0
+                    )}/{pageData.totalElements || 0}</span> bài tập
+                  </>
+                )}
+              </div>
+              <div className="flex items-center gap-2">
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={() => table.previousPage()}
+                  disabled={!table.getCanPreviousPage()}
+                  className="text-xs border-[#6DBAD6] text-[#09090B] hover:bg-[#6DBAD6] hover:text-white disabled:opacity-50 disabled:cursor-not-allowed"
+                >
+                  Trang trước
+                </Button>
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={() => table.nextPage()}
+                  disabled={!table.getCanNextPage()}
+                  className="text-xs border-[#6DBAD6] text-[#09090B] hover:bg-[#6DBAD6] hover:text-white disabled:opacity-50 disabled:cursor-not-allowed"
+                >
+                  Trang sau
+                </Button>
+              </div>
+            </div>
           </CardContent>
         </Card>
       </div>
@@ -380,6 +346,6 @@ export default function ExercisesPage() {
           )}
         </DialogContent>
       </Dialog>
-    </>
+    </div>
   );
 }
