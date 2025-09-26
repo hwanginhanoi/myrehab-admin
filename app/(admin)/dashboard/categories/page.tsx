@@ -9,6 +9,22 @@ import {
 } from '@tanstack/react-table';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
+import { Input } from '@/components/ui/input';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select';
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from '@/components/ui/table';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -164,7 +180,7 @@ export default function CategoriesPage() {
       {/* Main Content Card */}
       <div className="m-9 mt-9 mb-6">
         <Card className="shadow-lg border border-[#E5E7EB] rounded-xl">
-          <CardContent className="p-6">
+          <CardContent>
             {/* Header Section */}
             <div className="flex items-center justify-between mb-6">
               <div>
@@ -183,21 +199,23 @@ export default function CategoriesPage() {
             {/* Search and Filter Section */}
             <div className="flex items-center gap-4 mb-6">
               <div className="flex-1 max-w-md">
-                <div className="relative">
-                  <input
-                    type="text"
-                    placeholder="Tìm kiếm danh mục..."
-                    className="w-full px-3 py-2 border border-[#E4E4E7] rounded-md shadow-sm text-base text-[#71717A] placeholder:text-[#71717A] focus:outline-none focus:ring-2 focus:ring-[#6DBAD6] focus:border-[#6DBAD6]"
-                  />
-                </div>
+                <Input
+                  type="text"
+                  placeholder="Tìm kiếm danh mục..."
+                  className="w-full"
+                />
               </div>
               <div className="w-48">
-                <select className="w-full px-3 py-2 border border-[#E4E4E7] rounded-lg shadow-sm text-base text-[#09090B] focus:outline-none focus:ring-2 focus:ring-[#6DBAD6] focus:border-[#6DBAD6]">
-                  <option value="">Phân loại</option>
-                  <option value="exercise">Vùng cơ thể</option>
-                  <option value="course">Mục tiêu</option>
-                  <option value="goal">Nhóm bệnh lý</option>
-                </select>
+                <Select>
+                  <SelectTrigger className="w-full">
+                    <SelectValue placeholder="Phân loại" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="exercise">Vùng cơ thể</SelectItem>
+                    <SelectItem value="course">Mục tiêu</SelectItem>
+                    <SelectItem value="goal">Nhóm bệnh lý</SelectItem>
+                  </SelectContent>
+                </Select>
               </div>
               <Button
                 variant="outline"
@@ -209,86 +227,84 @@ export default function CategoriesPage() {
             </div>
 
             {/* Table */}
-            <div className="border border-[#E4E4E7] rounded-md overflow-hidden">
-              <div className="overflow-x-auto">
-                {loading ? (
-                  <div className="flex items-center justify-center h-32">
-                    <p>Loading categories...</p>
-                  </div>
-                ) : error ? (
-                  <div className="flex items-center justify-center h-32">
-                    <p className="text-red-500">Error: {error}</p>
-                  </div>
-                ) : (
-                  <table className="w-full">
-                    <thead className="bg-white border-b border-[#E4E4E7]">
-                      <tr>
-                        <th className="px-2 py-3 text-left text-base font-medium text-[#6DBAD6] w-24">STT</th>
-                        <th className="px-2 py-3 text-left text-base font-medium text-[#6DBAD6] w-96">Danh mục</th>
-                        <th className="px-2 py-3 text-left text-base font-medium text-[#6DBAD6] w-44">Phân loại</th>
-                        <th className="px-2 py-3 text-left text-base font-medium text-[#6DBAD6] w-44">Tác vụ</th>
-                      </tr>
-                    </thead>
-                    <tbody className="bg-white divide-y divide-[#E4E4E7]">
-                      {table.getRowModel().rows?.length ? (
-                        table.getRowModel().rows.map((row, index) => {
-                          const category = row.original;
-                          return (
-                            <tr key={row.id} className="hover:bg-gray-50">
-                              <td className="px-2 py-4 text-base text-[#09090B]">
-                                {pagination.pageIndex * pagination.pageSize + index + 1}
-                              </td>
-                              <td className="px-2 py-4 text-base text-[#09090B]">
-                                {category.name}
-                              </td>
-                              <td className="px-2 py-4 text-base text-[#09090B]">
-                                {category.type || 'Vùng cơ thể'}
-                              </td>
-                              <td className="px-2 py-4">
-                                <DropdownMenu>
-                                  <DropdownMenuTrigger asChild>
-                                    <Button variant="ghost" className="h-8 w-8 p-0">
-                                      <MoreHorizontal className="h-4 w-4 text-[#09090B]" />
-                                    </Button>
-                                  </DropdownMenuTrigger>
-                                  <DropdownMenuContent align="end">
-                                    <DropdownMenuItem
-                                      onClick={() => {
-                                        if (category.id) {
-                                          router.push(`/dashboard/categories/${category.id}`);
-                                        }
-                                      }}
-                                    >
-                                      <Eye className="mr-2 h-4 w-4" />
-                                      View details
-                                    </DropdownMenuItem>
-                                    <DropdownMenuItem
-                                      onClick={() => {
-                                        if (category.id) {
-                                          router.push(`/dashboard/categories/${category.id}/edit`);
-                                        }
-                                      }}
-                                    >
-                                      <Edit className="mr-2 h-4 w-4" />
-                                      Edit category
-                                    </DropdownMenuItem>
-                                  </DropdownMenuContent>
-                                </DropdownMenu>
-                              </td>
-                            </tr>
-                          );
-                        })
-                      ) : (
-                        <tr>
-                          <td colSpan={4} className="px-2 py-12 text-center text-base text-[#71717A]">
-                            No results.
-                          </td>
-                        </tr>
-                      )}
-                    </tbody>
-                  </table>
-                )}
-              </div>
+            <div className="rounded-md border">
+              {loading ? (
+                <div className="flex items-center justify-center h-32">
+                  <p>Loading categories...</p>
+                </div>
+              ) : error ? (
+                <div className="flex items-center justify-center h-32">
+                  <p className="text-red-500">Error: {error}</p>
+                </div>
+              ) : (
+                <Table>
+                  <TableHeader>
+                    <TableRow>
+                      <TableHead className="w-24 text-[#6DBAD6] font-bold">STT</TableHead>
+                      <TableHead className="w-96 text-[#6DBAD6] font-bold">Danh mục</TableHead>
+                      <TableHead className="w-44 text-[#6DBAD6] font-bold">Phân loại</TableHead>
+                      <TableHead className="w-44 text-[#6DBAD6] font-bold">Tác vụ</TableHead>
+                    </TableRow>
+                  </TableHeader>
+                  <TableBody>
+                    {table.getRowModel().rows?.length ? (
+                      table.getRowModel().rows.map((row, index) => {
+                        const category = row.original;
+                        return (
+                          <TableRow key={row.id}>
+                            <TableCell>
+                              {pagination.pageIndex * pagination.pageSize + index + 1}
+                            </TableCell>
+                            <TableCell className="font-medium">
+                              {category.name}
+                            </TableCell>
+                            <TableCell>
+                              {category.type || 'Vùng cơ thể'}
+                            </TableCell>
+                            <TableCell>
+                              <DropdownMenu>
+                                <DropdownMenuTrigger asChild>
+                                  <Button variant="ghost" className="h-8 w-8 p-0">
+                                    <MoreHorizontal className="h-4 w-4" />
+                                  </Button>
+                                </DropdownMenuTrigger>
+                                <DropdownMenuContent align="end">
+                                  <DropdownMenuItem
+                                    onClick={() => {
+                                      if (category.id) {
+                                        router.push(`/dashboard/categories/${category.id}`);
+                                      }
+                                    }}
+                                  >
+                                    <Eye className="mr-2 h-4 w-4" />
+                                    View details
+                                  </DropdownMenuItem>
+                                  <DropdownMenuItem
+                                    onClick={() => {
+                                      if (category.id) {
+                                        router.push(`/dashboard/categories/${category.id}/edit`);
+                                      }
+                                    }}
+                                  >
+                                    <Edit className="mr-2 h-4 w-4" />
+                                    Edit category
+                                  </DropdownMenuItem>
+                                </DropdownMenuContent>
+                              </DropdownMenu>
+                            </TableCell>
+                          </TableRow>
+                        );
+                      })
+                    ) : (
+                      <TableRow>
+                        <TableCell colSpan={4} className="h-24 text-center">
+                          No results.
+                        </TableCell>
+                      </TableRow>
+                    )}
+                  </TableBody>
+                </Table>
+              )}
             </div>
 
             {/* Footer with Pagination */}
@@ -296,13 +312,13 @@ export default function CategoriesPage() {
               <div className="text-base text-[#71717A]">
                 {pageData && (
                   <>
-                    Hiển thị {Math.min(
+                    Hiển thị <span className="font-bold">{Math.min(
                       pagination.pageIndex * pagination.pageSize + 1,
                       pageData.totalElements || 0
                     )}-{Math.min(
                       (pagination.pageIndex + 1) * pagination.pageSize,
                       pageData.totalElements || 0
-                    )}/{pageData.totalElements || 0} danh mục
+                    )}/{pageData.totalElements || 0}</span> danh mục
                   </>
                 )}
               </div>
@@ -312,7 +328,7 @@ export default function CategoriesPage() {
                   size="sm"
                   onClick={() => table.previousPage()}
                   disabled={!table.getCanPreviousPage()}
-                  className="text-xs border-[#6DBAD6] text-[#09090B] hover:bg-[#6DBAD6] hover:text-white opacity-50"
+                  className="text-xs border-[#6DBAD6] text-[#09090B] hover:bg-[#6DBAD6] hover:text-white disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                   Trang trước
                 </Button>
@@ -321,7 +337,7 @@ export default function CategoriesPage() {
                   size="sm"
                   onClick={() => table.nextPage()}
                   disabled={!table.getCanNextPage()}
-                  className="text-xs border-[#6DBAD6] text-[#09090B] hover:bg-[#6DBAD6] hover:text-white opacity-50"
+                  className="text-xs border-[#6DBAD6] text-[#09090B] hover:bg-[#6DBAD6] hover:text-white disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                   Trang sau
                 </Button>

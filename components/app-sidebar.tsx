@@ -93,7 +93,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   }
 
   return (
-    <Sidebar collapsible="icon" {...props} className="border-r-0">
+    <Sidebar {...props} className="border-r-0">
       <div className="flex flex-col h-full bg-sidebar border-r border-sidebar-border">
         <SidebarHeader className="border-b-0 p-0">
           <TeamSwitcher teams={data.teams} />
@@ -105,7 +105,6 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
           <NavUserBottom />
         </SidebarFooter>
       </div>
-      <SidebarRail />
     </Sidebar>
   )
 }
