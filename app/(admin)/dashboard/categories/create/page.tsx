@@ -15,12 +15,15 @@ import {
 } from '@/components/ui/select';
 import { ArrowLeft, Save } from 'lucide-react';
 import { toast } from 'sonner';
+import { createCategory } from '@/api/api/categoryManagementController';
+import type { CreateCategoryRequest } from '@/api/types/CreateCategoryRequest';
 
 export default function CreateCategoryPage() {
   const router = useRouter();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [formData, setFormData] = useState({
     name: '',
+    description: '',
     type: '',
   });
 
@@ -44,12 +47,18 @@ export default function CreateCategoryPage() {
 
     setIsSubmitting(true);
     try {
-      // TODO: Implement API call to create category
-      // await createCategory(formData);
+      const requestData: CreateCategoryRequest = {
+        name: formData.name.trim(),
+        description: formData.description.trim() || undefined,
+        type: formData.type as CreateCategoryRequest['type'],
+      };
+
+      await createCategory(requestData);
 
       toast.success('Tạo danh mục thành công');
       router.push('/dashboard/categories');
-    } catch {
+    } catch (error) {
+      console.error('Error creating category:', error);
       toast.error('Có lỗi xảy ra khi tạo danh mục');
     } finally {
       setIsSubmitting(false);
@@ -109,12 +118,28 @@ export default function CreateCategoryPage() {
                       <SelectValue placeholder="Chọn phân loại" />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="exercise">Vùng cơ thể</SelectItem>
-                      <SelectItem value="course">Mục tiêu</SelectItem>
-                      <SelectItem value="goal">Nhóm bệnh lý</SelectItem>
+                      <SelectItem value="BODY_PART">Vùng cơ thể</SelectItem>
+                      <SelectItem value="RECOVERY_STAGE">Giai đoạn phục hồi</SelectItem>
+                      <SelectItem value="HEALTH_CONDITION">Tình trạng sức khỏe</SelectItem>
+                      <SelectItem value="DIFFICULTY_LEVEL">Mức độ khó</SelectItem>
+                      <SelectItem value="EXERCISE_TYPE">Loại bài tập</SelectItem>
                     </SelectContent>
                   </Select>
                 </div>
+              </div>
+
+              {/* Category Description Input */}
+              <div className="space-y-2">
+                <Label htmlFor="category-description" className="text-sm font-medium">
+                  Mô tả
+                </Label>
+                <Input
+                  id="category-description"
+                  placeholder="Nhập mô tả danh mục (tùy chọn)"
+                  value={formData.description}
+                  onChange={(e) => handleInputChange('description', e.target.value)}
+                  className="w-full"
+                />
               </div>
 
               {/* Action Buttons */}
