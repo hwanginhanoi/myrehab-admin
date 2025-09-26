@@ -255,7 +255,7 @@ export default function CategoriesPage() {
                             <TableCell>
                               {pagination.pageIndex * pagination.pageSize + index + 1}
                             </TableCell>
-                            <TableCell className="font-medium">
+                            <TableCell>
                               {category.name}
                             </TableCell>
                             <TableCell>
