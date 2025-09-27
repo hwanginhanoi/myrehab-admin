@@ -106,6 +106,10 @@ export default function CreateCoursePage() {
     router.push('/dashboard/courses');
   };
 
+  const handleBack = () => {
+    router.push('/dashboard/courses');
+  };
+
   if (loading) {
     return (
       <div className="flex flex-1 flex-col">
@@ -138,24 +142,42 @@ export default function CreateCoursePage() {
 
   return (
     <div className="flex flex-1 flex-col">
-      {/* Back Button */}
-      <div className="m-9 mt-9 mb-6">
-        <Button
-          variant="outline"
-          onClick={handleCancel}
-          disabled={saving}
-          className="border-[#6DBAD6] text-[#6DBAD6] hover:bg-[#6DBAD6] hover:text-white px-4 py-2 rounded-md flex items-center gap-2"
-        >
-          <ArrowLeft className="w-5 h-5" />
-          Quay lại
-        </Button>
-      </div>
-
       {/* Main Content */}
-      <div className="m-9 mt-0 mb-6">
+      <div className="m-9 mt-9 mb-6">
         {/* Header Section */}
         <div className="flex items-center justify-between mb-4">
-          <h1 className="text-4xl font-bold text-[#EF7F26] mb-2">Tạo lộ trình</h1>
+          <div>
+            <h1 className="text-4xl font-bold text-[#EF7F26] mb-2">Tạo lộ trình</h1>
+          </div>
+          <div className="flex items-center gap-3">
+            <Button
+              type="button"
+              variant="outline"
+              onClick={handleBack}
+              disabled={saving}
+              className="border-[#6DBAD6] text-[#6DBAD6] hover:bg-[#6DBAD6] hover:text-white px-4 py-2 rounded-md flex items-center gap-2"
+            >
+              <ArrowLeft className="w-4 h-4" />
+              Trang trước
+            </Button>
+            <Button
+              type="button"
+              variant="outline"
+              onClick={handleCancel}
+              disabled={saving}
+              className="border-gray-300 text-gray-700 hover:bg-gray-50 px-4 py-2 rounded-md"
+            >
+              Hủy
+            </Button>
+            <Button
+              type="button"
+              onClick={handleSubmit(onSubmit)}
+              disabled={saving}
+              className="bg-[#6DBAD6] text-white hover:bg-[#6DBAD6]/90 px-4 py-2 rounded-md flex items-center gap-2"
+            >
+              {saving ? 'Đang lưu...' : 'Tiếp theo'}
+            </Button>
+          </div>
         </div>
 
         {/* Form Section */}
@@ -303,25 +325,6 @@ export default function CreateCoursePage() {
             </div>
           </div>
 
-          {/* Action Buttons */}
-          <div className="flex items-center justify-end gap-4 pt-6 border-t">
-            <Button
-              type="button"
-              variant="outline"
-              onClick={handleCancel}
-              disabled={saving}
-              className="border-gray-300 text-gray-700 hover:bg-gray-50"
-            >
-              Huỷ
-            </Button>
-            <Button
-              type="submit"
-              disabled={saving}
-              className="bg-[#6DBAD6] text-white hover:bg-[#6DBAD6]/90 flex items-center gap-2"
-            >
-              {saving ? 'Đang lưu...' : 'Tiếp theo'}
-            </Button>
-          </div>
         </form>
       </div>
     </div>

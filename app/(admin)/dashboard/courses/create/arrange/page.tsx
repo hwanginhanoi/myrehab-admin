@@ -101,70 +101,69 @@ function DraggableExercise({ exercise, onImageClick }: DraggableExerciseProps) {
   };
 
   return (
-    <Card
+    <div
       ref={setNodeRef}
       style={style}
       {...attributes}
       {...listeners}
-      className={`cursor-grab active:cursor-grabbing transition-all duration-150 hover:shadow-md ${
+      className={`bg-white border border-[#BDBEC0] rounded-lg p-3 cursor-grab active:cursor-grabbing transition-all duration-150 hover:shadow-md ${
         isDragging ? 'opacity-30' : ''
       }`}
     >
-      <CardContent className="p-3">
-        <div className="flex items-center gap-3">
+      <div className="flex items-center gap-3">
+        <div className="flex-shrink-0">
+          <GripVertical className={`h-5 w-5 ${isDragging ? 'text-blue-500' : 'text-[#BDBEC0]'}`} />
+        </div>
+        {exercise.imageUrl && (
           <div className="flex-shrink-0">
-            <GripVertical className={`h-4 w-4 ${isDragging ? 'text-blue-500' : 'text-muted-foreground'}`} />
-          </div>
-          {exercise.imageUrl && (
-            <div className="flex-shrink-0">
-              <div
-                className="relative w-24 h-14 rounded-md overflow-hidden bg-muted cursor-pointer hover:opacity-80 transition-opacity"
-                onClick={(e) => {
-                  e.stopPropagation();
-                  onImageClick(
-                    exercise.imageUrl!,
-                    exercise.title || 'Exercise image'
-                  );
-                }}
-              >
-                <Image
-                  src={exercise.imageUrl}
-                  alt={exercise.title || 'Exercise image'}
-                  fill
-                  className="object-cover"
-                  sizes="96px"
-                />
-                <div className="absolute inset-0 bg-black/0 hover:bg-black/20 transition-colors flex items-center justify-center">
-                  <Eye className="h-3 w-3 text-white opacity-0 hover:opacity-100 transition-opacity" />
-                </div>
+            <div
+              className="relative w-40 h-[90px] rounded-md overflow-hidden bg-muted cursor-pointer hover:opacity-80 transition-opacity"
+              onClick={(e) => {
+                e.stopPropagation();
+                onImageClick(
+                  exercise.imageUrl!,
+                  exercise.title || 'Exercise image'
+                );
+              }}
+            >
+              <Image
+                src={exercise.imageUrl}
+                alt={exercise.title || 'Exercise image'}
+                fill
+                className="object-cover"
+                sizes="160px"
+              />
+              <div className="absolute inset-0 bg-black/0 hover:bg-black/20 transition-colors flex items-center justify-center">
+                <Eye className="h-3 w-3 text-white opacity-0 hover:opacity-100 transition-opacity" />
               </div>
             </div>
-          )}
-          <div className="flex-1 min-w-0">
-            <h3 className="font-medium text-sm truncate">
-              {exercise.title}
-            </h3>
-            {exercise.description && (
-              <p className="text-xs truncate mt-1 text-muted-foreground">
-                {exercise.description}
-              </p>
+          </div>
+        )}
+        <div className="flex-1 min-w-0">
+          <h3 className="font-normal text-base text-[#09090B] truncate mb-1">
+            {exercise.title}
+          </h3>
+          <div className="flex items-center gap-2">
+            {exercise.category?.name && (
+              <span className="text-xs font-semibold px-2.5 py-0.5 bg-white border border-[#BDBEC0] text-[#6D6E71] rounded">
+                {exercise.category.name}
+              </span>
             )}
-            <div className="flex items-center gap-2 mt-2">
-              {exercise.category?.name && (
-                <Badge variant="outline" className="text-xs">
-                  {exercise.category.name}
-                </Badge>
-              )}
-              {exercise.durationMinutes && (
-                <span className="text-xs text-muted-foreground">
-                  {exercise.durationMinutes}min
-                </span>
-              )}
-            </div>
+            {exercise.durationMinutes && (
+              <div className="flex items-center gap-0.5">
+                <div className="w-3 h-3">
+                  <svg viewBox="0 0 20 20" fill="none" className="w-full h-full">
+                    <path d="M10 18.3333C14.6024 18.3333 18.3333 14.6024 18.3333 10C18.3333 5.39763 14.6024 1.66667 10 1.66667C5.39763 1.66667 1.66667 5.39763 1.66667 10C1.66667 14.6024 5.39763 18.3333 10 18.3333Z" stroke="#6D6E71" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                    <path d="M10 5V10L13.3333 11.6667" stroke="#6D6E71" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                  </svg>
+                </div>
+                <span className="text-sm text-[#6D6E71]">{exercise.durationMinutes}:30</span>
+              </div>
+            )}
           </div>
         </div>
-      </CardContent>
-    </Card>
+      </div>
+    </div>
   );
 }
 
@@ -185,10 +184,10 @@ function ExerciseDropZone({ dayIndex, setValue, watch, children }: ExerciseDropZ
   return (
     <div
       ref={setNodeRef}
-      className={`min-h-[120px] w-full border border-dashed rounded-lg p-3 transition-all duration-200 relative ${
+      className={`min-h-[120px] w-full border border-dashed border-[#BDBEC0] rounded-md p-3 transition-all duration-200 relative bg-[#F4F4F5] ${
         isOver
           ? 'border-[#6DBAD6] bg-[#6DBAD6]/5 shadow-sm'
-          : 'border-gray-300 bg-gray-50/50 hover:border-[#6DBAD6]/50 hover:bg-[#6DBAD6]/5'
+          : 'hover:border-[#6DBAD6]/50 hover:bg-[#6DBAD6]/5'
       }`}
       style={{
         height: 'auto',
@@ -212,15 +211,21 @@ function BottomDropZone({ dayIndex }: BottomDropZoneProps) {
   return (
     <div
       ref={setNodeRef}
-      className={`mt-2 p-3 border border-dashed rounded-lg transition-all duration-200 ${
+      className={`mt-2 p-3 border border-dashed border-[#BDBEC0] rounded-md transition-all duration-200 bg-[#F4F4F5] ${
         isOver
           ? 'border-[#6DBAD6] bg-[#6DBAD6]/5 shadow-sm'
-          : 'border-gray-300 bg-gray-50/30 hover:border-[#6DBAD6]/50 hover:bg-[#6DBAD6]/5'
+          : 'hover:border-[#6DBAD6]/50 hover:bg-[#6DBAD6]/5'
       }`}
     >
-      <p className="text-xs text-gray-500 text-center font-medium">
-        {isOver ? 'Thả bài tập vào đây' : 'Kéo thêm bài tập vào đây'}
-      </p>
+      <div className="flex flex-col items-center justify-center h-28 gap-2">
+        <div className="w-9 h-9 rounded-full bg-white flex items-center justify-center">
+          <Plus className="h-5 w-5 text-[#A1A1AA]" />
+        </div>
+        <div className="text-center">
+          <p className="text-base font-medium text-[#020617] mb-1">Thêm bài tập</p>
+          <p className="text-base font-medium text-[#A1A1AA]">Kéo và thả bài tập vào đây</p>
+        </div>
+      </div>
     </div>
   );
 }
@@ -272,53 +277,61 @@ function SortableDayExercise({
     <div
       ref={setNodeRef}
       style={style}
-      className="bg-white border border-gray-200 rounded-lg p-4 hover:shadow-sm transition-shadow"
+      className="bg-white border border-[#BDBEC0] rounded-lg p-3 hover:shadow-sm transition-shadow"
     >
       {/* Exercise header */}
-      <div className="flex items-center justify-between mb-3">
-        <div className="flex items-center gap-3 flex-1 min-w-0">
+      <div className="flex items-center gap-3">
+        <div className="flex items-center gap-2">
           <div
             className="cursor-grab active:cursor-grabbing flex-shrink-0 p-1 hover:bg-gray-100 rounded"
             {...attributes}
             {...listeners}
           >
-            <GripVertical className="h-4 w-4 text-gray-400" />
+            <GripVertical className="h-5 w-5 text-[#BDBEC0]" />
           </div>
-          <div className="flex-shrink-0 w-6 h-6 rounded-full bg-[#6DBAD6]/10 flex items-center justify-center">
-            <span className="text-xs font-medium text-[#6DBAD6]">{exercise.orderInDay || exerciseIndex + 1}</span>
+          <div className="flex-shrink-0 w-6 h-6 rounded-full bg-[#F4F4F5] flex items-center justify-center">
+            <span className="text-sm font-normal text-[#09090B]">{exercise.orderInDay || exerciseIndex + 1}</span>
           </div>
-          {exerciseTyped.imageUrl && (
-            <div className="flex-shrink-0">
-              <div className="relative w-16 h-10 rounded-md overflow-hidden bg-gray-100">
-                <Image
-                  src={exerciseTyped.imageUrl}
-                  alt={exerciseTyped.title || 'Exercise image'}
-                  fill
-                  className="object-cover"
-                  sizes="64px"
-                />
+        </div>
+        {exerciseTyped.imageUrl && (
+          <div className="flex-shrink-0">
+            <div className="relative w-40 h-[90px] rounded-md overflow-hidden bg-gray-100">
+              <Image
+                src={exerciseTyped.imageUrl}
+                alt={exerciseTyped.title || 'Exercise image'}
+                fill
+                className="object-cover"
+                sizes="160px"
+              />
+            </div>
+          </div>
+        )}
+        <div className="flex-1 min-w-0">
+          <h5 className="font-normal text-base text-[#09090B] truncate mb-1">{exerciseTyped.title || 'Unknown Exercise'}</h5>
+          <div className="flex items-center gap-2">
+            {exerciseTyped.category?.name && (
+              <span className="text-xs font-semibold px-2.5 py-0.5 bg-white border border-[#BDBEC0] text-[#6D6E71] rounded">
+                {exerciseTyped.category.name}
+              </span>
+            )}
+            {exerciseTyped.durationMinutes && (
+              <div className="flex items-center gap-0.5">
+                <div className="w-3 h-3">
+                  <svg viewBox="0 0 20 20" fill="none" className="w-full h-full">
+                    <path d="M10 18.3333C14.6024 18.3333 18.3333 14.6024 18.3333 10C18.3333 5.39763 14.6024 1.66667 10 1.66667C5.39763 1.66667 1.66667 5.39763 1.66667 10C1.66667 14.6024 5.39763 18.3333 10 18.3333Z" stroke="#6D6E71" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                    <path d="M10 5V10L13.3333 11.6667" stroke="#6D6E71" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                  </svg>
+                </div>
+                <span className="text-sm text-[#6D6E71]">{exerciseTyped.durationMinutes}:30</span>
               </div>
-            </div>
-          )}
-          <div className="flex-1 min-w-0">
-            <h5 className="font-medium text-sm text-gray-900 truncate">{exerciseTyped.title || 'Unknown Exercise'}</h5>
-            <div className="flex items-center gap-2 mt-1">
-              {exerciseTyped.category?.name && (
-                <span className="text-xs px-2 py-0.5 bg-gray-100 text-gray-600 rounded">
-                  {exerciseTyped.category.name}
-                </span>
-              )}
-              {exerciseTyped.durationMinutes && (
-                <span className="text-xs text-gray-500">{exerciseTyped.durationMinutes}min</span>
-              )}
-            </div>
+            )}
           </div>
         </div>
         <Button
           type="button"
           variant="ghost"
           size="sm"
-          className="h-7 w-7 p-0 flex-shrink-0 hover:bg-red-50 hover:text-red-600"
+          className="h-5 w-5 p-0 flex-shrink-0 hover:bg-red-50 hover:text-red-600"
           onClick={() => {
             const updatedExercises = dayExercises
               .filter((_, idx: number) => idx !== exerciseIndex)
@@ -329,10 +342,9 @@ function SortableDayExercise({
             setValue(`courseDays.${dayIndex}.dayExercises`, updatedExercises);
           }}
         >
-          <X className="h-3 w-3" />
+          <X className="h-2.5 w-2.5" />
         </Button>
       </div>
-
     </div>
   );
 }
@@ -377,32 +389,32 @@ function DroppableCourseDayCard({
     <div
       ref={setNodeRef}
       style={style}
-      className="bg-white border-l-2 border-l-[#6DBAD6] rounded-lg shadow-sm p-6 space-y-3 relative z-10"
+      className="bg-white border-l-2 border-l-[#6DBAD6] border-t border-t-gray-200 rounded-lg shadow-sm p-6 space-y-3 relative z-10"
     >
       {/* Header with drag handle and actions */}
-      <div className="flex items-center justify-between pb-3 border-b">
-        <div className="flex items-center gap-3">
+      <div className="flex items-center justify-between">
+        <div className="flex items-center gap-2.5">
           <div
             className="cursor-grab active:cursor-grabbing p-1 hover:bg-gray-100 rounded"
             {...attributes}
             {...listeners}
           >
-            <GripVertical className="h-4 w-4 text-gray-400" />
+            <GripVertical className="h-5 w-5 text-[#6DBAD6]" />
           </div>
-          <h3 className="text-lg font-semibold text-gray-900">
+          <h3 className="text-xl font-bold text-[#6DBAD6]">
             Ngày {watch(`courseDays.${dayIndex}.dayNumber`)}
           </h3>
         </div>
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-2.5">
           <Button
             type="button"
-            variant="ghost"
+            variant="outline"
             size="sm"
             onClick={() => handleDuplicateDay(dayIndex)}
-            className="h-8 w-8 p-0 hover:bg-gray-100"
+            className="h-8 w-8 p-0 border-[#6DBAD6] hover:bg-[#6DBAD6] hover:text-white"
             title="Sao chép ngày"
           >
-            <Copy className="h-4 w-4 text-gray-500" />
+            <Copy className="h-4 w-4 text-[#6DBAD6]" />
           </Button>
           {courseDayFields.length > 1 && (
             <Button
@@ -420,20 +432,20 @@ function DroppableCourseDayCard({
       </div>
 
       {/* Day description input */}
-      <div className="space-y-2">
-        <Label htmlFor={`courseDays.${dayIndex}.dayDescription`} className="text-sm font-medium text-gray-700">
-          Mô tả ngày
+      <div className="space-y-1.5">
+        <Label htmlFor={`courseDays.${dayIndex}.dayDescription`} className="text-base font-medium text-[#09090B]">
+          Mô tả
         </Label>
         <Input
           {...register(`courseDays.${dayIndex}.dayDescription`)}
-          placeholder="Nhập mô tả cho ngày này..."
-          className="border-gray-200 focus:border-[#6DBAD6] focus:ring-[#6DBAD6]"
+          placeholder="Mô tả"
+          className="border-[#BDBEC0] focus:border-[#6DBAD6] focus:ring-[#6DBAD6] rounded-md h-10"
         />
       </div>
 
       {/* Exercises Drop Zone */}
-      <div className="space-y-3">
-        <Label className="text-sm font-medium text-gray-700">Bài tập</Label>
+      <div className="space-y-1.5">
+        <Label className="text-base font-medium text-[#09090B]">Bài tập</Label>
         <ExerciseDropZone dayIndex={dayIndex} setValue={setValue} watch={watch}>
           {dayExercises.length > 0 ? (
             <SortableContext
@@ -461,11 +473,11 @@ function DroppableCourseDayCard({
           ) : (
             <div className="flex items-center justify-center h-32 text-gray-400">
               <div className="text-center">
-                <div className="w-12 h-12 mx-auto rounded-full bg-gray-100 flex items-center justify-center mb-3">
-                  <Plus className="h-6 w-6 text-gray-400" />
+                <div className="w-9 h-9 mx-auto rounded-full bg-white flex items-center justify-center mb-2">
+                  <Plus className="h-5 w-5 text-[#A1A1AA]" />
                 </div>
-                <p className="text-sm font-medium mb-1">Kéo bài tập vào đây</p>
-                <p className="text-xs">Kéo bài tập từ thư viện để thêm vào ngày này</p>
+                <p className="text-base font-medium text-[#020617] mb-1">Thêm bài tập</p>
+                <p className="text-base font-medium text-[#A1A1AA]">Kéo và thả bài tập vào đây</p>
               </div>
             </div>
           )}
@@ -507,39 +519,60 @@ function ExerciseSearchPanel({ exercises, onImageClick }: ExerciseSearchPanelPro
 
   return (
     <div className="flex flex-col h-full">
-      {/* Search and Filter Controls - Fixed at top */}
-      <div className="flex-shrink-0 p-4 border-b bg-gray-50/50 space-y-3">
-        {/* Search Input */}
-        <div className="relative">
-          <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
-          <Input
-            placeholder="Tìm kiếm bài tập..."
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
-            className="pl-10 border-gray-200 focus:border-[#6DBAD6] focus:ring-[#6DBAD6]"
-          />
+      {/* Header */}
+      <div className="flex-shrink-0 p-6 pb-3">
+        <h3 className="text-xl font-bold text-[#09090B]">Danh sách bài tập</h3>
+      </div>
+
+      {/* Search and Filter Controls */}
+      <div className="flex-shrink-0 px-6 pb-3 space-y-3">
+        {/* Search Input with Button */}
+        <div className="flex gap-4">
+          <div className="flex-1 relative">
+            <Input
+              placeholder="Tìm kiếm bài tập..."
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              className="h-9 border-[#BDBEC0] focus:border-[#6DBAD6] focus:ring-[#6DBAD6] rounded-md shadow-sm"
+            />
+          </div>
+          <Button 
+            type="button" 
+            variant="outline" 
+            className="h-9 px-4 border-[#6DBAD6] text-[#6DBAD6] hover:bg-[#6DBAD6] hover:text-white rounded-md"
+          >
+            <Search className="h-4 w-4 mr-2" />
+            Tìm kiếm
+          </Button>
         </div>
 
         {/* Category Filter */}
-        <Select value={selectedCategory} onValueChange={setSelectedCategory}>
-          <SelectTrigger className="border-gray-200 focus:border-[#6DBAD6] focus:ring-[#6DBAD6]">
-            <SelectValue placeholder="Lọc theo danh mục" />
-          </SelectTrigger>
-          <SelectContent>
-            <SelectItem value="all">Tất cả danh mục</SelectItem>
-            <SelectItem value="none">Không có danh mục</SelectItem>
-            {categories.map((category) => (
-              <SelectItem key={category.id} value={category.id?.toString() || ''}>
-                {category.name}
-              </SelectItem>
-            ))}
-          </SelectContent>
-        </Select>
+        <div className="w-full">
+          <Select value={selectedCategory} onValueChange={setSelectedCategory}>
+            <SelectTrigger className="h-9 border-[#BDBEC0] focus:border-[#6DBAD6] focus:ring-[#6DBAD6] rounded-lg shadow-sm">
+              <SelectValue placeholder="Danh mục" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="all">Tất cả danh mục</SelectItem>
+              <SelectItem value="none">Không có danh mục</SelectItem>
+              {categories.map((category) => (
+                <SelectItem key={category.id} value={category.id?.toString() || ''}>
+                  {category.name}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+        </div>
+      </div>
+
+      {/* Divider */}
+      <div className="flex-shrink-0 px-6">
+        <div className="h-px bg-[#E4E4E7]"></div>
       </div>
 
       {/* Exercise List - Scrollable */}
-      <div className="flex-1 overflow-y-auto">
-        <div className="p-4 space-y-3">
+      <div className="flex-1 overflow-y-auto px-6 py-3 scrollbar-thin scrollbar-track-[#E5E7E8] scrollbar-thumb-[#939598] scrollbar-thumb-rounded-full">
+        <div className="space-y-3">
           {filteredExercises.length > 0 ? (
             filteredExercises.map((exercise) => (
               <DraggableExercise key={exercise.id} exercise={exercise} onImageClick={onImageClick} />
@@ -587,7 +620,7 @@ export default function ArrangeCoursePage() {
     },
   });
 
-  const { fields: courseDayFields, append: appendCourseDay, remove: removeCourseDay, move: moveCourseDay } = useFieldArray({
+  const { fields: courseDayFields, append: appendCourseDay, remove: removeCourseDayForm, move: moveCourseDay } = useFieldArray({
     control,
     name: 'courseDays',
   });
@@ -711,7 +744,7 @@ export default function ArrangeCoursePage() {
   };
 
   const handleRemoveCourseDay = (dayIndex: number) => {
-    removeCourseDay(dayIndex);
+    removeCourseDayForm(dayIndex);
 
     toast.success('Đã xóa ngày thành công', {
       description: `Ngày ${dayIndex + 1} đã được xóa khỏi khóa học.`
@@ -902,18 +935,6 @@ export default function ArrangeCoursePage() {
 
   return (
     <div className="flex flex-1 flex-col">
-      {/* Back Button */}
-      <div className="m-9 mt-9 mb-6">
-        <Button
-          variant="outline"
-          onClick={handleBack}
-          disabled={saving}
-          className="border-[#6DBAD6] text-[#6DBAD6] hover:bg-[#6DBAD6] hover:text-white px-4 py-2 rounded-md flex items-center gap-2"
-        >
-          <ArrowLeft className="w-5 h-5" />
-          Quay lại
-        </Button>
-      </div>
 
       {/* Main Content */}
       <div className="m-9 mt-0 mb-6">
@@ -922,9 +943,38 @@ export default function ArrangeCoursePage() {
           <div>
             <h1 className="text-4xl font-bold text-[#EF7F26] mb-2">Tạo khóa học mới</h1>
           </div>
+          <div className="flex items-center gap-3">
+            <Button
+              type="button"
+              variant="outline"
+              onClick={handleBack}
+              disabled={saving}
+              className="border-[#6DBAD6] text-[#6DBAD6] hover:bg-[#6DBAD6] hover:text-white px-4 py-2 rounded-md flex items-center gap-2"
+            >
+              <ArrowLeft className="w-4 h-4" />
+              Trang trước
+            </Button>
+            <Button
+              type="button"
+              variant="outline"
+              onClick={handleCancel}
+              disabled={saving}
+              className="border-gray-300 text-gray-700 hover:bg-gray-50 px-4 py-2 rounded-md"
+            >
+              Hủy
+            </Button>
+            <Button
+              type="submit"
+              disabled={saving}
+              className="bg-[#6DBAD6] text-white hover:bg-[#6DBAD6]/90 px-4 py-2 rounded-md flex items-center gap-2"
+            >
+              <Save className="w-4 h-4" />
+              {saving ? 'Đang tạo...' : 'Tạo lộ trình'}
+            </Button>
+          </div>
         </div>
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
-          <h3 className="text-lg font-semibold mb-6">2. Sắp xếp ngày và bài tập</h3>
+          <h3 className="text-lg font-semibold mb-6">2. Chi tiết lộ trình</h3>
 
           {/* Course Days & Exercise Library */}
           <DndContext
@@ -936,13 +986,6 @@ export default function ArrangeCoursePage() {
             <div className="flex flex-col lg:flex-row gap-6 w-full">
               {/* Course Days Section */}
               <div className="flex flex-col lg:flex-1 lg:w-1/2 min-w-0">
-                <div className="flex items-center justify-between mb-4">
-                  <h3 className="text-lg font-semibold text-[#EF7F26]">Các ngày trong khóa học</h3>
-                  <Button type="button" variant="outline" size="sm" onClick={addCourseDay}>
-                    <Plus className="mr-2 h-4 w-4" />
-                    Thêm ngày
-                  </Button>
-                </div>
                 <div className="min-h-0">
                   <SortableContext
                     items={courseDayFields.map(field => field.id)}
@@ -964,17 +1007,19 @@ export default function ArrangeCoursePage() {
                       ))}
                     </div>
                   </SortableContext>
+                  <div className="mt-4">
+                    <Button type="button" variant="outline" size="sm" onClick={addCourseDay} className="w-full">
+                      <Plus className="mr-2 h-4 w-4" />
+                      Thêm ngày
+                    </Button>
+                  </div>
                 </div>
               </div>
 
               {/* Exercise Library Section */}
               <div className="flex flex-col lg:flex-1 lg:w-1/2 min-w-0">
-                <div className="mb-4">
-                  <h3 className="text-lg font-semibold text-[#EF7F26]">Thư viện bài tập</h3>
-                  <p className="text-sm text-[#71717A]">Tìm kiếm và kéo bài tập vào các ngày</p>
-                </div>
                 <div className="sticky top-4">
-                  <div className="border rounded-lg bg-white shadow-sm max-h-[80vh] overflow-y-auto">
+                  <div className="bg-[#F4F4F5] rounded-lg shadow-sm max-h-[80vh] overflow-hidden">
                     <SortableContext
                       items={exercises.map(ex => `exercise-${ex.id}`)}
                       strategy={verticalListSortingStrategy}
@@ -1039,26 +1084,6 @@ export default function ArrangeCoursePage() {
             </DragOverlay>
           </DndContext>
 
-          {/* Action Buttons */}
-          <div className="flex items-center justify-end gap-4 pt-6 border-t">
-            <Button
-              type="button"
-              variant="outline"
-              onClick={handleCancel}
-              disabled={saving}
-              className="border-gray-300 text-gray-700 hover:bg-gray-50"
-            >
-              Huỷ
-            </Button>
-            <Button
-              type="submit"
-              disabled={saving}
-              className="bg-[#6DBAD6] text-white hover:bg-[#6DBAD6]/90 flex items-center gap-2"
-            >
-              <Save className="w-4 h-4" />
-              {saving ? 'Đang tạo...' : 'Tạo khóa học'}
-            </Button>
-          </div>
         </form>
       </div>
 
