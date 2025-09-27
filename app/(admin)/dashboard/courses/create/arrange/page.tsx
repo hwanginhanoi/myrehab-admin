@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState, useCallback, useMemo } from 'react';
+import { useEffect, useState, useMemo } from 'react';
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 import { useForm, useFieldArray } from 'react-hook-form';
@@ -26,7 +26,7 @@ import {
 import { useDroppable } from '@dnd-kit/core';
 import { CSS } from '@dnd-kit/utilities';
 import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Card, CardContent } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import {
@@ -704,10 +704,6 @@ export default function ArrangeCoursePage() {
           dayExercises: day.dayExercises.map((exercise): CreateDayExerciseRequest => ({
             exerciseId: parseInt(exercise.exerciseId, 10),
             orderInDay: exercise.orderInDay,
-            customRepetitions: undefined,
-            customSets: undefined,
-            customDurationMinutes: undefined,
-            notes: undefined,
           })),
         })),
       };
@@ -938,42 +934,42 @@ export default function ArrangeCoursePage() {
 
       {/* Main Content */}
       <div className="m-9 mt-0 mb-6">
-        {/* Header Section */}
-        <div className="flex items-center justify-between mb-4">
-          <div>
-            <h1 className="text-4xl font-bold text-[#EF7F26] mb-2">Tạo khóa học mới</h1>
-          </div>
-          <div className="flex items-center gap-3">
-            <Button
-              type="button"
-              variant="outline"
-              onClick={handleBack}
-              disabled={saving}
-              className="border-[#6DBAD6] text-[#6DBAD6] hover:bg-[#6DBAD6] hover:text-white px-4 py-2 rounded-md flex items-center gap-2"
-            >
-              <ArrowLeft className="w-4 h-4" />
-              Trang trước
-            </Button>
-            <Button
-              type="button"
-              variant="outline"
-              onClick={handleCancel}
-              disabled={saving}
-              className="border-gray-300 text-gray-700 hover:bg-gray-50 px-4 py-2 rounded-md"
-            >
-              Hủy
-            </Button>
-            <Button
-              type="submit"
-              disabled={saving}
-              className="bg-[#6DBAD6] text-white hover:bg-[#6DBAD6]/90 px-4 py-2 rounded-md flex items-center gap-2"
-            >
-              <Save className="w-4 h-4" />
-              {saving ? 'Đang tạo...' : 'Tạo lộ trình'}
-            </Button>
-          </div>
-        </div>
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
+          {/* Header Section */}
+          <div className="flex items-center justify-between mb-4">
+            <div>
+              <h1 className="text-4xl font-bold text-[#EF7F26] mb-2">Tạo khóa học mới</h1>
+            </div>
+            <div className="flex items-center gap-3">
+              <Button
+                type="button"
+                variant="outline"
+                onClick={handleBack}
+                disabled={saving}
+                className="border-[#6DBAD6] text-[#6DBAD6] hover:bg-[#6DBAD6] hover:text-white px-4 py-2 rounded-md flex items-center gap-2"
+              >
+                <ArrowLeft className="w-4 h-4" />
+                Trang trước
+              </Button>
+              <Button
+                type="button"
+                variant="outline"
+                onClick={handleCancel}
+                disabled={saving}
+                className="border-gray-300 text-gray-700 hover:bg-gray-50 px-4 py-2 rounded-md"
+              >
+                Hủy
+              </Button>
+              <Button
+                type="submit"
+                disabled={saving}
+                className="bg-[#6DBAD6] text-white hover:bg-[#6DBAD6]/90 px-4 py-2 rounded-md flex items-center gap-2"
+              >
+                <Save className="w-4 h-4" />
+                {saving ? 'Đang tạo...' : 'Tạo lộ trình'}
+              </Button>
+            </div>
+          </div>
           <h3 className="text-lg font-semibold mb-6">2. Chi tiết lộ trình</h3>
 
           {/* Course Days & Exercise Library */}

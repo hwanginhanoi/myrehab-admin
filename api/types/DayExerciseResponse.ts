@@ -10,22 +10,6 @@ import type { ExerciseInfo } from "./ExerciseInfo";
     */
     orderInDay?: number;
     /**
-     * @type integer | undefined, int32
-    */
-    customRepetitions?: number;
-    /**
-     * @type integer | undefined, int32
-    */
-    customSets?: number;
-    /**
-     * @type integer | undefined, int32
-    */
-    customDurationMinutes?: number;
-    /**
-     * @type string | undefined
-    */
-    notes?: string;
-    /**
      * @type object | undefined
     */
     exercise?: ExerciseInfo;

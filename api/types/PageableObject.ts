@@ -12,10 +12,6 @@ import type { SortObject } from "./SortObject";
     /**
      * @type boolean | undefined
     */
-    unpaged?: boolean;
-    /**
-     * @type boolean | undefined
-    */
     paged?: boolean;
     /**
      * @type integer | undefined, int32
@@ -25,4 +21,8 @@ import type { SortObject } from "./SortObject";
      * @type integer | undefined, int32
     */
     pageSize?: number;
+    /**
+     * @type boolean | undefined
+    */
+    unpaged?: boolean;
 };
