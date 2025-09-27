@@ -106,7 +106,7 @@ function DraggableExercise({ exercise, onImageClick }: DraggableExerciseProps) {
       style={style}
       {...attributes}
       {...listeners}
-      className={`bg-white border border-[#BDBEC0] rounded-lg p-3 cursor-grab active:cursor-grabbing transition-all duration-150 hover:shadow-md ${
+      className={`bg-white border border-[#BDBEC0] rounded-lg p-4 cursor-grab active:cursor-grabbing transition-all duration-150 hover:shadow-md ${
         isDragging ? 'opacity-30' : ''
       }`}
     >
@@ -184,7 +184,7 @@ function ExerciseDropZone({ dayIndex, setValue, watch, children }: ExerciseDropZ
   return (
     <div
       ref={setNodeRef}
-      className={`min-h-[120px] w-full border border-dashed border-[#BDBEC0] rounded-md p-3 transition-all duration-200 relative bg-[#F4F4F5] ${
+      className={`min-h-[120px] w-full border border-dashed border-[#BDBEC0] rounded-md p-4 transition-all duration-200 relative bg-[#F4F4F5] ${
         isOver
           ? 'border-[#6DBAD6] bg-[#6DBAD6]/5 shadow-sm'
           : 'hover:border-[#6DBAD6]/50 hover:bg-[#6DBAD6]/5'
@@ -211,7 +211,7 @@ function BottomDropZone({ dayIndex }: BottomDropZoneProps) {
   return (
     <div
       ref={setNodeRef}
-      className={`mt-2 p-3 border border-dashed border-[#BDBEC0] rounded-md transition-all duration-200 bg-[#F4F4F5] ${
+      className={`mt-4 p-4 border border-dashed border-[#BDBEC0] rounded-md transition-all duration-200 bg-[#F4F4F5] ${
         isOver
           ? 'border-[#6DBAD6] bg-[#6DBAD6]/5 shadow-sm'
           : 'hover:border-[#6DBAD6]/50 hover:bg-[#6DBAD6]/5'
@@ -277,7 +277,7 @@ function SortableDayExercise({
     <div
       ref={setNodeRef}
       style={style}
-      className="bg-white border border-[#BDBEC0] rounded-lg p-3 hover:shadow-sm transition-shadow"
+      className="bg-white border border-[#BDBEC0] rounded-lg p-4 hover:shadow-sm transition-shadow w-full"
     >
       {/* Exercise header */}
       <div className="flex items-center gap-3">
@@ -452,7 +452,7 @@ function DroppableCourseDayCard({
               items={dayExercises.map((_, index: number) => `day-${dayIndex}-exercise-${index}`)}
               strategy={verticalListSortingStrategy}
             >
-              <div className="space-y-3 w-full flex-1">
+              <div className="space-y-4 w-full flex-1">
                 {dayExercises.map((exercise, exerciseIndex: number) => {
                   const exerciseData = exercise.exercise || {};
                   return (
@@ -520,12 +520,12 @@ function ExerciseSearchPanel({ exercises, onImageClick }: ExerciseSearchPanelPro
   return (
     <div className="flex flex-col h-full">
       {/* Header */}
-      <div className="flex-shrink-0 p-6 pb-3">
+      <div className="flex-shrink-0 p-6 pb-4">
         <h3 className="text-xl font-bold text-[#09090B]">Danh sách bài tập</h3>
       </div>
 
       {/* Search and Filter Controls */}
-      <div className="flex-shrink-0 px-6 pb-3 space-y-3">
+      <div className="flex-shrink-0 px-6 pb-4 space-y-4">
         {/* Search Input with Button */}
         <div className="flex gap-4">
           <div className="flex-1 relative">
@@ -571,8 +571,8 @@ function ExerciseSearchPanel({ exercises, onImageClick }: ExerciseSearchPanelPro
       </div>
 
       {/* Exercise List - Scrollable */}
-      <div className="flex-1 overflow-y-auto px-6 py-3 scrollbar-thin scrollbar-track-[#E5E7E8] scrollbar-thumb-[#939598] scrollbar-thumb-rounded-full">
-        <div className="space-y-3">
+      <div className="flex-1 overflow-y-auto px-6 py-4 scrollbar-thin scrollbar-track-[#E5E7E8] scrollbar-thumb-[#939598] scrollbar-thumb-rounded-full">
+        <div className="space-y-4">
           {filteredExercises.length > 0 ? (
             filteredExercises.map((exercise) => (
               <DraggableExercise key={exercise.id} exercise={exercise} onImageClick={onImageClick} />
@@ -931,26 +931,29 @@ export default function ArrangeCoursePage() {
 
   return (
     <div className="flex flex-1 flex-col">
+      {/* Back Button */}
+      <div className="m-9 mt-9 mb-6">
+        <Button
+          type="button"
+          variant="outline"
+          onClick={handleBack}
+          disabled={saving}
+          className="border-[#6DBAD6] text-[#6DBAD6] hover:bg-[#6DBAD6] hover:text-white px-4 py-2 rounded-md flex items-center gap-2"
+        >
+          <ArrowLeft className="w-4 h-4" />
+          Quay lại
+        </Button>
+      </div>
 
       {/* Main Content */}
       <div className="m-9 mt-0 mb-6">
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
           {/* Header Section */}
-          <div className="flex items-center justify-between mb-4">
+          <div className="flex items-center justify-between mb-6">
             <div>
               <h1 className="text-4xl font-bold text-[#EF7F26] mb-2">Tạo khóa học mới</h1>
             </div>
             <div className="flex items-center gap-3">
-              <Button
-                type="button"
-                variant="outline"
-                onClick={handleBack}
-                disabled={saving}
-                className="border-[#6DBAD6] text-[#6DBAD6] hover:bg-[#6DBAD6] hover:text-white px-4 py-2 rounded-md flex items-center gap-2"
-              >
-                <ArrowLeft className="w-4 h-4" />
-                Trang trước
-              </Button>
               <Button
                 type="button"
                 variant="outline"
@@ -987,7 +990,7 @@ export default function ArrangeCoursePage() {
                     items={courseDayFields.map(field => field.id)}
                     strategy={verticalListSortingStrategy}
                   >
-                    <div className="space-y-4 pb-4">
+                    <div className="space-y-6 pb-6">
                       {courseDayFields.map((field, dayIndex) => (
                         <DroppableCourseDayCard
                           key={field.id}

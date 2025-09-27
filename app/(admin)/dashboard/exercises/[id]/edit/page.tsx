@@ -1,20 +1,8 @@
 'use client';
 
-import { useEffect, useState, useCallback } from 'react';
+import { useEffect, useState } from 'react';
 import { useParams, useRouter } from 'next/navigation';
-import { useForm } from 'react-hook-form';
-import {
-  Breadcrumb,
-  BreadcrumbItem,
-  BreadcrumbLink,
-  BreadcrumbList,
-  BreadcrumbPage,
-  BreadcrumbSeparator,
-} from '@/components/ui/breadcrumb';
-import { Separator } from '@/components/ui/separator';
-import { SidebarTrigger } from '@/components/ui/sidebar';
 import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
@@ -25,7 +13,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
-import { Skeleton } from '@/components/ui/skeleton';
+import { FileUpload } from '@/components/ui/file-upload';
 import { ArrowLeft, Save } from 'lucide-react';
 import { getExerciseById } from '@/api/api/exerciseManagementController/getExerciseById';
 import { updateExercise } from '@/api/api/exerciseManagementController/updateExercise';
@@ -35,16 +23,6 @@ import { CategoryResponse } from '@/api/types/CategoryResponse';
 import { UpdateExerciseRequest } from '@/api/types/UpdateExerciseRequest';
 import { toast } from 'sonner';
 
-interface ExerciseFormData {
-  title: string;
-  description: string;
-  imageUrl: string;
-  videoUrl: string;
-  durationMinutes: number;
-  price: number;
-  categoryId: string;
-}
-
 export default function EditExercisePage() {
   const params = useParams();
   const router = useRouter();
@@ -53,377 +31,310 @@ export default function EditExercisePage() {
   const [exercise, setExercise] = useState<ExerciseResponse | null>(null);
   const [categories, setCategories] = useState<CategoryResponse[]>([]);
   const [loading, setLoading] = useState(true);
-  const [saving, setSaving] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [formData, setFormData] = useState({
+    title: '',
+    description: '',
+    imageUrl: '',
+    videoUrl: '',
+    durationMinutes: 0,
+    price: 0,
+    categoryId: '',
+  });
 
-  const {
-    register,
-    handleSubmit,
-    setValue,
-    watch,
-    formState: { errors, isDirty },
-  } = useForm<ExerciseFormData>();
+  const handleInputChange = (field: string, value: string | number) => {
+    setFormData(prev => ({
+      ...prev,
+      [field]: value,
+    }));
+  };
 
-
-  const fetchData = useCallback(async () => {
+  useEffect(() => {
     if (!exerciseId) {
       setError('Invalid exercise ID');
       setLoading(false);
       return;
     }
 
-    try {
-      setLoading(true);
-      setError(null);
+    const fetchData = async () => {
+      try {
+        setLoading(true);
+        setError(null);
 
-      // Fetch exercise and categories in parallel
-      const [exerciseData, categoriesData] = await Promise.all([
-        getExerciseById(exerciseId),
-        getAllCategories(),
-      ]);
+        // Fetch exercise and categories in parallel
+        const [exerciseData, categoriesData] = await Promise.all([
+          getExerciseById(exerciseId),
+          getAllCategories(),
+        ]);
 
-      setExercise(exerciseData);
-      setCategories(categoriesData);
+        setExercise(exerciseData);
+        setCategories(categoriesData);
 
-      // Populate form with current exercise data
-      setValue('title', exerciseData.title || '');
-      setValue('description', exerciseData.description || '');
-      setValue('imageUrl', exerciseData.imageUrl || '');
-      setValue('videoUrl', exerciseData.videoUrl || '');
-      setValue('durationMinutes', exerciseData.durationMinutes || 0);
-      setValue('price', exerciseData.price || 0);
-      setValue('categoryId', exerciseData.category?.id?.toString() || '0');
-    } catch (err) {
-      setError(err instanceof Error ? err.message : 'Failed to fetch data');
-    } finally {
-      setLoading(false);
-    }
-  }, [exerciseId, setValue]);
+        // Populate form with current exercise data
+        setFormData({
+          title: exerciseData.title || '',
+          description: exerciseData.description || '',
+          imageUrl: exerciseData.imageUrl || '',
+          videoUrl: exerciseData.videoUrl || '',
+          durationMinutes: exerciseData.durationMinutes || 0,
+          price: exerciseData.price || 0,
+          categoryId: exerciseData.category?.id?.toString() || '',
+        });
+      } catch (err) {
+        setError(err instanceof Error ? err.message : 'Failed to fetch data');
+      } finally {
+        setLoading(false);
+      }
+    };
 
-  useEffect(() => {
     fetchData();
-  }, [fetchData]);
+  }, [exerciseId]);
 
-  const onSubmit = async (data: ExerciseFormData) => {
+  const handleSubmit = async () => {
     if (!exerciseId) {
-      toast.error('Invalid exercise ID');
+      toast.error('ID bài tập không hợp lệ');
       return;
     }
 
-    try {
-      setSaving(true);
+    if (!formData.title.trim()) {
+      toast.error('Vui lòng nhập tên bài tập');
+      return;
+    }
 
+    setIsSubmitting(true);
+    try {
       const updateData: UpdateExerciseRequest = {
-        title: data.title,
-        description: data.description || undefined,
-        imageUrl: data.imageUrl || undefined,
-        videoUrl: data.videoUrl || '',
-        durationMinutes: data.durationMinutes,
-        price: data.price,
-        categoryId: data.categoryId && data.categoryId !== '0' ? parseInt(data.categoryId, 10) : undefined,
+        title: formData.title.trim(),
+        description: formData.description.trim() || undefined,
+        imageUrl: formData.imageUrl.trim() || undefined,
+        videoUrl: formData.videoUrl.trim() || undefined,
+        durationMinutes: formData.durationMinutes,
+        price: formData.price,
+        categoryId: formData.categoryId && formData.categoryId !== '0' ? parseInt(formData.categoryId, 10) : undefined,
       };
 
-      const updatedExercise = await updateExercise(exerciseId, updateData);
+      await updateExercise(exerciseId, updateData);
 
-      toast.success('Exercise updated successfully!', {
-        description: `"${data.title}" has been updated.`
-      });
-
+      toast.success('Cập nhật bài tập thành công!');
       router.push(`/dashboard/exercises/${exerciseId}`);
     } catch (err) {
-      toast.error('Failed to update exercise', {
-        description: err instanceof Error ? err.message : 'An unexpected error occurred while updating the exercise.'
-      });
+      console.error('Error updating exercise:', err);
+      toast.error('Có lỗi xảy ra khi cập nhật bài tập');
     } finally {
-      setSaving(false);
+      setIsSubmitting(false);
     }
+  };
+
+  const handleCancel = () => {
+    router.push(`/dashboard/exercises/${exerciseId}`);
   };
 
   if (loading) {
     return (
-      <>
-        <header className="flex h-16 shrink-0 items-center gap-2 transition-[width,height] ease-linear group-has-data-[collapsible=icon]/sidebar-wrapper:h-12">
-          <div className="flex items-center gap-2 px-4">
-            <SidebarTrigger className="-ml-1" />
-            <Separator orientation="vertical" className="mr-2 h-4" />
-            <Breadcrumb>
-              <BreadcrumbList>
-                <BreadcrumbItem>
-                  <BreadcrumbLink href="/dashboard/exercises">Exercises</BreadcrumbLink>
-                </BreadcrumbItem>
-                <BreadcrumbSeparator />
-                <BreadcrumbItem>
-                  <BreadcrumbPage>Loading...</BreadcrumbPage>
-                </BreadcrumbItem>
-              </BreadcrumbList>
-            </Breadcrumb>
+      <div className="flex flex-1 flex-col">
+        <div className="m-9 mt-9 mb-6">
+          <div className="flex items-center justify-center h-64">
+            <p>Đang tải...</p>
           </div>
-        </header>
-
-        <div className="flex flex-1 flex-col gap-4 p-4 pt-0">
-          <Card>
-            <CardHeader>
-              <Skeleton className="h-8 w-1/3" />
-              <Skeleton className="h-4 w-2/3" />
-            </CardHeader>
-            <CardContent>
-              <div className="space-y-6">
-                {Array.from({ length: 6 }).map((_, i) => (
-                  <div key={i} className="space-y-2">
-                    <Skeleton className="h-4 w-24" />
-                    <Skeleton className="h-10 w-full" />
-                  </div>
-                ))}
-              </div>
-            </CardContent>
-          </Card>
         </div>
-      </>
+      </div>
     );
   }
 
-  if (error) {
+  if (error || !exercise) {
     return (
-      <>
-        <header className="flex h-16 shrink-0 items-center gap-2 transition-[width,height] ease-linear group-has-data-[collapsible=icon]/sidebar-wrapper:h-12">
-          <div className="flex items-center gap-2 px-4">
-            <SidebarTrigger className="-ml-1" />
-            <Separator orientation="vertical" className="mr-2 h-4" />
-            <Breadcrumb>
-              <BreadcrumbList>
-                <BreadcrumbItem>
-                  <BreadcrumbLink href="/dashboard/exercises">Exercises</BreadcrumbLink>
-                </BreadcrumbItem>
-                <BreadcrumbSeparator />
-                <BreadcrumbItem>
-                  <BreadcrumbPage>Error</BreadcrumbPage>
-                </BreadcrumbItem>
-              </BreadcrumbList>
-            </Breadcrumb>
+      <div className="flex flex-1 flex-col">
+        <div className="m-9 mt-9 mb-6">
+          <div className="flex items-center justify-center h-64">
+            <div className="text-center">
+              <p className="text-red-500 mb-4">Lỗi: {error || 'Không tìm thấy bài tập'}</p>
+              <Button onClick={() => router.push('/dashboard/exercises')}>
+                <ArrowLeft className="w-4 h-4 mr-2" />
+                Quay lại
+              </Button>
+            </div>
           </div>
-        </header>
-
-        <div className="flex flex-1 flex-col gap-4 p-4 pt-0">
-          <Card>
-            <CardContent className="pt-6">
-              <div className="text-center py-8">
-                <p className="text-red-500 mb-4">Error: {error}</p>
-                <Button onClick={() => router.push('/dashboard/exercises')}>
-                  <ArrowLeft className="mr-2 h-4 w-4" />
-                  Back to Exercises
-                </Button>
-              </div>
-            </CardContent>
-          </Card>
         </div>
-      </>
-    );
-  }
-
-  if (!exercise) {
-    return (
-      <>
-        <header className="flex h-16 shrink-0 items-center gap-2 transition-[width,height] ease-linear group-has-data-[collapsible=icon]/sidebar-wrapper:h-12">
-          <div className="flex items-center gap-2 px-4">
-            <SidebarTrigger className="-ml-1" />
-            <Separator orientation="vertical" className="mr-2 h-4" />
-            <Breadcrumb>
-              <BreadcrumbList>
-                <BreadcrumbItem>
-                  <BreadcrumbLink href="/dashboard/exercises">Exercises</BreadcrumbLink>
-                </BreadcrumbItem>
-                <BreadcrumbSeparator />
-                <BreadcrumbItem>
-                  <BreadcrumbPage>Not Found</BreadcrumbPage>
-                </BreadcrumbItem>
-              </BreadcrumbList>
-            </Breadcrumb>
-          </div>
-        </header>
-
-        <div className="flex flex-1 flex-col gap-4 p-4 pt-0">
-          <Card>
-            <CardContent className="pt-6">
-              <div className="text-center py-8">
-                <p className="text-muted-foreground mb-4">Exercise not found</p>
-                <Button onClick={() => router.push('/dashboard/exercises')}>
-                  <ArrowLeft className="mr-2 h-4 w-4" />
-                  Back to Exercises
-                </Button>
-              </div>
-            </CardContent>
-          </Card>
-        </div>
-      </>
+      </div>
     );
   }
 
   return (
-    <>
-      <header className="flex h-16 shrink-0 items-center gap-2 transition-[width,height] ease-linear group-has-data-[collapsible=icon]/sidebar-wrapper:h-12">
-        <div className="flex items-center gap-2 px-4">
-          <SidebarTrigger className="-ml-1" />
-          <Separator orientation="vertical" className="mr-2 h-4" />
-          <Breadcrumb>
-            <BreadcrumbList>
-              <BreadcrumbItem>
-                <BreadcrumbLink href="/dashboard/exercises">Exercises</BreadcrumbLink>
-              </BreadcrumbItem>
-              <BreadcrumbSeparator />
-              <BreadcrumbItem>
-                <BreadcrumbLink href={`/dashboard/exercises/${exercise.id}`}>
-                  {exercise.title || `Exercise ${exercise.id}`}
-                </BreadcrumbLink>
-              </BreadcrumbItem>
-              <BreadcrumbSeparator />
-              <BreadcrumbItem>
-                <BreadcrumbPage>Edit</BreadcrumbPage>
-              </BreadcrumbItem>
-            </BreadcrumbList>
-          </Breadcrumb>
-        </div>
-      </header>
-
-      <div className="flex flex-1 flex-col gap-4 p-4 pt-0">
-        <div className="flex items-center gap-4 mb-6">
-          <Button
-            variant="outline"
-            onClick={() => router.push(`/dashboard/exercises/${exercise.id}`)}
-          >
-            <ArrowLeft className="mr-2 h-4 w-4" />
-            Back to Details
-          </Button>
-        </div>
-
-        <form onSubmit={handleSubmit(onSubmit)}>
-          <Card>
-            <CardHeader>
-              <CardTitle>Edit Exercise</CardTitle>
-              <CardDescription>
-                Update the exercise information and settings
-              </CardDescription>
-            </CardHeader>
-            <CardContent className="space-y-6">
-              {/* Basic Information */}
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div className="space-y-2">
-                  <Label htmlFor="title">Title *</Label>
-                  <Input
-                    id="title"
-                    {...register('title', { required: 'Title is required' })}
-                  />
-                  {errors.title && (
-                    <p className="text-sm text-red-500">{errors.title.message}</p>
-                  )}
-                </div>
-
-                <div className="space-y-2">
-                  <Label htmlFor="categoryId">Category</Label>
-                  <Select
-                    value={watch('categoryId')}
-                    onValueChange={(value) => setValue('categoryId', value)}
-                  >
-                    <SelectTrigger>
-                      <SelectValue placeholder="Select a category" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="0">No category</SelectItem>
-                      {categories.map((category) => (
-                        <SelectItem key={category.id} value={category.id?.toString() || '0'}>
-                          {category.name}
-                        </SelectItem>
-                      ))}
-                    </SelectContent>
-                  </Select>
-                </div>
-              </div>
-
-              <div className="space-y-2">
-                <Label htmlFor="description">Description</Label>
-                <Textarea
-                  id="description"
-                  rows={4}
-                  {...register('description')}
-                />
-              </div>
-
-              {/* Exercise Parameters */}
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <div className="space-y-2">
-                  <Label htmlFor="durationMinutes">Duration (minutes)</Label>
-                  <Input
-                    id="durationMinutes"
-                    type="number"
-                    min="0"
-                    {...register('durationMinutes', { valueAsNumber: true })}
-                  />
-                </div>
-
-              </div>
-
-              <div className="space-y-2">
-                <Label htmlFor="price">Price (VND)</Label>
-                <Input
-                  id="price"
-                  type="number"
-                  min="0"
-                  step="1000"
-                  {...register('price', { valueAsNumber: true })}
-                />
-              </div>
-
-              {/* Media URLs */}
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div className="space-y-2">
-                  <Label htmlFor="imageUrl">Image URL</Label>
-                  <Input
-                    id="imageUrl"
-                    type="url"
-                    placeholder="https://example.com/image.jpg"
-                    {...register('imageUrl')}
-                  />
-                </div>
-
-                <div className="space-y-2">
-                  <Label htmlFor="videoUrl">Video URL</Label>
-                  <Input
-                    id="videoUrl"
-                    type="url"
-                    placeholder="https://example.com/video.mp4"
-                    {...register('videoUrl')}
-                  />
-                </div>
-              </div>
-
-
-              {/* Actions */}
-              <div className="flex items-center gap-4 pt-6">
-                <Button
-                  type="submit"
-                  disabled={saving || !isDirty}
-                  className="min-w-[120px]"
-                >
-                  {saving ? (
-                    'Saving...'
-                  ) : (
-                    <>
-                      <Save className="mr-2 h-4 w-4" />
-                      Save Changes
-                    </>
-                  )}
-                </Button>
-                <Button
-                  type="button"
-                  variant="outline"
-                  onClick={() => router.push(`/dashboard/exercises/${exercise.id}`)}
-                >
-                  Cancel
-                </Button>
-              </div>
-            </CardContent>
-          </Card>
-        </form>
+    <div className="flex flex-1 flex-col">
+      {/* Back Button */}
+      <div className="m-9 mt-9 mb-6">
+        <Button
+          variant="outline"
+          onClick={handleCancel}
+          disabled={isSubmitting}
+          className="border-[#6DBAD6] text-[#6DBAD6] hover:bg-[#6DBAD6] hover:text-white px-4 py-2 rounded-md flex items-center gap-2"
+        >
+          <ArrowLeft className="w-5 h-5" />
+          Quay lại
+        </Button>
       </div>
-    </>
+
+      {/* Main Content */}
+      <div className="m-9 mt-0 mb-6">
+        {/* Header Section */}
+        <div className="flex items-center justify-between mb-6">
+          <div>
+            <h1 className="text-4xl font-bold text-[#EF7F26] mb-2">Chỉnh sửa bài tập</h1>
+            <p className="text-base text-[#71717A]">Chỉnh sửa thông tin bài tập: {exercise.title}</p>
+          </div>
+        </div>
+
+        {/* Form Section */}
+        <div className="space-y-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {/* Exercise Title Input */}
+            <div className="space-y-2">
+              <Label htmlFor="exercise-title" className="text-sm font-medium">
+                Tên bài tập *
+              </Label>
+              <Input
+                id="exercise-title"
+                placeholder="Nhập tên bài tập"
+                value={formData.title}
+                onChange={(e) => handleInputChange('title', e.target.value)}
+                className="w-full"
+                disabled={isSubmitting}
+              />
+            </div>
+
+            {/* Category Select */}
+            <div className="space-y-2">
+              <Label htmlFor="exercise-category" className="text-sm font-medium">
+                Danh mục
+              </Label>
+              <Select value={formData.categoryId} onValueChange={(value) => handleInputChange('categoryId', value)} disabled={isSubmitting}>
+                <SelectTrigger className="w-full">
+                  <SelectValue placeholder="Chọn danh mục" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="0">Không có danh mục</SelectItem>
+                  {categories.map((category) => (
+                    <SelectItem key={category.id} value={category.id?.toString() || '0'}>
+                      {category.name}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </div>
+          </div>
+
+          {/* Description Input */}
+          <div className="space-y-2">
+            <Label htmlFor="exercise-description" className="text-sm font-medium">
+              Mô tả
+            </Label>
+            <Textarea
+              id="exercise-description"
+              placeholder="Nhập mô tả bài tập (tùy chọn)"
+              value={formData.description}
+              onChange={(e) => handleInputChange('description', e.target.value)}
+              className="w-full min-h-[120px]"
+              disabled={isSubmitting}
+            />
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {/* Duration Input */}
+            <div className="space-y-2">
+              <Label htmlFor="exercise-duration" className="text-sm font-medium">
+                Thời gian (phút)
+              </Label>
+              <Input
+                id="exercise-duration"
+                type="number"
+                min="0"
+                placeholder="Nhập thời gian"
+                value={formData.durationMinutes}
+                onChange={(e) => handleInputChange('durationMinutes', parseInt(e.target.value) || 0)}
+                className="w-full"
+                disabled={isSubmitting}
+              />
+            </div>
+
+            {/* Price Input */}
+            <div className="space-y-2">
+              <Label htmlFor="exercise-price" className="text-sm font-medium">
+                Giá (VND)
+              </Label>
+              <Input
+                id="exercise-price"
+                type="number"
+                min="0"
+                step="1000"
+                placeholder="Nhập giá"
+                value={formData.price}
+                onChange={(e) => handleInputChange('price', parseInt(e.target.value) || 0)}
+                className="w-full"
+                disabled={isSubmitting}
+              />
+            </div>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {/* Image Upload */}
+            <div className="space-y-2">
+              <Label className="text-sm font-medium">
+                Hình ảnh bài tập
+              </Label>
+              <FileUpload
+                onUploadComplete={(fileUrl) => handleInputChange('imageUrl', fileUrl)}
+                acceptedTypes={['image/jpeg', 'image/png', 'image/webp']}
+                fileType="image"
+                maxFileSize={10}
+                disabled={isSubmitting}
+                className="w-full"
+              />
+              {formData.imageUrl && (
+                <p className="text-xs text-green-600">✓ Hình ảnh đã được tải lên</p>
+              )}
+            </div>
+
+            {/* Video Upload */}
+            <div className="space-y-2">
+              <Label className="text-sm font-medium">
+                Video bài tập
+              </Label>
+              <FileUpload
+                onUploadComplete={(fileUrl) => handleInputChange('videoUrl', fileUrl)}
+                acceptedTypes={['video/mp4', 'video/webm', 'video/quicktime']}
+                fileType="video"
+                maxFileSize={100}
+                disabled={isSubmitting}
+                className="w-full"
+              />
+              {formData.videoUrl && (
+                <p className="text-xs text-green-600">✓ Video đã được tải lên</p>
+              )}
+            </div>
+          </div>
+
+          {/* Action Buttons */}
+          <div className="flex gap-3">
+            <Button
+              onClick={handleSubmit}
+              disabled={isSubmitting}
+              className="bg-[#6DBAD6] text-white px-4 py-2 rounded-md flex items-center gap-2 shadow-sm hover:bg-[#6DBAD6]/90 w-28"
+            >
+              <Save className="w-5 h-5" />
+              {isSubmitting ? 'Đang lưu...' : 'Lưu'}
+            </Button>
+            <Button
+              variant="outline"
+              onClick={handleCancel}
+              disabled={isSubmitting}
+              className="border-[#6DBAD6] text-[#6DBAD6] hover:bg-[#6DBAD6] hover:text-white px-4 py-2 rounded-md"
+            >
+              Hủy
+            </Button>
+          </div>
+        </div>
+      </div>
+    </div>
   );
 }
