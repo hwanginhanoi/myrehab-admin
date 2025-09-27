@@ -2,11 +2,9 @@
 
 import { useEffect, useState } from 'react';
 import { useRouter, useParams } from 'next/navigation';
-import { useForm } from 'react-hook-form';
 import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
-import { Textarea } from '@/components/ui/textarea';
+import { Label } from '@/components/ui/label';
 import {
   Select,
   SelectContent,
@@ -14,14 +12,6 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from '@/components/ui/form';
 import { ArrowLeft, Save } from 'lucide-react';
 import { getCategoryById } from '@/api/api/categoryManagementController/getCategoryById';
 import { updateCategory } from '@/api/api/categoryManagementController/updateCategory';
@@ -29,51 +19,27 @@ import { CategoryResponse } from '@/api/types/CategoryResponse';
 import { UpdateCategoryRequest } from '@/api/types/UpdateCategoryRequest';
 import { toast } from 'sonner';
 
-// Vietnamese translations for category types
-const getCategoryTypeLabel = (type: string): string => {
-  switch (type) {
-    case 'BODY_PART':
-      return 'Vùng cơ thể';
-    case 'RECOVERY_STAGE':
-      return 'Giai đoạn phục hồi';
-    case 'HEALTH_CONDITION':
-      return 'Tình trạng sức khỏe';
-    case 'DIFFICULTY_LEVEL':
-      return 'Mức độ khó';
-    case 'EXERCISE_TYPE':
-      return 'Loại bài tập';
-    default:
-      return type;
-  }
-};
-
-const categoryTypes = [
-  { value: 'BODY_PART', label: 'Vùng cơ thể' },
-  { value: 'RECOVERY_STAGE', label: 'Giai đoạn phục hồi' },
-  { value: 'HEALTH_CONDITION', label: 'Tình trạng sức khỏe' },
-  { value: 'DIFFICULTY_LEVEL', label: 'Mức độ khó' },
-  { value: 'EXERCISE_TYPE', label: 'Loại bài tập' },
-];
-
-type FormData = UpdateCategoryRequest;
-
 export default function EditCategoryPage() {
   const router = useRouter();
   const params = useParams();
   const [category, setCategory] = useState<CategoryResponse | null>(null);
   const [loading, setLoading] = useState(true);
-  const [saving, setSaving] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [formData, setFormData] = useState({
+    name: '',
+    description: '',
+    type: '',
+  });
 
   const categoryId = params.id as string;
 
-  const form = useForm<FormData>({
-    defaultValues: {
-      name: '',
-      description: '',
-      type: 'BODY_PART',
-    },
-  });
+  const handleInputChange = (field: string, value: string) => {
+    setFormData(prev => ({
+      ...prev,
+      [field]: value,
+    }));
+  };
 
   useEffect(() => {
     if (!categoryId) return;
@@ -86,10 +52,10 @@ export default function EditCategoryPage() {
         setCategory(data);
 
         // Update form with fetched data
-        form.reset({
+        setFormData({
           name: data.name || '',
           description: data.description || '',
-          type: (data.type as UpdateCategoryRequest['type']) || 'BODY_PART',
+          type: data.type || '',
         });
       } catch (err) {
         const errorMessage = err instanceof Error ? err.message : 'Failed to fetch category';
@@ -103,37 +69,50 @@ export default function EditCategoryPage() {
     };
 
     fetchCategory();
-  }, [categoryId, form]);
+  }, [categoryId]);
 
-  const onSubmit = async (data: FormData) => {
-    try {
-      setSaving(true);
-      await updateCategory(Number(categoryId), data);
-
-      toast.success('Category updated successfully', {
-        description: 'The category has been updated successfully.',
-      });
-
-      router.push(`/dashboard/categories/${categoryId}`);
-    } catch (err) {
-      const errorMessage = err instanceof Error ? err.message : 'Failed to update category';
-      toast.error('Failed to update category', {
-        description: errorMessage,
-      });
-    } finally {
-      setSaving(false);
+  const handleSubmit = async () => {
+    if (!formData.name.trim()) {
+      toast.error('Vui lòng nhập tên danh mục');
+      return;
     }
+
+    if (!formData.type) {
+      toast.error('Vui lòng chọn phân loại');
+      return;
+    }
+
+    setIsSubmitting(true);
+    try {
+      const requestData: UpdateCategoryRequest = {
+        name: formData.name.trim(),
+        description: formData.description.trim() || undefined,
+        type: formData.type as UpdateCategoryRequest['type'],
+      };
+
+      await updateCategory(Number(categoryId), requestData);
+
+      toast.success('Cập nhật danh mục thành công');
+      router.push(`/dashboard/categories/${categoryId}`);
+    } catch (error) {
+      console.error('Error updating category:', error);
+      toast.error('Có lỗi xảy ra khi cập nhật danh mục');
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
+  const handleCancel = () => {
+    router.push(`/dashboard/categories/${categoryId}`);
   };
 
   if (loading) {
     return (
       <div className="flex flex-1 flex-col">
         <div className="m-9 mt-9 mb-6">
-          <Card className="shadow-lg border border-[#E5E7EB] rounded-xl">
-            <CardContent className="flex items-center justify-center h-64">
-              <p>Loading category...</p>
-            </CardContent>
-          </Card>
+          <div className="flex items-center justify-center h-64">
+            <p>Đang tải...</p>
+          </div>
         </div>
       </div>
     );
@@ -143,17 +122,15 @@ export default function EditCategoryPage() {
     return (
       <div className="flex flex-1 flex-col">
         <div className="m-9 mt-9 mb-6">
-          <Card className="shadow-lg border border-[#E5E7EB] rounded-xl">
-            <CardContent className="flex items-center justify-center h-64">
-              <div className="text-center">
-                <p className="text-red-500 mb-4">Error: {error || 'Category not found'}</p>
-                <Button onClick={() => router.back()}>
-                  <ArrowLeft className="w-4 h-4 mr-2" />
-                  Go Back
-                </Button>
-              </div>
-            </CardContent>
-          </Card>
+          <div className="flex items-center justify-center h-64">
+            <div className="text-center">
+              <p className="text-red-500 mb-4">Lỗi: {error || 'Không tìm thấy danh mục'}</p>
+              <Button onClick={() => router.back()}>
+                <ArrowLeft className="w-4 h-4 mr-2" />
+                Quay lại
+              </Button>
+            </div>
+          </div>
         </div>
       </div>
     );
@@ -161,180 +138,102 @@ export default function EditCategoryPage() {
 
   return (
     <div className="flex flex-1 flex-col">
-      {/* Main Content */}
+      {/* Back Button */}
       <div className="m-9 mt-9 mb-6">
-            {/* Header Section */}
-            <div className="flex items-center justify-between">
-              <div className="flex items-center gap-4">
-                <Button
-                  variant="outline"
-                  size="sm"
-                  onClick={() => router.back()}
-                  className="border-[#6DBAD6] text-[#6DBAD6] hover:bg-[#6DBAD6] hover:text-white"
-                  disabled={saving}
-                >
-                  <ArrowLeft className="w-4 h-4 mr-2" />
-                  Quay lại
-                </Button>
-                <div>
-                  <CardTitle className="text-3xl font-bold text-[#EF7F26] mb-2">
-                    Chỉnh sửa danh mục
-                  </CardTitle>
-                  <p className="text-base text-[#71717A]">
-                    Chỉnh sửa thông tin danh mục: {category.name}
-                  </p>
-                </div>
-              </div>
+        <Button
+          variant="outline"
+          onClick={handleCancel}
+          disabled={isSubmitting}
+          className="border-[#6DBAD6] text-[#6DBAD6] hover:bg-[#6DBAD6] hover:text-white px-4 py-2 rounded-md flex items-center gap-2"
+        >
+          <ArrowLeft className="w-5 h-5" />
+          Quay lại
+        </Button>
+      </div>
+
+      {/* Main Content */}
+      <div className="m-9 mt-0 mb-6">
+        {/* Header Section */}
+        <div className="flex items-center justify-between mb-6">
+          <div>
+            <h1 className="text-4xl font-bold text-[#EF7F26] mb-2">Chỉnh sửa danh mục</h1>
+            <p className="text-base text-[#71717A]">Chỉnh sửa thông tin danh mục: {category.name}</p>
+          </div>
+        </div>
+
+        {/* Form Section */}
+        <div className="space-y-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {/* Category Name Input */}
+            <div className="space-y-2">
+              <Label htmlFor="category-name" className="text-sm font-medium">
+                Tên danh mục *
+              </Label>
+              <Input
+                id="category-name"
+                placeholder="Nhập tên danh mục"
+                value={formData.name}
+                onChange={(e) => handleInputChange('name', e.target.value)}
+                className="w-full"
+                disabled={isSubmitting}
+              />
             </div>
-            <Form {...form}>
-              <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  {/* Basic Information */}
-                  <div className="space-y-6">
-                    <div>
-                      <h3 className="text-lg font-semibold text-[#EF7F26] mb-4">Thông tin cơ bản</h3>
-                      <div className="space-y-4">
-                        <FormField
-                          control={form.control}
-                          name="name"
-                          rules={{
-                            required: "Tên danh mục là bắt buộc",
-                            minLength: {
-                              value: 2,
-                              message: "Tên danh mục phải có ít nhất 2 ký tự"
-                            }
-                          }}
-                          render={({ field }) => (
-                            <FormItem>
-                              <FormLabel className="text-sm font-medium text-[#71717A]">
-                                Tên danh mục *
-                              </FormLabel>
-                              <FormControl>
-                                <Input
-                                  placeholder="Nhập tên danh mục..."
-                                  {...field}
-                                  className="w-full"
-                                  disabled={saving}
-                                />
-                              </FormControl>
-                              <FormMessage />
-                            </FormItem>
-                          )}
-                        />
 
-                        <FormField
-                          control={form.control}
-                          name="type"
-                          rules={{
-                            required: "Phân loại là bắt buộc"
-                          }}
-                          render={({ field }) => (
-                            <FormItem>
-                              <FormLabel className="text-sm font-medium text-[#71717A]">
-                                Phân loại *
-                              </FormLabel>
-                              <Select
-                                onValueChange={field.onChange}
-                                value={field.value}
-                                disabled={saving}
-                              >
-                                <FormControl>
-                                  <SelectTrigger className="w-full">
-                                    <SelectValue placeholder="Chọn phân loại..." />
-                                  </SelectTrigger>
-                                </FormControl>
-                                <SelectContent>
-                                  {categoryTypes.map((type) => (
-                                    <SelectItem key={type.value} value={type.value}>
-                                      {type.label}
-                                    </SelectItem>
-                                  ))}
-                                </SelectContent>
-                              </Select>
-                              <FormMessage />
-                            </FormItem>
-                          )}
-                        />
-                      </div>
-                    </div>
-                  </div>
+            {/* Category Type Select */}
+            <div className="space-y-2">
+              <Label htmlFor="category-type" className="text-sm font-medium">
+                Phân loại *
+              </Label>
+              <Select value={formData.type} onValueChange={(value) => handleInputChange('type', value)} disabled={isSubmitting}>
+                <SelectTrigger className="w-full">
+                  <SelectValue placeholder="Chọn phân loại" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="BODY_PART">Vùng cơ thể</SelectItem>
+                  <SelectItem value="RECOVERY_STAGE">Giai đoạn phục hồi</SelectItem>
+                  <SelectItem value="HEALTH_CONDITION">Tình trạng sức khỏe</SelectItem>
+                  <SelectItem value="DIFFICULTY_LEVEL">Mức độ khó</SelectItem>
+                  <SelectItem value="EXERCISE_TYPE">Loại bài tập</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+          </div>
 
-                  {/* Description */}
-                  <div className="space-y-6">
-                    <div>
-                      <h3 className="text-lg font-semibold text-[#EF7F26] mb-4">Mô tả</h3>
-                      <FormField
-                        control={form.control}
-                        name="description"
-                        render={({ field }) => (
-                          <FormItem>
-                            <FormLabel className="text-sm font-medium text-[#71717A]">
-                              Mô tả chi tiết
-                            </FormLabel>
-                            <FormControl>
-                              <Textarea
-                                placeholder="Nhập mô tả về danh mục..."
-                                className="min-h-[120px] resize-none"
-                                {...field}
-                                disabled={saving}
-                              />
-                            </FormControl>
-                            <FormMessage />
-                          </FormItem>
-                        )}
-                      />
-                    </div>
+          {/* Category Description Input */}
+          <div className="space-y-2">
+            <Label htmlFor="category-description" className="text-sm font-medium">
+              Mô tả
+            </Label>
+            <Input
+              id="category-description"
+              placeholder="Nhập mô tả danh mục (tùy chọn)"
+              value={formData.description}
+              onChange={(e) => handleInputChange('description', e.target.value)}
+              className="w-full"
+              disabled={isSubmitting}
+            />
+          </div>
 
-                    {/* Current Information Display */}
-                    <div>
-                      <h3 className="text-lg font-semibold text-[#EF7F26] mb-3">Thông tin hiện tại</h3>
-                      <div className="bg-gray-50 p-4 rounded-lg space-y-2">
-                        <div className="flex justify-between">
-                          <span className="text-sm text-[#71717A]">ID:</span>
-                          <span className="text-sm font-medium">{category.id}</span>
-                        </div>
-                        <div className="flex justify-between">
-                          <span className="text-sm text-[#71717A]">Phân loại hiện tại:</span>
-                          <span className="text-sm font-medium">
-                            {getCategoryTypeLabel(category.type || '')}
-                          </span>
-                        </div>
-                        <div className="flex justify-between">
-                          <span className="text-sm text-[#71717A]">Ngày tạo:</span>
-                          <span className="text-sm font-medium">
-                            {category.createdAt
-                              ? new Date(category.createdAt).toLocaleDateString('vi-VN')
-                              : '-'
-                            }
-                          </span>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                {/* Action Buttons */}
-                <div className="flex items-center justify-end gap-4 pt-6 border-t">
-                  <Button
-                    type="button"
-                    variant="outline"
-                    onClick={() => router.back()}
-                    disabled={saving}
-                    className="border-gray-300 text-gray-700 hover:bg-gray-50"
-                  >
-                    Hủy bỏ
-                  </Button>
-                  <Button
-                    type="submit"
-                    disabled={saving}
-                    className="bg-[#6DBAD6] text-white hover:bg-[#6DBAD6]/90 flex items-center gap-2"
-                  >
-                    <Save className="w-4 h-4" />
-                    {saving ? 'Đang lưu...' : 'Lưu thay đổi'}
-                  </Button>
-                </div>
-              </form>
-            </Form>
+          {/* Action Buttons */}
+          <div className="flex gap-3">
+            <Button
+              onClick={handleSubmit}
+              disabled={isSubmitting}
+              className="bg-[#6DBAD6] text-white px-4 py-2 rounded-md flex items-center gap-2 shadow-sm hover:bg-[#6DBAD6]/90 w-28"
+            >
+              <Save className="w-5 h-5" />
+              {isSubmitting ? 'Đang lưu...' : 'Lưu'}
+            </Button>
+            <Button
+              variant="outline"
+              onClick={handleCancel}
+              disabled={isSubmitting}
+              className="border-[#6DBAD6] text-[#6DBAD6] hover:bg-[#6DBAD6] hover:text-white px-4 py-2 rounded-md"
+            >
+              Hủy
+            </Button>
+          </div>
+        </div>
       </div>
     </div>
   );

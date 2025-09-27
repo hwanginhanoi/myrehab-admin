@@ -288,7 +288,7 @@ export function FileUpload({
   const getAcceptString = () => acceptedTypes.join(',');
 
   return (
-    <div className={cn('w-full', className)}>
+    <div className={cn('w-full max-w-md', className)}>
       <input
         ref={fileInputRef}
         type="file"
@@ -390,12 +390,12 @@ export function FileUpload({
 
                 {/* Preview Section */}
                 {uploadState.fileUrl && (
-                  <div className="space-y-2">
+                  <div className="space-y-2 max-h-32">
                     <span className="text-sm font-medium">Preview:</span>
 
                     {fileType === 'image' ? (
                       <div
-                        className="relative w-full aspect-video rounded-lg overflow-hidden bg-muted cursor-pointer hover:opacity-80 transition-opacity"
+                        className="relative w-full h-20 rounded-lg overflow-hidden bg-muted cursor-pointer hover:opacity-80 transition-opacity"
                         onClick={handlePreviewOpen}
                       >
                         <Image
@@ -406,14 +406,14 @@ export function FileUpload({
                           sizes="(max-width: 768px) 100vw, 50vw"
                         />
                         <div className="absolute inset-0 flex items-center justify-center bg-black/20 opacity-0 hover:opacity-100 transition-opacity">
-                          <Eye className="h-8 w-8 text-white" />
+                          <Eye className="h-6 w-6 text-white" />
                         </div>
                       </div>
                     ) : (
                       <div className="space-y-2">
                         {uploadState.videoViewingUrl ? (
                           <div
-                            className="relative w-full aspect-video rounded-lg overflow-hidden bg-muted cursor-pointer hover:opacity-80 transition-opacity"
+                            className="relative w-full h-20 rounded-lg overflow-hidden bg-muted cursor-pointer hover:opacity-80 transition-opacity"
                             onClick={handlePreviewOpen}
                           >
                             <video
@@ -423,16 +423,16 @@ export function FileUpload({
                               muted
                             />
                             <div className="absolute inset-0 flex items-center justify-center bg-black/20 opacity-0 hover:opacity-100 transition-opacity">
-                              <div className="bg-white/90 rounded-full p-3">
-                                <svg className="h-8 w-8 text-black" fill="currentColor" viewBox="0 0 24 24">
+                              <div className="bg-white/90 rounded-full p-2">
+                                <svg className="h-6 w-6 text-black" fill="currentColor" viewBox="0 0 24 24">
                                   <path d="M8 5v14l11-7z"/>
                                 </svg>
                               </div>
                             </div>
                           </div>
                         ) : (
-                          <div className="w-full aspect-video rounded-lg bg-muted flex items-center justify-center">
-                            <span className="text-sm text-muted-foreground">Loading video preview...</span>
+                          <div className="w-full h-20 rounded-lg bg-muted flex items-center justify-center">
+                            <span className="text-xs text-muted-foreground">Loading video preview...</span>
                           </div>
                         )}
                       </div>
