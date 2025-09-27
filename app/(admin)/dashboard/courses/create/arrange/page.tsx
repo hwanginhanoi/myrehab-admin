@@ -1015,7 +1015,7 @@ export default function ArrangeCoursePage() {
               {/* Exercise Library Section */}
               <div className="flex flex-col lg:flex-1 lg:w-1/2 min-w-0">
                 <div className="sticky top-4">
-                  <div className="bg-[#F4F4F5] rounded-lg shadow-sm max-h-[80vh] overflow-hidden">
+                  <div className="bg-[#F4F4F5] rounded-lg shadow-sm h-[80vh] flex flex-col">
                     <SortableContext
                       items={exercises.map(ex => `exercise-${ex.id}`)}
                       strategy={verticalListSortingStrategy}
