@@ -15,8 +15,8 @@ import { Alert, AlertDescription } from "@/components/ui/alert"
 import { Loader2 } from 'lucide-react';
 
 const loginSchema = z.object({
-  email: z.string().email('Invalid email address'),
-  password: z.string().min(1, 'Password is required'),
+  email: z.string().email('Địa chỉ email không hợp lệ'),
+  password: z.string().min(1, 'Mật khẩu là bắt buộc'),
 });
 
 type LoginForm = z.infer<typeof loginSchema>;
@@ -77,66 +77,69 @@ export function LoginForm({
   };
 
   return (
-    <form className={cn("flex flex-col gap-6", className)} onSubmit={form.handleSubmit(onSubmit)} {...props}>
-      <div className="flex flex-col items-center gap-2 text-center">
-        <h1 className="text-2xl font-bold">Staff Login</h1>
-        <p className="text-muted-foreground text-sm text-balance">
-          Enter your credentials to access the admin dashboard
-        </p>
-      </div>
-      <div className="grid gap-6">
-        <div className="grid gap-3">
-          <Label htmlFor="email">Email</Label>
-          <Input 
-            id="email" 
-            type="email" 
-            placeholder="m@example.com" 
+    <form className={cn("flex flex-col gap-4 w-full", className)} onSubmit={form.handleSubmit(onSubmit)} {...props}>
+      <div className="flex flex-col gap-4">
+        {/* Email Field */}
+        <div className="flex flex-col gap-1.5 w-full">
+          <Label htmlFor="email" className="text-sm font-medium">
+            Email
+          </Label>
+          <Input
+            id="email"
+            type="email"
+            placeholder="admin@example.com"
             {...form.register('email')}
           />
           {form.formState.errors.email && (
             <p className="text-sm text-red-500">{form.formState.errors.email.message}</p>
           )}
         </div>
-        <div className="grid gap-3">
-          <div className="flex items-center">
-            <Label htmlFor="password">Password</Label>
+
+        {/* Password Field */}
+        <div className="flex flex-col gap-1 w-full">
+          <div className="flex flex-col gap-1.5">
+            <Label htmlFor="password" className="text-sm font-medium">
+              Mật khẩu
+            </Label>
+            <Input
+              id="password"
+              type="password"
+              {...form.register('password')}
+            />
+            {form.formState.errors.password && (
+              <p className="text-sm text-red-500">{form.formState.errors.password.message}</p>
+            )}
+          </div>
+          <div className="flex justify-end">
             <a
               href="#"
-              className="ml-auto text-sm underline-offset-4 hover:underline"
+              className="text-sm text-[#71717A] hover:underline"
             >
-              Forgot your password?
+              Quên mật khẩu
             </a>
           </div>
-          <Input 
-            id="password" 
-            type="password" 
-            {...form.register('password')}
-          />
-          {form.formState.errors.password && (
-            <p className="text-sm text-red-500">{form.formState.errors.password.message}</p>
-          )}
         </div>
+
         {error && (
           <Alert variant="destructive">
             <AlertDescription>{error}</AlertDescription>
           </Alert>
         )}
-        <Button type="submit" className="w-full" disabled={isLoading}>
+
+        {/* Login Button */}
+        <Button
+          type="submit"
+          disabled={isLoading}
+        >
           {isLoading ? (
             <>
               <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-              Signing in...
+              Đang đăng nhập...
             </>
           ) : (
-            'Login'
+            'Đăng nhập'
           )}
         </Button>
-        <div className="text-center text-sm">
-          Need access?{" "}
-          <a href="#" className="underline underline-offset-4">
-            Contact your administrator
-          </a>
-        </div>
       </div>
     </form>
   )
