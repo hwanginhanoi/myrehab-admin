@@ -2,21 +2,17 @@
 
 import { useEffect, useState } from 'react';
 import { useRouter, useParams } from 'next/navigation';
+import { useForm } from 'react-hook-form';
 import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from '@/components/ui/select';
 import { ArrowLeft, Save } from 'lucide-react';
 import { getCategoryById } from '@/api/api/categoryManagementController/getCategoryById';
 import { updateCategory } from '@/api/api/categoryManagementController/updateCategory';
 import { CategoryResponse } from '@/api/types/CategoryResponse';
 import { UpdateCategoryRequest } from '@/api/types/UpdateCategoryRequest';
+import { CategoryFormData } from '@/lib/types/category-creation';
+import { CategoryFormFields } from '@/components/category-creation/category-form-fields';
+import { LoadingState } from '@/components/ui/loading-state';
+import { ErrorState } from '@/components/ui/error-state';
 import { toast } from 'sonner';
 
 export default function EditCategoryPage() {
@@ -26,20 +22,18 @@ export default function EditCategoryPage() {
   const [loading, setLoading] = useState(true);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const [formData, setFormData] = useState({
-    name: '',
-    description: '',
-    type: '',
-  });
 
   const categoryId = params.id as string;
 
-  const handleInputChange = (field: string, value: string) => {
-    setFormData(prev => ({
-      ...prev,
-      [field]: value,
-    }));
-  };
+  const form = useForm<CategoryFormData>({
+    defaultValues: {
+      name: '',
+      description: '',
+      type: '',
+    },
+  });
+
+  const { handleSubmit, reset, setError: setFormError } = form;
 
   useEffect(() => {
     if (!categoryId) return;
@@ -51,8 +45,8 @@ export default function EditCategoryPage() {
         const data = await getCategoryById(Number(categoryId));
         setCategory(data);
 
-        // Update form with fetched data
-        setFormData({
+        // Reset form with fetched data
+        reset({
           name: data.name || '',
           description: data.description || '',
           type: data.type || '',
@@ -68,16 +62,16 @@ export default function EditCategoryPage() {
       }
     };
 
-    fetchCategory();
-  }, [categoryId]);
+    void fetchCategory();
+  }, [categoryId, reset]);
 
-  const handleSubmit = async () => {
-    if (!formData.name.trim()) {
-      toast.error('Vui lòng nhập tên danh mục');
-      return;
-    }
-
-    if (!formData.type) {
+  const onSubmit = async (data: CategoryFormData) => {
+    // Validate type is selected
+    if (!data.type) {
+      setFormError('type', {
+        type: 'manual',
+        message: 'Vui lòng chọn phân loại',
+      });
       toast.error('Vui lòng chọn phân loại');
       return;
     }
@@ -85,9 +79,9 @@ export default function EditCategoryPage() {
     setIsSubmitting(true);
     try {
       const requestData: UpdateCategoryRequest = {
-        name: formData.name.trim(),
-        description: formData.description.trim() || undefined,
-        type: formData.type as UpdateCategoryRequest['type'],
+        name: data.name.trim(),
+        description: data.description.trim() || undefined,
+        type: data.type as UpdateCategoryRequest['type'],
       };
 
       await updateCategory(Number(categoryId), requestData);
@@ -107,33 +101,11 @@ export default function EditCategoryPage() {
   };
 
   if (loading) {
-    return (
-      <div className="flex flex-1 flex-col">
-        <div className="m-9 mt-9 mb-6">
-          <div className="flex items-center justify-center h-64">
-            <p>Đang tải...</p>
-          </div>
-        </div>
-      </div>
-    );
+    return <LoadingState message="Đang tải danh mục..." />;
   }
 
   if (error || !category) {
-    return (
-      <div className="flex flex-1 flex-col">
-        <div className="m-9 mt-9 mb-6">
-          <div className="flex items-center justify-center h-64">
-            <div className="text-center">
-              <p className="text-red-500 mb-4">Lỗi: {error || 'Không tìm thấy danh mục'}</p>
-              <Button onClick={() => router.back()}>
-                <ArrowLeft className="w-4 h-4 mr-2" />
-                Quay lại
-              </Button>
-            </div>
-          </div>
-        </div>
-      </div>
-    );
+    return <ErrorState error={error || 'Không tìm thấy danh mục'} onBack={() => router.back()} />;
   }
 
   return (
@@ -153,71 +125,24 @@ export default function EditCategoryPage() {
 
       {/* Main Content */}
       <div className="m-9 mt-0 mb-6">
-        {/* Header Section */}
-        <div className="flex items-center justify-between mb-6">
-          <div>
-            <h1 className="text-4xl font-bold text-[#EF7F26] mb-2">Chỉnh sửa danh mục</h1>
-            <p className="text-base text-[#71717A]">Chỉnh sửa thông tin danh mục: {category.name}</p>
-          </div>
-        </div>
-
-        {/* Form Section */}
-        <div className="space-y-6">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {/* Category Name Input */}
-            <div className="space-y-2">
-              <Label htmlFor="category-name" className="text-sm font-medium">
-                Tên danh mục *
-              </Label>
-              <Input
-                id="category-name"
-                placeholder="Nhập tên danh mục"
-                value={formData.name}
-                onChange={(e) => handleInputChange('name', e.target.value)}
-                className="w-full"
-                disabled={isSubmitting}
-              />
-            </div>
-
-            {/* Category Type Select */}
-            <div className="space-y-2">
-              <Label htmlFor="category-type" className="text-sm font-medium">
-                Phân loại *
-              </Label>
-              <Select value={formData.type} onValueChange={(value) => handleInputChange('type', value)} disabled={isSubmitting}>
-                <SelectTrigger className="w-full">
-                  <SelectValue placeholder="Chọn phân loại" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="BODY_PART">Vùng cơ thể</SelectItem>
-                  <SelectItem value="RECOVERY_STAGE">Giai đoạn phục hồi</SelectItem>
-                  <SelectItem value="HEALTH_CONDITION">Tình trạng sức khỏe</SelectItem>
-                  <SelectItem value="DIFFICULTY_LEVEL">Mức độ khó</SelectItem>
-                  <SelectItem value="EXERCISE_TYPE">Loại bài tập</SelectItem>
-                </SelectContent>
-              </Select>
+        <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
+          {/* Header Section */}
+          <div className="flex items-center justify-between mb-6">
+            <div>
+              <h1 className="text-4xl font-bold text-[#EF7F26] mb-2">Chỉnh sửa danh mục</h1>
+              <p className="text-base text-[#71717A]">
+                Chỉnh sửa thông tin danh mục: {category.name}
+              </p>
             </div>
           </div>
 
-          {/* Category Description Input */}
-          <div className="space-y-2">
-            <Label htmlFor="category-description" className="text-sm font-medium">
-              Mô tả
-            </Label>
-            <Input
-              id="category-description"
-              placeholder="Nhập mô tả danh mục (tùy chọn)"
-              value={formData.description}
-              onChange={(e) => handleInputChange('description', e.target.value)}
-              className="w-full"
-              disabled={isSubmitting}
-            />
-          </div>
+          {/* Form Fields */}
+          <CategoryFormFields form={form} disabled={isSubmitting} />
 
           {/* Action Buttons */}
           <div className="flex gap-3">
             <Button
-              onClick={handleSubmit}
+              type="submit"
               disabled={isSubmitting}
               className="bg-[#6DBAD6] text-white px-4 py-2 rounded-md flex items-center gap-2 shadow-sm hover:bg-[#6DBAD6]/90 w-28"
             >
@@ -225,6 +150,7 @@ export default function EditCategoryPage() {
               {isSubmitting ? 'Đang lưu...' : 'Lưu'}
             </Button>
             <Button
+              type="button"
               variant="outline"
               onClick={handleCancel}
               disabled={isSubmitting}
@@ -233,7 +159,7 @@ export default function EditCategoryPage() {
               Hủy
             </Button>
           </div>
-        </div>
+        </form>
       </div>
     </div>
   );
