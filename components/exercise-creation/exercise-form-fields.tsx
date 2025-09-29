@@ -11,7 +11,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
-import { FileUpload } from '@/components/ui/file-upload';
+import { FileUpload } from '@/components/file-upload/file-upload';
 import { getAllCategories } from '@/api/api/categoryManagementController/getAllCategories';
 import { CategoryResponse } from '@/api/types/CategoryResponse';
 import { ExerciseFormData } from '@/lib/types/exercise-creation';

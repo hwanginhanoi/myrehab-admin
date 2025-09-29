@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { Eye, Upload, X } from 'lucide-react';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { FileUpload } from '@/components/ui/file-upload';
+import { FileUpload } from '@/components/file-upload/file-upload';
 import { generateVideoViewingUrl } from '@/api/api/fileUploadController/generateVideoViewingUrl';
 import { toast } from 'sonner';
 
