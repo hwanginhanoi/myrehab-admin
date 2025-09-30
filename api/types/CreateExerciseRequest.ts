@@ -20,10 +20,6 @@ export type CreateExerciseRequest = {
     */
     durationMinutes: number;
     /**
-     * @type number
-    */
-    price: number;
-    /**
      * @type integer | undefined, int64
     */
     categoryId?: number;

@@ -26,10 +26,6 @@ import type { CategoryResponse } from "./CategoryResponse";
     */
     durationMinutes?: number;
     /**
-     * @type number | undefined
-    */
-    price?: number;
-    /**
      * @type object | undefined
     */
     category?: CategoryResponse;
