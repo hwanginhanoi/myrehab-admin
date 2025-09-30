@@ -22,7 +22,6 @@ export default function CreateExercisePage() {
       imageUrl: '',
       videoUrl: '',
       durationMinutes: 0,
-      price: 0,
       categoryId: '0',
     },
   });
@@ -58,7 +57,6 @@ export default function CreateExercisePage() {
         imageUrl: data.imageUrl,
         videoUrl: data.videoUrl,
         durationMinutes: data.durationMinutes,
-        price: data.price,
         categoryId:
           data.categoryId && data.categoryId !== '0'
             ? parseInt(data.categoryId, 10)

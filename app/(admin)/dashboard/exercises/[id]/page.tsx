@@ -297,10 +297,6 @@ export default function ExerciseDetailsPage() {
                         {exercise.durationMinutes ? `${exercise.durationMinutes} minutes` : 'Not specified'}
                       </p>
                     </div>
-                    <div>
-                      <label className="text-sm font-medium text-muted-foreground">Price</label>
-                      <p className="text-sm mt-1 font-medium">{formatCurrency(exercise.price)}</p>
-                    </div>
                   </div>
                 </div>
 

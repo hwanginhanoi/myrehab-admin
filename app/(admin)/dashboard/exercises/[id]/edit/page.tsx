@@ -35,7 +35,6 @@ export default function EditExercisePage() {
       imageUrl: '',
       videoUrl: '',
       durationMinutes: 0,
-      price: 0,
       categoryId: '0',
     },
   });
@@ -69,7 +68,6 @@ export default function EditExercisePage() {
           imageUrl: exerciseData.imageUrl || '',
           videoUrl: exerciseData.videoUrl || '',
           durationMinutes: exerciseData.durationMinutes || 0,
-          price: exerciseData.price || 0,
           categoryId: exerciseData.category?.id?.toString() || '0',
         });
       } catch (err) {
@@ -96,7 +94,6 @@ export default function EditExercisePage() {
         imageUrl: data.imageUrl.trim(),
         videoUrl: data.videoUrl.trim(),
         durationMinutes: data.durationMinutes,
-        price: data.price,
         categoryId:
           data.categoryId && data.categoryId !== '0'
             ? parseInt(data.categoryId, 10)
