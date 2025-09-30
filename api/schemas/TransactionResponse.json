@@ -1,0 +1,1 @@
+{"type":"object","properties":{"id":{"type":"integer","format":"int64"},"type":{"type":"string"},"amount":{"type":"number"},"description":{"type":"string"},"createdAt":{"type":"string","format":"date-time"}},"x-readme-ref-name":"TransactionResponse"}

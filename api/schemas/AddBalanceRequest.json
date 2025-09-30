@@ -1,0 +1,1 @@
+{"type":"object","properties":{"amount":{"type":"number"},"description":{"type":"string"}},"required":["amount"],"x-readme-ref-name":"AddBalanceRequest"}

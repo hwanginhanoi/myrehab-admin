@@ -85,58 +85,28 @@ export function ExerciseFormFields({ form, disabled = false }: ExerciseFormField
           {errors.title && <p className="text-sm text-red-500">{errors.title.message}</p>}
         </div>
 
-        {/* Category and Price Row */}
-        <div className="grid grid-cols-2 gap-6">
-          {/* Category Select */}
-          <div className="space-y-2">
-            <Label htmlFor="exercise-category" className="text-base font-medium text-[#09090B]">
-              Danh mục
-            </Label>
-            <Select
-              value={watch('categoryId')}
-              onValueChange={(value) => setValue('categoryId', value)}
-              disabled={disabled}
-            >
-              <SelectTrigger className="w-full">
-                <SelectValue placeholder="Danh mục" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="0">Không có danh mục</SelectItem>
-                {categories.map((category) => (
-                  <SelectItem key={category.id} value={category.id?.toString() || '0'}>
-                    {category.name}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
-          </div>
-
-          {/* Price Input */}
-          <div className="space-y-2">
-            <Label htmlFor="exercise-price" className="text-base font-medium text-[#09090B]">
-              Giá *
-            </Label>
-            <div className="relative">
-              <Input
-                id="exercise-price"
-                type="number"
-                min="0"
-                step="1000"
-                placeholder="100,000"
-                {...register('price', {
-                  required: 'Giá là bắt buộc',
-                  valueAsNumber: true,
-                  min: { value: 0, message: 'Giá phải lớn hơn hoặc bằng 0' },
-                })}
-                disabled={disabled}
-                className="w-full pr-12"
-              />
-              <div className="absolute right-3 top-1/2 transform -translate-y-1/2 text-[#BDBEC0]">
-                VND
-              </div>
-            </div>
-            {errors.price && <p className="text-sm text-red-500">{errors.price.message}</p>}
-          </div>
+        {/* Category Select */}
+        <div className="space-y-2">
+          <Label htmlFor="exercise-category" className="text-base font-medium text-[#09090B]">
+            Danh mục
+          </Label>
+          <Select
+            value={watch('categoryId')}
+            onValueChange={(value) => setValue('categoryId', value)}
+            disabled={disabled}
+          >
+            <SelectTrigger className="w-full">
+              <SelectValue placeholder="Danh mục" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="0">Không có danh mục</SelectItem>
+              {categories.map((category) => (
+                <SelectItem key={category.id} value={category.id?.toString() || '0'}>
+                  {category.name}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
         </div>
 
         {/* Description Input */}

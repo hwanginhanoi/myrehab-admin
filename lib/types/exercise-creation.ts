@@ -4,6 +4,5 @@ export interface ExerciseFormData {
   imageUrl: string;
   videoUrl: string;
   durationMinutes: number;
-  price: number;
   categoryId: string;
 }

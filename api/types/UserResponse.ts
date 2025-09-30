@@ -24,6 +24,10 @@ export type UserResponse = {
     */
     otpVerified?: boolean;
     /**
+     * @type number | undefined
+    */
+    balance?: number;
+    /**
      * @type string | undefined, date-time
     */
     createdAt?: string;

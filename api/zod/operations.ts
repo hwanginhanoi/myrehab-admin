@@ -4,6 +4,7 @@ import { deleteExerciseMutationResponseSchema, deleteExercisePathParamsSchema } 
 import { getCategoryByIdQueryResponseSchema, getCategoryByIdPathParamsSchema } from "./getCategoryByIdSchema";
 import { updateCategoryMutationRequestSchema, updateCategoryMutationResponseSchema, updateCategoryPathParamsSchema } from "./updateCategorySchema";
 import { deleteCategoryMutationResponseSchema, deleteCategoryPathParamsSchema } from "./deleteCategorySchema";
+import { buyCourseMutationResponseSchema, buyCoursePathParamsSchema } from "./buyCourseSchema";
 import { uploadVideoMutationRequestSchema, uploadVideoMutationResponseSchema } from "./uploadVideoSchema";
 import { uploadImageMutationRequestSchema, uploadImageMutationResponseSchema } from "./uploadImageSchema";
 import { generatePresignedUploadUrlMutationRequestSchema, generatePresignedUploadUrlMutationResponseSchema } from "./generatePresignedUploadUrlSchema";
@@ -13,12 +14,17 @@ import { getAllCoursesQueryResponseSchema } from "./getAllCoursesSchema";
 import { createCourseMutationRequestSchema, createCourseMutationResponseSchema } from "./createCourseSchema";
 import { getAllCategoriesQueryResponseSchema } from "./getAllCategoriesSchema";
 import { createCategoryMutationRequestSchema, createCategoryMutationResponseSchema } from "./createCategorySchema";
+import { addBalanceToUserMutationRequestSchema, addBalanceToUserMutationResponseSchema, addBalanceToUserPathParamsSchema } from "./addBalanceToUserSchema";
+import { addBalanceMutationRequestSchema, addBalanceMutationResponseSchema } from "./addBalanceSchema";
 import { verifyOtpAndLoginMutationRequestSchema, verifyOtpAndLoginMutationResponseSchema } from "./verifyOtpAndLoginSchema";
 import { sendOtpForUserMutationRequestSchema, sendOtpForUserMutationResponseSchema } from "./sendOtpForUserSchema";
 import { staffLoginMutationRequestSchema, staffLoginMutationResponseSchema } from "./staffLoginSchema";
 import { refreshTokenMutationRequestSchema, refreshTokenMutationResponseSchema } from "./refreshTokenSchema";
 import { logoutMutationRequestSchema, logoutMutationResponseSchema } from "./logoutSchema";
 import { getAllUsersQueryResponseSchema } from "./getAllUsersSchema";
+import { getMyPurchasesQueryResponseSchema } from "./getMyPurchasesSchema";
+import { getMyPurchasesPaginatedQueryResponseSchema, getMyPurchasesPaginatedQueryParamsSchema } from "./getMyPurchasesPaginatedSchema";
+import { checkCourseOwnershipQueryResponseSchema, checkCourseOwnershipPathParamsSchema } from "./checkCourseOwnershipSchema";
 import { generateVideoViewingUrlQueryResponseSchema, generateVideoViewingUrlQueryParamsSchema } from "./generateVideoViewingUrlSchema";
 import { generatePresignedAccessUrlQueryResponseSchema, generatePresignedAccessUrlPathParamsSchema, generatePresignedAccessUrlQueryParamsSchema } from "./generatePresignedAccessUrlSchema";
 import { searchExercisesQueryResponseSchema, searchExercisesQueryParamsSchema } from "./searchExercisesSchema";
@@ -33,6 +39,8 @@ import { getCategoriesByTypePaginatedQueryResponseSchema, getCategoriesByTypePag
 import { searchCategoriesQueryResponseSchema, searchCategoriesQueryParamsSchema } from "./searchCategoriesSchema";
 import { searchCategoriesPaginatedQueryResponseSchema, searchCategoriesPaginatedQueryParamsSchema } from "./searchCategoriesPaginatedSchema";
 import { getAllCategoriesPaginatedQueryResponseSchema, getAllCategoriesPaginatedQueryParamsSchema } from "./getAllCategoriesPaginatedSchema";
+import { getUserBalanceQueryResponseSchema } from "./getUserBalanceSchema";
+import { getTransactionHistoryQueryResponseSchema } from "./getTransactionHistorySchema";
 import { getAllUsers1QueryResponseSchema } from "./getAllUsers1Schema";
 import { getAllUsersPaginatedQueryResponseSchema, getAllUsersPaginatedQueryParamsSchema } from "./getAllUsersPaginatedSchema";
 import { deleteFileMutationResponseSchema, deleteFileQueryParamsSchema } from "./deleteFileSchema";
@@ -107,6 +115,18 @@ import { deleteFileMutationResponseSchema, deleteFileQueryParamsSchema } from ".
         responses: {
             200: deleteCategoryMutationResponseSchema,
             default: deleteCategoryMutationResponseSchema
+        },
+        errors: {}
+    }, "buyCourse": {
+        request: undefined,
+        parameters: {
+            path: buyCoursePathParamsSchema,
+            query: undefined,
+            header: undefined
+        },
+        responses: {
+            200: buyCourseMutationResponseSchema,
+            default: buyCourseMutationResponseSchema
         },
         errors: {}
     }, "uploadVideo": {
@@ -217,6 +237,30 @@ import { deleteFileMutationResponseSchema, deleteFileQueryParamsSchema } from ".
             default: createCategoryMutationResponseSchema
         },
         errors: {}
+    }, "addBalanceToUser": {
+        request: addBalanceToUserMutationRequestSchema,
+        parameters: {
+            path: addBalanceToUserPathParamsSchema,
+            query: undefined,
+            header: undefined
+        },
+        responses: {
+            200: addBalanceToUserMutationResponseSchema,
+            default: addBalanceToUserMutationResponseSchema
+        },
+        errors: {}
+    }, "addBalance": {
+        request: addBalanceMutationRequestSchema,
+        parameters: {
+            path: undefined,
+            query: undefined,
+            header: undefined
+        },
+        responses: {
+            200: addBalanceMutationResponseSchema,
+            default: addBalanceMutationResponseSchema
+        },
+        errors: {}
     }, "verifyOtpAndLogin": {
         request: verifyOtpAndLoginMutationRequestSchema,
         parameters: {
@@ -287,6 +331,42 @@ import { deleteFileMutationResponseSchema, deleteFileQueryParamsSchema } from ".
         responses: {
             200: getAllUsersQueryResponseSchema,
             default: getAllUsersQueryResponseSchema
+        },
+        errors: {}
+    }, "getMyPurchases": {
+        request: undefined,
+        parameters: {
+            path: undefined,
+            query: undefined,
+            header: undefined
+        },
+        responses: {
+            200: getMyPurchasesQueryResponseSchema,
+            default: getMyPurchasesQueryResponseSchema
+        },
+        errors: {}
+    }, "getMyPurchasesPaginated": {
+        request: undefined,
+        parameters: {
+            path: undefined,
+            query: getMyPurchasesPaginatedQueryParamsSchema,
+            header: undefined
+        },
+        responses: {
+            200: getMyPurchasesPaginatedQueryResponseSchema,
+            default: getMyPurchasesPaginatedQueryResponseSchema
+        },
+        errors: {}
+    }, "checkCourseOwnership": {
+        request: undefined,
+        parameters: {
+            path: checkCourseOwnershipPathParamsSchema,
+            query: undefined,
+            header: undefined
+        },
+        responses: {
+            200: checkCourseOwnershipQueryResponseSchema,
+            default: checkCourseOwnershipQueryResponseSchema
         },
         errors: {}
     }, "generateVideoViewingUrl": {
@@ -457,6 +537,30 @@ import { deleteFileMutationResponseSchema, deleteFileQueryParamsSchema } from ".
             default: getAllCategoriesPaginatedQueryResponseSchema
         },
         errors: {}
+    }, "getUserBalance": {
+        request: undefined,
+        parameters: {
+            path: undefined,
+            query: undefined,
+            header: undefined
+        },
+        responses: {
+            200: getUserBalanceQueryResponseSchema,
+            default: getUserBalanceQueryResponseSchema
+        },
+        errors: {}
+    }, "getTransactionHistory": {
+        request: undefined,
+        parameters: {
+            path: undefined,
+            query: undefined,
+            header: undefined
+        },
+        responses: {
+            200: getTransactionHistoryQueryResponseSchema,
+            default: getTransactionHistoryQueryResponseSchema
+        },
+        errors: {}
     }, "getAllUsers_1": {
         request: undefined,
         parameters: {
@@ -502,6 +606,8 @@ export const paths = { "/api/exercises/{id}": {
         get: operations["getCategoryById"],
         put: operations["updateCategory"],
         delete: operations["deleteCategory"]
+    }, "/api/purchases/course/{courseId}": {
+        post: operations["buyCourse"]
     }, "/api/files/upload/video": {
         post: operations["uploadVideo"]
     }, "/api/files/upload/image": {
@@ -517,6 +623,10 @@ export const paths = { "/api/exercises/{id}": {
     }, "/api/categories": {
         get: operations["getAllCategories"],
         post: operations["createCategory"]
+    }, "/api/balance/admin/add/{userId}": {
+        post: operations["addBalanceToUser"]
+    }, "/api/balance/add": {
+        post: operations["addBalance"]
     }, "/api/auth/user/verify-otp": {
         post: operations["verifyOtpAndLogin"]
     }, "/api/auth/user/send-otp": {
@@ -529,6 +639,12 @@ export const paths = { "/api/exercises/{id}": {
         post: operations["logout"]
     }, "/api/users": {
         get: operations["getAllUsers"]
+    }, "/api/purchases": {
+        get: operations["getMyPurchases"]
+    }, "/api/purchases/paginated": {
+        get: operations["getMyPurchasesPaginated"]
+    }, "/api/purchases/check/course/{courseId}": {
+        get: operations["checkCourseOwnership"]
     }, "/api/files/view/video": {
         get: operations["generateVideoViewingUrl"]
     }, "/api/files/presigned-url/{folder}/{fileName}": {
@@ -557,6 +673,10 @@ export const paths = { "/api/exercises/{id}": {
         get: operations["searchCategoriesPaginated"]
     }, "/api/categories/paginated": {
         get: operations["getAllCategoriesPaginated"]
+    }, "/api/balance": {
+        get: operations["getUserBalance"]
+    }, "/api/balance/transactions": {
+        get: operations["getTransactionHistory"]
     }, "/api/admin/users": {
         get: operations["getAllUsers_1"]
     }, "/api/admin/users/paginated": {

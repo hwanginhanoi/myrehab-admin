@@ -23,6 +23,10 @@ export const operations = {
         "path": "/api/categories/:id",
         "method": "delete"
     },
+    "buyCourse": {
+        "path": "/api/purchases/course/:courseId",
+        "method": "post"
+    },
     "uploadVideo": {
         "path": "/api/files/upload/video",
         "method": "post"
@@ -59,6 +63,14 @@ export const operations = {
         "path": "/api/categories",
         "method": "post"
     },
+    "addBalanceToUser": {
+        "path": "/api/balance/admin/add/:userId",
+        "method": "post"
+    },
+    "addBalance": {
+        "path": "/api/balance/add",
+        "method": "post"
+    },
     "verifyOtpAndLogin": {
         "path": "/api/auth/user/verify-otp",
         "method": "post"
@@ -81,6 +93,18 @@ export const operations = {
     },
     "getAllUsers": {
         "path": "/api/users",
+        "method": "get"
+    },
+    "getMyPurchases": {
+        "path": "/api/purchases",
+        "method": "get"
+    },
+    "getMyPurchasesPaginated": {
+        "path": "/api/purchases/paginated",
+        "method": "get"
+    },
+    "checkCourseOwnership": {
+        "path": "/api/purchases/check/course/:courseId",
         "method": "get"
     },
     "generateVideoViewingUrl": {
@@ -137,6 +161,14 @@ export const operations = {
     },
     "getAllCategoriesPaginated": {
         "path": "/api/categories/paginated",
+        "method": "get"
+    },
+    "getUserBalance": {
+        "path": "/api/balance",
+        "method": "get"
+    },
+    "getTransactionHistory": {
+        "path": "/api/balance/transactions",
         "method": "get"
     },
     "getAllUsers_1": {

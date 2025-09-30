@@ -1,0 +1,18 @@
+export type BalanceResponse = {
+    /**
+     * @type integer | undefined, int64
+    */
+    id?: number;
+    /**
+     * @type number | undefined
+    */
+    balance?: number;
+    /**
+     * @type string | undefined, date-time
+    */
+    createdAt?: string;
+    /**
+     * @type string | undefined, date-time
+    */
+    updatedAt?: string;
+};

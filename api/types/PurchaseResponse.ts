@@ -1,0 +1,34 @@
+export type PurchaseResponse = {
+    /**
+     * @type integer | undefined, int64
+    */
+    id?: number;
+    /**
+     * @type string | undefined
+    */
+    type?: string;
+    /**
+     * @type integer | undefined, int64
+    */
+    courseId?: number;
+    /**
+     * @type string | undefined
+    */
+    courseTitle?: string;
+    /**
+     * @type integer | undefined, int64
+    */
+    exerciseId?: number;
+    /**
+     * @type string | undefined
+    */
+    exerciseTitle?: string;
+    /**
+     * @type number | undefined
+    */
+    price?: number;
+    /**
+     * @type string | undefined, date-time
+    */
+    purchasedAt?: string;
+};

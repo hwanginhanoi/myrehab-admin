@@ -89,14 +89,6 @@ export default function ExercisesPage() {
     fetchExercises();
   }, [fetchExercises]);
 
-  const formatCurrency = (amount?: number) => {
-    if (!amount) return '-';
-    return new Intl.NumberFormat('vi-VN', {
-      style: 'currency',
-      currency: 'VND',
-    }).format(amount);
-  };
-
   const formatDate = (dateString?: string) => {
     if (!dateString) return '-';
     return new Date(dateString).toLocaleDateString('vi-VN');
@@ -144,10 +136,6 @@ export default function ExercisesPage() {
         const duration = info.getValue();
         return duration ? `${duration} phút` : '-';
       },
-    }),
-    columnHelper.accessor('price', {
-      header: 'Price',
-      cell: (info) => formatCurrency(info.getValue()),
     }),
     columnHelper.accessor('createdAt', {
       header: 'Created',
@@ -272,7 +260,6 @@ export default function ExercisesPage() {
                       <TableHead className="w-96 text-[#6DBAD6] font-bold">Bài tập</TableHead>
                       <TableHead className="w-44 text-[#6DBAD6] font-bold">Danh mục</TableHead>
                       <TableHead className="w-32 text-[#6DBAD6] font-bold">Thời lượng</TableHead>
-                      <TableHead className="w-32 text-[#6DBAD6] font-bold">Giá</TableHead>
                       <TableHead className="w-44 text-[#6DBAD6] font-bold">Tác vụ</TableHead>
                     </TableRow>
                   </TableHeader>
@@ -328,9 +315,6 @@ export default function ExercisesPage() {
                               {exercise.durationMinutes ? `${exercise.durationMinutes} phút` : '-'}
                             </TableCell>
                             <TableCell>
-                              {formatCurrency(exercise.price)}
-                            </TableCell>
-                            <TableCell>
                               <DropdownMenu>
                                 <DropdownMenuTrigger asChild>
                                   <Button variant="ghost" className="h-8 w-8 p-0">
@@ -366,7 +350,7 @@ export default function ExercisesPage() {
                       })
                     ) : (
                       <TableRow>
-                        <TableCell colSpan={7} className="h-24 text-center">
+                        <TableCell colSpan={6} className="h-24 text-center">
                           No results.
                         </TableCell>
                       </TableRow>

@@ -95,51 +95,27 @@ export function ExerciseEditFormFields({
         />
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        {/* Duration Input */}
-        <div className="space-y-2">
-          <Label htmlFor="exercise-duration" className="text-sm font-medium">
-            Thời gian (phút) *
-          </Label>
-          <Input
-            id="exercise-duration"
-            type="number"
-            min="1"
-            placeholder="Nhập thời gian"
-            {...register('durationMinutes', {
-              required: 'Thời gian là bắt buộc',
-              valueAsNumber: true,
-              min: { value: 1, message: 'Thời gian phải ít nhất 1 phút' },
-            })}
-            className="w-full"
-            disabled={disabled}
-          />
-          {errors.durationMinutes && (
-            <p className="text-sm text-red-500">{errors.durationMinutes.message}</p>
-          )}
-        </div>
-
-        {/* Price Input */}
-        <div className="space-y-2">
-          <Label htmlFor="exercise-price" className="text-sm font-medium">
-            Giá (VND) *
-          </Label>
-          <Input
-            id="exercise-price"
-            type="number"
-            min="0"
-            step="1000"
-            placeholder="Nhập giá"
-            {...register('price', {
-              required: 'Giá là bắt buộc',
-              valueAsNumber: true,
-              min: { value: 0, message: 'Giá phải lớn hơn hoặc bằng 0' },
-            })}
-            className="w-full"
-            disabled={disabled}
-          />
-          {errors.price && <p className="text-sm text-red-500">{errors.price.message}</p>}
-        </div>
+      {/* Duration Input */}
+      <div className="space-y-2">
+        <Label htmlFor="exercise-duration" className="text-sm font-medium">
+          Thời gian (phút) *
+        </Label>
+        <Input
+          id="exercise-duration"
+          type="number"
+          min="1"
+          placeholder="Nhập thời gian"
+          {...register('durationMinutes', {
+            required: 'Thời gian là bắt buộc',
+            valueAsNumber: true,
+            min: { value: 1, message: 'Thời gian phải ít nhất 1 phút' },
+          })}
+          className="w-full"
+          disabled={disabled}
+        />
+        {errors.durationMinutes && (
+          <p className="text-sm text-red-500">{errors.durationMinutes.message}</p>
+        )}
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">

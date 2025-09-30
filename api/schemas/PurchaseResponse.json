@@ -1,0 +1,1 @@
+{"type":"object","properties":{"id":{"type":"integer","format":"int64"},"type":{"type":"string"},"courseId":{"type":"integer","format":"int64"},"courseTitle":{"type":"string"},"exerciseId":{"type":"integer","format":"int64"},"exerciseTitle":{"type":"string"},"price":{"type":"number"},"purchasedAt":{"type":"string","format":"date-time"}},"x-readme-ref-name":"PurchaseResponse"}
