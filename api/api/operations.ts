@@ -79,6 +79,10 @@ export const operations = {
         "path": "/api/auth/logout",
         "method": "post"
     },
+    "getAllUsers": {
+        "path": "/api/users",
+        "method": "get"
+    },
     "generateVideoViewingUrl": {
         "path": "/api/files/view/video",
         "method": "get"
@@ -133,6 +137,14 @@ export const operations = {
     },
     "getAllCategoriesPaginated": {
         "path": "/api/categories/paginated",
+        "method": "get"
+    },
+    "getAllUsers_1": {
+        "path": "/api/admin/users",
+        "method": "get"
+    },
+    "getAllUsersPaginated": {
+        "path": "/api/admin/users/paginated",
         "method": "get"
     },
     "deleteFile": {

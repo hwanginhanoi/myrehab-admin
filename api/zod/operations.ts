@@ -18,6 +18,7 @@ import { sendOtpForUserMutationRequestSchema, sendOtpForUserMutationResponseSche
 import { staffLoginMutationRequestSchema, staffLoginMutationResponseSchema } from "./staffLoginSchema";
 import { refreshTokenMutationRequestSchema, refreshTokenMutationResponseSchema } from "./refreshTokenSchema";
 import { logoutMutationRequestSchema, logoutMutationResponseSchema } from "./logoutSchema";
+import { getAllUsersQueryResponseSchema } from "./getAllUsersSchema";
 import { generateVideoViewingUrlQueryResponseSchema, generateVideoViewingUrlQueryParamsSchema } from "./generateVideoViewingUrlSchema";
 import { generatePresignedAccessUrlQueryResponseSchema, generatePresignedAccessUrlPathParamsSchema, generatePresignedAccessUrlQueryParamsSchema } from "./generatePresignedAccessUrlSchema";
 import { searchExercisesQueryResponseSchema, searchExercisesQueryParamsSchema } from "./searchExercisesSchema";
@@ -32,6 +33,8 @@ import { getCategoriesByTypePaginatedQueryResponseSchema, getCategoriesByTypePag
 import { searchCategoriesQueryResponseSchema, searchCategoriesQueryParamsSchema } from "./searchCategoriesSchema";
 import { searchCategoriesPaginatedQueryResponseSchema, searchCategoriesPaginatedQueryParamsSchema } from "./searchCategoriesPaginatedSchema";
 import { getAllCategoriesPaginatedQueryResponseSchema, getAllCategoriesPaginatedQueryParamsSchema } from "./getAllCategoriesPaginatedSchema";
+import { getAllUsers1QueryResponseSchema } from "./getAllUsers1Schema";
+import { getAllUsersPaginatedQueryResponseSchema, getAllUsersPaginatedQueryParamsSchema } from "./getAllUsersPaginatedSchema";
 import { deleteFileMutationResponseSchema, deleteFileQueryParamsSchema } from "./deleteFileSchema";
 
  export const operations = { "getExerciseById": {
@@ -274,6 +277,18 @@ import { deleteFileMutationResponseSchema, deleteFileQueryParamsSchema } from ".
             default: logoutMutationResponseSchema
         },
         errors: {}
+    }, "getAllUsers": {
+        request: undefined,
+        parameters: {
+            path: undefined,
+            query: undefined,
+            header: undefined
+        },
+        responses: {
+            200: getAllUsersQueryResponseSchema,
+            default: getAllUsersQueryResponseSchema
+        },
+        errors: {}
     }, "generateVideoViewingUrl": {
         request: undefined,
         parameters: {
@@ -442,6 +457,30 @@ import { deleteFileMutationResponseSchema, deleteFileQueryParamsSchema } from ".
             default: getAllCategoriesPaginatedQueryResponseSchema
         },
         errors: {}
+    }, "getAllUsers_1": {
+        request: undefined,
+        parameters: {
+            path: undefined,
+            query: undefined,
+            header: undefined
+        },
+        responses: {
+            200: getAllUsers1QueryResponseSchema,
+            default: getAllUsers1QueryResponseSchema
+        },
+        errors: {}
+    }, "getAllUsersPaginated": {
+        request: undefined,
+        parameters: {
+            path: undefined,
+            query: getAllUsersPaginatedQueryParamsSchema,
+            header: undefined
+        },
+        responses: {
+            200: getAllUsersPaginatedQueryResponseSchema,
+            default: getAllUsersPaginatedQueryResponseSchema
+        },
+        errors: {}
     }, "deleteFile": {
         request: undefined,
         parameters: {
@@ -488,6 +527,8 @@ export const paths = { "/api/exercises/{id}": {
         post: operations["refreshToken"]
     }, "/api/auth/logout": {
         post: operations["logout"]
+    }, "/api/users": {
+        get: operations["getAllUsers"]
     }, "/api/files/view/video": {
         get: operations["generateVideoViewingUrl"]
     }, "/api/files/presigned-url/{folder}/{fileName}": {
@@ -516,6 +557,10 @@ export const paths = { "/api/exercises/{id}": {
         get: operations["searchCategoriesPaginated"]
     }, "/api/categories/paginated": {
         get: operations["getAllCategoriesPaginated"]
+    }, "/api/admin/users": {
+        get: operations["getAllUsers_1"]
+    }, "/api/admin/users/paginated": {
+        get: operations["getAllUsersPaginated"]
     }, "/api/files/delete": {
         delete: operations["deleteFile"]
     } } as const;

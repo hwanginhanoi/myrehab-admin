@@ -1,8 +1,8 @@
-import type { CategoryResponse } from "./CategoryResponse";
+import type { UserResponse } from "./UserResponse";
 import type { SortObject } from "./SortObject";
 import type { PageableObject } from "./PageableObject";
 
- export type PageCategoryResponse = {
+ export type PageUserResponse = {
     /**
      * @type integer | undefined, int32
     */
@@ -26,7 +26,7 @@ import type { PageableObject } from "./PageableObject";
     /**
      * @type array | undefined
     */
-    content?: CategoryResponse[];
+    content?: UserResponse[];
     /**
      * @type integer | undefined, int32
     */
