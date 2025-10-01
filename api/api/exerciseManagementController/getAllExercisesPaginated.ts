@@ -3,8 +3,8 @@ import type { ResponseConfig } from "@/lib/api-client";
 import type { GetAllExercisesPaginatedQueryResponse, GetAllExercisesPaginatedQueryParams } from "../../types/GetAllExercisesPaginated";
 
  /**
- * @description Retrieve a paginated list of active exercises
- * @summary Get paginated exercises
+ * @description Retrieve a paginated list of exercises with optional category and search filtering
+ * @summary Get paginated exercises with filtering
  * @link /api/exercises/paginated
  */
 export async function getAllExercisesPaginated(params?: GetAllExercisesPaginatedQueryParams, options: Partial<Parameters<typeof client>[0]> = {}): Promise<ResponseConfig<GetAllExercisesPaginatedQueryResponse>["data"]> {

@@ -39,10 +39,6 @@ export const operations = {
         "path": "/api/files/presigned-url",
         "method": "post"
     },
-    "getAllExercises": {
-        "path": "/api/exercises",
-        "method": "get"
-    },
     "createExercise": {
         "path": "/api/exercises",
         "method": "post"
@@ -115,16 +111,8 @@ export const operations = {
         "path": "/api/files/presigned-url/:folder/:fileName",
         "method": "get"
     },
-    "searchExercises": {
-        "path": "/api/exercises/search",
-        "method": "get"
-    },
     "getAllExercisesPaginated": {
         "path": "/api/exercises/paginated",
-        "method": "get"
-    },
-    "getExercisesByCategory": {
-        "path": "/api/exercises/category/:categoryId",
         "method": "get"
     },
     "getCourseById": {

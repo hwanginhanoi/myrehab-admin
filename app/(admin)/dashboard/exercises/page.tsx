@@ -2,52 +2,33 @@
 
 import { useEffect, useState, useCallback } from 'react';
 import { useRouter } from 'next/navigation';
-import {
-  createColumnHelper,
-  getCoreRowModel,
-  useReactTable,
-} from '@tanstack/react-table';
+import { useTranslations } from 'next-intl';
 import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from '@/components/ui/select';
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from '@/components/ui/table';
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu';
+import { DataTable } from '@/components/ui/data-table';
+import { TablePagination } from '@/components/ui/table-pagination';
+import { SearchBar } from '@/components/ui/search-bar';
 import {
   Dialog,
   DialogContent,
   DialogHeader,
   DialogTitle,
 } from '@/components/ui/dialog';
-import { MoreHorizontal, Eye, Edit, Plus, Search } from 'lucide-react';
+import { Plus } from 'lucide-react';
 import Image from 'next/image';
 import { getAllExercisesPaginated } from '@/api/api/exerciseManagementController/getAllExercisesPaginated';
+import { getAllCategories } from '@/api/api/categoryManagementController/getAllCategories';
 import { ExerciseResponse } from '@/api/types/ExerciseResponse';
 import { PageExerciseResponse } from '@/api/types/PageExerciseResponse';
+import { CategoryResponse } from '@/api/types/CategoryResponse';
 import { toast } from 'sonner';
-
-const columnHelper = createColumnHelper<ExerciseResponse>();
+import { ExerciseImage } from '@/components/exercises/ExerciseImage';
+import { ExerciseActions } from '@/components/exercises/ExerciseActions';
 
 export default function ExercisesPage() {
   const router = useRouter();
+  const t = useTranslations('exercise');
   const [exercises, setExercises] = useState<ExerciseResponse[]>([]);
+  const [categories, setCategories] = useState<CategoryResponse[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [pageData, setPageData] = useState<PageExerciseResponse | null>(null);
@@ -59,6 +40,23 @@ export default function ExercisesPage() {
     url: string;
     title: string;
   } | null>(null);
+  const [searchTerm, setSearchTerm] = useState('');
+  const [categoryFilter, setCategoryFilter] = useState<string>('all');
+  const [searchInput, setSearchInput] = useState('');
+
+  // Fetch categories on component mount
+  useEffect(() => {
+    const fetchCategories = async () => {
+      try {
+        const data = await getAllCategories();
+        setCategories(data);
+      } catch (err) {
+        console.error('Failed to load categories:', err);
+      }
+    };
+
+    fetchCategories();
+  }, []);
 
   const fetchExercises = useCallback(async () => {
     try {
@@ -70,332 +68,171 @@ export default function ExercisesPage() {
         size: pagination.pageSize,
         sortBy: 'createdAt',
         sortDir: 'desc',
+        ...(searchTerm && { keyword: searchTerm }),
+        ...(categoryFilter !== 'all' && { categoryId: parseInt(categoryFilter) }),
       });
 
       setPageData(data);
       setExercises(data.content || []);
     } catch (err) {
-      const errorMessage = err instanceof Error ? err.message : 'Failed to fetch exercises';
+      const errorMessage = err instanceof Error ? err.message : t('failedToLoad');
       setError(errorMessage);
-      toast.error('Failed to load exercises', {
+      toast.error(t('failedToLoad'), {
         description: errorMessage,
       });
     } finally {
       setLoading(false);
     }
-  }, [pagination.pageIndex, pagination.pageSize]);
+  }, [pagination.pageIndex, pagination.pageSize, searchTerm, categoryFilter, t]);
 
   useEffect(() => {
     fetchExercises();
   }, [fetchExercises]);
 
-  const formatDate = (dateString?: string) => {
-    if (!dateString) return '-';
-    return new Date(dateString).toLocaleDateString('vi-VN');
+  const handleSearch = () => {
+    setSearchTerm(searchInput);
+    setPagination(prev => ({ ...prev, pageIndex: 0 }));
   };
 
-  const columns = [
-    columnHelper.accessor('id', {
-      header: 'ID',
-      cell: (info) => (
-        <span className="font-medium">{info.getValue()}</span>
-      ),
-    }),
-    columnHelper.accessor('title', {
-      header: 'Title',
-      cell: (info) => {
-        const exercise = info.row.original;
-        return (
-          <div>
-            <div className="font-medium">{info.getValue()}</div>
-            {exercise.description && (
-              <div className="text-sm text-muted-foreground truncate max-w-xs">
-                {exercise.description}
-              </div>
-            )}
-          </div>
-        );
-      },
-    }),
-    columnHelper.accessor('category.name', {
-      header: 'Category',
-      cell: (info) => {
-        const categoryName = info.getValue();
-        return categoryName ? (
-          <span className="px-2 py-1 bg-gray-100 rounded-md text-sm">
-            {categoryName}
-          </span>
-        ) : (
-          '-'
-        );
-      },
-    }),
-    columnHelper.accessor('durationMinutes', {
-      header: 'Duration',
-      cell: (info) => {
-        const duration = info.getValue();
-        return duration ? `${duration} phút` : '-';
-      },
-    }),
-    columnHelper.accessor('createdAt', {
-      header: 'Created',
-      cell: (info) => formatDate(info.getValue()),
-    }),
-    columnHelper.display({
-      id: 'actions',
-      header: 'Actions',
-      cell: (info) => {
-        const exercise = info.row.original;
-        return (
-          <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-              <Button variant="ghost" className="h-8 w-8 p-0">
-                <span className="sr-only">Open menu</span>
-                <MoreHorizontal className="h-4 w-4" />
-              </Button>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent align="end">
-              <DropdownMenuItem
-                onClick={() => {
-                  if (exercise.id) {
-                    router.push(`/dashboard/exercises/${exercise.id}`);
-                  }
-                }}
-              >
-                <Eye className="mr-2 h-4 w-4" />
-                View details
-              </DropdownMenuItem>
-              <DropdownMenuItem
-                onClick={() => {
-                  if (exercise.id) {
-                    router.push(`/dashboard/exercises/${exercise.id}/edit`);
-                  }
-                }}
-              >
-                <Edit className="mr-2 h-4 w-4" />
-                Edit exercise
-              </DropdownMenuItem>
-            </DropdownMenuContent>
-          </DropdownMenu>
-        );
-      },
-    }),
-  ];
+  const handleCategoryChange = (value: string) => {
+    setCategoryFilter(value);
+    setPagination(prev => ({ ...prev, pageIndex: 0 }));
+  };
 
-  const table = useReactTable({
-    data: exercises,
-    columns,
-    pageCount: pageData?.totalPages ?? 0,
-    state: {
-      pagination,
+  const handlePreviousPage = () => {
+    setPagination(prev => ({
+      ...prev,
+      pageIndex: Math.max(0, prev.pageIndex - 1),
+    }));
+  };
+
+  const handleNextPage = () => {
+    setPagination(prev => ({
+      ...prev,
+      pageIndex: prev.pageIndex + 1,
+    }));
+  };
+
+  // Define table columns
+  const columns = [
+    {
+      header: t('stt'),
+      className: 'w-24 text-[#6DBAD6] font-bold',
+      render: (_: ExerciseResponse, index: number) =>
+        pagination.pageIndex * pagination.pageSize + index + 1,
     },
-    onPaginationChange: setPagination,
-    getCoreRowModel: getCoreRowModel(),
-    manualPagination: true,
-  });
+    {
+      header: t('image'),
+      className: 'w-32 text-[#6DBAD6] font-bold',
+      render: (exercise: ExerciseResponse) => (
+        <ExerciseImage
+          imageUrl={exercise.imageUrl}
+          title={exercise.title}
+          onClick={() => exercise.imageUrl && setSelectedImage({
+            url: exercise.imageUrl,
+            title: exercise.title || 'Exercise image'
+          })}
+        />
+      ),
+    },
+    {
+      header: t('title'),
+      className: 'w-96 text-[#6DBAD6] font-bold',
+      render: (exercise: ExerciseResponse) => (
+        <div>
+          <div className="font-medium">{exercise.title}</div>
+          {exercise.description && (
+            <div className="text-sm text-muted-foreground truncate max-w-xs">
+              {exercise.description}
+            </div>
+          )}
+        </div>
+      ),
+    },
+    {
+      header: t('category'),
+      className: 'w-44 text-[#6DBAD6] font-bold',
+      render: (exercise: ExerciseResponse) => exercise.category?.name || '-',
+    },
+    {
+      header: t('duration'),
+      className: 'w-32 text-[#6DBAD6] font-bold',
+      render: (exercise: ExerciseResponse) =>
+        exercise.durationMinutes ? `${exercise.durationMinutes} ${t('durationMinutes')}` : '-',
+    },
+    {
+      header: t('actions'),
+      className: 'w-44 text-[#6DBAD6] font-bold',
+      render: (exercise: ExerciseResponse) => <ExerciseActions exerciseId={exercise.id} />,
+    },
+  ];
 
   return (
     <div className="flex flex-1 flex-col">
       {/* Main Content */}
       <div className="m-9 mt-9 mb-6">
-            {/* Header Section */}
-            <div className="flex items-center justify-between mb-6">
-              <div>
-                <h1 className="text-4xl font-bold text-[#EF7F26] mb-2">Bài tập</h1>
-                <p className="text-base text-[#71717A]">Quản lý các bài tập phục hồi chức năng</p>
-              </div>
-              <Button
-                className="bg-[#6DBAD6] text-white px-4 py-2 rounded-md flex items-center gap-2 shadow-sm hover:bg-[#6DBAD6]/90"
-                onClick={() => router.push('/dashboard/exercises/create')}
-              >
-                <Plus className="w-5 h-5" />
-                Bài tập mới
-              </Button>
-            </div>
+        {/* Header Section */}
+        <div className="flex items-center justify-between mb-6">
+          <div>
+            <h1 className="text-4xl font-bold text-[#EF7F26] mb-2">{t('title')}</h1>
+            <p className="text-base text-[#71717A]">{t('subtitle')}</p>
+          </div>
+          <Button
+            className="bg-[#6DBAD6] text-white px-4 py-2 rounded-md flex items-center gap-2 shadow-sm hover:bg-[#6DBAD6]/90"
+            onClick={() => router.push('/dashboard/exercises/create')}
+          >
+            <Plus className="w-5 h-5" />
+            {t('newExercise')}
+          </Button>
+        </div>
 
-            {/* Search and Filter Section */}
-            <div className="flex items-center gap-4 mb-6">
-              <div className="flex-1 max-w-md">
-                <Input
-                  type="text"
-                  placeholder="Tìm kiếm bài tập..."
-                  className="w-full"
-                />
-              </div>
-              <div className="w-48">
-                <Select>
-                  <SelectTrigger className="w-full">
-                    <SelectValue placeholder="Danh mục" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="all">Tất cả danh mục</SelectItem>
-                  </SelectContent>
-                </Select>
-              </div>
-              <Button
-                variant="outline"
-                className="border-[#6DBAD6] text-[#6DBAD6] hover:bg-[#6DBAD6] hover:text-white px-4 py-2 rounded-md flex items-center gap-2"
-              >
-                <Search className="w-5 h-5" />
-                Tìm kiếm
-              </Button>
-            </div>
+        {/* Search and Filter Section */}
+        <SearchBar
+          searchValue={searchInput}
+          onSearchChange={setSearchInput}
+          onSearch={handleSearch}
+          searchPlaceholder={t('searchPlaceholder')}
+          searchButtonText={t('common.search', { default: 'Tìm kiếm' })}
+          showFilter
+          filterValue={categoryFilter}
+          onFilterChange={handleCategoryChange}
+          filterPlaceholder={t('category')}
+          filterOptions={[
+            { value: 'all', label: t('allCategories') },
+            ...categories.map(cat => ({
+              value: cat.id?.toString() || '',
+              label: cat.name || '',
+            })),
+          ]}
+        />
 
-            {/* Table */}
-            <div className="rounded-md border">
-              {loading ? (
-                <div className="flex items-center justify-center h-32">
-                  <p>Loading exercises...</p>
-                </div>
-              ) : error ? (
-                <div className="flex items-center justify-center h-32">
-                  <p className="text-red-500">Error: {error}</p>
-                </div>
-              ) : (
-                <Table>
-                  <TableHeader>
-                    <TableRow>
-                      <TableHead className="w-24 text-[#6DBAD6] font-bold">STT</TableHead>
-                      <TableHead className="w-32 text-[#6DBAD6] font-bold">Hình ảnh</TableHead>
-                      <TableHead className="w-96 text-[#6DBAD6] font-bold">Bài tập</TableHead>
-                      <TableHead className="w-44 text-[#6DBAD6] font-bold">Danh mục</TableHead>
-                      <TableHead className="w-32 text-[#6DBAD6] font-bold">Thời lượng</TableHead>
-                      <TableHead className="w-44 text-[#6DBAD6] font-bold">Tác vụ</TableHead>
-                    </TableRow>
-                  </TableHeader>
-                  <TableBody>
-                    {table.getRowModel().rows?.length ? (
-                      table.getRowModel().rows.map((row, index) => {
-                        const exercise = row.original;
-                        return (
-                          <TableRow key={row.id}>
-                            <TableCell>
-                              {pagination.pageIndex * pagination.pageSize + index + 1}
-                            </TableCell>
-                            <TableCell>
-                              {exercise.imageUrl ? (
-                                <div
-                                  className="relative w-24 h-16 rounded-md overflow-hidden bg-muted cursor-pointer hover:opacity-80 transition-opacity"
-                                  onClick={() => setSelectedImage({
-                                    url: exercise.imageUrl!,
-                                    title: exercise.title || 'Exercise image'
-                                  })}
-                                >
-                                  <Image
-                                    src={exercise.imageUrl}
-                                    alt={exercise.title || 'Exercise image'}
-                                    fill
-                                    className="object-cover"
-                                    sizes="96px"
-                                  />
-                                  <div className="absolute inset-0 bg-black/0 hover:bg-black/20 transition-colors flex items-center justify-center">
-                                    <Eye className="h-4 w-4 text-white opacity-0 hover:opacity-100 transition-opacity" />
-                                  </div>
-                                </div>
-                              ) : (
-                                <div className="w-24 h-16 rounded-md bg-muted flex items-center justify-center">
-                                  <span className="text-xs text-muted-foreground">No image</span>
-                                </div>
-                              )}
-                            </TableCell>
-                            <TableCell>
-                              <div>
-                                <div className="font-medium">{exercise.title}</div>
-                                {exercise.description && (
-                                  <div className="text-sm text-muted-foreground truncate max-w-xs">
-                                    {exercise.description}
-                                  </div>
-                                )}
-                              </div>
-                            </TableCell>
-                            <TableCell>
-                              {exercise.category?.name || '-'}
-                            </TableCell>
-                            <TableCell>
-                              {exercise.durationMinutes ? `${exercise.durationMinutes} phút` : '-'}
-                            </TableCell>
-                            <TableCell>
-                              <DropdownMenu>
-                                <DropdownMenuTrigger asChild>
-                                  <Button variant="ghost" className="h-8 w-8 p-0">
-                                    <MoreHorizontal className="h-4 w-4" />
-                                  </Button>
-                                </DropdownMenuTrigger>
-                                <DropdownMenuContent align="end">
-                                  <DropdownMenuItem
-                                    onClick={() => {
-                                      if (exercise.id) {
-                                        router.push(`/dashboard/exercises/${exercise.id}`);
-                                      }
-                                    }}
-                                  >
-                                    <Eye className="mr-2 h-4 w-4" />
-                                    View details
-                                  </DropdownMenuItem>
-                                  <DropdownMenuItem
-                                    onClick={() => {
-                                      if (exercise.id) {
-                                        router.push(`/dashboard/exercises/${exercise.id}/edit`);
-                                      }
-                                    }}
-                                  >
-                                    <Edit className="mr-2 h-4 w-4" />
-                                    Edit exercise
-                                  </DropdownMenuItem>
-                                </DropdownMenuContent>
-                              </DropdownMenu>
-                            </TableCell>
-                          </TableRow>
-                        );
-                      })
-                    ) : (
-                      <TableRow>
-                        <TableCell colSpan={6} className="h-24 text-center">
-                          No results.
-                        </TableCell>
-                      </TableRow>
-                    )}
-                  </TableBody>
-                </Table>
-              )}
-            </div>
+        {/* Table */}
+        <DataTable
+          data={exercises}
+          columns={columns}
+          loading={loading}
+          error={error}
+          emptyMessage={t('noResults')}
+          loadingMessage={t('loadingExercises')}
+          errorPrefix={t('errorLoading')}
+          getRowKey={(exercise) => exercise.id || ''}
+        />
 
-            {/* Footer with Pagination */}
-            <div className="flex items-center justify-between pt-4 mt-4 border-t-0">
-              <div className="text-base text-[#71717A]">
-                {pageData && (
-                  <>
-                    Hiển thị <span className="font-bold">{Math.min(
-                      pagination.pageIndex * pagination.pageSize + 1,
-                      pageData.totalElements || 0
-                    )}-{Math.min(
-                      (pagination.pageIndex + 1) * pagination.pageSize,
-                      pageData.totalElements || 0
-                    )}/{pageData.totalElements || 0}</span> bài tập
-                  </>
-                )}
-              </div>
-              <div className="flex items-center gap-2">
-                <Button
-                  variant="outline"
-                  size="sm"
-                  onClick={() => table.previousPage()}
-                  disabled={!table.getCanPreviousPage()}
-                  className="text-xs border-[#6DBAD6] text-[#09090B] hover:bg-[#6DBAD6] hover:text-white disabled:opacity-50 disabled:cursor-not-allowed"
-                >
-                  Trang trước
-                </Button>
-                <Button
-                  variant="outline"
-                  size="sm"
-                  onClick={() => table.nextPage()}
-                  disabled={!table.getCanNextPage()}
-                  className="text-xs border-[#6DBAD6] text-[#09090B] hover:bg-[#6DBAD6] hover:text-white disabled:opacity-50 disabled:cursor-not-allowed"
-                >
-                  Trang sau
-                </Button>
-              </div>
-            </div>
+        {/* Pagination */}
+        {pageData && (
+          <TablePagination
+            pageIndex={pagination.pageIndex}
+            pageSize={pagination.pageSize}
+            totalElements={pageData.totalElements || 0}
+            totalPages={pageData.totalPages || 0}
+            onPreviousPage={handlePreviousPage}
+            onNextPage={handleNextPage}
+            showingText={t('showing')}
+            previousText={t('previousPage')}
+            nextText={t('nextPage')}
+            itemsName={t('title').toLowerCase()}
+          />
+        )}
       </div>
 
       {/* Image Viewer Modal */}

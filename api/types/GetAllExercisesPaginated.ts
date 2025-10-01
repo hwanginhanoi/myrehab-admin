@@ -25,6 +25,16 @@ import type { PageExerciseResponse } from "./PageExerciseResponse";
      * @type string | undefined
     */
     sortDir?: string;
+    /**
+     * @description Filter by category ID
+     * @type integer | undefined, int64
+    */
+    categoryId?: number;
+    /**
+     * @description Search keyword in title
+     * @type string | undefined
+    */
+    keyword?: string;
 };
 /**
  * @description OK

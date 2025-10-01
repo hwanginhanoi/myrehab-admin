@@ -8,7 +8,6 @@ import { buyCourseMutationResponseSchema, buyCoursePathParamsSchema } from "./bu
 import { uploadVideoMutationRequestSchema, uploadVideoMutationResponseSchema } from "./uploadVideoSchema";
 import { uploadImageMutationRequestSchema, uploadImageMutationResponseSchema } from "./uploadImageSchema";
 import { generatePresignedUploadUrlMutationRequestSchema, generatePresignedUploadUrlMutationResponseSchema } from "./generatePresignedUploadUrlSchema";
-import { getAllExercisesQueryResponseSchema } from "./getAllExercisesSchema";
 import { createExerciseMutationRequestSchema, createExerciseMutationResponseSchema } from "./createExerciseSchema";
 import { getAllCoursesQueryResponseSchema } from "./getAllCoursesSchema";
 import { createCourseMutationRequestSchema, createCourseMutationResponseSchema } from "./createCourseSchema";
@@ -27,9 +26,7 @@ import { getMyPurchasesPaginatedQueryResponseSchema, getMyPurchasesPaginatedQuer
 import { checkCourseOwnershipQueryResponseSchema, checkCourseOwnershipPathParamsSchema } from "./checkCourseOwnershipSchema";
 import { generateVideoViewingUrlQueryResponseSchema, generateVideoViewingUrlQueryParamsSchema } from "./generateVideoViewingUrlSchema";
 import { generatePresignedAccessUrlQueryResponseSchema, generatePresignedAccessUrlPathParamsSchema, generatePresignedAccessUrlQueryParamsSchema } from "./generatePresignedAccessUrlSchema";
-import { searchExercisesQueryResponseSchema, searchExercisesQueryParamsSchema } from "./searchExercisesSchema";
 import { getAllExercisesPaginatedQueryResponseSchema, getAllExercisesPaginatedQueryParamsSchema } from "./getAllExercisesPaginatedSchema";
-import { getExercisesByCategoryQueryResponseSchema, getExercisesByCategoryPathParamsSchema } from "./getExercisesByCategorySchema";
 import { getCourseByIdQueryResponseSchema, getCourseByIdPathParamsSchema } from "./getCourseByIdSchema";
 import { searchCoursesQueryResponseSchema, searchCoursesQueryParamsSchema } from "./searchCoursesSchema";
 import { getAllCoursesPaginatedQueryResponseSchema, getAllCoursesPaginatedQueryParamsSchema } from "./getAllCoursesPaginatedSchema";
@@ -163,18 +160,6 @@ import { deleteFileMutationResponseSchema, deleteFileQueryParamsSchema } from ".
         responses: {
             200: generatePresignedUploadUrlMutationResponseSchema,
             default: generatePresignedUploadUrlMutationResponseSchema
-        },
-        errors: {}
-    }, "getAllExercises": {
-        request: undefined,
-        parameters: {
-            path: undefined,
-            query: undefined,
-            header: undefined
-        },
-        responses: {
-            200: getAllExercisesQueryResponseSchema,
-            default: getAllExercisesQueryResponseSchema
         },
         errors: {}
     }, "createExercise": {
@@ -393,18 +378,6 @@ import { deleteFileMutationResponseSchema, deleteFileQueryParamsSchema } from ".
             default: generatePresignedAccessUrlQueryResponseSchema
         },
         errors: {}
-    }, "searchExercises": {
-        request: undefined,
-        parameters: {
-            path: undefined,
-            query: searchExercisesQueryParamsSchema,
-            header: undefined
-        },
-        responses: {
-            200: searchExercisesQueryResponseSchema,
-            default: searchExercisesQueryResponseSchema
-        },
-        errors: {}
     }, "getAllExercisesPaginated": {
         request: undefined,
         parameters: {
@@ -415,18 +388,6 @@ import { deleteFileMutationResponseSchema, deleteFileQueryParamsSchema } from ".
         responses: {
             200: getAllExercisesPaginatedQueryResponseSchema,
             default: getAllExercisesPaginatedQueryResponseSchema
-        },
-        errors: {}
-    }, "getExercisesByCategory": {
-        request: undefined,
-        parameters: {
-            path: getExercisesByCategoryPathParamsSchema,
-            query: undefined,
-            header: undefined
-        },
-        responses: {
-            200: getExercisesByCategoryQueryResponseSchema,
-            default: getExercisesByCategoryQueryResponseSchema
         },
         errors: {}
     }, "getCourseById": {
@@ -615,7 +576,6 @@ export const paths = { "/api/exercises/{id}": {
     }, "/api/files/presigned-url": {
         post: operations["generatePresignedUploadUrl"]
     }, "/api/exercises": {
-        get: operations["getAllExercises"],
         post: operations["createExercise"]
     }, "/api/courses": {
         get: operations["getAllCourses"],
@@ -649,12 +609,8 @@ export const paths = { "/api/exercises/{id}": {
         get: operations["generateVideoViewingUrl"]
     }, "/api/files/presigned-url/{folder}/{fileName}": {
         get: operations["generatePresignedAccessUrl"]
-    }, "/api/exercises/search": {
-        get: operations["searchExercises"]
     }, "/api/exercises/paginated": {
         get: operations["getAllExercisesPaginated"]
-    }, "/api/exercises/category/{categoryId}": {
-        get: operations["getExercisesByCategory"]
     }, "/api/courses/{id}": {
         get: operations["getCourseById"]
     }, "/api/courses/search": {

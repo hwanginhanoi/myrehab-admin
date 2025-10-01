@@ -10,8 +10,9 @@ import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { GripVertical } from 'lucide-react';
-import { getAllExercises } from '@/api/api/exerciseManagementController';
+import { getAllExercisesPaginated } from '@/api/api/exerciseManagementController/getAllExercisesPaginated';
 import { ExerciseResponse } from '@/api/types/ExerciseResponse';
+import { PageExerciseResponse } from '@/api/types/PageExerciseResponse';
 import { CourseCreationFormData } from '@/lib/types/course-creation';
 import { useCourseDays } from '@/hooks/use-course-days';
 import { useExerciseDragDrop } from '@/hooks/use-exercise-drag-drop';
@@ -26,6 +27,13 @@ export function CourseArrangementStep({ form }: CourseArrangementStepProps) {
   const { watch } = form;
   const [exercises, setExercises] = useState<ExerciseResponse[]>([]);
   const [loading, setLoading] = useState(true);
+  const [pageData, setPageData] = useState<PageExerciseResponse | null>(null);
+  const [pagination, setPagination] = useState({
+    pageIndex: 0,
+    pageSize: 10, // Load more exercises for better UX
+  });
+  const [searchTerm, setSearchTerm] = useState('');
+  const [categoryFilter, setCategoryFilter] = useState<string>('all');
   const [selectedImage, setSelectedImage] = useState<{
     url: string;
     title: string;
@@ -34,25 +42,43 @@ export function CourseArrangementStep({ form }: CourseArrangementStepProps) {
   const courseDays = useCourseDays(form);
   const dragDrop = useExerciseDragDrop(form, courseDays.moveDay);
 
-  useEffect(() => {
-    const fetchExercises = async () => {
-      try {
-        setLoading(true);
-        const exercisesData = await getAllExercises();
-        setExercises(exercisesData);
-      } catch (err) {
-        const errorMessage =
-          err instanceof Error ? err.message : 'Failed to fetch exercises';
-        toast.error('Failed to load exercises', {
-          description: errorMessage,
-        });
-      } finally {
-        setLoading(false);
-      }
-    };
+  const fetchExercises = async (
+    page: number,
+    keyword?: string,
+    categoryId?: number
+  ) => {
+    try {
+      setLoading(true);
+      const data = await getAllExercisesPaginated({
+        page,
+        size: pagination.pageSize,
+        sortBy: 'createdAt',
+        sortDir: 'desc',
+        ...(keyword && { keyword }),
+        ...(categoryId && { categoryId }),
+      });
 
-    void fetchExercises();
-  }, []);
+      setPageData(data);
+      setExercises(data.content || []);
+    } catch (err) {
+      const errorMessage =
+        err instanceof Error ? err.message : 'Failed to fetch exercises';
+      toast.error('Failed to load exercises', {
+        description: errorMessage,
+      });
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    void fetchExercises(
+      pagination.pageIndex,
+      searchTerm || undefined,
+      categoryFilter !== 'all' ? parseInt(categoryFilter) : undefined
+    );
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [pagination.pageIndex, pagination.pageSize, searchTerm, categoryFilter]);
 
   useEffect(() => {
     const durationDays = watch('basicInfo.durationDays');
@@ -130,6 +156,25 @@ export function CourseArrangementStep({ form }: CourseArrangementStepProps) {
                   <ExerciseSearchPanel
                     exercises={exercises}
                     onImageClick={(url, title) => setSelectedImage({ url, title })}
+                    searchTerm={searchTerm}
+                    onSearchChange={setSearchTerm}
+                    categoryFilter={categoryFilter}
+                    onCategoryChange={setCategoryFilter}
+                    pageIndex={pagination.pageIndex}
+                    totalPages={pageData?.totalPages || 0}
+                    onPreviousPage={() =>
+                      setPagination((prev) => ({
+                        ...prev,
+                        pageIndex: Math.max(0, prev.pageIndex - 1),
+                      }))
+                    }
+                    onNextPage={() =>
+                      setPagination((prev) => ({
+                        ...prev,
+                        pageIndex: prev.pageIndex + 1,
+                      }))
+                    }
+                    loading={loading}
                   />
                 </SortableContext>
               </div>
