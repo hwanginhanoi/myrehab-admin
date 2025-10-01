@@ -35,7 +35,10 @@ export default function CreateNewCoursePage() {
 
   const { handleSubmit, trigger } = form;
 
-  const handleNext = async () => {
+  const handleNext = async (e?: React.MouseEvent) => {
+    e?.preventDefault();
+    e?.stopPropagation();
+
     const isValid = await trigger('basicInfo');
     if (isValid) {
       setCurrentStep(2);
@@ -58,6 +61,11 @@ export default function CreateNewCoursePage() {
   };
 
   const onSubmit = async (data: CourseCreationFormData) => {
+    // Only allow submission on step 2
+    if (currentStep !== 2) {
+      return;
+    }
+
     try {
       setSaving(true);
 
@@ -126,33 +134,61 @@ export default function CreateNewCoursePage() {
 
       {/* Main Content */}
       <div className="m-9 mt-0 mb-6">
-        <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
-          {/* Header Section */}
-          <div className="flex items-center justify-between mb-6">
-            <div>
-              <h1 className="text-4xl font-bold text-[#EF7F26] mb-2">
-                {currentStep === 1 ? 'Tạo lộ trình' : 'Tạo khóa học mới'}
-              </h1>
-            </div>
-            <div className="flex items-center gap-3">
-              <Button
-                type="button"
-                variant="outline"
-                onClick={handleCancel}
-                disabled={saving}
-                className="border-gray-300 text-gray-700 hover:bg-gray-50 px-4 py-2 rounded-md"
-              >
-                Hủy
-              </Button>
-              {currentStep === 1 ? (
+        {currentStep === 1 ? (
+          // Step 1: No form wrapper, just content
+          <div className="space-y-6">
+            {/* Header Section */}
+            <div className="flex items-center justify-between mb-6">
+              <div>
+                <h1 className="text-4xl font-bold text-[#EF7F26] mb-2">Tạo lộ trình</h1>
+              </div>
+              <div className="flex items-center gap-3">
                 <Button
                   type="button"
-                  onClick={handleNext}
+                  variant="outline"
+                  onClick={handleCancel}
+                  disabled={saving}
+                  className="border-gray-300 text-gray-700 hover:bg-gray-50 px-4 py-2 rounded-md"
+                >
+                  Hủy
+                </Button>
+                <Button
+                  type="button"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    handleNext(e);
+                  }}
                   className="bg-[#6DBAD6] text-white hover:bg-[#6DBAD6]/90 px-4 py-2 rounded-md flex items-center gap-2"
                 >
                   Tiếp theo
                 </Button>
-              ) : (
+              </div>
+            </div>
+
+            {/* Step Content */}
+            <CourseBasicInfoStep form={form} />
+          </div>
+        ) : (
+          // Step 2: Form wrapper for submission
+          <form
+            onSubmit={handleSubmit(onSubmit)}
+            className="space-y-6"
+          >
+            {/* Header Section */}
+            <div className="flex items-center justify-between mb-6">
+              <div>
+                <h1 className="text-4xl font-bold text-[#EF7F26] mb-2">Tạo khóa học mới</h1>
+              </div>
+              <div className="flex items-center gap-3">
+                <Button
+                  type="button"
+                  variant="outline"
+                  onClick={handleCancel}
+                  disabled={saving}
+                  className="border-gray-300 text-gray-700 hover:bg-gray-50 px-4 py-2 rounded-md"
+                >
+                  Hủy
+                </Button>
                 <Button
                   type="submit"
                   disabled={saving}
@@ -161,17 +197,13 @@ export default function CreateNewCoursePage() {
                   <Save className="w-4 h-4" />
                   {saving ? 'Đang tạo...' : 'Tạo lộ trình'}
                 </Button>
-              )}
+              </div>
             </div>
-          </div>
 
-          {/* Step Content */}
-          {currentStep === 1 ? (
-            <CourseBasicInfoStep form={form} />
-          ) : (
+            {/* Step Content */}
             <CourseArrangementStep form={form} />
-          )}
-        </form>
+          </form>
+        )}
       </div>
     </div>
   );

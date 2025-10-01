@@ -97,6 +97,10 @@ export default function ExercisesPage() {
   const handleCategoryChange = (value: string) => {
     setCategoryFilter(value);
     setPagination(prev => ({ ...prev, pageIndex: 0 }));
+    // Immediately apply the filter without needing to click search
+    if (searchInput) {
+      setSearchTerm(searchInput);
+    }
   };
 
   const handlePreviousPage = () => {

@@ -154,7 +154,7 @@ export function ExerciseSearchPanel({
       </div>
 
       {/* Pagination Controls */}
-      {totalPages > 1 && onPreviousPage && onNextPage && (
+      {totalPages > 0 && onPreviousPage && onNextPage && (
         <div className="flex-shrink-0 px-6 py-4 border-t border-[#E4E4E7]">
           <div className="flex items-center justify-between">
             <span className="text-sm text-gray-600">
