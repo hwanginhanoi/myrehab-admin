@@ -3,10 +3,21 @@
 import { useEffect, useState, useCallback } from 'react';
 import { useRouter } from 'next/navigation';
 import { useTranslations } from 'next-intl';
+import {
+  createColumnHelper,
+  getCoreRowModel,
+  useReactTable,
+} from '@tanstack/react-table';
 import { Button } from '@/components/ui/button';
-import { DataTable } from '@/components/ui/data-table';
-import { TablePagination } from '@/components/ui/table-pagination';
 import { SearchBar } from '@/components/ui/search-bar';
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from '@/components/ui/table';
 import {
   Dialog,
   DialogContent,
@@ -23,6 +34,9 @@ import { ExerciseCategoryResponse } from '@/api/types/ExerciseCategoryResponse';
 import { toast } from 'sonner';
 import { ExerciseImage } from '@/components/exercises/ExerciseImage';
 import { ExerciseActions } from '@/components/exercises/ExerciseActions';
+import { TableSkeleton } from '@/components/ui/table-skeleton';
+
+const columnHelper = createColumnHelper<ExerciseResponse>();
 
 export default function ExercisesPage() {
   const router = useRouter();
@@ -30,6 +44,7 @@ export default function ExercisesPage() {
   const [exercises, setExercises] = useState<ExerciseResponse[]>([]);
   const [categories, setCategories] = useState<ExerciseCategoryResponse[]>([]);
   const [loading, setLoading] = useState(true);
+  const [minLoadingTime, setMinLoadingTime] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [pageData, setPageData] = useState<PageExerciseResponse | null>(null);
   const [pagination, setPagination] = useState({
@@ -61,7 +76,11 @@ export default function ExercisesPage() {
   const fetchExercises = useCallback(async () => {
     try {
       setLoading(true);
+      setMinLoadingTime(true);
       setError(null);
+
+      // Start minimum loading timer
+      const minLoadingTimer = setTimeout(() => setMinLoadingTime(false), 300);
 
       const data = await getAllExercisesPaginated({
         page: pagination.pageIndex,
@@ -74,12 +93,22 @@ export default function ExercisesPage() {
 
       setPageData(data);
       setExercises(data.content || []);
+
+      // Wait for minimum time or clear if already elapsed
+      await new Promise(resolve => {
+        setTimeout(() => {
+          clearTimeout(minLoadingTimer);
+          setMinLoadingTime(false);
+          resolve(undefined);
+        }, 300);
+      });
     } catch (err) {
       const errorMessage = err instanceof Error ? err.message : t('failedToLoad');
       setError(errorMessage);
       toast.error(t('failedToLoad'), {
         description: errorMessage,
       });
+      setMinLoadingTime(false);
     } finally {
       setLoading(false);
     }
@@ -103,73 +132,76 @@ export default function ExercisesPage() {
     }
   };
 
-  const handlePreviousPage = () => {
-    setPagination(prev => ({
-      ...prev,
-      pageIndex: Math.max(0, prev.pageIndex - 1),
-    }));
-  };
-
-  const handleNextPage = () => {
-    setPagination(prev => ({
-      ...prev,
-      pageIndex: prev.pageIndex + 1,
-    }));
-  };
-
   // Define table columns
   const columns = [
-    {
+    columnHelper.display({
+      id: 'stt',
       header: t('stt'),
-      className: 'w-24 text-[#6DBAD6] font-bold',
-      render: (_: ExerciseResponse, index: number) =>
-        pagination.pageIndex * pagination.pageSize + index + 1,
-    },
-    {
+      cell: (info) => (
+        <span>{pagination.pageIndex * pagination.pageSize + info.row.index + 1}</span>
+      ),
+    }),
+    columnHelper.accessor('imageUrl', {
       header: t('image'),
-      className: 'w-32 text-[#6DBAD6] font-bold',
-      render: (exercise: ExerciseResponse) => (
-        <ExerciseImage
-          imageUrl={exercise.imageUrl}
-          title={exercise.title}
-          onClick={() => exercise.imageUrl && setSelectedImage({
-            url: exercise.imageUrl,
-            title: exercise.title || 'Exercise image'
-          })}
-        />
-      ),
-    },
-    {
+      cell: (info) => {
+        const exercise = info.row.original;
+        return (
+          <ExerciseImage
+            imageUrl={exercise.imageUrl}
+            title={exercise.title}
+            onClick={() => exercise.imageUrl && setSelectedImage({
+              url: exercise.imageUrl,
+              title: exercise.title || 'Exercise image'
+            })}
+          />
+        );
+      },
+    }),
+    columnHelper.accessor('title', {
       header: t('title'),
-      className: 'w-96 text-[#6DBAD6] font-bold',
-      render: (exercise: ExerciseResponse) => (
-        <div>
-          <div className="font-medium">{exercise.title}</div>
-          {exercise.description && (
-            <div className="text-sm text-muted-foreground truncate max-w-xs">
-              {exercise.description}
-            </div>
-          )}
-        </div>
-      ),
-    },
-    {
+      cell: (info) => {
+        const exercise = info.row.original;
+        return (
+          <div>
+            <div className="font-medium">{info.getValue()}</div>
+            {exercise.description && (
+              <div className="text-sm text-muted-foreground truncate max-w-xs">
+                {exercise.description}
+              </div>
+            )}
+          </div>
+        );
+      },
+    }),
+    columnHelper.accessor('category', {
       header: t('category'),
-      className: 'w-44 text-[#6DBAD6] font-bold',
-      render: (exercise: ExerciseResponse) => exercise.category?.name || '-',
-    },
-    {
+      cell: (info) => info.getValue()?.name || '-',
+    }),
+    columnHelper.accessor('durationMinutes', {
       header: t('duration'),
-      className: 'w-32 text-[#6DBAD6] font-bold',
-      render: (exercise: ExerciseResponse) =>
-        exercise.durationMinutes ? `${exercise.durationMinutes} ${t('durationMinutes')}` : '-',
-    },
-    {
+      cell: (info) => {
+        const duration = info.getValue();
+        return duration ? `${duration} ${t('durationMinutes')}` : '-';
+      },
+    }),
+    columnHelper.display({
+      id: 'actions',
       header: t('actions'),
-      className: 'w-44 text-[#6DBAD6] font-bold',
-      render: (exercise: ExerciseResponse) => <ExerciseActions exerciseId={exercise.id} />,
-    },
+      cell: (info) => <ExerciseActions exerciseId={info.row.original.id} />,
+    }),
   ];
+
+  const table = useReactTable({
+    data: exercises,
+    columns,
+    pageCount: pageData?.totalPages ?? 0,
+    state: {
+      pagination,
+    },
+    onPaginationChange: setPagination,
+    getCoreRowModel: getCoreRowModel(),
+    manualPagination: true,
+  });
 
   return (
     <div className="flex flex-1 flex-col">
@@ -211,31 +243,87 @@ export default function ExercisesPage() {
         />
 
         {/* Table */}
-        <DataTable
-          data={exercises}
-          columns={columns}
-          loading={loading}
-          error={error}
-          emptyMessage={t('noResults')}
-          loadingMessage={t('loadingExercises')}
-          errorPrefix={t('errorLoading')}
-          getRowKey={(exercise) => exercise.id || ''}
-        />
+        {(loading || minLoadingTime) ? (
+          <TableSkeleton columns={6} rows={5} hasImage={true} />
+        ) : error ? (
+          <div className="rounded-md border">
+            <div className="flex items-center justify-center h-32">
+              <p className="text-red-500">{t('errorLoading')}: {error}</p>
+            </div>
+          </div>
+        ) : (
+          <div className="rounded-md border">
+            <Table>
+              <TableHeader>
+                <TableRow>
+                  <TableHead className="w-24 text-[#6DBAD6] font-bold">{t('stt')}</TableHead>
+                  <TableHead className="w-32 text-[#6DBAD6] font-bold">{t('image')}</TableHead>
+                  <TableHead className="w-96 text-[#6DBAD6] font-bold">{t('title')}</TableHead>
+                  <TableHead className="w-44 text-[#6DBAD6] font-bold">{t('category')}</TableHead>
+                  <TableHead className="w-32 text-[#6DBAD6] font-bold">{t('duration')}</TableHead>
+                  <TableHead className="w-44 text-[#6DBAD6] font-bold">{t('actions')}</TableHead>
+                </TableRow>
+              </TableHeader>
+              <TableBody>
+                {table.getRowModel().rows?.length ? (
+                  table.getRowModel().rows.map((row) => (
+                    <TableRow key={row.id}>
+                      {row.getVisibleCells().map((cell) => (
+                        <TableCell key={cell.id}>
+                          {cell.column.columnDef.cell
+                            ? typeof cell.column.columnDef.cell === 'function'
+                              ? cell.column.columnDef.cell(cell.getContext())
+                              : cell.column.columnDef.cell
+                            : null}
+                        </TableCell>
+                      ))}
+                    </TableRow>
+                  ))
+                ) : (
+                  <TableRow>
+                    <TableCell colSpan={6} className="h-24 text-center">
+                      {t('noResults')}
+                    </TableCell>
+                  </TableRow>
+                )}
+              </TableBody>
+            </Table>
+          </div>
+        )}
 
         {/* Pagination */}
-        {pageData && (
-          <TablePagination
-            pageIndex={pagination.pageIndex}
-            pageSize={pagination.pageSize}
-            totalElements={pageData.totalElements || 0}
-            totalPages={pageData.totalPages || 0}
-            onPreviousPage={handlePreviousPage}
-            onNextPage={handleNextPage}
-            showingText={t('showing')}
-            previousText={t('previousPage')}
-            nextText={t('nextPage')}
-            itemsName={t('title').toLowerCase()}
-          />
+        {pageData && !loading && (
+          <div className="flex items-center justify-between pt-4 mt-4 border-t-0">
+            <div className="text-base text-[#71717A]">
+              {t('showing')} <span className="font-bold">{Math.min(
+                pagination.pageIndex * pagination.pageSize + 1,
+                pageData.totalElements || 0
+              )}-{Math.min(
+                (pagination.pageIndex + 1) * pagination.pageSize,
+                pageData.totalElements || 0
+              )}/{pageData.totalElements || 0}</span> {t('title').toLowerCase()}
+            </div>
+            <div className="flex items-center gap-2">
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={() => table.previousPage()}
+                disabled={!table.getCanPreviousPage()}
+                className="text-xs border-[#6DBAD6] text-[#09090B] hover:bg-[#6DBAD6] hover:text-white disabled:opacity-50 disabled:cursor-not-allowed"
+              >
+                {t('previousPage')}
+              </Button>
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={() => table.nextPage()}
+                disabled={!table.getCanNextPage()}
+                className="text-xs border-[#6DBAD6] text-[#09090B] hover:bg-[#6DBAD6] hover:text-white disabled:opacity-50 disabled:cursor-not-allowed"
+              >
+                {t('nextPage')}
+              </Button>
+            </div>
+          </div>
         )}
       </div>
 

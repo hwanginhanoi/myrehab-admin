@@ -42,6 +42,7 @@ import { getAllCoursesPaginated } from '@/api/api/courseManagementController/get
 import { CourseResponse } from '@/api/types/CourseResponse';
 import { PageCourseResponse } from '@/api/types/PageCourseResponse';
 import { toast } from 'sonner';
+import { TableSkeleton } from '@/components/ui/table-skeleton';
 
 const columnHelper = createColumnHelper<CourseResponse>();
 
@@ -49,6 +50,7 @@ export default function CoursesPage() {
   const router = useRouter();
   const [courses, setCourses] = useState<CourseResponse[]>([]);
   const [loading, setLoading] = useState(true);
+  const [minLoadingTime, setMinLoadingTime] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [pageData, setPageData] = useState<PageCourseResponse | null>(null);
   const [pagination, setPagination] = useState({
@@ -63,7 +65,11 @@ export default function CoursesPage() {
   const fetchCourses = useCallback(async () => {
     try {
       setLoading(true);
+      setMinLoadingTime(true);
       setError(null);
+
+      // Start minimum loading timer
+      const minLoadingTimer = setTimeout(() => setMinLoadingTime(false), 300);
 
       const data = await getAllCoursesPaginated({
         page: pagination.pageIndex,
@@ -74,12 +80,22 @@ export default function CoursesPage() {
 
       setPageData(data);
       setCourses(data.content || []);
+
+      // Wait for minimum time or clear if already elapsed
+      await new Promise(resolve => {
+        setTimeout(() => {
+          clearTimeout(minLoadingTimer);
+          setMinLoadingTime(false);
+          resolve(undefined);
+        }, 300);
+      });
     } catch (err) {
       const errorMessage = err instanceof Error ? err.message : 'Failed to fetch courses';
       setError(errorMessage);
       toast.error('Failed to load courses', {
         description: errorMessage,
       });
+      setMinLoadingTime(false);
     } finally {
       setLoading(false);
     }
@@ -254,16 +270,16 @@ export default function CoursesPage() {
             </div>
 
             {/* Table */}
-            <div className="rounded-md border">
-              {loading ? (
-                <div className="flex items-center justify-center h-32">
-                  <p>Loading courses...</p>
-                </div>
-              ) : error ? (
+            {(loading || minLoadingTime) ? (
+              <TableSkeleton columns={8} rows={5} hasImage={true} />
+            ) : error ? (
+              <div className="rounded-md border">
                 <div className="flex items-center justify-center h-32">
                   <p className="text-red-500">Error: {error}</p>
                 </div>
-              ) : (
+              </div>
+            ) : (
+              <div className="rounded-md border">
                 <Table>
                   <TableHeader>
                     <TableRow>
@@ -373,8 +389,8 @@ export default function CoursesPage() {
                     )}
                   </TableBody>
                 </Table>
-              )}
-            </div>
+              </div>
+            )}
 
             {/* Footer with Pagination */}
             <div className="flex items-center justify-between pt-4 mt-4 border-t-0">

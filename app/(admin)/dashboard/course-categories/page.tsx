@@ -57,6 +57,7 @@ export default function CourseCategoriesPage() {
   const router = useRouter();
   const [categories, setCategories] = useState<CourseCategoryResponse[]>([]);
   const [loading, setLoading] = useState(true);
+  const [minLoadingTime, setMinLoadingTime] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [pageData, setPageData] = useState<PageCourseCategoryResponse | null>(null);
   const [pagination, setPagination] = useState({
@@ -67,7 +68,11 @@ export default function CourseCategoriesPage() {
   const fetchCategories = useCallback(async () => {
     try {
       setLoading(true);
+      setMinLoadingTime(true);
       setError(null);
+
+      // Start minimum loading timer
+      const minLoadingTimer = setTimeout(() => setMinLoadingTime(false), 300);
 
       const data = await getAllCategoriesPaginated1({
         page: pagination.pageIndex,
@@ -78,12 +83,22 @@ export default function CourseCategoriesPage() {
 
       setPageData(data);
       setCategories(data.content || []);
+
+      // Wait for minimum time or clear if already elapsed
+      await new Promise(resolve => {
+        setTimeout(() => {
+          clearTimeout(minLoadingTimer);
+          setMinLoadingTime(false);
+          resolve(undefined);
+        }, 300);
+      });
     } catch (err) {
       const errorMessage = err instanceof Error ? err.message : 'Failed to fetch course categories';
       setError(errorMessage);
       toast.error('Failed to load course categories', {
         description: errorMessage,
       });
+      setMinLoadingTime(false);
     } finally {
       setLoading(false);
     }
@@ -239,7 +254,7 @@ export default function CourseCategoriesPage() {
             </div>
 
             {/* Table */}
-            {loading ? (
+            {(loading || minLoadingTime) ? (
               <TableSkeleton columns={4} rows={10} />
             ) : error ? (
               <div className="rounded-md border">
