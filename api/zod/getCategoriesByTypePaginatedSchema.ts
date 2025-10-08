@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { pageCategoryResponseSchema } from "./pageCategoryResponseSchema";
+import { pageExerciseCategoryResponseSchema } from "./pageExerciseCategoryResponseSchema";
 
 
 export const getCategoriesByTypePaginatedPathParamsSchema = z.object({ "type": z.enum(["BODY_PART", "RECOVERY_STAGE", "HEALTH_CONDITION", "DIFFICULTY_LEVEL", "EXERCISE_TYPE"]) });
@@ -8,8 +8,8 @@ export const getCategoriesByTypePaginatedPathParamsSchema = z.object({ "type": z
 /**
  * @description OK
  */
-export const getCategoriesByTypePaginated200Schema = z.lazy(() => pageCategoryResponseSchema);
+export const getCategoriesByTypePaginated200Schema = z.lazy(() => pageExerciseCategoryResponseSchema);
 /**
  * @description OK
  */
-export const getCategoriesByTypePaginatedQueryResponseSchema = z.lazy(() => pageCategoryResponseSchema);
+export const getCategoriesByTypePaginatedQueryResponseSchema = z.lazy(() => pageExerciseCategoryResponseSchema);

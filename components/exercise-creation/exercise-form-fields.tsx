@@ -12,8 +12,8 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 import { FileUpload } from '@/components/file-upload/file-upload';
-import { getAllCategories } from '@/api/api/categoryManagementController/getAllCategories';
-import { CategoryResponse } from '@/api/types/CategoryResponse';
+import { getAllCategories } from '@/api/api/exerciseCategoryManagementController/getAllCategories';
+import { ExerciseCategoryResponse } from '@/api/types/ExerciseCategoryResponse';
 import { ExerciseFormData } from '@/lib/types/exercise-creation';
 
 interface ExerciseFormFieldsProps {
@@ -29,7 +29,7 @@ export function ExerciseFormFields({ form, disabled = false }: ExerciseFormField
     formState: { errors },
   } = form;
 
-  const [categories, setCategories] = useState<CategoryResponse[]>([]);
+  const [categories, setCategories] = useState<ExerciseCategoryResponse[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {

@@ -1,4 +1,4 @@
-import type { PageCategoryResponse } from "./PageCategoryResponse";
+import type { PageExerciseCategoryResponse } from "./PageExerciseCategoryResponse";
 
  export type SearchCategoriesPaginatedQueryParams = {
     /**
@@ -34,11 +34,11 @@ import type { PageCategoryResponse } from "./PageCategoryResponse";
 /**
  * @description OK
 */
-export type SearchCategoriesPaginated200 = PageCategoryResponse;
+export type SearchCategoriesPaginated200 = PageExerciseCategoryResponse;
 /**
  * @description OK
 */
-export type SearchCategoriesPaginatedQueryResponse = PageCategoryResponse;
+export type SearchCategoriesPaginatedQueryResponse = PageExerciseCategoryResponse;
 export type SearchCategoriesPaginatedQuery = {
     Response: SearchCategoriesPaginatedQueryResponse;
     QueryParams: SearchCategoriesPaginatedQueryParams;

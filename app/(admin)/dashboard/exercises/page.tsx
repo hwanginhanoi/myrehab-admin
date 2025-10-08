@@ -16,10 +16,10 @@ import {
 import { Plus } from 'lucide-react';
 import Image from 'next/image';
 import { getAllExercisesPaginated } from '@/api/api/exerciseManagementController/getAllExercisesPaginated';
-import { getAllCategories } from '@/api/api/categoryManagementController/getAllCategories';
+import { getAllCategories } from '@/api/api/exerciseCategoryManagementController/getAllCategories';
 import { ExerciseResponse } from '@/api/types/ExerciseResponse';
 import { PageExerciseResponse } from '@/api/types/PageExerciseResponse';
-import { CategoryResponse } from '@/api/types/CategoryResponse';
+import { ExerciseCategoryResponse } from '@/api/types/ExerciseCategoryResponse';
 import { toast } from 'sonner';
 import { ExerciseImage } from '@/components/exercises/ExerciseImage';
 import { ExerciseActions } from '@/components/exercises/ExerciseActions';
@@ -28,7 +28,7 @@ export default function ExercisesPage() {
   const router = useRouter();
   const t = useTranslations('exercise');
   const [exercises, setExercises] = useState<ExerciseResponse[]>([]);
-  const [categories, setCategories] = useState<CategoryResponse[]>([]);
+  const [categories, setCategories] = useState<ExerciseCategoryResponse[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [pageData, setPageData] = useState<PageExerciseResponse | null>(null);

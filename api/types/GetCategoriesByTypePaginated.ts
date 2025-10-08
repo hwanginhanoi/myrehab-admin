@@ -1,4 +1,4 @@
-import type { PageCategoryResponse } from "./PageCategoryResponse";
+import type { PageExerciseCategoryResponse } from "./PageExerciseCategoryResponse";
 
  export const getCategoriesByTypePaginatedPathParamsType = {
     "BODY_PART": "BODY_PART",
@@ -43,11 +43,11 @@ export type GetCategoriesByTypePaginatedQueryParams = {
 /**
  * @description OK
 */
-export type GetCategoriesByTypePaginated200 = PageCategoryResponse;
+export type GetCategoriesByTypePaginated200 = PageExerciseCategoryResponse;
 /**
  * @description OK
 */
-export type GetCategoriesByTypePaginatedQueryResponse = PageCategoryResponse;
+export type GetCategoriesByTypePaginatedQueryResponse = PageExerciseCategoryResponse;
 export type GetCategoriesByTypePaginatedQuery = {
     Response: GetCategoriesByTypePaginatedQueryResponse;
     PathParams: GetCategoriesByTypePaginatedPathParams;

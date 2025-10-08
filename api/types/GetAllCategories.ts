@@ -1,13 +1,13 @@
-import type { CategoryResponse } from "./CategoryResponse";
+import type { ExerciseCategoryResponse } from "./ExerciseCategoryResponse";
 
  /**
  * @description OK
 */
-export type GetAllCategories200 = CategoryResponse[];
+export type GetAllCategories200 = ExerciseCategoryResponse[];
 /**
  * @description OK
 */
-export type GetAllCategoriesQueryResponse = CategoryResponse[];
+export type GetAllCategoriesQueryResponse = ExerciseCategoryResponse[];
 export type GetAllCategoriesQuery = {
     Response: GetAllCategoriesQueryResponse;
 };

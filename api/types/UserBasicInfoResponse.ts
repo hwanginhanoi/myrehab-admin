@@ -1,0 +1,34 @@
+export type UserBasicInfoResponse = {
+    /**
+     * @type integer | undefined, int64
+    */
+    id?: number;
+    /**
+     * @type string | undefined
+    */
+    fullName?: string;
+    /**
+     * @type string | undefined
+    */
+    gender?: string;
+    /**
+     * @type string | undefined, date
+    */
+    dateOfBirth?: string;
+    /**
+     * @type string | undefined
+    */
+    phoneNumber?: string;
+    /**
+     * @type string | undefined
+    */
+    email?: string;
+    /**
+     * @type string | undefined, date-time
+    */
+    createdAt?: string;
+    /**
+     * @type string | undefined, date-time
+    */
+    updatedAt?: string;
+};

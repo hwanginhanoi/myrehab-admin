@@ -1,0 +1,1 @@
+{"type":"object","properties":{"vietnameseIdentityCard":{"type":"string"},"jobTitle":{"type":"string"},"address":{"type":"string"},"nationality":{"type":"string"},"ethnic":{"type":"string"}},"x-readme-ref-name":"UserProfileRequest"}

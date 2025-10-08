@@ -1,4 +1,4 @@
-import type { CategoryResponse } from "./CategoryResponse";
+import type { ExerciseCategoryResponse } from "./ExerciseCategoryResponse";
 
  export type ExerciseInfo = {
     /**
@@ -32,5 +32,5 @@ import type { CategoryResponse } from "./CategoryResponse";
     /**
      * @type object | undefined
     */
-    category?: CategoryResponse;
+    category?: ExerciseCategoryResponse;
 };

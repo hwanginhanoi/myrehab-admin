@@ -1,13 +1,13 @@
 import { z } from "zod";
-import { categoryResponseSchema } from "./categoryResponseSchema";
+import { exerciseCategoryResponseSchema } from "./exerciseCategoryResponseSchema";
 
 
 export const getCategoryByIdPathParamsSchema = z.object({ "id": z.number().int() });
 /**
  * @description OK
  */
-export const getCategoryById200Schema = z.lazy(() => categoryResponseSchema);
+export const getCategoryById200Schema = z.lazy(() => exerciseCategoryResponseSchema);
 /**
  * @description OK
  */
-export const getCategoryByIdQueryResponseSchema = z.lazy(() => categoryResponseSchema);
+export const getCategoryByIdQueryResponseSchema = z.lazy(() => exerciseCategoryResponseSchema);

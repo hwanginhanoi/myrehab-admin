@@ -1,13 +1,13 @@
 import { z } from "zod";
-import { categoryResponseSchema } from "./categoryResponseSchema";
+import { exerciseCategoryResponseSchema } from "./exerciseCategoryResponseSchema";
 
 
 export const searchCategoriesQueryParamsSchema = z.object({ "keyword": z.string().describe("Search keyword") });
 /**
  * @description OK
  */
-export const searchCategories200Schema = z.array(z.lazy(() => categoryResponseSchema));
+export const searchCategories200Schema = z.array(z.lazy(() => exerciseCategoryResponseSchema));
 /**
  * @description OK
  */
-export const searchCategoriesQueryResponseSchema = z.array(z.lazy(() => categoryResponseSchema));
+export const searchCategoriesQueryResponseSchema = z.array(z.lazy(() => exerciseCategoryResponseSchema));

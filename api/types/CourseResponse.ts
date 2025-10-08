@@ -1,4 +1,4 @@
-import type { CategoryResponse } from "./CategoryResponse";
+import type { CourseCategoryResponse } from "./CourseCategoryResponse";
 import type { CourseDayResponse } from "./CourseDayResponse";
 
  export type CourseResponse = {
@@ -29,7 +29,7 @@ import type { CourseDayResponse } from "./CourseDayResponse";
     /**
      * @type object | undefined
     */
-    category?: CategoryResponse;
+    category?: CourseCategoryResponse;
     /**
      * @type array | undefined
     */

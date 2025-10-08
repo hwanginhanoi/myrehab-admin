@@ -1,4 +1,3 @@
-import { CategoryResponse } from '@/api/types/CategoryResponse';
 import { ExerciseResponse } from '@/api/types/ExerciseResponse';
 
 export interface CourseBasicInfo {

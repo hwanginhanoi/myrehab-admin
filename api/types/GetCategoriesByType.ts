@@ -1,4 +1,4 @@
-import type { CategoryResponse } from "./CategoryResponse";
+import type { ExerciseCategoryResponse } from "./ExerciseCategoryResponse";
 
  export const getCategoriesByTypePathParamsType = {
     "BODY_PART": "BODY_PART",
@@ -17,11 +17,11 @@ export type GetCategoriesByTypePathParams = {
 /**
  * @description OK
 */
-export type GetCategoriesByType200 = CategoryResponse[];
+export type GetCategoriesByType200 = ExerciseCategoryResponse[];
 /**
  * @description OK
 */
-export type GetCategoriesByTypeQueryResponse = CategoryResponse[];
+export type GetCategoriesByTypeQueryResponse = ExerciseCategoryResponse[];
 export type GetCategoriesByTypeQuery = {
     Response: GetCategoriesByTypeQueryResponse;
     PathParams: GetCategoriesByTypePathParams;

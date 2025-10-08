@@ -1,0 +1,30 @@
+export type UserCompanyInfoResponse = {
+    /**
+     * @type integer | undefined, int64
+    */
+    id?: number;
+    /**
+     * @type integer | undefined, int64
+    */
+    userId?: number;
+    /**
+     * @type string | undefined
+    */
+    companyName?: string;
+    /**
+     * @type string | undefined
+    */
+    companyTaxNumber?: string;
+    /**
+     * @type string | undefined
+    */
+    invoiceIssuanceAddress?: string;
+    /**
+     * @type string | undefined, date-time
+    */
+    createdAt?: string;
+    /**
+     * @type string | undefined, date-time
+    */
+    updatedAt?: string;
+};

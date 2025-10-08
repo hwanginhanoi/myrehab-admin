@@ -1,11 +1,11 @@
 import { z } from "zod";
-import { categoryResponseSchema } from "./categoryResponseSchema";
+import { exerciseCategoryResponseSchema } from "./exerciseCategoryResponseSchema";
 
  /**
  * @description OK
  */
-export const getAllCategories200Schema = z.array(z.lazy(() => categoryResponseSchema));
+export const getAllCategories200Schema = z.array(z.lazy(() => exerciseCategoryResponseSchema));
 /**
  * @description OK
  */
-export const getAllCategoriesQueryResponseSchema = z.array(z.lazy(() => categoryResponseSchema));
+export const getAllCategoriesQueryResponseSchema = z.array(z.lazy(() => exerciseCategoryResponseSchema));

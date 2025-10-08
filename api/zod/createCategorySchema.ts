@@ -1,14 +1,14 @@
 import { z } from "zod";
-import { categoryResponseSchema } from "./categoryResponseSchema";
-import { createCategoryRequestSchema } from "./createCategoryRequestSchema";
+import { exerciseCategoryResponseSchema } from "./exerciseCategoryResponseSchema";
+import { createExerciseCategoryRequestSchema } from "./createExerciseCategoryRequestSchema";
 
  /**
  * @description OK
  */
-export const createCategory200Schema = z.lazy(() => categoryResponseSchema);
+export const createCategory200Schema = z.lazy(() => exerciseCategoryResponseSchema);
 
- export const createCategoryMutationRequestSchema = z.lazy(() => createCategoryRequestSchema);
+ export const createCategoryMutationRequestSchema = z.lazy(() => createExerciseCategoryRequestSchema);
 /**
  * @description OK
  */
-export const createCategoryMutationResponseSchema = z.lazy(() => categoryResponseSchema);
+export const createCategoryMutationResponseSchema = z.lazy(() => exerciseCategoryResponseSchema);

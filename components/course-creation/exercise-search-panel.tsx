@@ -9,9 +9,9 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
-import { CategoryResponse } from '@/api/types/CategoryResponse';
+import { ExerciseCategoryResponse } from '@/api/types/ExerciseCategoryResponse';
 import { ExerciseResponse } from '@/api/types/ExerciseResponse';
-import { getAllCategories } from '@/api/api/categoryManagementController/getAllCategories';
+import { getAllCategories } from '@/api/api/exerciseCategoryManagementController/getAllCategories';
 import { DraggableExercise } from './draggable-exercise';
 
 interface ExerciseSearchPanelProps {
@@ -42,7 +42,7 @@ export function ExerciseSearchPanel({
   loading = false,
 }: ExerciseSearchPanelProps) {
   const [searchInput, setSearchInput] = useState('');
-  const [categories, setCategories] = useState<CategoryResponse[]>([]);
+  const [categories, setCategories] = useState<ExerciseCategoryResponse[]>([]);
 
   const searchTerm = externalSearchTerm !== undefined ? externalSearchTerm : searchInput;
   const selectedCategory = externalCategoryFilter || 'all';

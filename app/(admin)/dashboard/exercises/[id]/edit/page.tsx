@@ -7,9 +7,9 @@ import { Button } from '@/components/ui/button';
 import { ArrowLeft, Save } from 'lucide-react';
 import { getExerciseById } from '@/api/api/exerciseManagementController/getExerciseById';
 import { updateExercise } from '@/api/api/exerciseManagementController/updateExercise';
-import { getAllCategories } from '@/api/api/categoryManagementController/getAllCategories';
+import { getAllCategories } from '@/api/api/exerciseCategoryManagementController/getAllCategories';
 import { ExerciseResponse } from '@/api/types/ExerciseResponse';
-import { CategoryResponse } from '@/api/types/CategoryResponse';
+import { ExerciseCategoryResponse } from '@/api/types/ExerciseCategoryResponse';
 import { UpdateExerciseRequest } from '@/api/types/UpdateExerciseRequest';
 import { ExerciseFormData } from '@/lib/types/exercise-creation';
 import { toast } from 'sonner';
@@ -23,7 +23,7 @@ export default function EditExercisePage() {
   const exerciseId = params.id ? parseInt(params.id as string, 10) : null;
 
   const [exercise, setExercise] = useState<ExerciseResponse | null>(null);
-  const [categories, setCategories] = useState<CategoryResponse[]>([]);
+  const [categories, setCategories] = useState<ExerciseCategoryResponse[]>([]);
   const [loading, setLoading] = useState(true);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);

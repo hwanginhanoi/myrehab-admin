@@ -1,4 +1,4 @@
-import type { CategoryResponse } from "./CategoryResponse";
+import type { ExerciseCategoryResponse } from "./ExerciseCategoryResponse";
 
  export type SearchCategoriesQueryParams = {
     /**
@@ -10,11 +10,11 @@ import type { CategoryResponse } from "./CategoryResponse";
 /**
  * @description OK
 */
-export type SearchCategories200 = CategoryResponse[];
+export type SearchCategories200 = ExerciseCategoryResponse[];
 /**
  * @description OK
 */
-export type SearchCategoriesQueryResponse = CategoryResponse[];
+export type SearchCategoriesQueryResponse = ExerciseCategoryResponse[];
 export type SearchCategoriesQuery = {
     Response: SearchCategoriesQueryResponse;
     QueryParams: SearchCategoriesQueryParams;

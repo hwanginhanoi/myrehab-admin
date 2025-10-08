@@ -1,4 +1,116 @@
 export const operations = {
+    "getUserProfile": {
+        "path": "/api/users/:userId/profile",
+        "method": "get"
+    },
+    "updateUserProfile": {
+        "path": "/api/users/:userId/profile",
+        "method": "put"
+    },
+    "deleteUserProfile": {
+        "path": "/api/users/:userId/profile",
+        "method": "delete"
+    },
+    "getNonCompulsoryHealthInsurance": {
+        "path": "/api/users/:userId/non-compulsory-health-insurance",
+        "method": "get"
+    },
+    "updateNonCompulsoryHealthInsurance": {
+        "path": "/api/users/:userId/non-compulsory-health-insurance",
+        "method": "put"
+    },
+    "deleteNonCompulsoryHealthInsurance": {
+        "path": "/api/users/:userId/non-compulsory-health-insurance",
+        "method": "delete"
+    },
+    "getNationalHealthInsurance": {
+        "path": "/api/users/:userId/national-health-insurance",
+        "method": "get"
+    },
+    "updateNationalHealthInsurance": {
+        "path": "/api/users/:userId/national-health-insurance",
+        "method": "put"
+    },
+    "deleteNationalHealthInsurance": {
+        "path": "/api/users/:userId/national-health-insurance",
+        "method": "delete"
+    },
+    "getUserCompanyInfo": {
+        "path": "/api/users/:userId/company-info",
+        "method": "get"
+    },
+    "updateUserCompanyInfo": {
+        "path": "/api/users/:userId/company-info",
+        "method": "put"
+    },
+    "deleteUserCompanyInfo": {
+        "path": "/api/users/:userId/company-info",
+        "method": "delete"
+    },
+    "getUserBasicInfo": {
+        "path": "/api/users/:userId/basic-info",
+        "method": "get"
+    },
+    "updateUserBasicInfo": {
+        "path": "/api/users/:userId/basic-info",
+        "method": "put"
+    },
+    "getMyBasicInfo": {
+        "path": "/api/users/me/basic-info",
+        "method": "get"
+    },
+    "updateMyBasicInfo": {
+        "path": "/api/users/me/basic-info",
+        "method": "put"
+    },
+    "getMyProfile": {
+        "path": "/api/users/api/users/me/profile",
+        "method": "get"
+    },
+    "updateMyProfile": {
+        "path": "/api/users/api/users/me/profile",
+        "method": "put"
+    },
+    "deleteMyProfile": {
+        "path": "/api/users/api/users/me/profile",
+        "method": "delete"
+    },
+    "getMyNonCompulsoryHealthInsurance": {
+        "path": "/api/users/api/users/me/non-compulsory-health-insurance",
+        "method": "get"
+    },
+    "updateMyNonCompulsoryHealthInsurance": {
+        "path": "/api/users/api/users/me/non-compulsory-health-insurance",
+        "method": "put"
+    },
+    "deleteMyNonCompulsoryHealthInsurance": {
+        "path": "/api/users/api/users/me/non-compulsory-health-insurance",
+        "method": "delete"
+    },
+    "getMyNationalHealthInsurance": {
+        "path": "/api/users/api/users/me/national-health-insurance",
+        "method": "get"
+    },
+    "updateMyNationalHealthInsurance": {
+        "path": "/api/users/api/users/me/national-health-insurance",
+        "method": "put"
+    },
+    "deleteMyNationalHealthInsurance": {
+        "path": "/api/users/api/users/me/national-health-insurance",
+        "method": "delete"
+    },
+    "getMyCompanyInfo": {
+        "path": "/api/users/api/users/me/company-info",
+        "method": "get"
+    },
+    "updateMyCompanyInfo": {
+        "path": "/api/users/api/users/me/company-info",
+        "method": "put"
+    },
+    "deleteMyCompanyInfo": {
+        "path": "/api/users/api/users/me/company-info",
+        "method": "delete"
+    },
     "getExerciseById": {
         "path": "/api/exercises/:id",
         "method": "get"
@@ -12,15 +124,27 @@ export const operations = {
         "method": "delete"
     },
     "getCategoryById": {
-        "path": "/api/categories/:id",
+        "path": "/api/exercise-categories/:id",
         "method": "get"
     },
     "updateCategory": {
-        "path": "/api/categories/:id",
+        "path": "/api/exercise-categories/:id",
         "method": "put"
     },
     "deleteCategory": {
-        "path": "/api/categories/:id",
+        "path": "/api/exercise-categories/:id",
+        "method": "delete"
+    },
+    "getCategoryById_1": {
+        "path": "/api/course-categories/:id",
+        "method": "get"
+    },
+    "updateCategory_1": {
+        "path": "/api/course-categories/:id",
+        "method": "put"
+    },
+    "deleteCategory_1": {
+        "path": "/api/course-categories/:id",
         "method": "delete"
     },
     "buyCourse": {
@@ -43,6 +167,14 @@ export const operations = {
         "path": "/api/exercises",
         "method": "post"
     },
+    "getAllCategories": {
+        "path": "/api/exercise-categories",
+        "method": "get"
+    },
+    "createCategory": {
+        "path": "/api/exercise-categories",
+        "method": "post"
+    },
     "getAllCourses": {
         "path": "/api/courses",
         "method": "get"
@@ -51,12 +183,12 @@ export const operations = {
         "path": "/api/courses",
         "method": "post"
     },
-    "getAllCategories": {
-        "path": "/api/categories",
+    "getAllCategories_1": {
+        "path": "/api/course-categories",
         "method": "get"
     },
-    "createCategory": {
-        "path": "/api/categories",
+    "createCategory_1": {
+        "path": "/api/course-categories",
         "method": "post"
     },
     "addBalanceToUser": {
@@ -115,6 +247,26 @@ export const operations = {
         "path": "/api/exercises/paginated",
         "method": "get"
     },
+    "getCategoriesByType": {
+        "path": "/api/exercise-categories/type/:type",
+        "method": "get"
+    },
+    "getCategoriesByTypePaginated": {
+        "path": "/api/exercise-categories/type/:type/paginated",
+        "method": "get"
+    },
+    "searchCategories": {
+        "path": "/api/exercise-categories/search",
+        "method": "get"
+    },
+    "searchCategoriesPaginated": {
+        "path": "/api/exercise-categories/search/paginated",
+        "method": "get"
+    },
+    "getAllCategoriesPaginated": {
+        "path": "/api/exercise-categories/paginated",
+        "method": "get"
+    },
     "getCourseById": {
         "path": "/api/courses/:id",
         "method": "get"
@@ -131,24 +283,24 @@ export const operations = {
         "path": "/api/courses/category/:categoryId",
         "method": "get"
     },
-    "getCategoriesByType": {
-        "path": "/api/categories/type/:type",
+    "getCategoriesByType_1": {
+        "path": "/api/course-categories/type/:type",
         "method": "get"
     },
-    "getCategoriesByTypePaginated": {
-        "path": "/api/categories/type/:type/paginated",
+    "getCategoriesByTypePaginated_1": {
+        "path": "/api/course-categories/type/:type/paginated",
         "method": "get"
     },
-    "searchCategories": {
-        "path": "/api/categories/search",
+    "searchCategories_1": {
+        "path": "/api/course-categories/search",
         "method": "get"
     },
-    "searchCategoriesPaginated": {
-        "path": "/api/categories/search/paginated",
+    "searchCategoriesPaginated_1": {
+        "path": "/api/course-categories/search/paginated",
         "method": "get"
     },
-    "getAllCategoriesPaginated": {
-        "path": "/api/categories/paginated",
+    "getAllCategoriesPaginated_1": {
+        "path": "/api/course-categories/paginated",
         "method": "get"
     },
     "getUserBalance": {

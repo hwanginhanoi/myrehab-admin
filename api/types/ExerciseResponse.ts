@@ -1,4 +1,4 @@
-import type { CategoryResponse } from "./CategoryResponse";
+import type { ExerciseCategoryResponse } from "./ExerciseCategoryResponse";
 
  export type ExerciseResponse = {
     /**
@@ -28,7 +28,7 @@ import type { CategoryResponse } from "./CategoryResponse";
     /**
      * @type object | undefined
     */
-    category?: CategoryResponse;
+    category?: ExerciseCategoryResponse;
     /**
      * @type string | undefined, date-time
     */

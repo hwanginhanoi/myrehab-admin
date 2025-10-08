@@ -12,8 +12,8 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 import { FileUpload } from '@/components/file-upload/file-upload';
-import { getAllCategories } from '@/api/api/categoryManagementController';
-import { CategoryResponse } from '@/api/types/CategoryResponse';
+import { getAllCategories1 } from '@/api/api/courseCategoryManagementController/getAllCategories1';
+import { CourseCategoryResponse } from '@/api/types/CourseCategoryResponse';
 import { CourseCreationFormData } from '@/lib/types/course-creation';
 
 interface CourseBasicInfoStepProps {
@@ -28,14 +28,14 @@ export function CourseBasicInfoStep({ form }: CourseBasicInfoStepProps) {
     formState: { errors },
   } = form;
 
-  const [categories, setCategories] = useState<CategoryResponse[]>([]);
+  const [categories, setCategories] = useState<CourseCategoryResponse[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchCategories = async () => {
       try {
         setLoading(true);
-        const categoriesData = await getAllCategories();
+        const categoriesData = await getAllCategories1();
         setCategories(categoriesData);
       } catch (err) {
         const errorMessage =

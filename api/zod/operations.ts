@@ -1,18 +1,51 @@
+import { getUserProfileQueryResponseSchema, getUserProfilePathParamsSchema } from "./getUserProfileSchema";
+import { updateUserProfileMutationRequestSchema, updateUserProfileMutationResponseSchema, updateUserProfilePathParamsSchema } from "./updateUserProfileSchema";
+import { deleteUserProfileMutationResponseSchema, deleteUserProfilePathParamsSchema } from "./deleteUserProfileSchema";
+import { getNonCompulsoryHealthInsuranceQueryResponseSchema, getNonCompulsoryHealthInsurancePathParamsSchema } from "./getNonCompulsoryHealthInsuranceSchema";
+import { updateNonCompulsoryHealthInsuranceMutationRequestSchema, updateNonCompulsoryHealthInsuranceMutationResponseSchema, updateNonCompulsoryHealthInsurancePathParamsSchema } from "./updateNonCompulsoryHealthInsuranceSchema";
+import { deleteNonCompulsoryHealthInsuranceMutationResponseSchema, deleteNonCompulsoryHealthInsurancePathParamsSchema } from "./deleteNonCompulsoryHealthInsuranceSchema";
+import { getNationalHealthInsuranceQueryResponseSchema, getNationalHealthInsurancePathParamsSchema } from "./getNationalHealthInsuranceSchema";
+import { updateNationalHealthInsuranceMutationRequestSchema, updateNationalHealthInsuranceMutationResponseSchema, updateNationalHealthInsurancePathParamsSchema } from "./updateNationalHealthInsuranceSchema";
+import { deleteNationalHealthInsuranceMutationResponseSchema, deleteNationalHealthInsurancePathParamsSchema } from "./deleteNationalHealthInsuranceSchema";
+import { getUserCompanyInfoQueryResponseSchema, getUserCompanyInfoPathParamsSchema } from "./getUserCompanyInfoSchema";
+import { updateUserCompanyInfoMutationRequestSchema, updateUserCompanyInfoMutationResponseSchema, updateUserCompanyInfoPathParamsSchema } from "./updateUserCompanyInfoSchema";
+import { deleteUserCompanyInfoMutationResponseSchema, deleteUserCompanyInfoPathParamsSchema } from "./deleteUserCompanyInfoSchema";
+import { getUserBasicInfoQueryResponseSchema, getUserBasicInfoPathParamsSchema } from "./getUserBasicInfoSchema";
+import { updateUserBasicInfoMutationRequestSchema, updateUserBasicInfoMutationResponseSchema, updateUserBasicInfoPathParamsSchema } from "./updateUserBasicInfoSchema";
+import { getMyBasicInfoQueryResponseSchema } from "./getMyBasicInfoSchema";
+import { updateMyBasicInfoMutationRequestSchema, updateMyBasicInfoMutationResponseSchema } from "./updateMyBasicInfoSchema";
+import { getMyProfileQueryResponseSchema } from "./getMyProfileSchema";
+import { updateMyProfileMutationRequestSchema, updateMyProfileMutationResponseSchema } from "./updateMyProfileSchema";
+import { deleteMyProfileMutationResponseSchema } from "./deleteMyProfileSchema";
+import { getMyNonCompulsoryHealthInsuranceQueryResponseSchema } from "./getMyNonCompulsoryHealthInsuranceSchema";
+import { updateMyNonCompulsoryHealthInsuranceMutationRequestSchema, updateMyNonCompulsoryHealthInsuranceMutationResponseSchema } from "./updateMyNonCompulsoryHealthInsuranceSchema";
+import { deleteMyNonCompulsoryHealthInsuranceMutationResponseSchema } from "./deleteMyNonCompulsoryHealthInsuranceSchema";
+import { getMyNationalHealthInsuranceQueryResponseSchema } from "./getMyNationalHealthInsuranceSchema";
+import { updateMyNationalHealthInsuranceMutationRequestSchema, updateMyNationalHealthInsuranceMutationResponseSchema } from "./updateMyNationalHealthInsuranceSchema";
+import { deleteMyNationalHealthInsuranceMutationResponseSchema } from "./deleteMyNationalHealthInsuranceSchema";
+import { getMyCompanyInfoQueryResponseSchema } from "./getMyCompanyInfoSchema";
+import { updateMyCompanyInfoMutationRequestSchema, updateMyCompanyInfoMutationResponseSchema } from "./updateMyCompanyInfoSchema";
+import { deleteMyCompanyInfoMutationResponseSchema } from "./deleteMyCompanyInfoSchema";
 import { getExerciseByIdQueryResponseSchema, getExerciseByIdPathParamsSchema } from "./getExerciseByIdSchema";
 import { updateExerciseMutationRequestSchema, updateExerciseMutationResponseSchema, updateExercisePathParamsSchema } from "./updateExerciseSchema";
 import { deleteExerciseMutationResponseSchema, deleteExercisePathParamsSchema } from "./deleteExerciseSchema";
 import { getCategoryByIdQueryResponseSchema, getCategoryByIdPathParamsSchema } from "./getCategoryByIdSchema";
 import { updateCategoryMutationRequestSchema, updateCategoryMutationResponseSchema, updateCategoryPathParamsSchema } from "./updateCategorySchema";
 import { deleteCategoryMutationResponseSchema, deleteCategoryPathParamsSchema } from "./deleteCategorySchema";
+import { getCategoryById1QueryResponseSchema, getCategoryById1PathParamsSchema } from "./getCategoryById1Schema";
+import { updateCategory1MutationRequestSchema, updateCategory1MutationResponseSchema, updateCategory1PathParamsSchema } from "./updateCategory1Schema";
+import { deleteCategory1MutationResponseSchema, deleteCategory1PathParamsSchema } from "./deleteCategory1Schema";
 import { buyCourseMutationResponseSchema, buyCoursePathParamsSchema } from "./buyCourseSchema";
 import { uploadVideoMutationRequestSchema, uploadVideoMutationResponseSchema } from "./uploadVideoSchema";
 import { uploadImageMutationRequestSchema, uploadImageMutationResponseSchema } from "./uploadImageSchema";
 import { generatePresignedUploadUrlMutationRequestSchema, generatePresignedUploadUrlMutationResponseSchema } from "./generatePresignedUploadUrlSchema";
 import { createExerciseMutationRequestSchema, createExerciseMutationResponseSchema } from "./createExerciseSchema";
-import { getAllCoursesQueryResponseSchema } from "./getAllCoursesSchema";
-import { createCourseMutationRequestSchema, createCourseMutationResponseSchema } from "./createCourseSchema";
 import { getAllCategoriesQueryResponseSchema } from "./getAllCategoriesSchema";
 import { createCategoryMutationRequestSchema, createCategoryMutationResponseSchema } from "./createCategorySchema";
+import { getAllCoursesQueryResponseSchema } from "./getAllCoursesSchema";
+import { createCourseMutationRequestSchema, createCourseMutationResponseSchema } from "./createCourseSchema";
+import { getAllCategories1QueryResponseSchema } from "./getAllCategories1Schema";
+import { createCategory1MutationRequestSchema, createCategory1MutationResponseSchema } from "./createCategory1Schema";
 import { addBalanceToUserMutationRequestSchema, addBalanceToUserMutationResponseSchema, addBalanceToUserPathParamsSchema } from "./addBalanceToUserSchema";
 import { addBalanceMutationRequestSchema, addBalanceMutationResponseSchema } from "./addBalanceSchema";
 import { verifyOtpAndLoginMutationRequestSchema, verifyOtpAndLoginMutationResponseSchema } from "./verifyOtpAndLoginSchema";
@@ -27,22 +60,363 @@ import { checkCourseOwnershipQueryResponseSchema, checkCourseOwnershipPathParams
 import { generateVideoViewingUrlQueryResponseSchema, generateVideoViewingUrlQueryParamsSchema } from "./generateVideoViewingUrlSchema";
 import { generatePresignedAccessUrlQueryResponseSchema, generatePresignedAccessUrlPathParamsSchema, generatePresignedAccessUrlQueryParamsSchema } from "./generatePresignedAccessUrlSchema";
 import { getAllExercisesPaginatedQueryResponseSchema, getAllExercisesPaginatedQueryParamsSchema } from "./getAllExercisesPaginatedSchema";
-import { getCourseByIdQueryResponseSchema, getCourseByIdPathParamsSchema } from "./getCourseByIdSchema";
-import { searchCoursesQueryResponseSchema, searchCoursesQueryParamsSchema } from "./searchCoursesSchema";
-import { getAllCoursesPaginatedQueryResponseSchema, getAllCoursesPaginatedQueryParamsSchema } from "./getAllCoursesPaginatedSchema";
-import { getCoursesByCategoryQueryResponseSchema, getCoursesByCategoryPathParamsSchema } from "./getCoursesByCategorySchema";
 import { getCategoriesByTypeQueryResponseSchema, getCategoriesByTypePathParamsSchema } from "./getCategoriesByTypeSchema";
 import { getCategoriesByTypePaginatedQueryResponseSchema, getCategoriesByTypePaginatedPathParamsSchema, getCategoriesByTypePaginatedQueryParamsSchema } from "./getCategoriesByTypePaginatedSchema";
 import { searchCategoriesQueryResponseSchema, searchCategoriesQueryParamsSchema } from "./searchCategoriesSchema";
 import { searchCategoriesPaginatedQueryResponseSchema, searchCategoriesPaginatedQueryParamsSchema } from "./searchCategoriesPaginatedSchema";
 import { getAllCategoriesPaginatedQueryResponseSchema, getAllCategoriesPaginatedQueryParamsSchema } from "./getAllCategoriesPaginatedSchema";
+import { getCourseByIdQueryResponseSchema, getCourseByIdPathParamsSchema } from "./getCourseByIdSchema";
+import { searchCoursesQueryResponseSchema, searchCoursesQueryParamsSchema } from "./searchCoursesSchema";
+import { getAllCoursesPaginatedQueryResponseSchema, getAllCoursesPaginatedQueryParamsSchema } from "./getAllCoursesPaginatedSchema";
+import { getCoursesByCategoryQueryResponseSchema, getCoursesByCategoryPathParamsSchema } from "./getCoursesByCategorySchema";
+import { getCategoriesByType1QueryResponseSchema, getCategoriesByType1PathParamsSchema } from "./getCategoriesByType1Schema";
+import { getCategoriesByTypePaginated1QueryResponseSchema, getCategoriesByTypePaginated1PathParamsSchema, getCategoriesByTypePaginated1QueryParamsSchema } from "./getCategoriesByTypePaginated1Schema";
+import { searchCategories1QueryResponseSchema, searchCategories1QueryParamsSchema } from "./searchCategories1Schema";
+import { searchCategoriesPaginated1QueryResponseSchema, searchCategoriesPaginated1QueryParamsSchema } from "./searchCategoriesPaginated1Schema";
+import { getAllCategoriesPaginated1QueryResponseSchema, getAllCategoriesPaginated1QueryParamsSchema } from "./getAllCategoriesPaginated1Schema";
 import { getUserBalanceQueryResponseSchema } from "./getUserBalanceSchema";
 import { getTransactionHistoryQueryResponseSchema } from "./getTransactionHistorySchema";
 import { getAllUsers1QueryResponseSchema } from "./getAllUsers1Schema";
 import { getAllUsersPaginatedQueryResponseSchema, getAllUsersPaginatedQueryParamsSchema } from "./getAllUsersPaginatedSchema";
 import { deleteFileMutationResponseSchema, deleteFileQueryParamsSchema } from "./deleteFileSchema";
 
- export const operations = { "getExerciseById": {
+ export const operations = { "getUserProfile": {
+        request: undefined,
+        parameters: {
+            path: getUserProfilePathParamsSchema,
+            query: undefined,
+            header: undefined
+        },
+        responses: {
+            200: getUserProfileQueryResponseSchema,
+            default: getUserProfileQueryResponseSchema
+        },
+        errors: {}
+    }, "updateUserProfile": {
+        request: updateUserProfileMutationRequestSchema,
+        parameters: {
+            path: updateUserProfilePathParamsSchema,
+            query: undefined,
+            header: undefined
+        },
+        responses: {
+            200: updateUserProfileMutationResponseSchema,
+            default: updateUserProfileMutationResponseSchema
+        },
+        errors: {}
+    }, "deleteUserProfile": {
+        request: undefined,
+        parameters: {
+            path: deleteUserProfilePathParamsSchema,
+            query: undefined,
+            header: undefined
+        },
+        responses: {
+            200: deleteUserProfileMutationResponseSchema,
+            default: deleteUserProfileMutationResponseSchema
+        },
+        errors: {}
+    }, "getNonCompulsoryHealthInsurance": {
+        request: undefined,
+        parameters: {
+            path: getNonCompulsoryHealthInsurancePathParamsSchema,
+            query: undefined,
+            header: undefined
+        },
+        responses: {
+            200: getNonCompulsoryHealthInsuranceQueryResponseSchema,
+            default: getNonCompulsoryHealthInsuranceQueryResponseSchema
+        },
+        errors: {}
+    }, "updateNonCompulsoryHealthInsurance": {
+        request: updateNonCompulsoryHealthInsuranceMutationRequestSchema,
+        parameters: {
+            path: updateNonCompulsoryHealthInsurancePathParamsSchema,
+            query: undefined,
+            header: undefined
+        },
+        responses: {
+            200: updateNonCompulsoryHealthInsuranceMutationResponseSchema,
+            default: updateNonCompulsoryHealthInsuranceMutationResponseSchema
+        },
+        errors: {}
+    }, "deleteNonCompulsoryHealthInsurance": {
+        request: undefined,
+        parameters: {
+            path: deleteNonCompulsoryHealthInsurancePathParamsSchema,
+            query: undefined,
+            header: undefined
+        },
+        responses: {
+            200: deleteNonCompulsoryHealthInsuranceMutationResponseSchema,
+            default: deleteNonCompulsoryHealthInsuranceMutationResponseSchema
+        },
+        errors: {}
+    }, "getNationalHealthInsurance": {
+        request: undefined,
+        parameters: {
+            path: getNationalHealthInsurancePathParamsSchema,
+            query: undefined,
+            header: undefined
+        },
+        responses: {
+            200: getNationalHealthInsuranceQueryResponseSchema,
+            default: getNationalHealthInsuranceQueryResponseSchema
+        },
+        errors: {}
+    }, "updateNationalHealthInsurance": {
+        request: updateNationalHealthInsuranceMutationRequestSchema,
+        parameters: {
+            path: updateNationalHealthInsurancePathParamsSchema,
+            query: undefined,
+            header: undefined
+        },
+        responses: {
+            200: updateNationalHealthInsuranceMutationResponseSchema,
+            default: updateNationalHealthInsuranceMutationResponseSchema
+        },
+        errors: {}
+    }, "deleteNationalHealthInsurance": {
+        request: undefined,
+        parameters: {
+            path: deleteNationalHealthInsurancePathParamsSchema,
+            query: undefined,
+            header: undefined
+        },
+        responses: {
+            200: deleteNationalHealthInsuranceMutationResponseSchema,
+            default: deleteNationalHealthInsuranceMutationResponseSchema
+        },
+        errors: {}
+    }, "getUserCompanyInfo": {
+        request: undefined,
+        parameters: {
+            path: getUserCompanyInfoPathParamsSchema,
+            query: undefined,
+            header: undefined
+        },
+        responses: {
+            200: getUserCompanyInfoQueryResponseSchema,
+            default: getUserCompanyInfoQueryResponseSchema
+        },
+        errors: {}
+    }, "updateUserCompanyInfo": {
+        request: updateUserCompanyInfoMutationRequestSchema,
+        parameters: {
+            path: updateUserCompanyInfoPathParamsSchema,
+            query: undefined,
+            header: undefined
+        },
+        responses: {
+            200: updateUserCompanyInfoMutationResponseSchema,
+            default: updateUserCompanyInfoMutationResponseSchema
+        },
+        errors: {}
+    }, "deleteUserCompanyInfo": {
+        request: undefined,
+        parameters: {
+            path: deleteUserCompanyInfoPathParamsSchema,
+            query: undefined,
+            header: undefined
+        },
+        responses: {
+            200: deleteUserCompanyInfoMutationResponseSchema,
+            default: deleteUserCompanyInfoMutationResponseSchema
+        },
+        errors: {}
+    }, "getUserBasicInfo": {
+        request: undefined,
+        parameters: {
+            path: getUserBasicInfoPathParamsSchema,
+            query: undefined,
+            header: undefined
+        },
+        responses: {
+            200: getUserBasicInfoQueryResponseSchema,
+            default: getUserBasicInfoQueryResponseSchema
+        },
+        errors: {}
+    }, "updateUserBasicInfo": {
+        request: updateUserBasicInfoMutationRequestSchema,
+        parameters: {
+            path: updateUserBasicInfoPathParamsSchema,
+            query: undefined,
+            header: undefined
+        },
+        responses: {
+            200: updateUserBasicInfoMutationResponseSchema,
+            default: updateUserBasicInfoMutationResponseSchema
+        },
+        errors: {}
+    }, "getMyBasicInfo": {
+        request: undefined,
+        parameters: {
+            path: undefined,
+            query: undefined,
+            header: undefined
+        },
+        responses: {
+            200: getMyBasicInfoQueryResponseSchema,
+            default: getMyBasicInfoQueryResponseSchema
+        },
+        errors: {}
+    }, "updateMyBasicInfo": {
+        request: updateMyBasicInfoMutationRequestSchema,
+        parameters: {
+            path: undefined,
+            query: undefined,
+            header: undefined
+        },
+        responses: {
+            200: updateMyBasicInfoMutationResponseSchema,
+            default: updateMyBasicInfoMutationResponseSchema
+        },
+        errors: {}
+    }, "getMyProfile": {
+        request: undefined,
+        parameters: {
+            path: undefined,
+            query: undefined,
+            header: undefined
+        },
+        responses: {
+            200: getMyProfileQueryResponseSchema,
+            default: getMyProfileQueryResponseSchema
+        },
+        errors: {}
+    }, "updateMyProfile": {
+        request: updateMyProfileMutationRequestSchema,
+        parameters: {
+            path: undefined,
+            query: undefined,
+            header: undefined
+        },
+        responses: {
+            200: updateMyProfileMutationResponseSchema,
+            default: updateMyProfileMutationResponseSchema
+        },
+        errors: {}
+    }, "deleteMyProfile": {
+        request: undefined,
+        parameters: {
+            path: undefined,
+            query: undefined,
+            header: undefined
+        },
+        responses: {
+            200: deleteMyProfileMutationResponseSchema,
+            default: deleteMyProfileMutationResponseSchema
+        },
+        errors: {}
+    }, "getMyNonCompulsoryHealthInsurance": {
+        request: undefined,
+        parameters: {
+            path: undefined,
+            query: undefined,
+            header: undefined
+        },
+        responses: {
+            200: getMyNonCompulsoryHealthInsuranceQueryResponseSchema,
+            default: getMyNonCompulsoryHealthInsuranceQueryResponseSchema
+        },
+        errors: {}
+    }, "updateMyNonCompulsoryHealthInsurance": {
+        request: updateMyNonCompulsoryHealthInsuranceMutationRequestSchema,
+        parameters: {
+            path: undefined,
+            query: undefined,
+            header: undefined
+        },
+        responses: {
+            200: updateMyNonCompulsoryHealthInsuranceMutationResponseSchema,
+            default: updateMyNonCompulsoryHealthInsuranceMutationResponseSchema
+        },
+        errors: {}
+    }, "deleteMyNonCompulsoryHealthInsurance": {
+        request: undefined,
+        parameters: {
+            path: undefined,
+            query: undefined,
+            header: undefined
+        },
+        responses: {
+            200: deleteMyNonCompulsoryHealthInsuranceMutationResponseSchema,
+            default: deleteMyNonCompulsoryHealthInsuranceMutationResponseSchema
+        },
+        errors: {}
+    }, "getMyNationalHealthInsurance": {
+        request: undefined,
+        parameters: {
+            path: undefined,
+            query: undefined,
+            header: undefined
+        },
+        responses: {
+            200: getMyNationalHealthInsuranceQueryResponseSchema,
+            default: getMyNationalHealthInsuranceQueryResponseSchema
+        },
+        errors: {}
+    }, "updateMyNationalHealthInsurance": {
+        request: updateMyNationalHealthInsuranceMutationRequestSchema,
+        parameters: {
+            path: undefined,
+            query: undefined,
+            header: undefined
+        },
+        responses: {
+            200: updateMyNationalHealthInsuranceMutationResponseSchema,
+            default: updateMyNationalHealthInsuranceMutationResponseSchema
+        },
+        errors: {}
+    }, "deleteMyNationalHealthInsurance": {
+        request: undefined,
+        parameters: {
+            path: undefined,
+            query: undefined,
+            header: undefined
+        },
+        responses: {
+            200: deleteMyNationalHealthInsuranceMutationResponseSchema,
+            default: deleteMyNationalHealthInsuranceMutationResponseSchema
+        },
+        errors: {}
+    }, "getMyCompanyInfo": {
+        request: undefined,
+        parameters: {
+            path: undefined,
+            query: undefined,
+            header: undefined
+        },
+        responses: {
+            200: getMyCompanyInfoQueryResponseSchema,
+            default: getMyCompanyInfoQueryResponseSchema
+        },
+        errors: {}
+    }, "updateMyCompanyInfo": {
+        request: updateMyCompanyInfoMutationRequestSchema,
+        parameters: {
+            path: undefined,
+            query: undefined,
+            header: undefined
+        },
+        responses: {
+            200: updateMyCompanyInfoMutationResponseSchema,
+            default: updateMyCompanyInfoMutationResponseSchema
+        },
+        errors: {}
+    }, "deleteMyCompanyInfo": {
+        request: undefined,
+        parameters: {
+            path: undefined,
+            query: undefined,
+            header: undefined
+        },
+        responses: {
+            200: deleteMyCompanyInfoMutationResponseSchema,
+            default: deleteMyCompanyInfoMutationResponseSchema
+        },
+        errors: {}
+    }, "getExerciseById": {
         request: undefined,
         parameters: {
             path: getExerciseByIdPathParamsSchema,
@@ -114,6 +488,42 @@ import { deleteFileMutationResponseSchema, deleteFileQueryParamsSchema } from ".
             default: deleteCategoryMutationResponseSchema
         },
         errors: {}
+    }, "getCategoryById_1": {
+        request: undefined,
+        parameters: {
+            path: getCategoryById1PathParamsSchema,
+            query: undefined,
+            header: undefined
+        },
+        responses: {
+            200: getCategoryById1QueryResponseSchema,
+            default: getCategoryById1QueryResponseSchema
+        },
+        errors: {}
+    }, "updateCategory_1": {
+        request: updateCategory1MutationRequestSchema,
+        parameters: {
+            path: updateCategory1PathParamsSchema,
+            query: undefined,
+            header: undefined
+        },
+        responses: {
+            200: updateCategory1MutationResponseSchema,
+            default: updateCategory1MutationResponseSchema
+        },
+        errors: {}
+    }, "deleteCategory_1": {
+        request: undefined,
+        parameters: {
+            path: deleteCategory1PathParamsSchema,
+            query: undefined,
+            header: undefined
+        },
+        responses: {
+            200: deleteCategory1MutationResponseSchema,
+            default: deleteCategory1MutationResponseSchema
+        },
+        errors: {}
     }, "buyCourse": {
         request: undefined,
         parameters: {
@@ -174,6 +584,30 @@ import { deleteFileMutationResponseSchema, deleteFileQueryParamsSchema } from ".
             default: createExerciseMutationResponseSchema
         },
         errors: {}
+    }, "getAllCategories": {
+        request: undefined,
+        parameters: {
+            path: undefined,
+            query: undefined,
+            header: undefined
+        },
+        responses: {
+            200: getAllCategoriesQueryResponseSchema,
+            default: getAllCategoriesQueryResponseSchema
+        },
+        errors: {}
+    }, "createCategory": {
+        request: createCategoryMutationRequestSchema,
+        parameters: {
+            path: undefined,
+            query: undefined,
+            header: undefined
+        },
+        responses: {
+            200: createCategoryMutationResponseSchema,
+            default: createCategoryMutationResponseSchema
+        },
+        errors: {}
     }, "getAllCourses": {
         request: undefined,
         parameters: {
@@ -198,7 +632,7 @@ import { deleteFileMutationResponseSchema, deleteFileQueryParamsSchema } from ".
             default: createCourseMutationResponseSchema
         },
         errors: {}
-    }, "getAllCategories": {
+    }, "getAllCategories_1": {
         request: undefined,
         parameters: {
             path: undefined,
@@ -206,20 +640,20 @@ import { deleteFileMutationResponseSchema, deleteFileQueryParamsSchema } from ".
             header: undefined
         },
         responses: {
-            200: getAllCategoriesQueryResponseSchema,
-            default: getAllCategoriesQueryResponseSchema
+            200: getAllCategories1QueryResponseSchema,
+            default: getAllCategories1QueryResponseSchema
         },
         errors: {}
-    }, "createCategory": {
-        request: createCategoryMutationRequestSchema,
+    }, "createCategory_1": {
+        request: createCategory1MutationRequestSchema,
         parameters: {
             path: undefined,
             query: undefined,
             header: undefined
         },
         responses: {
-            200: createCategoryMutationResponseSchema,
-            default: createCategoryMutationResponseSchema
+            200: createCategory1MutationResponseSchema,
+            default: createCategory1MutationResponseSchema
         },
         errors: {}
     }, "addBalanceToUser": {
@@ -390,54 +824,6 @@ import { deleteFileMutationResponseSchema, deleteFileQueryParamsSchema } from ".
             default: getAllExercisesPaginatedQueryResponseSchema
         },
         errors: {}
-    }, "getCourseById": {
-        request: undefined,
-        parameters: {
-            path: getCourseByIdPathParamsSchema,
-            query: undefined,
-            header: undefined
-        },
-        responses: {
-            200: getCourseByIdQueryResponseSchema,
-            default: getCourseByIdQueryResponseSchema
-        },
-        errors: {}
-    }, "searchCourses": {
-        request: undefined,
-        parameters: {
-            path: undefined,
-            query: searchCoursesQueryParamsSchema,
-            header: undefined
-        },
-        responses: {
-            200: searchCoursesQueryResponseSchema,
-            default: searchCoursesQueryResponseSchema
-        },
-        errors: {}
-    }, "getAllCoursesPaginated": {
-        request: undefined,
-        parameters: {
-            path: undefined,
-            query: getAllCoursesPaginatedQueryParamsSchema,
-            header: undefined
-        },
-        responses: {
-            200: getAllCoursesPaginatedQueryResponseSchema,
-            default: getAllCoursesPaginatedQueryResponseSchema
-        },
-        errors: {}
-    }, "getCoursesByCategory": {
-        request: undefined,
-        parameters: {
-            path: getCoursesByCategoryPathParamsSchema,
-            query: undefined,
-            header: undefined
-        },
-        responses: {
-            200: getCoursesByCategoryQueryResponseSchema,
-            default: getCoursesByCategoryQueryResponseSchema
-        },
-        errors: {}
     }, "getCategoriesByType": {
         request: undefined,
         parameters: {
@@ -496,6 +882,114 @@ import { deleteFileMutationResponseSchema, deleteFileQueryParamsSchema } from ".
         responses: {
             200: getAllCategoriesPaginatedQueryResponseSchema,
             default: getAllCategoriesPaginatedQueryResponseSchema
+        },
+        errors: {}
+    }, "getCourseById": {
+        request: undefined,
+        parameters: {
+            path: getCourseByIdPathParamsSchema,
+            query: undefined,
+            header: undefined
+        },
+        responses: {
+            200: getCourseByIdQueryResponseSchema,
+            default: getCourseByIdQueryResponseSchema
+        },
+        errors: {}
+    }, "searchCourses": {
+        request: undefined,
+        parameters: {
+            path: undefined,
+            query: searchCoursesQueryParamsSchema,
+            header: undefined
+        },
+        responses: {
+            200: searchCoursesQueryResponseSchema,
+            default: searchCoursesQueryResponseSchema
+        },
+        errors: {}
+    }, "getAllCoursesPaginated": {
+        request: undefined,
+        parameters: {
+            path: undefined,
+            query: getAllCoursesPaginatedQueryParamsSchema,
+            header: undefined
+        },
+        responses: {
+            200: getAllCoursesPaginatedQueryResponseSchema,
+            default: getAllCoursesPaginatedQueryResponseSchema
+        },
+        errors: {}
+    }, "getCoursesByCategory": {
+        request: undefined,
+        parameters: {
+            path: getCoursesByCategoryPathParamsSchema,
+            query: undefined,
+            header: undefined
+        },
+        responses: {
+            200: getCoursesByCategoryQueryResponseSchema,
+            default: getCoursesByCategoryQueryResponseSchema
+        },
+        errors: {}
+    }, "getCategoriesByType_1": {
+        request: undefined,
+        parameters: {
+            path: getCategoriesByType1PathParamsSchema,
+            query: undefined,
+            header: undefined
+        },
+        responses: {
+            200: getCategoriesByType1QueryResponseSchema,
+            default: getCategoriesByType1QueryResponseSchema
+        },
+        errors: {}
+    }, "getCategoriesByTypePaginated_1": {
+        request: undefined,
+        parameters: {
+            path: getCategoriesByTypePaginated1PathParamsSchema,
+            query: getCategoriesByTypePaginated1QueryParamsSchema,
+            header: undefined
+        },
+        responses: {
+            200: getCategoriesByTypePaginated1QueryResponseSchema,
+            default: getCategoriesByTypePaginated1QueryResponseSchema
+        },
+        errors: {}
+    }, "searchCategories_1": {
+        request: undefined,
+        parameters: {
+            path: undefined,
+            query: searchCategories1QueryParamsSchema,
+            header: undefined
+        },
+        responses: {
+            200: searchCategories1QueryResponseSchema,
+            default: searchCategories1QueryResponseSchema
+        },
+        errors: {}
+    }, "searchCategoriesPaginated_1": {
+        request: undefined,
+        parameters: {
+            path: undefined,
+            query: searchCategoriesPaginated1QueryParamsSchema,
+            header: undefined
+        },
+        responses: {
+            200: searchCategoriesPaginated1QueryResponseSchema,
+            default: searchCategoriesPaginated1QueryResponseSchema
+        },
+        errors: {}
+    }, "getAllCategoriesPaginated_1": {
+        request: undefined,
+        parameters: {
+            path: undefined,
+            query: getAllCategoriesPaginated1QueryParamsSchema,
+            header: undefined
+        },
+        responses: {
+            200: getAllCategoriesPaginated1QueryResponseSchema,
+            default: getAllCategoriesPaginated1QueryResponseSchema
         },
         errors: {}
     }, "getUserBalance": {
@@ -559,14 +1053,56 @@ import { deleteFileMutationResponseSchema, deleteFileQueryParamsSchema } from ".
         },
         errors: {}
     } } as const;
-export const paths = { "/api/exercises/{id}": {
+export const paths = { "/api/users/{userId}/profile": {
+        get: operations["getUserProfile"],
+        put: operations["updateUserProfile"],
+        delete: operations["deleteUserProfile"]
+    }, "/api/users/{userId}/non-compulsory-health-insurance": {
+        get: operations["getNonCompulsoryHealthInsurance"],
+        put: operations["updateNonCompulsoryHealthInsurance"],
+        delete: operations["deleteNonCompulsoryHealthInsurance"]
+    }, "/api/users/{userId}/national-health-insurance": {
+        get: operations["getNationalHealthInsurance"],
+        put: operations["updateNationalHealthInsurance"],
+        delete: operations["deleteNationalHealthInsurance"]
+    }, "/api/users/{userId}/company-info": {
+        get: operations["getUserCompanyInfo"],
+        put: operations["updateUserCompanyInfo"],
+        delete: operations["deleteUserCompanyInfo"]
+    }, "/api/users/{userId}/basic-info": {
+        get: operations["getUserBasicInfo"],
+        put: operations["updateUserBasicInfo"]
+    }, "/api/users/me/basic-info": {
+        get: operations["getMyBasicInfo"],
+        put: operations["updateMyBasicInfo"]
+    }, "/api/users/api/users/me/profile": {
+        get: operations["getMyProfile"],
+        put: operations["updateMyProfile"],
+        delete: operations["deleteMyProfile"]
+    }, "/api/users/api/users/me/non-compulsory-health-insurance": {
+        get: operations["getMyNonCompulsoryHealthInsurance"],
+        put: operations["updateMyNonCompulsoryHealthInsurance"],
+        delete: operations["deleteMyNonCompulsoryHealthInsurance"]
+    }, "/api/users/api/users/me/national-health-insurance": {
+        get: operations["getMyNationalHealthInsurance"],
+        put: operations["updateMyNationalHealthInsurance"],
+        delete: operations["deleteMyNationalHealthInsurance"]
+    }, "/api/users/api/users/me/company-info": {
+        get: operations["getMyCompanyInfo"],
+        put: operations["updateMyCompanyInfo"],
+        delete: operations["deleteMyCompanyInfo"]
+    }, "/api/exercises/{id}": {
         get: operations["getExerciseById"],
         put: operations["updateExercise"],
         delete: operations["deleteExercise"]
-    }, "/api/categories/{id}": {
+    }, "/api/exercise-categories/{id}": {
         get: operations["getCategoryById"],
         put: operations["updateCategory"],
         delete: operations["deleteCategory"]
+    }, "/api/course-categories/{id}": {
+        get: operations["getCategoryById_1"],
+        put: operations["updateCategory_1"],
+        delete: operations["deleteCategory_1"]
     }, "/api/purchases/course/{courseId}": {
         post: operations["buyCourse"]
     }, "/api/files/upload/video": {
@@ -577,12 +1113,15 @@ export const paths = { "/api/exercises/{id}": {
         post: operations["generatePresignedUploadUrl"]
     }, "/api/exercises": {
         post: operations["createExercise"]
+    }, "/api/exercise-categories": {
+        get: operations["getAllCategories"],
+        post: operations["createCategory"]
     }, "/api/courses": {
         get: operations["getAllCourses"],
         post: operations["createCourse"]
-    }, "/api/categories": {
-        get: operations["getAllCategories"],
-        post: operations["createCategory"]
+    }, "/api/course-categories": {
+        get: operations["getAllCategories_1"],
+        post: operations["createCategory_1"]
     }, "/api/balance/admin/add/{userId}": {
         post: operations["addBalanceToUser"]
     }, "/api/balance/add": {
@@ -611,6 +1150,16 @@ export const paths = { "/api/exercises/{id}": {
         get: operations["generatePresignedAccessUrl"]
     }, "/api/exercises/paginated": {
         get: operations["getAllExercisesPaginated"]
+    }, "/api/exercise-categories/type/{type}": {
+        get: operations["getCategoriesByType"]
+    }, "/api/exercise-categories/type/{type}/paginated": {
+        get: operations["getCategoriesByTypePaginated"]
+    }, "/api/exercise-categories/search": {
+        get: operations["searchCategories"]
+    }, "/api/exercise-categories/search/paginated": {
+        get: operations["searchCategoriesPaginated"]
+    }, "/api/exercise-categories/paginated": {
+        get: operations["getAllCategoriesPaginated"]
     }, "/api/courses/{id}": {
         get: operations["getCourseById"]
     }, "/api/courses/search": {
@@ -619,16 +1168,16 @@ export const paths = { "/api/exercises/{id}": {
         get: operations["getAllCoursesPaginated"]
     }, "/api/courses/category/{categoryId}": {
         get: operations["getCoursesByCategory"]
-    }, "/api/categories/type/{type}": {
-        get: operations["getCategoriesByType"]
-    }, "/api/categories/type/{type}/paginated": {
-        get: operations["getCategoriesByTypePaginated"]
-    }, "/api/categories/search": {
-        get: operations["searchCategories"]
-    }, "/api/categories/search/paginated": {
-        get: operations["searchCategoriesPaginated"]
-    }, "/api/categories/paginated": {
-        get: operations["getAllCategoriesPaginated"]
+    }, "/api/course-categories/type/{type}": {
+        get: operations["getCategoriesByType_1"]
+    }, "/api/course-categories/type/{type}/paginated": {
+        get: operations["getCategoriesByTypePaginated_1"]
+    }, "/api/course-categories/search": {
+        get: operations["searchCategories_1"]
+    }, "/api/course-categories/search/paginated": {
+        get: operations["searchCategoriesPaginated_1"]
+    }, "/api/course-categories/paginated": {
+        get: operations["getAllCategoriesPaginated_1"]
     }, "/api/balance": {
         get: operations["getUserBalance"]
     }, "/api/balance/transactions": {

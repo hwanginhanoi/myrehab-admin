@@ -78,7 +78,10 @@
     "actions": "Tác vụ",
     "showing": "Hiển thị",
     "previousPage": "Trang trước",
-    "nextPage": "Trang sau"
+    "nextPage": "Trang sau",
+    "common": {
+      "search": "Tìm kiếm"
+    }
   },
   "plan": {
     "title": "Kế hoạch điều trị",

@@ -1,5 +1,5 @@
-import type { CategoryResponse } from "./CategoryResponse";
-import type { UpdateCategoryRequest } from "./UpdateCategoryRequest";
+import type { ExerciseCategoryResponse } from "./ExerciseCategoryResponse";
+import type { UpdateExerciseCategoryRequest } from "./UpdateExerciseCategoryRequest";
 
  export type UpdateCategoryPathParams = {
     /**
@@ -10,12 +10,12 @@ import type { UpdateCategoryRequest } from "./UpdateCategoryRequest";
 /**
  * @description OK
 */
-export type UpdateCategory200 = CategoryResponse;
-export type UpdateCategoryMutationRequest = UpdateCategoryRequest;
+export type UpdateCategory200 = ExerciseCategoryResponse;
+export type UpdateCategoryMutationRequest = UpdateExerciseCategoryRequest;
 /**
  * @description OK
 */
-export type UpdateCategoryMutationResponse = CategoryResponse;
+export type UpdateCategoryMutationResponse = ExerciseCategoryResponse;
 export type UpdateCategoryMutation = {
     Response: UpdateCategoryMutationResponse;
     Request: UpdateCategoryMutationRequest;

@@ -1,4 +1,4 @@
-import type { CategoryResponse } from "./CategoryResponse";
+import type { ExerciseCategoryResponse } from "./ExerciseCategoryResponse";
 
  export type GetCategoryByIdPathParams = {
     /**
@@ -9,11 +9,11 @@ import type { CategoryResponse } from "./CategoryResponse";
 /**
  * @description OK
 */
-export type GetCategoryById200 = CategoryResponse;
+export type GetCategoryById200 = ExerciseCategoryResponse;
 /**
  * @description OK
 */
-export type GetCategoryByIdQueryResponse = CategoryResponse;
+export type GetCategoryByIdQueryResponse = ExerciseCategoryResponse;
 export type GetCategoryByIdQuery = {
     Response: GetCategoryByIdQueryResponse;
     PathParams: GetCategoryByIdPathParams;

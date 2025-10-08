@@ -1,0 +1,26 @@
+export type CourseCategoryResponse = {
+    /**
+     * @type integer | undefined, int64
+    */
+    id?: number;
+    /**
+     * @type string | undefined
+    */
+    name?: string;
+    /**
+     * @type string | undefined
+    */
+    description?: string;
+    /**
+     * @type string | undefined
+    */
+    type?: string;
+    /**
+     * @type string | undefined, date-time
+    */
+    createdAt?: string;
+    /**
+     * @type string | undefined, date-time
+    */
+    updatedAt?: string;
+};

@@ -64,11 +64,15 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         title: "Danh mục",
         url: "/categories",
         icon: SquareTerminal,
-        isActive: true,
+        isActive: false,
         items: [
           {
-            title: "Danh sách danh mục",
-            url: "/dashboard/categories",
+            title: "Danh mục bài tập",
+            url: "/dashboard/exercise-categories",
+          },
+          {
+            title: "Danh mục lộ trình",
+            url: "/dashboard/course-categories",
           },
         ],
       },
