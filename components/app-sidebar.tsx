@@ -7,6 +7,7 @@ import {
   Map,
   PieChart,
   SquareTerminal,
+  Users,
 } from "lucide-react"
 
 import { NavMain } from "@/components/nav-main"
@@ -73,6 +74,18 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
           {
             title: "Danh mục lộ trình",
             url: "/dashboard/course-categories",
+          },
+        ],
+      },
+      {
+        title: "Tài khoản",
+        url: "/users",
+        icon: Users,
+        isActive: false,
+        items: [
+          {
+            title: "Danh sách tài khoản",
+            url: "/dashboard/users",
           },
         ],
       },

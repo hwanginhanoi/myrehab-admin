@@ -3,6 +3,7 @@ export * from "./deleteNonCompulsoryHealthInsurance";
 export * from "./deleteUserCompanyInfo";
 export * from "./deleteUserProfile";
 export * from "./getAllUsers";
+export * from "./getCurrentUser";
 export * from "./getNationalHealthInsurance";
 export * from "./getNonCompulsoryHealthInsurance";
 export * from "./getUserBasicInfo";

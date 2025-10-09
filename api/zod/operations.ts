@@ -54,6 +54,7 @@ import { staffLoginMutationRequestSchema, staffLoginMutationResponseSchema } fro
 import { refreshTokenMutationRequestSchema, refreshTokenMutationResponseSchema } from "./refreshTokenSchema";
 import { logoutMutationRequestSchema, logoutMutationResponseSchema } from "./logoutSchema";
 import { getAllUsersQueryResponseSchema } from "./getAllUsersSchema";
+import { getCurrentUserQueryResponseSchema } from "./getCurrentUserSchema";
 import { getMyPurchasesQueryResponseSchema } from "./getMyPurchasesSchema";
 import { getMyPurchasesPaginatedQueryResponseSchema, getMyPurchasesPaginatedQueryParamsSchema } from "./getMyPurchasesPaginatedSchema";
 import { checkCourseOwnershipQueryResponseSchema, checkCourseOwnershipPathParamsSchema } from "./checkCourseOwnershipSchema";
@@ -76,8 +77,7 @@ import { searchCategoriesPaginated1QueryResponseSchema, searchCategoriesPaginate
 import { getAllCategoriesPaginated1QueryResponseSchema, getAllCategoriesPaginated1QueryParamsSchema } from "./getAllCategoriesPaginated1Schema";
 import { getUserBalanceQueryResponseSchema } from "./getUserBalanceSchema";
 import { getTransactionHistoryQueryResponseSchema } from "./getTransactionHistorySchema";
-import { getAllUsers1QueryResponseSchema } from "./getAllUsers1Schema";
-import { getAllUsersPaginatedQueryResponseSchema, getAllUsersPaginatedQueryParamsSchema } from "./getAllUsersPaginatedSchema";
+import { getAllUsers1QueryResponseSchema, getAllUsers1QueryParamsSchema } from "./getAllUsers1Schema";
 import { deleteFileMutationResponseSchema, deleteFileQueryParamsSchema } from "./deleteFileSchema";
 
  export const operations = { "getUserProfile": {
@@ -752,6 +752,18 @@ import { deleteFileMutationResponseSchema, deleteFileQueryParamsSchema } from ".
             default: getAllUsersQueryResponseSchema
         },
         errors: {}
+    }, "getCurrentUser": {
+        request: undefined,
+        parameters: {
+            path: undefined,
+            query: undefined,
+            header: undefined
+        },
+        responses: {
+            200: getCurrentUserQueryResponseSchema,
+            default: getCurrentUserQueryResponseSchema
+        },
+        errors: {}
     }, "getMyPurchases": {
         request: undefined,
         parameters: {
@@ -1020,24 +1032,12 @@ import { deleteFileMutationResponseSchema, deleteFileQueryParamsSchema } from ".
         request: undefined,
         parameters: {
             path: undefined,
-            query: undefined,
+            query: getAllUsers1QueryParamsSchema,
             header: undefined
         },
         responses: {
             200: getAllUsers1QueryResponseSchema,
             default: getAllUsers1QueryResponseSchema
-        },
-        errors: {}
-    }, "getAllUsersPaginated": {
-        request: undefined,
-        parameters: {
-            path: undefined,
-            query: getAllUsersPaginatedQueryParamsSchema,
-            header: undefined
-        },
-        responses: {
-            200: getAllUsersPaginatedQueryResponseSchema,
-            default: getAllUsersPaginatedQueryResponseSchema
         },
         errors: {}
     }, "deleteFile": {
@@ -1138,6 +1138,8 @@ export const paths = { "/api/users/{userId}/profile": {
         post: operations["logout"]
     }, "/api/users": {
         get: operations["getAllUsers"]
+    }, "/api/users/me": {
+        get: operations["getCurrentUser"]
     }, "/api/purchases": {
         get: operations["getMyPurchases"]
     }, "/api/purchases/paginated": {
@@ -1184,8 +1186,6 @@ export const paths = { "/api/users/{userId}/profile": {
         get: operations["getTransactionHistory"]
     }, "/api/admin/users": {
         get: operations["getAllUsers_1"]
-    }, "/api/admin/users/paginated": {
-        get: operations["getAllUsersPaginated"]
     }, "/api/files/delete": {
         delete: operations["deleteFile"]
     } } as const;

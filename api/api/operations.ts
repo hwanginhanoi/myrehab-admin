@@ -223,6 +223,10 @@ export const operations = {
         "path": "/api/users",
         "method": "get"
     },
+    "getCurrentUser": {
+        "path": "/api/users/me",
+        "method": "get"
+    },
     "getMyPurchases": {
         "path": "/api/purchases",
         "method": "get"
@@ -313,10 +317,6 @@ export const operations = {
     },
     "getAllUsers_1": {
         "path": "/api/admin/users",
-        "method": "get"
-    },
-    "getAllUsersPaginated": {
-        "path": "/api/admin/users/paginated",
         "method": "get"
     },
     "deleteFile": {

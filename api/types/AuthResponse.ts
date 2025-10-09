@@ -25,4 +25,8 @@ export type AuthResponse = {
      * @type string | undefined
     */
     fullName?: string;
+    /**
+     * @type array | undefined
+    */
+    permissions?: string[];
 };
