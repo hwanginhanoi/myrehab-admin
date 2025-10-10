@@ -5,9 +5,9 @@ import type { DeleteMyProfileMutationResponse } from "../../types/DeleteMyProfil
  /**
  * @description Delete your own profile information
  * @summary Delete my profile
- * @link /api/users/api/users/me/profile
+ * @link /api/users/me/profile
  */
 export async function deleteMyProfile(options: Partial<Parameters<typeof client>[0]> = {}): Promise<ResponseConfig<DeleteMyProfileMutationResponse>["data"]> {
-    const res = await client<DeleteMyProfileMutationResponse>({ method: "delete", url: `/api/users/api/users/me/profile`, baseURL: "http://localhost:8080", ...options });
+    const res = await client<DeleteMyProfileMutationResponse>({ method: "delete", url: `/api/users/me/profile`, baseURL: "http://localhost:8080", ...options });
     return res.data;
 }

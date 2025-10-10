@@ -2,7 +2,6 @@ import type { CourseCategoryResponse } from "./CourseCategoryResponse";
 
  export type SearchCategories1QueryParams = {
     /**
-     * @description Search keyword
      * @type string
     */
     keyword: string;

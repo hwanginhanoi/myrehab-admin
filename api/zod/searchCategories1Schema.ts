@@ -2,7 +2,7 @@ import { z } from "zod";
 import { courseCategoryResponseSchema } from "./courseCategoryResponseSchema";
 
 
-export const searchCategories1QueryParamsSchema = z.object({ "keyword": z.string().describe("Search keyword") });
+export const searchCategories1QueryParamsSchema = z.object({ "keyword": z.string() });
 /**
  * @description OK
  */

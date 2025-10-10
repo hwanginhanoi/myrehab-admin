@@ -5,9 +5,9 @@ import type { UpdateMyCompanyInfoMutationRequest, UpdateMyCompanyInfoMutationRes
  /**
  * @description Create or update your own company information
  * @summary Update my company information
- * @link /api/users/api/users/me/company-info
+ * @link /api/users/me/company-info
  */
 export async function updateMyCompanyInfo(data?: UpdateMyCompanyInfoMutationRequest, options: Partial<Parameters<typeof client>[0]> = {}): Promise<ResponseConfig<UpdateMyCompanyInfoMutationResponse>["data"]> {
-    const res = await client<UpdateMyCompanyInfoMutationResponse, UpdateMyCompanyInfoMutationRequest>({ method: "put", url: `/api/users/api/users/me/company-info`, baseURL: "http://localhost:8080", data, ...options });
+    const res = await client<UpdateMyCompanyInfoMutationResponse, UpdateMyCompanyInfoMutationRequest>({ method: "put", url: `/api/users/me/company-info`, baseURL: "http://localhost:8080", data, ...options });
     return res.data;
 }

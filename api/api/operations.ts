@@ -55,6 +55,54 @@ export const operations = {
         "path": "/api/users/:userId/basic-info",
         "method": "put"
     },
+    "getMyProfile": {
+        "path": "/api/users/me/profile",
+        "method": "get"
+    },
+    "updateMyProfile": {
+        "path": "/api/users/me/profile",
+        "method": "put"
+    },
+    "deleteMyProfile": {
+        "path": "/api/users/me/profile",
+        "method": "delete"
+    },
+    "getMyNonCompulsoryHealthInsurance": {
+        "path": "/api/users/me/non-compulsory-health-insurance",
+        "method": "get"
+    },
+    "updateMyNonCompulsoryHealthInsurance": {
+        "path": "/api/users/me/non-compulsory-health-insurance",
+        "method": "put"
+    },
+    "deleteMyNonCompulsoryHealthInsurance": {
+        "path": "/api/users/me/non-compulsory-health-insurance",
+        "method": "delete"
+    },
+    "getMyNationalHealthInsurance": {
+        "path": "/api/users/me/national-health-insurance",
+        "method": "get"
+    },
+    "updateMyNationalHealthInsurance": {
+        "path": "/api/users/me/national-health-insurance",
+        "method": "put"
+    },
+    "deleteMyNationalHealthInsurance": {
+        "path": "/api/users/me/national-health-insurance",
+        "method": "delete"
+    },
+    "getMyCompanyInfo": {
+        "path": "/api/users/me/company-info",
+        "method": "get"
+    },
+    "updateMyCompanyInfo": {
+        "path": "/api/users/me/company-info",
+        "method": "put"
+    },
+    "deleteMyCompanyInfo": {
+        "path": "/api/users/me/company-info",
+        "method": "delete"
+    },
     "getMyBasicInfo": {
         "path": "/api/users/me/basic-info",
         "method": "get"
@@ -63,53 +111,21 @@ export const operations = {
         "path": "/api/users/me/basic-info",
         "method": "put"
     },
-    "getMyProfile": {
-        "path": "/api/users/api/users/me/profile",
+    "getDoctorPermissions": {
+        "path": "/api/permissions/doctor/:doctorId",
         "method": "get"
     },
-    "updateMyProfile": {
-        "path": "/api/users/api/users/me/profile",
+    "setDoctorPermissions": {
+        "path": "/api/permissions/doctor/:doctorId",
         "method": "put"
     },
-    "deleteMyProfile": {
-        "path": "/api/users/api/users/me/profile",
-        "method": "delete"
-    },
-    "getMyNonCompulsoryHealthInsurance": {
-        "path": "/api/users/api/users/me/non-compulsory-health-insurance",
+    "getAdminPermissions": {
+        "path": "/api/permissions/admin/:adminId",
         "method": "get"
     },
-    "updateMyNonCompulsoryHealthInsurance": {
-        "path": "/api/users/api/users/me/non-compulsory-health-insurance",
+    "setAdminPermissions": {
+        "path": "/api/permissions/admin/:adminId",
         "method": "put"
-    },
-    "deleteMyNonCompulsoryHealthInsurance": {
-        "path": "/api/users/api/users/me/non-compulsory-health-insurance",
-        "method": "delete"
-    },
-    "getMyNationalHealthInsurance": {
-        "path": "/api/users/api/users/me/national-health-insurance",
-        "method": "get"
-    },
-    "updateMyNationalHealthInsurance": {
-        "path": "/api/users/api/users/me/national-health-insurance",
-        "method": "put"
-    },
-    "deleteMyNationalHealthInsurance": {
-        "path": "/api/users/api/users/me/national-health-insurance",
-        "method": "delete"
-    },
-    "getMyCompanyInfo": {
-        "path": "/api/users/api/users/me/company-info",
-        "method": "get"
-    },
-    "updateMyCompanyInfo": {
-        "path": "/api/users/api/users/me/company-info",
-        "method": "put"
-    },
-    "deleteMyCompanyInfo": {
-        "path": "/api/users/api/users/me/company-info",
-        "method": "delete"
     },
     "getExerciseById": {
         "path": "/api/exercises/:id",
@@ -149,6 +165,14 @@ export const operations = {
     },
     "buyCourse": {
         "path": "/api/purchases/course/:courseId",
+        "method": "post"
+    },
+    "assignPermissionToDoctor": {
+        "path": "/api/permissions/doctor/:doctorId/assign",
+        "method": "post"
+    },
+    "assignPermissionToAdmin": {
+        "path": "/api/permissions/admin/:adminId/assign",
         "method": "post"
     },
     "uploadVideo": {
@@ -239,6 +263,10 @@ export const operations = {
         "path": "/api/purchases/check/course/:courseId",
         "method": "get"
     },
+    "getAllPermissions": {
+        "path": "/api/permissions",
+        "method": "get"
+    },
     "generateVideoViewingUrl": {
         "path": "/api/files/view/video",
         "method": "get"
@@ -318,6 +346,14 @@ export const operations = {
     "getAllUsers_1": {
         "path": "/api/admin/users",
         "method": "get"
+    },
+    "removePermissionFromDoctor": {
+        "path": "/api/permissions/doctor/:doctorId/remove",
+        "method": "delete"
+    },
+    "removePermissionFromAdmin": {
+        "path": "/api/permissions/admin/:adminId/remove",
+        "method": "delete"
     },
     "deleteFile": {
         "path": "/api/files/delete",

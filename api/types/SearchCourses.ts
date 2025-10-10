@@ -2,7 +2,6 @@ import type { CourseResponse } from "./CourseResponse";
 
  export type SearchCoursesQueryParams = {
     /**
-     * @description Search keyword
      * @type string
     */
     keyword: string;

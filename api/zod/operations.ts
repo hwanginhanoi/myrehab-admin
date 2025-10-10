@@ -12,8 +12,6 @@ import { updateUserCompanyInfoMutationRequestSchema, updateUserCompanyInfoMutati
 import { deleteUserCompanyInfoMutationResponseSchema, deleteUserCompanyInfoPathParamsSchema } from "./deleteUserCompanyInfoSchema";
 import { getUserBasicInfoQueryResponseSchema, getUserBasicInfoPathParamsSchema } from "./getUserBasicInfoSchema";
 import { updateUserBasicInfoMutationRequestSchema, updateUserBasicInfoMutationResponseSchema, updateUserBasicInfoPathParamsSchema } from "./updateUserBasicInfoSchema";
-import { getMyBasicInfoQueryResponseSchema } from "./getMyBasicInfoSchema";
-import { updateMyBasicInfoMutationRequestSchema, updateMyBasicInfoMutationResponseSchema } from "./updateMyBasicInfoSchema";
 import { getMyProfileQueryResponseSchema } from "./getMyProfileSchema";
 import { updateMyProfileMutationRequestSchema, updateMyProfileMutationResponseSchema } from "./updateMyProfileSchema";
 import { deleteMyProfileMutationResponseSchema } from "./deleteMyProfileSchema";
@@ -26,6 +24,12 @@ import { deleteMyNationalHealthInsuranceMutationResponseSchema } from "./deleteM
 import { getMyCompanyInfoQueryResponseSchema } from "./getMyCompanyInfoSchema";
 import { updateMyCompanyInfoMutationRequestSchema, updateMyCompanyInfoMutationResponseSchema } from "./updateMyCompanyInfoSchema";
 import { deleteMyCompanyInfoMutationResponseSchema } from "./deleteMyCompanyInfoSchema";
+import { getMyBasicInfoQueryResponseSchema } from "./getMyBasicInfoSchema";
+import { updateMyBasicInfoMutationRequestSchema, updateMyBasicInfoMutationResponseSchema } from "./updateMyBasicInfoSchema";
+import { getDoctorPermissionsQueryResponseSchema, getDoctorPermissionsPathParamsSchema } from "./getDoctorPermissionsSchema";
+import { setDoctorPermissionsMutationRequestSchema, setDoctorPermissionsMutationResponseSchema, setDoctorPermissionsPathParamsSchema } from "./setDoctorPermissionsSchema";
+import { getAdminPermissionsQueryResponseSchema, getAdminPermissionsPathParamsSchema } from "./getAdminPermissionsSchema";
+import { setAdminPermissionsMutationRequestSchema, setAdminPermissionsMutationResponseSchema, setAdminPermissionsPathParamsSchema } from "./setAdminPermissionsSchema";
 import { getExerciseByIdQueryResponseSchema, getExerciseByIdPathParamsSchema } from "./getExerciseByIdSchema";
 import { updateExerciseMutationRequestSchema, updateExerciseMutationResponseSchema, updateExercisePathParamsSchema } from "./updateExerciseSchema";
 import { deleteExerciseMutationResponseSchema, deleteExercisePathParamsSchema } from "./deleteExerciseSchema";
@@ -36,6 +40,8 @@ import { getCategoryById1QueryResponseSchema, getCategoryById1PathParamsSchema }
 import { updateCategory1MutationRequestSchema, updateCategory1MutationResponseSchema, updateCategory1PathParamsSchema } from "./updateCategory1Schema";
 import { deleteCategory1MutationResponseSchema, deleteCategory1PathParamsSchema } from "./deleteCategory1Schema";
 import { buyCourseMutationResponseSchema, buyCoursePathParamsSchema } from "./buyCourseSchema";
+import { assignPermissionToDoctorMutationRequestSchema, assignPermissionToDoctorMutationResponseSchema, assignPermissionToDoctorPathParamsSchema } from "./assignPermissionToDoctorSchema";
+import { assignPermissionToAdminMutationRequestSchema, assignPermissionToAdminMutationResponseSchema, assignPermissionToAdminPathParamsSchema } from "./assignPermissionToAdminSchema";
 import { uploadVideoMutationRequestSchema, uploadVideoMutationResponseSchema } from "./uploadVideoSchema";
 import { uploadImageMutationRequestSchema, uploadImageMutationResponseSchema } from "./uploadImageSchema";
 import { generatePresignedUploadUrlMutationRequestSchema, generatePresignedUploadUrlMutationResponseSchema } from "./generatePresignedUploadUrlSchema";
@@ -58,6 +64,7 @@ import { getCurrentUserQueryResponseSchema } from "./getCurrentUserSchema";
 import { getMyPurchasesQueryResponseSchema } from "./getMyPurchasesSchema";
 import { getMyPurchasesPaginatedQueryResponseSchema, getMyPurchasesPaginatedQueryParamsSchema } from "./getMyPurchasesPaginatedSchema";
 import { checkCourseOwnershipQueryResponseSchema, checkCourseOwnershipPathParamsSchema } from "./checkCourseOwnershipSchema";
+import { getAllPermissionsQueryResponseSchema } from "./getAllPermissionsSchema";
 import { generateVideoViewingUrlQueryResponseSchema, generateVideoViewingUrlQueryParamsSchema } from "./generateVideoViewingUrlSchema";
 import { generatePresignedAccessUrlQueryResponseSchema, generatePresignedAccessUrlPathParamsSchema, generatePresignedAccessUrlQueryParamsSchema } from "./generatePresignedAccessUrlSchema";
 import { getAllExercisesPaginatedQueryResponseSchema, getAllExercisesPaginatedQueryParamsSchema } from "./getAllExercisesPaginatedSchema";
@@ -78,6 +85,8 @@ import { getAllCategoriesPaginated1QueryResponseSchema, getAllCategoriesPaginate
 import { getUserBalanceQueryResponseSchema } from "./getUserBalanceSchema";
 import { getTransactionHistoryQueryResponseSchema } from "./getTransactionHistorySchema";
 import { getAllUsers1QueryResponseSchema, getAllUsers1QueryParamsSchema } from "./getAllUsers1Schema";
+import { removePermissionFromDoctorMutationRequestSchema, removePermissionFromDoctorMutationResponseSchema, removePermissionFromDoctorPathParamsSchema } from "./removePermissionFromDoctorSchema";
+import { removePermissionFromAdminMutationRequestSchema, removePermissionFromAdminMutationResponseSchema, removePermissionFromAdminPathParamsSchema } from "./removePermissionFromAdminSchema";
 import { deleteFileMutationResponseSchema, deleteFileQueryParamsSchema } from "./deleteFileSchema";
 
  export const operations = { "getUserProfile": {
@@ -248,30 +257,6 @@ import { deleteFileMutationResponseSchema, deleteFileQueryParamsSchema } from ".
             default: updateUserBasicInfoMutationResponseSchema
         },
         errors: {}
-    }, "getMyBasicInfo": {
-        request: undefined,
-        parameters: {
-            path: undefined,
-            query: undefined,
-            header: undefined
-        },
-        responses: {
-            200: getMyBasicInfoQueryResponseSchema,
-            default: getMyBasicInfoQueryResponseSchema
-        },
-        errors: {}
-    }, "updateMyBasicInfo": {
-        request: updateMyBasicInfoMutationRequestSchema,
-        parameters: {
-            path: undefined,
-            query: undefined,
-            header: undefined
-        },
-        responses: {
-            200: updateMyBasicInfoMutationResponseSchema,
-            default: updateMyBasicInfoMutationResponseSchema
-        },
-        errors: {}
     }, "getMyProfile": {
         request: undefined,
         parameters: {
@@ -416,6 +401,78 @@ import { deleteFileMutationResponseSchema, deleteFileQueryParamsSchema } from ".
             default: deleteMyCompanyInfoMutationResponseSchema
         },
         errors: {}
+    }, "getMyBasicInfo": {
+        request: undefined,
+        parameters: {
+            path: undefined,
+            query: undefined,
+            header: undefined
+        },
+        responses: {
+            200: getMyBasicInfoQueryResponseSchema,
+            default: getMyBasicInfoQueryResponseSchema
+        },
+        errors: {}
+    }, "updateMyBasicInfo": {
+        request: updateMyBasicInfoMutationRequestSchema,
+        parameters: {
+            path: undefined,
+            query: undefined,
+            header: undefined
+        },
+        responses: {
+            200: updateMyBasicInfoMutationResponseSchema,
+            default: updateMyBasicInfoMutationResponseSchema
+        },
+        errors: {}
+    }, "getDoctorPermissions": {
+        request: undefined,
+        parameters: {
+            path: getDoctorPermissionsPathParamsSchema,
+            query: undefined,
+            header: undefined
+        },
+        responses: {
+            200: getDoctorPermissionsQueryResponseSchema,
+            default: getDoctorPermissionsQueryResponseSchema
+        },
+        errors: {}
+    }, "setDoctorPermissions": {
+        request: setDoctorPermissionsMutationRequestSchema,
+        parameters: {
+            path: setDoctorPermissionsPathParamsSchema,
+            query: undefined,
+            header: undefined
+        },
+        responses: {
+            200: setDoctorPermissionsMutationResponseSchema,
+            default: setDoctorPermissionsMutationResponseSchema
+        },
+        errors: {}
+    }, "getAdminPermissions": {
+        request: undefined,
+        parameters: {
+            path: getAdminPermissionsPathParamsSchema,
+            query: undefined,
+            header: undefined
+        },
+        responses: {
+            200: getAdminPermissionsQueryResponseSchema,
+            default: getAdminPermissionsQueryResponseSchema
+        },
+        errors: {}
+    }, "setAdminPermissions": {
+        request: setAdminPermissionsMutationRequestSchema,
+        parameters: {
+            path: setAdminPermissionsPathParamsSchema,
+            query: undefined,
+            header: undefined
+        },
+        responses: {
+            200: setAdminPermissionsMutationResponseSchema,
+            default: setAdminPermissionsMutationResponseSchema
+        },
+        errors: {}
     }, "getExerciseById": {
         request: undefined,
         parameters: {
@@ -534,6 +591,30 @@ import { deleteFileMutationResponseSchema, deleteFileQueryParamsSchema } from ".
         responses: {
             200: buyCourseMutationResponseSchema,
             default: buyCourseMutationResponseSchema
+        },
+        errors: {}
+    }, "assignPermissionToDoctor": {
+        request: assignPermissionToDoctorMutationRequestSchema,
+        parameters: {
+            path: assignPermissionToDoctorPathParamsSchema,
+            query: undefined,
+            header: undefined
+        },
+        responses: {
+            200: assignPermissionToDoctorMutationResponseSchema,
+            default: assignPermissionToDoctorMutationResponseSchema
+        },
+        errors: {}
+    }, "assignPermissionToAdmin": {
+        request: assignPermissionToAdminMutationRequestSchema,
+        parameters: {
+            path: assignPermissionToAdminPathParamsSchema,
+            query: undefined,
+            header: undefined
+        },
+        responses: {
+            200: assignPermissionToAdminMutationResponseSchema,
+            default: assignPermissionToAdminMutationResponseSchema
         },
         errors: {}
     }, "uploadVideo": {
@@ -800,6 +881,18 @@ import { deleteFileMutationResponseSchema, deleteFileQueryParamsSchema } from ".
             default: checkCourseOwnershipQueryResponseSchema
         },
         errors: {}
+    }, "getAllPermissions": {
+        request: undefined,
+        parameters: {
+            path: undefined,
+            query: undefined,
+            header: undefined
+        },
+        responses: {
+            200: getAllPermissionsQueryResponseSchema,
+            default: getAllPermissionsQueryResponseSchema
+        },
+        errors: {}
     }, "generateVideoViewingUrl": {
         request: undefined,
         parameters: {
@@ -1040,6 +1133,30 @@ import { deleteFileMutationResponseSchema, deleteFileQueryParamsSchema } from ".
             default: getAllUsers1QueryResponseSchema
         },
         errors: {}
+    }, "removePermissionFromDoctor": {
+        request: removePermissionFromDoctorMutationRequestSchema,
+        parameters: {
+            path: removePermissionFromDoctorPathParamsSchema,
+            query: undefined,
+            header: undefined
+        },
+        responses: {
+            200: removePermissionFromDoctorMutationResponseSchema,
+            default: removePermissionFromDoctorMutationResponseSchema
+        },
+        errors: {}
+    }, "removePermissionFromAdmin": {
+        request: removePermissionFromAdminMutationRequestSchema,
+        parameters: {
+            path: removePermissionFromAdminPathParamsSchema,
+            query: undefined,
+            header: undefined
+        },
+        responses: {
+            200: removePermissionFromAdminMutationResponseSchema,
+            default: removePermissionFromAdminMutationResponseSchema
+        },
+        errors: {}
     }, "deleteFile": {
         request: undefined,
         parameters: {
@@ -1072,25 +1189,31 @@ export const paths = { "/api/users/{userId}/profile": {
     }, "/api/users/{userId}/basic-info": {
         get: operations["getUserBasicInfo"],
         put: operations["updateUserBasicInfo"]
-    }, "/api/users/me/basic-info": {
-        get: operations["getMyBasicInfo"],
-        put: operations["updateMyBasicInfo"]
-    }, "/api/users/api/users/me/profile": {
+    }, "/api/users/me/profile": {
         get: operations["getMyProfile"],
         put: operations["updateMyProfile"],
         delete: operations["deleteMyProfile"]
-    }, "/api/users/api/users/me/non-compulsory-health-insurance": {
+    }, "/api/users/me/non-compulsory-health-insurance": {
         get: operations["getMyNonCompulsoryHealthInsurance"],
         put: operations["updateMyNonCompulsoryHealthInsurance"],
         delete: operations["deleteMyNonCompulsoryHealthInsurance"]
-    }, "/api/users/api/users/me/national-health-insurance": {
+    }, "/api/users/me/national-health-insurance": {
         get: operations["getMyNationalHealthInsurance"],
         put: operations["updateMyNationalHealthInsurance"],
         delete: operations["deleteMyNationalHealthInsurance"]
-    }, "/api/users/api/users/me/company-info": {
+    }, "/api/users/me/company-info": {
         get: operations["getMyCompanyInfo"],
         put: operations["updateMyCompanyInfo"],
         delete: operations["deleteMyCompanyInfo"]
+    }, "/api/users/me/basic-info": {
+        get: operations["getMyBasicInfo"],
+        put: operations["updateMyBasicInfo"]
+    }, "/api/permissions/doctor/{doctorId}": {
+        get: operations["getDoctorPermissions"],
+        put: operations["setDoctorPermissions"]
+    }, "/api/permissions/admin/{adminId}": {
+        get: operations["getAdminPermissions"],
+        put: operations["setAdminPermissions"]
     }, "/api/exercises/{id}": {
         get: operations["getExerciseById"],
         put: operations["updateExercise"],
@@ -1105,6 +1228,10 @@ export const paths = { "/api/users/{userId}/profile": {
         delete: operations["deleteCategory_1"]
     }, "/api/purchases/course/{courseId}": {
         post: operations["buyCourse"]
+    }, "/api/permissions/doctor/{doctorId}/assign": {
+        post: operations["assignPermissionToDoctor"]
+    }, "/api/permissions/admin/{adminId}/assign": {
+        post: operations["assignPermissionToAdmin"]
     }, "/api/files/upload/video": {
         post: operations["uploadVideo"]
     }, "/api/files/upload/image": {
@@ -1146,6 +1273,8 @@ export const paths = { "/api/users/{userId}/profile": {
         get: operations["getMyPurchasesPaginated"]
     }, "/api/purchases/check/course/{courseId}": {
         get: operations["checkCourseOwnership"]
+    }, "/api/permissions": {
+        get: operations["getAllPermissions"]
     }, "/api/files/view/video": {
         get: operations["generateVideoViewingUrl"]
     }, "/api/files/presigned-url/{folder}/{fileName}": {
@@ -1186,6 +1315,10 @@ export const paths = { "/api/users/{userId}/profile": {
         get: operations["getTransactionHistory"]
     }, "/api/admin/users": {
         get: operations["getAllUsers_1"]
+    }, "/api/permissions/doctor/{doctorId}/remove": {
+        delete: operations["removePermissionFromDoctor"]
+    }, "/api/permissions/admin/{adminId}/remove": {
+        delete: operations["removePermissionFromAdmin"]
     }, "/api/files/delete": {
         delete: operations["deleteFile"]
     } } as const;

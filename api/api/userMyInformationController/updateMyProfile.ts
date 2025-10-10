@@ -5,9 +5,9 @@ import type { UpdateMyProfileMutationRequest, UpdateMyProfileMutationResponse } 
  /**
  * @description Create or update your own profile information
  * @summary Update my profile
- * @link /api/users/api/users/me/profile
+ * @link /api/users/me/profile
  */
 export async function updateMyProfile(data?: UpdateMyProfileMutationRequest, options: Partial<Parameters<typeof client>[0]> = {}): Promise<ResponseConfig<UpdateMyProfileMutationResponse>["data"]> {
-    const res = await client<UpdateMyProfileMutationResponse, UpdateMyProfileMutationRequest>({ method: "put", url: `/api/users/api/users/me/profile`, baseURL: "http://localhost:8080", data, ...options });
+    const res = await client<UpdateMyProfileMutationResponse, UpdateMyProfileMutationRequest>({ method: "put", url: `/api/users/me/profile`, baseURL: "http://localhost:8080", data, ...options });
     return res.data;
 }

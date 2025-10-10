@@ -1,5 +1,6 @@
 export * as userManagementService from "./userManagementController/index";
 export * as userMyInformationService from "./userMyInformationController/index";
+export * as permissionManagementService from "./permissionManagementController/index";
 export * as exerciseManagementService from "./exerciseManagementController/index";
 export * as exerciseCategoryManagementService from "./exerciseCategoryManagementController/index";
 export * as courseCategoryManagementService from "./courseCategoryManagementController/index";

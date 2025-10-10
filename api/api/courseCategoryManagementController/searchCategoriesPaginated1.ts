@@ -3,7 +3,7 @@ import type { ResponseConfig } from "@/lib/api-client";
 import type { SearchCategoriesPaginated1QueryResponse, SearchCategoriesPaginated1QueryParams } from "../../types/SearchCategoriesPaginated1";
 
  /**
- * @description Search course categories by keyword with pagination
+ * @description Search course categories by keyword with pagination. Use query params: ?keyword=search&page=0&size=10&sort=name,desc
  * @summary Search course categories with pagination
  * @link /api/course-categories/search/paginated
  */
