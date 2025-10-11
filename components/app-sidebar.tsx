@@ -21,102 +21,102 @@ import {
   SidebarRail,
 } from "@/components/ui/sidebar"
 
-export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
-  
-  const data = {
-    user: {
-      name: "Admin",
-      email: "admin@myrehab.com",
-      avatar: "/avatars/admin.jpg",
+const sidebarData = {
+  user: {
+    name: "Admin",
+    email: "admin@myrehab.com",
+    avatar: "/avatars/admin.jpg",
+  },
+  teams: [
+    {
+      name: "MyRehab Clinic",
+      logo: GalleryVerticalEnd,
+      plan: "Enterprise",
     },
-    teams: [
-      {
-        name: "MyRehab Clinic",
-        logo: GalleryVerticalEnd,
-        plan: "Enterprise",
-      },
-    ],
-    navMain: [
-      {
-        title: "Bài tập",
-        url: "/exercises",
-        icon: SquareTerminal,
-        isActive: false,
-        items: [
-          {
-            title: "Danh sách bài tập",
-            url: "/dashboard/exercises",
-          },
-        ],
-      },
-      {
-        title: "Lộ trình",
-        url: "/courses",
-        icon: SquareTerminal,
-        isActive: false,
-        items: [
-          {
-            title: "Danh sách lộ trình",
-            url: "/dashboard/courses",
-          },
-        ],
-      },
-      {
-        title: "Danh mục",
-        url: "/categories",
-        icon: SquareTerminal,
-        isActive: false,
-        items: [
-          {
-            title: "Danh mục bài tập",
-            url: "/dashboard/exercise-categories",
-          },
-          {
-            title: "Danh mục lộ trình",
-            url: "/dashboard/course-categories",
-          },
-        ],
-      },
-      {
-        title: "Tài khoản",
-        url: "/users",
-        icon: Users,
-        isActive: false,
-        items: [
-          {
-            title: "Danh sách tài khoản",
-            url: "/dashboard/users",
-          },
-        ],
-      },
-    ],
-    projects: [
-      {
-        name: "Quick Actions",
-        url: "#",
-        icon: Frame,
-      },
-      {
-        name: "Analytics",
-        url: "#",
-        icon: PieChart,
-      },
-      {
-        name: "Locations",
-        url: "#",
-        icon: Map,
-      },
-    ],
-  }
+  ],
+  navMain: [
+    {
+      title: "Bài tập",
+      url: "/exercises",
+      icon: SquareTerminal,
+      isActive: false,
+      items: [
+        {
+          title: "Danh sách bài tập",
+          url: "/dashboard/exercises",
+        },
+      ],
+    },
+    {
+      title: "Lộ trình",
+      url: "/courses",
+      icon: SquareTerminal,
+      isActive: false,
+      items: [
+        {
+          title: "Danh sách lộ trình",
+          url: "/dashboard/courses",
+        },
+      ],
+    },
+    {
+      title: "Danh mục",
+      url: "/categories",
+      icon: SquareTerminal,
+      isActive: false,
+      items: [
+        {
+          title: "Danh mục bài tập",
+          url: "/dashboard/exercise-categories",
+        },
+        {
+          title: "Danh mục lộ trình",
+          url: "/dashboard/course-categories",
+        },
+      ],
+    },
+    {
+      title: "Tài khoản",
+      url: "/users",
+      icon: Users,
+      isActive: false,
+      items: [
+        {
+          title: "Danh sách tài khoản",
+          url: "/dashboard/users",
+        },
+      ],
+    },
+  ],
+  projects: [
+    {
+      name: "Quick Actions",
+      url: "#",
+      icon: Frame,
+    },
+    {
+      name: "Analytics",
+      url: "#",
+      icon: PieChart,
+    },
+    {
+      name: "Locations",
+      url: "#",
+      icon: Map,
+    },
+  ],
+} as const
+
+export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
 
   return (
     <Sidebar {...props} className="border-r-0">
       <div className="flex flex-col h-full bg-sidebar border-r border-sidebar-border">
         <SidebarHeader className="border-b-0 p-0">
-          <TeamSwitcher teams={data.teams} />
+          <TeamSwitcher teams={sidebarData.teams} />
         </SidebarHeader>
         <SidebarContent className="flex-1 p-0">
-          <NavMain items={data.navMain} />
+          <NavMain items={sidebarData.navMain} />
         </SidebarContent>
         <SidebarFooter className="p-0">
           <NavUserBottom />
