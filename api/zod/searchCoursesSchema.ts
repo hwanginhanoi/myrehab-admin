@@ -7,7 +7,7 @@ import { courseResponseSchema } from "./courseResponseSchema.ts";
 import { z } from "zod";
 
 export const searchCoursesQueryParamsSchema = z.object({
-    "keyword": z.string().describe("Search keyword")
+    "keyword": z.string()
     })
 
 /**

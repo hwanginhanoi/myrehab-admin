@@ -3,7 +3,7 @@
 * Do not edit manually.
 */
 
-import type { CategoryResponse } from "./CategoryResponse.ts";
+import type { ExerciseCategoryResponse } from "./ExerciseCategoryResponse.ts";
 
 export type ExerciseResponse = {
     /**
@@ -33,7 +33,7 @@ export type ExerciseResponse = {
     /**
      * @type object | undefined
     */
-    category?: CategoryResponse;
+    category?: ExerciseCategoryResponse;
     /**
      * @type string | undefined, date-time
     */

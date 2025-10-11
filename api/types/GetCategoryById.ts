@@ -3,7 +3,7 @@
 * Do not edit manually.
 */
 
-import type { CategoryResponse } from "./CategoryResponse.ts";
+import type { ExerciseCategoryResponse } from "./ExerciseCategoryResponse.ts";
 
 export type GetCategoryByIdPathParams = {
     /**
@@ -15,7 +15,7 @@ export type GetCategoryByIdPathParams = {
 /**
  * @description OK
 */
-export type GetCategoryById200 = CategoryResponse;
+export type GetCategoryById200 = ExerciseCategoryResponse;
 
 export type GetCategoryByIdQueryResponse = GetCategoryById200;
 

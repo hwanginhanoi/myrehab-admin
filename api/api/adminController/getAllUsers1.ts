@@ -4,7 +4,7 @@
 */
 
 import fetch from "@/lib/api-client";
-import type { GetAllUsers1QueryResponse } from "../../types/GetAllUsers1.ts";
+import type { GetAllUsers1QueryResponse, GetAllUsers1QueryParams } from "../../types/GetAllUsers1.ts";
 import type { RequestConfig, ResponseErrorConfig } from "@/lib/api-client";
 
 function getGetAllUsers1Url() {
@@ -13,13 +13,13 @@ function getGetAllUsers1Url() {
 }
 
 /**
- * @description Get all users in the system (Admin only)
- * @summary Get all users
+ * @description Get all users with pagination support (Admin only)
+ * @summary Get all users with pagination
  * {@link /api/admin/users}
  */
-export async function getAllUsers1(config: Partial<RequestConfig> & { client?: typeof fetch } = {}) {
+export async function getAllUsers1(params: GetAllUsers1QueryParams, config: Partial<RequestConfig> & { client?: typeof fetch } = {}) {
   const { client: request = fetch, ...requestConfig } = config  
   
-  const res = await request<GetAllUsers1QueryResponse, ResponseErrorConfig<Error>, unknown>({ method : "GET", url : getGetAllUsers1Url().url.toString(), ... requestConfig })  
+  const res = await request<GetAllUsers1QueryResponse, ResponseErrorConfig<Error>, unknown>({ method : "GET", url : getGetAllUsers1Url().url.toString(), params, ... requestConfig })  
   return res.data
 }

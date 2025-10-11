@@ -3,16 +3,25 @@
 * Do not edit manually.
 */
 
-import type { UserResponse } from "./UserResponse.ts";
+import type { Pageable } from "./Pageable.ts";
+import type { PageUserResponse } from "./PageUserResponse.ts";
+
+export type GetAllUsers1QueryParams = {
+    /**
+     * @type object
+    */
+    pageable: Pageable;
+};
 
 /**
  * @description OK
 */
-export type GetAllUsers1200 = UserResponse[];
+export type GetAllUsers1200 = PageUserResponse;
 
 export type GetAllUsers1QueryResponse = GetAllUsers1200;
 
 export type GetAllUsers1Query = {
     Response: GetAllUsers1200;
+    QueryParams: GetAllUsers1QueryParams;
     Errors: any;
 };

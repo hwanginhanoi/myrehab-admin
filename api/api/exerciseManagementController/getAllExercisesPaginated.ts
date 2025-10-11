@@ -13,11 +13,11 @@ function getGetAllExercisesPaginatedUrl() {
 }
 
 /**
- * @description Retrieve a paginated list of exercises with optional category and search filtering
+ * @description Retrieve a paginated list of exercises with optional category and search filtering. Use query params: ?categoryId=1&keyword=search&page=0&size=10&sort=createdAt,desc
  * @summary Get paginated exercises with filtering
  * {@link /api/exercises/paginated}
  */
-export async function getAllExercisesPaginated(params?: GetAllExercisesPaginatedQueryParams, config: Partial<RequestConfig> & { client?: typeof fetch } = {}) {
+export async function getAllExercisesPaginated(params: GetAllExercisesPaginatedQueryParams, config: Partial<RequestConfig> & { client?: typeof fetch } = {}) {
   const { client: request = fetch, ...requestConfig } = config  
   
   const res = await request<GetAllExercisesPaginatedQueryResponse, ResponseErrorConfig<Error>, unknown>({ method : "GET", url : getGetAllExercisesPaginatedUrl().url.toString(), params, ... requestConfig })  

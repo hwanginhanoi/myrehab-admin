@@ -3,8 +3,8 @@
 * Do not edit manually.
 */
 
-import { categoryResponseSchema } from "./categoryResponseSchema.ts";
-import { updateCategoryRequestSchema } from "./updateCategoryRequestSchema.ts";
+import { exerciseCategoryResponseSchema } from "./exerciseCategoryResponseSchema.ts";
+import { updateExerciseCategoryRequestSchema } from "./updateExerciseCategoryRequestSchema.ts";
 import { z } from "zod";
 
 export const updateCategoryPathParamsSchema = z.object({
@@ -14,8 +14,8 @@ export const updateCategoryPathParamsSchema = z.object({
 /**
  * @description OK
  */
-export const updateCategory200Schema = z.lazy(() => categoryResponseSchema)
+export const updateCategory200Schema = z.lazy(() => exerciseCategoryResponseSchema)
 
-export const updateCategoryMutationRequestSchema = z.lazy(() => updateCategoryRequestSchema)
+export const updateCategoryMutationRequestSchema = z.lazy(() => updateExerciseCategoryRequestSchema)
 
 export const updateCategoryMutationResponseSchema = z.lazy(() => updateCategory200Schema)

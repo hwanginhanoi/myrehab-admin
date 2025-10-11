@@ -3,15 +3,15 @@
 * Do not edit manually.
 */
 
-import { categoryResponseSchema } from "./categoryResponseSchema.ts";
-import { createCategoryRequestSchema } from "./createCategoryRequestSchema.ts";
+import { createExerciseCategoryRequestSchema } from "./createExerciseCategoryRequestSchema.ts";
+import { exerciseCategoryResponseSchema } from "./exerciseCategoryResponseSchema.ts";
 import { z } from "zod";
 
 /**
  * @description OK
  */
-export const createCategory200Schema = z.lazy(() => categoryResponseSchema)
+export const createCategory200Schema = z.lazy(() => exerciseCategoryResponseSchema)
 
-export const createCategoryMutationRequestSchema = z.lazy(() => createCategoryRequestSchema)
+export const createCategoryMutationRequestSchema = z.lazy(() => createExerciseCategoryRequestSchema)
 
 export const createCategoryMutationResponseSchema = z.lazy(() => createCategory200Schema)

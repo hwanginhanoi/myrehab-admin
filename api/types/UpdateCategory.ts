@@ -3,8 +3,8 @@
 * Do not edit manually.
 */
 
-import type { CategoryResponse } from "./CategoryResponse.ts";
-import type { UpdateCategoryRequest } from "./UpdateCategoryRequest.ts";
+import type { ExerciseCategoryResponse } from "./ExerciseCategoryResponse.ts";
+import type { UpdateExerciseCategoryRequest } from "./UpdateExerciseCategoryRequest.ts";
 
 export type UpdateCategoryPathParams = {
     /**
@@ -16,9 +16,9 @@ export type UpdateCategoryPathParams = {
 /**
  * @description OK
 */
-export type UpdateCategory200 = CategoryResponse;
+export type UpdateCategory200 = ExerciseCategoryResponse;
 
-export type UpdateCategoryMutationRequest = UpdateCategoryRequest;
+export type UpdateCategoryMutationRequest = UpdateExerciseCategoryRequest;
 
 export type UpdateCategoryMutationResponse = UpdateCategory200;
 

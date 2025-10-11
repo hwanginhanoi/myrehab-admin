@@ -12,9 +12,9 @@ export type SortObject = {
     /**
      * @type boolean | undefined
     */
-    unsorted?: boolean;
+    sorted?: boolean;
     /**
      * @type boolean | undefined
     */
-    sorted?: boolean;
+    unsorted?: boolean;
 };

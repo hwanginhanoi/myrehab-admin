@@ -3,15 +3,15 @@
 * Do not edit manually.
 */
 
-import type { CategoryResponse } from "./CategoryResponse.ts";
-import type { CreateCategoryRequest } from "./CreateCategoryRequest.ts";
+import type { CreateExerciseCategoryRequest } from "./CreateExerciseCategoryRequest.ts";
+import type { ExerciseCategoryResponse } from "./ExerciseCategoryResponse.ts";
 
 /**
  * @description OK
 */
-export type CreateCategory200 = CategoryResponse;
+export type CreateCategory200 = ExerciseCategoryResponse;
 
-export type CreateCategoryMutationRequest = CreateCategoryRequest;
+export type CreateCategoryMutationRequest = CreateExerciseCategoryRequest;
 
 export type CreateCategoryMutationResponse = CreateCategory200;
 

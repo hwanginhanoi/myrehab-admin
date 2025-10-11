@@ -3,7 +3,7 @@
 * Do not edit manually.
 */
 
-import { categoryResponseSchema } from "./categoryResponseSchema.ts";
+import { exerciseCategoryResponseSchema } from "./exerciseCategoryResponseSchema.ts";
 import { z } from "zod";
 
 export const exerciseInfoSchema = z.object({
@@ -14,5 +14,5 @@ export const exerciseInfoSchema = z.object({
 "videoUrl": z.optional(z.string()),
 "durationMinutes": z.optional(z.number().int()),
 "price": z.optional(z.number()),
-"category": z.optional(z.lazy(() => categoryResponseSchema))
+"category": z.optional(z.lazy(() => exerciseCategoryResponseSchema))
     })

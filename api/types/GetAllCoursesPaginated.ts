@@ -3,33 +3,14 @@
 * Do not edit manually.
 */
 
+import type { Pageable } from "./Pageable.ts";
 import type { PageCourseResponse } from "./PageCourseResponse.ts";
 
 export type GetAllCoursesPaginatedQueryParams = {
     /**
-     * @description Page number (0-based)
-     * @default 0
-     * @type integer | undefined, int32
+     * @type object
     */
-    page?: number;
-    /**
-     * @description Number of items per page
-     * @default 10
-     * @type integer | undefined, int32
-    */
-    size?: number;
-    /**
-     * @description Sort by field
-     * @default "createdAt"
-     * @type string | undefined
-    */
-    sortBy?: string;
-    /**
-     * @description Sort direction
-     * @default "desc"
-     * @type string | undefined
-    */
-    sortDir?: string;
+    pageable: Pageable;
 };
 
 /**

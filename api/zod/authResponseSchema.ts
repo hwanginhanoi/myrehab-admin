@@ -10,5 +10,6 @@ export const authResponseSchema = z.object({
 "refreshToken": z.optional(z.string()),
 "email": z.optional(z.string()),
 "role": z.optional(z.enum(["USER", "DOCTOR", "ADMIN"])),
-"fullName": z.optional(z.string())
+"fullName": z.optional(z.string()),
+"permissions": z.optional(z.array(z.string()))
     })

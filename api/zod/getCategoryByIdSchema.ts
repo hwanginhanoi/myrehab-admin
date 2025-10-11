@@ -3,7 +3,7 @@
 * Do not edit manually.
 */
 
-import { categoryResponseSchema } from "./categoryResponseSchema.ts";
+import { exerciseCategoryResponseSchema } from "./exerciseCategoryResponseSchema.ts";
 import { z } from "zod";
 
 export const getCategoryByIdPathParamsSchema = z.object({
@@ -13,6 +13,6 @@ export const getCategoryByIdPathParamsSchema = z.object({
 /**
  * @description OK
  */
-export const getCategoryById200Schema = z.lazy(() => categoryResponseSchema)
+export const getCategoryById200Schema = z.lazy(() => exerciseCategoryResponseSchema)
 
 export const getCategoryByIdQueryResponseSchema = z.lazy(() => getCategoryById200Schema)

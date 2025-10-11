@@ -1,0 +1,1 @@
+{"type":"object","properties":{"id":{"type":"integer","format":"int64"},"email":{"type":"string"},"fullName":{"type":"string"},"role":{"type":"string","enum":["USER","DOCTOR","ADMIN"]},"permissions":{"type":"array","items":{"type":"string"}},"phoneNumber":{"type":"string"}},"x-readme-ref-name":"UserInfoResponse"}

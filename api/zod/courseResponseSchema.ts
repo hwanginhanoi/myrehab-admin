@@ -3,7 +3,7 @@
 * Do not edit manually.
 */
 
-import { categoryResponseSchema } from "./categoryResponseSchema.ts";
+import { courseCategoryResponseSchema } from "./courseCategoryResponseSchema.ts";
 import { courseDayResponseSchema } from "./courseDayResponseSchema.ts";
 import { z } from "zod";
 
@@ -14,7 +14,7 @@ export const courseResponseSchema = z.object({
 "imageUrl": z.optional(z.string()),
 "price": z.optional(z.number()),
 "durationDays": z.optional(z.number().int()),
-"category": z.optional(z.lazy(() => categoryResponseSchema)),
+"category": z.optional(z.lazy(() => courseCategoryResponseSchema)),
 "courseDays": z.optional(z.array(z.lazy(() => courseDayResponseSchema))),
 "createdAt": z.optional(z.string().datetime()),
 "updatedAt": z.optional(z.string().datetime())

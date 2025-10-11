@@ -3,20 +3,18 @@
 * Do not edit manually.
 */
 
-import { pageCategoryResponseSchema } from "./pageCategoryResponseSchema.ts";
+import { pageableSchema } from "./pageableSchema.ts";
+import { pageExerciseCategoryResponseSchema } from "./pageExerciseCategoryResponseSchema.ts";
 import { z } from "zod";
 
 export const searchCategoriesPaginatedQueryParamsSchema = z.object({
-    "keyword": z.string().describe("Search keyword"),
-"page": z.optional(z.coerce.number().int().default(0).describe("Page number (0-based)")),
-"size": z.optional(z.coerce.number().int().default(10).describe("Number of items per page")),
-"sortBy": z.optional(z.string().default("name").describe("Sort by field")),
-"sortDir": z.optional(z.string().default("asc").describe("Sort direction"))
+    "keyword": z.string(),
+"pageable": z.lazy(() => pageableSchema)
     })
 
 /**
  * @description OK
  */
-export const searchCategoriesPaginated200Schema = z.lazy(() => pageCategoryResponseSchema)
+export const searchCategoriesPaginated200Schema = z.lazy(() => pageExerciseCategoryResponseSchema)
 
 export const searchCategoriesPaginatedQueryResponseSchema = z.lazy(() => searchCategoriesPaginated200Schema)

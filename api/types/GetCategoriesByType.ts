@@ -3,7 +3,7 @@
 * Do not edit manually.
 */
 
-import type { CategoryResponse } from "./CategoryResponse.ts";
+import type { ExerciseCategoryResponse } from "./ExerciseCategoryResponse.ts";
 
 export const getCategoriesByTypePathParamsTypeEnum = {
     "BODY_PART": "BODY_PART",
@@ -25,7 +25,7 @@ export type GetCategoriesByTypePathParams = {
 /**
  * @description OK
 */
-export type GetCategoriesByType200 = CategoryResponse[];
+export type GetCategoriesByType200 = ExerciseCategoryResponse[];
 
 export type GetCategoriesByTypeQueryResponse = GetCategoriesByType200;
 

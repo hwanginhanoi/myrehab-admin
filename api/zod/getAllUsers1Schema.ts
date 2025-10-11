@@ -3,12 +3,17 @@
 * Do not edit manually.
 */
 
-import { userResponseSchema } from "./userResponseSchema.ts";
+import { pageableSchema } from "./pageableSchema.ts";
+import { pageUserResponseSchema } from "./pageUserResponseSchema.ts";
 import { z } from "zod";
+
+export const getAllUsers1QueryParamsSchema = z.object({
+    "pageable": z.lazy(() => pageableSchema)
+    })
 
 /**
  * @description OK
  */
-export const getAllUsers1200Schema = z.array(z.lazy(() => userResponseSchema))
+export const getAllUsers1200Schema = z.lazy(() => pageUserResponseSchema)
 
 export const getAllUsers1QueryResponseSchema = z.lazy(() => getAllUsers1200Schema)

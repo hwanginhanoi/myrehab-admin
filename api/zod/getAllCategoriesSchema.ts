@@ -3,12 +3,12 @@
 * Do not edit manually.
 */
 
-import { categoryResponseSchema } from "./categoryResponseSchema.ts";
+import { exerciseCategoryResponseSchema } from "./exerciseCategoryResponseSchema.ts";
 import { z } from "zod";
 
 /**
  * @description OK
  */
-export const getAllCategories200Schema = z.array(z.lazy(() => categoryResponseSchema))
+export const getAllCategories200Schema = z.array(z.lazy(() => exerciseCategoryResponseSchema))
 
 export const getAllCategoriesQueryResponseSchema = z.lazy(() => getAllCategories200Schema)

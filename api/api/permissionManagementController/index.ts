@@ -1,0 +1,9 @@
+export { assignPermissionToAdmin } from "./assignPermissionToAdmin.ts";
+export { assignPermissionToDoctor } from "./assignPermissionToDoctor.ts";
+export { getAdminPermissions } from "./getAdminPermissions.ts";
+export { getAllPermissions } from "./getAllPermissions.ts";
+export { getDoctorPermissions } from "./getDoctorPermissions.ts";
+export { removePermissionFromAdmin } from "./removePermissionFromAdmin.ts";
+export { removePermissionFromDoctor } from "./removePermissionFromDoctor.ts";
+export { setAdminPermissions } from "./setAdminPermissions.ts";
+export { setDoctorPermissions } from "./setDoctorPermissions.ts";

@@ -3,14 +3,12 @@
 * Do not edit manually.
 */
 
+import { pageableSchema } from "./pageableSchema.ts";
 import { pageCourseResponseSchema } from "./pageCourseResponseSchema.ts";
 import { z } from "zod";
 
 export const getAllCoursesPaginatedQueryParamsSchema = z.object({
-    "page": z.optional(z.coerce.number().int().default(0).describe("Page number (0-based)")),
-"size": z.optional(z.coerce.number().int().default(10).describe("Number of items per page")),
-"sortBy": z.optional(z.string().default("createdAt").describe("Sort by field")),
-"sortDir": z.optional(z.string().default("desc").describe("Sort direction"))
+    "pageable": z.lazy(() => pageableSchema)
     })
 
 /**

@@ -3,12 +3,12 @@
 * Do not edit manually.
 */
 
-import type { CategoryResponse } from "./CategoryResponse.ts";
+import type { ExerciseCategoryResponse } from "./ExerciseCategoryResponse.ts";
 
 /**
  * @description OK
 */
-export type GetAllCategories200 = CategoryResponse[];
+export type GetAllCategories200 = ExerciseCategoryResponse[];
 
 export type GetAllCategoriesQueryResponse = GetAllCategories200;
 

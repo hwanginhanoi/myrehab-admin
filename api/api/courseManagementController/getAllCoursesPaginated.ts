@@ -13,11 +13,11 @@ function getGetAllCoursesPaginatedUrl() {
 }
 
 /**
- * @description Retrieve a paginated list of active courses
+ * @description Retrieve a paginated list of active courses. Use query params: ?page=0&size=10&sort=createdAt,desc
  * @summary Get paginated courses
  * {@link /api/courses/paginated}
  */
-export async function getAllCoursesPaginated(params?: GetAllCoursesPaginatedQueryParams, config: Partial<RequestConfig> & { client?: typeof fetch } = {}) {
+export async function getAllCoursesPaginated(params: GetAllCoursesPaginatedQueryParams, config: Partial<RequestConfig> & { client?: typeof fetch } = {}) {
   const { client: request = fetch, ...requestConfig } = config  
   
   const res = await request<GetAllCoursesPaginatedQueryResponse, ResponseErrorConfig<Error>, unknown>({ method : "GET", url : getGetAllCoursesPaginatedUrl().url.toString(), params, ... requestConfig })  

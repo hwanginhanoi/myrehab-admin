@@ -3,7 +3,8 @@
 * Do not edit manually.
 */
 
-import { pageCategoryResponseSchema } from "./pageCategoryResponseSchema.ts";
+import { pageableSchema } from "./pageableSchema.ts";
+import { pageExerciseCategoryResponseSchema } from "./pageExerciseCategoryResponseSchema.ts";
 import { z } from "zod";
 
 export const getCategoriesByTypePaginatedPathParamsSchema = z.object({
@@ -11,15 +12,12 @@ export const getCategoriesByTypePaginatedPathParamsSchema = z.object({
     })
 
 export const getCategoriesByTypePaginatedQueryParamsSchema = z.object({
-    "page": z.optional(z.coerce.number().int().default(0).describe("Page number (0-based)")),
-"size": z.optional(z.coerce.number().int().default(10).describe("Number of items per page")),
-"sortBy": z.optional(z.string().default("name").describe("Sort by field")),
-"sortDir": z.optional(z.string().default("asc").describe("Sort direction"))
+    "pageable": z.lazy(() => pageableSchema)
     })
 
 /**
  * @description OK
  */
-export const getCategoriesByTypePaginated200Schema = z.lazy(() => pageCategoryResponseSchema)
+export const getCategoriesByTypePaginated200Schema = z.lazy(() => pageExerciseCategoryResponseSchema)
 
 export const getCategoriesByTypePaginatedQueryResponseSchema = z.lazy(() => getCategoriesByTypePaginated200Schema)

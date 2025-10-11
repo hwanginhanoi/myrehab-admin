@@ -3,16 +3,14 @@
 * Do not edit manually.
 */
 
+import { pageableSchema } from "./pageableSchema.ts";
 import { pageExerciseResponseSchema } from "./pageExerciseResponseSchema.ts";
 import { z } from "zod";
 
 export const getAllExercisesPaginatedQueryParamsSchema = z.object({
-    "page": z.optional(z.coerce.number().int().default(0).describe("Page number (0-based)")),
-"size": z.optional(z.coerce.number().int().default(10).describe("Number of items per page")),
-"sortBy": z.optional(z.string().default("createdAt").describe("Sort by field")),
-"sortDir": z.optional(z.string().default("asc").describe("Sort direction")),
-"categoryId": z.optional(z.coerce.number().int().describe("Filter by category ID")),
-"keyword": z.optional(z.string().describe("Search keyword in title"))
+    "pageable": z.lazy(() => pageableSchema),
+"categoryId": z.optional(z.coerce.number().int()),
+"keyword": z.optional(z.string())
     })
 
 /**

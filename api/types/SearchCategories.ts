@@ -3,11 +3,10 @@
 * Do not edit manually.
 */
 
-import type { CategoryResponse } from "./CategoryResponse.ts";
+import type { ExerciseCategoryResponse } from "./ExerciseCategoryResponse.ts";
 
 export type SearchCategoriesQueryParams = {
     /**
-     * @description Search keyword
      * @type string
     */
     keyword: string;
@@ -16,7 +15,7 @@ export type SearchCategoriesQueryParams = {
 /**
  * @description OK
 */
-export type SearchCategories200 = CategoryResponse[];
+export type SearchCategories200 = ExerciseCategoryResponse[];
 
 export type SearchCategoriesQueryResponse = SearchCategories200;
 

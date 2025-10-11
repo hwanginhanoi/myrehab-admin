@@ -7,7 +7,6 @@ import type { CourseResponse } from "./CourseResponse.ts";
 
 export type SearchCoursesQueryParams = {
     /**
-     * @description Search keyword
      * @type string
     */
     keyword: string;

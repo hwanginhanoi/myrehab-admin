@@ -3,16 +3,16 @@
 * Do not edit manually.
 */
 
-import { categoryResponseSchema } from "./categoryResponseSchema.ts";
+import { exerciseCategoryResponseSchema } from "./exerciseCategoryResponseSchema.ts";
 import { z } from "zod";
 
 export const searchCategoriesQueryParamsSchema = z.object({
-    "keyword": z.string().describe("Search keyword")
+    "keyword": z.string()
     })
 
 /**
  * @description OK
  */
-export const searchCategories200Schema = z.array(z.lazy(() => categoryResponseSchema))
+export const searchCategories200Schema = z.array(z.lazy(() => exerciseCategoryResponseSchema))
 
 export const searchCategoriesQueryResponseSchema = z.lazy(() => searchCategories200Schema)

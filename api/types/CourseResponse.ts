@@ -3,7 +3,7 @@
 * Do not edit manually.
 */
 
-import type { CategoryResponse } from "./CategoryResponse.ts";
+import type { CourseCategoryResponse } from "./CourseCategoryResponse.ts";
 import type { CourseDayResponse } from "./CourseDayResponse.ts";
 
 export type CourseResponse = {
@@ -34,7 +34,7 @@ export type CourseResponse = {
     /**
      * @type object | undefined
     */
-    category?: CategoryResponse;
+    category?: CourseCategoryResponse;
     /**
      * @type array | undefined
     */
