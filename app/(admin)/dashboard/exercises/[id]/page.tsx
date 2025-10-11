@@ -377,7 +377,7 @@ export default function ExerciseDetailsPage() {
       {/* Media Viewer Dialog */}
       <MediaViewerDialog
         open={!!selectedMedia}
-        onOpenChange={() => {
+        onOpenChangeAction={() => {
           setSelectedMedia(null);
           setVideoViewingUrl(null);
         }}

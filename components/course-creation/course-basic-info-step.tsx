@@ -182,7 +182,7 @@ export function CourseBasicInfoStep({ form }: CourseBasicInfoStepProps) {
           <div className="space-y-2">
             <Label className="text-sm font-medium text-[#71717A]">Hình ảnh đại diện</Label>
             <FileUpload
-              onUploadComplete={(fileUrl) => setValue('basicInfo.imageUrl', fileUrl)}
+              onUploadCompleteAction={(fileUrl) => setValue('basicInfo.imageUrl', fileUrl)}
               acceptedTypes={['image/jpeg', 'image/png', 'image/webp']}
               fileType="image"
               maxFileSize={10}

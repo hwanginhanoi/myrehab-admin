@@ -5,7 +5,7 @@ import { useState, forwardRef, useEffect } from 'react';
 import { Eye, ImageIcon, Play } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
-interface ImageProps extends Omit<React.ComponentProps<typeof NextImage>, 'onClick'> {
+interface ImageProps extends Omit<React.ComponentProps<typeof NextImage>, 'onClick' | 'placeholder'> {
   onClick?: (url: string, title?: string) => void;
   showPreviewIcon?: boolean;
   aspectRatio?: 'square' | 'video' | 'auto';
@@ -221,6 +221,7 @@ const Image = forwardRef<HTMLDivElement, ImageProps>(({
               isLoading ? 'opacity-0' : 'opacity-100'
             )}
             loading={loading}
+            placeholder={(typeof placeholder === 'string' && (placeholder === 'blur' || placeholder === 'empty')) ? placeholder : 'empty'}
             sizes={sizes || (fill ? '(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw' : undefined)}
             onLoad={() => {
               if (type === 'image') {

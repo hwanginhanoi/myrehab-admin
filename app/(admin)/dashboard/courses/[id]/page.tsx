@@ -316,7 +316,7 @@ export default function CourseDetailsPage() {
       {/* Media Viewer Dialog */}
       <MediaViewerDialog
         open={!!selectedMedia}
-        onOpenChange={() => setSelectedMedia(null)}
+        onOpenChangeAction={() => setSelectedMedia(null)}
         fileType={selectedMedia?.type || 'image'}
         fileName={selectedMedia?.title || ''}
         imageUrl={selectedMedia?.type === 'image' ? selectedMedia.url : undefined}

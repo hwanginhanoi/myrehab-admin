@@ -62,7 +62,7 @@ export function ImagePreview({ imageUrl, onImageChange, disabled = false }: Imag
   return (
     <div>
       <FileUpload
-        onUploadComplete={(fileUrl) => {
+        onUploadCompleteAction={(fileUrl) => {
           onImageChange(fileUrl);
           setShowUpload(false);
         }}

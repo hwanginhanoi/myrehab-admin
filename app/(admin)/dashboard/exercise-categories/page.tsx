@@ -79,10 +79,11 @@ export default function ExerciseCategoriesPage() {
       const minLoadingTimer = setTimeout(() => setMinLoadingTime(false), 300);
 
       const data = await getAllCategoriesPaginated({
-        page: pagination.pageIndex,
-        size: pagination.pageSize,
-        sortBy: 'createdAt',
-        sortDir: 'desc',
+        pageable: {
+          page: pagination.pageIndex,
+          size: pagination.pageSize,
+          sort: ['createdAt,desc'],
+        },
       });
 
       setPageData(data);

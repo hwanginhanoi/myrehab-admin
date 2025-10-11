@@ -9,14 +9,14 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
-import { CategoryResponse } from '@/api/types/CategoryResponse';
+import { ExerciseCategoryResponse } from '@/api/types/ExerciseCategoryResponse';
 import { ExerciseFormData } from '@/lib/types/exercise-creation';
 import { ImagePreview } from '@/components/file-upload/image-preview';
 import { VideoPreview } from '@/components/file-upload/video-preview';
 
 interface ExerciseEditFormFieldsProps {
   form: UseFormReturn<ExerciseFormData>;
-  categories: CategoryResponse[];
+  categories: ExerciseCategoryResponse[];
   disabled?: boolean;
 }
 

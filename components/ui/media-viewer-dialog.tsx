@@ -5,7 +5,7 @@ import { X } from 'lucide-react';
 
 interface MediaViewerDialogProps {
   open: boolean;
-  onOpenChange: (open: boolean) => void;
+  onOpenChangeAction: (open: boolean) => void;
   fileType: 'image' | 'video';
   fileName: string;
   imageUrl?: string;
@@ -14,7 +14,7 @@ interface MediaViewerDialogProps {
 
 export function MediaViewerDialog({
   open,
-  onOpenChange,
+  onOpenChangeAction,
   fileType,
   fileName,
   imageUrl,
@@ -26,8 +26,7 @@ export function MediaViewerDialog({
     <>
       {/* Custom Overlay */}
       <div
-        className="fixed inset-0 bg-black/80 z-50"
-        onClick={() => onOpenChange(false)}
+        onClick={() => onOpenChangeAction(false)}
       />
 
       {/* Custom Dialog */}
@@ -49,7 +48,7 @@ export function MediaViewerDialog({
               {fileType === 'image' ? 'Image View' : 'Video Player'} - {fileName}
             </h2>
             <button
-              onClick={() => onOpenChange(false)}
+              onClick={() => onOpenChangeAction(false)}
               className="p-1 hover:bg-accent hover:text-accent-foreground rounded-full transition-colors"
             >
               <X className="h-5 w-5" />

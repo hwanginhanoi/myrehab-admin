@@ -50,10 +50,11 @@ export function CourseArrangementStep({ form }: CourseArrangementStepProps) {
     try {
       setLoading(true);
       const data = await getAllExercisesPaginated({
-        page,
-        size: pagination.pageSize,
-        sortBy: 'createdAt',
-        sortDir: 'desc',
+        pageable: {
+          page: pagination.pageIndex,
+          size: pagination.pageSize,
+          sort: ['createdAt,desc'],
+        },
         ...(keyword && { keyword }),
         ...(categoryId && { categoryId }),
       });

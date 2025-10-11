@@ -153,7 +153,7 @@ export function ExerciseFormFields({ form, disabled = false }: ExerciseFormField
         <div className="space-y-2">
           <Label className="text-base font-medium text-[#09090B]">Tải lên ảnh *</Label>
           <FileUpload
-            onUploadComplete={(fileUrl) => setValue('imageUrl', fileUrl)}
+            onUploadCompleteAction={(fileUrl) => setValue('imageUrl', fileUrl)}
             acceptedTypes={['image/jpeg', 'image/png', 'image/webp']}
             fileType="image"
             maxFileSize={10}
@@ -169,7 +169,7 @@ export function ExerciseFormFields({ form, disabled = false }: ExerciseFormField
         <div className="space-y-2">
           <Label className="text-base font-medium text-[#09090B]">Tải lên video *</Label>
           <FileUpload
-            onUploadComplete={(fileUrl) => setValue('videoUrl', fileUrl)}
+            onUploadCompleteAction={(fileUrl) => setValue('videoUrl', fileUrl)}
             acceptedTypes={['video/mp4', 'video/webm', 'video/quicktime']}
             fileType="video"
             maxFileSize={100}

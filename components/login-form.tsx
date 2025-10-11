@@ -49,13 +49,17 @@ export function LoginForm({
       });
       
       if (response.token) {
+        if (response.role !== 'ADMIN' && response.role !== 'DOCTOR') {
+          setError('You do not have permission to access this application.');
+          return;
+        }
+
         // Create user data from API response
         const userData = {
           id: response.email || data.email, // Use email as ID since backend doesn't provide user ID
           email: response.email || data.email,
-          role: response.role || 'DOCTOR',
-          firstName: response.firstName,
-          lastName: response.lastName
+          role: response.role,
+          fullName: response.fullName,
         };
 
         authLogin(response.token, userData);

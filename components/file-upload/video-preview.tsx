@@ -120,7 +120,7 @@ export function VideoPreview({ videoUrl, onVideoChange, disabled = false }: Vide
   return (
     <div>
       <FileUpload
-        onUploadComplete={(fileUrl) => {
+        onUploadCompleteAction={(fileUrl) => {
           onVideoChange(fileUrl);
           setShowUpload(false);
         }}

@@ -14,7 +14,7 @@ import { toast } from 'sonner';
 import { cn } from '@/lib/utils';
 
 interface FileUploadProps {
-  onUploadComplete: (fileUrl: string) => void;
+  onUploadCompleteAction: (fileUrl: string) => void;
   onUploadStart?: () => void;
   onUploadError?: (error: string) => void;
   acceptedTypes: string[];
@@ -36,7 +36,7 @@ interface UploadState {
 }
 
 export function FileUpload({
-  onUploadComplete,
+  onUploadCompleteAction,
   onUploadStart,
   onUploadError,
   acceptedTypes,
@@ -206,7 +206,7 @@ export function FileUpload({
         completed: true,
       }));
 
-      onUploadComplete(presignedResponse.fileUrl!);
+      onUploadCompleteAction(presignedResponse.fileUrl!);
       toast.success('File uploaded successfully!', {
         description: `${file.name} has been uploaded.`
       });
@@ -222,7 +222,7 @@ export function FileUpload({
       onUploadError?.(errorMessage);
       toast.error('Upload failed', { description: errorMessage });
     }
-  }, [validateFile, fileType, onUploadStart, onUploadComplete, onUploadError, uploadToS3]);
+  }, [validateFile, fileType, onUploadStart, onUploadCompleteAction, onUploadError, uploadToS3]);
 
   const handleFileInputChange = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
@@ -453,7 +453,7 @@ export function FileUpload({
 
       <MediaViewerDialog
         open={previewOpen}
-        onOpenChange={setPreviewOpen}
+        onOpenChangeAction={setPreviewOpen}
         fileType={fileType}
         fileName={uploadState.file?.name || ''}
         imageUrl={fileType === 'image' ? uploadState.fileUrl || undefined : undefined}
