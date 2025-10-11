@@ -46,6 +46,49 @@ export const setConfig = (config: RequestConfig) => {
 // Create axios instance
 const axiosInstance = axios.create(getConfig());
 
+// Add a request interceptor
+axiosInstance.interceptors.request.use(
+  (config) => {
+    const token = localStorage.getItem('authToken');
+    if (token) {
+      config.headers.Authorization = `Bearer ${token}`;
+    }
+
+    return config;
+  },
+  (error) => {
+    return Promise.reject(error);
+  }
+);
+
+// Add a response interceptor
+axiosInstance.interceptors.response.use(
+  (response) => {
+    return response;
+  },
+  (error) => {
+    // Handle 401 Unauthorized errors
+    if (error.response?.status === 401) {
+      if (typeof window !== 'undefined') {
+        // Clear token and user data from localStorage
+        localStorage.removeItem('authToken');
+        localStorage.removeItem('userData');
+
+        // Remove auth cookie
+        document.cookie = 'authToken=; path=/; expires=Thu, 01 Jan 1970 00:00:01 GMT';
+
+        // Redirect to login page
+        window.location.href = '/auth/login';
+      }
+
+      // Return a rejected promise with a custom message
+      return Promise.reject(new Error('Session expired. Please login again.'));
+    }
+
+    return Promise.reject(error);
+  }
+);
+
 // Kubb-compatible client function
 export const client = async <TData, TError = unknown, TVariables = unknown>(
   config: RequestConfig<TVariables>
