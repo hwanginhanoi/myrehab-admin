@@ -1,4 +1,4 @@
-export * from "./addBalance";
-export * from "./addBalanceToUser";
-export * from "./getTransactionHistory";
-export * from "./getUserBalance";
+export { addBalance } from "./addBalance.ts";
+export { addBalanceToUser } from "./addBalanceToUser.ts";
+export { getTransactionHistory } from "./getTransactionHistory.ts";
+export { getUserBalance } from "./getUserBalance.ts";

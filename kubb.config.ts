@@ -1,7 +1,7 @@
 import { defineConfig } from '@kubb/core';
-import { pluginClient } from '@kubb/swagger-client';
-import { pluginTs} from '@kubb/swagger-ts';
-import { pluginZod } from '@kubb/swagger-zod';
+import { pluginClient } from '@kubb/plugin-client';
+import { pluginTs} from '@kubb/plugin-ts';
+import { pluginZod } from '@kubb/plugin-zod';
 import { pluginOas } from '@kubb/plugin-oas'
 
 export default defineConfig({
@@ -33,15 +33,13 @@ export default defineConfig({
         pluginClient({
             output: {
                 path: './api',
-                exportType: 'barrel',
-
+                barrelType: 'named',
             },
-            client: {
-                importPath: '@/lib/api-client',
-            },
+            client: 'axios',
+            importPath: '@/lib/api-client',
             group: {
-                type: 'tag'
-            }
+                type: 'tag',
+            },
         }),
     ],
 });

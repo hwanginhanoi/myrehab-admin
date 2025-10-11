@@ -1,1 +1,0 @@
-{"type":"object","properties":{"insuranceNumber":{"type":"string"},"placeOfRegistration":{"type":"string"}},"x-readme-ref-name":"NationalHealthInsuranceRequest"}

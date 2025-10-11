@@ -1,16 +1,1 @@
-export * from "./deleteNationalHealthInsurance";
-export * from "./deleteNonCompulsoryHealthInsurance";
-export * from "./deleteUserCompanyInfo";
-export * from "./deleteUserProfile";
-export * from "./getAllUsers";
-export * from "./getCurrentUser";
-export * from "./getNationalHealthInsurance";
-export * from "./getNonCompulsoryHealthInsurance";
-export * from "./getUserBasicInfo";
-export * from "./getUserCompanyInfo";
-export * from "./getUserProfile";
-export * from "./updateNationalHealthInsurance";
-export * from "./updateNonCompulsoryHealthInsurance";
-export * from "./updateUserBasicInfo";
-export * from "./updateUserCompanyInfo";
-export * from "./updateUserProfile";
+export { getAllUsers } from "./getAllUsers.ts";

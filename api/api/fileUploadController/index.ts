@@ -1,6 +1,6 @@
-export * from "./deleteFile";
-export * from "./generatePresignedAccessUrl";
-export * from "./generatePresignedUploadUrl";
-export * from "./generateVideoViewingUrl";
-export * from "./uploadImage";
-export * from "./uploadVideo";
+export { deleteFile } from "./deleteFile.ts";
+export { generatePresignedAccessUrl } from "./generatePresignedAccessUrl.ts";
+export { generatePresignedUploadUrl } from "./generatePresignedUploadUrl.ts";
+export { generateVideoViewingUrl } from "./generateVideoViewingUrl.ts";
+export { uploadImage } from "./uploadImage.ts";
+export { uploadVideo } from "./uploadVideo.ts";

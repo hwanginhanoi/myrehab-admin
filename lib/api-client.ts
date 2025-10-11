@@ -1,52 +1,72 @@
+
 import axios from 'axios';
+import type { AxiosError, AxiosRequestConfig, AxiosResponse } from 'axios';
+
+/**
+ * Subset of AxiosRequestConfig
+ */
+export type RequestConfig<TData = unknown> = {
+  baseURL?: string;
+  url?: string;
+  method?: 'GET' | 'PUT' | 'PATCH' | 'POST' | 'DELETE' | 'OPTIONS' | 'HEAD';
+  params?: unknown;
+  data?: TData | FormData;
+  responseType?: 'arraybuffer' | 'blob' | 'document' | 'json' | 'text' | 'stream';
+  signal?: AbortSignal;
+  validateStatus?: (status: number) => boolean;
+  headers?: AxiosRequestConfig['headers'];
+};
+
+/**
+ * Subset of AxiosResponse
+ */
+export type ResponseConfig<TData = unknown> = {
+  data: TData;
+  status: number;
+  statusText: string;
+  headers: AxiosResponse['headers'];
+};
+
+export type ResponseErrorConfig<TError = unknown> = AxiosError<TError>;
+
+let _config: Partial<RequestConfig> = {
+  baseURL: 'http://localhost:8080',
+  headers: {
+    'Content-Type': 'application/json',
+  },
+};
+
+export const getConfig = () => _config;
+
+export const setConfig = (config: RequestConfig) => {
+  _config = config;
+  return getConfig();
+};
 
 // Create axios instance
-const apiClient = axios.create({
-  baseURL: 'http://localhost:8080',
-  timeout: 10000,
-});
+const axiosInstance = axios.create(getConfig());
 
-// Request interceptor to add JWT token
-apiClient.interceptors.request.use(
-  (config) => {
-    // Get token from localStorage
-    const token = localStorage.getItem('authToken');
+// Kubb-compatible client function
+export const client = async <TData, TError = unknown, TVariables = unknown>(
+  config: RequestConfig<TVariables>
+): Promise<ResponseConfig<TData>> => {
+  const globalConfig = getConfig();
 
-    if (token) {
-      config.headers.Authorization = `Bearer ${token}`;
-    }
+  return axiosInstance
+    .request<TData, ResponseConfig<TData>>({
+      ...globalConfig,
+      ...config,
+      headers: {
+        ...globalConfig.headers,
+        ...config.headers,
+      },
+    })
+    .catch((e: AxiosError<TError>) => {
+      throw e;
+    });
+};
 
-    return config;
-  },
-  (error) => {
-    return Promise.reject(error);
-  }
-);
+client.getConfig = getConfig;
+client.setConfig = setConfig;
 
-// Response interceptor to handle auth errors
-apiClient.interceptors.response.use(
-  (response) => {
-    return response;
-  },
-  (error) => {
-    // Handle 401 Unauthorized errors
-    if (error.response?.status === 401) {
-      // Clear token and user data from localStorage
-      localStorage.removeItem('authToken');
-      localStorage.removeItem('userData');
-
-      // Remove auth cookie
-      document.cookie = 'authToken=; path=/; expires=Thu, 01 Jan 1970 00:00:01 GMT';
-
-      // Redirect to login page
-      window.location.href = '/auth/login';
-
-      // Return a rejected promise with a custom message
-      return Promise.reject(new Error('Session expired. Please login again.'));
-    }
-
-    return Promise.reject(error);
-  }
-);
-
-export default apiClient;
+export default client;
