@@ -11,6 +11,14 @@ export type GetAllCoursesPaginatedQueryParams = {
      * @type object
     */
     pageable: Pageable;
+    /**
+     * @type integer | undefined, int64
+    */
+    categoryId?: number;
+    /**
+     * @type string | undefined
+    */
+    keyword?: string;
 };
 
 /**

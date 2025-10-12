@@ -24,6 +24,7 @@ export { createExercise200Schema, createExerciseMutationRequestSchema, createExe
 export { dayExerciseResponseSchema } from "./dayExerciseResponseSchema.ts";
 export { deleteCategory1PathParamsSchema, deleteCategory1200Schema, deleteCategory1MutationResponseSchema } from "./deleteCategory1Schema.ts";
 export { deleteCategoryPathParamsSchema, deleteCategory200Schema, deleteCategoryMutationResponseSchema } from "./deleteCategorySchema.ts";
+export { deleteCoursePathParamsSchema, deleteCourse200Schema, deleteCourseMutationResponseSchema } from "./deleteCourseSchema.ts";
 export { deleteExercisePathParamsSchema, deleteExercise200Schema, deleteExerciseMutationResponseSchema } from "./deleteExerciseSchema.ts";
 export { deleteFileQueryParamsSchema, deleteFile200Schema, deleteFileMutationResponseSchema } from "./deleteFileSchema.ts";
 export { deleteMyCompanyInfo200Schema, deleteMyCompanyInfoMutationResponseSchema } from "./deleteMyCompanyInfoSchema.ts";
@@ -47,7 +48,6 @@ export { getAllCategoriesPaginated1QueryParamsSchema, getAllCategoriesPaginated1
 export { getAllCategoriesPaginatedQueryParamsSchema, getAllCategoriesPaginated200Schema, getAllCategoriesPaginatedQueryResponseSchema } from "./getAllCategoriesPaginatedSchema.ts";
 export { getAllCategories200Schema, getAllCategoriesQueryResponseSchema } from "./getAllCategoriesSchema.ts";
 export { getAllCoursesPaginatedQueryParamsSchema, getAllCoursesPaginated200Schema, getAllCoursesPaginatedQueryResponseSchema } from "./getAllCoursesPaginatedSchema.ts";
-export { getAllCourses200Schema, getAllCoursesQueryResponseSchema } from "./getAllCoursesSchema.ts";
 export { getAllExercisesPaginatedQueryParamsSchema, getAllExercisesPaginated200Schema, getAllExercisesPaginatedQueryResponseSchema } from "./getAllExercisesPaginatedSchema.ts";
 export { getAllPermissions200Schema, getAllPermissionsQueryResponseSchema } from "./getAllPermissionsSchema.ts";
 export { getAllUsers1QueryParamsSchema, getAllUsers1200Schema, getAllUsers1QueryResponseSchema } from "./getAllUsers1Schema.ts";
@@ -59,7 +59,6 @@ export { getCategoriesByTypePathParamsSchema, getCategoriesByType200Schema, getC
 export { getCategoryById1PathParamsSchema, getCategoryById1200Schema, getCategoryById1QueryResponseSchema } from "./getCategoryById1Schema.ts";
 export { getCategoryByIdPathParamsSchema, getCategoryById200Schema, getCategoryByIdQueryResponseSchema } from "./getCategoryByIdSchema.ts";
 export { getCourseByIdPathParamsSchema, getCourseById200Schema, getCourseByIdQueryResponseSchema } from "./getCourseByIdSchema.ts";
-export { getCoursesByCategoryPathParamsSchema, getCoursesByCategory200Schema, getCoursesByCategoryQueryResponseSchema } from "./getCoursesByCategorySchema.ts";
 export { getCurrentUser200Schema, getCurrentUserQueryResponseSchema } from "./getCurrentUserSchema.ts";
 export { getDoctorPermissionsPathParamsSchema, getDoctorPermissions200Schema, getDoctorPermissionsQueryResponseSchema } from "./getDoctorPermissionsSchema.ts";
 export { getExerciseByIdPathParamsSchema, getExerciseById200Schema, getExerciseByIdQueryResponseSchema } from "./getExerciseByIdSchema.ts";
@@ -104,7 +103,6 @@ export { searchCategories1QueryParamsSchema, searchCategories1200Schema, searchC
 export { searchCategoriesPaginated1QueryParamsSchema, searchCategoriesPaginated1200Schema, searchCategoriesPaginated1QueryResponseSchema } from "./searchCategoriesPaginated1Schema.ts";
 export { searchCategoriesPaginatedQueryParamsSchema, searchCategoriesPaginated200Schema, searchCategoriesPaginatedQueryResponseSchema } from "./searchCategoriesPaginatedSchema.ts";
 export { searchCategoriesQueryParamsSchema, searchCategories200Schema, searchCategoriesQueryResponseSchema } from "./searchCategoriesSchema.ts";
-export { searchCoursesQueryParamsSchema, searchCourses200Schema, searchCoursesQueryResponseSchema } from "./searchCoursesSchema.ts";
 export { sendOtpForUser200Schema, sendOtpForUserMutationRequestSchema, sendOtpForUserMutationResponseSchema } from "./sendOtpForUserSchema.ts";
 export { setAdminPermissionsPathParamsSchema, setAdminPermissions200Schema, setAdminPermissionsMutationRequestSchema, setAdminPermissionsMutationResponseSchema } from "./setAdminPermissionsSchema.ts";
 export { setDoctorPermissionsPathParamsSchema, setDoctorPermissions200Schema, setDoctorPermissionsMutationRequestSchema, setDoctorPermissionsMutationResponseSchema } from "./setDoctorPermissionsSchema.ts";
@@ -115,6 +113,10 @@ export { transactionResponseSchema } from "./transactionResponseSchema.ts";
 export { updateCategory1PathParamsSchema, updateCategory1200Schema, updateCategory1MutationRequestSchema, updateCategory1MutationResponseSchema } from "./updateCategory1Schema.ts";
 export { updateCategoryPathParamsSchema, updateCategory200Schema, updateCategoryMutationRequestSchema, updateCategoryMutationResponseSchema } from "./updateCategorySchema.ts";
 export { updateCourseCategoryRequestSchema } from "./updateCourseCategoryRequestSchema.ts";
+export { updateCourseDayRequestSchema } from "./updateCourseDayRequestSchema.ts";
+export { updateCourseRequestSchema } from "./updateCourseRequestSchema.ts";
+export { updateCoursePathParamsSchema, updateCourse200Schema, updateCourseMutationRequestSchema, updateCourseMutationResponseSchema } from "./updateCourseSchema.ts";
+export { updateDayExerciseRequestSchema } from "./updateDayExerciseRequestSchema.ts";
 export { updateExerciseCategoryRequestSchema } from "./updateExerciseCategoryRequestSchema.ts";
 export { updateExerciseRequestSchema } from "./updateExerciseRequestSchema.ts";
 export { updateExercisePathParamsSchema, updateExercise200Schema, updateExerciseMutationRequestSchema, updateExerciseMutationResponseSchema } from "./updateExerciseSchema.ts";

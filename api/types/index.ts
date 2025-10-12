@@ -24,6 +24,7 @@ export type { CreateExerciseRequest } from "./CreateExerciseRequest.ts";
 export type { DayExerciseResponse } from "./DayExerciseResponse.ts";
 export type { DeleteCategory1PathParams, DeleteCategory1200, DeleteCategory1MutationResponse, DeleteCategory1Mutation } from "./DeleteCategory1.ts";
 export type { DeleteCategoryPathParams, DeleteCategory200, DeleteCategoryMutationResponse, DeleteCategoryMutation } from "./DeleteCategory.ts";
+export type { DeleteCoursePathParams, DeleteCourse200, DeleteCourseMutationResponse, DeleteCourseMutation } from "./DeleteCourse.ts";
 export type { DeleteExercisePathParams, DeleteExercise200, DeleteExerciseMutationResponse, DeleteExerciseMutation } from "./DeleteExercise.ts";
 export type { DeleteFileQueryParams, DeleteFile200, DeleteFileMutationResponse, DeleteFileMutation } from "./DeleteFile.ts";
 export type { DeleteMyCompanyInfo200, DeleteMyCompanyInfoMutationResponse, DeleteMyCompanyInfoMutation } from "./DeleteMyCompanyInfo.ts";
@@ -46,7 +47,6 @@ export type { GetAllCategories1200, GetAllCategories1QueryResponse, GetAllCatego
 export type { GetAllCategories200, GetAllCategoriesQueryResponse, GetAllCategoriesQuery } from "./GetAllCategories.ts";
 export type { GetAllCategoriesPaginated1QueryParams, GetAllCategoriesPaginated1200, GetAllCategoriesPaginated1QueryResponse, GetAllCategoriesPaginated1Query } from "./GetAllCategoriesPaginated1.ts";
 export type { GetAllCategoriesPaginatedQueryParams, GetAllCategoriesPaginated200, GetAllCategoriesPaginatedQueryResponse, GetAllCategoriesPaginatedQuery } from "./GetAllCategoriesPaginated.ts";
-export type { GetAllCourses200, GetAllCoursesQueryResponse, GetAllCoursesQuery } from "./GetAllCourses.ts";
 export type { GetAllCoursesPaginatedQueryParams, GetAllCoursesPaginated200, GetAllCoursesPaginatedQueryResponse, GetAllCoursesPaginatedQuery } from "./GetAllCoursesPaginated.ts";
 export type { GetAllExercisesPaginatedQueryParams, GetAllExercisesPaginated200, GetAllExercisesPaginatedQueryResponse, GetAllExercisesPaginatedQuery } from "./GetAllExercisesPaginated.ts";
 export type { GetAllPermissions200, GetAllPermissionsQueryResponse, GetAllPermissionsQuery } from "./GetAllPermissions.ts";
@@ -59,7 +59,6 @@ export type { GetCategoriesByTypePaginatedPathParamsTypeEnumKey, GetCategoriesBy
 export type { GetCategoryById1PathParams, GetCategoryById1200, GetCategoryById1QueryResponse, GetCategoryById1Query } from "./GetCategoryById1.ts";
 export type { GetCategoryByIdPathParams, GetCategoryById200, GetCategoryByIdQueryResponse, GetCategoryByIdQuery } from "./GetCategoryById.ts";
 export type { GetCourseByIdPathParams, GetCourseById200, GetCourseByIdQueryResponse, GetCourseByIdQuery } from "./GetCourseById.ts";
-export type { GetCoursesByCategoryPathParams, GetCoursesByCategory200, GetCoursesByCategoryQueryResponse, GetCoursesByCategoryQuery } from "./GetCoursesByCategory.ts";
 export type { GetCurrentUser200, GetCurrentUserQueryResponse, GetCurrentUserQuery } from "./GetCurrentUser.ts";
 export type { GetDoctorPermissionsPathParams, GetDoctorPermissions200, GetDoctorPermissionsQueryResponse, GetDoctorPermissionsQuery } from "./GetDoctorPermissions.ts";
 export type { GetExerciseByIdPathParams, GetExerciseById200, GetExerciseByIdQueryResponse, GetExerciseByIdQuery } from "./GetExerciseById.ts";
@@ -104,7 +103,6 @@ export type { SearchCategories1QueryParams, SearchCategories1200, SearchCategori
 export type { SearchCategoriesQueryParams, SearchCategories200, SearchCategoriesQueryResponse, SearchCategoriesQuery } from "./SearchCategories.ts";
 export type { SearchCategoriesPaginated1QueryParams, SearchCategoriesPaginated1200, SearchCategoriesPaginated1QueryResponse, SearchCategoriesPaginated1Query } from "./SearchCategoriesPaginated1.ts";
 export type { SearchCategoriesPaginatedQueryParams, SearchCategoriesPaginated200, SearchCategoriesPaginatedQueryResponse, SearchCategoriesPaginatedQuery } from "./SearchCategoriesPaginated.ts";
-export type { SearchCoursesQueryParams, SearchCourses200, SearchCoursesQueryResponse, SearchCoursesQuery } from "./SearchCourses.ts";
 export type { SendOtpForUser200, SendOtpForUserMutationRequest, SendOtpForUserMutationResponse, SendOtpForUserMutation } from "./SendOtpForUser.ts";
 export type { SetAdminPermissionsPathParams, SetAdminPermissions200, SetAdminPermissionsMutationRequest, SetAdminPermissionsMutationResponse, SetAdminPermissionsMutation } from "./SetAdminPermissions.ts";
 export type { SetDoctorPermissionsPathParams, SetDoctorPermissions200, SetDoctorPermissionsMutationRequest, SetDoctorPermissionsMutationResponse, SetDoctorPermissionsMutation } from "./SetDoctorPermissions.ts";
@@ -114,7 +112,11 @@ export type { StaffLogin200, StaffLoginMutationRequest, StaffLoginMutationRespon
 export type { TransactionResponse } from "./TransactionResponse.ts";
 export type { UpdateCategory1PathParams, UpdateCategory1200, UpdateCategory1MutationRequest, UpdateCategory1MutationResponse, UpdateCategory1Mutation } from "./UpdateCategory1.ts";
 export type { UpdateCategoryPathParams, UpdateCategory200, UpdateCategoryMutationRequest, UpdateCategoryMutationResponse, UpdateCategoryMutation } from "./UpdateCategory.ts";
+export type { UpdateCoursePathParams, UpdateCourse200, UpdateCourseMutationRequest, UpdateCourseMutationResponse, UpdateCourseMutation } from "./UpdateCourse.ts";
 export type { UpdateCourseCategoryRequestTypeEnumKey, UpdateCourseCategoryRequest } from "./UpdateCourseCategoryRequest.ts";
+export type { UpdateCourseDayRequest } from "./UpdateCourseDayRequest.ts";
+export type { UpdateCourseRequest } from "./UpdateCourseRequest.ts";
+export type { UpdateDayExerciseRequest } from "./UpdateDayExerciseRequest.ts";
 export type { UpdateExercisePathParams, UpdateExercise200, UpdateExerciseMutationRequest, UpdateExerciseMutationResponse, UpdateExerciseMutation } from "./UpdateExercise.ts";
 export type { UpdateExerciseCategoryRequestTypeEnumKey, UpdateExerciseCategoryRequest } from "./UpdateExerciseCategoryRequest.ts";
 export type { UpdateExerciseRequest } from "./UpdateExerciseRequest.ts";

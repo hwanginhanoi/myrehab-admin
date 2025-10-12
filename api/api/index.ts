@@ -19,11 +19,10 @@ export { searchCategories1 } from "./courseCategoryManagementController/searchCa
 export { searchCategoriesPaginated1 } from "./courseCategoryManagementController/searchCategoriesPaginated1.ts";
 export { updateCategory1 } from "./courseCategoryManagementController/updateCategory1.ts";
 export { createCourse } from "./courseManagementController/createCourse.ts";
-export { getAllCourses } from "./courseManagementController/getAllCourses.ts";
+export { deleteCourse } from "./courseManagementController/deleteCourse.ts";
 export { getAllCoursesPaginated } from "./courseManagementController/getAllCoursesPaginated.ts";
 export { getCourseById } from "./courseManagementController/getCourseById.ts";
-export { getCoursesByCategory } from "./courseManagementController/getCoursesByCategory.ts";
-export { searchCourses } from "./courseManagementController/searchCourses.ts";
+export { updateCourse } from "./courseManagementController/updateCourse.ts";
 export { createCategory } from "./exerciseCategoryManagementController/createCategory.ts";
 export { deleteCategory } from "./exerciseCategoryManagementController/deleteCategory.ts";
 export { getAllCategories } from "./exerciseCategoryManagementController/getAllCategories.ts";

@@ -8,7 +8,9 @@ import { pageCourseResponseSchema } from "./pageCourseResponseSchema.ts";
 import { z } from "zod";
 
 export const getAllCoursesPaginatedQueryParamsSchema = z.object({
-    "pageable": z.lazy(() => pageableSchema)
+    "pageable": z.lazy(() => pageableSchema),
+"categoryId": z.optional(z.coerce.number().int()),
+"keyword": z.optional(z.string())
     })
 
 /**

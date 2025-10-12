@@ -1,1 +1,1 @@
-{"type":"object","properties":{"amount":{"type":"number"},"description":{"type":"string"}},"required":["amount"],"x-readme-ref-name":"AddBalanceRequest"}
+{"type":"object","properties":{"amount":{"type":"integer","format":"int64"},"description":{"type":"string"}},"required":["amount"],"x-readme-ref-name":"AddBalanceRequest"}
