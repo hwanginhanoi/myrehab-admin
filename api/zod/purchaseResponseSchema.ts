@@ -12,6 +12,6 @@ export const purchaseResponseSchema = z.object({
 "courseTitle": z.optional(z.string()),
 "exerciseId": z.optional(z.number().int()),
 "exerciseTitle": z.optional(z.string()),
-"price": z.optional(z.number()),
+"price": z.optional(z.number().int()),
 "purchasedAt": z.optional(z.string().datetime())
     })

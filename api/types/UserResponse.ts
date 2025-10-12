@@ -30,7 +30,7 @@ export type UserResponse = {
     */
     otpVerified?: boolean;
     /**
-     * @type number | undefined
+     * @type integer | undefined, int64
     */
     balance?: number;
     /**

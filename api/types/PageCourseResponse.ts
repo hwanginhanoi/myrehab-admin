@@ -9,13 +9,13 @@ import type { SortObject } from "./SortObject.ts";
 
 export type PageCourseResponse = {
     /**
-     * @type integer | undefined, int64
-    */
-    totalElements?: number;
-    /**
      * @type integer | undefined, int32
     */
     totalPages?: number;
+    /**
+     * @type integer | undefined, int64
+    */
+    totalElements?: number;
     /**
      * @type boolean | undefined
     */
@@ -41,13 +41,13 @@ export type PageCourseResponse = {
     */
     sort?: SortObject;
     /**
-     * @type integer | undefined, int32
-    */
-    numberOfElements?: number;
-    /**
      * @type object | undefined
     */
     pageable?: PageableObject;
+    /**
+     * @type integer | undefined, int32
+    */
+    numberOfElements?: number;
     /**
      * @type boolean | undefined
     */

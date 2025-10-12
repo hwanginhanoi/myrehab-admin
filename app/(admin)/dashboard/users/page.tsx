@@ -28,6 +28,7 @@ import { getAllUsers } from '@/api/api/userManagementController/getAllUsers';
 import { UserResponse } from '@/api/types/UserResponse';
 import { toast } from 'sonner';
 import { TableSkeleton } from '@/components/ui/table-skeleton';
+import { formatVND } from '@/lib/utils/currency';
 
 const columnHelper = createColumnHelper<UserResponse>();
 
@@ -97,14 +98,6 @@ export default function UsersPage() {
     setPagination(prev => ({ ...prev, pageIndex: 0 }));
   };
 
-  const formatCurrency = (amount?: number) => {
-    if (!amount) return '0 ₫';
-    return new Intl.NumberFormat('vi-VN', {
-      style: 'currency',
-      currency: 'VND',
-    }).format(amount);
-  };
-
   const formatDate = (dateString?: string) => {
     if (!dateString) return '-';
     return new Date(dateString).toLocaleDateString('vi-VN');
@@ -139,7 +132,7 @@ export default function UsersPage() {
     }),
     columnHelper.accessor('balance', {
       header: 'Balance',
-      cell: (info) => formatCurrency(info.getValue()),
+      cell: (info) => formatVND(info.getValue()),
     }),
     columnHelper.accessor('enabled', {
       header: 'Status',

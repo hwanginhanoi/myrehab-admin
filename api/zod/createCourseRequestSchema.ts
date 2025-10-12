@@ -10,7 +10,7 @@ export const createCourseRequestSchema = z.object({
     "title": z.string().min(1),
 "description": z.optional(z.string()),
 "imageUrl": z.optional(z.string()),
-"price": z.number(),
+"price": z.number().int(),
 "durationDays": z.number().int(),
 "categoryId": z.optional(z.number().int()),
 "courseDays": z.array(z.lazy(() => createCourseDayRequestSchema)).min(1)

@@ -9,15 +9,15 @@ import { sortObjectSchema } from "./sortObjectSchema.ts";
 import { z } from "zod";
 
 export const pageExerciseCategoryResponseSchema = z.object({
-    "totalElements": z.optional(z.number().int()),
-"totalPages": z.optional(z.number().int()),
+    "totalPages": z.optional(z.number().int()),
+"totalElements": z.optional(z.number().int()),
 "first": z.optional(z.boolean()),
 "last": z.optional(z.boolean()),
 "size": z.optional(z.number().int()),
 "content": z.optional(z.array(z.lazy(() => exerciseCategoryResponseSchema))),
 "number": z.optional(z.number().int()),
 "sort": z.optional(z.lazy(() => sortObjectSchema)),
-"numberOfElements": z.optional(z.number().int()),
 "pageable": z.optional(z.lazy(() => pageableObjectSchema)),
+"numberOfElements": z.optional(z.number().int()),
 "empty": z.optional(z.boolean())
     })

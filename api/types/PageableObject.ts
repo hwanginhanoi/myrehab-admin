@@ -17,10 +17,6 @@ export type PageableObject = {
     /**
      * @type boolean | undefined
     */
-    unpaged?: boolean;
-    /**
-     * @type boolean | undefined
-    */
     paged?: boolean;
     /**
      * @type integer | undefined, int32
@@ -30,4 +26,8 @@ export type PageableObject = {
      * @type integer | undefined, int32
     */
     pageSize?: number;
+    /**
+     * @type boolean | undefined
+    */
+    unpaged?: boolean;
 };

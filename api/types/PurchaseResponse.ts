@@ -30,7 +30,7 @@ export type PurchaseResponse = {
     */
     exerciseTitle?: string;
     /**
-     * @type number | undefined
+     * @type integer | undefined, int64
     */
     price?: number;
     /**

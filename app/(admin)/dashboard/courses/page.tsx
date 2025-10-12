@@ -43,6 +43,7 @@ import { CourseResponse } from '@/api/types/CourseResponse';
 import { PageCourseResponse } from '@/api/types/PageCourseResponse';
 import { toast } from 'sonner';
 import { TableSkeleton } from '@/components/ui/table-skeleton';
+import { formatVND } from '@/lib/utils/currency';
 
 const columnHelper = createColumnHelper<CourseResponse>();
 
@@ -106,14 +107,6 @@ export default function CoursesPage() {
     fetchCourses();
   }, [fetchCourses]);
 
-  const formatCurrency = (amount?: number) => {
-    if (!amount) return '-';
-    return new Intl.NumberFormat('vi-VN', {
-      style: 'currency',
-      currency: 'VND',
-    }).format(amount);
-  };
-
   const formatDate = (dateString?: string) => {
     if (!dateString) return '-';
     return new Date(dateString).toLocaleDateString('vi-VN');
@@ -164,7 +157,7 @@ export default function CoursesPage() {
     }),
     columnHelper.accessor('price', {
       header: 'Price',
-      cell: (info) => formatCurrency(info.getValue()),
+      cell: (info) => formatVND(info.getValue()),
     }),
     columnHelper.accessor('createdAt', {
       header: 'Created',
@@ -345,7 +338,7 @@ export default function CoursesPage() {
                               {course.durationDays ? `${course.durationDays} ngày` : '-'}
                             </TableCell>
                             <TableCell>
-                              {formatCurrency(course.price)}
+                              {formatVND(course.price)}
                             </TableCell>
                             <TableCell>
                               <DropdownMenu>

@@ -7,7 +7,7 @@ import { z } from "zod";
 
 export const balanceResponseSchema = z.object({
     "id": z.optional(z.number().int()),
-"balance": z.optional(z.number()),
+"balance": z.optional(z.number().int()),
 "createdAt": z.optional(z.string().datetime()),
 "updatedAt": z.optional(z.string().datetime())
     })

@@ -6,6 +6,6 @@
 import { z } from "zod";
 
 export const addBalanceRequestSchema = z.object({
-    "amount": z.number(),
+    "amount": z.number().int(),
 "description": z.optional(z.string())
     })

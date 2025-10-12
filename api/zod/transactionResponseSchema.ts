@@ -8,7 +8,7 @@ import { z } from "zod";
 export const transactionResponseSchema = z.object({
     "id": z.optional(z.number().int()),
 "type": z.optional(z.string()),
-"amount": z.optional(z.number()),
+"amount": z.optional(z.number().int()),
 "description": z.optional(z.string()),
 "createdAt": z.optional(z.string().datetime())
     })

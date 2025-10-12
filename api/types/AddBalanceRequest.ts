@@ -6,7 +6,7 @@
 
 export type AddBalanceRequest = {
     /**
-     * @type number
+     * @type integer, int64
     */
     amount: number;
     /**

@@ -9,8 +9,8 @@ import { z } from "zod";
 export const pageableObjectSchema = z.object({
     "offset": z.optional(z.number().int()),
 "sort": z.optional(z.lazy(() => sortObjectSchema)),
-"unpaged": z.optional(z.boolean()),
 "paged": z.optional(z.boolean()),
 "pageNumber": z.optional(z.number().int()),
-"pageSize": z.optional(z.number().int())
+"pageSize": z.optional(z.number().int()),
+"unpaged": z.optional(z.boolean())
     })

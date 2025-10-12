@@ -12,7 +12,7 @@ export const courseResponseSchema = z.object({
 "title": z.optional(z.string()),
 "description": z.optional(z.string()),
 "imageUrl": z.optional(z.string()),
-"price": z.optional(z.number()),
+"price": z.optional(z.number().int()),
 "durationDays": z.optional(z.number().int()),
 "category": z.optional(z.lazy(() => courseCategoryResponseSchema)),
 "courseDays": z.optional(z.array(z.lazy(() => courseDayResponseSchema))),

@@ -20,7 +20,7 @@ export type CreateCourseRequest = {
     */
     imageUrl?: string;
     /**
-     * @type number
+     * @type integer, int64
     */
     price: number;
     /**

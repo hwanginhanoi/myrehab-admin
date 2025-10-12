@@ -12,7 +12,7 @@ export const userResponseSchema = z.object({
 "email": z.optional(z.string()),
 "enabled": z.optional(z.boolean()),
 "otpVerified": z.optional(z.boolean()),
-"balance": z.optional(z.number()),
+"balance": z.optional(z.number().int()),
 "createdAt": z.optional(z.string().datetime()),
 "updatedAt": z.optional(z.string().datetime())
     })

@@ -14,7 +14,7 @@ export type TransactionResponse = {
     */
     type?: string;
     /**
-     * @type number | undefined
+     * @type integer | undefined, int64
     */
     amount?: number;
     /**

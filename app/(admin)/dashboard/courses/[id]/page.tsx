@@ -10,6 +10,7 @@ import { ArrowLeft, PencilLine, Clock } from 'lucide-react';
 import NextImage from 'next/image';
 import { getCourseById } from '@/api/api/courseManagementController/getCourseById';
 import { CourseResponse } from '@/api/types/CourseResponse';
+import { formatVND } from '@/lib/utils/currency';
 
 export default function CourseDetailsPage() {
   const params = useParams();
@@ -44,14 +45,6 @@ export default function CourseDetailsPage() {
   useEffect(() => {
     fetchCourseDetails();
   }, [fetchCourseDetails]);
-
-  const formatCurrency = (amount?: number) => {
-    if (!amount) return '-';
-    return new Intl.NumberFormat('vi-VN', {
-      style: 'currency',
-      currency: 'VND',
-    }).format(amount);
-  };
 
   const formatDate = (dateString?: string) => {
     if (!dateString) return '-';
@@ -164,7 +157,7 @@ export default function CourseDetailsPage() {
                     </div>
                     <div className="space-y-1.5">
                       <label className="text-base font-medium text-[#939598]">Giá</label>
-                      <p className="text-base font-medium text-[#020617]">{formatCurrency(course.price)}</p>
+                      <p className="text-base font-medium text-[#020617]">{formatVND(course.price)}</p>
                     </div>
                   </div>
 

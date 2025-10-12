@@ -13,6 +13,5 @@ export const exerciseInfoSchema = z.object({
 "imageUrl": z.optional(z.string()),
 "videoUrl": z.optional(z.string()),
 "durationMinutes": z.optional(z.number().int()),
-"price": z.optional(z.number()),
 "category": z.optional(z.lazy(() => exerciseCategoryResponseSchema))
     })

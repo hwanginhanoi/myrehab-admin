@@ -24,7 +24,7 @@ export type CourseResponse = {
     */
     imageUrl?: string;
     /**
-     * @type number | undefined
+     * @type integer | undefined, int64
     */
     price?: number;
     /**

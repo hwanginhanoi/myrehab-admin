@@ -31,10 +31,6 @@ export type ExerciseInfo = {
     */
     durationMinutes?: number;
     /**
-     * @type number | undefined
-    */
-    price?: number;
-    /**
      * @type object | undefined
     */
     category?: ExerciseCategoryResponse;
