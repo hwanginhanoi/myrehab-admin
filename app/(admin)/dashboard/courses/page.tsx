@@ -39,8 +39,10 @@ import {
 import { MoreHorizontal, Eye, Edit, Plus, Search } from 'lucide-react';
 import Image from 'next/image';
 import { getAllCoursesPaginated } from '@/api/api/courseManagementController/getAllCoursesPaginated';
+import { getAllCategories1 } from '@/api/api/courseCategoryManagementController/getAllCategories1';
 import { CourseResponse } from '@/api/types/CourseResponse';
 import { PageCourseResponse } from '@/api/types/PageCourseResponse';
+import { CourseCategoryResponse } from '@/api/types/CourseCategoryResponse';
 import { toast } from 'sonner';
 import { TableSkeleton } from '@/components/ui/table-skeleton';
 import { formatVND } from '@/lib/utils/currency';
@@ -50,6 +52,7 @@ const columnHelper = createColumnHelper<CourseResponse>();
 export default function CoursesPage() {
   const router = useRouter();
   const [courses, setCourses] = useState<CourseResponse[]>([]);
+  const [categories, setCategories] = useState<CourseCategoryResponse[]>([]);
   const [loading, setLoading] = useState(true);
   const [minLoadingTime, setMinLoadingTime] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -62,6 +65,23 @@ export default function CoursesPage() {
     url: string;
     title: string;
   } | null>(null);
+  const [searchTerm, setSearchTerm] = useState('');
+  const [searchInput, setSearchInput] = useState('');
+  const [categoryFilter, setCategoryFilter] = useState<string>('all');
+
+  // Fetch categories on component mount
+  useEffect(() => {
+    const fetchCategories = async () => {
+      try {
+        const data = await getAllCategories1();
+        setCategories(data);
+      } catch (err) {
+        console.error('Failed to load categories:', err);
+      }
+    };
+
+    fetchCategories();
+  }, []);
 
   const fetchCourses = useCallback(async () => {
     try {
@@ -78,6 +98,8 @@ export default function CoursesPage() {
           size: pagination.pageSize,
           sort: ['createdAt,desc'],
         },
+        ...(searchTerm && { keyword: searchTerm }),
+        ...(categoryFilter !== 'all' && { categoryId: parseInt(categoryFilter) }),
       });
 
       setPageData(data);
@@ -101,11 +123,27 @@ export default function CoursesPage() {
     } finally {
       setLoading(false);
     }
-  }, [pagination.pageIndex, pagination.pageSize]);
+  }, [pagination.pageIndex, pagination.pageSize, searchTerm, categoryFilter]);
 
   useEffect(() => {
     fetchCourses();
   }, [fetchCourses]);
+
+  const handleSearch = () => {
+    setSearchTerm(searchInput);
+    setPagination(prev => ({ ...prev, pageIndex: 0 }));
+  };
+
+  const handleCategoryChange = (value: string) => {
+    setCategoryFilter(value);
+    setPagination(prev => ({ ...prev, pageIndex: 0 }));
+  };
+
+  const handleSearchKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'Enter') {
+      handleSearch();
+    }
+  };
 
   const formatDate = (dateString?: string) => {
     if (!dateString) return '-';
@@ -242,21 +280,30 @@ export default function CoursesPage() {
                   type="text"
                   placeholder="Tìm kiếm khóa học..."
                   className="w-full"
+                  value={searchInput}
+                  onChange={(e) => setSearchInput(e.target.value)}
+                  onKeyDown={handleSearchKeyDown}
                 />
               </div>
               <div className="w-48">
-                <Select>
+                <Select value={categoryFilter} onValueChange={handleCategoryChange}>
                   <SelectTrigger className="w-full">
                     <SelectValue placeholder="Danh mục" />
                   </SelectTrigger>
                   <SelectContent>
                     <SelectItem value="all">Tất cả danh mục</SelectItem>
+                    {categories.map((category) => (
+                      <SelectItem key={category.id} value={category.id?.toString() || ''}>
+                        {category.name}
+                      </SelectItem>
+                    ))}
                   </SelectContent>
                 </Select>
               </div>
               <Button
                 variant="outline"
                 className="border-[#6DBAD6] text-[#6DBAD6] hover:bg-[#6DBAD6] hover:text-white px-4 py-2 rounded-md flex items-center gap-2"
+                onClick={handleSearch}
               >
                 <Search className="w-5 h-5" />
                 Tìm kiếm
