@@ -5,6 +5,7 @@ import {
   Frame,
   GalleryVerticalEnd,
   Map,
+  Newspaper,
   PieChart,
   SquareTerminal,
   Users,
@@ -72,6 +73,18 @@ const sidebarData = {
         {
           title: "Danh mục lộ trình",
           url: "/dashboard/course-categories",
+        },
+      ],
+    },
+    {
+      title: "Tin tức",
+      url: "/news",
+      icon: Newspaper,
+      isActive: false,
+      items: [
+        {
+          title: "Danh sách tin tức",
+          url: "/dashboard/news",
         },
       ],
     },

@@ -44,6 +44,13 @@ export { generatePresignedUploadUrl } from "./fileUploadController/generatePresi
 export { generateVideoViewingUrl } from "./fileUploadController/generateVideoViewingUrl.ts";
 export { uploadImage } from "./fileUploadController/uploadImage.ts";
 export { uploadVideo } from "./fileUploadController/uploadVideo.ts";
+export { createNews } from "./newsManagementController/createNews.ts";
+export { deleteNews } from "./newsManagementController/deleteNews.ts";
+export { getAllNews } from "./newsManagementController/getAllNews.ts";
+export { getNewsById } from "./newsManagementController/getNewsById.ts";
+export { getNewsBySlug } from "./newsManagementController/getNewsBySlug.ts";
+export { togglePin } from "./newsManagementController/togglePin.ts";
+export { updateNews } from "./newsManagementController/updateNews.ts";
 export { assignPermissionToAdmin } from "./permissionManagementController/assignPermissionToAdmin.ts";
 export { assignPermissionToDoctor } from "./permissionManagementController/assignPermissionToDoctor.ts";
 export { getAdminPermissions } from "./permissionManagementController/getAdminPermissions.ts";

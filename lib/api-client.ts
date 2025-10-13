@@ -30,7 +30,7 @@ export type ResponseConfig<TData = unknown> = {
 export type ResponseErrorConfig<TError = unknown> = AxiosError<TError>;
 
 let _config: Partial<RequestConfig> = {
-  baseURL: 'http://localhost:8080',
+  baseURL: typeof window === 'undefined' ? 'http://localhost:8080' : '',
   headers: {
     'Content-Type': 'application/json',
   },

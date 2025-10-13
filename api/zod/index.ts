@@ -21,6 +21,8 @@ export { createDayExerciseRequestSchema } from "./createDayExerciseRequestSchema
 export { createExerciseCategoryRequestSchema } from "./createExerciseCategoryRequestSchema.ts";
 export { createExerciseRequestSchema } from "./createExerciseRequestSchema.ts";
 export { createExercise200Schema, createExerciseMutationRequestSchema, createExerciseMutationResponseSchema } from "./createExerciseSchema.ts";
+export { createNewsRequestSchema } from "./createNewsRequestSchema.ts";
+export { createNews200Schema, createNewsMutationRequestSchema, createNewsMutationResponseSchema } from "./createNewsSchema.ts";
 export { dayExerciseResponseSchema } from "./dayExerciseResponseSchema.ts";
 export { deleteCategory1PathParamsSchema, deleteCategory1200Schema, deleteCategory1MutationResponseSchema } from "./deleteCategory1Schema.ts";
 export { deleteCategoryPathParamsSchema, deleteCategory200Schema, deleteCategoryMutationResponseSchema } from "./deleteCategorySchema.ts";
@@ -32,6 +34,7 @@ export { deleteMyNationalHealthInsurance200Schema, deleteMyNationalHealthInsuran
 export { deleteMyNonCompulsoryHealthInsurance200Schema, deleteMyNonCompulsoryHealthInsuranceMutationResponseSchema } from "./deleteMyNonCompulsoryHealthInsuranceSchema.ts";
 export { deleteMyProfile200Schema, deleteMyProfileMutationResponseSchema } from "./deleteMyProfileSchema.ts";
 export { deleteNationalHealthInsurancePathParamsSchema, deleteNationalHealthInsurance200Schema, deleteNationalHealthInsuranceMutationResponseSchema } from "./deleteNationalHealthInsuranceSchema.ts";
+export { deleteNewsPathParamsSchema, deleteNews200Schema, deleteNewsMutationResponseSchema } from "./deleteNewsSchema.ts";
 export { deleteNonCompulsoryHealthInsurancePathParamsSchema, deleteNonCompulsoryHealthInsurance200Schema, deleteNonCompulsoryHealthInsuranceMutationResponseSchema } from "./deleteNonCompulsoryHealthInsuranceSchema.ts";
 export { deleteUserCompanyInfoPathParamsSchema, deleteUserCompanyInfo200Schema, deleteUserCompanyInfoMutationResponseSchema } from "./deleteUserCompanyInfoSchema.ts";
 export { deleteUserProfilePathParamsSchema, deleteUserProfile200Schema, deleteUserProfileMutationResponseSchema } from "./deleteUserProfileSchema.ts";
@@ -49,6 +52,7 @@ export { getAllCategoriesPaginatedQueryParamsSchema, getAllCategoriesPaginated20
 export { getAllCategories200Schema, getAllCategoriesQueryResponseSchema } from "./getAllCategoriesSchema.ts";
 export { getAllCoursesPaginatedQueryParamsSchema, getAllCoursesPaginated200Schema, getAllCoursesPaginatedQueryResponseSchema } from "./getAllCoursesPaginatedSchema.ts";
 export { getAllExercisesPaginatedQueryParamsSchema, getAllExercisesPaginated200Schema, getAllExercisesPaginatedQueryResponseSchema } from "./getAllExercisesPaginatedSchema.ts";
+export { getAllNewsQueryParamsSchema, getAllNews200Schema, getAllNewsQueryResponseSchema } from "./getAllNewsSchema.ts";
 export { getAllPermissions200Schema, getAllPermissionsQueryResponseSchema } from "./getAllPermissionsSchema.ts";
 export { getAllUsers1QueryParamsSchema, getAllUsers1200Schema, getAllUsers1QueryResponseSchema } from "./getAllUsers1Schema.ts";
 export { getAllUsers200Schema, getAllUsersQueryResponseSchema } from "./getAllUsersSchema.ts";
@@ -70,6 +74,8 @@ export { getMyProfile200Schema, getMyProfileQueryResponseSchema } from "./getMyP
 export { getMyPurchasesPaginatedQueryParamsSchema, getMyPurchasesPaginated200Schema, getMyPurchasesPaginatedQueryResponseSchema } from "./getMyPurchasesPaginatedSchema.ts";
 export { getMyPurchases200Schema, getMyPurchasesQueryResponseSchema } from "./getMyPurchasesSchema.ts";
 export { getNationalHealthInsurancePathParamsSchema, getNationalHealthInsurance200Schema, getNationalHealthInsuranceQueryResponseSchema } from "./getNationalHealthInsuranceSchema.ts";
+export { getNewsByIdPathParamsSchema, getNewsById200Schema, getNewsByIdQueryResponseSchema } from "./getNewsByIdSchema.ts";
+export { getNewsBySlugPathParamsSchema, getNewsBySlug200Schema, getNewsBySlugQueryResponseSchema } from "./getNewsBySlugSchema.ts";
 export { getNonCompulsoryHealthInsurancePathParamsSchema, getNonCompulsoryHealthInsurance200Schema, getNonCompulsoryHealthInsuranceQueryResponseSchema } from "./getNonCompulsoryHealthInsuranceSchema.ts";
 export { getTransactionHistory200Schema, getTransactionHistoryQueryResponseSchema } from "./getTransactionHistorySchema.ts";
 export { getUserBalance200Schema, getUserBalanceQueryResponseSchema } from "./getUserBalanceSchema.ts";
@@ -80,6 +86,7 @@ export { loginRequestSchema } from "./loginRequestSchema.ts";
 export { logout200Schema, logoutMutationRequestSchema, logoutMutationResponseSchema } from "./logoutSchema.ts";
 export { nationalHealthInsuranceRequestSchema } from "./nationalHealthInsuranceRequestSchema.ts";
 export { nationalHealthInsuranceResponseSchema } from "./nationalHealthInsuranceResponseSchema.ts";
+export { newsResponseSchema } from "./newsResponseSchema.ts";
 export { nonCompulsoryHealthInsuranceRequestSchema } from "./nonCompulsoryHealthInsuranceRequestSchema.ts";
 export { nonCompulsoryHealthInsuranceResponseSchema } from "./nonCompulsoryHealthInsuranceResponseSchema.ts";
 export { otpLoginRequestSchema } from "./otpLoginRequestSchema.ts";
@@ -90,6 +97,7 @@ export { pageCourseCategoryResponseSchema } from "./pageCourseCategoryResponseSc
 export { pageCourseResponseSchema } from "./pageCourseResponseSchema.ts";
 export { pageExerciseCategoryResponseSchema } from "./pageExerciseCategoryResponseSchema.ts";
 export { pageExerciseResponseSchema } from "./pageExerciseResponseSchema.ts";
+export { pageNewsResponseSchema } from "./pageNewsResponseSchema.ts";
 export { pagePurchaseResponseSchema } from "./pagePurchaseResponseSchema.ts";
 export { pageUserResponseSchema } from "./pageUserResponseSchema.ts";
 export { presignedUrlRequestSchema } from "./presignedUrlRequestSchema.ts";
@@ -109,6 +117,7 @@ export { setDoctorPermissionsPathParamsSchema, setDoctorPermissions200Schema, se
 export { setPermissionsRequestSchema } from "./setPermissionsRequestSchema.ts";
 export { sortObjectSchema } from "./sortObjectSchema.ts";
 export { staffLogin200Schema, staffLoginMutationRequestSchema, staffLoginMutationResponseSchema } from "./staffLoginSchema.ts";
+export { togglePinPathParamsSchema, togglePin200Schema, togglePinMutationResponseSchema } from "./togglePinSchema.ts";
 export { transactionResponseSchema } from "./transactionResponseSchema.ts";
 export { updateCategory1PathParamsSchema, updateCategory1200Schema, updateCategory1MutationRequestSchema, updateCategory1MutationResponseSchema } from "./updateCategory1Schema.ts";
 export { updateCategoryPathParamsSchema, updateCategory200Schema, updateCategoryMutationRequestSchema, updateCategoryMutationResponseSchema } from "./updateCategorySchema.ts";
@@ -126,6 +135,8 @@ export { updateMyNationalHealthInsurance200Schema, updateMyNationalHealthInsuran
 export { updateMyNonCompulsoryHealthInsurance200Schema, updateMyNonCompulsoryHealthInsuranceMutationRequestSchema, updateMyNonCompulsoryHealthInsuranceMutationResponseSchema } from "./updateMyNonCompulsoryHealthInsuranceSchema.ts";
 export { updateMyProfile200Schema, updateMyProfileMutationRequestSchema, updateMyProfileMutationResponseSchema } from "./updateMyProfileSchema.ts";
 export { updateNationalHealthInsurancePathParamsSchema, updateNationalHealthInsurance200Schema, updateNationalHealthInsuranceMutationRequestSchema, updateNationalHealthInsuranceMutationResponseSchema } from "./updateNationalHealthInsuranceSchema.ts";
+export { updateNewsRequestSchema } from "./updateNewsRequestSchema.ts";
+export { updateNewsPathParamsSchema, updateNews200Schema, updateNewsMutationRequestSchema, updateNewsMutationResponseSchema } from "./updateNewsSchema.ts";
 export { updateNonCompulsoryHealthInsurancePathParamsSchema, updateNonCompulsoryHealthInsurance200Schema, updateNonCompulsoryHealthInsuranceMutationRequestSchema, updateNonCompulsoryHealthInsuranceMutationResponseSchema } from "./updateNonCompulsoryHealthInsuranceSchema.ts";
 export { updateUserBasicInfoPathParamsSchema, updateUserBasicInfo200Schema, updateUserBasicInfoMutationRequestSchema, updateUserBasicInfoMutationResponseSchema } from "./updateUserBasicInfoSchema.ts";
 export { updateUserCompanyInfoPathParamsSchema, updateUserCompanyInfo200Schema, updateUserCompanyInfoMutationRequestSchema, updateUserCompanyInfoMutationResponseSchema } from "./updateUserCompanyInfoSchema.ts";
