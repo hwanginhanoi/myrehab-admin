@@ -134,6 +134,7 @@
     "createdAt": "Created At",
     "updatedAt": "Updated At",
     "createNews": "Create News",
+    "createNewsDescription": "Manage news articles and posts",
     "editNews": "Edit News",
     "deleteNews": "Delete News",
     "deleteConfirm": "Are you sure you want to delete this news article?",

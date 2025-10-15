@@ -137,6 +137,7 @@
     "createdAt": "Ngày tạo",
     "updatedAt": "Ngày cập nhật",
     "createNews": "Tạo tin tức mới",
+    "createNewsDescription": "Quản lý tin tức và bài viết",
     "editNews": "Chỉnh sửa tin tức",
     "deleteNews": "Xóa tin tức",
     "deleteConfirm": "Bạn có chắc chắn muốn xóa tin tức này?",
