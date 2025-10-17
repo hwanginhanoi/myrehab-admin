@@ -81,22 +81,27 @@ export default function NewsDetailPage({ params }: { params: { id: string } }) {
 
   return (
     <div className="flex flex-1 flex-col">
+      {/* Back Button */}
       <div className="m-9 mt-9 mb-6">
-        {/* Header */}
+        <Button
+          variant="outline"
+          onClick={() => router.back()}
+          className="border-[#6DBAD6] text-[#6DBAD6] hover:bg-[#6DBAD6] hover:text-white px-4 py-2 rounded-md flex items-center gap-2"
+        >
+          <ArrowLeft className="w-5 h-5" />
+          {tCommon('back')}
+        </Button>
+      </div>
+
+      {/* Main Content */}
+      <div className="m-9 mt-0 mb-6">
         <div className="flex items-center justify-between mb-6">
+          <h1 className="text-4xl font-bold text-[#EF7F26]">{news.title}</h1>
           <Button
-            variant="ghost"
-            onClick={() => router.back()}
-            className="flex items-center gap-2"
-          >
-            <ArrowLeft className="w-4 h-4" />
-            {tCommon('back')}
-          </Button>
-          <Button
-            className="bg-[#6DBAD6] text-white flex items-center gap-2"
+            className="bg-[#6DBAD6] text-white hover:bg-[#6DBAD6]/90 px-4 py-2 rounded-md flex items-center gap-2"
             onClick={() => router.push(`/dashboard/news/${newsId}/edit`)}
           >
-            <Edit className="w-4 h-4" />
+            <Edit className="w-5 h-5" />
             {t('editNews')}
           </Button>
         </div>

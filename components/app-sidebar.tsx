@@ -19,7 +19,6 @@ import {
   SidebarContent,
   SidebarFooter,
   SidebarHeader,
-  SidebarRail,
 } from "@/components/ui/sidebar"
 
 const sidebarData = {
@@ -95,8 +94,16 @@ const sidebarData = {
       isActive: false,
       items: [
         {
-          title: "Danh sách tài khoản",
+          title: "Người dùng",
           url: "/dashboard/users",
+        },
+        {
+          title: "Bác sĩ",
+          url: "/dashboard/doctors",
+        },
+        {
+          title: "Quản trị viên",
+          url: "/dashboard/admins",
         },
       ],
     },
@@ -118,7 +125,7 @@ const sidebarData = {
       icon: Map,
     },
   ],
-} as const
+}
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
 
