@@ -1,6 +1,7 @@
 
 import axios from 'axios';
 import type { AxiosError, AxiosRequestConfig, AxiosResponse } from 'axios';
+import qs from 'qs';
 
 /**
  * Subset of AxiosRequestConfig
@@ -43,8 +44,31 @@ export const setConfig = (config: RequestConfig) => {
   return getConfig();
 };
 
+// Custom params serializer to flatten pageable object for Spring Boot compatibility
+const customParamsSerializer = (params: any) => {
+  if (!params) return '';
+
+  // Check if params has a pageable property and flatten it
+  if (params.pageable) {
+    const { pageable, ...rest } = params;
+    const flattenedParams = {
+      ...rest,
+      ...(pageable.page !== undefined && { page: pageable.page }),
+      ...(pageable.size !== undefined && { size: pageable.size }),
+      ...(pageable.sort !== undefined && { sort: pageable.sort }),
+    };
+    // Use 'repeat' format for arrays: ?sort=createdAt,desc&sort=name,asc
+    return qs.stringify(flattenedParams, { arrayFormat: 'repeat' });
+  }
+
+  return qs.stringify(params, { arrayFormat: 'repeat' });
+};
+
 // Create axios instance
-const axiosInstance = axios.create(getConfig());
+const axiosInstance = axios.create({
+  ...getConfig(),
+  paramsSerializer: customParamsSerializer,
+});
 
 // Add a request interceptor
 axiosInstance.interceptors.request.use(
