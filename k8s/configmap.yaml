@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: myrehab-admin-config
+  labels:
+    app: myrehab-admin
+data:
+  # Backend API URL - Update this to your backend service
+  # Format: http://service-name:port or http://service-name.namespace:port
+  NEXT_PUBLIC_API_URL: "http://myrehab-backend:8080"

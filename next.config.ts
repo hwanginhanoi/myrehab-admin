@@ -1,6 +1,9 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
+  // Enable standalone output for Docker/k8s deployments
+  output: 'standalone',
+
   images: {
     remotePatterns: [
       {
@@ -14,10 +17,12 @@ const nextConfig: NextConfig = {
     ],
   },
   async rewrites() {
+    const apiUrl = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8080";
+
     return [
       {
         source: "/api/:path*",
-        destination: "http://localhost:8080/api/:path*",
+        destination: `${apiUrl}/api/:path*`,
       },
     ];
   },

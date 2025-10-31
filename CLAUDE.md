@@ -31,6 +31,70 @@ npm run lint
 npm run generate
 ```
 
+## Environment Variables
+
+The project uses environment variables for configuration. Copy `.env.example` to `.env.local` for local development:
+
+```bash
+cp .env.example .env.local
+```
+
+### Available Variables
+
+- **`NEXT_PUBLIC_API_URL`** - Backend API URL (default: `http://localhost:8080`)
+- **`NODE_ENV`** - Node environment (`development`, `production`, `test`)
+
+### Usage
+
+```typescript
+// Import the type-safe env configuration
+import { env } from '@/lib/env';
+
+// Use environment variables
+console.log(env.apiUrl);      // Backend API URL
+console.log(env.isProd);      // true in production
+console.log(env.isDev);       // true in development
+```
+
+### Deployment
+
+For production deployment on a VPS, create a `.env.production` file:
+
+```env
+NEXT_PUBLIC_API_URL=http://your-backend-server:8080
+NODE_ENV=production
+```
+
+## Kubernetes Deployment
+
+The project is production-ready for Kubernetes deployment with Docker support.
+
+### Quick Deploy
+
+```bash
+# Configure your registry in k8s/deploy.sh
+export REGISTRY=docker.io/your-registry
+
+# Deploy to k8s
+cd k8s
+./deploy.sh latest
+```
+
+### Files Overview
+
+- **Dockerfile** - Multi-stage production-optimized build
+- **k8s/deployment.yaml** - Kubernetes deployment with 2 replicas, health checks, and resource limits
+- **k8s/service.yaml** - ClusterIP service
+- **k8s/configmap.yaml** - Environment configuration
+- **k8s/ingress.yaml** - Ingress rules for external access
+- **k8s/deploy.sh** - Automated deployment script
+
+### Health Checks
+
+A health endpoint is available at `/api/health` for Kubernetes liveness and readiness probes.
+
+For detailed Kubernetes deployment instructions, see [k8s/README.md](k8s/README.md).
+
 ## Architecture & Code Generation
 
 ### API Client Generation

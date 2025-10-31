@@ -4,7 +4,7 @@
 */
 
 import type { Pageable } from "./Pageable.ts";
-import type { PageExerciseCategoryResponse } from "./PageExerciseCategoryResponse.ts";
+import type { PagedModelExerciseCategoryResponse } from "./PagedModelExerciseCategoryResponse.ts";
 
 export type SearchCategoriesPaginatedQueryParams = {
     /**
@@ -20,7 +20,7 @@ export type SearchCategoriesPaginatedQueryParams = {
 /**
  * @description OK
 */
-export type SearchCategoriesPaginated200 = PageExerciseCategoryResponse;
+export type SearchCategoriesPaginated200 = PagedModelExerciseCategoryResponse;
 
 export type SearchCategoriesPaginatedQueryResponse = SearchCategoriesPaginated200;
 

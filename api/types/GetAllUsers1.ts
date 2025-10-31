@@ -4,7 +4,7 @@
 */
 
 import type { Pageable } from "./Pageable.ts";
-import type { PageUserResponse } from "./PageUserResponse.ts";
+import type { PagedModelUserResponse } from "./PagedModelUserResponse.ts";
 
 export type GetAllUsers1QueryParams = {
     /**
@@ -16,7 +16,7 @@ export type GetAllUsers1QueryParams = {
 /**
  * @description OK
 */
-export type GetAllUsers1200 = PageUserResponse;
+export type GetAllUsers1200 = PagedModelUserResponse;
 
 export type GetAllUsers1QueryResponse = GetAllUsers1200;
 

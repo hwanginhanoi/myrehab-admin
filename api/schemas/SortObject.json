@@ -1,1 +1,0 @@
-{"type":"object","properties":{"empty":{"type":"boolean"},"sorted":{"type":"boolean"},"unsorted":{"type":"boolean"}},"x-readme-ref-name":"SortObject"}

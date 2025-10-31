@@ -40,6 +40,10 @@ export type CourseResponse = {
     */
     courseDays?: CourseDayResponse[];
     /**
+     * @type boolean | undefined
+    */
+    isOwned?: boolean;
+    /**
      * @type string | undefined, date-time
     */
     createdAt?: string;

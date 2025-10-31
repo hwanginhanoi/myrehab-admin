@@ -1,0 +1,1 @@
+{"type":"object","properties":{"activityId":{"type":"integer","format":"int64"},"courseTitle":{"type":"string"},"dayNumber":{"type":"integer","format":"int32"},"exerciseTitle":{"type":"string"},"completedAt":{"type":"string","format":"date-time"}},"x-readme-ref-name":"ActivityResponse"}

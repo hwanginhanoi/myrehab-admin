@@ -1,0 +1,1 @@
+{"type":"object","properties":{"courseId":{"type":"integer","format":"int64"}},"required":["courseId"],"x-readme-ref-name":"StartCourseRequest"}

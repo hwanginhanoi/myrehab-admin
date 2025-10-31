@@ -4,7 +4,7 @@
 */
 
 import type { Pageable } from "./Pageable.ts";
-import type { PagePurchaseResponse } from "./PagePurchaseResponse.ts";
+import type { PagedModelPurchaseResponse } from "./PagedModelPurchaseResponse.ts";
 
 export type GetMyPurchasesPaginatedQueryParams = {
     /**
@@ -16,7 +16,7 @@ export type GetMyPurchasesPaginatedQueryParams = {
 /**
  * @description OK
 */
-export type GetMyPurchasesPaginated200 = PagePurchaseResponse;
+export type GetMyPurchasesPaginated200 = PagedModelPurchaseResponse;
 
 export type GetMyPurchasesPaginatedQueryResponse = GetMyPurchasesPaginated200;
 

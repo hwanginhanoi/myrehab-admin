@@ -4,7 +4,7 @@
 */
 
 import type { Pageable } from "./Pageable.ts";
-import type { PageExerciseCategoryResponse } from "./PageExerciseCategoryResponse.ts";
+import type { PagedModelExerciseCategoryResponse } from "./PagedModelExerciseCategoryResponse.ts";
 
 export const getCategoriesByTypePaginatedPathParamsTypeEnum = {
     "BODY_PART": "BODY_PART",
@@ -33,7 +33,7 @@ export type GetCategoriesByTypePaginatedQueryParams = {
 /**
  * @description OK
 */
-export type GetCategoriesByTypePaginated200 = PageExerciseCategoryResponse;
+export type GetCategoriesByTypePaginated200 = PagedModelExerciseCategoryResponse;
 
 export type GetCategoriesByTypePaginatedQueryResponse = GetCategoriesByTypePaginated200;
 

@@ -1,0 +1,1 @@
+{"type":"object","properties":{"courseId":{"type":"integer","format":"int64"},"courseTitle":{"type":"string"},"startedAt":{"type":"string","format":"date-time"},"completedAt":{"type":"string","format":"date-time"},"totalDays":{"type":"integer","format":"int32"},"totalExercisesCompleted":{"type":"integer","format":"int32"}},"x-readme-ref-name":"CompletedCourseResponse"}

@@ -4,7 +4,7 @@
 */
 
 import type { Pageable } from "./Pageable.ts";
-import type { PageNewsResponse } from "./PageNewsResponse.ts";
+import type { PagedModelNewsResponse } from "./PagedModelNewsResponse.ts";
 
 export const getAllNewsQueryParamsStatusEnum = {
     "DRAFT": "DRAFT",
@@ -36,7 +36,7 @@ export type GetAllNewsQueryParams = {
 /**
  * @description OK
 */
-export type GetAllNews200 = PageNewsResponse;
+export type GetAllNews200 = PagedModelNewsResponse;
 
 export type GetAllNewsQueryResponse = GetAllNews200;
 

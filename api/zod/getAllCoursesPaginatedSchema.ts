@@ -4,18 +4,19 @@
 */
 
 import { pageableSchema } from "./pageableSchema.ts";
-import { pageCourseResponseSchema } from "./pageCourseResponseSchema.ts";
+import { pagedModelCourseResponseSchema } from "./pagedModelCourseResponseSchema.ts";
 import { z } from "zod";
 
 export const getAllCoursesPaginatedQueryParamsSchema = z.object({
     "pageable": z.lazy(() => pageableSchema),
 "categoryId": z.optional(z.coerce.number().int()),
+"categoryType": z.optional(z.enum(["BODY_PART", "RECOVERY_STAGE", "HEALTH_CONDITION", "DIFFICULTY_LEVEL", "EXERCISE_TYPE"])),
 "keyword": z.optional(z.string())
     })
 
 /**
  * @description OK
  */
-export const getAllCoursesPaginated200Schema = z.lazy(() => pageCourseResponseSchema)
+export const getAllCoursesPaginated200Schema = z.lazy(() => pagedModelCourseResponseSchema)
 
 export const getAllCoursesPaginatedQueryResponseSchema = z.lazy(() => getAllCoursesPaginated200Schema)

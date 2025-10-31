@@ -13,7 +13,7 @@ function getGetAllCoursesPaginatedUrl() {
 }
 
 /**
- * @description Retrieve a paginated list of courses with optional category and search filtering. Use query params: ?categoryId=1&keyword=search&page=0&size=10&sort=createdAt,desc
+ * @description Retrieve a paginated list of courses with optional filtering. Smart filtering: Regular users (ROLE_USER) automatically see only courses they don't own yet. Admins/Doctors see all courses. Filters: categoryId (specific category), categoryType (BODY_PART, RECOVERY_STAGE, etc.), keyword (search). Example: ?categoryType=BODY_PART&keyword=shoulder&page=0&size=10&sort=createdAt,desc
  * @summary Get paginated courses with filtering
  * {@link /api/courses/paginated}
  */

@@ -13,7 +13,7 @@ function getGetCourseByIdUrl(id: GetCourseByIdPathParams["id"]) {
 }
 
 /**
- * @description Retrieve a specific course by its ID
+ * @description Retrieve a specific course by its ID. 'isOwned' field: true/false for regular users (indicates purchase status), null for admins/doctors/unauthenticated (ownership not applicable).
  * @summary Get course by ID
  * {@link /api/courses/:id}
  */

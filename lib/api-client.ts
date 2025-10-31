@@ -30,8 +30,20 @@ export type ResponseConfig<TData = unknown> = {
 
 export type ResponseErrorConfig<TError = unknown> = AxiosError<TError>;
 
+// Get API URL based on environment
+const getApiBaseURL = (): string => {
+  // Client-side: use empty string (Next.js proxy handles this)
+  if (typeof window !== 'undefined') {
+    return '';
+  }
+
+  // Server-side: use environment variable or default
+  // In k8s, this should point to the backend service (e.g., http://backend-service:8080)
+  return process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8080';
+};
+
 let _config: Partial<RequestConfig> = {
-  baseURL: typeof window === 'undefined' ? 'http://localhost:8080' : '',
+  baseURL: getApiBaseURL(),
   headers: {
     'Content-Type': 'application/json',
   },

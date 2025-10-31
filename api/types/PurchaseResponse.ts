@@ -10,10 +10,6 @@ export type PurchaseResponse = {
     */
     id?: number;
     /**
-     * @type string | undefined
-    */
-    type?: string;
-    /**
      * @type integer | undefined, int64
     */
     courseId?: number;
@@ -21,14 +17,6 @@ export type PurchaseResponse = {
      * @type string | undefined
     */
     courseTitle?: string;
-    /**
-     * @type integer | undefined, int64
-    */
-    exerciseId?: number;
-    /**
-     * @type string | undefined
-    */
-    exerciseTitle?: string;
     /**
      * @type integer | undefined, int64
     */

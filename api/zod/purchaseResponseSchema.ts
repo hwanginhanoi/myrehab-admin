@@ -7,11 +7,8 @@ import { z } from "zod";
 
 export const purchaseResponseSchema = z.object({
     "id": z.optional(z.number().int()),
-"type": z.optional(z.string()),
 "courseId": z.optional(z.number().int()),
 "courseTitle": z.optional(z.string()),
-"exerciseId": z.optional(z.number().int()),
-"exerciseTitle": z.optional(z.string()),
 "price": z.optional(z.number().int()),
 "purchasedAt": z.optional(z.string().datetime())
     })

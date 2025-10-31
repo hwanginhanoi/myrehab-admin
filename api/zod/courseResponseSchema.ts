@@ -16,6 +16,7 @@ export const courseResponseSchema = z.object({
 "durationDays": z.optional(z.number().int()),
 "category": z.optional(z.lazy(() => courseCategoryResponseSchema)),
 "courseDays": z.optional(z.array(z.lazy(() => courseDayResponseSchema))),
+"isOwned": z.optional(z.boolean()),
 "createdAt": z.optional(z.string().datetime()),
 "updatedAt": z.optional(z.string().datetime())
     })

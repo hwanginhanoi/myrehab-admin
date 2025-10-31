@@ -4,7 +4,17 @@
 */
 
 import type { Pageable } from "./Pageable.ts";
-import type { PageCourseResponse } from "./PageCourseResponse.ts";
+import type { PagedModelCourseResponse } from "./PagedModelCourseResponse.ts";
+
+export const getAllCoursesPaginatedQueryParamsCategoryTypeEnum = {
+    "BODY_PART": "BODY_PART",
+    "RECOVERY_STAGE": "RECOVERY_STAGE",
+    "HEALTH_CONDITION": "HEALTH_CONDITION",
+    "DIFFICULTY_LEVEL": "DIFFICULTY_LEVEL",
+    "EXERCISE_TYPE": "EXERCISE_TYPE"
+} as const;
+
+export type GetAllCoursesPaginatedQueryParamsCategoryTypeEnumKey = (typeof getAllCoursesPaginatedQueryParamsCategoryTypeEnum)[keyof typeof getAllCoursesPaginatedQueryParamsCategoryTypeEnum];
 
 export type GetAllCoursesPaginatedQueryParams = {
     /**
@@ -18,13 +28,17 @@ export type GetAllCoursesPaginatedQueryParams = {
     /**
      * @type string | undefined
     */
+    categoryType?: GetAllCoursesPaginatedQueryParamsCategoryTypeEnumKey;
+    /**
+     * @type string | undefined
+    */
     keyword?: string;
 };
 
 /**
  * @description OK
 */
-export type GetAllCoursesPaginated200 = PageCourseResponse;
+export type GetAllCoursesPaginated200 = PagedModelCourseResponse;
 
 export type GetAllCoursesPaginatedQueryResponse = GetAllCoursesPaginated200;
 

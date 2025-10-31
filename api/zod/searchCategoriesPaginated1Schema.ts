@@ -4,7 +4,7 @@
 */
 
 import { pageableSchema } from "./pageableSchema.ts";
-import { pageCourseCategoryResponseSchema } from "./pageCourseCategoryResponseSchema.ts";
+import { pagedModelCourseCategoryResponseSchema } from "./pagedModelCourseCategoryResponseSchema.ts";
 import { z } from "zod";
 
 export const searchCategoriesPaginated1QueryParamsSchema = z.object({
@@ -15,6 +15,6 @@ export const searchCategoriesPaginated1QueryParamsSchema = z.object({
 /**
  * @description OK
  */
-export const searchCategoriesPaginated1200Schema = z.lazy(() => pageCourseCategoryResponseSchema)
+export const searchCategoriesPaginated1200Schema = z.lazy(() => pagedModelCourseCategoryResponseSchema)
 
 export const searchCategoriesPaginated1QueryResponseSchema = z.lazy(() => searchCategoriesPaginated1200Schema)

@@ -4,7 +4,7 @@
 */
 
 import { pageableSchema } from "./pageableSchema.ts";
-import { pagePurchaseResponseSchema } from "./pagePurchaseResponseSchema.ts";
+import { pagedModelPurchaseResponseSchema } from "./pagedModelPurchaseResponseSchema.ts";
 import { z } from "zod";
 
 export const getMyPurchasesPaginatedQueryParamsSchema = z.object({
@@ -14,6 +14,6 @@ export const getMyPurchasesPaginatedQueryParamsSchema = z.object({
 /**
  * @description OK
  */
-export const getMyPurchasesPaginated200Schema = z.lazy(() => pagePurchaseResponseSchema)
+export const getMyPurchasesPaginated200Schema = z.lazy(() => pagedModelPurchaseResponseSchema)
 
 export const getMyPurchasesPaginatedQueryResponseSchema = z.lazy(() => getMyPurchasesPaginated200Schema)

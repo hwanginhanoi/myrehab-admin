@@ -1,0 +1,1 @@
+{"type":"object","properties":{"fullName":{"type":"string","minLength":1},"email":{"type":"string","minLength":1},"password":{"type":"string","maxLength":2147483647,"minLength":6},"department":{"type":"string"},"enabled":{"type":"boolean"},"permissions":{"type":"array","items":{"type":"string"}}},"required":["email","fullName"],"x-readme-ref-name":"UpdateAdminRequest"}
