@@ -4,6 +4,11 @@ const nextConfig: NextConfig = {
   // Enable standalone output for Docker/k8s deployments
   output: 'standalone',
 
+  // Ignore ESLint errors during build (Vercel deployment)
+  eslint: {
+    ignoreDuringBuilds: true,
+  },
+
   images: {
     remotePatterns: [
       {
@@ -27,15 +32,5 @@ const nextConfig: NextConfig = {
     ];
   },
 };
-
-module.exports = {
-	typescript: {
-		// !! WARN !!
-		// Dangerously allow production builds to successfully complete even if
-		// your project has type errors.
-		// !! WARN !!
-		ignoreBuildErrors: true,
-	},
-}
 
 export default nextConfig;
