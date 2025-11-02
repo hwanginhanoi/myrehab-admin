@@ -26,7 +26,6 @@ export default function CreateNewCoursePage() {
         description: '',
         imageUrl: '',
         price: 0,
-        durationDays: 0,
         categoryId: '0',
       },
       courseDays: [],
@@ -69,12 +68,15 @@ export default function CreateNewCoursePage() {
     try {
       setSaving(true);
 
+      // Calculate duration days automatically from course days
+      const durationDays = data.courseDays.length;
+
       const requestData: CreateCourseRequest = {
         title: data.basicInfo.title,
         description: data.basicInfo.description || undefined,
         imageUrl: data.basicInfo.imageUrl || undefined,
         price: data.basicInfo.price,
-        durationDays: data.basicInfo.durationDays,
+        durationDays: durationDays,
         categoryId:
           data.basicInfo.categoryId !== '0'
             ? parseInt(data.basicInfo.categoryId, 10)

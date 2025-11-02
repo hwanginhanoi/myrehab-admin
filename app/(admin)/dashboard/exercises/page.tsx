@@ -29,7 +29,7 @@ import Image from 'next/image';
 import { getAllExercisesPaginated } from '@/api/api/exerciseManagementController/getAllExercisesPaginated';
 import { getAllCategories } from '@/api/api/exerciseCategoryManagementController/getAllCategories';
 import { ExerciseResponse } from '@/api/types/ExerciseResponse';
-import { PageExerciseResponse } from '@/api/types/PageExerciseResponse';
+import { PagedModelExerciseResponse } from '@/api/types/PagedModelExerciseResponse';
 import { ExerciseCategoryResponse } from '@/api/types/ExerciseCategoryResponse';
 import { toast } from 'sonner';
 import { ExerciseImage } from '@/components/exercises/ExerciseImage';
@@ -46,7 +46,7 @@ export default function ExercisesPage() {
   const [loading, setLoading] = useState(true);
   const [minLoadingTime, setMinLoadingTime] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  const [pageData, setPageData] = useState<PageExerciseResponse | null>(null);
+  const [pageData, setPageData] = useState<PagedModelExerciseResponse | null>(null);
   const [pagination, setPagination] = useState({
     pageIndex: 0,
     pageSize: 5,
@@ -195,7 +195,7 @@ export default function ExercisesPage() {
   const table = useReactTable({
     data: exercises,
     columns,
-    pageCount: pageData?.totalPages ?? 0,
+    pageCount: pageData?.page?.totalPages ?? 0,
     state: {
       pagination,
     },
@@ -298,11 +298,11 @@ export default function ExercisesPage() {
             <div className="text-base text-[#71717A]">
               {t('showing')} <span className="font-bold">{Math.min(
                 pagination.pageIndex * pagination.pageSize + 1,
-                pageData.totalElements || 0
+                pageData.page?.totalElements || 0
               )}-{Math.min(
                 (pagination.pageIndex + 1) * pagination.pageSize,
-                pageData.totalElements || 0
-              )}/{pageData.totalElements || 0}</span> {t('title').toLowerCase()}
+                pageData.page?.totalElements || 0
+              )}/{pageData.page?.totalElements || 0}</span> {t('title').toLowerCase()}
             </div>
             <div className="flex items-center gap-2">
               <Button

@@ -133,28 +133,6 @@ export function CourseBasicInfoStep({ form }: CourseBasicInfoStepProps) {
                 <p className="text-sm text-red-500">{errors.basicInfo.price.message}</p>
               )}
             </div>
-
-            {/* Duration */}
-            <div className="space-y-2">
-              <Label htmlFor="durationDays" className="text-sm font-medium text-[#71717A]">
-                Thời gian (ngày) *
-              </Label>
-              <Input
-                id="durationDays"
-                type="number"
-                min="1"
-                placeholder="Nhập số ngày..."
-                {...register('basicInfo.durationDays', {
-                  required: 'Thời gian là bắt buộc',
-                  valueAsNumber: true,
-                  min: { value: 1, message: 'Thời gian phải ít nhất 1 ngày' },
-                })}
-                className="w-full"
-              />
-              {errors.basicInfo?.durationDays && (
-                <p className="text-sm text-red-500">{errors.basicInfo.durationDays.message}</p>
-              )}
-            </div>
           </div>
         </div>
 

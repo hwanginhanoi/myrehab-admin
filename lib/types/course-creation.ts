@@ -5,7 +5,6 @@ export interface CourseBasicInfo {
   description: string;
   imageUrl: string;
   price: number;
-  durationDays: number;
   categoryId: string;
 }
 
