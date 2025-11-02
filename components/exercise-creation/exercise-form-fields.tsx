@@ -85,28 +85,58 @@ export function ExerciseFormFields({ form, disabled = false }: ExerciseFormField
           {errors.title && <p className="text-sm text-red-500">{errors.title.message}</p>}
         </div>
 
-        {/* Category Select */}
-        <div className="space-y-2">
-          <Label htmlFor="exercise-category" className="text-base font-medium text-[#09090B]">
-            Danh mục
-          </Label>
-          <Select
-            value={watch('categoryId')}
-            onValueChange={(value) => setValue('categoryId', value)}
-            disabled={disabled}
-          >
-            <SelectTrigger className="w-full">
-              <SelectValue placeholder="Danh mục" />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value="0">Không có danh mục</SelectItem>
-              {categories.map((category) => (
-                <SelectItem key={category.id} value={category.id?.toString() || '0'}>
-                  {category.name}
-                </SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
+        {/* Category and Duration Row */}
+        <div className="grid grid-cols-2 gap-6">
+          {/* Category Select */}
+          <div className="space-y-2">
+            <Label htmlFor="exercise-category" className="text-base font-medium text-[#09090B]">
+              Danh mục
+            </Label>
+            <Select
+              value={watch('categoryId')}
+              onValueChange={(value) => setValue('categoryId', value)}
+              disabled={disabled}
+            >
+              <SelectTrigger className="w-full">
+                <SelectValue placeholder="Danh mục" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="0">Không có danh mục</SelectItem>
+                {categories.map((category) => (
+                  <SelectItem key={category.id} value={category.id?.toString() || '0'}>
+                    {category.name}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          </div>
+
+          {/* Duration Input */}
+          <div className="space-y-2">
+            <Label htmlFor="exercise-duration" className="text-base font-medium text-[#09090B]">
+              Thời lượng (phút) *
+            </Label>
+            <Input
+              id="exercise-duration"
+              type="number"
+              min="1"
+              placeholder="Thời lượng sẽ được lấy từ video"
+              {...register('durationMinutes', {
+                required: 'Thời lượng là bắt buộc',
+                valueAsNumber: true,
+                min: { value: 1, message: 'Thời lượng phải ít nhất 1 phút' },
+              })}
+              disabled={true}
+              className="w-full bg-muted"
+              readOnly
+            />
+            {watch('durationMinutes') > 0 && (
+              <p className="text-xs text-blue-600">ℹ️ Thời lượng được tự động lấy từ video</p>
+            )}
+            {errors.durationMinutes && (
+              <p className="text-sm text-red-500">{errors.durationMinutes.message}</p>
+            )}
+          </div>
         </div>
 
         {/* Description Input */}
@@ -121,29 +151,6 @@ export function ExerciseFormFields({ form, disabled = false }: ExerciseFormField
             disabled={disabled}
             className="w-full min-h-[100px] resize-none"
           />
-        </div>
-
-        {/* Duration Input */}
-        <div className="space-y-2">
-          <Label htmlFor="exercise-duration" className="text-base font-medium text-[#09090B]">
-            Thời lượng (phút) *
-          </Label>
-          <Input
-            id="exercise-duration"
-            type="number"
-            min="1"
-            placeholder="Thời lượng (phút)"
-            {...register('durationMinutes', {
-              required: 'Thời lượng là bắt buộc',
-              valueAsNumber: true,
-              min: { value: 1, message: 'Thời lượng phải ít nhất 1 phút' },
-            })}
-            disabled={disabled}
-            className="w-full"
-          />
-          {errors.durationMinutes && (
-            <p className="text-sm text-red-500">{errors.durationMinutes.message}</p>
-          )}
         </div>
       </div>
 
@@ -170,6 +177,11 @@ export function ExerciseFormFields({ form, disabled = false }: ExerciseFormField
           <Label className="text-base font-medium text-[#09090B]">Tải lên video *</Label>
           <FileUpload
             onUploadCompleteAction={(fileUrl) => setValue('videoUrl', fileUrl)}
+            onVideoDurationExtracted={(durationMinutes) => {
+              setValue('durationMinutes', durationMinutes);
+              // Trigger validation to clear any errors
+              void form.trigger('durationMinutes');
+            }}
             acceptedTypes={['video/mp4', 'video/webm', 'video/quicktime']}
             fileType="video"
             maxFileSize={100}

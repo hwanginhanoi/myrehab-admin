@@ -17,6 +17,7 @@ interface FileUploadProps {
   onUploadCompleteAction: (fileUrl: string) => void;
   onUploadStart?: () => void;
   onUploadError?: (error: string) => void;
+  onVideoDurationExtracted?: (durationMinutes: number) => void;
   acceptedTypes: string[];
   fileType: 'image' | 'video';
   maxFileSize?: number; // in MB
@@ -39,6 +40,7 @@ export function FileUpload({
   onUploadCompleteAction,
   onUploadStart,
   onUploadError,
+  onVideoDurationExtracted,
   acceptedTypes,
   fileType,
   maxFileSize = 50, // Default 50MB
@@ -110,6 +112,27 @@ export function FileUpload({
     return null;
   }, [acceptedTypes, maxFileSize]);
 
+  const extractVideoDuration = useCallback(async (file: File): Promise<number> => {
+    return new Promise((resolve, reject) => {
+      const video = document.createElement('video');
+      video.preload = 'metadata';
+
+      video.onloadedmetadata = () => {
+        window.URL.revokeObjectURL(video.src);
+        const durationSeconds = video.duration;
+        const durationMinutes = Math.ceil(durationSeconds / 60); // Round up to nearest minute
+        resolve(durationMinutes);
+      };
+
+      video.onerror = () => {
+        window.URL.revokeObjectURL(video.src);
+        reject(new Error('Failed to load video metadata'));
+      };
+
+      video.src = URL.createObjectURL(file);
+    });
+  }, []);
+
   const uploadToS3 = useCallback(async (file: File, uploadUrl: string): Promise<void> => {
     return new Promise((resolve, reject) => {
       const xhr = new XMLHttpRequest();
@@ -174,6 +197,22 @@ export function FileUpload({
 
     onUploadStart?.();
 
+    // Extract video duration if it's a video file
+    if (fileType === 'video' && onVideoDurationExtracted) {
+      try {
+        const durationMinutes = await extractVideoDuration(file);
+        onVideoDurationExtracted(durationMinutes);
+        toast.success('Video duration extracted', {
+          description: `Duration: ${durationMinutes} minute${durationMinutes !== 1 ? 's' : ''}`
+        });
+      } catch (error) {
+        console.error('Failed to extract video duration:', error);
+        toast.warning('Could not extract video duration', {
+          description: 'Please enter the duration manually'
+        });
+      }
+    }
+
     try {
       // Generate presigned URL
       const presignedRequest: PresignedUrlRequest = {
@@ -222,7 +261,7 @@ export function FileUpload({
       onUploadError?.(errorMessage);
       toast.error('Upload failed', { description: errorMessage });
     }
-  }, [validateFile, fileType, onUploadStart, onUploadCompleteAction, onUploadError, uploadToS3]);
+  }, [validateFile, fileType, onUploadStart, onUploadCompleteAction, onUploadError, onVideoDurationExtracted, extractVideoDuration, uploadToS3]);
 
   const handleFileInputChange = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];

@@ -6,12 +6,11 @@
 import { exerciseProgressResponseSchema } from "./exerciseProgressResponseSchema.ts";
 import { z } from "zod";
 
-export const dayProgressResponseSchema = z.object({
+export const singleDayProgressResponseSchema = z.object({
     "dayNumber": z.optional(z.number().int()),
 "dayDescription": z.optional(z.string()),
-"isUnlocked": z.optional(z.boolean()),
-"isCompleted": z.optional(z.boolean()),
+"exercises": z.optional(z.array(z.lazy(() => exerciseProgressResponseSchema))),
 "totalExercises": z.optional(z.number().int()),
 "completedExercises": z.optional(z.number().int()),
-"exercises": z.optional(z.array(z.lazy(() => exerciseProgressResponseSchema)))
+"isCompleted": z.optional(z.boolean())
     })

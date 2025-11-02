@@ -33,10 +33,9 @@ export { getMyOwnedCourses } from "./courseManagementController/getMyOwnedCourse
 export { updateCourse } from "./courseManagementController/updateCourse.ts";
 export { completeCourse } from "./courseProgressController/completeCourse.ts";
 export { completeExercise } from "./courseProgressController/completeExercise.ts";
-export { getAllUserCourseProgress } from "./courseProgressController/getAllUserCourseProgress.ts";
 export { getCompletedCourses } from "./courseProgressController/getCompletedCourses.ts";
-export { getCourseProgress } from "./courseProgressController/getCourseProgress.ts";
-export { getInProgressCourses } from "./courseProgressController/getInProgressCourses.ts";
+export { getCurrentCourseProgress } from "./courseProgressController/getCurrentCourseProgress.ts";
+export { getDayProgress } from "./courseProgressController/getDayProgress.ts";
 export { startCourse } from "./courseProgressController/startCourse.ts";
 export { stopCourse } from "./courseProgressController/stopCourse.ts";
 export { createDoctor } from "./doctorManagementControllerController/createDoctor.ts";

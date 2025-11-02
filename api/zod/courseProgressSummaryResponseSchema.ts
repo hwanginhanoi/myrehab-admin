@@ -18,5 +18,7 @@ export const courseProgressSummaryResponseSchema = z.object({
 "isCompleted": z.optional(z.boolean()),
 "startedAt": z.optional(z.string().datetime()),
 "completedAt": z.optional(z.string().datetime()),
-"updatedAt": z.optional(z.string().datetime())
+"updatedAt": z.optional(z.string().datetime()),
+"lastDayCompletedDate": z.optional(z.string().date()),
+"isCurrentDayRestricted": z.optional(z.boolean())
     })

@@ -3,21 +3,16 @@
 * Do not edit manually.
 */
 
-import { courseProgressResponseSchema } from "./courseProgressResponseSchema.ts";
+import { singleDayProgressResponseSchema } from "./singleDayProgressResponseSchema.ts";
 import { z } from "zod";
 
 export const completeExercisePathParamsSchema = z.object({
-    "courseId": z.coerce.number().int(),
-"dayExerciseId": z.coerce.number().int()
-    })
-
-export const completeExerciseQueryParamsSchema = z.object({
-    "bypassRestriction": z.optional(z.boolean().default(false))
+    "dayExerciseId": z.coerce.number().int()
     })
 
 /**
  * @description OK
  */
-export const completeExercise200Schema = z.lazy(() => courseProgressResponseSchema)
+export const completeExercise200Schema = z.lazy(() => singleDayProgressResponseSchema)
 
 export const completeExerciseMutationResponseSchema = z.lazy(() => completeExercise200Schema)

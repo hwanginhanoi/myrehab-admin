@@ -4,22 +4,22 @@
 */
 
 import fetch from "@/lib/api-client";
-import type { StopCourseMutationResponse, StopCoursePathParams } from "../../types/StopCourse.ts";
+import type { StopCourseMutationResponse } from "../../types/StopCourse.ts";
 import type { RequestConfig, ResponseErrorConfig } from "@/lib/api-client";
 
-function getStopCourseUrl(courseId: StopCoursePathParams["courseId"]) {
-  const res = { method: 'POST', url: `/api/course-progress/courses/${courseId}/stop` as const }  
+function getStopCourseUrl() {
+  const res = { method: 'POST', url: `/api/course-progress/stop` as const }  
   return res
 }
 
 /**
- * @description Delete all progress for an incomplete course. User is quitting/abandoning this course.
- * @summary Stop/abandon a course
- * {@link /api/course-progress/courses/:courseId/stop}
+ * @description Delete all progress for your current incomplete course. User is quitting/abandoning this course.
+ * @summary Stop/abandon current course
+ * {@link /api/course-progress/stop}
  */
-export async function stopCourse(courseId: StopCoursePathParams["courseId"], config: Partial<RequestConfig> & { client?: typeof fetch } = {}) {
+export async function stopCourse(config: Partial<RequestConfig> & { client?: typeof fetch } = {}) {
   const { client: request = fetch, ...requestConfig } = config  
   
-  const res = await request<StopCourseMutationResponse, ResponseErrorConfig<Error>, unknown>({ method : "POST", url : getStopCourseUrl(courseId).url.toString(), ... requestConfig })  
+  const res = await request<StopCourseMutationResponse, ResponseErrorConfig<Error>, unknown>({ method : "POST", url : getStopCourseUrl().url.toString(), ... requestConfig })  
   return res.data
 }

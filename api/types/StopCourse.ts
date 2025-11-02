@@ -4,13 +4,6 @@
 */
 
 
-export type StopCoursePathParams = {
-    /**
-     * @type integer, int64
-    */
-    courseId: number;
-};
-
 /**
  * @description OK
 */
@@ -20,6 +13,5 @@ export type StopCourseMutationResponse = StopCourse200;
 
 export type StopCourseMutation = {
     Response: StopCourse200;
-    PathParams: StopCoursePathParams;
     Errors: any;
 };

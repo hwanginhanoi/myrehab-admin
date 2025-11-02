@@ -5,7 +5,7 @@
 
 import type { ExerciseProgressResponse } from "./ExerciseProgressResponse.ts";
 
-export type DayProgressResponse = {
+export type SingleDayProgressResponse = {
     /**
      * @type integer | undefined, int32
     */
@@ -15,13 +15,9 @@ export type DayProgressResponse = {
     */
     dayDescription?: string;
     /**
-     * @type boolean | undefined
+     * @type array | undefined
     */
-    isUnlocked?: boolean;
-    /**
-     * @type boolean | undefined
-    */
-    isCompleted?: boolean;
+    exercises?: ExerciseProgressResponse[];
     /**
      * @type integer | undefined, int32
     */
@@ -31,7 +27,7 @@ export type DayProgressResponse = {
     */
     completedExercises?: number;
     /**
-     * @type array | undefined
+     * @type boolean | undefined
     */
-    exercises?: ExerciseProgressResponse[];
+    isCompleted?: boolean;
 };

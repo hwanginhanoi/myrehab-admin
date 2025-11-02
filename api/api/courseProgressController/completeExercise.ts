@@ -4,22 +4,22 @@
 */
 
 import fetch from "@/lib/api-client";
-import type { CompleteExerciseMutationResponse, CompleteExercisePathParams, CompleteExerciseQueryParams } from "../../types/CompleteExercise.ts";
+import type { CompleteExerciseMutationResponse, CompleteExercisePathParams } from "../../types/CompleteExercise.ts";
 import type { RequestConfig, ResponseErrorConfig } from "@/lib/api-client";
 
-function getCompleteExerciseUrl(courseId: CompleteExercisePathParams["courseId"], dayExerciseId: CompleteExercisePathParams["dayExerciseId"]) {
-  const res = { method: 'POST', url: `/api/course-progress/courses/${courseId}/exercises/${dayExerciseId}/complete` as const }  
+function getCompleteExerciseUrl(dayExerciseId: CompleteExercisePathParams["dayExerciseId"]) {
+  const res = { method: 'POST', url: `/api/course-progress/exercises/${dayExerciseId}/complete` as const }  
   return res
 }
 
 /**
- * @description Mark an exercise as completed. Add ?bypassRestriction=true to bypass daily restriction.
+ * @description Mark an exercise as completed.
  * @summary Complete an exercise
- * {@link /api/course-progress/courses/:courseId/exercises/:dayExerciseId/complete}
+ * {@link /api/course-progress/exercises/:dayExerciseId/complete}
  */
-export async function completeExercise(courseId: CompleteExercisePathParams["courseId"], dayExerciseId: CompleteExercisePathParams["dayExerciseId"], params?: CompleteExerciseQueryParams, config: Partial<RequestConfig> & { client?: typeof fetch } = {}) {
+export async function completeExercise(dayExerciseId: CompleteExercisePathParams["dayExerciseId"], config: Partial<RequestConfig> & { client?: typeof fetch } = {}) {
   const { client: request = fetch, ...requestConfig } = config  
   
-  const res = await request<CompleteExerciseMutationResponse, ResponseErrorConfig<Error>, unknown>({ method : "POST", url : getCompleteExerciseUrl(courseId, dayExerciseId).url.toString(), params, ... requestConfig })  
+  const res = await request<CompleteExerciseMutationResponse, ResponseErrorConfig<Error>, unknown>({ method : "POST", url : getCompleteExerciseUrl(dayExerciseId).url.toString(), ... requestConfig })  
   return res.data
 }

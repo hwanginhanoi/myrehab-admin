@@ -57,4 +57,12 @@ export type CourseProgressSummaryResponse = {
      * @type string | undefined, date-time
     */
     updatedAt?: string;
+    /**
+     * @type string | undefined, date
+    */
+    lastDayCompletedDate?: string;
+    /**
+     * @type boolean | undefined
+    */
+    isCurrentDayRestricted?: boolean;
 };

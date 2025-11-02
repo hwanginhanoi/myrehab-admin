@@ -5,10 +5,6 @@
 
 import { z } from "zod";
 
-export const stopCoursePathParamsSchema = z.object({
-    "courseId": z.coerce.number().int()
-    })
-
 /**
  * @description OK
  */

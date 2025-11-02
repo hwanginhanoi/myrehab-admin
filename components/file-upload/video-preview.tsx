@@ -9,10 +9,11 @@ import { toast } from 'sonner';
 interface VideoPreviewProps {
   videoUrl: string;
   onVideoChange: (url: string) => void;
+  onVideoDurationExtracted?: (durationMinutes: number) => void;
   disabled?: boolean;
 }
 
-export function VideoPreview({ videoUrl, onVideoChange, disabled = false }: VideoPreviewProps) {
+export function VideoPreview({ videoUrl, onVideoChange, onVideoDurationExtracted, disabled = false }: VideoPreviewProps) {
   const [showUpload, setShowUpload] = useState(false);
   const [videoViewingUrl, setVideoViewingUrl] = useState<string | null>(null);
   const [loadingVideoUrl, setLoadingVideoUrl] = useState(false);
@@ -124,6 +125,7 @@ export function VideoPreview({ videoUrl, onVideoChange, disabled = false }: Vide
           onVideoChange(fileUrl);
           setShowUpload(false);
         }}
+        onVideoDurationExtracted={onVideoDurationExtracted}
         acceptedTypes={['video/mp4', 'video/webm', 'video/quicktime']}
         fileType="video"
         maxFileSize={100}

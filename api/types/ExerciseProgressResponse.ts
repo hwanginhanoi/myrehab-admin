@@ -16,6 +16,10 @@ export type ExerciseProgressResponse = {
     /**
      * @type string | undefined
     */
+    exerciseDescription?: string;
+    /**
+     * @type string | undefined
+    */
     exerciseTitle?: string;
     /**
      * @type string | undefined

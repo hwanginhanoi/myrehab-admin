@@ -3,37 +3,24 @@
 * Do not edit manually.
 */
 
-import type { CourseProgressResponse } from "./CourseProgressResponse.ts";
+import type { SingleDayProgressResponse } from "./SingleDayProgressResponse.ts";
 
 export type CompleteExercisePathParams = {
-    /**
-     * @type integer, int64
-    */
-    courseId: number;
     /**
      * @type integer, int64
     */
     dayExerciseId: number;
 };
 
-export type CompleteExerciseQueryParams = {
-    /**
-     * @default false
-     * @type boolean | undefined
-    */
-    bypassRestriction?: boolean;
-};
-
 /**
  * @description OK
 */
-export type CompleteExercise200 = CourseProgressResponse;
+export type CompleteExercise200 = SingleDayProgressResponse;
 
 export type CompleteExerciseMutationResponse = CompleteExercise200;
 
 export type CompleteExerciseMutation = {
     Response: CompleteExercise200;
     PathParams: CompleteExercisePathParams;
-    QueryParams: CompleteExerciseQueryParams;
     Errors: any;
 };

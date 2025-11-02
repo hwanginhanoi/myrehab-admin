@@ -3,16 +3,11 @@
 * Do not edit manually.
 */
 
-import { courseProgressResponseSchema } from "./courseProgressResponseSchema.ts";
 import { z } from "zod";
-
-export const completeCoursePathParamsSchema = z.object({
-    "courseId": z.coerce.number().int()
-    })
 
 /**
  * @description OK
  */
-export const completeCourse200Schema = z.lazy(() => courseProgressResponseSchema)
+export const completeCourse200Schema = z.any()
 
 export const completeCourseMutationResponseSchema = z.lazy(() => completeCourse200Schema)

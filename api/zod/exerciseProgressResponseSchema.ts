@@ -8,6 +8,7 @@ import { z } from "zod";
 export const exerciseProgressResponseSchema = z.object({
     "dayExerciseId": z.optional(z.number().int()),
 "exerciseId": z.optional(z.number().int()),
+"exerciseDescription": z.optional(z.string()),
 "exerciseTitle": z.optional(z.string()),
 "exerciseImageUrl": z.optional(z.string()),
 "exerciseVideoUrl": z.optional(z.string()),

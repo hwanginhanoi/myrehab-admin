@@ -12,7 +12,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/u
 import { GripVertical } from 'lucide-react';
 import { getAllExercisesPaginated } from '@/api/api/exerciseManagementController/getAllExercisesPaginated';
 import { ExerciseResponse } from '@/api/types/ExerciseResponse';
-import { PageExerciseResponse } from '@/api/types/PageExerciseResponse';
+import { PagedModelExerciseResponse } from '@/api/types/PagedModelExerciseResponse';
 import { CourseCreationFormData } from '@/lib/types/course-creation';
 import { useCourseDays } from '@/hooks/use-course-days';
 import { useExerciseDragDrop } from '@/hooks/use-exercise-drag-drop';
@@ -27,7 +27,7 @@ export function CourseArrangementStep({ form }: CourseArrangementStepProps) {
   const { watch } = form;
   const [exercises, setExercises] = useState<ExerciseResponse[]>([]);
   const [loading, setLoading] = useState(true);
-  const [pageData, setPageData] = useState<PageExerciseResponse | null>(null);
+  const [pageData, setPageData] = useState<PagedModelExerciseResponse | null>(null);
   const [pagination, setPagination] = useState({
     pageIndex: 0,
     pageSize: 10, // Load more exercises for better UX
@@ -162,7 +162,7 @@ export function CourseArrangementStep({ form }: CourseArrangementStepProps) {
                     categoryFilter={categoryFilter}
                     onCategoryChange={setCategoryFilter}
                     pageIndex={pagination.pageIndex}
-                    totalPages={pageData?.totalPages || 0}
+                    totalPages={pageData?.page?.totalPages || 0}
                     onPreviousPage={() =>
                       setPagination((prev) => ({
                         ...prev,

@@ -4,22 +4,22 @@
 */
 
 import fetch from "@/lib/api-client";
-import type { CompleteCourseMutationResponse, CompleteCoursePathParams } from "../../types/CompleteCourse.ts";
+import type { CompleteCourseMutationResponse } from "../../types/CompleteCourse.ts";
 import type { RequestConfig, ResponseErrorConfig } from "@/lib/api-client";
 
-function getCompleteCourseUrl(courseId: CompleteCoursePathParams["courseId"]) {
-  const res = { method: 'POST', url: `/api/course-progress/courses/${courseId}/complete` as const }  
+function getCompleteCourseUrl() {
+  const res = { method: 'POST', url: `/api/course-progress/complete` as const }  
   return res
 }
 
 /**
- * @description Mark a course as completed. Only allowed when all exercises are finished (100% progress).
- * @summary Manually complete a course
- * {@link /api/course-progress/courses/:courseId/complete}
+ * @description Mark your current course as completed. Only allowed when all exercises are finished (100% progress).
+ * @summary Manually complete current course
+ * {@link /api/course-progress/complete}
  */
-export async function completeCourse(courseId: CompleteCoursePathParams["courseId"], config: Partial<RequestConfig> & { client?: typeof fetch } = {}) {
+export async function completeCourse(config: Partial<RequestConfig> & { client?: typeof fetch } = {}) {
   const { client: request = fetch, ...requestConfig } = config  
   
-  const res = await request<CompleteCourseMutationResponse, ResponseErrorConfig<Error>, unknown>({ method : "POST", url : getCompleteCourseUrl(courseId).url.toString(), ... requestConfig })  
+  const res = await request<CompleteCourseMutationResponse, ResponseErrorConfig<Error>, unknown>({ method : "POST", url : getCompleteCourseUrl().url.toString(), ... requestConfig })  
   return res.data
 }

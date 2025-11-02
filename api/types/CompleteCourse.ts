@@ -3,24 +3,15 @@
 * Do not edit manually.
 */
 
-import type { CourseProgressResponse } from "./CourseProgressResponse.ts";
-
-export type CompleteCoursePathParams = {
-    /**
-     * @type integer, int64
-    */
-    courseId: number;
-};
 
 /**
  * @description OK
 */
-export type CompleteCourse200 = CourseProgressResponse;
+export type CompleteCourse200 = any;
 
 export type CompleteCourseMutationResponse = CompleteCourse200;
 
 export type CompleteCourseMutation = {
     Response: CompleteCourse200;
-    PathParams: CompleteCoursePathParams;
     Errors: any;
 };

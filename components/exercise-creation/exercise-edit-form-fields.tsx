@@ -34,28 +34,29 @@ export function ExerciseEditFormFields({
 
   return (
     <div className="space-y-6">
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        {/* Exercise Title Input */}
-        <div className="space-y-2">
-          <Label htmlFor="exercise-title" className="text-sm font-medium">
-            Tên bài tập *
-          </Label>
-          <Input
-            id="exercise-title"
-            placeholder="Nhập tên bài tập"
-            {...register('title', {
-              required: 'Tên bài tập là bắt buộc',
-              minLength: {
-                value: 2,
-                message: 'Tên bài tập phải có ít nhất 2 ký tự',
-              },
-            })}
-            className="w-full"
-            disabled={disabled}
-          />
-          {errors.title && <p className="text-sm text-red-500">{errors.title.message}</p>}
-        </div>
+      {/* Exercise Title Input */}
+      <div className="space-y-2">
+        <Label htmlFor="exercise-title" className="text-sm font-medium">
+          Tên bài tập *
+        </Label>
+        <Input
+          id="exercise-title"
+          placeholder="Nhập tên bài tập"
+          {...register('title', {
+            required: 'Tên bài tập là bắt buộc',
+            minLength: {
+              value: 2,
+              message: 'Tên bài tập phải có ít nhất 2 ký tự',
+            },
+          })}
+          className="w-full"
+          disabled={disabled}
+        />
+        {errors.title && <p className="text-sm text-red-500">{errors.title.message}</p>}
+      </div>
 
+      {/* Category and Duration Row */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         {/* Category Select */}
         <div className="space-y-2">
           <Label htmlFor="exercise-category" className="text-sm font-medium">
@@ -79,6 +80,33 @@ export function ExerciseEditFormFields({
             </SelectContent>
           </Select>
         </div>
+
+        {/* Duration Input */}
+        <div className="space-y-2">
+          <Label htmlFor="exercise-duration" className="text-sm font-medium">
+            Thời gian (phút) *
+          </Label>
+          <Input
+            id="exercise-duration"
+            type="number"
+            min="1"
+            placeholder="Thời lượng sẽ được lấy từ video"
+            {...register('durationMinutes', {
+              required: 'Thời gian là bắt buộc',
+              valueAsNumber: true,
+              min: { value: 1, message: 'Thời gian phải ít nhất 1 phút' },
+            })}
+            className="w-full bg-muted"
+            disabled={true}
+            readOnly
+          />
+          {watch('durationMinutes') > 0 && (
+            <p className="text-xs text-blue-600">ℹ️ Thời lượng được tự động lấy từ video</p>
+          )}
+          {errors.durationMinutes && (
+            <p className="text-sm text-red-500">{errors.durationMinutes.message}</p>
+          )}
+        </div>
       </div>
 
       {/* Description Input */}
@@ -93,29 +121,6 @@ export function ExerciseEditFormFields({
           className="w-full min-h-[120px]"
           disabled={disabled}
         />
-      </div>
-
-      {/* Duration Input */}
-      <div className="space-y-2">
-        <Label htmlFor="exercise-duration" className="text-sm font-medium">
-          Thời gian (phút) *
-        </Label>
-        <Input
-          id="exercise-duration"
-          type="number"
-          min="1"
-          placeholder="Nhập thời gian"
-          {...register('durationMinutes', {
-            required: 'Thời gian là bắt buộc',
-            valueAsNumber: true,
-            min: { value: 1, message: 'Thời gian phải ít nhất 1 phút' },
-          })}
-          className="w-full"
-          disabled={disabled}
-        />
-        {errors.durationMinutes && (
-          <p className="text-sm text-red-500">{errors.durationMinutes.message}</p>
-        )}
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -135,6 +140,11 @@ export function ExerciseEditFormFields({
           <VideoPreview
             videoUrl={watch('videoUrl')}
             onVideoChange={(url) => setValue('videoUrl', url)}
+            onVideoDurationExtracted={(durationMinutes) => {
+              setValue('durationMinutes', durationMinutes);
+              // Trigger validation to clear any errors
+              void form.trigger('durationMinutes');
+            }}
             disabled={disabled}
           />
         </div>

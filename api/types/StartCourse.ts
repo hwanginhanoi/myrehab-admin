@@ -3,13 +3,12 @@
 * Do not edit manually.
 */
 
-import type { CourseProgressResponse } from "./CourseProgressResponse.ts";
 import type { StartCourseRequest } from "./StartCourseRequest.ts";
 
 /**
  * @description OK
 */
-export type StartCourse200 = CourseProgressResponse;
+export type StartCourse200 = any;
 
 export type StartCourseMutationRequest = StartCourseRequest;
 
