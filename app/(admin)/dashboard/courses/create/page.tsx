@@ -28,7 +28,13 @@ export default function CreateNewCoursePage() {
         price: 0,
         categoryId: '0',
       },
-      courseDays: [],
+      courseDays: [
+        {
+          dayNumber: 1,
+          dayDescription: '',
+          dayExercises: [],
+        },
+      ],
     },
   });
 

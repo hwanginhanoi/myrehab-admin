@@ -24,7 +24,6 @@ interface CourseArrangementStepProps {
 }
 
 export function CourseArrangementStep({ form }: CourseArrangementStepProps) {
-  const { watch } = form;
   const [exercises, setExercises] = useState<ExerciseResponse[]>([]);
   const [loading, setLoading] = useState(true);
   const [pageData, setPageData] = useState<PagedModelExerciseResponse | null>(null);
@@ -80,13 +79,6 @@ export function CourseArrangementStep({ form }: CourseArrangementStepProps) {
     );
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [pagination.pageIndex, pagination.pageSize, searchTerm, categoryFilter]);
-
-  useEffect(() => {
-    const durationDays = watch('basicInfo.durationDays');
-    if (durationDays && courseDays.fields.length === 0) {
-      courseDays.initializeDays(durationDays);
-    }
-  }, [watch, courseDays]);
 
   if (loading) {
     return (
