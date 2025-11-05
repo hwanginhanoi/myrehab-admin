@@ -13,6 +13,6 @@ export const searchCategories1QueryParamsSchema = z.object({
 /**
  * @description OK
  */
-export const searchCategories1200Schema = z.array(z.lazy(() => courseCategoryResponseSchema))
+export const searchCategories1200Schema = z.array(courseCategoryResponseSchema)
 
-export const searchCategories1QueryResponseSchema = z.lazy(() => searchCategories1200Schema)
+export const searchCategories1QueryResponseSchema = searchCategories1200Schema

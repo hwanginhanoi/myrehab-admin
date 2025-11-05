@@ -14,6 +14,6 @@ export const getMyPurchasesPaginatedQueryParamsSchema = z.object({
 /**
  * @description OK
  */
-export const getMyPurchasesPaginated200Schema = z.lazy(() => pagedModelPurchaseResponseSchema)
+export const getMyPurchasesPaginated200Schema = pagedModelPurchaseResponseSchema
 
-export const getMyPurchasesPaginatedQueryResponseSchema = z.lazy(() => getMyPurchasesPaginated200Schema)
+export const getMyPurchasesPaginatedQueryResponseSchema = getMyPurchasesPaginated200Schema

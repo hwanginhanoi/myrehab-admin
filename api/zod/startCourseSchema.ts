@@ -11,6 +11,6 @@ import { z } from "zod";
  */
 export const startCourse200Schema = z.any()
 
-export const startCourseMutationRequestSchema = z.lazy(() => startCourseRequestSchema)
+export const startCourseMutationRequestSchema = startCourseRequestSchema
 
-export const startCourseMutationResponseSchema = z.lazy(() => startCourse200Schema)
+export const startCourseMutationResponseSchema = startCourse200Schema

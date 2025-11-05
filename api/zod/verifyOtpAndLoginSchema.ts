@@ -5,13 +5,12 @@
 
 import { authResponseSchema } from "./authResponseSchema.ts";
 import { otpVerificationRequestSchema } from "./otpVerificationRequestSchema.ts";
-import { z } from "zod";
 
 /**
  * @description OK
  */
-export const verifyOtpAndLogin200Schema = z.lazy(() => authResponseSchema)
+export const verifyOtpAndLogin200Schema = authResponseSchema
 
-export const verifyOtpAndLoginMutationRequestSchema = z.lazy(() => otpVerificationRequestSchema)
+export const verifyOtpAndLoginMutationRequestSchema = otpVerificationRequestSchema
 
-export const verifyOtpAndLoginMutationResponseSchema = z.lazy(() => verifyOtpAndLogin200Schema)
+export const verifyOtpAndLoginMutationResponseSchema = verifyOtpAndLogin200Schema

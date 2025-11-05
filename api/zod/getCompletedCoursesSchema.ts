@@ -9,6 +9,6 @@ import { z } from "zod";
 /**
  * @description OK
  */
-export const getCompletedCourses200Schema = z.array(z.lazy(() => completedCourseResponseSchema))
+export const getCompletedCourses200Schema = z.array(completedCourseResponseSchema)
 
-export const getCompletedCoursesQueryResponseSchema = z.lazy(() => getCompletedCourses200Schema)
+export const getCompletedCoursesQueryResponseSchema = getCompletedCourses200Schema

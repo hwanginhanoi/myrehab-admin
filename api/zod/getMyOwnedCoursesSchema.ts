@@ -14,6 +14,6 @@ export const getMyOwnedCoursesQueryParamsSchema = z.object({
 /**
  * @description OK
  */
-export const getMyOwnedCourses200Schema = z.lazy(() => pagedModelCourseResponseSchema)
+export const getMyOwnedCourses200Schema = pagedModelCourseResponseSchema
 
-export const getMyOwnedCoursesQueryResponseSchema = z.lazy(() => getMyOwnedCourses200Schema)
+export const getMyOwnedCoursesQueryResponseSchema = getMyOwnedCourses200Schema

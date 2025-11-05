@@ -4,11 +4,10 @@
 */
 
 import { activityStatsResponseSchema } from "./activityStatsResponseSchema.ts";
-import { z } from "zod";
 
 /**
  * @description OK
  */
-export const getActivityStats200Schema = z.lazy(() => activityStatsResponseSchema)
+export const getActivityStats200Schema = activityStatsResponseSchema
 
-export const getActivityStatsQueryResponseSchema = z.lazy(() => getActivityStats200Schema)
+export const getActivityStatsQueryResponseSchema = getActivityStats200Schema

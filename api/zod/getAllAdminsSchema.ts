@@ -14,6 +14,6 @@ export const getAllAdminsQueryParamsSchema = z.object({
 /**
  * @description OK
  */
-export const getAllAdmins200Schema = z.lazy(() => pagedModelAdminResponseSchema)
+export const getAllAdmins200Schema = pagedModelAdminResponseSchema
 
-export const getAllAdminsQueryResponseSchema = z.lazy(() => getAllAdmins200Schema)
+export const getAllAdminsQueryResponseSchema = getAllAdmins200Schema

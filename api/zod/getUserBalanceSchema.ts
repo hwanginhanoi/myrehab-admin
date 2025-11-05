@@ -4,11 +4,10 @@
 */
 
 import { balanceResponseSchema } from "./balanceResponseSchema.ts";
-import { z } from "zod";
 
 /**
  * @description OK
  */
-export const getUserBalance200Schema = z.lazy(() => balanceResponseSchema)
+export const getUserBalance200Schema = balanceResponseSchema
 
-export const getUserBalanceQueryResponseSchema = z.lazy(() => getUserBalance200Schema)
+export const getUserBalanceQueryResponseSchema = getUserBalance200Schema

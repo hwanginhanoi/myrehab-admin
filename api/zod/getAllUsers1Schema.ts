@@ -14,6 +14,6 @@ export const getAllUsers1QueryParamsSchema = z.object({
 /**
  * @description OK
  */
-export const getAllUsers1200Schema = z.lazy(() => pagedModelUserResponseSchema)
+export const getAllUsers1200Schema = pagedModelUserResponseSchema
 
-export const getAllUsers1QueryResponseSchema = z.lazy(() => getAllUsers1200Schema)
+export const getAllUsers1QueryResponseSchema = getAllUsers1200Schema

@@ -1,0 +1,1 @@
+{"type":"object","properties":{"courseId":{"type":"integer","format":"int64"},"userIds":{"type":"array","items":{"type":"integer","format":"int64"},"minItems":1},"notes":{"type":"string"}},"required":["courseId","userIds"],"x-readme-ref-name":"AssignCourseRequest"}

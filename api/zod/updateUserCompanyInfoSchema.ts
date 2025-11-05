@@ -14,8 +14,8 @@ export const updateUserCompanyInfoPathParamsSchema = z.object({
 /**
  * @description OK
  */
-export const updateUserCompanyInfo200Schema = z.lazy(() => userCompanyInfoResponseSchema)
+export const updateUserCompanyInfo200Schema = userCompanyInfoResponseSchema
 
-export const updateUserCompanyInfoMutationRequestSchema = z.lazy(() => userCompanyInfoRequestSchema)
+export const updateUserCompanyInfoMutationRequestSchema = userCompanyInfoRequestSchema
 
-export const updateUserCompanyInfoMutationResponseSchema = z.lazy(() => updateUserCompanyInfo200Schema)
+export const updateUserCompanyInfoMutationResponseSchema = updateUserCompanyInfo200Schema

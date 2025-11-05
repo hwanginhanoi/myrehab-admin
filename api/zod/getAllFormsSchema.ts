@@ -14,6 +14,6 @@ export const getAllFormsQueryParamsSchema = z.object({
 /**
  * @description OK
  */
-export const getAllForms200Schema = z.lazy(() => pagedModelRehabilitationExaminationFormResponseSchema)
+export const getAllForms200Schema = pagedModelRehabilitationExaminationFormResponseSchema
 
-export const getAllFormsQueryResponseSchema = z.lazy(() => getAllForms200Schema)
+export const getAllFormsQueryResponseSchema = getAllForms200Schema

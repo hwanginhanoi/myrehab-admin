@@ -11,6 +11,6 @@ import { z } from "zod";
  */
 export const sendOtpForUser200Schema = z.string()
 
-export const sendOtpForUserMutationRequestSchema = z.lazy(() => otpLoginRequestSchema)
+export const sendOtpForUserMutationRequestSchema = otpLoginRequestSchema
 
-export const sendOtpForUserMutationResponseSchema = z.lazy(() => sendOtpForUser200Schema)
+export const sendOtpForUserMutationResponseSchema = sendOtpForUser200Schema

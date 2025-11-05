@@ -14,6 +14,6 @@ export const getAllDoctorsQueryParamsSchema = z.object({
 /**
  * @description OK
  */
-export const getAllDoctors200Schema = z.lazy(() => pagedModelDoctorResponseSchema)
+export const getAllDoctors200Schema = pagedModelDoctorResponseSchema
 
-export const getAllDoctorsQueryResponseSchema = z.lazy(() => getAllDoctors200Schema)
+export const getAllDoctorsQueryResponseSchema = getAllDoctors200Schema

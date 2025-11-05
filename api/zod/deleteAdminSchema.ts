@@ -14,4 +14,4 @@ export const deleteAdminPathParamsSchema = z.object({
  */
 export const deleteAdmin200Schema = z.any()
 
-export const deleteAdminMutationResponseSchema = z.lazy(() => deleteAdmin200Schema)
+export const deleteAdminMutationResponseSchema = deleteAdmin200Schema

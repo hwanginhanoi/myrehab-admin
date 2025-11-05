@@ -14,8 +14,8 @@ export const updateUserBasicInfoPathParamsSchema = z.object({
 /**
  * @description OK
  */
-export const updateUserBasicInfo200Schema = z.lazy(() => userBasicInfoResponseSchema)
+export const updateUserBasicInfo200Schema = userBasicInfoResponseSchema
 
-export const updateUserBasicInfoMutationRequestSchema = z.lazy(() => userBasicInfoRequestSchema)
+export const updateUserBasicInfoMutationRequestSchema = userBasicInfoRequestSchema
 
-export const updateUserBasicInfoMutationResponseSchema = z.lazy(() => updateUserBasicInfo200Schema)
+export const updateUserBasicInfoMutationResponseSchema = updateUserBasicInfo200Schema

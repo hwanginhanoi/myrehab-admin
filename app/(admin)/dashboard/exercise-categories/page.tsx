@@ -33,7 +33,7 @@ import {
 import { MoreHorizontal, Eye, Edit, Plus, Search } from 'lucide-react';
 import { getAllCategoriesPaginated } from '@/api/api/exerciseCategoryManagementController/getAllCategoriesPaginated';
 import { ExerciseCategoryResponse } from '@/api/types/ExerciseCategoryResponse';
-import { PageExerciseCategoryResponse } from '@/api/types/PageExerciseCategoryResponse';
+import { PagedModelExerciseCategoryResponse } from '@/api/types/PagedModelExerciseCategoryResponse';
 import { toast } from 'sonner';
 import { TableSkeleton } from '@/components/ui/table-skeleton';
 
@@ -63,7 +63,7 @@ export default function ExerciseCategoriesPage() {
   const [loading, setLoading] = useState(true);
   const [minLoadingTime, setMinLoadingTime] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  const [pageData, setPageData] = useState<PageExerciseCategoryResponse | null>(null);
+  const [pageData, setPageData] = useState<PagedModelExerciseCategoryResponse | null>(null);
   const [pagination, setPagination] = useState({
     pageIndex: 0,
     pageSize: 10,
@@ -200,7 +200,7 @@ export default function ExerciseCategoriesPage() {
   const table = useReactTable({
     data: categories,
     columns,
-    pageCount: pageData?.totalPages ?? 0,
+    pageCount: pageData?.page?.totalPages ?? 0,
     state: {
       pagination,
     },
@@ -348,11 +348,11 @@ export default function ExerciseCategoriesPage() {
                   <>
                     Hiển thị <span className="font-bold">{Math.min(
                       pagination.pageIndex * pagination.pageSize + 1,
-                      pageData.totalElements || 0
+                      pageData.page?.totalElements || 0
                     )}-{Math.min(
                       (pagination.pageIndex + 1) * pagination.pageSize,
-                      pageData.totalElements || 0
-                    )}/{pageData.totalElements || 0}</span> danh mục
+                      pageData.page?.totalElements || 0
+                    )}/{pageData.page?.totalElements || 0}</span> danh mục
                   </>
                 )}
               </div>

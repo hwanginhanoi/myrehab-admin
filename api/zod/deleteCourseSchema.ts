@@ -14,4 +14,4 @@ export const deleteCoursePathParamsSchema = z.object({
  */
 export const deleteCourse200Schema = z.any()
 
-export const deleteCourseMutationResponseSchema = z.lazy(() => deleteCourse200Schema)
+export const deleteCourseMutationResponseSchema = deleteCourse200Schema

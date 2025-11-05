@@ -13,6 +13,6 @@ export const getCategoriesByType1PathParamsSchema = z.object({
 /**
  * @description OK
  */
-export const getCategoriesByType1200Schema = z.array(z.lazy(() => courseCategoryResponseSchema))
+export const getCategoriesByType1200Schema = z.array(courseCategoryResponseSchema)
 
-export const getCategoriesByType1QueryResponseSchema = z.lazy(() => getCategoriesByType1200Schema)
+export const getCategoriesByType1QueryResponseSchema = getCategoriesByType1200Schema

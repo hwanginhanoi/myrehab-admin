@@ -41,7 +41,7 @@ import Image from 'next/image';
 import { getAllCoursesPaginated } from '@/api/api/courseManagementController/getAllCoursesPaginated';
 import { getAllCategories1 } from '@/api/api/courseCategoryManagementController/getAllCategories1';
 import { CourseResponse } from '@/api/types/CourseResponse';
-import { PageCourseResponse } from '@/api/types/PageCourseResponse';
+import { PagedModelCourseResponse } from '@/api/types/PagedModelCourseResponse';
 import { CourseCategoryResponse } from '@/api/types/CourseCategoryResponse';
 import { toast } from 'sonner';
 import { TableSkeleton } from '@/components/ui/table-skeleton';
@@ -56,7 +56,7 @@ export default function CoursesPage() {
   const [loading, setLoading] = useState(true);
   const [minLoadingTime, setMinLoadingTime] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  const [pageData, setPageData] = useState<PageCourseResponse | null>(null);
+  const [pageData, setPageData] = useState<PagedModelCourseResponse | null>(null);
   const [pagination, setPagination] = useState({
     pageIndex: 0,
     pageSize: 5,
@@ -245,7 +245,7 @@ export default function CoursesPage() {
   const table = useReactTable({
     data: courses,
     columns,
-    pageCount: pageData?.totalPages ?? 0,
+    pageCount: pageData?.page?.totalPages ?? 0,
     state: {
       pagination,
     },
@@ -440,11 +440,11 @@ export default function CoursesPage() {
                   <>
                     Hiển thị <span className="font-bold">{Math.min(
                       pagination.pageIndex * pagination.pageSize + 1,
-                      pageData.totalElements || 0
+                      pageData.page?.totalElements || 0
                     )}-{Math.min(
                       (pagination.pageIndex + 1) * pagination.pageSize,
-                      pageData.totalElements || 0
-                    )}/{pageData.totalElements || 0}</span> khóa học
+                      pageData.page?.totalElements || 0
+                    )}/{pageData.page?.totalElements || 0}</span> khóa học
                   </>
                 )}
               </div>

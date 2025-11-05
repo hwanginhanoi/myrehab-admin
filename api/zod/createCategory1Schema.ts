@@ -5,13 +5,12 @@
 
 import { courseCategoryResponseSchema } from "./courseCategoryResponseSchema.ts";
 import { createCourseCategoryRequestSchema } from "./createCourseCategoryRequestSchema.ts";
-import { z } from "zod";
 
 /**
  * @description OK
  */
-export const createCategory1200Schema = z.lazy(() => courseCategoryResponseSchema)
+export const createCategory1200Schema = courseCategoryResponseSchema
 
-export const createCategory1MutationRequestSchema = z.lazy(() => createCourseCategoryRequestSchema)
+export const createCategory1MutationRequestSchema = createCourseCategoryRequestSchema
 
-export const createCategory1MutationResponseSchema = z.lazy(() => createCategory1200Schema)
+export const createCategory1MutationResponseSchema = createCategory1200Schema

@@ -5,13 +5,12 @@
 
 import { createRehabilitationExaminationFormRequestSchema } from "./createRehabilitationExaminationFormRequestSchema.ts";
 import { rehabilitationExaminationFormResponseSchema } from "./rehabilitationExaminationFormResponseSchema.ts";
-import { z } from "zod";
 
 /**
  * @description OK
  */
-export const createForm200Schema = z.lazy(() => rehabilitationExaminationFormResponseSchema)
+export const createForm200Schema = rehabilitationExaminationFormResponseSchema
 
-export const createFormMutationRequestSchema = z.lazy(() => createRehabilitationExaminationFormRequestSchema)
+export const createFormMutationRequestSchema = createRehabilitationExaminationFormRequestSchema
 
-export const createFormMutationResponseSchema = z.lazy(() => createForm200Schema)
+export const createFormMutationResponseSchema = createForm200Schema

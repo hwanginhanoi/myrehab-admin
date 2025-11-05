@@ -17,6 +17,6 @@ export const getAllNewsQueryParamsSchema = z.object({
 /**
  * @description OK
  */
-export const getAllNews200Schema = z.lazy(() => pagedModelNewsResponseSchema)
+export const getAllNews200Schema = pagedModelNewsResponseSchema
 
-export const getAllNewsQueryResponseSchema = z.lazy(() => getAllNews200Schema)
+export const getAllNewsQueryResponseSchema = getAllNews200Schema

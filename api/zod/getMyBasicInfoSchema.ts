@@ -4,11 +4,10 @@
 */
 
 import { userBasicInfoResponseSchema } from "./userBasicInfoResponseSchema.ts";
-import { z } from "zod";
 
 /**
  * @description OK
  */
-export const getMyBasicInfo200Schema = z.lazy(() => userBasicInfoResponseSchema)
+export const getMyBasicInfo200Schema = userBasicInfoResponseSchema
 
-export const getMyBasicInfoQueryResponseSchema = z.lazy(() => getMyBasicInfo200Schema)
+export const getMyBasicInfoQueryResponseSchema = getMyBasicInfo200Schema

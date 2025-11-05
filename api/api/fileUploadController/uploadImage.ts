@@ -32,6 +32,6 @@ export async function uploadImage(data: UploadImageMutationRequest, config: Part
      }
    })
   }  
-  const res = await request<UploadImageMutationResponse, ResponseErrorConfig<Error>, UploadImageMutationRequest>({ method : "POST", url : getUploadImageUrl().url.toString(), data : formData, ... requestConfig, headers : { 'Content-Type': 'multipart/form-data', ...requestConfig.headers } })  
+  const res = await request<UploadImageMutationResponse, ResponseErrorConfig<Error>, UploadImageMutationRequest>({ method : "POST", url : getUploadImageUrl().url.toString(), data : formData, ... requestConfig })  
   return res.data
 }

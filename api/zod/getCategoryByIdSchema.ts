@@ -13,6 +13,6 @@ export const getCategoryByIdPathParamsSchema = z.object({
 /**
  * @description OK
  */
-export const getCategoryById200Schema = z.lazy(() => exerciseCategoryResponseSchema)
+export const getCategoryById200Schema = exerciseCategoryResponseSchema
 
-export const getCategoryByIdQueryResponseSchema = z.lazy(() => getCategoryById200Schema)
+export const getCategoryByIdQueryResponseSchema = getCategoryById200Schema

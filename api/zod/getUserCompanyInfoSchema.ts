@@ -13,6 +13,6 @@ export const getUserCompanyInfoPathParamsSchema = z.object({
 /**
  * @description OK
  */
-export const getUserCompanyInfo200Schema = z.lazy(() => userCompanyInfoResponseSchema)
+export const getUserCompanyInfo200Schema = userCompanyInfoResponseSchema
 
-export const getUserCompanyInfoQueryResponseSchema = z.lazy(() => getUserCompanyInfo200Schema)
+export const getUserCompanyInfoQueryResponseSchema = getUserCompanyInfo200Schema

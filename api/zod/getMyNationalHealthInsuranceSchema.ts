@@ -4,11 +4,10 @@
 */
 
 import { nationalHealthInsuranceResponseSchema } from "./nationalHealthInsuranceResponseSchema.ts";
-import { z } from "zod";
 
 /**
  * @description OK
  */
-export const getMyNationalHealthInsurance200Schema = z.lazy(() => nationalHealthInsuranceResponseSchema)
+export const getMyNationalHealthInsurance200Schema = nationalHealthInsuranceResponseSchema
 
-export const getMyNationalHealthInsuranceQueryResponseSchema = z.lazy(() => getMyNationalHealthInsurance200Schema)
+export const getMyNationalHealthInsuranceQueryResponseSchema = getMyNationalHealthInsurance200Schema

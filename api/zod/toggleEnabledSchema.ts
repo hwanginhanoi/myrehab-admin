@@ -13,6 +13,6 @@ export const toggleEnabledPathParamsSchema = z.object({
 /**
  * @description OK
  */
-export const toggleEnabled200Schema = z.lazy(() => doctorResponseSchema)
+export const toggleEnabled200Schema = doctorResponseSchema
 
-export const toggleEnabledMutationResponseSchema = z.lazy(() => toggleEnabled200Schema)
+export const toggleEnabledMutationResponseSchema = toggleEnabled200Schema

@@ -13,7 +13,7 @@ function getCreateCourseUrl() {
 }
 
 /**
- * @description Create a new rehabilitation course (Admin and Doctor only)
+ * @description Create a new rehabilitation course (Admin and Doctor only). Set isCustom=true to create a custom course.
  * @summary Create new course
  * {@link /api/courses}
  */

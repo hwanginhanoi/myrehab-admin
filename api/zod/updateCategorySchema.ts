@@ -14,8 +14,8 @@ export const updateCategoryPathParamsSchema = z.object({
 /**
  * @description OK
  */
-export const updateCategory200Schema = z.lazy(() => exerciseCategoryResponseSchema)
+export const updateCategory200Schema = exerciseCategoryResponseSchema
 
-export const updateCategoryMutationRequestSchema = z.lazy(() => updateExerciseCategoryRequestSchema)
+export const updateCategoryMutationRequestSchema = updateExerciseCategoryRequestSchema
 
-export const updateCategoryMutationResponseSchema = z.lazy(() => updateCategory200Schema)
+export const updateCategoryMutationResponseSchema = updateCategory200Schema

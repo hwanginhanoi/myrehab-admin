@@ -14,4 +14,4 @@ export const deleteDoctorPathParamsSchema = z.object({
  */
 export const deleteDoctor200Schema = z.any()
 
-export const deleteDoctorMutationResponseSchema = z.lazy(() => deleteDoctor200Schema)
+export const deleteDoctorMutationResponseSchema = deleteDoctor200Schema

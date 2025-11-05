@@ -13,6 +13,6 @@ export const getCourseByIdPathParamsSchema = z.object({
 /**
  * @description OK
  */
-export const getCourseById200Schema = z.lazy(() => courseResponseSchema)
+export const getCourseById200Schema = courseResponseSchema
 
-export const getCourseByIdQueryResponseSchema = z.lazy(() => getCourseById200Schema)
+export const getCourseByIdQueryResponseSchema = getCourseById200Schema

@@ -4,11 +4,10 @@
 */
 
 import { userCompanyInfoResponseSchema } from "./userCompanyInfoResponseSchema.ts";
-import { z } from "zod";
 
 /**
  * @description OK
  */
-export const getMyCompanyInfo200Schema = z.lazy(() => userCompanyInfoResponseSchema)
+export const getMyCompanyInfo200Schema = userCompanyInfoResponseSchema
 
-export const getMyCompanyInfoQueryResponseSchema = z.lazy(() => getMyCompanyInfo200Schema)
+export const getMyCompanyInfoQueryResponseSchema = getMyCompanyInfo200Schema

@@ -5,13 +5,12 @@
 
 import { courseResponseSchema } from "./courseResponseSchema.ts";
 import { createCourseRequestSchema } from "./createCourseRequestSchema.ts";
-import { z } from "zod";
 
 /**
  * @description OK
  */
-export const createCourse200Schema = z.lazy(() => courseResponseSchema)
+export const createCourse200Schema = courseResponseSchema
 
-export const createCourseMutationRequestSchema = z.lazy(() => createCourseRequestSchema)
+export const createCourseMutationRequestSchema = createCourseRequestSchema
 
-export const createCourseMutationResponseSchema = z.lazy(() => createCourse200Schema)
+export const createCourseMutationResponseSchema = createCourse200Schema

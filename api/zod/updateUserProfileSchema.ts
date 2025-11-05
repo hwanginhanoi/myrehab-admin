@@ -14,8 +14,8 @@ export const updateUserProfilePathParamsSchema = z.object({
 /**
  * @description OK
  */
-export const updateUserProfile200Schema = z.lazy(() => userProfileResponseSchema)
+export const updateUserProfile200Schema = userProfileResponseSchema
 
-export const updateUserProfileMutationRequestSchema = z.lazy(() => userProfileRequestSchema)
+export const updateUserProfileMutationRequestSchema = userProfileRequestSchema
 
-export const updateUserProfileMutationResponseSchema = z.lazy(() => updateUserProfile200Schema)
+export const updateUserProfileMutationResponseSchema = updateUserProfile200Schema

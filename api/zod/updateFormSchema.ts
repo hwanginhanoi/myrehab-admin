@@ -14,8 +14,8 @@ export const updateFormPathParamsSchema = z.object({
 /**
  * @description OK
  */
-export const updateForm200Schema = z.lazy(() => rehabilitationExaminationFormResponseSchema)
+export const updateForm200Schema = rehabilitationExaminationFormResponseSchema
 
-export const updateFormMutationRequestSchema = z.lazy(() => updateRehabilitationExaminationFormRequestSchema)
+export const updateFormMutationRequestSchema = updateRehabilitationExaminationFormRequestSchema
 
-export const updateFormMutationResponseSchema = z.lazy(() => updateForm200Schema)
+export const updateFormMutationResponseSchema = updateForm200Schema

@@ -13,6 +13,6 @@ export const getNewsByIdPathParamsSchema = z.object({
 /**
  * @description OK
  */
-export const getNewsById200Schema = z.lazy(() => newsResponseSchema)
+export const getNewsById200Schema = newsResponseSchema
 
-export const getNewsByIdQueryResponseSchema = z.lazy(() => getNewsById200Schema)
+export const getNewsByIdQueryResponseSchema = getNewsById200Schema

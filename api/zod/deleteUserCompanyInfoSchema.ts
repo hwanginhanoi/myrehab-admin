@@ -14,4 +14,4 @@ export const deleteUserCompanyInfoPathParamsSchema = z.object({
  */
 export const deleteUserCompanyInfo200Schema = z.any()
 
-export const deleteUserCompanyInfoMutationResponseSchema = z.lazy(() => deleteUserCompanyInfo200Schema)
+export const deleteUserCompanyInfoMutationResponseSchema = deleteUserCompanyInfo200Schema

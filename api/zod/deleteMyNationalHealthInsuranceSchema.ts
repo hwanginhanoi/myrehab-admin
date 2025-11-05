@@ -10,4 +10,4 @@ import { z } from "zod";
  */
 export const deleteMyNationalHealthInsurance200Schema = z.any()
 
-export const deleteMyNationalHealthInsuranceMutationResponseSchema = z.lazy(() => deleteMyNationalHealthInsurance200Schema)
+export const deleteMyNationalHealthInsuranceMutationResponseSchema = deleteMyNationalHealthInsurance200Schema

@@ -14,8 +14,8 @@ export const updateExercisePathParamsSchema = z.object({
 /**
  * @description OK
  */
-export const updateExercise200Schema = z.lazy(() => exerciseResponseSchema)
+export const updateExercise200Schema = exerciseResponseSchema
 
-export const updateExerciseMutationRequestSchema = z.lazy(() => updateExerciseRequestSchema)
+export const updateExerciseMutationRequestSchema = updateExerciseRequestSchema
 
-export const updateExerciseMutationResponseSchema = z.lazy(() => updateExercise200Schema)
+export const updateExerciseMutationResponseSchema = updateExercise200Schema

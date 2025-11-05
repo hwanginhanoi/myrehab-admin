@@ -5,13 +5,12 @@
 
 import { addBalanceRequestSchema } from "./addBalanceRequestSchema.ts";
 import { balanceResponseSchema } from "./balanceResponseSchema.ts";
-import { z } from "zod";
 
 /**
  * @description OK
  */
-export const addBalance200Schema = z.lazy(() => balanceResponseSchema)
+export const addBalance200Schema = balanceResponseSchema
 
-export const addBalanceMutationRequestSchema = z.lazy(() => addBalanceRequestSchema)
+export const addBalanceMutationRequestSchema = addBalanceRequestSchema
 
-export const addBalanceMutationResponseSchema = z.lazy(() => addBalance200Schema)
+export const addBalanceMutationResponseSchema = addBalance200Schema

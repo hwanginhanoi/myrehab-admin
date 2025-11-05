@@ -5,13 +5,12 @@
 
 import { authResponseSchema } from "./authResponseSchema.ts";
 import { refreshTokenRequestSchema } from "./refreshTokenRequestSchema.ts";
-import { z } from "zod";
 
 /**
  * @description OK
  */
-export const refreshToken200Schema = z.lazy(() => authResponseSchema)
+export const refreshToken200Schema = authResponseSchema
 
-export const refreshTokenMutationRequestSchema = z.lazy(() => refreshTokenRequestSchema)
+export const refreshTokenMutationRequestSchema = refreshTokenRequestSchema
 
-export const refreshTokenMutationResponseSchema = z.lazy(() => refreshToken200Schema)
+export const refreshTokenMutationResponseSchema = refreshToken200Schema

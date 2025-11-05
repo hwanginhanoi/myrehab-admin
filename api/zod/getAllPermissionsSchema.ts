@@ -10,4 +10,4 @@ import { z } from "zod";
  */
 export const getAllPermissions200Schema = z.array(z.string())
 
-export const getAllPermissionsQueryResponseSchema = z.lazy(() => getAllPermissions200Schema)
+export const getAllPermissionsQueryResponseSchema = getAllPermissions200Schema

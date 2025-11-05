@@ -13,6 +13,6 @@ export const completeExercisePathParamsSchema = z.object({
 /**
  * @description OK
  */
-export const completeExercise200Schema = z.lazy(() => singleDayProgressResponseSchema)
+export const completeExercise200Schema = singleDayProgressResponseSchema
 
-export const completeExerciseMutationResponseSchema = z.lazy(() => completeExercise200Schema)
+export const completeExerciseMutationResponseSchema = completeExercise200Schema

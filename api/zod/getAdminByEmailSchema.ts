@@ -13,6 +13,6 @@ export const getAdminByEmailPathParamsSchema = z.object({
 /**
  * @description OK
  */
-export const getAdminByEmail200Schema = z.lazy(() => adminResponseSchema)
+export const getAdminByEmail200Schema = adminResponseSchema
 
-export const getAdminByEmailQueryResponseSchema = z.lazy(() => getAdminByEmail200Schema)
+export const getAdminByEmailQueryResponseSchema = getAdminByEmail200Schema

@@ -13,6 +13,6 @@ export const getNationalHealthInsurancePathParamsSchema = z.object({
 /**
  * @description OK
  */
-export const getNationalHealthInsurance200Schema = z.lazy(() => nationalHealthInsuranceResponseSchema)
+export const getNationalHealthInsurance200Schema = nationalHealthInsuranceResponseSchema
 
-export const getNationalHealthInsuranceQueryResponseSchema = z.lazy(() => getNationalHealthInsurance200Schema)
+export const getNationalHealthInsuranceQueryResponseSchema = getNationalHealthInsurance200Schema

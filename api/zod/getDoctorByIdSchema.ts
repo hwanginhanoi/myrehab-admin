@@ -13,6 +13,6 @@ export const getDoctorByIdPathParamsSchema = z.object({
 /**
  * @description OK
  */
-export const getDoctorById200Schema = z.lazy(() => doctorResponseSchema)
+export const getDoctorById200Schema = doctorResponseSchema
 
-export const getDoctorByIdQueryResponseSchema = z.lazy(() => getDoctorById200Schema)
+export const getDoctorByIdQueryResponseSchema = getDoctorById200Schema

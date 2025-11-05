@@ -14,4 +14,4 @@ export const getDoctorPermissionsPathParamsSchema = z.object({
  */
 export const getDoctorPermissions200Schema = z.array(z.string())
 
-export const getDoctorPermissionsQueryResponseSchema = z.lazy(() => getDoctorPermissions200Schema)
+export const getDoctorPermissionsQueryResponseSchema = getDoctorPermissions200Schema

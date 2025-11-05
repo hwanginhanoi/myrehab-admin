@@ -4,11 +4,10 @@
 */
 
 import { courseProgressSummaryResponseSchema } from "./courseProgressSummaryResponseSchema.ts";
-import { z } from "zod";
 
 /**
  * @description OK
  */
-export const getCurrentCourseProgress200Schema = z.lazy(() => courseProgressSummaryResponseSchema)
+export const getCurrentCourseProgress200Schema = courseProgressSummaryResponseSchema
 
-export const getCurrentCourseProgressQueryResponseSchema = z.lazy(() => getCurrentCourseProgress200Schema)
+export const getCurrentCourseProgressQueryResponseSchema = getCurrentCourseProgress200Schema

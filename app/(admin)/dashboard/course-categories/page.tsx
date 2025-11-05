@@ -33,7 +33,7 @@ import {
 import { MoreHorizontal, Eye, Edit, Plus, Search } from 'lucide-react';
 import { getAllCategoriesPaginated1 } from '@/api/api/courseCategoryManagementController/getAllCategoriesPaginated1';
 import { CourseCategoryResponse } from '@/api/types/CourseCategoryResponse';
-import { PageCourseCategoryResponse } from '@/api/types/PageCourseCategoryResponse';
+import { PagedModelCourseCategoryResponse } from '@/api/types/PagedModelCourseCategoryResponse';
 import { toast } from 'sonner';
 import { TableSkeleton } from '@/components/ui/table-skeleton';
 
@@ -59,7 +59,7 @@ export default function CourseCategoriesPage() {
   const [loading, setLoading] = useState(true);
   const [minLoadingTime, setMinLoadingTime] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  const [pageData, setPageData] = useState<PageCourseCategoryResponse | null>(null);
+  const [pageData, setPageData] = useState<PagedModelCourseCategoryResponse | null>(null);
   const [pagination, setPagination] = useState({
     pageIndex: 0,
     pageSize: 10,
@@ -196,7 +196,7 @@ export default function CourseCategoriesPage() {
   const table = useReactTable({
     data: categories,
     columns,
-    pageCount: pageData?.totalPages ?? 0,
+    pageCount: pageData?.page?.totalPages ?? 0,
     state: {
       pagination,
     },
@@ -342,11 +342,11 @@ export default function CourseCategoriesPage() {
                   <>
                     Hiển thị <span className="font-bold">{Math.min(
                       pagination.pageIndex * pagination.pageSize + 1,
-                      pageData.totalElements || 0
+                      pageData.page?.totalElements || 0
                     )}-{Math.min(
                       (pagination.pageIndex + 1) * pagination.pageSize,
-                      pageData.totalElements || 0
-                    )}/{pageData.totalElements || 0}</span> danh mục
+                      pageData.page?.totalElements || 0
+                    )}/{pageData.page?.totalElements || 0}</span> danh mục
                   </>
                 )}
               </div>

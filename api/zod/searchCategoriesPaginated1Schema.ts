@@ -15,6 +15,6 @@ export const searchCategoriesPaginated1QueryParamsSchema = z.object({
 /**
  * @description OK
  */
-export const searchCategoriesPaginated1200Schema = z.lazy(() => pagedModelCourseCategoryResponseSchema)
+export const searchCategoriesPaginated1200Schema = pagedModelCourseCategoryResponseSchema
 
-export const searchCategoriesPaginated1QueryResponseSchema = z.lazy(() => searchCategoriesPaginated1200Schema)
+export const searchCategoriesPaginated1QueryResponseSchema = searchCategoriesPaginated1200Schema

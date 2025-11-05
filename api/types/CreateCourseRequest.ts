@@ -32,6 +32,10 @@ export type CreateCourseRequest = {
     */
     categoryId?: number;
     /**
+     * @type boolean | undefined
+    */
+    isCustom?: boolean;
+    /**
      * @type array
     */
     courseDays: CreateCourseDayRequest[];

@@ -13,6 +13,6 @@ export const togglePinPathParamsSchema = z.object({
 /**
  * @description OK
  */
-export const togglePin200Schema = z.lazy(() => newsResponseSchema)
+export const togglePin200Schema = newsResponseSchema
 
-export const togglePinMutationResponseSchema = z.lazy(() => togglePin200Schema)
+export const togglePinMutationResponseSchema = togglePin200Schema

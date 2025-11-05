@@ -14,6 +14,6 @@ export const getRecentActivityQueryParamsSchema = z.object({
 /**
  * @description OK
  */
-export const getRecentActivity200Schema = z.lazy(() => pagedModelActivityResponseSchema)
+export const getRecentActivity200Schema = pagedModelActivityResponseSchema
 
-export const getRecentActivityQueryResponseSchema = z.lazy(() => getRecentActivity200Schema)
+export const getRecentActivityQueryResponseSchema = getRecentActivity200Schema

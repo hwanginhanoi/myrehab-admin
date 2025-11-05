@@ -15,6 +15,6 @@ export const setDoctorPermissionsPathParamsSchema = z.object({
  */
 export const setDoctorPermissions200Schema = z.any()
 
-export const setDoctorPermissionsMutationRequestSchema = z.lazy(() => setPermissionsRequestSchema)
+export const setDoctorPermissionsMutationRequestSchema = setPermissionsRequestSchema
 
-export const setDoctorPermissionsMutationResponseSchema = z.lazy(() => setDoctorPermissions200Schema)
+export const setDoctorPermissionsMutationResponseSchema = setDoctorPermissions200Schema

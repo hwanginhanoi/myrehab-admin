@@ -13,6 +13,6 @@ export const toggleEnabled1PathParamsSchema = z.object({
 /**
  * @description OK
  */
-export const toggleEnabled1200Schema = z.lazy(() => adminResponseSchema)
+export const toggleEnabled1200Schema = adminResponseSchema
 
-export const toggleEnabled1MutationResponseSchema = z.lazy(() => toggleEnabled1200Schema)
+export const toggleEnabled1MutationResponseSchema = toggleEnabled1200Schema

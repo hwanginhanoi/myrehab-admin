@@ -5,13 +5,12 @@
 
 import { userBasicInfoRequestSchema } from "./userBasicInfoRequestSchema.ts";
 import { userBasicInfoResponseSchema } from "./userBasicInfoResponseSchema.ts";
-import { z } from "zod";
 
 /**
  * @description OK
  */
-export const updateMyBasicInfo200Schema = z.lazy(() => userBasicInfoResponseSchema)
+export const updateMyBasicInfo200Schema = userBasicInfoResponseSchema
 
-export const updateMyBasicInfoMutationRequestSchema = z.lazy(() => userBasicInfoRequestSchema)
+export const updateMyBasicInfoMutationRequestSchema = userBasicInfoRequestSchema
 
-export const updateMyBasicInfoMutationResponseSchema = z.lazy(() => updateMyBasicInfo200Schema)
+export const updateMyBasicInfoMutationResponseSchema = updateMyBasicInfo200Schema

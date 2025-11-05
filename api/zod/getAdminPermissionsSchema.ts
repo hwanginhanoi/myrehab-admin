@@ -14,4 +14,4 @@ export const getAdminPermissionsPathParamsSchema = z.object({
  */
 export const getAdminPermissions200Schema = z.array(z.string())
 
-export const getAdminPermissionsQueryResponseSchema = z.lazy(() => getAdminPermissions200Schema)
+export const getAdminPermissionsQueryResponseSchema = getAdminPermissions200Schema

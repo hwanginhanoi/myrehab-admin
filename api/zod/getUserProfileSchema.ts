@@ -13,6 +13,6 @@ export const getUserProfilePathParamsSchema = z.object({
 /**
  * @description OK
  */
-export const getUserProfile200Schema = z.lazy(() => userProfileResponseSchema)
+export const getUserProfile200Schema = userProfileResponseSchema
 
-export const getUserProfileQueryResponseSchema = z.lazy(() => getUserProfile200Schema)
+export const getUserProfileQueryResponseSchema = getUserProfile200Schema

@@ -11,12 +11,12 @@ export const getDayProgressPathParamsSchema = z.object({
     })
 
 export const getDayProgressQueryParamsSchema = z.object({
-    "bypassRestriction": z.optional(z.boolean().default(false))
+    "bypassRestriction": z.boolean().default(false)
     })
 
 /**
  * @description OK
  */
-export const getDayProgress200Schema = z.lazy(() => singleDayProgressResponseSchema)
+export const getDayProgress200Schema = singleDayProgressResponseSchema
 
-export const getDayProgressQueryResponseSchema = z.lazy(() => getDayProgress200Schema)
+export const getDayProgressQueryResponseSchema = getDayProgress200Schema

@@ -14,8 +14,8 @@ export const updateDoctorPathParamsSchema = z.object({
 /**
  * @description OK
  */
-export const updateDoctor200Schema = z.lazy(() => doctorResponseSchema)
+export const updateDoctor200Schema = doctorResponseSchema
 
-export const updateDoctorMutationRequestSchema = z.lazy(() => updateDoctorRequestSchema)
+export const updateDoctorMutationRequestSchema = updateDoctorRequestSchema
 
-export const updateDoctorMutationResponseSchema = z.lazy(() => updateDoctor200Schema)
+export const updateDoctorMutationResponseSchema = updateDoctor200Schema

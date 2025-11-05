@@ -14,4 +14,4 @@ export const deleteExercisePathParamsSchema = z.object({
  */
 export const deleteExercise200Schema = z.any()
 
-export const deleteExerciseMutationResponseSchema = z.lazy(() => deleteExercise200Schema)
+export const deleteExerciseMutationResponseSchema = deleteExercise200Schema

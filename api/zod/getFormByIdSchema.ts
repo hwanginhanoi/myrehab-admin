@@ -13,6 +13,6 @@ export const getFormByIdPathParamsSchema = z.object({
 /**
  * @description OK
  */
-export const getFormById200Schema = z.lazy(() => rehabilitationExaminationFormResponseSchema)
+export const getFormById200Schema = rehabilitationExaminationFormResponseSchema
 
-export const getFormByIdQueryResponseSchema = z.lazy(() => getFormById200Schema)
+export const getFormByIdQueryResponseSchema = getFormById200Schema

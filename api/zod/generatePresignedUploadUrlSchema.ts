@@ -5,13 +5,12 @@
 
 import { presignedUrlRequestSchema } from "./presignedUrlRequestSchema.ts";
 import { presignedUrlResponseSchema } from "./presignedUrlResponseSchema.ts";
-import { z } from "zod";
 
 /**
  * @description OK
  */
-export const generatePresignedUploadUrl200Schema = z.lazy(() => presignedUrlResponseSchema)
+export const generatePresignedUploadUrl200Schema = presignedUrlResponseSchema
 
-export const generatePresignedUploadUrlMutationRequestSchema = z.lazy(() => presignedUrlRequestSchema)
+export const generatePresignedUploadUrlMutationRequestSchema = presignedUrlRequestSchema
 
-export const generatePresignedUploadUrlMutationResponseSchema = z.lazy(() => generatePresignedUploadUrl200Schema)
+export const generatePresignedUploadUrlMutationResponseSchema = generatePresignedUploadUrl200Schema

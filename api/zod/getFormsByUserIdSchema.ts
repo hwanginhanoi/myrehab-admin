@@ -18,6 +18,6 @@ export const getFormsByUserIdQueryParamsSchema = z.object({
 /**
  * @description OK
  */
-export const getFormsByUserId200Schema = z.lazy(() => pagedModelRehabilitationExaminationFormResponseSchema)
+export const getFormsByUserId200Schema = pagedModelRehabilitationExaminationFormResponseSchema
 
-export const getFormsByUserIdQueryResponseSchema = z.lazy(() => getFormsByUserId200Schema)
+export const getFormsByUserIdQueryResponseSchema = getFormsByUserId200Schema

@@ -15,6 +15,6 @@ export const removePermissionFromAdminPathParamsSchema = z.object({
  */
 export const removePermissionFromAdmin200Schema = z.any()
 
-export const removePermissionFromAdminMutationRequestSchema = z.lazy(() => assignPermissionRequestSchema)
+export const removePermissionFromAdminMutationRequestSchema = assignPermissionRequestSchema
 
-export const removePermissionFromAdminMutationResponseSchema = z.lazy(() => removePermissionFromAdmin200Schema)
+export const removePermissionFromAdminMutationResponseSchema = removePermissionFromAdmin200Schema

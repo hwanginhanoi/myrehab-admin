@@ -14,4 +14,4 @@ export const checkCourseOwnershipPathParamsSchema = z.object({
  */
 export const checkCourseOwnership200Schema = z.boolean()
 
-export const checkCourseOwnershipQueryResponseSchema = z.lazy(() => checkCourseOwnership200Schema)
+export const checkCourseOwnershipQueryResponseSchema = checkCourseOwnership200Schema

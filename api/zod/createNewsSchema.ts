@@ -5,13 +5,12 @@
 
 import { createNewsRequestSchema } from "./createNewsRequestSchema.ts";
 import { newsResponseSchema } from "./newsResponseSchema.ts";
-import { z } from "zod";
 
 /**
  * @description OK
  */
-export const createNews200Schema = z.lazy(() => newsResponseSchema)
+export const createNews200Schema = newsResponseSchema
 
-export const createNewsMutationRequestSchema = z.lazy(() => createNewsRequestSchema)
+export const createNewsMutationRequestSchema = createNewsRequestSchema
 
-export const createNewsMutationResponseSchema = z.lazy(() => createNews200Schema)
+export const createNewsMutationResponseSchema = createNews200Schema

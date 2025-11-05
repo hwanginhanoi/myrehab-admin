@@ -1,6 +1,10 @@
+export { assignCourse } from "./assignCourse.ts";
 export { createCourse } from "./createCourse.ts";
 export { deleteCourse } from "./deleteCourse.ts";
 export { getAllCoursesPaginated } from "./getAllCoursesPaginated.ts";
+export { getCourseAssignments } from "./getCourseAssignments.ts";
 export { getCourseById } from "./getCourseById.ts";
+export { getMyCustomCourses } from "./getMyCustomCourses.ts";
 export { getMyOwnedCourses } from "./getMyOwnedCourses.ts";
+export { revokeAssignment } from "./revokeAssignment.ts";
 export { updateCourse } from "./updateCourse.ts";

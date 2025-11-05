@@ -9,6 +9,6 @@ import { z } from "zod";
 /**
  * @description OK
  */
-export const getAllCategories200Schema = z.array(z.lazy(() => exerciseCategoryResponseSchema))
+export const getAllCategories200Schema = z.array(exerciseCategoryResponseSchema)
 
-export const getAllCategoriesQueryResponseSchema = z.lazy(() => getAllCategories200Schema)
+export const getAllCategoriesQueryResponseSchema = getAllCategories200Schema

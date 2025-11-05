@@ -14,8 +14,8 @@ export const addBalanceToUserPathParamsSchema = z.object({
 /**
  * @description OK
  */
-export const addBalanceToUser200Schema = z.lazy(() => balanceResponseSchema)
+export const addBalanceToUser200Schema = balanceResponseSchema
 
-export const addBalanceToUserMutationRequestSchema = z.lazy(() => addBalanceRequestSchema)
+export const addBalanceToUserMutationRequestSchema = addBalanceRequestSchema
 
-export const addBalanceToUserMutationResponseSchema = z.lazy(() => addBalanceToUser200Schema)
+export const addBalanceToUserMutationResponseSchema = addBalanceToUser200Schema

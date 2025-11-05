@@ -4,11 +4,10 @@
 */
 
 import { userProfileResponseSchema } from "./userProfileResponseSchema.ts";
-import { z } from "zod";
 
 /**
  * @description OK
  */
-export const getMyProfile200Schema = z.lazy(() => userProfileResponseSchema)
+export const getMyProfile200Schema = userProfileResponseSchema
 
-export const getMyProfileQueryResponseSchema = z.lazy(() => getMyProfile200Schema)
+export const getMyProfileQueryResponseSchema = getMyProfile200Schema

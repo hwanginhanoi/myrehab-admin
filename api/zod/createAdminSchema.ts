@@ -5,13 +5,12 @@
 
 import { adminResponseSchema } from "./adminResponseSchema.ts";
 import { createAdminRequestSchema } from "./createAdminRequestSchema.ts";
-import { z } from "zod";
 
 /**
  * @description OK
  */
-export const createAdmin200Schema = z.lazy(() => adminResponseSchema)
+export const createAdmin200Schema = adminResponseSchema
 
-export const createAdminMutationRequestSchema = z.lazy(() => createAdminRequestSchema)
+export const createAdminMutationRequestSchema = createAdminRequestSchema
 
-export const createAdminMutationResponseSchema = z.lazy(() => createAdmin200Schema)
+export const createAdminMutationResponseSchema = createAdmin200Schema

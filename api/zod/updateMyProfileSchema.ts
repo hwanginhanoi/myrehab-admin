@@ -5,13 +5,12 @@
 
 import { userProfileRequestSchema } from "./userProfileRequestSchema.ts";
 import { userProfileResponseSchema } from "./userProfileResponseSchema.ts";
-import { z } from "zod";
 
 /**
  * @description OK
  */
-export const updateMyProfile200Schema = z.lazy(() => userProfileResponseSchema)
+export const updateMyProfile200Schema = userProfileResponseSchema
 
-export const updateMyProfileMutationRequestSchema = z.lazy(() => userProfileRequestSchema)
+export const updateMyProfileMutationRequestSchema = userProfileRequestSchema
 
-export const updateMyProfileMutationResponseSchema = z.lazy(() => updateMyProfile200Schema)
+export const updateMyProfileMutationResponseSchema = updateMyProfile200Schema

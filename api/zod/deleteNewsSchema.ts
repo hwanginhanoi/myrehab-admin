@@ -14,4 +14,4 @@ export const deleteNewsPathParamsSchema = z.object({
  */
 export const deleteNews200Schema = z.any()
 
-export const deleteNewsMutationResponseSchema = z.lazy(() => deleteNews200Schema)
+export const deleteNewsMutationResponseSchema = deleteNews200Schema

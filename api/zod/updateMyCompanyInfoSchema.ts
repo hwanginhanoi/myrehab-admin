@@ -5,13 +5,12 @@
 
 import { userCompanyInfoRequestSchema } from "./userCompanyInfoRequestSchema.ts";
 import { userCompanyInfoResponseSchema } from "./userCompanyInfoResponseSchema.ts";
-import { z } from "zod";
 
 /**
  * @description OK
  */
-export const updateMyCompanyInfo200Schema = z.lazy(() => userCompanyInfoResponseSchema)
+export const updateMyCompanyInfo200Schema = userCompanyInfoResponseSchema
 
-export const updateMyCompanyInfoMutationRequestSchema = z.lazy(() => userCompanyInfoRequestSchema)
+export const updateMyCompanyInfoMutationRequestSchema = userCompanyInfoRequestSchema
 
-export const updateMyCompanyInfoMutationResponseSchema = z.lazy(() => updateMyCompanyInfo200Schema)
+export const updateMyCompanyInfoMutationResponseSchema = updateMyCompanyInfo200Schema

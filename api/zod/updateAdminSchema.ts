@@ -14,8 +14,8 @@ export const updateAdminPathParamsSchema = z.object({
 /**
  * @description OK
  */
-export const updateAdmin200Schema = z.lazy(() => adminResponseSchema)
+export const updateAdmin200Schema = adminResponseSchema
 
-export const updateAdminMutationRequestSchema = z.lazy(() => updateAdminRequestSchema)
+export const updateAdminMutationRequestSchema = updateAdminRequestSchema
 
-export const updateAdminMutationResponseSchema = z.lazy(() => updateAdmin200Schema)
+export const updateAdminMutationResponseSchema = updateAdmin200Schema

@@ -5,13 +5,12 @@
 
 import { nonCompulsoryHealthInsuranceRequestSchema } from "./nonCompulsoryHealthInsuranceRequestSchema.ts";
 import { nonCompulsoryHealthInsuranceResponseSchema } from "./nonCompulsoryHealthInsuranceResponseSchema.ts";
-import { z } from "zod";
 
 /**
  * @description OK
  */
-export const updateMyNonCompulsoryHealthInsurance200Schema = z.lazy(() => nonCompulsoryHealthInsuranceResponseSchema)
+export const updateMyNonCompulsoryHealthInsurance200Schema = nonCompulsoryHealthInsuranceResponseSchema
 
-export const updateMyNonCompulsoryHealthInsuranceMutationRequestSchema = z.lazy(() => nonCompulsoryHealthInsuranceRequestSchema)
+export const updateMyNonCompulsoryHealthInsuranceMutationRequestSchema = nonCompulsoryHealthInsuranceRequestSchema
 
-export const updateMyNonCompulsoryHealthInsuranceMutationResponseSchema = z.lazy(() => updateMyNonCompulsoryHealthInsurance200Schema)
+export const updateMyNonCompulsoryHealthInsuranceMutationResponseSchema = updateMyNonCompulsoryHealthInsurance200Schema

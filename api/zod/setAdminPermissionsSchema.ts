@@ -15,6 +15,6 @@ export const setAdminPermissionsPathParamsSchema = z.object({
  */
 export const setAdminPermissions200Schema = z.any()
 
-export const setAdminPermissionsMutationRequestSchema = z.lazy(() => setPermissionsRequestSchema)
+export const setAdminPermissionsMutationRequestSchema = setPermissionsRequestSchema
 
-export const setAdminPermissionsMutationResponseSchema = z.lazy(() => setAdminPermissions200Schema)
+export const setAdminPermissionsMutationResponseSchema = setAdminPermissions200Schema

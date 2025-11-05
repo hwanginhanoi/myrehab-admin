@@ -15,4 +15,4 @@ export const generateVideoViewingUrlQueryParamsSchema = z.object({
  */
 export const generateVideoViewingUrl200Schema = z.string()
 
-export const generateVideoViewingUrlQueryResponseSchema = z.lazy(() => generateVideoViewingUrl200Schema)
+export const generateVideoViewingUrlQueryResponseSchema = generateVideoViewingUrl200Schema

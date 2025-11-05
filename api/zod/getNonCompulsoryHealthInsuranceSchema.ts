@@ -13,6 +13,6 @@ export const getNonCompulsoryHealthInsurancePathParamsSchema = z.object({
 /**
  * @description OK
  */
-export const getNonCompulsoryHealthInsurance200Schema = z.lazy(() => nonCompulsoryHealthInsuranceResponseSchema)
+export const getNonCompulsoryHealthInsurance200Schema = nonCompulsoryHealthInsuranceResponseSchema
 
-export const getNonCompulsoryHealthInsuranceQueryResponseSchema = z.lazy(() => getNonCompulsoryHealthInsurance200Schema)
+export const getNonCompulsoryHealthInsuranceQueryResponseSchema = getNonCompulsoryHealthInsurance200Schema

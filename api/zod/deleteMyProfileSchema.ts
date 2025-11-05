@@ -10,4 +10,4 @@ import { z } from "zod";
  */
 export const deleteMyProfile200Schema = z.any()
 
-export const deleteMyProfileMutationResponseSchema = z.lazy(() => deleteMyProfile200Schema)
+export const deleteMyProfileMutationResponseSchema = deleteMyProfile200Schema

@@ -15,6 +15,6 @@ export const removePermissionFromDoctorPathParamsSchema = z.object({
  */
 export const removePermissionFromDoctor200Schema = z.any()
 
-export const removePermissionFromDoctorMutationRequestSchema = z.lazy(() => assignPermissionRequestSchema)
+export const removePermissionFromDoctorMutationRequestSchema = assignPermissionRequestSchema
 
-export const removePermissionFromDoctorMutationResponseSchema = z.lazy(() => removePermissionFromDoctor200Schema)
+export const removePermissionFromDoctorMutationResponseSchema = removePermissionFromDoctor200Schema

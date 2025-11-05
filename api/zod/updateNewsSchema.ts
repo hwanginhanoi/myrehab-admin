@@ -14,8 +14,8 @@ export const updateNewsPathParamsSchema = z.object({
 /**
  * @description OK
  */
-export const updateNews200Schema = z.lazy(() => newsResponseSchema)
+export const updateNews200Schema = newsResponseSchema
 
-export const updateNewsMutationRequestSchema = z.lazy(() => updateNewsRequestSchema)
+export const updateNewsMutationRequestSchema = updateNewsRequestSchema
 
-export const updateNewsMutationResponseSchema = z.lazy(() => updateNews200Schema)
+export const updateNewsMutationResponseSchema = updateNews200Schema

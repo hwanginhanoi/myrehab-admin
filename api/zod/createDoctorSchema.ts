@@ -5,13 +5,12 @@
 
 import { createDoctorRequestSchema } from "./createDoctorRequestSchema.ts";
 import { doctorResponseSchema } from "./doctorResponseSchema.ts";
-import { z } from "zod";
 
 /**
  * @description OK
  */
-export const createDoctor200Schema = z.lazy(() => doctorResponseSchema)
+export const createDoctor200Schema = doctorResponseSchema
 
-export const createDoctorMutationRequestSchema = z.lazy(() => createDoctorRequestSchema)
+export const createDoctorMutationRequestSchema = createDoctorRequestSchema
 
-export const createDoctorMutationResponseSchema = z.lazy(() => createDoctor200Schema)
+export const createDoctorMutationResponseSchema = createDoctor200Schema

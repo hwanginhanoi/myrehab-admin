@@ -14,4 +14,4 @@ export const deleteCategory1PathParamsSchema = z.object({
  */
 export const deleteCategory1200Schema = z.any()
 
-export const deleteCategory1MutationResponseSchema = z.lazy(() => deleteCategory1200Schema)
+export const deleteCategory1MutationResponseSchema = deleteCategory1200Schema

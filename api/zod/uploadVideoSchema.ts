@@ -9,10 +9,10 @@ import { z } from "zod";
 /**
  * @description OK
  */
-export const uploadVideo200Schema = z.lazy(() => fileUploadResponseSchema)
+export const uploadVideo200Schema = fileUploadResponseSchema
 
 export const uploadVideoMutationRequestSchema = z.object({
     "file": z.instanceof(File).describe("Video file to upload")
     })
 
-export const uploadVideoMutationResponseSchema = z.lazy(() => uploadVideo200Schema)
+export const uploadVideoMutationResponseSchema = uploadVideo200Schema

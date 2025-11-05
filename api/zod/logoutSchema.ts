@@ -11,6 +11,6 @@ import { z } from "zod";
  */
 export const logout200Schema = z.string()
 
-export const logoutMutationRequestSchema = z.lazy(() => refreshTokenRequestSchema)
+export const logoutMutationRequestSchema = refreshTokenRequestSchema
 
-export const logoutMutationResponseSchema = z.lazy(() => logout200Schema)
+export const logoutMutationResponseSchema = logout200Schema

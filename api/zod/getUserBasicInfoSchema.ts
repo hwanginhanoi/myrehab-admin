@@ -13,6 +13,6 @@ export const getUserBasicInfoPathParamsSchema = z.object({
 /**
  * @description OK
  */
-export const getUserBasicInfo200Schema = z.lazy(() => userBasicInfoResponseSchema)
+export const getUserBasicInfo200Schema = userBasicInfoResponseSchema
 
-export const getUserBasicInfoQueryResponseSchema = z.lazy(() => getUserBasicInfo200Schema)
+export const getUserBasicInfoQueryResponseSchema = getUserBasicInfo200Schema

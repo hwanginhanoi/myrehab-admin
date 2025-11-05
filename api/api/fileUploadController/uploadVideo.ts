@@ -32,6 +32,6 @@ export async function uploadVideo(data: UploadVideoMutationRequest, config: Part
      }
    })
   }  
-  const res = await request<UploadVideoMutationResponse, ResponseErrorConfig<Error>, UploadVideoMutationRequest>({ method : "POST", url : getUploadVideoUrl().url.toString(), data : formData, ... requestConfig, headers : { 'Content-Type': 'multipart/form-data', ...requestConfig.headers } })  
+  const res = await request<UploadVideoMutationResponse, ResponseErrorConfig<Error>, UploadVideoMutationRequest>({ method : "POST", url : getUploadVideoUrl().url.toString(), data : formData, ... requestConfig })  
   return res.data
 }

@@ -40,7 +40,7 @@ import { getAllNews } from '@/api/api/newsManagementController/getAllNews';
 import { deleteNews } from '@/api/api/newsManagementController/deleteNews';
 import { togglePin } from '@/api/api/newsManagementController/togglePin';
 import { NewsResponse } from '@/api/types/NewsResponse';
-import { PageNewsResponse } from '@/api/types/PageNewsResponse';
+import { PagedModelNewsResponse } from '@/api/types/PagedModelNewsResponse';
 import { toast } from 'sonner';
 import { TableSkeleton } from '@/components/ui/table-skeleton';
 import { NEWS_CATEGORY_OPTIONS, NEWS_STATUS_OPTIONS } from '@/constants/news';
@@ -56,7 +56,7 @@ export default function NewsPage() {
   const [loading, setLoading] = useState(true);
   const [minLoadingTime, setMinLoadingTime] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  const [pageData, setPageData] = useState<PageNewsResponse | null>(null);
+  const [pageData, setPageData] = useState<PagedModelNewsResponse | null>(null);
   const [pagination, setPagination] = useState({
     pageIndex: 0,
     pageSize: 10,
@@ -283,7 +283,7 @@ export default function NewsPage() {
   const table = useReactTable({
     data: news,
     columns,
-    pageCount: pageData?.totalPages ?? 0,
+    pageCount: pageData?.page?.totalPages ?? 0,
     state: {
       pagination,
     },
@@ -417,11 +417,11 @@ export default function NewsPage() {
             <div className="text-base text-[#71717A]">
               Showing <span className="font-bold">{Math.min(
                 pagination.pageIndex * pagination.pageSize + 1,
-                pageData.totalElements || 0
+                pageData.page?.totalElements || 0
               )}-{Math.min(
                 (pagination.pageIndex + 1) * pagination.pageSize,
-                pageData.totalElements || 0
-              )}/{pageData.totalElements || 0}</span> {t('title').toLowerCase()}
+                pageData.page?.totalElements || 0
+              )}/{pageData.page?.totalElements || 0}</span> {t('title').toLowerCase()}
             </div>
             <div className="flex items-center gap-2">
               <Button

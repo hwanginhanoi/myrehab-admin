@@ -11,7 +11,7 @@ export const generatePresignedAccessUrlPathParamsSchema = z.object({
     })
 
 export const generatePresignedAccessUrlQueryParamsSchema = z.object({
-    "durationMinutes": z.optional(z.coerce.number().int().default(60).describe("URL expiration duration in minutes"))
+    "durationMinutes": z.coerce.number().int().default(60).describe("URL expiration duration in minutes")
     })
 
 /**
@@ -19,4 +19,4 @@ export const generatePresignedAccessUrlQueryParamsSchema = z.object({
  */
 export const generatePresignedAccessUrl200Schema = z.string()
 
-export const generatePresignedAccessUrlQueryResponseSchema = z.lazy(() => generatePresignedAccessUrl200Schema)
+export const generatePresignedAccessUrlQueryResponseSchema = generatePresignedAccessUrl200Schema

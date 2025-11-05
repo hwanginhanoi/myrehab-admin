@@ -14,4 +14,4 @@ export const deleteFileQueryParamsSchema = z.object({
  */
 export const deleteFile200Schema = z.any()
 
-export const deleteFileMutationResponseSchema = z.lazy(() => deleteFile200Schema)
+export const deleteFileMutationResponseSchema = deleteFile200Schema

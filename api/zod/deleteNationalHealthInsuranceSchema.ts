@@ -14,4 +14,4 @@ export const deleteNationalHealthInsurancePathParamsSchema = z.object({
  */
 export const deleteNationalHealthInsurance200Schema = z.any()
 
-export const deleteNationalHealthInsuranceMutationResponseSchema = z.lazy(() => deleteNationalHealthInsurance200Schema)
+export const deleteNationalHealthInsuranceMutationResponseSchema = deleteNationalHealthInsurance200Schema

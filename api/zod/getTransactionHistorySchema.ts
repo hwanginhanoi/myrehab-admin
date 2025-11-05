@@ -9,6 +9,6 @@ import { z } from "zod";
 /**
  * @description OK
  */
-export const getTransactionHistory200Schema = z.array(z.lazy(() => transactionResponseSchema))
+export const getTransactionHistory200Schema = z.array(transactionResponseSchema)
 
-export const getTransactionHistoryQueryResponseSchema = z.lazy(() => getTransactionHistory200Schema)
+export const getTransactionHistoryQueryResponseSchema = getTransactionHistory200Schema

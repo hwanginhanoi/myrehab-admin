@@ -14,6 +14,6 @@ export const getActivityByDateRangeQueryParamsSchema = z.object({
 /**
  * @description OK
  */
-export const getActivityByDateRange200Schema = z.array(z.lazy(() => activityResponseSchema))
+export const getActivityByDateRange200Schema = z.array(activityResponseSchema)
 
-export const getActivityByDateRangeQueryResponseSchema = z.lazy(() => getActivityByDateRange200Schema)
+export const getActivityByDateRangeQueryResponseSchema = getActivityByDateRange200Schema

@@ -13,6 +13,6 @@ export const buyCoursePathParamsSchema = z.object({
 /**
  * @description OK
  */
-export const buyCourse200Schema = z.lazy(() => purchaseResponseSchema)
+export const buyCourse200Schema = purchaseResponseSchema
 
-export const buyCourseMutationResponseSchema = z.lazy(() => buyCourse200Schema)
+export const buyCourseMutationResponseSchema = buyCourse200Schema

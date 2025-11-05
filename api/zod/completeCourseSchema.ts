@@ -10,4 +10,4 @@ import { z } from "zod";
  */
 export const completeCourse200Schema = z.any()
 
-export const completeCourseMutationResponseSchema = z.lazy(() => completeCourse200Schema)
+export const completeCourseMutationResponseSchema = completeCourse200Schema
