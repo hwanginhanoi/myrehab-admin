@@ -4,11 +4,13 @@ import * as React from "react"
 import {
   Frame,
   GalleryVerticalEnd,
+  Image,
   Map,
   Newspaper,
   PieChart,
   SquareTerminal,
   Users,
+  FileText,
 } from "lucide-react"
 
 import { NavMain } from "@/components/nav-main"
@@ -57,6 +59,10 @@ const sidebarData = {
           title: "Danh sách lộ trình",
           url: "/dashboard/courses",
         },
+        {
+          title: "Lộ trình tùy chỉnh",
+          url: "/dashboard/custom-courses",
+        },
       ],
     },
     {
@@ -84,6 +90,30 @@ const sidebarData = {
         {
           title: "Danh sách tin tức",
           url: "/dashboard/news",
+        },
+      ],
+    },
+    {
+      title: "Banner",
+      url: "/banners",
+      icon: Image,
+      isActive: false,
+      items: [
+        {
+          title: "Quản lý banner",
+          url: "/dashboard/banners",
+        },
+      ],
+    },
+    {
+      title: "Phiếu khám",
+      url: "/rehabilitation-forms",
+      icon: FileText,
+      isActive: false,
+      items: [
+        {
+          title: "Phiếu khám phục hồi chức năng",
+          url: "/dashboard/rehabilitation-forms",
         },
       ],
     },
