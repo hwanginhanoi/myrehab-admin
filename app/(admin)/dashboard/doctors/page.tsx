@@ -24,28 +24,27 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import { MoreHorizontal, Eye, Search } from 'lucide-react';
-import { getAllUsers } from '@/api/api/userManagementController/getAllUsers';
-import { UserResponse } from '@/api/types/UserResponse';
+import { getAllDoctors } from '@/api/api/doctorManagementControllerController/getAllDoctors';
+import { DoctorResponse } from '@/api/types/DoctorResponse';
 import { toast } from 'sonner';
 import { TableSkeleton } from '@/components/ui/table-skeleton';
-import { formatVND } from '@/lib/utils/currency';
 
-const columnHelper = createColumnHelper<UserResponse>();
+const columnHelper = createColumnHelper<DoctorResponse>();
 
 export default function DoctorsPage() {
   const router = useRouter();
-  const [users, setUsers] = useState<UserResponse[]>([]);
-  const [filteredUsers, setFilteredUsers] = useState<UserResponse[]>([]);
+  const [doctors, setDoctors] = useState<DoctorResponse[]>([]);
   const [loading, setLoading] = useState(true);
   const [minLoadingTime, setMinLoadingTime] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  const [searchTerm, setSearchTerm] = useState('');
+  const [searchInput, setSearchInput] = useState('');
+  const [pageData, setPageData] = useState<{ content?: DoctorResponse[]; page?: { totalPages?: number; totalElements?: number } } | null>(null);
   const [pagination, setPagination] = useState({
     pageIndex: 0,
     pageSize: 10,
   });
 
-  const fetchUsers = useCallback(async () => {
+  const fetchDoctors = useCallback(async () => {
     try {
       setLoading(true);
       setMinLoadingTime(true);
@@ -54,10 +53,16 @@ export default function DoctorsPage() {
       // Start minimum loading timer
       const minLoadingTimer = setTimeout(() => setMinLoadingTime(false), 300);
 
-      const data = await getAllUsers();
-      // TODO: Filter by role='DOCTOR' when backend supports it
-      setUsers(data);
-      setFilteredUsers(data);
+      const data = await getAllDoctors({
+        pageable: {
+          page: pagination.pageIndex,
+          size: pagination.pageSize,
+          sort: ['createdAt,desc'],
+        },
+      });
+
+      setPageData(data);
+      setDoctors(data.content || []);
 
       // Wait for minimum time or clear if already elapsed
       await new Promise(resolve => {
@@ -70,33 +75,22 @@ export default function DoctorsPage() {
     } catch (err) {
       const errorMessage = err instanceof Error ? err.message : 'Failed to fetch doctors';
       setError(errorMessage);
-      toast.error('Failed to load doctors', {
+      toast.error('Lỗi khi tải danh sách bác sĩ', {
         description: errorMessage,
       });
       setMinLoadingTime(false);
     } finally {
       setLoading(false);
     }
-  }, []);
+  }, [pagination.pageIndex, pagination.pageSize]);
 
   useEffect(() => {
-    fetchUsers();
-  }, [fetchUsers]);
+    fetchDoctors();
+  }, [fetchDoctors]);
 
   const handleSearch = () => {
-    if (!searchTerm.trim()) {
-      setFilteredUsers(users);
-      setPagination(prev => ({ ...prev, pageIndex: 0 }));
-      return;
-    }
-
-    const filtered = users.filter(user =>
-      user.fullName?.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      user.email?.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      user.phoneNumber?.includes(searchTerm)
-    );
-    setFilteredUsers(filtered);
-    setPagination(prev => ({ ...prev, pageIndex: 0 }));
+    // TODO: Implement search functionality when API supports it
+    toast.info('Tính năng tìm kiếm đang được phát triển');
   };
 
   const formatDate = (dateString?: string) => {
@@ -112,62 +106,50 @@ export default function DoctorsPage() {
       ),
     }),
     columnHelper.accessor('fullName', {
-      header: 'Full Name',
+      header: 'Họ và tên',
       cell: (info) => {
-        const user = info.row.original;
+        const doctor = info.row.original;
         return (
           <div>
             <div className="font-medium">{info.getValue() || '-'}</div>
-            {user.email && (
+            {doctor.email && (
               <div className="text-sm text-muted-foreground">
-                {user.email}
+                {doctor.email}
               </div>
             )}
           </div>
         );
       },
     }),
-    columnHelper.accessor('phoneNumber', {
-      header: 'Phone',
+    columnHelper.accessor('specialization', {
+      header: 'Chuyên khoa',
       cell: (info) => info.getValue() || '-',
     }),
-    columnHelper.accessor('balance', {
-      header: 'Balance',
-      cell: (info) => formatVND(info.getValue()),
+    columnHelper.accessor('licenseNumber', {
+      header: 'Số giấy phép',
+      cell: (info) => info.getValue() || '-',
     }),
     columnHelper.accessor('enabled', {
-      header: 'Status',
+      header: 'Trạng thái',
       cell: (info) => (
         <span className={`px-2 py-1 rounded-md text-sm ${
           info.getValue()
             ? 'bg-green-100 text-green-700'
             : 'bg-red-100 text-red-700'
         }`}>
-          {info.getValue() ? 'Active' : 'Inactive'}
-        </span>
-      ),
-    }),
-    columnHelper.accessor('otpVerified', {
-      header: 'Verified',
-      cell: (info) => (
-        <span className={`px-2 py-1 rounded-md text-sm ${
-          info.getValue()
-            ? 'bg-blue-100 text-blue-700'
-            : 'bg-gray-100 text-gray-700'
-        }`}>
-          {info.getValue() ? 'Yes' : 'No'}
+          {info.getValue() ? 'Hoạt động' : 'Không hoạt động'}
         </span>
       ),
     }),
     columnHelper.accessor('createdAt', {
-      header: 'Created',
+      header: 'Ngày tạo',
       cell: (info) => formatDate(info.getValue()),
     }),
     columnHelper.display({
       id: 'actions',
-      header: 'Actions',
+      header: 'Tác vụ',
       cell: (info) => {
-        const user = info.row.original;
+        const doctor = info.row.original;
         return (
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
@@ -179,13 +161,13 @@ export default function DoctorsPage() {
             <DropdownMenuContent align="end">
               <DropdownMenuItem
                 onClick={() => {
-                  if (user.id) {
-                    router.push(`/dashboard/doctors/${user.id}`);
+                  if (doctor.id) {
+                    router.push(`/dashboard/doctors/${doctor.id}`);
                   }
                 }}
               >
                 <Eye className="mr-2 h-4 w-4" />
-                View details
+                Xem chi tiết
               </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
@@ -194,16 +176,10 @@ export default function DoctorsPage() {
     }),
   ];
 
-  // Calculate pagination
-  const startIndex = pagination.pageIndex * pagination.pageSize;
-  const endIndex = startIndex + pagination.pageSize;
-  const paginatedData = filteredUsers.slice(startIndex, endIndex);
-  const totalPages = Math.ceil(filteredUsers.length / pagination.pageSize);
-
   const table = useReactTable({
-    data: paginatedData,
+    data: doctors,
     columns,
-    pageCount: totalPages,
+    pageCount: pageData?.page?.totalPages ?? 0,
     state: {
       pagination,
     },
@@ -231,8 +207,8 @@ export default function DoctorsPage() {
               type="text"
               placeholder="Tìm kiếm bác sĩ..."
               className="w-full"
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
+              value={searchInput}
+              onChange={(e) => setSearchInput(e.target.value)}
               onKeyDown={(e) => {
                 if (e.key === 'Enter') {
                   handleSearch();
@@ -252,7 +228,7 @@ export default function DoctorsPage() {
 
         {/* Table */}
         {(loading || minLoadingTime) ? (
-          <TableSkeleton columns={8} rows={10} />
+          <TableSkeleton columns={6} rows={10} />
         ) : error ? (
           <div className="rounded-md border">
             <div className="flex items-center justify-center h-32">
@@ -266,10 +242,9 @@ export default function DoctorsPage() {
                 <TableRow>
                   <TableHead className="w-24 text-[#6DBAD6] font-bold">ID</TableHead>
                   <TableHead className="w-64 text-[#6DBAD6] font-bold">Họ và tên</TableHead>
-                  <TableHead className="w-44 text-[#6DBAD6] font-bold">Số điện thoại</TableHead>
-                  <TableHead className="w-32 text-[#6DBAD6] font-bold">Số dư</TableHead>
+                  <TableHead className="w-44 text-[#6DBAD6] font-bold">Chuyên khoa</TableHead>
+                  <TableHead className="w-44 text-[#6DBAD6] font-bold">Số giấy phép</TableHead>
                   <TableHead className="w-32 text-[#6DBAD6] font-bold">Trạng thái</TableHead>
-                  <TableHead className="w-32 text-[#6DBAD6] font-bold">Xác thực</TableHead>
                   <TableHead className="w-32 text-[#6DBAD6] font-bold">Ngày tạo</TableHead>
                   <TableHead className="w-32 text-[#6DBAD6] font-bold">Tác vụ</TableHead>
                 </TableRow>
@@ -291,8 +266,8 @@ export default function DoctorsPage() {
                   ))
                 ) : (
                   <TableRow>
-                    <TableCell colSpan={8} className="h-24 text-center">
-                      Không có kết quả.
+                    <TableCell colSpan={7} className="h-24 text-center">
+                      Không có bác sĩ nào.
                     </TableCell>
                   </TableRow>
                 )}
@@ -304,13 +279,17 @@ export default function DoctorsPage() {
         {/* Footer with Pagination */}
         <div className="flex items-center justify-between pt-4 mt-4 border-t-0">
           <div className="text-base text-[#71717A]">
-            Hiển thị <span className="font-bold">{Math.min(
-              startIndex + 1,
-              filteredUsers.length
-            )}-{Math.min(
-              endIndex,
-              filteredUsers.length
-            )}/{filteredUsers.length}</span> bác sĩ
+            {pageData && (
+              <>
+                Hiển thị <span className="font-bold">{Math.min(
+                  pagination.pageIndex * pagination.pageSize + 1,
+                  pageData.page?.totalElements || 0
+                )}-{Math.min(
+                  (pagination.pageIndex + 1) * pagination.pageSize,
+                  pageData.page?.totalElements || 0
+                )}/{pageData.page?.totalElements || 0}</span> bác sĩ
+              </>
+            )}
           </div>
           <div className="flex items-center gap-2">
             <Button
