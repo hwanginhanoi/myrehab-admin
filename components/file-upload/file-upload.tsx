@@ -5,13 +5,14 @@ import { Button } from '@/components/ui/button';
 import { Progress } from '@/components/ui/progress';
 import { Card, CardContent } from '@/components/ui/card';
 import { MediaViewerDialog } from '@/components/ui/media-viewer-dialog';
-import { Upload, X, FileImage, FileVideo, AlertCircle, CheckCircle, Eye } from 'lucide-react';
+import { Upload, X, FileImage, AlertCircle, CheckCircle, Eye, InfoIcon } from 'lucide-react';
 import Image from 'next/image';
 import { generatePresignedUploadUrl } from '@/api/api/fileUploadController/generatePresignedUploadUrl';
 import { generateVideoViewingUrl } from '@/api/api/fileUploadController/generateVideoViewingUrl';
 import { PresignedUrlRequest } from '@/api/types/PresignedUrlRequest';
 import { toast } from 'sonner';
 import { cn } from '@/lib/utils';
+import { Alert, AlertTitle, AlertDescription } from '@/components/ui/alert';
 
 interface FileUploadProps {
   onUploadCompleteAction: (fileUrl: string) => void;
@@ -317,17 +318,10 @@ export function FileUpload({
     setPreviewOpen(true);
   }, [fileType, uploadState.fileUrl, getVideoViewingUrl]);
 
-  const getFileIcon = () => {
-    if (fileType === 'image') {
-      return <FileImage className="h-8 w-8 text-muted-foreground" />;
-    }
-    return <FileVideo className="h-8 w-8 text-muted-foreground" />;
-  };
-
   const getAcceptString = () => acceptedTypes.join(',');
 
   return (
-    <div className={cn('w-full max-w-md', className)}>
+    <div className={cn('w-full', className)}>
       <input
         ref={fileInputRef}
         type="file"
@@ -337,158 +331,166 @@ export function FileUpload({
         disabled={disabled || uploadState.uploading}
       />
 
-      {!uploadState.file ? (
-        <Card
-          className={cn(
-            'border-2 border-dashed border-muted-foreground/25 hover:border-muted-foreground/50 transition-colors cursor-pointer min-h-[200px]',
-            disabled && 'opacity-50 cursor-not-allowed'
-          )}
-          onClick={!disabled ? handleUploadClick : undefined}
-          onDrop={!disabled ? handleDrop : undefined}
-          onDragOver={!disabled ? handleDragOver : undefined}
-        >
-          <CardContent className="flex flex-col items-center justify-center p-6 text-center min-h-[188px]">
-            <div className="mb-4">
-              {getFileIcon()}
-            </div>
-            <div className="space-y-2">
-              <h3 className="font-medium">
-                Upload {fileType === 'image' ? 'Image' : 'Video'}
-              </h3>
-              <p className="text-sm text-muted-foreground">
-                Drag and drop your {fileType} here, or click to browse
-              </p>
-              <p className="text-xs text-muted-foreground">
-                Accepted formats: {acceptedTypes.map(type => type.split('/')[1]).join(', ')}
-              </p>
-              <p className="text-xs text-muted-foreground">
-                Maximum size: {maxFileSize}MB
-              </p>
-            </div>
-            <Button
-              type="button"
-              variant="outline"
-              size="sm"
-              className="mt-4"
-              disabled={disabled}
+      <Card className="overflow-hidden">
+        <CardContent className="px-4">
+          {!uploadState.file ? (
+            // Empty state - upload area
+            <div
+              className={cn(
+                'border-2 border-dashed border-muted-foreground/25 rounded-lg transition-colors',
+                'w-full aspect-video', // 16:9 aspect ratio
+                'flex flex-col items-center justify-center gap-3 cursor-pointer',
+                !disabled && 'hover:border-muted-foreground/50',
+                disabled && 'opacity-50 cursor-not-allowed'
+              )}
+              onClick={!disabled ? handleUploadClick : undefined}
+              onDrop={!disabled ? handleDrop : undefined}
+              onDragOver={!disabled ? handleDragOver : undefined}
             >
-              <Upload className="mr-2 h-4 w-4" />
-              Choose File
-            </Button>
-          </CardContent>
-        </Card>
-      ) : (
-        <Card>
-          <CardContent className="p-4 min-h-[200px]">
-            <div className="flex items-start justify-between mb-3">
-              <div className="flex items-center gap-3 min-w-0 flex-1">
-                {getFileIcon()}
-                <div className="min-w-0 flex-1">
-                  <p className="font-medium text-sm truncate" title={uploadState.file.name}>
-                    {uploadState.file.name}
-                  </p>
-                  <p className="text-xs text-muted-foreground">
-                    {(uploadState.file.size / (1024 * 1024)).toFixed(2)} MB
-                  </p>
-                </div>
+              {/* Upload icon */}
+              <div className="rounded-full bg-primary/10 p-3">
+                <Upload className="h-6 w-6 text-primary" />
               </div>
-              <div className="flex items-center gap-2">
-                {uploadState.completed && (
-                  <CheckCircle className="h-4 w-4 text-green-600" />
-                )}
-                {uploadState.error && (
-                  <AlertCircle className="h-4 w-4 text-red-600" />
-                )}
-                <Button
-                  type="button"
-                  variant="ghost"
-                  size="sm"
-                  onClick={handleClear}
-                  disabled={uploadState.uploading}
-                >
-                  <X className="h-4 w-4" />
-                </Button>
+
+              {/* Upload text */}
+              <div className="space-y-1 text-center">
+                <h3 className="text-base font-semibold">
+                  Upload Cover {fileType === 'image' ? 'Image' : 'Video'}
+                </h3>
+                <p className="text-xs text-muted-foreground">
+                  Drag and drop {fileType === 'image' ? 'an image' : 'a video'} here, or click to browse
+                </p>
+                <p className="text-xs text-muted-foreground">
+                  Recommended size: 1200×514px • Max size: {maxFileSize}MB
+                </p>
               </div>
+
+              {/* Browse button */}
+              <Button
+                type="button"
+                variant="outline"
+                size="sm"
+                className="mt-1"
+                disabled={disabled}
+              >
+                <FileImage className="mr-2 h-4 w-4" />
+                Browse Files
+              </Button>
             </div>
-
-            {uploadState.uploading && (
-              <div className="space-y-2">
-                <div className="flex justify-between text-sm">
-                  <span>Uploading...</span>
-                  <span>{uploadState.progress}%</span>
-                </div>
-                <Progress value={uploadState.progress} className="w-full" />
-              </div>
-            )}
-
-            {uploadState.completed && (
-              <div className="space-y-3">
-                <div className="text-sm text-green-600 font-medium">
-                  ✓ Upload completed successfully
-                </div>
-
-                {/* Preview Section */}
-                {uploadState.fileUrl && (
-                  <div className="space-y-2 max-h-32">
-                    <span className="text-sm font-medium">Preview:</span>
-
-                    {fileType === 'image' ? (
-                      <div
-                        className="relative w-full h-20 rounded-lg overflow-hidden bg-muted cursor-pointer hover:opacity-80 transition-opacity"
-                        onClick={handlePreviewOpen}
-                      >
-                        <Image
-                          src={uploadState.fileUrl}
-                          alt="Preview"
-                          fill
-                          className="object-cover"
-                          sizes="(max-width: 768px) 100vw, 50vw"
-                        />
-                        <div className="absolute inset-0 flex items-center justify-center bg-black/20 opacity-0 hover:opacity-100 transition-opacity">
-                          <Eye className="h-6 w-6 text-white" />
-                        </div>
-                      </div>
-                    ) : (
-                      <div className="space-y-2">
-                        {uploadState.videoViewingUrl ? (
-                          <div
-                            className="relative w-full h-20 rounded-lg overflow-hidden bg-muted cursor-pointer hover:opacity-80 transition-opacity"
-                            onClick={handlePreviewOpen}
-                          >
-                            <video
-                              src={uploadState.videoViewingUrl}
-                              className="w-full h-full object-cover"
-                              preload="metadata"
-                              muted
-                            />
-                            <div className="absolute inset-0 flex items-center justify-center bg-black/20 opacity-0 hover:opacity-100 transition-opacity">
-                              <div className="bg-white/90 rounded-full p-2">
-                                <svg className="h-6 w-6 text-black" fill="currentColor" viewBox="0 0 24 24">
-                                  <path d="M8 5v14l11-7z"/>
-                                </svg>
-                              </div>
-                            </div>
-                          </div>
-                        ) : (
-                          <div className="w-full h-20 rounded-lg bg-muted flex items-center justify-center">
-                            <span className="text-xs text-muted-foreground">Loading video preview...</span>
-                          </div>
-                        )}
-                      </div>
-                    )}
+          ) : (
+            // File selected state - 16:9 preview area
+            <div className="relative w-full aspect-video rounded-lg overflow-hidden bg-muted">
+              {uploadState.uploading ? (
+                // Uploading state
+                <div className="absolute inset-0 flex flex-col items-center justify-center gap-4 p-6">
+                  <div className="w-full max-w-md space-y-2">
+                    <div className="flex justify-between text-sm">
+                      <span>Uploading...</span>
+                      <span>{uploadState.progress}%</span>
+                    </div>
+                    <Progress value={uploadState.progress} className="w-full" />
                   </div>
-                )}
-              </div>
-            )}
+                </div>
+              ) : uploadState.completed && uploadState.fileUrl ? (
+                // Completed state - show preview
+                <>
+                  {fileType === 'image' ? (
+                    <Image
+                      src={uploadState.fileUrl}
+                      alt="Cover preview"
+                      fill
+                      className="object-cover"
+                      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                    />
+                  ) : uploadState.videoViewingUrl ? (
+                    <video
+                      src={uploadState.videoViewingUrl}
+                      className="w-full h-full object-cover"
+                      controls={false}
+                      preload="metadata"
+                      muted
+                    />
+                  ) : (
+                    <div className="absolute inset-0 flex items-center justify-center">
+                      <span className="text-sm text-muted-foreground">Loading preview...</span>
+                    </div>
+                  )}
 
-            {uploadState.error && (
-              <div className="text-sm text-red-600">
-                ✗ {uploadState.error}
-              </div>
-            )}
-          </CardContent>
-        </Card>
-      )}
+                  {/* Overlay controls - top right */}
+                  <div className="absolute top-3 right-3 flex items-center gap-2">
+                    <Button
+                      type="button"
+                      variant="secondary"
+                      size="icon"
+                      className="h-8 w-8 bg-background/80 backdrop-blur-sm hover:bg-background"
+                      onClick={handlePreviewOpen}
+                    >
+                      <Eye className="h-4 w-4" />
+                    </Button>
+                    <Button
+                      type="button"
+                      variant="secondary"
+                      size="icon"
+                      className="h-8 w-8 bg-background/80 backdrop-blur-sm hover:bg-background"
+                      onClick={handleClear}
+                      disabled={uploadState.uploading}
+                    >
+                      <X className="h-4 w-4" />
+                    </Button>
+                  </div>
+
+                  {/* File info - bottom left overlay */}
+                  <div className="absolute bottom-3 left-3 flex items-center gap-2 p-3 rounded-lg bg-background/90 backdrop-blur-sm shadow-lg max-w-[calc(100%-6rem)]">
+                    <CheckCircle className="h-4 w-4 text-green-600 shrink-0" />
+                    <div className="flex-1 min-w-0">
+                      <p className="text-xs font-medium truncate" title={uploadState.file.name}>
+                        {uploadState.file.name}
+                      </p>
+                      <p className="text-xs text-muted-foreground">
+                        {(uploadState.file.size / (1024 * 1024)).toFixed(2)} MB
+                      </p>
+                    </div>
+                  </div>
+                </>
+              ) : uploadState.error ? (
+                // Error state
+                <div className="absolute inset-0 flex flex-col items-center justify-center gap-2 p-6 text-center">
+                  <AlertCircle className="h-8 w-8 text-destructive" />
+                  <p className="text-sm text-destructive font-medium">Upload failed</p>
+                  <p className="text-xs text-muted-foreground">{uploadState.error}</p>
+                  <Button
+                    type="button"
+                    variant="outline"
+                    size="sm"
+                    onClick={handleClear}
+                    className="mt-2"
+                  >
+                    Try again
+                  </Button>
+                </div>
+              ) : null}
+            </div>
+          )}
+        </CardContent>
+
+        {/* Guidelines section */}
+        <div className="px-4">
+          <Alert className="bg-blue-50 dark:bg-blue-950/30 border-blue-200 dark:border-blue-800 text-blue-900 dark:text-blue-100">
+            <InfoIcon />
+            <AlertTitle className="text-blue-900 dark:text-blue-100">
+              Cover {fileType === 'image' ? 'Image' : 'Video'} Guidelines
+            </AlertTitle>
+            <AlertDescription className="text-blue-700 dark:text-blue-300">
+              <ul className="list-inside list-disc text-xs space-y-1">
+                <li>Use high-quality {fileType}s with good lighting and composition</li>
+                <li>Recommended aspect ratio: 21:9 (ultrawide) for best results</li>
+                <li>Avoid {fileType}s with important content near the edges</li>
+                <li>Supported formats: {acceptedTypes.map(type => type.split('/')[1].toUpperCase()).join(', ')}</li>
+              </ul>
+            </AlertDescription>
+          </Alert>
+        </div>
+      </Card>
 
       <MediaViewerDialog
         open={previewOpen}

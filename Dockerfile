@@ -16,16 +16,21 @@ RUN npm ci --only=production && \
 FROM node:20-alpine AS builder
 WORKDIR /app
 
-# Copy dependencies from deps stage
-COPY --from=deps /app/node_modules ./node_modules
-COPY . .
+# Copy package files
+COPY package.json package-lock.json ./
 
-# Set build-time environment variables
-ENV NODE_ENV=production
+# Disable telemetry during build
 ENV NEXT_TELEMETRY_DISABLED=1
 
 # Install all dependencies (including devDependencies) for build
+# NOTE: Don't set NODE_ENV=production before npm ci or devDependencies will be skipped!
 RUN npm ci
+
+# Copy all source files
+COPY . .
+
+# Set production environment for Next.js build
+ENV NODE_ENV=production
 
 # Build the application
 RUN npm run build

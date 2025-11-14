@@ -165,9 +165,6 @@ export function CourseBasicInfoStep({ form }: CourseBasicInfoStepProps) {
               fileType="image"
               maxFileSize={10}
             />
-            {watch('basicInfo.imageUrl') && (
-              <p className="text-xs text-green-600">✓ Ảnh đã được tải lên thành công</p>
-            )}
           </div>
         </div>
       </div>

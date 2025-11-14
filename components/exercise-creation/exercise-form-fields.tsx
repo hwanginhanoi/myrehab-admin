@@ -166,9 +166,6 @@ export function ExerciseFormFields({ form, disabled = false }: ExerciseFormField
             maxFileSize={10}
             disabled={disabled}
           />
-          {watch('imageUrl') && (
-            <p className="text-xs text-green-600">✓ Ảnh đã được tải lên thành công</p>
-          )}
           {errors.imageUrl && <p className="text-sm text-red-500">{errors.imageUrl.message}</p>}
         </div>
 
