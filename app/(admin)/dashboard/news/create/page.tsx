@@ -16,7 +16,7 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 import { ArrowLeft, Wand2, Save } from 'lucide-react';
-import { QuillEditor } from '@/components/quill-editor';
+import { TiptapEditor } from '@/components/tiptap-editor';
 import { createNews } from '@/api/api/newsManagementController/createNews';
 import { CreateNewsRequest } from '@/api/types/CreateNewsRequest';
 import { toast } from 'sonner';
@@ -267,7 +267,7 @@ export default function CreateNewsPage() {
               <Label className="text-sm font-medium">
                 {t('content')} <span className="text-red-500">*</span>
               </Label>
-              <QuillEditor
+              <TiptapEditor
                 value={content}
                 onChange={setContent}
                 placeholder={t('contentPlaceholder')}

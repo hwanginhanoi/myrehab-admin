@@ -17,7 +17,7 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 import { ArrowLeft, Wand2 } from 'lucide-react';
-import { QuillEditor } from '@/components/quill-editor';
+import { TiptapEditor } from '@/components/tiptap-editor';
 import { getNewsById } from '@/api/api/newsManagementController/getNewsById';
 import { updateNews } from '@/api/api/newsManagementController/updateNews';
 import { UpdateNewsRequest } from '@/api/types/UpdateNewsRequest';
@@ -287,7 +287,7 @@ export default function EditNewsPage({ params }: { params: { id: string } }) {
                 </CardTitle>
               </CardHeader>
               <CardContent>
-                <QuillEditor
+                <TiptapEditor
                   value={content}
                   onChange={setContent}
                   placeholder={t('contentPlaceholder')}
