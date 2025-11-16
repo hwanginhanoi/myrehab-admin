@@ -11,9 +11,8 @@ The MyRehab Admin application now includes a complete news management system wit
 - **Access**: Admin users only (requires authentication)
 - **Features**:
   - Create, read, update, delete news articles
-  - Rich text editor (Quill.js v2.0.3)
-  - Pin/unpin articles
-  - Filter by status, category, pin status
+  - Rich text editor (Tiptap with shadcn/ui styling)
+  - Filter by status, category
   - Pagination
   - Three status workflow: DRAFT, PUBLISHED, ARCHIVED
 
@@ -38,7 +37,6 @@ The MyRehab Admin application now includes a complete news management system wit
 - `POST /api/news` - Create news (Admin only)
 - `PUT /api/news/:id` - Update news (Admin only)
 - `DELETE /api/news/:id` - Delete news (Admin only)
-- `PATCH /api/news/:id/toggle-pin` - Toggle pin status (Admin only)
 
 ### Query Parameters for Listing
 ```typescript
@@ -49,8 +47,7 @@ The MyRehab Admin application now includes a complete news management system wit
     sort: string[] // e.g., ['createdAt,desc']
   },
   status?: 'DRAFT' | 'PUBLISHED' | 'ARCHIVED',
-  category?: string,
-  isPinned?: boolean
+  category?: string
 }
 ```
 
@@ -68,13 +65,6 @@ Fixed categories (not database-driven):
 1. **DRAFT**: Work-in-progress, not visible to public
 2. **PUBLISHED**: Live articles, visible on public pages
 3. **ARCHIVED**: Hidden from public but preserved
-
-## Pinning System
-
-- Pinned articles appear at the top of listings
-- `isPinned` boolean field
-- `pinnedAt` timestamp tracks when pinned
-- Admin can toggle pin status with one click
 
 ## Public Page Features
 
@@ -107,20 +97,28 @@ export async function generateStaticParams() {
 
 ## Rich Text Editor
 
-Uses Quill.js v2.0.3 with full toolbar:
+Uses Quill v2.0.3 with comprehensive formatting options:
 - Headers (H1-H6)
 - Text formatting (bold, italic, underline, strike)
-- Colors (text and background)
+- Text and background colors
 - Lists (ordered and bullet)
-- Indentation
-- Alignment
-- Links, images, videos
+- Indentation control
+- Text alignment
+- Links, images, and videos (URL-based)
 - Blockquotes and code blocks
+- Clean formatting tool
+- Undo/redo functionality
+
+### Features
+- **Client-side Only**: Uses SSR detection to prevent hydration issues
+- **Keyboard Shortcuts**: Standard shortcuts for formatting (Ctrl+B, Ctrl+I, etc.)
+- **Mobile Responsive**: Toolbar adapts to different screen sizes
+- **Accessible**: Full keyboard navigation support
 
 ### Image Handling in Editor
 **Current**: Images are inserted by URL only (user pastes external URL)
 
-**For Upload Support**: See `components/quill-editor.tsx` comments for implementing custom image handler with backend upload integration.
+**For Upload Support**: You can extend the image handler in `components/quill-editor.tsx` to integrate with your backend upload API.
 
 ## Slug Generation
 
@@ -153,7 +151,7 @@ app/
 │       ├── page.tsx                 # News detail (SSG)
 │       └── not-found.tsx            # 404 page
 components/
-├── quill-editor.tsx                 # Quill editor wrapper
+├── quill-editor.tsx                 # Quill v2.0.3 rich text editor
 constants/
 └── news.ts                          # Categories, statuses
 messages/
@@ -168,10 +166,9 @@ messages/
 2. Click "Tạo tin tức mới"
 3. Fill in title, slug (or auto-generate), summary
 4. Add thumbnail URL
-5. Write content in Quill editor
+5. Write content in Quill editor with rich formatting options
 6. Select category and status
-7. Optionally pin the article
-8. Click "Tạo mới"
+7. Click "Tạo mới"
 
 ### Public: View News
 1. Visit `/news` to see all published articles

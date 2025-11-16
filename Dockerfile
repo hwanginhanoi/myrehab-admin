@@ -39,7 +39,7 @@ RUN npm run build
 FROM node:20-alpine AS runner
 WORKDIR /app
 
-# Set production environment
+# Set production environmentimpl
 ENV NODE_ENV=production
 ENV NEXT_TELEMETRY_DISABLED=1
 

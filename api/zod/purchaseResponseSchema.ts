@@ -10,5 +10,10 @@ export const purchaseResponseSchema = z.object({
 "courseId": z.optional(z.number().int()),
 "courseTitle": z.optional(z.string()),
 "price": z.optional(z.number().int()),
+"originalPrice": z.optional(z.number().int()),
+"discountAmount": z.optional(z.number().int()),
+"finalPrice": z.optional(z.number().int()),
+"discountType": z.optional(z.string()),
+"appliedCouponCode": z.optional(z.string()),
 "purchasedAt": z.optional(z.string().datetime())
     })

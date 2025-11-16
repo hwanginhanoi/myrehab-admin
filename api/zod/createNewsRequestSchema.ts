@@ -13,6 +13,5 @@ export const createNewsRequestSchema = z.object({
 "thumbnailUrl": z.optional(z.string()),
 "authorId": z.optional(z.number().int()),
 "status": z.enum(["DRAFT", "PUBLISHED", "ARCHIVED"]),
-"category": z.optional(z.string()),
-"isPinned": z.optional(z.boolean())
+"category": z.optional(z.string())
     })

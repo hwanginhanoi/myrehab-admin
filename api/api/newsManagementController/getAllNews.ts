@@ -13,7 +13,7 @@ function getGetAllNewsUrl() {
 }
 
 /**
- * @description Retrieve a paginated list of news with optional status, category, and pinning filtering. Use query params: ?status=PUBLISHED&category=HEALTH_TIPS&isPinned=true&page=0&size=10&sort=createdAt,desc
+ * @description Retrieve a paginated list of news with optional status and category filtering. Use query params: ?status=PUBLISHED&category=HEALTH_TIPS&page=0&size=10&sort=createdAt,desc
  * @summary Get paginated news with filtering
  * {@link /api/news}
  */

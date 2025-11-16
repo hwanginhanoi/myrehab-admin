@@ -3,6 +3,7 @@
 * Do not edit manually.
 */
 
+import type { Coupon } from "./Coupon.ts";
 import type { User } from "./User.ts";
 
 export const purchaseTypeEnum = {
@@ -11,6 +12,14 @@ export const purchaseTypeEnum = {
 } as const;
 
 export type PurchaseTypeEnumKey = (typeof purchaseTypeEnum)[keyof typeof purchaseTypeEnum];
+
+export const purchaseDiscountTypeEnum = {
+    "NONE": "NONE",
+    "COURSE_DISCOUNT": "COURSE_DISCOUNT",
+    "COUPON": "COUPON"
+} as const;
+
+export type PurchaseDiscountTypeEnumKey = (typeof purchaseDiscountTypeEnum)[keyof typeof purchaseDiscountTypeEnum];
 
 export type Purchase = {
     /**
@@ -45,6 +54,26 @@ export type Purchase = {
      * @type string | undefined
     */
     assignedNotes?: string;
+    /**
+     * @type integer, int64
+    */
+    originalPrice: number;
+    /**
+     * @type integer, int64
+    */
+    discountAmount: number;
+    /**
+     * @type integer, int64
+    */
+    finalPrice: number;
+    /**
+     * @type object | undefined
+    */
+    appliedCoupon?: Coupon;
+    /**
+     * @type string | undefined
+    */
+    discountType?: PurchaseDiscountTypeEnumKey;
     /**
      * @type string | undefined, date-time
     */

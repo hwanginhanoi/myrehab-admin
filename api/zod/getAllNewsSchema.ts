@@ -10,8 +10,7 @@ import { z } from "zod";
 export const getAllNewsQueryParamsSchema = z.object({
     "pageable": z.lazy(() => pageableSchema),
 "status": z.optional(z.enum(["DRAFT", "PUBLISHED", "ARCHIVED"])),
-"category": z.optional(z.string()),
-"isPinned": z.optional(z.boolean())
+"category": z.optional(z.string())
     })
 
 /**

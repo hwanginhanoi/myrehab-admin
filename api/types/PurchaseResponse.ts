@@ -22,6 +22,26 @@ export type PurchaseResponse = {
     */
     price?: number;
     /**
+     * @type integer | undefined, int64
+    */
+    originalPrice?: number;
+    /**
+     * @type integer | undefined, int64
+    */
+    discountAmount?: number;
+    /**
+     * @type integer | undefined, int64
+    */
+    finalPrice?: number;
+    /**
+     * @type string | undefined
+    */
+    discountType?: string;
+    /**
+     * @type string | undefined
+    */
+    appliedCouponCode?: string;
+    /**
      * @type string | undefined, date-time
     */
     purchasedAt?: string;

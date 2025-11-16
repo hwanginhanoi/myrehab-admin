@@ -15,8 +15,6 @@ export const newsResponseSchema = z.object({
 "authorId": z.optional(z.number().int()),
 "status": z.optional(z.enum(["DRAFT", "PUBLISHED", "ARCHIVED"])),
 "category": z.optional(z.string()),
-"isPinned": z.optional(z.boolean()),
-"pinnedAt": z.optional(z.string().datetime()),
 "publishedAt": z.optional(z.string().datetime()),
 "createdAt": z.optional(z.string().datetime()),
 "updatedAt": z.optional(z.string().datetime())

@@ -12,6 +12,13 @@ export type BuyCoursePathParams = {
     courseId: number;
 };
 
+export type BuyCourseQueryParams = {
+    /**
+     * @type string | undefined
+    */
+    couponCode?: string;
+};
+
 /**
  * @description OK
 */
@@ -22,5 +29,6 @@ export type BuyCourseMutationResponse = BuyCourse200;
 export type BuyCourseMutation = {
     Response: BuyCourse200;
     PathParams: BuyCoursePathParams;
+    QueryParams: BuyCourseQueryParams;
     Errors: any;
 };

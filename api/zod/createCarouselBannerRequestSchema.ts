@@ -10,7 +10,7 @@ export const createCarouselBannerRequestSchema = z.object({
 "description": z.optional(z.string()),
 "imageUrl": z.string().min(1),
 "linkUrl": z.optional(z.string()),
-"displayOrder": z.number().int(),
+"displayOrder": z.optional(z.number().int()),
 "startDate": z.optional(z.string().datetime()),
 "endDate": z.optional(z.string().datetime())
     })

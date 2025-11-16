@@ -15,7 +15,6 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
-import { Checkbox } from '@/components/ui/checkbox';
 import { ArrowLeft, Wand2, Save } from 'lucide-react';
 import { QuillEditor } from '@/components/quill-editor';
 import { createNews } from '@/api/api/newsManagementController/createNews';
@@ -31,7 +30,6 @@ type NewsFormData = {
   thumbnailUrl: string;
   status: string;
   category: string;
-  isPinned: boolean;
 };
 
 export default function CreateNewsPage() {
@@ -56,14 +54,12 @@ export default function CreateNewsPage() {
       thumbnailUrl: '',
       status: 'DRAFT',
       category: 'GENERAL',
-      isPinned: false,
     },
   });
 
   const title = watch('title');
   const status = watch('status');
   const category = watch('category');
-  const isPinned = watch('isPinned');
 
   const generateSlug = () => {
     if (!title) {
@@ -101,7 +97,6 @@ export default function CreateNewsPage() {
         thumbnailUrl: data.thumbnailUrl || undefined,
         status: data.status as 'DRAFT' | 'PUBLISHED' | 'ARCHIVED',
         category: data.category || undefined,
-        isPinned: data.isPinned || undefined,
       };
 
       const response = await createNews(requestData);
@@ -264,19 +259,6 @@ export default function CreateNewsPage() {
                     </SelectContent>
                   </Select>
                 </div>
-              </div>
-
-              {/* Pin Status */}
-              <div className="flex items-center space-x-2">
-                <Checkbox
-                  id="isPinned"
-                  checked={isPinned}
-                  onCheckedChange={(checked) => setValue('isPinned', checked as boolean)}
-                  disabled={submitting}
-                />
-                <Label htmlFor="isPinned" className="cursor-pointer text-sm font-medium">
-                  {t('pinNews')}
-                </Label>
               </div>
             </div>
 

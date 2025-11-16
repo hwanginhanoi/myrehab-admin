@@ -6,5 +6,7 @@ export { getCourseAssignments } from "./getCourseAssignments.ts";
 export { getCourseById } from "./getCourseById.ts";
 export { getMyCustomCourses } from "./getMyCustomCourses.ts";
 export { getMyOwnedCourses } from "./getMyOwnedCourses.ts";
+export { removeCourseDiscount } from "./removeCourseDiscount.ts";
 export { revokeAssignment } from "./revokeAssignment.ts";
+export { setCourseDiscount } from "./setCourseDiscount.ts";
 export { updateCourse } from "./updateCourse.ts";

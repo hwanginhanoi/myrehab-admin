@@ -3,6 +3,7 @@
 * Do not edit manually.
 */
 
+import { couponSchema } from "./couponSchema.ts";
 import { userSchema } from "./userSchema.ts";
 import { z } from "zod";
 
@@ -15,5 +16,10 @@ export const purchaseSchema = z.object({
 "assignedByUserId": z.optional(z.number().int()),
 "assignedByRole": z.optional(z.string()),
 "assignedNotes": z.optional(z.string()),
+"originalPrice": z.number().int(),
+"discountAmount": z.number().int(),
+"finalPrice": z.number().int(),
+"appliedCoupon": z.optional(z.lazy(() => couponSchema)),
+"discountType": z.optional(z.enum(["NONE", "COURSE_DISCOUNT", "COUPON"])),
 "purchasedAt": z.optional(z.string().datetime())
     })

@@ -16,7 +16,6 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
-import { Checkbox } from '@/components/ui/checkbox';
 import { ArrowLeft, Wand2 } from 'lucide-react';
 import { QuillEditor } from '@/components/quill-editor';
 import { getNewsById } from '@/api/api/newsManagementController/getNewsById';
@@ -33,7 +32,6 @@ type NewsFormData = {
   thumbnailUrl: string;
   status: string;
   category: string;
-  isPinned: boolean;
 };
 
 export default function EditNewsPage({ params }: { params: { id: string } }) {
@@ -56,7 +54,6 @@ export default function EditNewsPage({ params }: { params: { id: string } }) {
   const title = watch('title');
   const status = watch('status');
   const category = watch('category');
-  const isPinned = watch('isPinned');
 
   useEffect(() => {
     const resolveParams = async () => {
@@ -80,7 +77,6 @@ export default function EditNewsPage({ params }: { params: { id: string } }) {
         setValue('thumbnailUrl', data.thumbnailUrl || '');
         setValue('status', data.status || 'DRAFT');
         setValue('category', data.category || 'GENERAL');
-        setValue('isPinned', data.isPinned || false);
         setContent(data.content || '');
       } catch {
         toast.error('Failed to load news');
@@ -129,7 +125,6 @@ export default function EditNewsPage({ params }: { params: { id: string } }) {
         thumbnailUrl: data.thumbnailUrl || undefined,
         status: data.status as 'DRAFT' | 'PUBLISHED' | 'ARCHIVED',
         category: data.category || undefined,
-        isPinned: data.isPinned || undefined,
       };
 
       await updateNews(parseInt(newsId!), requestData);
@@ -280,18 +275,6 @@ export default function EditNewsPage({ params }: { params: { id: string } }) {
                       ))}
                     </SelectContent>
                   </Select>
-                </div>
-
-                {/* Pin Status */}
-                <div className="flex items-center space-x-2">
-                  <Checkbox
-                    id="isPinned"
-                    checked={isPinned}
-                    onCheckedChange={(checked) => setValue('isPinned', checked as boolean)}
-                  />
-                  <Label htmlFor="isPinned" className="cursor-pointer">
-                    {t('pinNews')}
-                  </Label>
                 </div>
               </CardContent>
             </Card>

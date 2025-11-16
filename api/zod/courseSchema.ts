@@ -20,6 +20,10 @@ export const courseSchema = z.object({
 "createdByUserId": z.optional(z.number().int()),
 "createdByRole": z.optional(z.string()),
 "isPublic": z.optional(z.boolean()),
+"discountPercentage": z.optional(z.number().int()),
+"discountActive": z.optional(z.boolean()),
 "createdAt": z.optional(z.string().datetime()),
-"updatedAt": z.optional(z.string().datetime())
+"updatedAt": z.optional(z.string().datetime()),
+"discountAmount": z.optional(z.number().int()),
+"effectivePrice": z.optional(z.number().int())
     })

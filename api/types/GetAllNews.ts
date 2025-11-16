@@ -27,10 +27,6 @@ export type GetAllNewsQueryParams = {
      * @type string | undefined
     */
     category?: string;
-    /**
-     * @type boolean | undefined
-    */
-    isPinned?: boolean;
 };
 
 /**

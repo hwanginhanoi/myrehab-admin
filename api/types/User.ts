@@ -121,10 +121,6 @@ export type User = {
     */
     password?: string;
     /**
-     * @type string | undefined
-    */
-    role?: UserRoleEnumKey;
-    /**
      * @type array | undefined
     */
     authorities?: GrantedAuthority[];
@@ -132,4 +128,8 @@ export type User = {
      * @type string | undefined
     */
     username?: string;
+    /**
+     * @type string | undefined
+    */
+    role?: UserRoleEnumKey;
 };

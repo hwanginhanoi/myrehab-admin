@@ -131,8 +131,6 @@
     "author": "Tác giả",
     "status": "Trạng thái",
     "category": "Danh mục",
-    "isPinned": "Ghim",
-    "pinnedAt": "Thời gian ghim",
     "publishedAt": "Thời gian xuất bản",
     "createdAt": "Ngày tạo",
     "updatedAt": "Ngày cập nhật",
@@ -142,20 +140,13 @@
     "deleteNews": "Xóa tin tức",
     "deleteConfirm": "Bạn có chắc chắn muốn xóa tin tức này?",
     "viewNews": "Xem chi tiết",
-    "pinNews": "Ghim tin tức",
-    "unpinNews": "Bỏ ghim",
-    "togglePin": "Đổi trạng thái ghim",
     "noNews": "Không có tin tức nào",
     "noSearchResults": "Không tìm thấy tin tức phù hợp",
     "searchPlaceholder": "Tìm kiếm tin tức...",
     "filterByStatus": "Lọc theo trạng thái",
     "filterByCategory": "Lọc theo danh mục",
-    "filterByPin": "Lọc theo ghim",
     "allStatuses": "Tất cả trạng thái",
     "allCategories": "Tất cả danh mục",
-    "pinnedOnly": "Chỉ tin đã ghim",
-    "unpinnedOnly": "Chỉ tin chưa ghim",
-    "allPinStatuses": "Tất cả",
     "basicInfo": "Thông tin cơ bản",
     "titlePlaceholder": "Nhập tiêu đề tin tức",
     "slugPlaceholder": "duong-dan-url-tin-tuc",
@@ -175,10 +166,6 @@
       "draft": "Bản nháp",
       "published": "Đã xuất bản",
       "archived": "Đã lưu trữ"
-    },
-    "pinStatus": {
-      "pinned": "Đã ghim",
-      "unpinned": "Chưa ghim"
     }
   }
 } 

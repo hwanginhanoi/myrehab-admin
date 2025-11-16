@@ -24,9 +24,9 @@ export type CreateCarouselBannerRequest = {
     */
     linkUrl?: string;
     /**
-     * @type integer, int32
+     * @type integer | undefined, int32
     */
-    displayOrder: number;
+    displayOrder?: number;
     /**
      * @type string | undefined, date-time
     */

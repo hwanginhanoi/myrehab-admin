@@ -32,10 +32,8 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
 } from '@/components/ui/alert-dialog';
-import { MoreHorizontal, Eye, Edit, Trash2, Plus, Power, PowerOff, Image as ImageIcon } from 'lucide-react';
-import { getAllBanners } from '@/api/api/carouselBannerManagementController/getAllBanners';
-import { deleteBanner } from '@/api/api/carouselBannerManagementController/deleteBanner';
-import { toggleBannerStatus } from '@/api/api/carouselBannerManagementController/toggleBannerStatus';
+import { MoreHorizontal, Eye, Edit, Trash2, Plus, Power, PowerOff, Image as ImageIcon, ArrowUpDown } from 'lucide-react';
+import { getAllBanners, deleteBanner, toggleBannerStatus } from '@/api/api/carouselBannerManagementController';
 import type { CarouselBannerResponse } from '@/api/types/CarouselBannerResponse';
 import { toast } from 'sonner';
 import { TableSkeleton } from '@/components/ui/table-skeleton';
@@ -300,13 +298,23 @@ export default function BannersPage() {
             <h1 className="text-4xl font-bold text-[#EF7F26] mb-2">Quản lý Banner</h1>
             <p className="text-base text-[#71717A]">Quản lý banner carousel trên trang chủ</p>
           </div>
-          <Button
-            onClick={() => router.push('/dashboard/banners/create')}
-            className="bg-[#6DBAD6] hover:bg-[#5ca9c5] text-white"
-          >
-            <Plus className="mr-2 h-4 w-4" />
-            Tạo banner mới
-          </Button>
+          <div className="flex gap-2">
+            <Button
+              variant="outline"
+              onClick={() => router.push('/dashboard/banners/reorder')}
+              className="border-[#6DBAD6] text-[#6DBAD6] hover:bg-[#6DBAD6] hover:text-white"
+            >
+              <ArrowUpDown className="mr-2 h-4 w-4" />
+              Sắp xếp thứ tự
+            </Button>
+            <Button
+              onClick={() => router.push('/dashboard/banners/create')}
+              className="bg-[#6DBAD6] hover:bg-[#5ca9c5] text-white"
+            >
+              <Plus className="mr-2 h-4 w-4" />
+              Tạo banner mới
+            </Button>
+          </div>
         </div>
 
         {/* Table */}

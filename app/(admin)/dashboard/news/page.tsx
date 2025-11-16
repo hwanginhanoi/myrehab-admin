@@ -35,10 +35,9 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
 } from '@/components/ui/alert-dialog';
-import { Plus, Eye, Edit, Trash2, Pin, PinOff } from 'lucide-react';
+import { Plus, Eye, Edit, Trash2 } from 'lucide-react';
 import { getAllNews } from '@/api/api/newsManagementController/getAllNews';
 import { deleteNews } from '@/api/api/newsManagementController/deleteNews';
-import { togglePin } from '@/api/api/newsManagementController/togglePin';
 import { NewsResponse } from '@/api/types/NewsResponse';
 import { PagedModelNewsResponse } from '@/api/types/PagedModelNewsResponse';
 import { toast } from 'sonner';
@@ -64,7 +63,6 @@ export default function NewsPage() {
   const [searchInput, setSearchInput] = useState('');
   const [statusFilter, setStatusFilter] = useState<string>('all');
   const [categoryFilter, setCategoryFilter] = useState<string>('all');
-  const [pinFilter, setPinFilter] = useState<string>('all');
   const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
   const [newsToDelete, setNewsToDelete] = useState<number | null>(null);
 
@@ -84,8 +82,6 @@ export default function NewsPage() {
         },
         ...(statusFilter !== 'all' && { status: statusFilter as 'DRAFT' | 'PUBLISHED' | 'ARCHIVED' }),
         ...(categoryFilter !== 'all' && { category: categoryFilter }),
-        ...(pinFilter === 'pinned' && { isPinned: true }),
-        ...(pinFilter === 'unpinned' && { isPinned: false }),
       };
 
       const data = await getAllNews(params);
@@ -110,7 +106,7 @@ export default function NewsPage() {
     } finally {
       setLoading(false);
     }
-  }, [pagination.pageIndex, pagination.pageSize, statusFilter, categoryFilter, pinFilter]);
+  }, [pagination.pageIndex, pagination.pageSize, statusFilter, categoryFilter]);
 
   useEffect(() => {
     fetchNews();
@@ -130,23 +126,6 @@ export default function NewsPage() {
   const handleCategoryChange = (value: string) => {
     setCategoryFilter(value);
     setPagination(prev => ({ ...prev, pageIndex: 0 }));
-  };
-
-  const handlePinFilterChange = (value: string) => {
-    setPinFilter(value);
-    setPagination(prev => ({ ...prev, pageIndex: 0 }));
-  };
-
-  const handleTogglePin = async (id: number | undefined) => {
-    if (!id) return;
-
-    try {
-      await togglePin(id);
-      toast.success(t('togglePin'));
-      fetchNews();
-    } catch {
-      toast.error('Failed to toggle pin status');
-    }
   };
 
   const handleDeleteClick = (id: number | undefined) => {
@@ -198,16 +177,13 @@ export default function NewsPage() {
       cell: (info) => {
         const newsItem = info.row.original;
         return (
-          <div className="flex items-center gap-2">
-            {newsItem.isPinned && <Pin className="w-4 h-4 text-orange-500" />}
-            <div className="max-w-md">
-              <div className="font-medium truncate">{info.getValue()}</div>
-              {newsItem.summary && (
-                <div className="text-sm text-muted-foreground truncate">
-                  {newsItem.summary}
-                </div>
-              )}
-            </div>
+          <div className="max-w-md">
+            <div className="font-medium truncate">{info.getValue()}</div>
+            {newsItem.summary && (
+              <div className="text-sm text-muted-foreground truncate">
+                {newsItem.summary}
+              </div>
+            )}
           </div>
         );
       },
@@ -253,18 +229,6 @@ export default function NewsPage() {
               title={t('editNews')}
             >
               <Edit className="w-4 h-4" />
-            </Button>
-            <Button
-              variant="ghost"
-              size="sm"
-              onClick={() => handleTogglePin(newsItem.id)}
-              title={newsItem.isPinned ? t('unpinNews') : t('pinNews')}
-            >
-              {newsItem.isPinned ? (
-                <PinOff className="w-4 h-4 text-orange-500" />
-              ) : (
-                <Pin className="w-4 h-4" />
-              )}
             </Button>
             <Button
               variant="ghost"
@@ -346,17 +310,6 @@ export default function NewsPage() {
                     {t(option.labelKey)}
                   </SelectItem>
                 ))}
-              </SelectContent>
-            </Select>
-
-            <Select value={pinFilter} onValueChange={handlePinFilterChange}>
-              <SelectTrigger className="w-[200px]">
-                <SelectValue placeholder={t('filterByPin')} />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="all">{t('allPinStatuses')}</SelectItem>
-                <SelectItem value="pinned">{t('pinnedOnly')}</SelectItem>
-                <SelectItem value="unpinned">{t('unpinnedOnly')}</SelectItem>
               </SelectContent>
             </Select>
           </div>

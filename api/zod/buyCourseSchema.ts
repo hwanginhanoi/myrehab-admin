@@ -10,6 +10,10 @@ export const buyCoursePathParamsSchema = z.object({
     "courseId": z.coerce.number().int()
     })
 
+export const buyCourseQueryParamsSchema = z.object({
+    "couponCode": z.optional(z.string())
+    }).optional()
+
 /**
  * @description OK
  */

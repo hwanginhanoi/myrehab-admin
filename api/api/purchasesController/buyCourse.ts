@@ -4,7 +4,7 @@
 */
 
 import fetch from "@/lib/api-client";
-import type { BuyCourseMutationResponse, BuyCoursePathParams } from "../../types/BuyCourse.ts";
+import type { BuyCourseMutationResponse, BuyCoursePathParams, BuyCourseQueryParams } from "../../types/BuyCourse.ts";
 import type { RequestConfig, ResponseErrorConfig } from "@/lib/api-client";
 
 function getBuyCourseUrl(courseId: BuyCoursePathParams["courseId"]) {
@@ -13,13 +13,13 @@ function getBuyCourseUrl(courseId: BuyCoursePathParams["courseId"]) {
 }
 
 /**
- * @description Purchase a course
+ * @description Purchase a course. Optionally provide a coupon code for discount. System automatically applies the best available discount (course discount vs coupon).
  * @summary Buy course
  * {@link /api/purchases/course/:courseId}
  */
-export async function buyCourse(courseId: BuyCoursePathParams["courseId"], config: Partial<RequestConfig> & { client?: typeof fetch } = {}) {
+export async function buyCourse(courseId: BuyCoursePathParams["courseId"], params?: BuyCourseQueryParams, config: Partial<RequestConfig> & { client?: typeof fetch } = {}) {
   const { client: request = fetch, ...requestConfig } = config  
   
-  const res = await request<BuyCourseMutationResponse, ResponseErrorConfig<Error>, unknown>({ method : "POST", url : getBuyCourseUrl(courseId).url.toString(), ... requestConfig })  
+  const res = await request<BuyCourseMutationResponse, ResponseErrorConfig<Error>, unknown>({ method : "POST", url : getBuyCourseUrl(courseId).url.toString(), params, ... requestConfig })  
   return res.data
 }

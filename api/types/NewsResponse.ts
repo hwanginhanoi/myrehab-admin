@@ -50,14 +50,6 @@ export type NewsResponse = {
     */
     category?: string;
     /**
-     * @type boolean | undefined
-    */
-    isPinned?: boolean;
-    /**
-     * @type string | undefined, date-time
-    */
-    pinnedAt?: string;
-    /**
      * @type string | undefined, date-time
     */
     publishedAt?: string;

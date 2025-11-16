@@ -59,6 +59,14 @@ export type Course = {
     */
     isPublic?: boolean;
     /**
+     * @type integer | undefined, int32
+    */
+    discountPercentage?: number;
+    /**
+     * @type boolean | undefined
+    */
+    discountActive?: boolean;
+    /**
      * @type string | undefined, date-time
     */
     createdAt?: string;
@@ -66,4 +74,12 @@ export type Course = {
      * @type string | undefined, date-time
     */
     updatedAt?: string;
+    /**
+     * @type integer | undefined, int64
+    */
+    discountAmount?: number;
+    /**
+     * @type integer | undefined, int64
+    */
+    effectivePrice?: number;
 };

@@ -48,8 +48,4 @@ export type CreateNewsRequest = {
      * @type string | undefined
     */
     category?: string;
-    /**
-     * @type boolean | undefined
-    */
-    isPinned?: boolean;
 };

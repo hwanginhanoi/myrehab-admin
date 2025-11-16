@@ -13,10 +13,15 @@ export const courseResponseSchema = z.object({
 "description": z.optional(z.string()),
 "imageUrl": z.optional(z.string()),
 "price": z.optional(z.number().int()),
+"discountPercentage": z.optional(z.number().int()),
+"discountedPrice": z.optional(z.number().int()),
+"hasDiscount": z.optional(z.boolean()),
 "durationDays": z.optional(z.number().int()),
 "category": z.optional(z.lazy(() => courseCategoryResponseSchema)),
 "courseDays": z.optional(z.array(z.lazy(() => courseDayResponseSchema))),
 "isOwned": z.optional(z.boolean()),
+"averageRating": z.optional(z.number()),
+"totalRatings": z.optional(z.number().int()),
 "createdAt": z.optional(z.string().datetime()),
 "updatedAt": z.optional(z.string().datetime())
     })

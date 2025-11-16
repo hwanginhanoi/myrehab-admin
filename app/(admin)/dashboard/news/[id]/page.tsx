@@ -6,7 +6,7 @@ import { useTranslations } from 'next-intl';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { ArrowLeft, Edit, Pin, Calendar } from 'lucide-react';
+import { ArrowLeft, Edit, Calendar } from 'lucide-react';
 import { getNewsById } from '@/api/api/newsManagementController/getNewsById';
 import { NewsResponse } from '@/api/types/NewsResponse';
 import { toast } from 'sonner';
@@ -112,9 +112,6 @@ export default function NewsDetailPage({ params }: { params: { id: string } }) {
             <div className="flex items-start justify-between">
               <div className="flex-1">
                 <div className="flex items-center gap-2 mb-2">
-                  {news.isPinned && (
-                    <Pin className="w-5 h-5 text-orange-500" />
-                  )}
                   {getStatusBadge(news.status)}
                   <Badge variant="outline">{categoryLabel}</Badge>
                 </div>

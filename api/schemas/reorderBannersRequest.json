@@ -1,0 +1,1 @@
+{"type":"object","properties":{"bannerIds":{"type":"array","items":{"type":"integer","format":"int64"},"minItems":1}},"required":["bannerIds"],"x-readme-ref-name":"ReorderBannersRequest"}

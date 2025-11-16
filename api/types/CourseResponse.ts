@@ -30,6 +30,18 @@ export type CourseResponse = {
     /**
      * @type integer | undefined, int32
     */
+    discountPercentage?: number;
+    /**
+     * @type integer | undefined, int64
+    */
+    discountedPrice?: number;
+    /**
+     * @type boolean | undefined
+    */
+    hasDiscount?: boolean;
+    /**
+     * @type integer | undefined, int32
+    */
     durationDays?: number;
     /**
      * @type object | undefined
@@ -43,6 +55,14 @@ export type CourseResponse = {
      * @type boolean | undefined
     */
     isOwned?: boolean;
+    /**
+     * @type number | undefined, double
+    */
+    averageRating?: number;
+    /**
+     * @type integer | undefined, int64
+    */
+    totalRatings?: number;
     /**
      * @type string | undefined, date-time
     */
