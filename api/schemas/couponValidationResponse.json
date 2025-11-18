@@ -1,1 +1,0 @@
-{"type":"object","properties":{"valid":{"type":"boolean"},"code":{"type":"string"},"discountPercentage":{"type":"integer","format":"int32"},"originalPrice":{"type":"integer","format":"int64"},"discountAmount":{"type":"integer","format":"int64"},"finalPrice":{"type":"integer","format":"int64"},"reason":{"type":"string"}},"x-readme-ref-name":"CouponValidationResponse"}

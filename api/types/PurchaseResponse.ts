@@ -38,10 +38,6 @@ export type PurchaseResponse = {
     */
     discountType?: string;
     /**
-     * @type string | undefined
-    */
-    appliedCouponCode?: string;
-    /**
      * @type string | undefined, date-time
     */
     purchasedAt?: string;

@@ -23,13 +23,6 @@ export { getBannerById } from "./carouselBannerManagementController/getBannerByI
 export { reorderBanners } from "./carouselBannerManagementController/reorderBanners.ts";
 export { toggleBannerStatus } from "./carouselBannerManagementController/toggleBannerStatus.ts";
 export { updateBanner } from "./carouselBannerManagementController/updateBanner.ts";
-export { createCoupon } from "./couponManagementController/createCoupon.ts";
-export { deleteCoupon } from "./couponManagementController/deleteCoupon.ts";
-export { getActiveCoupons } from "./couponManagementController/getActiveCoupons.ts";
-export { getAllCoupons } from "./couponManagementController/getAllCoupons.ts";
-export { getCouponById } from "./couponManagementController/getCouponById.ts";
-export { updateCoupon } from "./couponManagementController/updateCoupon.ts";
-export { validateCoupon } from "./couponManagementController/validateCoupon.ts";
 export { createCategory1 } from "./courseCategoryManagementController/createCategory1.ts";
 export { deleteCategory1 } from "./courseCategoryManagementController/deleteCategory1.ts";
 export { getAllCategories1 } from "./courseCategoryManagementController/getAllCategories1.ts";
@@ -94,6 +87,8 @@ export { generatePresignedUploadUrl } from "./fileUploadController/generatePresi
 export { generateVideoViewingUrl } from "./fileUploadController/generateVideoViewingUrl.ts";
 export { uploadImage } from "./fileUploadController/uploadImage.ts";
 export { uploadVideo } from "./fileUploadController/uploadVideo.ts";
+export { getGlobalDiscount } from "./globalDiscountManagementController/getGlobalDiscount.ts";
+export { updateGlobalDiscount } from "./globalDiscountManagementController/updateGlobalDiscount.ts";
 export { createNews } from "./newsManagementController/createNews.ts";
 export { deleteNews } from "./newsManagementController/deleteNews.ts";
 export { getAllNews } from "./newsManagementController/getAllNews.ts";

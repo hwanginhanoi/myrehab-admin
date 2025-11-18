@@ -9,9 +9,12 @@ import { Button } from '@/components/ui/button';
 import { Skeleton } from '@/components/ui/skeleton';
 import { getCourseById } from '@/api/api/courseManagementController/getCourseById';
 import { updateCourse } from '@/api/api/courseManagementController/updateCourse';
+import { setCourseDiscount } from '@/api/api/courseManagementController/setCourseDiscount';
+import { removeCourseDiscount } from '@/api/api/courseManagementController/removeCourseDiscount';
 import { UpdateCourseRequest } from '@/api/types/UpdateCourseRequest';
 import { UpdateCourseDayRequest } from '@/api/types/UpdateCourseDayRequest';
 import { UpdateDayExerciseRequest } from '@/api/types/UpdateDayExerciseRequest';
+import { SetCourseDiscountRequest } from '@/api/types/SetCourseDiscountRequest';
 import { CourseCreationFormData, CourseCreationStep } from '@/lib/types/course-creation';
 import { CourseBasicInfoStep } from '@/components/course-creation/course-basic-info-step';
 import { CourseArrangementStep } from '@/components/course-creation/course-arrangement-step';
@@ -33,6 +36,8 @@ export default function EditCoursePage() {
         imageUrl: '',
         price: 0,
         categoryId: '0',
+        discountPercentage: 0,
+        hasDiscount: false,
       },
       courseDays: [],
     },
@@ -62,6 +67,8 @@ export default function EditCoursePage() {
             imageUrl: courseData.imageUrl || '',
             price: courseData.price || 0,
             categoryId: courseData.category?.id?.toString() || '0',
+            discountPercentage: courseData.discountPercentage || 0,
+            hasDiscount: courseData.hasDiscount || false,
           },
           courseDays: (courseData.courseDays || [])
             .sort((a, b) => (a.dayNumber || 0) - (b.dayNumber || 0))
@@ -157,6 +164,29 @@ export default function EditCoursePage() {
       };
 
       await updateCourse(courseId, requestData);
+
+      // Handle discount changes
+      if (data.basicInfo.hasDiscount && data.basicInfo.discountPercentage) {
+        try {
+          const discountRequest: SetCourseDiscountRequest = {
+            discountPercentage: data.basicInfo.discountPercentage,
+            discountActive: true,
+          };
+          await setCourseDiscount(courseId, discountRequest);
+        } catch (discountErr) {
+          console.error('Failed to set discount:', discountErr);
+          toast.warning('Lộ trình đã được cập nhật nhưng không thể áp dụng giảm giá', {
+            description: 'Bạn có thể thử lại sau.',
+          });
+        }
+      } else if (!data.basicInfo.hasDiscount) {
+        // Remove discount if toggle is off
+        try {
+          await removeCourseDiscount(courseId);
+        } catch (discountErr) {
+          console.error('Failed to remove discount:', discountErr);
+        }
+      }
 
       toast.success('Lộ trình đã được cập nhật thành công!', {
         description: `"${data.basicInfo.title}" đã được cập nhật.`,

@@ -14,6 +14,5 @@ export const purchaseResponseSchema = z.object({
 "discountAmount": z.optional(z.number().int()),
 "finalPrice": z.optional(z.number().int()),
 "discountType": z.optional(z.string()),
-"appliedCouponCode": z.optional(z.string()),
 "purchasedAt": z.optional(z.string().datetime())
     })

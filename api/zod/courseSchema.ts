@@ -23,7 +23,5 @@ export const courseSchema = z.object({
 "discountPercentage": z.optional(z.number().int()),
 "discountActive": z.optional(z.boolean()),
 "createdAt": z.optional(z.string().datetime()),
-"updatedAt": z.optional(z.string().datetime()),
-"discountAmount": z.optional(z.number().int()),
-"effectivePrice": z.optional(z.number().int())
+"updatedAt": z.optional(z.string().datetime())
     })

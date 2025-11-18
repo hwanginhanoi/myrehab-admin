@@ -1,0 +1,1 @@
+{"type":"object","properties":{"discountPercentage":{"type":"integer","format":"int32","maximum":100,"minimum":0},"isActive":{"type":"boolean"}},"required":["discountPercentage","isActive"],"x-readme-ref-name":"UpdateGlobalDiscountRequest"}

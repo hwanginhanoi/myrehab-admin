@@ -46,6 +46,7 @@ import { CourseCategoryResponse } from '@/api/types/CourseCategoryResponse';
 import { toast } from 'sonner';
 import { TableSkeleton } from '@/components/ui/table-skeleton';
 import { formatVND } from '@/lib/utils/currency';
+import { Badge } from '@/components/ui/badge';
 
 const columnHelper = createColumnHelper<CourseResponse>();
 
@@ -195,7 +196,30 @@ export default function CoursesPage() {
     }),
     columnHelper.accessor('price', {
       header: 'Price',
-      cell: (info) => formatVND(info.getValue()),
+      cell: (info) => {
+        const course = info.row.original;
+        const hasDiscount = course.hasDiscount && course.discountPercentage;
+
+        return (
+          <div className="space-y-1">
+            <div className="flex items-center gap-2">
+              {hasDiscount && (
+                <span className="text-sm text-muted-foreground line-through">
+                  {formatVND(info.getValue())}
+                </span>
+              )}
+              <span className={hasDiscount ? 'font-semibold text-[#6DBAD6]' : ''}>
+                {formatVND(hasDiscount ? course.discountedPrice : info.getValue())}
+              </span>
+            </div>
+            {hasDiscount && (
+              <Badge variant="destructive" className="text-xs">
+                {course.discountPercentage}% OFF
+              </Badge>
+            )}
+          </div>
+        );
+      },
     }),
     columnHelper.accessor('createdAt', {
       header: 'Created',

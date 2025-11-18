@@ -74,12 +74,4 @@ export type Course = {
      * @type string | undefined, date-time
     */
     updatedAt?: string;
-    /**
-     * @type integer | undefined, int64
-    */
-    discountAmount?: number;
-    /**
-     * @type integer | undefined, int64
-    */
-    effectivePrice?: number;
 };

@@ -3,7 +3,6 @@
 * Do not edit manually.
 */
 
-import type { Coupon } from "./Coupon.ts";
 import type { User } from "./User.ts";
 
 export const purchaseTypeEnum = {
@@ -16,7 +15,7 @@ export type PurchaseTypeEnumKey = (typeof purchaseTypeEnum)[keyof typeof purchas
 export const purchaseDiscountTypeEnum = {
     "NONE": "NONE",
     "COURSE_DISCOUNT": "COURSE_DISCOUNT",
-    "COUPON": "COUPON"
+    "GLOBAL_DISCOUNT": "GLOBAL_DISCOUNT"
 } as const;
 
 export type PurchaseDiscountTypeEnumKey = (typeof purchaseDiscountTypeEnum)[keyof typeof purchaseDiscountTypeEnum];
@@ -66,10 +65,6 @@ export type Purchase = {
      * @type integer, int64
     */
     finalPrice: number;
-    /**
-     * @type object | undefined
-    */
-    appliedCoupon?: Coupon;
     /**
      * @type string | undefined
     */

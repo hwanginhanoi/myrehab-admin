@@ -11,16 +11,13 @@ export { assignPermissionToAdminPathParamsSchema, assignPermissionToAdmin200Sche
 export { assignPermissionToDoctorPathParamsSchema, assignPermissionToDoctor200Schema, assignPermissionToDoctorMutationRequestSchema, assignPermissionToDoctorMutationResponseSchema } from "./assignPermissionToDoctorSchema.ts";
 export { authResponseSchema } from "./authResponseSchema.ts";
 export { balanceResponseSchema } from "./balanceResponseSchema.ts";
-export { buyCoursePathParamsSchema, buyCourseQueryParamsSchema, buyCourse200Schema, buyCourseMutationResponseSchema } from "./buyCourseSchema.ts";
+export { buyCoursePathParamsSchema, buyCourse200Schema, buyCourseMutationResponseSchema } from "./buyCourseSchema.ts";
 export { carouselBannerListResponseSchema } from "./carouselBannerListResponseSchema.ts";
 export { carouselBannerResponseSchema } from "./carouselBannerResponseSchema.ts";
 export { checkCourseOwnershipPathParamsSchema, checkCourseOwnership200Schema, checkCourseOwnershipQueryResponseSchema } from "./checkCourseOwnershipSchema.ts";
 export { completeCourse200Schema, completeCourseMutationResponseSchema } from "./completeCourseSchema.ts";
 export { completedCourseResponseSchema } from "./completedCourseResponseSchema.ts";
 export { completeExercisePathParamsSchema, completeExercise200Schema, completeExerciseMutationResponseSchema } from "./completeExerciseSchema.ts";
-export { couponResponseSchema } from "./couponResponseSchema.ts";
-export { couponSchema } from "./couponSchema.ts";
-export { couponValidationResponseSchema } from "./couponValidationResponseSchema.ts";
 export { courseCategoryResponseSchema } from "./courseCategoryResponseSchema.ts";
 export { courseCategorySchema } from "./courseCategorySchema.ts";
 export { courseDayResponseSchema } from "./courseDayResponseSchema.ts";
@@ -36,8 +33,6 @@ export { createBanner200Schema, createBannerMutationRequestSchema, createBannerM
 export { createCarouselBannerRequestSchema } from "./createCarouselBannerRequestSchema.ts";
 export { createCategory1200Schema, createCategory1MutationRequestSchema, createCategory1MutationResponseSchema } from "./createCategory1Schema.ts";
 export { createCategory200Schema, createCategoryMutationRequestSchema, createCategoryMutationResponseSchema } from "./createCategorySchema.ts";
-export { createCouponRequestSchema } from "./createCouponRequestSchema.ts";
-export { createCoupon200Schema, createCouponMutationRequestSchema, createCouponMutationResponseSchema } from "./createCouponSchema.ts";
 export { createCourseCategoryRequestSchema } from "./createCourseCategoryRequestSchema.ts";
 export { createCourseDayRequestSchema } from "./createCourseDayRequestSchema.ts";
 export { createCourseRatingRequestSchema } from "./createCourseRatingRequestSchema.ts";
@@ -60,7 +55,6 @@ export { deleteAdminPathParamsSchema, deleteAdmin200Schema, deleteAdminMutationR
 export { deleteBannerPathParamsSchema, deleteBanner200Schema, deleteBannerMutationResponseSchema } from "./deleteBannerSchema.ts";
 export { deleteCategory1PathParamsSchema, deleteCategory1200Schema, deleteCategory1MutationResponseSchema } from "./deleteCategory1Schema.ts";
 export { deleteCategoryPathParamsSchema, deleteCategory200Schema, deleteCategoryMutationResponseSchema } from "./deleteCategorySchema.ts";
-export { deleteCouponPathParamsSchema, deleteCoupon200Schema, deleteCouponMutationResponseSchema } from "./deleteCouponSchema.ts";
 export { deleteCoursePathParamsSchema, deleteCourse200Schema, deleteCourseMutationResponseSchema } from "./deleteCourseSchema.ts";
 export { deleteDoctorPathParamsSchema, deleteDoctor200Schema, deleteDoctorMutationResponseSchema } from "./deleteDoctorSchema.ts";
 export { deleteExercisePathParamsSchema, deleteExercise200Schema, deleteExerciseMutationResponseSchema } from "./deleteExerciseSchema.ts";
@@ -87,7 +81,6 @@ export { generatePresignedAccessUrlPathParamsSchema, generatePresignedAccessUrlQ
 export { generatePresignedUploadUrl200Schema, generatePresignedUploadUrlMutationRequestSchema, generatePresignedUploadUrlMutationResponseSchema } from "./generatePresignedUploadUrlSchema.ts";
 export { generateVideoViewingUrlQueryParamsSchema, generateVideoViewingUrl200Schema, generateVideoViewingUrlQueryResponseSchema } from "./generateVideoViewingUrlSchema.ts";
 export { getActiveBanners200Schema, getActiveBannersQueryResponseSchema } from "./getActiveBannersSchema.ts";
-export { getActiveCoupons200Schema, getActiveCouponsQueryResponseSchema } from "./getActiveCouponsSchema.ts";
 export { getActivityByDateRangeQueryParamsSchema, getActivityByDateRange200Schema, getActivityByDateRangeQueryResponseSchema } from "./getActivityByDateRangeSchema.ts";
 export { getActivityStats200Schema, getActivityStatsQueryResponseSchema } from "./getActivityStatsSchema.ts";
 export { getAdminByEmailPathParamsSchema, getAdminByEmail200Schema, getAdminByEmailQueryResponseSchema } from "./getAdminByEmailSchema.ts";
@@ -99,7 +92,6 @@ export { getAllCategories1200Schema, getAllCategories1QueryResponseSchema } from
 export { getAllCategoriesPaginated1QueryParamsSchema, getAllCategoriesPaginated1200Schema, getAllCategoriesPaginated1QueryResponseSchema } from "./getAllCategoriesPaginated1Schema.ts";
 export { getAllCategoriesPaginatedQueryParamsSchema, getAllCategoriesPaginated200Schema, getAllCategoriesPaginatedQueryResponseSchema } from "./getAllCategoriesPaginatedSchema.ts";
 export { getAllCategories200Schema, getAllCategoriesQueryResponseSchema } from "./getAllCategoriesSchema.ts";
-export { getAllCoupons200Schema, getAllCouponsQueryResponseSchema } from "./getAllCouponsSchema.ts";
 export { getAllCoursesPaginatedQueryParamsSchema, getAllCoursesPaginated200Schema, getAllCoursesPaginatedQueryResponseSchema } from "./getAllCoursesPaginatedSchema.ts";
 export { getAllDoctorsQueryParamsSchema, getAllDoctors200Schema, getAllDoctorsQueryResponseSchema } from "./getAllDoctorsSchema.ts";
 export { getAllExercisesPaginatedQueryParamsSchema, getAllExercisesPaginated200Schema, getAllExercisesPaginatedQueryResponseSchema } from "./getAllExercisesPaginatedSchema.ts";
@@ -116,7 +108,6 @@ export { getCategoriesByTypePathParamsSchema, getCategoriesByType200Schema, getC
 export { getCategoryById1PathParamsSchema, getCategoryById1200Schema, getCategoryById1QueryResponseSchema } from "./getCategoryById1Schema.ts";
 export { getCategoryByIdPathParamsSchema, getCategoryById200Schema, getCategoryByIdQueryResponseSchema } from "./getCategoryByIdSchema.ts";
 export { getCompletedCourses200Schema, getCompletedCoursesQueryResponseSchema } from "./getCompletedCoursesSchema.ts";
-export { getCouponByIdPathParamsSchema, getCouponById200Schema, getCouponByIdQueryResponseSchema } from "./getCouponByIdSchema.ts";
 export { getCourseAssignmentsPathParamsSchema, getCourseAssignments200Schema, getCourseAssignmentsQueryResponseSchema } from "./getCourseAssignmentsSchema.ts";
 export { getCourseByIdPathParamsSchema, getCourseById200Schema, getCourseByIdQueryResponseSchema } from "./getCourseByIdSchema.ts";
 export { getCurrentCourseProgress200Schema, getCurrentCourseProgressQueryResponseSchema } from "./getCurrentCourseProgressSchema.ts";
@@ -128,6 +119,7 @@ export { getDoctorPermissionsPathParamsSchema, getDoctorPermissions200Schema, ge
 export { getExerciseByIdPathParamsSchema, getExerciseById200Schema, getExerciseByIdQueryResponseSchema } from "./getExerciseByIdSchema.ts";
 export { getFormByIdPathParamsSchema, getFormById200Schema, getFormByIdQueryResponseSchema } from "./getFormByIdSchema.ts";
 export { getFormsByUserIdPathParamsSchema, getFormsByUserIdQueryParamsSchema, getFormsByUserId200Schema, getFormsByUserIdQueryResponseSchema } from "./getFormsByUserIdSchema.ts";
+export { getGlobalDiscount200Schema, getGlobalDiscountQueryResponseSchema } from "./getGlobalDiscountSchema.ts";
 export { getMyBasicInfo200Schema, getMyBasicInfoQueryResponseSchema } from "./getMyBasicInfoSchema.ts";
 export { getMyCompanyInfo200Schema, getMyCompanyInfoQueryResponseSchema } from "./getMyCompanyInfoSchema.ts";
 export { getMyCustomCoursesQueryParamsSchema, getMyCustomCourses200Schema, getMyCustomCoursesQueryResponseSchema } from "./getMyCustomCoursesSchema.ts";
@@ -151,6 +143,7 @@ export { getUserBalance200Schema, getUserBalanceQueryResponseSchema } from "./ge
 export { getUserBasicInfoPathParamsSchema, getUserBasicInfo200Schema, getUserBasicInfoQueryResponseSchema } from "./getUserBasicInfoSchema.ts";
 export { getUserCompanyInfoPathParamsSchema, getUserCompanyInfo200Schema, getUserCompanyInfoQueryResponseSchema } from "./getUserCompanyInfoSchema.ts";
 export { getUserProfilePathParamsSchema, getUserProfile200Schema, getUserProfileQueryResponseSchema } from "./getUserProfileSchema.ts";
+export { globalDiscountResponseSchema } from "./globalDiscountResponseSchema.ts";
 export { grantedAuthoritySchema } from "./grantedAuthoritySchema.ts";
 export { loginRequestSchema } from "./loginRequestSchema.ts";
 export { logout200Schema, logoutMutationRequestSchema, logoutMutationResponseSchema } from "./logoutSchema.ts";
@@ -216,8 +209,6 @@ export { updateBannerStatusRequestSchema } from "./updateBannerStatusRequestSche
 export { updateCarouselBannerRequestSchema } from "./updateCarouselBannerRequestSchema.ts";
 export { updateCategory1PathParamsSchema, updateCategory1200Schema, updateCategory1MutationRequestSchema, updateCategory1MutationResponseSchema } from "./updateCategory1Schema.ts";
 export { updateCategoryPathParamsSchema, updateCategory200Schema, updateCategoryMutationRequestSchema, updateCategoryMutationResponseSchema } from "./updateCategorySchema.ts";
-export { updateCouponRequestSchema } from "./updateCouponRequestSchema.ts";
-export { updateCouponPathParamsSchema, updateCoupon200Schema, updateCouponMutationRequestSchema, updateCouponMutationResponseSchema } from "./updateCouponSchema.ts";
 export { updateCourseCategoryRequestSchema } from "./updateCourseCategoryRequestSchema.ts";
 export { updateCourseDayRequestSchema } from "./updateCourseDayRequestSchema.ts";
 export { updateCourseRatingRequestSchema } from "./updateCourseRatingRequestSchema.ts";
@@ -230,6 +221,8 @@ export { updateExerciseCategoryRequestSchema } from "./updateExerciseCategoryReq
 export { updateExerciseRequestSchema } from "./updateExerciseRequestSchema.ts";
 export { updateExercisePathParamsSchema, updateExercise200Schema, updateExerciseMutationRequestSchema, updateExerciseMutationResponseSchema } from "./updateExerciseSchema.ts";
 export { updateFormPathParamsSchema, updateForm200Schema, updateFormMutationRequestSchema, updateFormMutationResponseSchema } from "./updateFormSchema.ts";
+export { updateGlobalDiscountRequestSchema } from "./updateGlobalDiscountRequestSchema.ts";
+export { updateGlobalDiscount200Schema, updateGlobalDiscountMutationRequestSchema, updateGlobalDiscountMutationResponseSchema } from "./updateGlobalDiscountSchema.ts";
 export { updateMyBasicInfo200Schema, updateMyBasicInfoMutationRequestSchema, updateMyBasicInfoMutationResponseSchema } from "./updateMyBasicInfoSchema.ts";
 export { updateMyCompanyInfo200Schema, updateMyCompanyInfoMutationRequestSchema, updateMyCompanyInfoMutationResponseSchema } from "./updateMyCompanyInfoSchema.ts";
 export { updateMyNationalHealthInsurance200Schema, updateMyNationalHealthInsuranceMutationRequestSchema, updateMyNationalHealthInsuranceMutationResponseSchema } from "./updateMyNationalHealthInsuranceSchema.ts";
@@ -260,6 +253,4 @@ export { userProfileResponseSchema } from "./userProfileResponseSchema.ts";
 export { userProfileSchema } from "./userProfileSchema.ts";
 export { userResponseSchema } from "./userResponseSchema.ts";
 export { userSchema } from "./userSchema.ts";
-export { validateCouponRequestSchema } from "./validateCouponRequestSchema.ts";
-export { validateCoupon200Schema, validateCouponMutationRequestSchema, validateCouponMutationResponseSchema } from "./validateCouponSchema.ts";
 export { verifyOtpAndLogin200Schema, verifyOtpAndLoginMutationRequestSchema, verifyOtpAndLoginMutationResponseSchema } from "./verifyOtpAndLoginSchema.ts";

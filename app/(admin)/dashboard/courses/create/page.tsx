@@ -7,9 +7,11 @@ import { ArrowLeft, Save } from 'lucide-react';
 import { toast } from 'sonner';
 import { Button } from '@/components/ui/button';
 import { createCourse } from '@/api/api/courseManagementController';
+import { setCourseDiscount } from '@/api/api/courseManagementController/setCourseDiscount';
 import { CreateCourseRequest } from '@/api/types/CreateCourseRequest';
 import { CreateCourseDayRequest } from '@/api/types/CreateCourseDayRequest';
 import { CreateDayExerciseRequest } from '@/api/types/CreateDayExerciseRequest';
+import { SetCourseDiscountRequest } from '@/api/types/SetCourseDiscountRequest';
 import { CourseCreationFormData, CourseCreationStep } from '@/lib/types/course-creation';
 import { CourseBasicInfoStep } from '@/components/course-creation/course-basic-info-step';
 import { CourseArrangementStep } from '@/components/course-creation/course-arrangement-step';
@@ -27,6 +29,8 @@ export default function CreateNewCoursePage() {
         imageUrl: '',
         price: 0,
         categoryId: '0',
+        discountPercentage: 0,
+        hasDiscount: false,
       },
       courseDays: [
         {
@@ -102,6 +106,22 @@ export default function CreateNewCoursePage() {
       };
 
       const createdCourse = await createCourse(requestData);
+
+      // Set discount if enabled
+      if (createdCourse.id && data.basicInfo.hasDiscount && data.basicInfo.discountPercentage) {
+        try {
+          const discountRequest: SetCourseDiscountRequest = {
+            discountPercentage: data.basicInfo.discountPercentage,
+            discountActive: true,
+          };
+          await setCourseDiscount(createdCourse.id, discountRequest);
+        } catch (discountErr) {
+          console.error('Failed to set discount:', discountErr);
+          toast.warning('Khóa học đã được tạo nhưng không thể áp dụng giảm giá', {
+            description: 'Bạn có thể thử lại sau trong phần chỉnh sửa.',
+          });
+        }
+      }
 
       toast.success('Khóa học đã được tạo thành công!', {
         description: `"${data.basicInfo.title}" đã được tạo và sẵn sàng sử dụng.`,

@@ -11,16 +11,13 @@ export type { AssignPermissionToAdminPathParams, AssignPermissionToAdmin200, Ass
 export type { AssignPermissionToDoctorPathParams, AssignPermissionToDoctor200, AssignPermissionToDoctorMutationRequest, AssignPermissionToDoctorMutationResponse, AssignPermissionToDoctorMutation } from "./types/AssignPermissionToDoctor.ts";
 export type { AuthResponseRoleEnumKey, AuthResponse } from "./types/AuthResponse.ts";
 export type { BalanceResponse } from "./types/BalanceResponse.ts";
-export type { BuyCoursePathParams, BuyCourseQueryParams, BuyCourse200, BuyCourseMutationResponse, BuyCourseMutation } from "./types/BuyCourse.ts";
+export type { BuyCoursePathParams, BuyCourse200, BuyCourseMutationResponse, BuyCourseMutation } from "./types/BuyCourse.ts";
 export type { CarouselBannerListResponse } from "./types/CarouselBannerListResponse.ts";
 export type { CarouselBannerResponse } from "./types/CarouselBannerResponse.ts";
 export type { CheckCourseOwnershipPathParams, CheckCourseOwnership200, CheckCourseOwnershipQueryResponse, CheckCourseOwnershipQuery } from "./types/CheckCourseOwnership.ts";
 export type { CompleteCourse200, CompleteCourseMutationResponse, CompleteCourseMutation } from "./types/CompleteCourse.ts";
 export type { CompletedCourseResponse } from "./types/CompletedCourseResponse.ts";
 export type { CompleteExercisePathParams, CompleteExercise200, CompleteExerciseMutationResponse, CompleteExerciseMutation } from "./types/CompleteExercise.ts";
-export type { Coupon } from "./types/Coupon.ts";
-export type { CouponResponse } from "./types/CouponResponse.ts";
-export type { CouponValidationResponse } from "./types/CouponValidationResponse.ts";
 export type { Course } from "./types/Course.ts";
 export type { CourseCategoryTypeEnumKey, CourseCategory } from "./types/CourseCategory.ts";
 export type { CourseCategoryResponse } from "./types/CourseCategoryResponse.ts";
@@ -36,8 +33,6 @@ export type { CreateBanner200, CreateBannerMutationRequest, CreateBannerMutation
 export type { CreateCarouselBannerRequest } from "./types/CreateCarouselBannerRequest.ts";
 export type { CreateCategory1200, CreateCategory1MutationRequest, CreateCategory1MutationResponse, CreateCategory1Mutation } from "./types/CreateCategory1.ts";
 export type { CreateCategory200, CreateCategoryMutationRequest, CreateCategoryMutationResponse, CreateCategoryMutation } from "./types/CreateCategory.ts";
-export type { CreateCoupon200, CreateCouponMutationRequest, CreateCouponMutationResponse, CreateCouponMutation } from "./types/CreateCoupon.ts";
-export type { CreateCouponRequest } from "./types/CreateCouponRequest.ts";
 export type { CreateCourse200, CreateCourseMutationRequest, CreateCourseMutationResponse, CreateCourseMutation } from "./types/CreateCourse.ts";
 export type { CreateCourseCategoryRequestTypeEnumKey, CreateCourseCategoryRequest } from "./types/CreateCourseCategoryRequest.ts";
 export type { CreateCourseDayRequest } from "./types/CreateCourseDayRequest.ts";
@@ -60,7 +55,6 @@ export type { DeleteAdminPathParams, DeleteAdmin200, DeleteAdminMutationResponse
 export type { DeleteBannerPathParams, DeleteBanner200, DeleteBannerMutationResponse, DeleteBannerMutation } from "./types/DeleteBanner.ts";
 export type { DeleteCategory1PathParams, DeleteCategory1200, DeleteCategory1MutationResponse, DeleteCategory1Mutation } from "./types/DeleteCategory1.ts";
 export type { DeleteCategoryPathParams, DeleteCategory200, DeleteCategoryMutationResponse, DeleteCategoryMutation } from "./types/DeleteCategory.ts";
-export type { DeleteCouponPathParams, DeleteCoupon200, DeleteCouponMutationResponse, DeleteCouponMutation } from "./types/DeleteCoupon.ts";
 export type { DeleteCoursePathParams, DeleteCourse200, DeleteCourseMutationResponse, DeleteCourseMutation } from "./types/DeleteCourse.ts";
 export type { DeleteDoctorPathParams, DeleteDoctor200, DeleteDoctorMutationResponse, DeleteDoctorMutation } from "./types/DeleteDoctor.ts";
 export type { DeleteExercisePathParams, DeleteExercise200, DeleteExerciseMutationResponse, DeleteExerciseMutation } from "./types/DeleteExercise.ts";
@@ -87,7 +81,6 @@ export type { GeneratePresignedAccessUrlPathParams, GeneratePresignedAccessUrlQu
 export type { GeneratePresignedUploadUrl200, GeneratePresignedUploadUrlMutationRequest, GeneratePresignedUploadUrlMutationResponse, GeneratePresignedUploadUrlMutation } from "./types/GeneratePresignedUploadUrl.ts";
 export type { GenerateVideoViewingUrlQueryParams, GenerateVideoViewingUrl200, GenerateVideoViewingUrlQueryResponse, GenerateVideoViewingUrlQuery } from "./types/GenerateVideoViewingUrl.ts";
 export type { GetActiveBanners200, GetActiveBannersQueryResponse, GetActiveBannersQuery } from "./types/GetActiveBanners.ts";
-export type { GetActiveCoupons200, GetActiveCouponsQueryResponse, GetActiveCouponsQuery } from "./types/GetActiveCoupons.ts";
 export type { GetActivityByDateRangeQueryParams, GetActivityByDateRange200, GetActivityByDateRangeQueryResponse, GetActivityByDateRangeQuery } from "./types/GetActivityByDateRange.ts";
 export type { GetActivityStats200, GetActivityStatsQueryResponse, GetActivityStatsQuery } from "./types/GetActivityStats.ts";
 export type { GetAdminByEmailPathParams, GetAdminByEmail200, GetAdminByEmailQueryResponse, GetAdminByEmailQuery } from "./types/GetAdminByEmail.ts";
@@ -99,7 +92,6 @@ export type { GetAllCategories1200, GetAllCategories1QueryResponse, GetAllCatego
 export type { GetAllCategories200, GetAllCategoriesQueryResponse, GetAllCategoriesQuery } from "./types/GetAllCategories.ts";
 export type { GetAllCategoriesPaginated1QueryParams, GetAllCategoriesPaginated1200, GetAllCategoriesPaginated1QueryResponse, GetAllCategoriesPaginated1Query } from "./types/GetAllCategoriesPaginated1.ts";
 export type { GetAllCategoriesPaginatedQueryParams, GetAllCategoriesPaginated200, GetAllCategoriesPaginatedQueryResponse, GetAllCategoriesPaginatedQuery } from "./types/GetAllCategoriesPaginated.ts";
-export type { GetAllCoupons200, GetAllCouponsQueryResponse, GetAllCouponsQuery } from "./types/GetAllCoupons.ts";
 export type { GetAllCoursesPaginatedQueryParamsCategoryTypeEnumKey, GetAllCoursesPaginatedQueryParams, GetAllCoursesPaginated200, GetAllCoursesPaginatedQueryResponse, GetAllCoursesPaginatedQuery } from "./types/GetAllCoursesPaginated.ts";
 export type { GetAllDoctorsQueryParams, GetAllDoctors200, GetAllDoctorsQueryResponse, GetAllDoctorsQuery } from "./types/GetAllDoctors.ts";
 export type { GetAllExercisesPaginatedQueryParams, GetAllExercisesPaginated200, GetAllExercisesPaginatedQueryResponse, GetAllExercisesPaginatedQuery } from "./types/GetAllExercisesPaginated.ts";
@@ -116,7 +108,6 @@ export type { GetCategoriesByTypePaginatedPathParamsTypeEnumKey, GetCategoriesBy
 export type { GetCategoryById1PathParams, GetCategoryById1200, GetCategoryById1QueryResponse, GetCategoryById1Query } from "./types/GetCategoryById1.ts";
 export type { GetCategoryByIdPathParams, GetCategoryById200, GetCategoryByIdQueryResponse, GetCategoryByIdQuery } from "./types/GetCategoryById.ts";
 export type { GetCompletedCourses200, GetCompletedCoursesQueryResponse, GetCompletedCoursesQuery } from "./types/GetCompletedCourses.ts";
-export type { GetCouponByIdPathParams, GetCouponById200, GetCouponByIdQueryResponse, GetCouponByIdQuery } from "./types/GetCouponById.ts";
 export type { GetCourseAssignmentsPathParams, GetCourseAssignments200, GetCourseAssignmentsQueryResponse, GetCourseAssignmentsQuery } from "./types/GetCourseAssignments.ts";
 export type { GetCourseByIdPathParams, GetCourseById200, GetCourseByIdQueryResponse, GetCourseByIdQuery } from "./types/GetCourseById.ts";
 export type { GetCurrentCourseProgress200, GetCurrentCourseProgressQueryResponse, GetCurrentCourseProgressQuery } from "./types/GetCurrentCourseProgress.ts";
@@ -128,6 +119,7 @@ export type { GetDoctorPermissionsPathParams, GetDoctorPermissions200, GetDoctor
 export type { GetExerciseByIdPathParams, GetExerciseById200, GetExerciseByIdQueryResponse, GetExerciseByIdQuery } from "./types/GetExerciseById.ts";
 export type { GetFormByIdPathParams, GetFormById200, GetFormByIdQueryResponse, GetFormByIdQuery } from "./types/GetFormById.ts";
 export type { GetFormsByUserIdPathParams, GetFormsByUserIdQueryParams, GetFormsByUserId200, GetFormsByUserIdQueryResponse, GetFormsByUserIdQuery } from "./types/GetFormsByUserId.ts";
+export type { GetGlobalDiscount200, GetGlobalDiscountQueryResponse, GetGlobalDiscountQuery } from "./types/GetGlobalDiscount.ts";
 export type { GetMyBasicInfo200, GetMyBasicInfoQueryResponse, GetMyBasicInfoQuery } from "./types/GetMyBasicInfo.ts";
 export type { GetMyCompanyInfo200, GetMyCompanyInfoQueryResponse, GetMyCompanyInfoQuery } from "./types/GetMyCompanyInfo.ts";
 export type { GetMyCustomCoursesQueryParams, GetMyCustomCourses200, GetMyCustomCoursesQueryResponse, GetMyCustomCoursesQuery } from "./types/GetMyCustomCourses.ts";
@@ -151,6 +143,7 @@ export type { GetUserBalance200, GetUserBalanceQueryResponse, GetUserBalanceQuer
 export type { GetUserBasicInfoPathParams, GetUserBasicInfo200, GetUserBasicInfoQueryResponse, GetUserBasicInfoQuery } from "./types/GetUserBasicInfo.ts";
 export type { GetUserCompanyInfoPathParams, GetUserCompanyInfo200, GetUserCompanyInfoQueryResponse, GetUserCompanyInfoQuery } from "./types/GetUserCompanyInfo.ts";
 export type { GetUserProfilePathParams, GetUserProfile200, GetUserProfileQueryResponse, GetUserProfileQuery } from "./types/GetUserProfile.ts";
+export type { GlobalDiscountResponse } from "./types/GlobalDiscountResponse.ts";
 export type { GrantedAuthority } from "./types/GrantedAuthority.ts";
 export type { LoginRequest } from "./types/LoginRequest.ts";
 export type { Logout200, LogoutMutationRequest, LogoutMutationResponse, LogoutMutation } from "./types/Logout.ts";
@@ -216,8 +209,6 @@ export type { UpdateBannerStatusRequest } from "./types/UpdateBannerStatusReques
 export type { UpdateCarouselBannerRequest } from "./types/UpdateCarouselBannerRequest.ts";
 export type { UpdateCategory1PathParams, UpdateCategory1200, UpdateCategory1MutationRequest, UpdateCategory1MutationResponse, UpdateCategory1Mutation } from "./types/UpdateCategory1.ts";
 export type { UpdateCategoryPathParams, UpdateCategory200, UpdateCategoryMutationRequest, UpdateCategoryMutationResponse, UpdateCategoryMutation } from "./types/UpdateCategory.ts";
-export type { UpdateCouponPathParams, UpdateCoupon200, UpdateCouponMutationRequest, UpdateCouponMutationResponse, UpdateCouponMutation } from "./types/UpdateCoupon.ts";
-export type { UpdateCouponRequest } from "./types/UpdateCouponRequest.ts";
 export type { UpdateCoursePathParams, UpdateCourse200, UpdateCourseMutationRequest, UpdateCourseMutationResponse, UpdateCourseMutation } from "./types/UpdateCourse.ts";
 export type { UpdateCourseCategoryRequestTypeEnumKey, UpdateCourseCategoryRequest } from "./types/UpdateCourseCategoryRequest.ts";
 export type { UpdateCourseDayRequest } from "./types/UpdateCourseDayRequest.ts";
@@ -230,6 +221,8 @@ export type { UpdateExercisePathParams, UpdateExercise200, UpdateExerciseMutatio
 export type { UpdateExerciseCategoryRequestTypeEnumKey, UpdateExerciseCategoryRequest } from "./types/UpdateExerciseCategoryRequest.ts";
 export type { UpdateExerciseRequest } from "./types/UpdateExerciseRequest.ts";
 export type { UpdateFormPathParams, UpdateForm200, UpdateFormMutationRequest, UpdateFormMutationResponse, UpdateFormMutation } from "./types/UpdateForm.ts";
+export type { UpdateGlobalDiscount200, UpdateGlobalDiscountMutationRequest, UpdateGlobalDiscountMutationResponse, UpdateGlobalDiscountMutation } from "./types/UpdateGlobalDiscount.ts";
+export type { UpdateGlobalDiscountRequest } from "./types/UpdateGlobalDiscountRequest.ts";
 export type { UpdateMyBasicInfo200, UpdateMyBasicInfoMutationRequest, UpdateMyBasicInfoMutationResponse, UpdateMyBasicInfoMutation } from "./types/UpdateMyBasicInfo.ts";
 export type { UpdateMyCompanyInfo200, UpdateMyCompanyInfoMutationRequest, UpdateMyCompanyInfoMutationResponse, UpdateMyCompanyInfoMutation } from "./types/UpdateMyCompanyInfo.ts";
 export type { UpdateMyNationalHealthInsurance200, UpdateMyNationalHealthInsuranceMutationRequest, UpdateMyNationalHealthInsuranceMutationResponse, UpdateMyNationalHealthInsuranceMutation } from "./types/UpdateMyNationalHealthInsurance.ts";
@@ -260,8 +253,6 @@ export type { UserProfile } from "./types/UserProfile.ts";
 export type { UserProfileRequest } from "./types/UserProfileRequest.ts";
 export type { UserProfileResponse } from "./types/UserProfileResponse.ts";
 export type { UserResponse } from "./types/UserResponse.ts";
-export type { ValidateCoupon200, ValidateCouponMutationRequest, ValidateCouponMutationResponse, ValidateCouponMutation } from "./types/ValidateCoupon.ts";
-export type { ValidateCouponRequest } from "./types/ValidateCouponRequest.ts";
 export type { VerifyOtpAndLogin200, VerifyOtpAndLoginMutationRequest, VerifyOtpAndLoginMutationResponse, VerifyOtpAndLoginMutation } from "./types/VerifyOtpAndLogin.ts";
 export { getAllUsers1 } from "./api/adminController/getAllUsers1.ts";
 export { createAdmin } from "./api/adminManagementControllerController/createAdmin.ts";
@@ -288,13 +279,6 @@ export { getBannerById } from "./api/carouselBannerManagementController/getBanne
 export { reorderBanners } from "./api/carouselBannerManagementController/reorderBanners.ts";
 export { toggleBannerStatus } from "./api/carouselBannerManagementController/toggleBannerStatus.ts";
 export { updateBanner } from "./api/carouselBannerManagementController/updateBanner.ts";
-export { createCoupon } from "./api/couponManagementController/createCoupon.ts";
-export { deleteCoupon } from "./api/couponManagementController/deleteCoupon.ts";
-export { getActiveCoupons } from "./api/couponManagementController/getActiveCoupons.ts";
-export { getAllCoupons } from "./api/couponManagementController/getAllCoupons.ts";
-export { getCouponById } from "./api/couponManagementController/getCouponById.ts";
-export { updateCoupon } from "./api/couponManagementController/updateCoupon.ts";
-export { validateCoupon } from "./api/couponManagementController/validateCoupon.ts";
 export { createCategory1 } from "./api/courseCategoryManagementController/createCategory1.ts";
 export { deleteCategory1 } from "./api/courseCategoryManagementController/deleteCategory1.ts";
 export { getAllCategories1 } from "./api/courseCategoryManagementController/getAllCategories1.ts";
@@ -359,6 +343,8 @@ export { generatePresignedUploadUrl } from "./api/fileUploadController/generateP
 export { generateVideoViewingUrl } from "./api/fileUploadController/generateVideoViewingUrl.ts";
 export { uploadImage } from "./api/fileUploadController/uploadImage.ts";
 export { uploadVideo } from "./api/fileUploadController/uploadVideo.ts";
+export { getGlobalDiscount } from "./api/globalDiscountManagementController/getGlobalDiscount.ts";
+export { updateGlobalDiscount } from "./api/globalDiscountManagementController/updateGlobalDiscount.ts";
 export { createNews } from "./api/newsManagementController/createNews.ts";
 export { deleteNews } from "./api/newsManagementController/deleteNews.ts";
 export { getAllNews } from "./api/newsManagementController/getAllNews.ts";
@@ -449,16 +435,13 @@ export { assignPermissionToAdminPathParamsSchema, assignPermissionToAdmin200Sche
 export { assignPermissionToDoctorPathParamsSchema, assignPermissionToDoctor200Schema, assignPermissionToDoctorMutationRequestSchema, assignPermissionToDoctorMutationResponseSchema } from "./zod/assignPermissionToDoctorSchema.ts";
 export { authResponseSchema } from "./zod/authResponseSchema.ts";
 export { balanceResponseSchema } from "./zod/balanceResponseSchema.ts";
-export { buyCoursePathParamsSchema, buyCourseQueryParamsSchema, buyCourse200Schema, buyCourseMutationResponseSchema } from "./zod/buyCourseSchema.ts";
+export { buyCoursePathParamsSchema, buyCourse200Schema, buyCourseMutationResponseSchema } from "./zod/buyCourseSchema.ts";
 export { carouselBannerListResponseSchema } from "./zod/carouselBannerListResponseSchema.ts";
 export { carouselBannerResponseSchema } from "./zod/carouselBannerResponseSchema.ts";
 export { checkCourseOwnershipPathParamsSchema, checkCourseOwnership200Schema, checkCourseOwnershipQueryResponseSchema } from "./zod/checkCourseOwnershipSchema.ts";
 export { completeCourse200Schema, completeCourseMutationResponseSchema } from "./zod/completeCourseSchema.ts";
 export { completedCourseResponseSchema } from "./zod/completedCourseResponseSchema.ts";
 export { completeExercisePathParamsSchema, completeExercise200Schema, completeExerciseMutationResponseSchema } from "./zod/completeExerciseSchema.ts";
-export { couponResponseSchema } from "./zod/couponResponseSchema.ts";
-export { couponSchema } from "./zod/couponSchema.ts";
-export { couponValidationResponseSchema } from "./zod/couponValidationResponseSchema.ts";
 export { courseCategoryResponseSchema } from "./zod/courseCategoryResponseSchema.ts";
 export { courseCategorySchema } from "./zod/courseCategorySchema.ts";
 export { courseDayResponseSchema } from "./zod/courseDayResponseSchema.ts";
@@ -474,8 +457,6 @@ export { createBanner200Schema, createBannerMutationRequestSchema, createBannerM
 export { createCarouselBannerRequestSchema } from "./zod/createCarouselBannerRequestSchema.ts";
 export { createCategory1200Schema, createCategory1MutationRequestSchema, createCategory1MutationResponseSchema } from "./zod/createCategory1Schema.ts";
 export { createCategory200Schema, createCategoryMutationRequestSchema, createCategoryMutationResponseSchema } from "./zod/createCategorySchema.ts";
-export { createCouponRequestSchema } from "./zod/createCouponRequestSchema.ts";
-export { createCoupon200Schema, createCouponMutationRequestSchema, createCouponMutationResponseSchema } from "./zod/createCouponSchema.ts";
 export { createCourseCategoryRequestSchema } from "./zod/createCourseCategoryRequestSchema.ts";
 export { createCourseDayRequestSchema } from "./zod/createCourseDayRequestSchema.ts";
 export { createCourseRatingRequestSchema } from "./zod/createCourseRatingRequestSchema.ts";
@@ -498,7 +479,6 @@ export { deleteAdminPathParamsSchema, deleteAdmin200Schema, deleteAdminMutationR
 export { deleteBannerPathParamsSchema, deleteBanner200Schema, deleteBannerMutationResponseSchema } from "./zod/deleteBannerSchema.ts";
 export { deleteCategory1PathParamsSchema, deleteCategory1200Schema, deleteCategory1MutationResponseSchema } from "./zod/deleteCategory1Schema.ts";
 export { deleteCategoryPathParamsSchema, deleteCategory200Schema, deleteCategoryMutationResponseSchema } from "./zod/deleteCategorySchema.ts";
-export { deleteCouponPathParamsSchema, deleteCoupon200Schema, deleteCouponMutationResponseSchema } from "./zod/deleteCouponSchema.ts";
 export { deleteCoursePathParamsSchema, deleteCourse200Schema, deleteCourseMutationResponseSchema } from "./zod/deleteCourseSchema.ts";
 export { deleteDoctorPathParamsSchema, deleteDoctor200Schema, deleteDoctorMutationResponseSchema } from "./zod/deleteDoctorSchema.ts";
 export { deleteExercisePathParamsSchema, deleteExercise200Schema, deleteExerciseMutationResponseSchema } from "./zod/deleteExerciseSchema.ts";
@@ -525,7 +505,6 @@ export { generatePresignedAccessUrlPathParamsSchema, generatePresignedAccessUrlQ
 export { generatePresignedUploadUrl200Schema, generatePresignedUploadUrlMutationRequestSchema, generatePresignedUploadUrlMutationResponseSchema } from "./zod/generatePresignedUploadUrlSchema.ts";
 export { generateVideoViewingUrlQueryParamsSchema, generateVideoViewingUrl200Schema, generateVideoViewingUrlQueryResponseSchema } from "./zod/generateVideoViewingUrlSchema.ts";
 export { getActiveBanners200Schema, getActiveBannersQueryResponseSchema } from "./zod/getActiveBannersSchema.ts";
-export { getActiveCoupons200Schema, getActiveCouponsQueryResponseSchema } from "./zod/getActiveCouponsSchema.ts";
 export { getActivityByDateRangeQueryParamsSchema, getActivityByDateRange200Schema, getActivityByDateRangeQueryResponseSchema } from "./zod/getActivityByDateRangeSchema.ts";
 export { getActivityStats200Schema, getActivityStatsQueryResponseSchema } from "./zod/getActivityStatsSchema.ts";
 export { getAdminByEmailPathParamsSchema, getAdminByEmail200Schema, getAdminByEmailQueryResponseSchema } from "./zod/getAdminByEmailSchema.ts";
@@ -537,7 +516,6 @@ export { getAllCategories1200Schema, getAllCategories1QueryResponseSchema } from
 export { getAllCategoriesPaginated1QueryParamsSchema, getAllCategoriesPaginated1200Schema, getAllCategoriesPaginated1QueryResponseSchema } from "./zod/getAllCategoriesPaginated1Schema.ts";
 export { getAllCategoriesPaginatedQueryParamsSchema, getAllCategoriesPaginated200Schema, getAllCategoriesPaginatedQueryResponseSchema } from "./zod/getAllCategoriesPaginatedSchema.ts";
 export { getAllCategories200Schema, getAllCategoriesQueryResponseSchema } from "./zod/getAllCategoriesSchema.ts";
-export { getAllCoupons200Schema, getAllCouponsQueryResponseSchema } from "./zod/getAllCouponsSchema.ts";
 export { getAllCoursesPaginatedQueryParamsSchema, getAllCoursesPaginated200Schema, getAllCoursesPaginatedQueryResponseSchema } from "./zod/getAllCoursesPaginatedSchema.ts";
 export { getAllDoctorsQueryParamsSchema, getAllDoctors200Schema, getAllDoctorsQueryResponseSchema } from "./zod/getAllDoctorsSchema.ts";
 export { getAllExercisesPaginatedQueryParamsSchema, getAllExercisesPaginated200Schema, getAllExercisesPaginatedQueryResponseSchema } from "./zod/getAllExercisesPaginatedSchema.ts";
@@ -554,7 +532,6 @@ export { getCategoriesByTypePathParamsSchema, getCategoriesByType200Schema, getC
 export { getCategoryById1PathParamsSchema, getCategoryById1200Schema, getCategoryById1QueryResponseSchema } from "./zod/getCategoryById1Schema.ts";
 export { getCategoryByIdPathParamsSchema, getCategoryById200Schema, getCategoryByIdQueryResponseSchema } from "./zod/getCategoryByIdSchema.ts";
 export { getCompletedCourses200Schema, getCompletedCoursesQueryResponseSchema } from "./zod/getCompletedCoursesSchema.ts";
-export { getCouponByIdPathParamsSchema, getCouponById200Schema, getCouponByIdQueryResponseSchema } from "./zod/getCouponByIdSchema.ts";
 export { getCourseAssignmentsPathParamsSchema, getCourseAssignments200Schema, getCourseAssignmentsQueryResponseSchema } from "./zod/getCourseAssignmentsSchema.ts";
 export { getCourseByIdPathParamsSchema, getCourseById200Schema, getCourseByIdQueryResponseSchema } from "./zod/getCourseByIdSchema.ts";
 export { getCurrentCourseProgress200Schema, getCurrentCourseProgressQueryResponseSchema } from "./zod/getCurrentCourseProgressSchema.ts";
@@ -566,6 +543,7 @@ export { getDoctorPermissionsPathParamsSchema, getDoctorPermissions200Schema, ge
 export { getExerciseByIdPathParamsSchema, getExerciseById200Schema, getExerciseByIdQueryResponseSchema } from "./zod/getExerciseByIdSchema.ts";
 export { getFormByIdPathParamsSchema, getFormById200Schema, getFormByIdQueryResponseSchema } from "./zod/getFormByIdSchema.ts";
 export { getFormsByUserIdPathParamsSchema, getFormsByUserIdQueryParamsSchema, getFormsByUserId200Schema, getFormsByUserIdQueryResponseSchema } from "./zod/getFormsByUserIdSchema.ts";
+export { getGlobalDiscount200Schema, getGlobalDiscountQueryResponseSchema } from "./zod/getGlobalDiscountSchema.ts";
 export { getMyBasicInfo200Schema, getMyBasicInfoQueryResponseSchema } from "./zod/getMyBasicInfoSchema.ts";
 export { getMyCompanyInfo200Schema, getMyCompanyInfoQueryResponseSchema } from "./zod/getMyCompanyInfoSchema.ts";
 export { getMyCustomCoursesQueryParamsSchema, getMyCustomCourses200Schema, getMyCustomCoursesQueryResponseSchema } from "./zod/getMyCustomCoursesSchema.ts";
@@ -589,6 +567,7 @@ export { getUserBalance200Schema, getUserBalanceQueryResponseSchema } from "./zo
 export { getUserBasicInfoPathParamsSchema, getUserBasicInfo200Schema, getUserBasicInfoQueryResponseSchema } from "./zod/getUserBasicInfoSchema.ts";
 export { getUserCompanyInfoPathParamsSchema, getUserCompanyInfo200Schema, getUserCompanyInfoQueryResponseSchema } from "./zod/getUserCompanyInfoSchema.ts";
 export { getUserProfilePathParamsSchema, getUserProfile200Schema, getUserProfileQueryResponseSchema } from "./zod/getUserProfileSchema.ts";
+export { globalDiscountResponseSchema } from "./zod/globalDiscountResponseSchema.ts";
 export { grantedAuthoritySchema } from "./zod/grantedAuthoritySchema.ts";
 export { loginRequestSchema } from "./zod/loginRequestSchema.ts";
 export { logout200Schema, logoutMutationRequestSchema, logoutMutationResponseSchema } from "./zod/logoutSchema.ts";
@@ -654,8 +633,6 @@ export { updateBannerStatusRequestSchema } from "./zod/updateBannerStatusRequest
 export { updateCarouselBannerRequestSchema } from "./zod/updateCarouselBannerRequestSchema.ts";
 export { updateCategory1PathParamsSchema, updateCategory1200Schema, updateCategory1MutationRequestSchema, updateCategory1MutationResponseSchema } from "./zod/updateCategory1Schema.ts";
 export { updateCategoryPathParamsSchema, updateCategory200Schema, updateCategoryMutationRequestSchema, updateCategoryMutationResponseSchema } from "./zod/updateCategorySchema.ts";
-export { updateCouponRequestSchema } from "./zod/updateCouponRequestSchema.ts";
-export { updateCouponPathParamsSchema, updateCoupon200Schema, updateCouponMutationRequestSchema, updateCouponMutationResponseSchema } from "./zod/updateCouponSchema.ts";
 export { updateCourseCategoryRequestSchema } from "./zod/updateCourseCategoryRequestSchema.ts";
 export { updateCourseDayRequestSchema } from "./zod/updateCourseDayRequestSchema.ts";
 export { updateCourseRatingRequestSchema } from "./zod/updateCourseRatingRequestSchema.ts";
@@ -668,6 +645,8 @@ export { updateExerciseCategoryRequestSchema } from "./zod/updateExerciseCategor
 export { updateExerciseRequestSchema } from "./zod/updateExerciseRequestSchema.ts";
 export { updateExercisePathParamsSchema, updateExercise200Schema, updateExerciseMutationRequestSchema, updateExerciseMutationResponseSchema } from "./zod/updateExerciseSchema.ts";
 export { updateFormPathParamsSchema, updateForm200Schema, updateFormMutationRequestSchema, updateFormMutationResponseSchema } from "./zod/updateFormSchema.ts";
+export { updateGlobalDiscountRequestSchema } from "./zod/updateGlobalDiscountRequestSchema.ts";
+export { updateGlobalDiscount200Schema, updateGlobalDiscountMutationRequestSchema, updateGlobalDiscountMutationResponseSchema } from "./zod/updateGlobalDiscountSchema.ts";
 export { updateMyBasicInfo200Schema, updateMyBasicInfoMutationRequestSchema, updateMyBasicInfoMutationResponseSchema } from "./zod/updateMyBasicInfoSchema.ts";
 export { updateMyCompanyInfo200Schema, updateMyCompanyInfoMutationRequestSchema, updateMyCompanyInfoMutationResponseSchema } from "./zod/updateMyCompanyInfoSchema.ts";
 export { updateMyNationalHealthInsurance200Schema, updateMyNationalHealthInsuranceMutationRequestSchema, updateMyNationalHealthInsuranceMutationResponseSchema } from "./zod/updateMyNationalHealthInsuranceSchema.ts";
@@ -698,6 +677,4 @@ export { userProfileResponseSchema } from "./zod/userProfileResponseSchema.ts";
 export { userProfileSchema } from "./zod/userProfileSchema.ts";
 export { userResponseSchema } from "./zod/userResponseSchema.ts";
 export { userSchema } from "./zod/userSchema.ts";
-export { validateCouponRequestSchema } from "./zod/validateCouponRequestSchema.ts";
-export { validateCoupon200Schema, validateCouponMutationRequestSchema, validateCouponMutationResponseSchema } from "./zod/validateCouponSchema.ts";
 export { verifyOtpAndLogin200Schema, verifyOtpAndLoginMutationRequestSchema, verifyOtpAndLoginMutationResponseSchema } from "./zod/verifyOtpAndLoginSchema.ts";
