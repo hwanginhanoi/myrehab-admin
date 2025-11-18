@@ -36,7 +36,7 @@ export default function EditCoursePage() {
         imageUrl: '',
         price: 0,
         categoryId: '0',
-        discountPercentage: 0,
+        targetPrice: 0,
         hasDiscount: false,
       },
       courseDays: [],
@@ -67,7 +67,7 @@ export default function EditCoursePage() {
             imageUrl: courseData.imageUrl || '',
             price: courseData.price || 0,
             categoryId: courseData.category?.id?.toString() || '0',
-            discountPercentage: courseData.discountPercentage || 0,
+            targetPrice: courseData.discountedPrice || 0,
             hasDiscount: courseData.hasDiscount || false,
           },
           courseDays: (courseData.courseDays || [])
@@ -166,10 +166,10 @@ export default function EditCoursePage() {
       await updateCourse(courseId, requestData);
 
       // Handle discount changes
-      if (data.basicInfo.hasDiscount && data.basicInfo.discountPercentage) {
+      if (data.basicInfo.hasDiscount && data.basicInfo.targetPrice) {
         try {
           const discountRequest: SetCourseDiscountRequest = {
-            discountPercentage: data.basicInfo.discountPercentage,
+            targetPrice: data.basicInfo.targetPrice,
             discountActive: true,
           };
           await setCourseDiscount(courseId, discountRequest);

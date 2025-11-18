@@ -6,7 +6,7 @@ export interface CourseBasicInfo {
   imageUrl: string;
   price: number;
   categoryId: string;
-  discountPercentage?: number;
+  targetPrice?: number;
   hasDiscount?: boolean;
 }
 

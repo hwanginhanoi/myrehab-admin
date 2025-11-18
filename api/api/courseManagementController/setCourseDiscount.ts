@@ -13,7 +13,7 @@ function getSetCourseDiscountUrl(id: SetCourseDiscountPathParams["id"]) {
 }
 
 /**
- * @description Set or update discount for a course (Admin only)
+ * @description Set or update discount for a course by specifying target price. The system automatically calculates and stores the discount percentage. Target price will be rounded to nearest 10,000 VND. (Admin only)
  * @summary Set course discount
  * {@link /api/courses/:id/discount}
  */

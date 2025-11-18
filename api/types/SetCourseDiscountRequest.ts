@@ -7,10 +7,9 @@
 export type SetCourseDiscountRequest = {
     /**
      * @minLength 0
-     * @maxLength 100
-     * @type integer, int32
+     * @type integer, int64
     */
-    discountPercentage: number;
+    targetPrice: number;
     /**
      * @type boolean
     */

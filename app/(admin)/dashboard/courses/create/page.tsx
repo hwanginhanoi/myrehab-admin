@@ -29,7 +29,7 @@ export default function CreateNewCoursePage() {
         imageUrl: '',
         price: 0,
         categoryId: '0',
-        discountPercentage: 0,
+        targetPrice: 0,
         hasDiscount: false,
       },
       courseDays: [
@@ -108,10 +108,10 @@ export default function CreateNewCoursePage() {
       const createdCourse = await createCourse(requestData);
 
       // Set discount if enabled
-      if (createdCourse.id && data.basicInfo.hasDiscount && data.basicInfo.discountPercentage) {
+      if (createdCourse.id && data.basicInfo.hasDiscount && data.basicInfo.targetPrice) {
         try {
           const discountRequest: SetCourseDiscountRequest = {
-            discountPercentage: data.basicInfo.discountPercentage,
+            targetPrice: data.basicInfo.targetPrice,
             discountActive: true,
           };
           await setCourseDiscount(createdCourse.id, discountRequest);

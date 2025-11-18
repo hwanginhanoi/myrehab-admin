@@ -6,6 +6,6 @@
 import { z } from "zod";
 
 export const setCourseDiscountRequestSchema = z.object({
-    "discountPercentage": z.number().int().min(0).max(100),
+    "targetPrice": z.number().int().min(0),
 "discountActive": z.boolean()
     })

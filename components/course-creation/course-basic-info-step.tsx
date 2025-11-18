@@ -31,12 +31,12 @@ export function CourseBasicInfoStep({ form }: CourseBasicInfoStepProps) {
   } = form;
 
   const hasDiscount = watch('basicInfo.hasDiscount');
-  const discountPercentage = watch('basicInfo.discountPercentage') || 0;
+  const targetPrice = watch('basicInfo.targetPrice') || 0;
   const price = watch('basicInfo.price') || 0;
 
-  const calculateDiscountedPrice = () => {
-    if (!hasDiscount || !discountPercentage || !price) return price;
-    return price - (price * discountPercentage) / 100;
+  const calculateDiscountPercentage = () => {
+    if (!hasDiscount || !targetPrice || !price || targetPrice >= price) return 0;
+    return Math.round(((price - targetPrice) / price) * 100);
   };
 
   const formatPrice = (priceValue: number) => {
@@ -168,44 +168,45 @@ export function CourseBasicInfoStep({ form }: CourseBasicInfoStepProps) {
                 onCheckedChange={(checked) => {
                   setValue('basicInfo.hasDiscount', checked);
                   if (!checked) {
-                    setValue('basicInfo.discountPercentage', 0);
+                    setValue('basicInfo.targetPrice', 0);
                   }
                 }}
               />
             </div>
 
-            {/* Discount Percentage */}
+            {/* Target Price */}
             {hasDiscount && (
               <>
                 <div className="space-y-2">
-                  <Label htmlFor="discountPercentage" className="text-sm font-medium text-[#71717A]">
-                    Phần trăm giảm giá *
+                  <Label htmlFor="targetPrice" className="text-sm font-medium text-[#71717A]">
+                    Giá sau giảm *
                   </Label>
-                  <div className="relative">
-                    <Input
-                      id="discountPercentage"
-                      type="number"
-                      min="0"
-                      max="100"
-                      step="1"
-                      placeholder="Nhập % giảm giá..."
-                      {...register('basicInfo.discountPercentage', {
-                        required: hasDiscount ? 'Phần trăm giảm giá là bắt buộc' : false,
-                        valueAsNumber: true,
-                        min: { value: 0, message: 'Phần trăm phải từ 0-100' },
-                        max: { value: 100, message: 'Phần trăm phải từ 0-100' },
-                      })}
-                      className="w-full pr-10"
-                    />
-                    <Percent className="absolute right-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-                  </div>
-                  {errors.basicInfo?.discountPercentage && (
-                    <p className="text-sm text-red-500">{errors.basicInfo.discountPercentage.message}</p>
+                  <Input
+                    id="targetPrice"
+                    type="number"
+                    min="0"
+                    step="1000"
+                    placeholder="Nhập giá sau giảm..."
+                    {...register('basicInfo.targetPrice', {
+                      required: hasDiscount ? 'Giá sau giảm là bắt buộc' : false,
+                      valueAsNumber: true,
+                      min: { value: 0, message: 'Giá phải lớn hơn hoặc bằng 0' },
+                      validate: (value) => {
+                        if (!hasDiscount) return true;
+                        if (!value) return 'Giá sau giảm là bắt buộc';
+                        if (value >= price) return 'Giá sau giảm phải nhỏ hơn giá gốc';
+                        return true;
+                      },
+                    })}
+                    className="w-full"
+                  />
+                  {errors.basicInfo?.targetPrice && (
+                    <p className="text-sm text-red-500">{errors.basicInfo.targetPrice.message}</p>
                   )}
                 </div>
 
                 {/* Price Preview */}
-                {discountPercentage > 0 && (
+                {targetPrice > 0 && targetPrice < price && (
                   <div className="rounded-lg border p-4 space-y-2 bg-muted/50">
                     <h4 className="font-semibold text-sm">Xem trước giá</h4>
                     <div className="flex justify-between items-center">
@@ -214,17 +215,17 @@ export function CourseBasicInfoStep({ form }: CourseBasicInfoStepProps) {
                     </div>
                     <div className="flex justify-between items-center">
                       <span className="text-sm text-muted-foreground">Giảm giá:</span>
-                      <span className="font-semibold text-red-600">-{discountPercentage}%</span>
+                      <span className="font-semibold text-red-600">-{calculateDiscountPercentage()}%</span>
                     </div>
                     <div className="flex justify-between items-center pt-2 border-t">
                       <span className="text-sm font-semibold">Giá sau giảm:</span>
                       <span className="text-lg font-bold text-[#6DBAD6]">
-                        {formatPrice(calculateDiscountedPrice())}
+                        {formatPrice(targetPrice)}
                       </span>
                     </div>
                     <div className="flex justify-between items-center text-sm text-muted-foreground">
                       <span>Tiết kiệm:</span>
-                      <span>{formatPrice(price - calculateDiscountedPrice())}</span>
+                      <span>{formatPrice(price - targetPrice)}</span>
                     </div>
                   </div>
                 )}

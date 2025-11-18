@@ -11,6 +11,7 @@ import {
   SquareTerminal,
   Users,
   FileText,
+  Percent,
 } from "lucide-react"
 
 import { NavMain } from "@/components/nav-main"
@@ -102,6 +103,18 @@ const sidebarData = {
         {
           title: "Quản lý banner",
           url: "/dashboard/banners",
+        },
+      ],
+    },
+    {
+      title: "Giảm giá",
+      url: "/global-discount",
+      icon: Percent,
+      isActive: false,
+      items: [
+        {
+          title: "Giảm giá toàn cục",
+          url: "/dashboard/global-discount",
         },
       ],
     },
