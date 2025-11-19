@@ -8,7 +8,6 @@ import { z } from "zod";
 export const newsResponseSchema = z.object({
     "id": z.optional(z.number().int()),
 "title": z.optional(z.string()),
-"slug": z.optional(z.string()),
 "content": z.optional(z.string()),
 "summary": z.optional(z.string()),
 "thumbnailUrl": z.optional(z.string()),

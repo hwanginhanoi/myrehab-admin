@@ -133,7 +133,6 @@ export type { GetMyRatingForCoursePathParams, GetMyRatingForCourse200, GetMyRati
 export type { GetMyRatings200, GetMyRatingsQueryResponse, GetMyRatingsQuery } from "./GetMyRatings.ts";
 export type { GetNationalHealthInsurancePathParams, GetNationalHealthInsurance200, GetNationalHealthInsuranceQueryResponse, GetNationalHealthInsuranceQuery } from "./GetNationalHealthInsurance.ts";
 export type { GetNewsByIdPathParams, GetNewsById200, GetNewsByIdQueryResponse, GetNewsByIdQuery } from "./GetNewsById.ts";
-export type { GetNewsBySlugPathParams, GetNewsBySlug200, GetNewsBySlugQueryResponse, GetNewsBySlugQuery } from "./GetNewsBySlug.ts";
 export type { GetNonCompulsoryHealthInsurancePathParams, GetNonCompulsoryHealthInsurance200, GetNonCompulsoryHealthInsuranceQueryResponse, GetNonCompulsoryHealthInsuranceQuery } from "./GetNonCompulsoryHealthInsurance.ts";
 export type { GetRatingsForCoursePathParams, GetRatingsForCourse200, GetRatingsForCourseQueryResponse, GetRatingsForCourseQuery } from "./GetRatingsForCourse.ts";
 export type { GetRatingSummaryPathParams, GetRatingSummary200, GetRatingSummaryQueryResponse, GetRatingSummaryQuery } from "./GetRatingSummary.ts";

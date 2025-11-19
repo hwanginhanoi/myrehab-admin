@@ -22,11 +22,6 @@ export type CreateNewsRequest = {
      * @minLength 1
      * @type string
     */
-    slug: string;
-    /**
-     * @minLength 1
-     * @type string
-    */
     content: string;
     /**
      * @type string | undefined

@@ -133,7 +133,6 @@ export type { GetMyRatingForCoursePathParams, GetMyRatingForCourse200, GetMyRati
 export type { GetMyRatings200, GetMyRatingsQueryResponse, GetMyRatingsQuery } from "./types/GetMyRatings.ts";
 export type { GetNationalHealthInsurancePathParams, GetNationalHealthInsurance200, GetNationalHealthInsuranceQueryResponse, GetNationalHealthInsuranceQuery } from "./types/GetNationalHealthInsurance.ts";
 export type { GetNewsByIdPathParams, GetNewsById200, GetNewsByIdQueryResponse, GetNewsByIdQuery } from "./types/GetNewsById.ts";
-export type { GetNewsBySlugPathParams, GetNewsBySlug200, GetNewsBySlugQueryResponse, GetNewsBySlugQuery } from "./types/GetNewsBySlug.ts";
 export type { GetNonCompulsoryHealthInsurancePathParams, GetNonCompulsoryHealthInsurance200, GetNonCompulsoryHealthInsuranceQueryResponse, GetNonCompulsoryHealthInsuranceQuery } from "./types/GetNonCompulsoryHealthInsurance.ts";
 export type { GetRatingsForCoursePathParams, GetRatingsForCourse200, GetRatingsForCourseQueryResponse, GetRatingsForCourseQuery } from "./types/GetRatingsForCourse.ts";
 export type { GetRatingSummaryPathParams, GetRatingSummary200, GetRatingSummaryQueryResponse, GetRatingSummaryQuery } from "./types/GetRatingSummary.ts";
@@ -349,7 +348,6 @@ export { createNews } from "./api/newsManagementController/createNews.ts";
 export { deleteNews } from "./api/newsManagementController/deleteNews.ts";
 export { getAllNews } from "./api/newsManagementController/getAllNews.ts";
 export { getNewsById } from "./api/newsManagementController/getNewsById.ts";
-export { getNewsBySlug } from "./api/newsManagementController/getNewsBySlug.ts";
 export { updateNews } from "./api/newsManagementController/updateNews.ts";
 export { assignPermissionToAdmin } from "./api/permissionManagementController/assignPermissionToAdmin.ts";
 export { assignPermissionToDoctor } from "./api/permissionManagementController/assignPermissionToDoctor.ts";
@@ -557,7 +555,6 @@ export { getMyRatingForCoursePathParamsSchema, getMyRatingForCourse200Schema, ge
 export { getMyRatings200Schema, getMyRatingsQueryResponseSchema } from "./zod/getMyRatingsSchema.ts";
 export { getNationalHealthInsurancePathParamsSchema, getNationalHealthInsurance200Schema, getNationalHealthInsuranceQueryResponseSchema } from "./zod/getNationalHealthInsuranceSchema.ts";
 export { getNewsByIdPathParamsSchema, getNewsById200Schema, getNewsByIdQueryResponseSchema } from "./zod/getNewsByIdSchema.ts";
-export { getNewsBySlugPathParamsSchema, getNewsBySlug200Schema, getNewsBySlugQueryResponseSchema } from "./zod/getNewsBySlugSchema.ts";
 export { getNonCompulsoryHealthInsurancePathParamsSchema, getNonCompulsoryHealthInsurance200Schema, getNonCompulsoryHealthInsuranceQueryResponseSchema } from "./zod/getNonCompulsoryHealthInsuranceSchema.ts";
 export { getRatingsForCoursePathParamsSchema, getRatingsForCourse200Schema, getRatingsForCourseQueryResponseSchema } from "./zod/getRatingsForCourseSchema.ts";
 export { getRatingSummaryPathParamsSchema, getRatingSummary200Schema, getRatingSummaryQueryResponseSchema } from "./zod/getRatingSummarySchema.ts";

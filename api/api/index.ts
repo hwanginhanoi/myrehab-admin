@@ -93,7 +93,6 @@ export { createNews } from "./newsManagementController/createNews.ts";
 export { deleteNews } from "./newsManagementController/deleteNews.ts";
 export { getAllNews } from "./newsManagementController/getAllNews.ts";
 export { getNewsById } from "./newsManagementController/getNewsById.ts";
-export { getNewsBySlug } from "./newsManagementController/getNewsBySlug.ts";
 export { updateNews } from "./newsManagementController/updateNews.ts";
 export { assignPermissionToAdmin } from "./permissionManagementController/assignPermissionToAdmin.ts";
 export { assignPermissionToDoctor } from "./permissionManagementController/assignPermissionToDoctor.ts";

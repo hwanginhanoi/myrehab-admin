@@ -24,10 +24,6 @@ export type NewsResponse = {
     /**
      * @type string | undefined
     */
-    slug?: string;
-    /**
-     * @type string | undefined
-    */
     content?: string;
     /**
      * @type string | undefined

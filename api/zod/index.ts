@@ -133,7 +133,6 @@ export { getMyRatingForCoursePathParamsSchema, getMyRatingForCourse200Schema, ge
 export { getMyRatings200Schema, getMyRatingsQueryResponseSchema } from "./getMyRatingsSchema.ts";
 export { getNationalHealthInsurancePathParamsSchema, getNationalHealthInsurance200Schema, getNationalHealthInsuranceQueryResponseSchema } from "./getNationalHealthInsuranceSchema.ts";
 export { getNewsByIdPathParamsSchema, getNewsById200Schema, getNewsByIdQueryResponseSchema } from "./getNewsByIdSchema.ts";
-export { getNewsBySlugPathParamsSchema, getNewsBySlug200Schema, getNewsBySlugQueryResponseSchema } from "./getNewsBySlugSchema.ts";
 export { getNonCompulsoryHealthInsurancePathParamsSchema, getNonCompulsoryHealthInsurance200Schema, getNonCompulsoryHealthInsuranceQueryResponseSchema } from "./getNonCompulsoryHealthInsuranceSchema.ts";
 export { getRatingsForCoursePathParamsSchema, getRatingsForCourse200Schema, getRatingsForCourseQueryResponseSchema } from "./getRatingsForCourseSchema.ts";
 export { getRatingSummaryPathParamsSchema, getRatingSummary200Schema, getRatingSummaryQueryResponseSchema } from "./getRatingSummarySchema.ts";

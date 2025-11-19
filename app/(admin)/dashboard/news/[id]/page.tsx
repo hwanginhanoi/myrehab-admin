@@ -146,10 +146,6 @@ export default function NewsDetailPage({ params }: { params: { id: string } }) {
 
             {/* Metadata */}
             <div className="grid grid-cols-2 gap-4 pt-6 border-t">
-              <div>
-                <p className="text-sm text-muted-foreground mb-1">{t('slug')}</p>
-                <p className="font-mono text-sm">{news.slug}</p>
-              </div>
               {news.createdAt && (
                 <div>
                   <p className="text-sm text-muted-foreground mb-1">{t('createdAt')}</p>

@@ -16,7 +16,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
-import { ArrowLeft, Wand2 } from 'lucide-react';
+import { ArrowLeft } from 'lucide-react';
 import { TiptapEditor } from '@/components/tiptap-editor';
 import { getNewsById } from '@/api/api/newsManagementController/getNewsById';
 import { updateNews } from '@/api/api/newsManagementController/updateNews';
@@ -26,7 +26,6 @@ import { NEWS_CATEGORY_OPTIONS, NEWS_STATUS_OPTIONS } from '@/constants/news';
 
 type NewsFormData = {
   title: string;
-  slug: string;
   content: string;
   summary: string;
   thumbnailUrl: string;
@@ -51,7 +50,6 @@ export default function EditNewsPage({ params }: { params: { id: string } }) {
     formState: { errors },
   } = useForm<NewsFormData>();
 
-  const title = watch('title');
   const status = watch('status');
   const category = watch('category');
 
@@ -72,7 +70,6 @@ export default function EditNewsPage({ params }: { params: { id: string } }) {
         const data = await getNewsById(parseInt(newsId));
 
         setValue('title', data.title || '');
-        setValue('slug', data.slug || '');
         setValue('summary', data.summary || '');
         setValue('thumbnailUrl', data.thumbnailUrl || '');
         setValue('status', data.status || 'DRAFT');
@@ -89,25 +86,6 @@ export default function EditNewsPage({ params }: { params: { id: string } }) {
     fetchNews();
   }, [newsId, router, setValue]);
 
-  const generateSlug = () => {
-    if (!title) {
-      toast.error('Please enter a title first');
-      return;
-    }
-
-    const slug = title
-      .toLowerCase()
-      .normalize('NFD')
-      .replace(/[\u0300-\u036f]/g, '')
-      .replace(/đ/g, 'd')
-      .replace(/[^a-z0-9\s-]/g, '')
-      .replace(/\s+/g, '-')
-      .replace(/-+/g, '-')
-      .trim();
-
-    setValue('slug', slug);
-  };
-
   const onSubmit = async (data: NewsFormData) => {
     if (!content || content === '<p><br></p>') {
       toast.error('Content is required');
@@ -119,7 +97,6 @@ export default function EditNewsPage({ params }: { params: { id: string } }) {
 
       const requestData: UpdateNewsRequest = {
         title: data.title,
-        slug: data.slug,
         content: content,
         summary: data.summary || undefined,
         thumbnailUrl: data.thumbnailUrl || undefined,
@@ -188,34 +165,6 @@ export default function EditNewsPage({ params }: { params: { id: string } }) {
                   />
                   {errors.title && (
                     <p className="text-sm text-red-500 mt-1">{errors.title.message}</p>
-                  )}
-                </div>
-
-                {/* Slug */}
-                <div>
-                  <div className="flex items-center justify-between mb-2">
-                    <Label htmlFor="slug">
-                      {t('slug')} <span className="text-red-500">*</span>
-                    </Label>
-                    <Button
-                      type="button"
-                      variant="outline"
-                      size="sm"
-                      onClick={generateSlug}
-                      className="flex items-center gap-2"
-                    >
-                      <Wand2 className="w-4 h-4" />
-                      {t('autoGenerateSlug')}
-                    </Button>
-                  </div>
-                  <Input
-                    id="slug"
-                    {...register('slug', { required: 'Slug is required' })}
-                    placeholder={t('slugPlaceholder')}
-                  />
-                  <p className="text-xs text-muted-foreground mt-1">{t('slugInfo')}</p>
-                  {errors.slug && (
-                    <p className="text-sm text-red-500 mt-1">{errors.slug.message}</p>
                   )}
                 </div>
 

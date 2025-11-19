@@ -7,7 +7,6 @@ import { z } from "zod";
 
 export const updateNewsRequestSchema = z.object({
     "title": z.string().min(1),
-"slug": z.string().min(1),
 "content": z.string().min(1),
 "summary": z.optional(z.string()),
 "thumbnailUrl": z.optional(z.string()),

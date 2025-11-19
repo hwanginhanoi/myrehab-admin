@@ -15,7 +15,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
-import { ArrowLeft, Wand2, Save } from 'lucide-react';
+import { ArrowLeft, Save } from 'lucide-react';
 import { TiptapEditor } from '@/components/tiptap-editor';
 import { createNews } from '@/api/api/newsManagementController/createNews';
 import { CreateNewsRequest } from '@/api/types/CreateNewsRequest';
@@ -24,7 +24,6 @@ import { NEWS_CATEGORY_OPTIONS, NEWS_STATUS_OPTIONS } from '@/constants/news';
 
 type NewsFormData = {
   title: string;
-  slug: string;
   content: string;
   summary: string;
   thumbnailUrl: string;
@@ -48,7 +47,6 @@ export default function CreateNewsPage() {
   } = useForm<NewsFormData>({
     defaultValues: {
       title: '',
-      slug: '',
       content: '',
       summary: '',
       thumbnailUrl: '',
@@ -57,28 +55,8 @@ export default function CreateNewsPage() {
     },
   });
 
-  const title = watch('title');
   const status = watch('status');
   const category = watch('category');
-
-  const generateSlug = () => {
-    if (!title) {
-      toast.error('Please enter a title first');
-      return;
-    }
-
-    const slug = title
-      .toLowerCase()
-      .normalize('NFD')
-      .replace(/[\u0300-\u036f]/g, '')
-      .replace(/đ/g, 'd')
-      .replace(/[^a-z0-9\s-]/g, '')
-      .replace(/\s+/g, '-')
-      .replace(/-+/g, '-')
-      .trim();
-
-    setValue('slug', slug);
-  };
 
   const onSubmit = async (data: NewsFormData) => {
     if (!content || content === '<p><br></p>') {
@@ -91,7 +69,6 @@ export default function CreateNewsPage() {
 
       const requestData: CreateNewsRequest = {
         title: data.title,
-        slug: data.slug,
         content: content,
         summary: data.summary || undefined,
         thumbnailUrl: data.thumbnailUrl || undefined,
@@ -155,37 +132,6 @@ export default function CreateNewsPage() {
                 />
                 {errors.title && (
                   <p className="text-sm text-red-500">{errors.title.message}</p>
-                )}
-              </div>
-
-              {/* Slug */}
-              <div className="space-y-2">
-                <div className="flex items-center justify-between">
-                  <Label htmlFor="slug" className="text-sm font-medium">
-                    {t('slug')} <span className="text-red-500">*</span>
-                  </Label>
-                  <Button
-                    type="button"
-                    variant="outline"
-                    size="sm"
-                    onClick={generateSlug}
-                    disabled={submitting}
-                    className="flex items-center gap-2"
-                  >
-                    <Wand2 className="w-4 h-4" />
-                    {t('autoGenerateSlug')}
-                  </Button>
-                </div>
-                <Input
-                  id="slug"
-                  {...register('slug', { required: 'Slug is required' })}
-                  placeholder={t('slugPlaceholder')}
-                  disabled={submitting}
-                  className="w-full"
-                />
-                <p className="text-xs text-muted-foreground">{t('slugInfo')}</p>
-                {errors.slug && (
-                  <p className="text-sm text-red-500">{errors.slug.message}</p>
                 )}
               </div>
 
