@@ -17,10 +17,16 @@ export type PresignedUrlRequest = {
     */
     contentType: string;
     /**
+     * @minLength 1
      * @pattern ^(video|image)$
+     * @type string
+    */
+    fileType: string;
+    /**
+     * @pattern ^(exercise|course|news|banner|profile)$
      * @type string | undefined
     */
-    fileType?: string;
+    category?: string;
     /**
      * @type integer | undefined, int32
     */

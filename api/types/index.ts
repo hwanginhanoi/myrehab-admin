@@ -236,7 +236,7 @@ export type { UpdateRehabilitationExaminationFormRequest } from "./UpdateRehabil
 export type { UpdateUserBasicInfoPathParams, UpdateUserBasicInfo200, UpdateUserBasicInfoMutationRequest, UpdateUserBasicInfoMutationResponse, UpdateUserBasicInfoMutation } from "./UpdateUserBasicInfo.ts";
 export type { UpdateUserCompanyInfoPathParams, UpdateUserCompanyInfo200, UpdateUserCompanyInfoMutationRequest, UpdateUserCompanyInfoMutationResponse, UpdateUserCompanyInfoMutation } from "./UpdateUserCompanyInfo.ts";
 export type { UpdateUserProfilePathParams, UpdateUserProfile200, UpdateUserProfileMutationRequest, UpdateUserProfileMutationResponse, UpdateUserProfileMutation } from "./UpdateUserProfile.ts";
-export type { UploadImage200, UploadImageMutationRequest, UploadImageMutationResponse, UploadImageMutation } from "./UploadImage.ts";
+export type { UploadImageQueryParams, UploadImage200, UploadImageMutationRequest, UploadImageMutationResponse, UploadImageMutation } from "./UploadImage.ts";
 export type { UploadVideo200, UploadVideoMutationRequest, UploadVideoMutationResponse, UploadVideoMutation } from "./UploadVideo.ts";
 export type { UserRoleEnumKey, User } from "./User.ts";
 export type { UserBalance } from "./UserBalance.ts";

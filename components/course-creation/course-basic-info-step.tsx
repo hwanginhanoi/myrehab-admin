@@ -261,6 +261,7 @@ export function CourseBasicInfoStep({ form }: CourseBasicInfoStepProps) {
               onUploadCompleteAction={(fileUrl) => setValue('basicInfo.imageUrl', fileUrl)}
               acceptedTypes={['image/jpeg', 'image/png', 'image/webp']}
               fileType="image"
+              category="course"
               maxFileSize={10}
             />
           </div>

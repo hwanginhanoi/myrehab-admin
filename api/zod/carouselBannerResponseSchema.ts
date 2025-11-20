@@ -13,10 +13,6 @@ export const carouselBannerResponseSchema = z.object({
 "linkUrl": z.optional(z.string()),
 "displayOrder": z.optional(z.number().int()),
 "isActive": z.optional(z.boolean()),
-"startDate": z.optional(z.string().datetime()),
-"endDate": z.optional(z.string().datetime()),
-"isCurrentlyScheduled": z.optional(z.boolean()),
-"shouldDisplay": z.optional(z.boolean()),
 "createdAt": z.optional(z.string().datetime()),
 "updatedAt": z.optional(z.string().datetime())
     })

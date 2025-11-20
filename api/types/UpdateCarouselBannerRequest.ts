@@ -31,12 +31,4 @@ export type UpdateCarouselBannerRequest = {
      * @type boolean
     */
     isActive: boolean;
-    /**
-     * @type string | undefined, date-time
-    */
-    startDate?: string;
-    /**
-     * @type string | undefined, date-time
-    */
-    endDate?: string;
 };

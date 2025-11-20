@@ -163,6 +163,7 @@ export function ExerciseFormFields({ form, disabled = false }: ExerciseFormField
             onUploadCompleteAction={(fileUrl) => setValue('imageUrl', fileUrl)}
             acceptedTypes={['image/jpeg', 'image/png', 'image/webp']}
             fileType="image"
+            category="exercise"
             maxFileSize={10}
             disabled={disabled}
           />

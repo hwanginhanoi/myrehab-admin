@@ -27,12 +27,4 @@ export type CreateCarouselBannerRequest = {
      * @type integer | undefined, int32
     */
     displayOrder?: number;
-    /**
-     * @type string | undefined, date-time
-    */
-    startDate?: string;
-    /**
-     * @type string | undefined, date-time
-    */
-    endDate?: string;
 };

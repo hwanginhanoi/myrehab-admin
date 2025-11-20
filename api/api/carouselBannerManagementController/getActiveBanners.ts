@@ -13,7 +13,7 @@ function getGetActiveBannersUrl() {
 }
 
 /**
- * @description Public endpoint to retrieve all active banners that should be displayed. Banners are filtered by active status and scheduling dates. Ordered by displayOrder ascending.
+ * @description Public endpoint to retrieve all active banners that should be displayed. Banners are filtered by active status. Ordered by displayOrder ascending.
  * @summary Get active banners for display
  * {@link /api/carousel-banners}
  */

@@ -4,7 +4,7 @@
 */
 
 import fetch from "@/lib/api-client";
-import type { UploadImageMutationRequest, UploadImageMutationResponse } from "../../types/UploadImage.ts";
+import type { UploadImageMutationRequest, UploadImageMutationResponse, UploadImageQueryParams } from "../../types/UploadImage.ts";
 import type { RequestConfig, ResponseErrorConfig } from "@/lib/api-client";
 
 function getUploadImageUrl() {
@@ -13,11 +13,11 @@ function getUploadImageUrl() {
 }
 
 /**
- * @description Upload an image file for exercises (Admin and Doctor only)
- * @summary Upload exercise image
+ * @description Upload an image file to the appropriate folder based on category. REQUIRED: category parameter must be one of: exercise, course, news, banner, profile. Admin/Doctor can upload all types. Users can only upload profile images. BREAKING CHANGE: Old /upload/image endpoint now requires category parameter.
+ * @summary Upload image
  * {@link /api/files/upload/image}
  */
-export async function uploadImage(data: UploadImageMutationRequest, config: Partial<RequestConfig<UploadImageMutationRequest>> & { client?: typeof fetch } = {}) {
+export async function uploadImage(data: UploadImageMutationRequest, params: UploadImageQueryParams, config: Partial<RequestConfig<UploadImageMutationRequest>> & { client?: typeof fetch } = {}) {
   const { client: request = fetch, ...requestConfig } = config  
   
   const requestData = data  
@@ -32,6 +32,6 @@ export async function uploadImage(data: UploadImageMutationRequest, config: Part
      }
    })
   }  
-  const res = await request<UploadImageMutationResponse, ResponseErrorConfig<Error>, UploadImageMutationRequest>({ method : "POST", url : getUploadImageUrl().url.toString(), data : formData, ... requestConfig })  
+  const res = await request<UploadImageMutationResponse, ResponseErrorConfig<Error>, UploadImageMutationRequest>({ method : "POST", url : getUploadImageUrl().url.toString(), params, data : formData, ... requestConfig })  
   return res.data
 }

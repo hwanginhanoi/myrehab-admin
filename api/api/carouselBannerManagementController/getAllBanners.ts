@@ -13,7 +13,7 @@ function getGetAllBannersUrl() {
 }
 
 /**
- * @description Retrieve all carousel banners including inactive ones. Returns full details including scheduling and status information.
+ * @description Retrieve all carousel banners including inactive ones. Returns full details including status information.
  * @summary Get all banners (Admin only)
  * {@link /api/carousel-banners/admin}
  */

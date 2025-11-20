@@ -236,7 +236,7 @@ export type { UpdateRehabilitationExaminationFormRequest } from "./types/UpdateR
 export type { UpdateUserBasicInfoPathParams, UpdateUserBasicInfo200, UpdateUserBasicInfoMutationRequest, UpdateUserBasicInfoMutationResponse, UpdateUserBasicInfoMutation } from "./types/UpdateUserBasicInfo.ts";
 export type { UpdateUserCompanyInfoPathParams, UpdateUserCompanyInfo200, UpdateUserCompanyInfoMutationRequest, UpdateUserCompanyInfoMutationResponse, UpdateUserCompanyInfoMutation } from "./types/UpdateUserCompanyInfo.ts";
 export type { UpdateUserProfilePathParams, UpdateUserProfile200, UpdateUserProfileMutationRequest, UpdateUserProfileMutationResponse, UpdateUserProfileMutation } from "./types/UpdateUserProfile.ts";
-export type { UploadImage200, UploadImageMutationRequest, UploadImageMutationResponse, UploadImageMutation } from "./types/UploadImage.ts";
+export type { UploadImageQueryParams, UploadImage200, UploadImageMutationRequest, UploadImageMutationResponse, UploadImageMutation } from "./types/UploadImage.ts";
 export type { UploadVideo200, UploadVideoMutationRequest, UploadVideoMutationResponse, UploadVideoMutation } from "./types/UploadVideo.ts";
 export type { UserRoleEnumKey, User } from "./types/User.ts";
 export type { UserBalance } from "./types/UserBalance.ts";
@@ -658,7 +658,7 @@ export { updateRehabilitationExaminationFormRequestSchema } from "./zod/updateRe
 export { updateUserBasicInfoPathParamsSchema, updateUserBasicInfo200Schema, updateUserBasicInfoMutationRequestSchema, updateUserBasicInfoMutationResponseSchema } from "./zod/updateUserBasicInfoSchema.ts";
 export { updateUserCompanyInfoPathParamsSchema, updateUserCompanyInfo200Schema, updateUserCompanyInfoMutationRequestSchema, updateUserCompanyInfoMutationResponseSchema } from "./zod/updateUserCompanyInfoSchema.ts";
 export { updateUserProfilePathParamsSchema, updateUserProfile200Schema, updateUserProfileMutationRequestSchema, updateUserProfileMutationResponseSchema } from "./zod/updateUserProfileSchema.ts";
-export { uploadImage200Schema, uploadImageMutationRequestSchema, uploadImageMutationResponseSchema } from "./zod/uploadImageSchema.ts";
+export { uploadImageQueryParamsSchema, uploadImage200Schema, uploadImageMutationRequestSchema, uploadImageMutationResponseSchema } from "./zod/uploadImageSchema.ts";
 export { uploadVideo200Schema, uploadVideoMutationRequestSchema, uploadVideoMutationResponseSchema } from "./zod/uploadVideoSchema.ts";
 export { userBalanceSchema } from "./zod/userBalanceSchema.ts";
 export { userBasicInfoRequestSchema } from "./zod/userBasicInfoRequestSchema.ts";

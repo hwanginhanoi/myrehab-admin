@@ -11,7 +11,5 @@ export const updateCarouselBannerRequestSchema = z.object({
 "imageUrl": z.string().min(1),
 "linkUrl": z.optional(z.string()),
 "displayOrder": z.number().int(),
-"isActive": z.boolean(),
-"startDate": z.optional(z.string().datetime()),
-"endDate": z.optional(z.string().datetime())
+"isActive": z.boolean()
     })

@@ -36,22 +36,6 @@ export type CarouselBannerResponse = {
     /**
      * @type string | undefined, date-time
     */
-    startDate?: string;
-    /**
-     * @type string | undefined, date-time
-    */
-    endDate?: string;
-    /**
-     * @type boolean | undefined
-    */
-    isCurrentlyScheduled?: boolean;
-    /**
-     * @type boolean | undefined
-    */
-    shouldDisplay?: boolean;
-    /**
-     * @type string | undefined, date-time
-    */
     createdAt?: string;
     /**
      * @type string | undefined, date-time

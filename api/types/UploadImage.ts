@@ -5,6 +5,14 @@
 
 import type { FileUploadResponse } from "./FileUploadResponse.ts";
 
+export type UploadImageQueryParams = {
+    /**
+     * @description Image category (REQUIRED): exercise, course, news, banner, profile
+     * @type string
+    */
+    category: string;
+};
+
 /**
  * @description OK
 */
@@ -23,5 +31,6 @@ export type UploadImageMutationResponse = UploadImage200;
 export type UploadImageMutation = {
     Response: UploadImage200;
     Request: UploadImageMutationRequest;
+    QueryParams: UploadImageQueryParams;
     Errors: any;
 };

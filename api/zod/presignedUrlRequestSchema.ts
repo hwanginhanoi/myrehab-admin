@@ -8,6 +8,7 @@ import { z } from "zod";
 export const presignedUrlRequestSchema = z.object({
     "fileName": z.string().min(1),
 "contentType": z.string().regex(/^(video|image)\/.*/),
-"fileType": z.optional(z.string().regex(/^(video|image)$/)),
+"fileType": z.string().regex(/^(video|image)$/),
+"category": z.optional(z.string().regex(/^(exercise|course|news|banner|profile)$/)),
 "durationMinutes": z.optional(z.number().int())
     })

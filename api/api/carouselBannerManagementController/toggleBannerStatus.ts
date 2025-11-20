@@ -13,7 +13,7 @@ function getToggleBannerStatusUrl(id: ToggleBannerStatusPathParams["id"]) {
 }
 
 /**
- * @description Manually activate or deactivate a banner, overriding schedule-based activation
+ * @description Activate or deactivate a banner
  * @summary Toggle banner active status (Admin only)
  * {@link /api/carousel-banners/:id/status}
  */

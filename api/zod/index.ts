@@ -236,7 +236,7 @@ export { updateRehabilitationExaminationFormRequestSchema } from "./updateRehabi
 export { updateUserBasicInfoPathParamsSchema, updateUserBasicInfo200Schema, updateUserBasicInfoMutationRequestSchema, updateUserBasicInfoMutationResponseSchema } from "./updateUserBasicInfoSchema.ts";
 export { updateUserCompanyInfoPathParamsSchema, updateUserCompanyInfo200Schema, updateUserCompanyInfoMutationRequestSchema, updateUserCompanyInfoMutationResponseSchema } from "./updateUserCompanyInfoSchema.ts";
 export { updateUserProfilePathParamsSchema, updateUserProfile200Schema, updateUserProfileMutationRequestSchema, updateUserProfileMutationResponseSchema } from "./updateUserProfileSchema.ts";
-export { uploadImage200Schema, uploadImageMutationRequestSchema, uploadImageMutationResponseSchema } from "./uploadImageSchema.ts";
+export { uploadImageQueryParamsSchema, uploadImage200Schema, uploadImageMutationRequestSchema, uploadImageMutationResponseSchema } from "./uploadImageSchema.ts";
 export { uploadVideo200Schema, uploadVideoMutationRequestSchema, uploadVideoMutationResponseSchema } from "./uploadVideoSchema.ts";
 export { userBalanceSchema } from "./userBalanceSchema.ts";
 export { userBasicInfoRequestSchema } from "./userBasicInfoRequestSchema.ts";

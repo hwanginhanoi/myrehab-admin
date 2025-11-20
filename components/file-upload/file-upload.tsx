@@ -21,6 +21,7 @@ interface FileUploadProps {
   onVideoDurationExtracted?: (durationMinutes: number) => void;
   acceptedTypes: string[];
   fileType: 'image' | 'video';
+  category?: 'exercise' | 'course' | 'news' | 'banner' | 'profile'; // Required for images
   maxFileSize?: number; // in MB
   className?: string;
   disabled?: boolean;
@@ -44,6 +45,7 @@ export function FileUpload({
   onVideoDurationExtracted,
   acceptedTypes,
   fileType,
+  category,
   maxFileSize = 50, // Default 50MB
   className,
   disabled = false,
@@ -220,6 +222,7 @@ export function FileUpload({
         fileName: file.name,
         contentType: file.type,
         fileType: fileType,
+        ...(fileType === 'image' && category ? { category } : {}),
       };
 
       console.log('Requesting presigned URL with:', presignedRequest);
