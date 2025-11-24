@@ -18,10 +18,11 @@ import { ExerciseFormData } from '@/lib/types/exercise-creation';
 
 interface ExerciseFormFieldsProps {
   form: UseFormReturn<ExerciseFormData>;
+  categories?: ExerciseCategoryResponse[];
   disabled?: boolean;
 }
 
-export function ExerciseFormFields({ form, disabled = false }: ExerciseFormFieldsProps) {
+export function ExerciseFormFields({ form, categories: categoriesProp, disabled = false }: ExerciseFormFieldsProps) {
   const {
     register,
     setValue,
@@ -29,10 +30,17 @@ export function ExerciseFormFields({ form, disabled = false }: ExerciseFormField
     formState: { errors },
   } = form;
 
-  const [categories, setCategories] = useState<ExerciseCategoryResponse[]>([]);
-  const [loading, setLoading] = useState(true);
+  const [categories, setCategories] = useState<ExerciseCategoryResponse[]>(categoriesProp || []);
+  const [loading, setLoading] = useState(!categoriesProp);
 
   useEffect(() => {
+    // Only fetch categories if not provided via props
+    if (categoriesProp) {
+      setCategories(categoriesProp);
+      setLoading(false);
+      return;
+    }
+
     const fetchCategories = async () => {
       try {
         setLoading(true);
@@ -50,7 +58,7 @@ export function ExerciseFormFields({ form, disabled = false }: ExerciseFormField
     };
 
     void fetchCategories();
-  }, []);
+  }, [categoriesProp]);
 
   if (loading) {
     return (

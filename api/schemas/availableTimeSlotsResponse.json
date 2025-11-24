@@ -1,0 +1,1 @@
+{"type":"object","properties":{"doctorId":{"type":"integer","format":"int64"},"doctorName":{"type":"string"},"date":{"type":"string","format":"date"},"availableSlots":{"type":"array","items":{"type":"string","format":"date-time"}},"totalAvailable":{"type":"integer","format":"int32"}},"x-readme-ref-name":"AvailableTimeSlotsResponse"}

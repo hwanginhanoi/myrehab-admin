@@ -217,6 +217,11 @@ export function FileUpload({
     }
 
     try {
+      // Validate category for images
+      if (fileType === 'image' && !category) {
+        throw new Error('Category is required for image uploads. Must be one of: exercise, course, news, banner, profile');
+      }
+
       // Generate presigned URL
       const presignedRequest: PresignedUrlRequest = {
         fileName: file.name,
@@ -226,6 +231,8 @@ export function FileUpload({
       };
 
       console.log('Requesting presigned URL with:', presignedRequest);
+      console.log('Category value:', category);
+      console.log('FileType value:', fileType);
       const presignedResponse = await generatePresignedUploadUrl(presignedRequest);
       console.log('Presigned URL response:', presignedResponse);
 
@@ -265,7 +272,7 @@ export function FileUpload({
       onUploadError?.(errorMessage);
       toast.error('Upload failed', { description: errorMessage });
     }
-  }, [validateFile, fileType, onUploadStart, onUploadCompleteAction, onUploadError, onVideoDurationExtracted, extractVideoDuration, uploadToS3]);
+  }, [validateFile, fileType, category, onUploadStart, onUploadCompleteAction, onUploadError, onVideoDurationExtracted, extractVideoDuration, uploadToS3]);
 
   const handleFileInputChange = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
@@ -443,17 +450,19 @@ export function FileUpload({
                   </div>
 
                   {/* File info - bottom left overlay */}
-                  <div className="absolute bottom-3 left-3 flex items-center gap-2 p-3 rounded-lg bg-background/90 backdrop-blur-sm shadow-lg max-w-[calc(100%-6rem)]">
-                    <CheckCircle className="h-4 w-4 text-green-600 shrink-0" />
-                    <div className="flex-1 min-w-0">
-                      <p className="text-xs font-medium truncate" title={uploadState.file.name}>
-                        {uploadState.file.name}
-                      </p>
-                      <p className="text-xs text-muted-foreground">
-                        {(uploadState.file.size / (1024 * 1024)).toFixed(2)} MB
-                      </p>
+                  {uploadState.file && (
+                    <div className="absolute bottom-3 left-3 flex items-center gap-2 p-3 rounded-lg bg-background/90 backdrop-blur-sm shadow-lg max-w-[calc(100%-6rem)]">
+                      <CheckCircle className="h-4 w-4 text-green-600 shrink-0" />
+                      <div className="flex-1 min-w-0">
+                        <p className="text-xs font-medium truncate" title={uploadState.file.name}>
+                          {uploadState.file.name}
+                        </p>
+                        <p className="text-xs text-muted-foreground">
+                          {(uploadState.file.size / (1024 * 1024)).toFixed(2)} MB
+                        </p>
+                      </div>
                     </div>
-                  </div>
+                  )}
                 </>
               ) : uploadState.error ? (
                 // Error state

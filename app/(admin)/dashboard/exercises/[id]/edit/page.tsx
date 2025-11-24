@@ -15,7 +15,7 @@ import { ExerciseFormData } from '@/lib/types/exercise-creation';
 import { toast } from 'sonner';
 import { LoadingState } from '@/components/ui/loading-state';
 import { ErrorState } from '@/components/ui/error-state';
-import { ExerciseEditFormFields } from '@/components/exercise-creation/exercise-edit-form-fields';
+import { ExerciseFormFields } from '@/components/exercise-creation/exercise-form-fields';
 
 export default function EditExercisePage() {
   const params = useParams();
@@ -158,7 +158,7 @@ export default function EditExercisePage() {
           </div>
 
           {/* Form Fields */}
-          <ExerciseEditFormFields form={form} categories={categories} disabled={isSubmitting} />
+          <ExerciseFormFields form={form} categories={categories} disabled={isSubmitting} />
 
           {/* Action Buttons */}
           <div className="flex gap-3">

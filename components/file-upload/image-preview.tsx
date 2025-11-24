@@ -8,10 +8,11 @@ import { FileUpload } from '@/components/file-upload/file-upload';
 interface ImagePreviewProps {
   imageUrl: string;
   onImageChange: (url: string) => void;
+  category: 'exercise' | 'course' | 'news' | 'banner' | 'profile';
   disabled?: boolean;
 }
 
-export function ImagePreview({ imageUrl, onImageChange, disabled = false }: ImagePreviewProps) {
+export function ImagePreview({ imageUrl, onImageChange, category, disabled = false }: ImagePreviewProps) {
   const [showUpload, setShowUpload] = useState(false);
 
   if (imageUrl && !showUpload) {
@@ -68,6 +69,7 @@ export function ImagePreview({ imageUrl, onImageChange, disabled = false }: Imag
         }}
         acceptedTypes={['image/jpeg', 'image/png', 'image/webp']}
         fileType="image"
+        category={category}
         maxFileSize={10}
         disabled={disabled}
         className="w-full"
