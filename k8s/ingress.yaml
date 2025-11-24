@@ -1,39 +1,35 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: myrehab-admin
+  name: myrehab-admin-ingress
+  namespace: myrehab
   labels:
     app: myrehab-admin
   annotations:
-    # SSL/TLS with cert-manager (optional)
-    # cert-manager.io/cluster-issuer: "letsencrypt-prod"
+    # Traefik annotations (K3s default ingress controller)
+    traefik.ingress.kubernetes.io/router.entrypoints: web
+    traefik.ingress.kubernetes.io/router.priority: "10"
 
-    # nginx ingress controller settings (adjust based on your ingress controller)
-    nginx.ingress.kubernetes.io/ssl-redirect: "false"
-    nginx.ingress.kubernetes.io/force-ssl-redirect: "false"
-
-    # Request size limit (adjust as needed)
-    nginx.ingress.kubernetes.io/proxy-body-size: "10m"
-
-    # Timeouts
-    nginx.ingress.kubernetes.io/proxy-connect-timeout: "60"
-    nginx.ingress.kubernetes.io/proxy-send-timeout: "60"
-    nginx.ingress.kubernetes.io/proxy-read-timeout: "60"
 spec:
-  ingressClassName: nginx  # Adjust based on your ingress controller
-  rules:
-  - host: admin.myrehab.example.com  # Replace with your domain
-    http:
-      paths:
-      - path: /
-        pathType: Prefix
-        backend:
-          service:
-            name: myrehab-admin
-            port:
-              number: 80
-  # Uncomment for HTTPS with cert-manager
+  # For K3s with Traefik (default), comment out ingressClassName
+  # For nginx-ingress, use: ingressClassName: nginx
+  # ingressClassName: nginx
+
+  # --- TLS Configuration (Uncomment when SSL is configured) ---
   # tls:
-  # - hosts:
-  #   - admin.myrehab.example.com
-  #   secretName: myrehab-admin-tls
+  #   - hosts:
+  #       - app.myrehab.vn
+  #     secretName: myrehab-admin-tls
+
+  rules:
+    # Frontend application at app.myrehab.vn
+    - host: app.myrehab.vn
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: myrehab-admin
+                port:
+                  number: 80

@@ -29,6 +29,10 @@ RUN npm ci
 # Copy all source files
 COPY . .
 
+# Accept build arguments for Next.js public environment variables
+ARG NEXT_PUBLIC_API_URL
+ENV NEXT_PUBLIC_API_URL=$NEXT_PUBLIC_API_URL
+
 # Set production environment for Next.js build
 ENV NODE_ENV=production
 

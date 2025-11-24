@@ -2,9 +2,16 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: myrehab-admin-config
+  namespace: myrehab
   labels:
     app: myrehab-admin
 data:
-  # Backend API URL - Update this to your backend service
-  # Format: http://service-name:port or http://service-name.namespace:port
-  NEXT_PUBLIC_API_URL: "http://myrehab-backend:8080"
+  # Backend API URL - Base host only (frontend code adds /api path)
+  # Frontend will call: NEXT_PUBLIC_API_URL + "/api/..." → http://api.myrehab.vn/api/...
+  NEXT_PUBLIC_API_URL: "http://api.myrehab.vn"
+
+  # --- Alternative configurations ---
+  # Internal service (only works within cluster):
+  # NEXT_PUBLIC_API_URL: "http://myrehab-api.myrehab:80"
+  # For SSL (when configured):
+  # NEXT_PUBLIC_API_URL: "https://api.myrehab.vn"
