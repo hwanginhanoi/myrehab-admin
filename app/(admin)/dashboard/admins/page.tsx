@@ -23,7 +23,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
-import { MoreHorizontal, Eye, Search } from 'lucide-react';
+import { MoreHorizontal, Eye, Search, Plus } from 'lucide-react';
 import { getAllAdmins } from '@/api/api/adminManagementControllerController/getAllAdmins';
 import { AdminResponse } from '@/api/types/AdminResponse';
 import { toast } from 'sonner';
@@ -194,6 +194,13 @@ export default function AdminsPage() {
             <h1 className="text-4xl font-bold text-[#EF7F26] mb-2">Quản lý quản trị viên</h1>
             <p className="text-base text-[#71717A]">Danh sách tất cả quản trị viên trong hệ thống</p>
           </div>
+          <Button
+            className="bg-[#6DBAD6] text-white px-4 py-2 rounded-md flex items-center gap-2 shadow-sm hover:bg-[#6DBAD6]/90"
+            onClick={() => router.push('/dashboard/admins/create')}
+          >
+            <Plus className="w-5 h-5" />
+            Thêm người dùng
+          </Button>
         </div>
 
         {/* Search Section */}

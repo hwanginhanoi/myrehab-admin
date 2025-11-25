@@ -97,7 +97,7 @@ export default function EditCourseCategoryPage() {
   };
 
   const handleCancel = () => {
-    router.push(`/dashboard/course-categories/${categoryId}`);
+    router.push(`/dashboard/course-categories/`);
   };
 
   if (loading) {
