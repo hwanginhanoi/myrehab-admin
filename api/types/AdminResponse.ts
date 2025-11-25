@@ -22,6 +22,14 @@ export type AdminResponse = {
     */
     department?: string;
     /**
+     * @type string | undefined
+    */
+    phoneNumber?: string;
+    /**
+     * @type string | undefined
+    */
+    description?: string;
+    /**
      * @type boolean | undefined
     */
     enabled?: boolean;

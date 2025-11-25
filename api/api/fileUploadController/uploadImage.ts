@@ -13,7 +13,7 @@ function getUploadImageUrl() {
 }
 
 /**
- * @description Upload an image file to the appropriate folder based on category. REQUIRED: category parameter must be one of: exercise, course, news, banner, profile. Admin/Doctor can upload all types. Users can only upload profile images. BREAKING CHANGE: Old /upload/image endpoint now requires category parameter.
+ * @description Upload an image file to the appropriate folder based on category. REQUIRED: category parameter must be one of: exercise, course, news, banner, profile, doctor. Admin/Doctor can upload all types. Users can only upload profile images. BREAKING CHANGE: Old /upload/image endpoint now requires category parameter.
  * @summary Upload image
  * {@link /api/files/upload/image}
  */

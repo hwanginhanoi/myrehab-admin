@@ -22,6 +22,10 @@ export default function CreateDoctorPage() {
       password: '',
       specialization: '',
       licenseNumber: '',
+      phoneNumber: '',
+      otherName: '',
+      description: '',
+      imageUrl: '',
       permissions: [],
     },
   });
@@ -45,6 +49,10 @@ export default function CreateDoctorPage() {
         password: data.password,
         specialization: data.specialization?.trim() || undefined,
         licenseNumber: data.licenseNumber?.trim() || undefined,
+        phoneNumber: data.phoneNumber?.trim() || undefined,
+        otherName: data.otherName?.trim() || undefined,
+        description: data.description?.trim() || undefined,
+        imageUrl: data.imageUrl?.trim() || undefined,
         permissions: data.permissions,
       };
 

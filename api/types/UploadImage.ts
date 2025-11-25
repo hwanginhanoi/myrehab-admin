@@ -7,7 +7,7 @@ import type { FileUploadResponse } from "./FileUploadResponse.ts";
 
 export type UploadImageQueryParams = {
     /**
-     * @description Image category (REQUIRED): exercise, course, news, banner, profile
+     * @description Image category (REQUIRED): exercise, course, news, banner, profile, doctor
      * @type string
     */
     category: string;

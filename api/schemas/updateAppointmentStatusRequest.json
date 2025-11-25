@@ -1,1 +1,0 @@
-{"type":"object","properties":{"status":{"type":"string","enum":["PENDING","APPROVED","REJECTED","CANCELLED","COMPLETED"]},"notes":{"type":"string"},"rejectionReason":{"type":"string"}},"required":["status"],"x-readme-ref-name":"UpdateAppointmentStatusRequest"}

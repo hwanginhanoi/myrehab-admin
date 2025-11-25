@@ -1,11 +1,14 @@
 import { UseFormReturn } from 'react-hook-form';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
+import { Textarea } from '@/components/ui/textarea';
 import { CreateDoctorRequest } from '@/api/types/CreateDoctorRequest';
+import { UpdateDoctorRequest } from '@/api/types/UpdateDoctorRequest';
 import { PermissionSelector } from '@/components/permissions/permission-selector';
+import { FileUpload } from '@/components/file-upload/file-upload';
 
 interface DoctorFormFieldsProps {
-  form: UseFormReturn<CreateDoctorRequest>;
+  form: UseFormReturn<CreateDoctorRequest> | UseFormReturn<UpdateDoctorRequest>;
   disabled?: boolean;
   isEdit?: boolean;
   permissionError?: string;
@@ -126,10 +129,71 @@ export function DoctorFormFields({ form, disabled = false, isEdit = false, permi
         </div>
       </div>
 
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        {/* Phone Number Input */}
+        <div className="space-y-2">
+          <Label htmlFor="phoneNumber" className="text-sm font-medium">
+            Số điện thoại
+          </Label>
+          <Input
+            id="phoneNumber"
+            type="tel"
+            placeholder="Nhập số điện thoại (tùy chọn)"
+            {...register('phoneNumber')}
+            disabled={disabled}
+            className="w-full"
+          />
+        </div>
+
+        {/* Other Name Input */}
+        <div className="space-y-2">
+          <Label htmlFor="otherName" className="text-sm font-medium">
+            Tên khác
+          </Label>
+          <Input
+            id="otherName"
+            placeholder="Nhập tên khác (tùy chọn)"
+            {...register('otherName')}
+            disabled={disabled}
+            className="w-full"
+          />
+        </div>
+      </div>
+
+      {/* Description Textarea */}
+      <div className="space-y-2">
+        <Label htmlFor="description" className="text-sm font-medium">
+          Mô tả
+        </Label>
+        <Textarea
+          id="description"
+          placeholder="Nhập mô tả về bác sĩ (tùy chọn)"
+          {...register('description')}
+          disabled={disabled}
+          className="w-full min-h-[100px]"
+        />
+      </div>
+
+      {/* Image Upload */}
+      <div className="space-y-2">
+        <Label className="text-sm font-medium">Ảnh đại diện</Label>
+        <div className="max-w-md">
+          <FileUpload
+            onUploadCompleteAction={(fileUrl) => setValue('imageUrl', fileUrl)}
+            acceptedTypes={['image/*']}
+            fileType="image"
+            category="profile"
+            maxFileSize={5}
+            disabled={disabled}
+            className="[&_.aspect-video]:aspect-square [&_.aspect-video]:max-h-64"
+          />
+        </div>
+      </div>
+
       {/* Permission Selector */}
       <PermissionSelector
-        selectedPermissions={watch('permissions') || []}
-        onChange={(permissions) => setValue('permissions', permissions)}
+        selectedPermissions={(watch('permissions') as string[] | undefined) || []}
+        onChange={(permissions) => setValue('permissions', permissions as any)}
         disabled={disabled}
         error={permissionError}
       />

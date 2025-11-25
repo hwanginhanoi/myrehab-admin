@@ -38,8 +38,8 @@ export const userSchema = z.object({
 "rehabilitationExaminationForms": z.optional(z.array(z.lazy(() => rehabilitationExaminationFormSchema))),
 "createdAt": z.optional(z.string().datetime()),
 "updatedAt": z.optional(z.string().datetime()),
-"password": z.optional(z.string()),
-"role": z.optional(z.enum(["USER", "DOCTOR", "ADMIN"])),
+"authorities": z.optional(z.array(z.lazy(() => grantedAuthoritySchema))),
 "username": z.optional(z.string()),
-"authorities": z.optional(z.array(z.lazy(() => grantedAuthoritySchema)))
+"password": z.optional(z.string()),
+"role": z.optional(z.enum(["USER", "DOCTOR", "ADMIN"]))
     })

@@ -10,6 +10,8 @@ export const adminResponseSchema = z.object({
 "fullName": z.optional(z.string()),
 "email": z.optional(z.string()),
 "department": z.optional(z.string()),
+"phoneNumber": z.optional(z.string()),
+"description": z.optional(z.string()),
 "enabled": z.optional(z.boolean()),
 "permissions": z.optional(z.array(z.string())),
 "createdAt": z.optional(z.string().datetime()),

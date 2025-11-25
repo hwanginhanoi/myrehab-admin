@@ -26,6 +26,14 @@ export type CreateAdminRequest = {
     */
     department?: string;
     /**
+     * @type string | undefined
+    */
+    phoneNumber?: string;
+    /**
+     * @type string | undefined
+    */
+    description?: string;
+    /**
      * @type array | undefined
     */
     permissions?: string[];

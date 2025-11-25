@@ -110,6 +110,35 @@ export function AdminFormFields({ form, disabled = false, isEdit = false, permis
             className="w-full"
           />
         </div>
+
+        {/* Phone Number Input */}
+        <div className="space-y-2">
+          <Label htmlFor="phoneNumber" className="text-sm font-medium">
+            Số điện thoại
+          </Label>
+          <Input
+              id="phoneNumber"
+              type="tel"
+              placeholder="Nhập số điện thoại (tùy chọn)"
+              {...register('phoneNumber')}
+              disabled={disabled}
+              className="w-full"
+          />
+        </div>
+      </div>
+
+      {/* Description Input */}
+      <div className="space-y-2">
+        <Label htmlFor="description" className="text-sm font-medium">
+          Mô tả
+        </Label>
+        <Input
+            id="description"
+            placeholder="Nhập mô tả (tùy chọn)"
+            {...register('description')}
+            disabled={disabled}
+            className="w-full"
+        />
       </div>
 
       {/* Permission Selector */}

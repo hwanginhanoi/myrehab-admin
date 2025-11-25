@@ -11,6 +11,10 @@ export const updateDoctorRequestSchema = z.object({
 "password": z.optional(z.string().min(6).max(2147483647)),
 "specialization": z.optional(z.string()),
 "licenseNumber": z.optional(z.string()),
+"phoneNumber": z.optional(z.string()),
+"otherName": z.optional(z.string()),
+"description": z.optional(z.string()),
+"imageUrl": z.optional(z.string()),
 "enabled": z.optional(z.boolean()),
 "permissions": z.optional(z.array(z.string()))
     })

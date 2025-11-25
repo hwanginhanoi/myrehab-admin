@@ -26,6 +26,22 @@ export type DoctorResponse = {
     */
     licenseNumber?: string;
     /**
+     * @type string | undefined
+    */
+    phoneNumber?: string;
+    /**
+     * @type string | undefined
+    */
+    otherName?: string;
+    /**
+     * @type string | undefined
+    */
+    description?: string;
+    /**
+     * @type string | undefined
+    */
+    imageUrl?: string;
+    /**
      * @type boolean | undefined
     */
     enabled?: boolean;
