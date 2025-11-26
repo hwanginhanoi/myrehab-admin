@@ -13,7 +13,7 @@ function getGeneratePresignedUploadUrlUrl() {
 }
 
 /**
- * @description Generate a presigned URL for direct upload to S3 (Admin and Doctor only). For images, category is REQUIRED (exercise, course, news, banner, profile). For videos, category is not needed.
+ * @description Generate a presigned URL for direct upload to S3 (Admin and Doctor only). For images, category is REQUIRED (exercise, course, news, banner, profile, doctor). For videos, category is not needed.
  * @summary Generate presigned upload URL
  * {@link /api/files/presigned-url}
  */

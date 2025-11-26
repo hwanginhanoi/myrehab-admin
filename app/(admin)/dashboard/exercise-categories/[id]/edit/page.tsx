@@ -97,7 +97,7 @@ export default function EditExerciseCategoryPage() {
   };
 
   const handleCancel = () => {
-    router.push(`/dashboard/exercise-categories/${categoryId}`);
+    router.push(`/dashboard/exercise-categories`);
   };
 
   if (loading) {

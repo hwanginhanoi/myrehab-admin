@@ -7,7 +7,7 @@ import { fileUploadResponseSchema } from "./fileUploadResponseSchema.ts";
 import { z } from "zod";
 
 export const uploadImageQueryParamsSchema = z.object({
-    "category": z.string().describe("Image category (REQUIRED): exercise, course, news, banner, profile")
+    "category": z.string().describe("Image category (REQUIRED): exercise, course, news, banner, profile, doctor")
     })
 
 /**

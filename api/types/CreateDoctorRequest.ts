@@ -30,6 +30,22 @@ export type CreateDoctorRequest = {
     */
     licenseNumber?: string;
     /**
+     * @type string | undefined
+    */
+    phoneNumber?: string;
+    /**
+     * @type string | undefined
+    */
+    otherName?: string;
+    /**
+     * @type string | undefined
+    */
+    description?: string;
+    /**
+     * @type string | undefined
+    */
+    imageUrl?: string;
+    /**
      * @type array | undefined
     */
     permissions?: string[];

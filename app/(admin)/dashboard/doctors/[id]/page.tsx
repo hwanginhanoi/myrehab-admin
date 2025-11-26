@@ -4,7 +4,8 @@ import { useEffect, useState, useCallback } from 'react';
 import { useParams, useRouter } from 'next/navigation';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { ArrowLeft, User, Shield, Stethoscope, Settings } from 'lucide-react';
+import { ArrowLeft, User, Shield, Stethoscope, Settings, Edit } from 'lucide-react';
+import Image from 'next/image';
 import { toast } from 'sonner';
 import { getDoctorById } from '@/api/api/doctorManagementControllerController/getDoctorById';
 import { DoctorResponse } from '@/api/types/DoctorResponse';
@@ -79,13 +80,22 @@ export default function DoctorDetailsPage() {
             <ArrowLeft className="mr-2 h-4 w-4" />
             Quay lại
           </Button>
-          <div>
-            <h1 className="text-4xl font-bold text-[#EF7F26] mb-2">
-              Chi tiết bác sĩ
-            </h1>
-            <p className="text-base text-[#71717A]">
-              Xem và quản lý thông tin chi tiết của bác sĩ #{doctorId}
-            </p>
+          <div className="flex items-center justify-between">
+            <div>
+              <h1 className="text-4xl font-bold text-[#EF7F26] mb-2">
+                Chi tiết bác sĩ
+              </h1>
+              <p className="text-base text-[#71717A]">
+                Xem và quản lý thông tin chi tiết của bác sĩ #{doctorId}
+              </p>
+            </div>
+            <Button
+              onClick={() => router.push(`/dashboard/doctors/${doctorId}/edit`)}
+              className="bg-[#6DBAD6] hover:bg-[#5BA8C4] text-white"
+            >
+              <Edit className="h-4 w-4 mr-2" />
+              Chỉnh sửa
+            </Button>
           </div>
         </div>
 
@@ -93,11 +103,25 @@ export default function DoctorDetailsPage() {
         {doctor && (
           <div className="bg-white border rounded-lg p-6 mb-6">
             <div className="flex items-center gap-4">
-              <div className="h-16 w-16 rounded-full bg-[#6DBAD6]/10 flex items-center justify-center">
-                <Stethoscope className="h-8 w-8 text-[#6DBAD6]" />
-              </div>
+              {doctor.imageUrl ? (
+                <div className="h-16 w-16 rounded-full overflow-hidden relative">
+                  <Image
+                    src={doctor.imageUrl}
+                    alt={doctor.fullName || 'Doctor'}
+                    fill
+                    className="object-cover"
+                  />
+                </div>
+              ) : (
+                <div className="h-16 w-16 rounded-full bg-[#6DBAD6]/10 flex items-center justify-center">
+                  <Stethoscope className="h-8 w-8 text-[#6DBAD6]" />
+                </div>
+              )}
               <div>
                 <h2 className="text-2xl font-semibold">{doctor.fullName || 'N/A'}</h2>
+                {doctor.otherName && (
+                  <p className="text-sm text-[#939598]">({doctor.otherName})</p>
+                )}
                 <p className="text-[#71717A]">{doctor.email || 'N/A'}</p>
               </div>
             </div>
@@ -155,6 +179,24 @@ export default function DoctorDetailsPage() {
                   </div>
                 </div>
               </div>
+
+              <div className="grid grid-cols-2 gap-6">
+                <div className="space-y-1.5">
+                  <label className="text-base font-medium text-[#939598]">Số điện thoại</label>
+                  <p className="text-base font-medium text-[#020617]">{doctor?.phoneNumber || '-'}</p>
+                </div>
+                <div className="space-y-1.5">
+                  <label className="text-base font-medium text-[#939598]">Tên khác</label>
+                  <p className="text-base font-medium text-[#020617]">{doctor?.otherName || '-'}</p>
+                </div>
+              </div>
+
+              {doctor?.description && (
+                <div className="space-y-1.5">
+                  <label className="text-base font-medium text-[#939598]">Mô tả</label>
+                  <p className="text-base font-medium text-[#020617]">{doctor.description}</p>
+                </div>
+              )}
 
               <div className="grid grid-cols-2 gap-6">
                 <div className="space-y-1.5">

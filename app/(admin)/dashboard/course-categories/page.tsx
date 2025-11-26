@@ -32,6 +32,8 @@ import {
 } from '@/components/ui/dropdown-menu';
 import { MoreHorizontal, Eye, Edit, Plus, Search } from 'lucide-react';
 import { getAllCategoriesPaginated1 } from '@/api/api/courseCategoryManagementController/getAllCategoriesPaginated1';
+import { getCategoriesByTypePaginated1 } from '@/api/api/courseCategoryManagementController/getCategoriesByTypePaginated1';
+import { searchCategoriesPaginated1 } from '@/api/api/courseCategoryManagementController/searchCategoriesPaginated1';
 import { CourseCategoryResponse } from '@/api/types/CourseCategoryResponse';
 import { PagedModelCourseCategoryResponse } from '@/api/types/PagedModelCourseCategoryResponse';
 import { toast } from 'sonner';
@@ -42,12 +44,16 @@ const columnHelper = createColumnHelper<CourseCategoryResponse>();
 // Vietnamese translations for course category types
 const getCategoryTypeLabel = (type?: string): string => {
   switch (type) {
+    case 'BODY_PART':
+      return 'Bộ phận cơ thể';
+    case 'RECOVERY_STAGE':
+      return 'Giai đoạn phục hồi';
+    case 'HEALTH_CONDITION':
+      return 'Tình trạng sức khỏe';
     case 'DIFFICULTY_LEVEL':
       return 'Mức độ khó';
-    case 'COURSE_TYPE':
-      return 'Loại lộ trình';
-    case 'TARGET_AUDIENCE':
-      return 'Đối tượng mục tiêu';
+    case 'EXERCISE_TYPE':
+      return 'Loại bài tập';
     default:
       return 'Không xác định';
   }
@@ -64,6 +70,10 @@ export default function CourseCategoriesPage() {
     pageIndex: 0,
     pageSize: 10,
   });
+  const [searchKeyword, setSearchKeyword] = useState('');
+  const [selectedType, setSelectedType] = useState<string>('');
+  const [appliedSearchKeyword, setAppliedSearchKeyword] = useState('');
+  const [appliedType, setAppliedType] = useState<string>('');
 
   const fetchCategories = useCallback(async () => {
     try {
@@ -74,13 +84,51 @@ export default function CourseCategoriesPage() {
       // Start minimum loading timer
       const minLoadingTimer = setTimeout(() => setMinLoadingTime(false), 300);
 
-      const data = await getAllCategoriesPaginated1({
-        pageable: {
-          page: pagination.pageIndex,
-          size: pagination.pageSize,
-          sort: ['createdAt,desc'],
-        },
-      });
+      let data: PagedModelCourseCategoryResponse;
+
+      // Determine which API to call based on filters
+      if (appliedSearchKeyword && appliedType) {
+        // Both search and type filter
+        data = await searchCategoriesPaginated1({
+          keyword: appliedSearchKeyword,
+          pageable: {
+            page: pagination.pageIndex,
+            size: pagination.pageSize,
+            sort: ['createdAt,desc'],
+          },
+        });
+        // Filter by type on client side since API doesn't support both
+        const filteredContent = data.content?.filter(cat => cat.type === appliedType) || [];
+        data = { ...data, content: filteredContent };
+      } else if (appliedSearchKeyword) {
+        // Only search keyword
+        data = await searchCategoriesPaginated1({
+          keyword: appliedSearchKeyword,
+          pageable: {
+            page: pagination.pageIndex,
+            size: pagination.pageSize,
+            sort: ['createdAt,desc'],
+          },
+        });
+      } else if (appliedType) {
+        // Only type filter
+        data = await getCategoriesByTypePaginated1(appliedType as any, {
+          pageable: {
+            page: pagination.pageIndex,
+            size: pagination.pageSize,
+            sort: ['createdAt,desc'],
+          },
+        });
+      } else {
+        // No filters - get all
+        data = await getAllCategoriesPaginated1({
+          pageable: {
+            page: pagination.pageIndex,
+            size: pagination.pageSize,
+            sort: ['createdAt,desc'],
+          },
+        });
+      }
 
       setPageData(data);
       setCategories(data.content || []);
@@ -103,11 +151,25 @@ export default function CourseCategoriesPage() {
     } finally {
       setLoading(false);
     }
-  }, [pagination.pageIndex, pagination.pageSize]);
+  }, [pagination.pageIndex, pagination.pageSize, appliedSearchKeyword, appliedType]);
 
   useEffect(() => {
     fetchCategories();
   }, [fetchCategories]);
+
+  const handleSearch = () => {
+    setAppliedSearchKeyword(searchKeyword);
+    setAppliedType(selectedType === 'all' ? '' : selectedType);
+    setPagination({ pageIndex: 0, pageSize: 10 }); // Reset to first page
+  };
+
+  const handleClearFilters = () => {
+    setSearchKeyword('');
+    setSelectedType('');
+    setAppliedSearchKeyword('');
+    setAppliedType('');
+    setPagination({ pageIndex: 0, pageSize: 10 });
+  };
 
   const formatDate = (dateString?: string) => {
     if (!dateString) return '-';
@@ -231,27 +293,47 @@ export default function CourseCategoriesPage() {
                   type="text"
                   placeholder="Tìm kiếm danh mục lộ trình..."
                   className="w-full"
+                  value={searchKeyword}
+                  onChange={(e) => setSearchKeyword(e.target.value)}
+                  onKeyDown={(e) => {
+                    if (e.key === 'Enter') {
+                      handleSearch();
+                    }
+                  }}
                 />
               </div>
               <div className="w-48">
-                <Select>
+                <Select value={selectedType} onValueChange={setSelectedType}>
                   <SelectTrigger className="w-full">
                     <SelectValue placeholder="Phân loại" />
                   </SelectTrigger>
                   <SelectContent>
+                    <SelectItem value="all">Tất cả</SelectItem>
+                    <SelectItem value="BODY_PART">Bộ phận cơ thể</SelectItem>
+                    <SelectItem value="RECOVERY_STAGE">Giai đoạn phục hồi</SelectItem>
+                    <SelectItem value="HEALTH_CONDITION">Tình trạng sức khỏe</SelectItem>
                     <SelectItem value="DIFFICULTY_LEVEL">Mức độ khó</SelectItem>
-                    <SelectItem value="COURSE_TYPE">Loại lộ trình</SelectItem>
-                    <SelectItem value="TARGET_AUDIENCE">Đối tượng mục tiêu</SelectItem>
+                    <SelectItem value="EXERCISE_TYPE">Loại bài tập</SelectItem>
                   </SelectContent>
                 </Select>
               </div>
               <Button
                 variant="outline"
                 className="border-[#6DBAD6] text-[#6DBAD6] hover:bg-[#6DBAD6] hover:text-white px-4 py-2 rounded-md flex items-center gap-2"
+                onClick={handleSearch}
               >
                 <Search className="w-5 h-5" />
                 Tìm kiếm
               </Button>
+              {(appliedSearchKeyword || appliedType) && (
+                <Button
+                  variant="outline"
+                  className="border-gray-300 text-gray-700 hover:bg-gray-100 px-4 py-2 rounded-md"
+                  onClick={handleClearFilters}
+                >
+                  Xóa bộ lọc
+                </Button>
+              )}
             </div>
 
             {/* Table */}

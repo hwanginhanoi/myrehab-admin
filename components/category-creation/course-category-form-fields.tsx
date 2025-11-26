@@ -61,9 +61,11 @@ export function CourseCategoryFormFields({ form, disabled = false }: CourseCateg
               <SelectValue placeholder="Chọn phân loại" />
             </SelectTrigger>
             <SelectContent>
+              <SelectItem value="BODY_PART">Bộ phận cơ thể</SelectItem>
+              <SelectItem value="RECOVERY_STAGE">Giai đoạn phục hồi</SelectItem>
+              <SelectItem value="HEALTH_CONDITION">Tình trạng sức khỏe</SelectItem>
               <SelectItem value="DIFFICULTY_LEVEL">Mức độ khó</SelectItem>
-              <SelectItem value="COURSE_TYPE">Loại lộ trình</SelectItem>
-              <SelectItem value="TARGET_AUDIENCE">Đối tượng mục tiêu</SelectItem>
+              <SelectItem value="EXERCISE_TYPE">Loại bài tập</SelectItem>
             </SelectContent>
           </Select>
           {errors.type && <p className="text-sm text-red-500">{errors.type.message}</p>}

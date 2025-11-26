@@ -11,5 +11,9 @@ export const createDoctorRequestSchema = z.object({
 "password": z.string().min(6).max(2147483647),
 "specialization": z.optional(z.string()),
 "licenseNumber": z.optional(z.string()),
+"phoneNumber": z.optional(z.string()),
+"otherName": z.optional(z.string()),
+"description": z.optional(z.string()),
+"imageUrl": z.optional(z.string()),
 "permissions": z.optional(z.array(z.string()))
     })

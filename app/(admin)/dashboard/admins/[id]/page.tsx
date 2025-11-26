@@ -4,7 +4,7 @@ import { useEffect, useState, useCallback } from 'react';
 import { useParams, useRouter } from 'next/navigation';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { ArrowLeft, User, Shield, Settings } from 'lucide-react';
+import { ArrowLeft, User, Shield, Settings, Edit } from 'lucide-react';
 import { toast } from 'sonner';
 import { getAdminById } from '@/api/api/adminManagementControllerController/getAdminById';
 import { AdminResponse } from '@/api/types/AdminResponse';
@@ -79,13 +79,22 @@ export default function AdminDetailsPage() {
             <ArrowLeft className="mr-2 h-4 w-4" />
             Quay lại
           </Button>
-          <div>
-            <h1 className="text-4xl font-bold text-[#EF7F26] mb-2">
-              Chi tiết quản trị viên
-            </h1>
-            <p className="text-base text-[#71717A]">
-              Xem và quản lý thông tin chi tiết của quản trị viên #{adminId}
-            </p>
+          <div className="flex items-center justify-between">
+            <div>
+              <h1 className="text-4xl font-bold text-[#EF7F26] mb-2">
+                Chi tiết quản trị viên
+              </h1>
+              <p className="text-base text-[#71717A]">
+                Xem và quản lý thông tin chi tiết của quản trị viên #{adminId}
+              </p>
+            </div>
+            <Button
+              onClick={() => router.push(`/dashboard/admins/${adminId}/edit`)}
+              className="bg-[#6DBAD6] hover:bg-[#5BA8C4] text-white"
+            >
+              <Edit className="h-4 w-4 mr-2" />
+              Chỉnh sửa
+            </Button>
           </div>
         </div>
 
@@ -134,6 +143,17 @@ export default function AdminDetailsPage() {
                 <div className="space-y-1.5">
                   <label className="text-base font-medium text-[#939598]">Phòng ban</label>
                   <p className="text-base font-medium text-[#020617]">{admin?.department || '-'}</p>
+                </div>
+              </div>
+
+              <div className="grid grid-cols-2 gap-6">
+                <div className="space-y-1.5">
+                  <label className="text-base font-medium text-[#939598]">Số điện thoại</label>
+                  <p className="text-base font-medium text-[#020617]">{admin?.phoneNumber || '-'}</p>
+                </div>
+                <div className="space-y-1.5">
+                  <label className="text-base font-medium text-[#939598]">Mô tả</label>
+                  <p className="text-base font-medium text-[#020617]">{admin?.description || '-'}</p>
                 </div>
               </div>
 

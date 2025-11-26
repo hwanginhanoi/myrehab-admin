@@ -10,6 +10,8 @@ export const updateAdminRequestSchema = z.object({
 "email": z.string().min(1),
 "password": z.optional(z.string().min(6).max(2147483647)),
 "department": z.optional(z.string()),
+"phoneNumber": z.optional(z.string()),
+"description": z.optional(z.string()),
 "enabled": z.optional(z.boolean()),
 "permissions": z.optional(z.array(z.string()))
     })
