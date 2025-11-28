@@ -8,17 +8,17 @@ import AgoraRTC, {
   IMicrophoneAudioTrack,
   UID,
 } from 'agora-rtc-sdk-ng';
-import { AGORA_CONFIG, AGORA_SDK_CONFIG } from '@/lib/agora-config';
+import { AGORA_SDK_CONFIG } from '@/lib/agora-config';
 
 // Set Agora log level (in development, use info; in production, use warning)
 // 0 = DEBUG, 1 = INFO, 2 = WARNING, 3 = ERROR, 4 = NONE
 AgoraRTC.setLogLevel(process.env.NODE_ENV === 'development' ? 2 : 3);
 
 interface UseAgoraVideoCallOptions {
-  appId?: string;
+  appId: string; // Required - must come from backend
   channel: string;
-  token?: string | null;
-  useHardcodedToken?: boolean;
+  token: string | null; // Required - must come from backend
+  uid?: number | null; // Optional - from backend (0 or null = auto-assign)
 }
 
 interface AgoraUser {
@@ -27,7 +27,7 @@ interface AgoraUser {
   hasVideo: boolean;
 }
 
-export function useAgoraVideoCall({ appId, channel, token = null, useHardcodedToken = true }: UseAgoraVideoCallOptions) {
+export function useAgoraVideoCall({ appId, channel, token, uid = null }: UseAgoraVideoCallOptions) {
   const [isJoined, setIsJoined] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -148,17 +148,29 @@ export function useAgoraVideoCall({ appId, channel, token = null, useHardcodedTo
       setIsLoading(true);
       setError(null);
 
-      const effectiveAppId = appId || AGORA_CONFIG.appId;
-      if (!effectiveAppId) {
-        throw new Error('Agora App ID is required');
+      // Validate required parameters
+      if (!appId) {
+        throw new Error('Agora App ID is required (must be provided by backend)');
+      }
+      if (!token) {
+        throw new Error('Agora token is required (must be provided by backend)');
       }
 
-      // Use hardcoded token if enabled, otherwise use provided token
-      const effectiveToken = useHardcodedToken ? AGORA_CONFIG.token : token;
+      // Debug logging
+      console.log('🔐 Agora Join Attempt (Backend Values Only):', {
+        appId,
+        channel,
+        uid: uid || 'auto-assign',
+        hasToken: !!token,
+        tokenSource: 'backend-api',
+        tokenPreview: token ? `${token.substring(0, 20)}...` : 'null',
+      });
 
-      // Join the channel
-      const uid = await client.join(effectiveAppId, channel, effectiveToken, null);
-      localUidRef.current = uid;
+      // Join the channel using EXACT backend-provided values
+      // Use exact UID from backend (0 or null means auto-assign by Agora)
+      const joinedUid = await client.join(appId, channel, token, uid || null);
+      localUidRef.current = joinedUid;
+      console.log('✅ Successfully joined channel with UID:', joinedUid);
 
       // Create and publish local tracks
       const [audioTrack, videoTrack] = await AgoraRTC.createMicrophoneAndCameraTracks(
@@ -183,7 +195,7 @@ export function useAgoraVideoCall({ appId, channel, token = null, useHardcodedTo
     } finally {
       setIsLoading(false);
     }
-  }, [appId, channel, token, isJoined, useHardcodedToken]);
+  }, [appId, channel, token, isJoined]);
 
   // Leave channel
   const leaveChannel = useCallback(async () => {

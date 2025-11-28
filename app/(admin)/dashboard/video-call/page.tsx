@@ -4,8 +4,6 @@ import { useState, useEffect } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
 import {
   Video,
   VideoOff,
@@ -13,21 +11,32 @@ import {
   MicOff,
   PhoneOff,
   Phone,
-  Settings,
   User,
   SwitchCamera,
+  ArrowLeft,
+  Loader2,
 } from 'lucide-react';
 import { toast } from 'sonner';
 import { useAgoraVideoCall } from '@/hooks/use-agora-video-call';
-import { validateAgoraConfig } from '@/lib/agora-config';
+import { formatTimeRemaining, getTimeUntilEnd } from '@/lib/utils/agora';
 
 export default function VideoCallPage() {
   const router = useRouter();
   const searchParams = useSearchParams();
 
-  // Channel from URL or default
-  const [channelName, setChannelName] = useState(searchParams.get('channel') || '');
-  const [isConfigured, setIsConfigured] = useState(false);
+  // Get params from URL - ALL from backend response
+  const appointmentId = searchParams.get('appointmentId');
+  const channelFromUrl = searchParams.get('channel');
+  const tokenFromUrl = searchParams.get('token');
+  const appIdFromUrl = searchParams.get('appId');
+  const uidFromUrl = searchParams.get('uid');
+  const patientName = searchParams.get('patientName') || 'Bệnh nhân';
+  const endTime = searchParams.get('endTime');
+  const duration = parseInt(searchParams.get('duration') || '60');
+
+  const [channelName, setChannelName] = useState(channelFromUrl || '');
+  const [timeRemaining, setTimeRemaining] = useState<number>(0);
+  const [autoJoined, setAutoJoined] = useState(false);
 
   const {
     isJoined,
@@ -43,31 +52,91 @@ export default function VideoCallPage() {
     toggleCamera,
     switchCamera,
   } = useAgoraVideoCall({
-    channel: channelName,
+    appId: appIdFromUrl || '',           // EXACT from backend
+    channel: channelName,                 // EXACT from backend
+    token: tokenFromUrl || null,          // EXACT from backend
+    uid: uidFromUrl ? parseInt(uidFromUrl) : null, // EXACT from backend
   });
 
+  // Debug: Log Agora configuration - EXACT backend values
   useEffect(() => {
-    setIsConfigured(validateAgoraConfig());
-  }, []);
+    if (appointmentId) {
+      console.log('🎥 Agora Config (EXACT Backend Values):', {
+        appId: appIdFromUrl,
+        channel: channelName,
+        uid: uidFromUrl,
+        hasToken: !!tokenFromUrl,
+        tokenPreview: tokenFromUrl ? `${tokenFromUrl.substring(0, 20)}...` : 'none',
+        tokenSource: 'backend-api',
+        note: '✅ Using EXACT values from backend response - NO modifications',
+      });
+    }
+  }, [appointmentId, appIdFromUrl, channelName, uidFromUrl, tokenFromUrl]);
+
+  // Update time remaining for appointment
+  useEffect(() => {
+    if (!endTime || !isJoined) return;
+
+    const updateTimer = () => {
+      const remaining = getTimeUntilEnd(endTime, duration);
+      setTimeRemaining(remaining);
+
+      // Auto-leave when time is up
+      if (remaining <= 0) {
+        toast.warning('Cuộc hẹn đã kết thúc', {
+          description: 'Thời gian cuộc hẹn đã hết',
+        });
+        void handleLeaveChannel();
+      }
+    };
+
+    updateTimer();
+    const interval = setInterval(updateTimer, 1000);
+
+    return () => clearInterval(interval);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [endTime, duration, isJoined]);
+
+  // Auto-join if coming from appointment
+  useEffect(() => {
+    if (appointmentId && channelFromUrl && !autoJoined && !isJoined) {
+      if (!tokenFromUrl) {
+        toast.error('Lỗi', {
+          description: 'Không có token từ backend. Vui lòng thử lại.',
+        });
+        return;
+      }
+      if (!appIdFromUrl) {
+        toast.error('Lỗi', {
+          description: 'Không có App ID từ backend. Vui lòng kiểm tra cấu hình.',
+        });
+        return;
+      }
+      setAutoJoined(true);
+      void joinChannel();
+    }
+  }, [appointmentId, channelFromUrl, tokenFromUrl, appIdFromUrl, autoJoined, isJoined, joinChannel]);
 
   useEffect(() => {
     if (error) {
-      toast.error('Video Call Error', {
-        description: error,
+      let errorMessage = error;
+
+      // Provide user-friendly error messages
+      if (error.includes('invalid token') || error.includes('CAN_NOT_GET_GATEWAY_SERVER')) {
+        errorMessage = 'Token không hợp lệ hoặc đã hết hạn. Vui lòng kiểm tra lại hoặc thử tham gia lại cuộc gọi.';
+      } else if (error.includes('App ID')) {
+        errorMessage = 'Cấu hình App ID không đúng. Vui lòng liên hệ quản trị viên.';
+      }
+
+      toast.error('Lỗi gọi video', {
+        description: errorMessage,
       });
     }
   }, [error]);
 
   const handleJoinChannel = async () => {
     if (!channelName.trim()) {
-      toast.error('Channel name is required');
-      return;
-    }
-
-    if (!isConfigured) {
-      toast.error('Agora is not configured', {
-        description: 'Please add NEXT_PUBLIC_AGORA_APP_ID to your environment variables',
-      });
+      toast.error('Vui lòng nhập tên kênh');
       return;
     }
 
@@ -76,7 +145,12 @@ export default function VideoCallPage() {
 
   const handleLeaveChannel = async () => {
     await leaveChannel();
-    router.push('/dashboard');
+    if (appointmentId) {
+      // Return to appointment details if came from appointment
+      router.push(`/dashboard/appointments/${appointmentId}`);
+    } else {
+      router.push('/dashboard');
+    }
   };
 
   return (
@@ -86,65 +160,75 @@ export default function VideoCallPage() {
           // Pre-call screen
           <div className="flex-1 flex items-center justify-center p-9">
             <Card className="max-w-md w-full p-8 bg-white">
-              <div className="mb-6 text-center">
-                <div className="h-16 w-16 rounded-full bg-[#6DBAD6]/10 flex items-center justify-center mx-auto mb-4">
-                  <Video className="h-8 w-8 text-[#6DBAD6]" />
+              <div className="mb-6">
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  onClick={() => appointmentId ? router.push(`/dashboard/appointments/${appointmentId}`) : router.push('/dashboard')}
+                  className="mb-4"
+                >
+                  <ArrowLeft className="mr-2 h-4 w-4" />
+                  Quay lại
+                </Button>
+
+                <div className="text-center">
+                  <div className="h-16 w-16 rounded-full bg-[#6DBAD6]/10 flex items-center justify-center mx-auto mb-4">
+                    <Video className="h-8 w-8 text-[#6DBAD6]" />
+                  </div>
+                  <h1 className="text-3xl font-bold text-[#EF7F26] mb-2">
+                    {appointmentId ? `Cuộc gọi với ${patientName}` : 'Cuộc gọi video'}
+                  </h1>
+                  <p className="text-[#71717A]">
+                    {isLoading ? 'Đang kết nối...' : 'Nhấn tham gia để bắt đầu cuộc gọi'}
+                  </p>
                 </div>
-                <h1 className="text-3xl font-bold text-[#EF7F26] mb-2">
-                  Video Call
-                </h1>
-                <p className="text-[#71717A]">
-                  Enter a channel name to start or join a video call
-                </p>
               </div>
 
-              <div className="space-y-4">
-                <div>
-                  <Label htmlFor="channel" className="text-[#020617] font-medium">
-                    Channel Name
-                  </Label>
-                  <Input
+              {!appointmentId && (
+                <div className="mb-4">
+                  <label htmlFor="channel" className="text-[#020617] font-medium block mb-2">
+                    Tên kênh
+                  </label>
+                  <input
                     id="channel"
                     type="text"
-                    placeholder="e.g., consultation-room-1"
+                    placeholder="Nhập tên kênh"
                     value={channelName}
                     onChange={(e) => setChannelName(e.target.value)}
-                    className="mt-1.5"
+                    className="w-full px-3 py-2 border rounded-md"
                     disabled={isLoading}
                   />
                 </div>
+              )}
 
-                {!isConfigured && (
-                  <div className="p-4 bg-yellow-50 border border-yellow-200 rounded-md">
-                    <p className="text-sm text-yellow-800">
-                      <strong>Configuration Required:</strong> Please add your Agora App ID to the environment variables.
-                    </p>
-                  </div>
-                )}
-
+              <div className="space-y-3">
                 <Button
                   onClick={handleJoinChannel}
-                  disabled={isLoading || !channelName.trim() || !isConfigured}
+                  disabled={isLoading || !channelName.trim()}
                   className="w-full bg-[#6DBAD6] hover:bg-[#5BA8C4] text-white"
                   size="lg"
                 >
                   {isLoading ? (
-                    'Connecting...'
+                    <>
+                      <Loader2 className="mr-2 h-5 w-5 animate-spin" />
+                      Đang kết nối...
+                    </>
                   ) : (
                     <>
                       <Phone className="mr-2 h-5 w-5" />
-                      Join Call
+                      Tham gia cuộc gọi
                     </>
                   )}
                 </Button>
 
                 <Button
-                  onClick={() => router.push('/dashboard')}
+                  onClick={() => appointmentId ? router.push(`/dashboard/appointments/${appointmentId}`) : router.push('/dashboard')}
                   variant="outline"
                   className="w-full"
                   size="lg"
+                  disabled={isLoading}
                 >
-                  Cancel
+                  Hủy
                 </Button>
               </div>
             </Card>
@@ -152,6 +236,20 @@ export default function VideoCallPage() {
         ) : (
           // In-call screen
           <div className="flex-1 flex flex-col">
+            {/* Header */}
+            {appointmentId && (
+              <div className="bg-gray-800 border-b border-gray-700 px-6 py-3">
+                <div className="flex items-center justify-between text-white">
+                  <h2 className="text-lg font-semibold">Cuộc gọi với {patientName}</h2>
+                  {timeRemaining > 0 && (
+                    <div className="text-sm text-gray-300">
+                      Kết thúc sau {formatTimeRemaining(timeRemaining, 'vi')}
+                    </div>
+                  )}
+                </div>
+              </div>
+            )}
+
             {/* Video Grid */}
             <div className="flex-1 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 p-4">
               {/* Local Video */}
@@ -169,7 +267,7 @@ export default function VideoCallPage() {
                   </div>
                 )}
                 <div className="absolute bottom-4 left-4 bg-black/60 px-3 py-1.5 rounded-full text-white text-sm font-medium">
-                  You {isMicMuted && '(Muted)'}
+                  Bạn {isMicMuted && '(Đã tắt tiếng)'}
                 </div>
                 {localUid && (
                   <div className="absolute top-4 right-4 bg-black/60 px-2 py-1 rounded text-white text-xs">
@@ -197,18 +295,21 @@ export default function VideoCallPage() {
                     </div>
                   )}
                   <div className="absolute bottom-4 left-4 bg-black/60 px-3 py-1.5 rounded-full text-white text-sm font-medium">
-                    User {user.uid} {!user.hasAudio && '(Muted)'}
+                    {appointmentId && remoteUsers.indexOf(user) === 0 ? patientName : `Người dùng ${user.uid}`}
+                    {!user.hasAudio && ' (Đã tắt tiếng)'}
                   </div>
                 </div>
               ))}
 
-              {/* Empty slots */}
+              {/* Waiting for others */}
               {remoteUsers.length === 0 && (
                 <div className="relative aspect-video bg-gray-800 rounded-lg overflow-hidden border-2 border-dashed border-gray-600">
                   <div className="absolute inset-0 flex items-center justify-center">
                     <div className="text-center">
-                      <User className="h-12 w-12 text-gray-600 mx-auto mb-2" />
-                      <p className="text-gray-400 text-sm">Waiting for others to join...</p>
+                      <Loader2 className="h-12 w-12 text-gray-600 mx-auto mb-2 animate-spin" />
+                      <p className="text-gray-400 text-sm">
+                        {appointmentId ? `Đang chờ ${patientName} tham gia...` : 'Đang chờ người khác tham gia...'}
+                      </p>
                     </div>
                   </div>
                 </div>
@@ -224,7 +325,7 @@ export default function VideoCallPage() {
                   size="lg"
                   variant={isMicMuted ? 'destructive' : 'secondary'}
                   className="h-14 w-14 rounded-full"
-                  title={isMicMuted ? 'Unmute' : 'Mute'}
+                  title={isMicMuted ? 'Bật tiếng' : 'Tắt tiếng'}
                 >
                   {isMicMuted ? <MicOff className="h-6 w-6" /> : <Mic className="h-6 w-6" />}
                 </Button>
@@ -235,7 +336,7 @@ export default function VideoCallPage() {
                   size="lg"
                   variant={isCameraOff ? 'destructive' : 'secondary'}
                   className="h-14 w-14 rounded-full"
-                  title={isCameraOff ? 'Turn on camera' : 'Turn off camera'}
+                  title={isCameraOff ? 'Bật camera' : 'Tắt camera'}
                 >
                   {isCameraOff ? <VideoOff className="h-6 w-6" /> : <Video className="h-6 w-6" />}
                 </Button>
@@ -246,7 +347,7 @@ export default function VideoCallPage() {
                   size="lg"
                   variant="secondary"
                   className="h-14 w-14 rounded-full"
-                  title="Switch camera"
+                  title="Chuyển camera"
                 >
                   <SwitchCamera className="h-6 w-6" />
                 </Button>
@@ -260,7 +361,7 @@ export default function VideoCallPage() {
                   disabled={isLoading}
                 >
                   <PhoneOff className="h-6 w-6 mr-2" />
-                  Leave Call
+                  Kết thúc
                 </Button>
               </div>
             </div>
