@@ -25,6 +25,7 @@ interface FileUploadProps {
   maxFileSize?: number; // in MB
   className?: string;
   disabled?: boolean;
+  compact?: boolean; // Use smaller height for banners
 }
 
 interface UploadState {
@@ -49,6 +50,7 @@ export function FileUpload({
   maxFileSize = 50, // Default 50MB
   className,
   disabled = false,
+  compact = false,
 }: FileUploadProps) {
   const [uploadState, setUploadState] = useState<UploadState>({
     file: null,
@@ -348,7 +350,7 @@ export function FileUpload({
             <div
               className={cn(
                 'border-2 border-dashed border-muted-foreground/25 rounded-lg transition-colors',
-                'w-full aspect-video', // 16:9 aspect ratio
+                compact ? 'w-full aspect-[21/9]' : 'w-full aspect-video', // 21:9 for banners, 16:9 for others
                 'flex flex-col items-center justify-center gap-3 cursor-pointer',
                 !disabled && 'hover:border-muted-foreground/50',
                 disabled && 'opacity-50 cursor-not-allowed'
@@ -365,13 +367,13 @@ export function FileUpload({
               {/* Upload text */}
               <div className="space-y-1 text-center">
                 <h3 className="text-base font-semibold">
-                  Upload Cover {fileType === 'image' ? 'Image' : 'Video'}
+                  Tải lên {fileType === 'image' ? 'hình ảnh' : 'video'}
                 </h3>
                 <p className="text-xs text-muted-foreground">
-                  Drag and drop {fileType === 'image' ? 'an image' : 'a video'} here, or click to browse
+                  Kéo thả {fileType === 'image' ? 'hình ảnh' : 'video'} vào đây, hoặc nhấp để chọn
                 </p>
                 <p className="text-xs text-muted-foreground">
-                  Recommended size: 1200×514px • Max size: {maxFileSize}MB
+                  Kích thước tối đa: {maxFileSize}MB
                 </p>
               </div>
 
@@ -384,18 +386,21 @@ export function FileUpload({
                 disabled={disabled}
               >
                 <FileImage className="mr-2 h-4 w-4" />
-                Browse Files
+                Chọn tệp
               </Button>
             </div>
           ) : (
-            // File selected state - 16:9 preview area
-            <div className="relative w-full aspect-video rounded-lg overflow-hidden bg-muted">
+            // File selected state - preview area
+            <div className={cn(
+              'relative w-full rounded-lg overflow-hidden bg-muted',
+              compact ? 'aspect-[21/9]' : 'aspect-video'
+            )}>
               {uploadState.uploading ? (
                 // Uploading state
                 <div className="absolute inset-0 flex flex-col items-center justify-center gap-4 p-6">
                   <div className="w-full max-w-md space-y-2">
                     <div className="flex justify-between text-sm">
-                      <span>Uploading...</span>
+                      <span>Đang tải lên...</span>
                       <span>{uploadState.progress}%</span>
                     </div>
                     <Progress value={uploadState.progress} className="w-full" />
@@ -422,7 +427,7 @@ export function FileUpload({
                     />
                   ) : (
                     <div className="absolute inset-0 flex items-center justify-center">
-                      <span className="text-sm text-muted-foreground">Loading preview...</span>
+                      <span className="text-sm text-muted-foreground">Đang tải xem trước...</span>
                     </div>
                   )}
 
@@ -468,7 +473,7 @@ export function FileUpload({
                 // Error state
                 <div className="absolute inset-0 flex flex-col items-center justify-center gap-2 p-6 text-center">
                   <AlertCircle className="h-8 w-8 text-destructive" />
-                  <p className="text-sm text-destructive font-medium">Upload failed</p>
+                  <p className="text-sm text-destructive font-medium">Tải lên thất bại</p>
                   <p className="text-xs text-muted-foreground">{uploadState.error}</p>
                   <Button
                     type="button"
@@ -477,7 +482,7 @@ export function FileUpload({
                     onClick={handleClear}
                     className="mt-2"
                   >
-                    Try again
+                    Thử lại
                   </Button>
                 </div>
               ) : null}
@@ -490,14 +495,14 @@ export function FileUpload({
           <Alert className="bg-blue-50 dark:bg-blue-950/30 border-blue-200 dark:border-blue-800 text-blue-900 dark:text-blue-100">
             <InfoIcon />
             <AlertTitle className="text-blue-900 dark:text-blue-100">
-              Cover {fileType === 'image' ? 'Image' : 'Video'} Guidelines
+              Hướng dẫn {fileType === 'image' ? 'hình ảnh' : 'video'}
             </AlertTitle>
             <AlertDescription className="text-blue-700 dark:text-blue-300">
               <ul className="list-inside list-disc text-xs space-y-1">
-                <li>Use high-quality {fileType}s with good lighting and composition</li>
-                <li>Recommended aspect ratio: 21:9 (ultrawide) for best results</li>
-                <li>Avoid {fileType}s with important content near the edges</li>
-                <li>Supported formats: {acceptedTypes.map(type => type.split('/')[1].toUpperCase()).join(', ')}</li>
+                <li>Sử dụng {fileType === 'image' ? 'hình ảnh' : 'video'} chất lượng cao với ánh sáng và bố cục tốt</li>
+                <li>Tỷ lệ khung hình đề xuất: {compact ? '21:9 (siêu rộng)' : '16:9'} để đạt kết quả tốt nhất</li>
+                <li>Tránh {fileType === 'image' ? 'hình ảnh' : 'video'} có nội dung quan trọng gần cạnh</li>
+                <li>Định dạng hỗ trợ: {acceptedTypes.map(type => type.split('/')[1].toUpperCase()).join(', ')}</li>
               </ul>
             </AlertDescription>
           </Alert>

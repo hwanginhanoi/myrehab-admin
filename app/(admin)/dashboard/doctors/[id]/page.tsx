@@ -3,12 +3,69 @@
 import { useEffect, useState, useCallback } from 'react';
 import { useParams, useRouter } from 'next/navigation';
 import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { ArrowLeft, User, Shield, Stethoscope, Settings, Edit } from 'lucide-react';
+import { Checkbox } from '@/components/ui/checkbox';
+import {
+  ArrowLeft,
+  User,
+  Shield,
+  Stethoscope,
+  Mail,
+  Phone,
+  FileCheck,
+  Calendar,
+  Clock,
+  Activity,
+  Save
+} from 'lucide-react';
 import Image from 'next/image';
 import { toast } from 'sonner';
 import { getDoctorById } from '@/api/api/doctorManagementControllerController/getDoctorById';
+import { updateDoctor } from '@/api/api/doctorManagementControllerController/updateDoctor';
 import { DoctorResponse } from '@/api/types/DoctorResponse';
+import { PERMISSIONS } from '@/types/permissions';
+
+// Resource display names
+const RESOURCE_LABELS: Record<string, string> = {
+  user: 'Người dùng',
+  doctor: 'Bác sỹ',
+  admin: 'Quản trị viên',
+  course: 'Khóa học',
+  exercise: 'Bài tập',
+  category: 'Danh mục',
+  patient: 'Bệnh nhân',
+  purchase: 'Giao dịch',
+  permission: 'Quyền hạn',
+};
+
+// Action display names for column headers
+const COLUMN_ACTIONS = ['read', 'write', 'delete', 'view', 'assign-course', 'view-history', 'manage'];
+const ACTION_LABELS: Record<string, string> = {
+  read: 'Xem',
+  write: 'Tạo',
+  'write-edit': 'Sửa',
+  delete: 'Xoá',
+  view: 'Xem',
+  'assign-course': 'Gán khoá học',
+  'view-history': 'Xem lịch sử',
+  manage: 'Quản lý',
+};
+
+// Parse permissions to get structure
+function parsePermissions() {
+  const permissionMap = new Map<string, Set<string>>();
+  const allActions = new Set<string>();
+
+  Object.values(PERMISSIONS).forEach((permission) => {
+    const [resource, action] = permission.split(':');
+    if (!permissionMap.has(resource)) {
+      permissionMap.set(resource, new Set());
+    }
+    permissionMap.get(resource)!.add(action);
+    allActions.add(action);
+  });
+
+  return { permissionMap, allActions: Array.from(allActions) };
+}
 
 export default function DoctorDetailsPage() {
   const params = useParams();
@@ -17,6 +74,12 @@ export default function DoctorDetailsPage() {
 
   const [doctor, setDoctor] = useState<DoctorResponse | null>(null);
   const [loading, setLoading] = useState(true);
+  const [activeTab, setActiveTab] = useState<'profile' | 'permissions'>('profile');
+  const [saving, setSaving] = useState(false);
+  const [permissions, setPermissions] = useState<Set<string>>(new Set());
+
+  const { permissionMap } = parsePermissions();
+  const resources = ['user', 'doctor', 'admin', 'course', 'exercise', 'category', 'patient', 'purchase', 'permission'];
 
   const fetchDoctorDetails = useCallback(async () => {
     if (!doctorId) {
@@ -28,6 +91,7 @@ export default function DoctorDetailsPage() {
       setLoading(true);
       const data = await getDoctorById(doctorId);
       setDoctor(data);
+      setPermissions(new Set(data.permissions || []));
     } catch (err) {
       const errorMessage = err instanceof Error ? err.message : 'Failed to fetch doctor data';
       toast.error('Không thể tải thông tin bác sĩ', {
@@ -53,9 +117,59 @@ export default function DoctorDetailsPage() {
     });
   };
 
+  const hasPermission = (resource: string, action: string) => {
+    const permissionKey = `${resource}:${action}`;
+    return permissions.has(permissionKey);
+  };
+
+  const permissionExists = (resource: string, action: string) => {
+    return permissionMap.get(resource)?.has(action) || false;
+  };
+
+  const togglePermission = (resource: string, action: string) => {
+    const permissionKey = `${resource}:${action}`;
+    const newPermissions = new Set(permissions);
+
+    if (newPermissions.has(permissionKey)) {
+      newPermissions.delete(permissionKey);
+    } else {
+      newPermissions.add(permissionKey);
+    }
+
+    setPermissions(newPermissions);
+  };
+
+  const handleSave = async () => {
+    if (!doctor || !doctorId) return;
+
+    try {
+      setSaving(true);
+      const updatedPermissions = Array.from(permissions);
+
+      await updateDoctor(doctorId, {
+        fullName: doctor.fullName!,
+        email: doctor.email!,
+        specialization: doctor.specialization,
+        licenseNumber: doctor.licenseNumber,
+        enabled: doctor.enabled,
+        permissions: updatedPermissions
+      });
+
+      toast.success('Đã lưu quyền thành công');
+      await fetchDoctorDetails();
+    } catch (err) {
+      const errorMessage = err instanceof Error ? err.message : 'Failed to save permissions';
+      toast.error('Không thể lưu quyền', {
+        description: errorMessage,
+      });
+    } finally {
+      setSaving(false);
+    }
+  };
+
   if (loading) {
     return (
-      <div className="flex flex-1 flex-col">
+      <div className="flex flex-1 flex-col bg-[#F9FAFB]">
         <div className="m-9 mt-9">
           <div className="animate-pulse">
             <div className="h-8 bg-gray-200 rounded w-1/4 mb-4"></div>
@@ -68,184 +182,314 @@ export default function DoctorDetailsPage() {
   }
 
   return (
-    <div className="flex flex-1 flex-col">
+    <div className="flex flex-1 flex-col bg-[#F9FAFB]">
       <div className="m-9 mt-9">
         {/* Header */}
         <div className="mb-6">
-          <Button
-            variant="ghost"
-            onClick={() => router.back()}
-            className="mb-4 text-[#6DBAD6] hover:text-[#6DBAD6] hover:bg-[#6DBAD6]/10"
-          >
-            <ArrowLeft className="mr-2 h-4 w-4" />
-            Quay lại
-          </Button>
-          <div className="flex items-center justify-between">
-            <div>
-              <h1 className="text-4xl font-bold text-[#EF7F26] mb-2">
-                Chi tiết bác sĩ
-              </h1>
-              <p className="text-base text-[#71717A]">
-                Xem và quản lý thông tin chi tiết của bác sĩ #{doctorId}
-              </p>
-            </div>
-            <Button
-              onClick={() => router.push(`/dashboard/doctors/${doctorId}/edit`)}
-              className="bg-[#6DBAD6] hover:bg-[#5BA8C4] text-white"
-            >
-              <Edit className="h-4 w-4 mr-2" />
-              Chỉnh sửa
-            </Button>
+          <div>
+            <h1 className="text-4xl font-bold text-[#EF7F26] mb-2">
+              {activeTab === 'profile' ? 'Chi tiết bác sĩ' : 'Quản lý quyền hạn'}
+            </h1>
+            <p className="text-base text-[#71717A]">
+              {activeTab === 'profile'
+                ? 'Xem, quản lý thông tin chi tiết và quản lý quyền truy cập của bác sĩ'
+                : `Quản lý quyền truy cập cho bác sĩ: ${doctor?.fullName}`
+              }
+            </p>
           </div>
         </div>
 
-        {/* Doctor Quick Info */}
+        {/* Back Button */}
+        <Button
+          variant="outline"
+          onClick={() => router.back()}
+          className="mb-6 text-[#6DBAD6] border-[#6DBAD6] hover:bg-[#6DBAD6]/10 hover:text-[#6DBAD6]"
+        >
+          <ArrowLeft className="mr-2 h-4 w-4" />
+          Quay lại
+        </Button>
+
+        {/* Doctor Profile Card */}
         {doctor && (
-          <div className="bg-white border rounded-lg p-6 mb-6">
-            <div className="flex items-center gap-4">
+          <div className="bg-white rounded-lg shadow-sm p-6 mb-6">
+            <div className="flex items-center gap-6">
               {doctor.imageUrl ? (
-                <div className="h-16 w-16 rounded-full overflow-hidden relative">
-                  <Image
-                    src={doctor.imageUrl}
-                    alt={doctor.fullName || 'Doctor'}
-                    fill
-                    className="object-cover"
-                  />
+                <div className="h-20 w-20 rounded-full bg-[#E1F3F7] p-3 flex items-center justify-center">
+                  <div className="h-full w-full rounded-full overflow-hidden relative">
+                    <Image
+                      src={doctor.imageUrl}
+                      alt={doctor.fullName || 'Doctor'}
+                      fill
+                      className="object-cover"
+                    />
+                  </div>
                 </div>
               ) : (
-                <div className="h-16 w-16 rounded-full bg-[#6DBAD6]/10 flex items-center justify-center">
-                  <Stethoscope className="h-8 w-8 text-[#6DBAD6]" />
+                <div className="h-20 w-20 rounded-full bg-[#E1F3F7] flex items-center justify-center">
+                  <Stethoscope className="h-9 w-9 text-[#6DBAD6]" />
                 </div>
               )}
               <div>
-                <h2 className="text-2xl font-semibold">{doctor.fullName || 'N/A'}</h2>
-                {doctor.otherName && (
-                  <p className="text-sm text-[#939598]">({doctor.otherName})</p>
-                )}
-                <p className="text-[#71717A]">{doctor.email || 'N/A'}</p>
+                <h2 className="text-2xl font-bold text-[#020617] mb-1">
+                  {doctor.fullName || 'N/A'}
+                </h2>
+                <p className="text-base text-[#71717A]">{doctor.email || 'N/A'}</p>
               </div>
             </div>
           </div>
         )}
 
-        {/* Information Cards */}
-        <div className="space-y-6">
-          {/* Basic Information */}
-          <Card>
-            <CardHeader>
-              <CardTitle className="text-xl font-bold text-[#020617] flex items-center gap-2">
-                <User className="w-5 h-5 text-[#6DBAD6]" />
-                Thông tin cơ bản
-              </CardTitle>
-            </CardHeader>
-            <CardContent className="space-y-4">
-              <div className="grid grid-cols-2 gap-6">
-                <div className="space-y-1.5">
-                  <label className="text-base font-medium text-[#939598]">ID</label>
-                  <p className="text-base font-medium text-[#020617]">{doctor?.id || '-'}</p>
-                </div>
-                <div className="space-y-1.5">
-                  <label className="text-base font-medium text-[#939598]">Họ và tên</label>
-                  <p className="text-base font-medium text-[#020617]">{doctor?.fullName || '-'}</p>
-                </div>
-              </div>
+        {/* Main Content with Side Tabs */}
+        <div className="flex gap-2">
+          {/* Side Tab Navigation */}
+          <div className="flex flex-col gap-2 w-56">
+            <button
+              onClick={() => setActiveTab('profile')}
+              className={`flex items-center gap-2 px-3 py-3.5 rounded-md transition-colors ${
+                activeTab === 'profile'
+                  ? 'bg-white shadow-sm'
+                  : 'bg-transparent hover:bg-white/50'
+              }`}
+            >
+              <User className="h-5 w-5 text-[#020617]" />
+              <span className="font-medium text-[#020617]">Hồ sơ</span>
+            </button>
+            <button
+              onClick={() => setActiveTab('permissions')}
+              className={`flex items-center gap-2 px-3 py-3.5 rounded-md transition-colors ${
+                activeTab === 'permissions'
+                  ? 'bg-white shadow-sm'
+                  : 'bg-transparent hover:bg-white/50'
+              }`}
+            >
+              <Shield className="h-5 w-5 text-[#020617]" />
+              <span className="font-medium text-[#020617]">Quyền hạn</span>
+            </button>
+          </div>
 
-              <div className="grid grid-cols-2 gap-6">
-                <div className="space-y-1.5">
-                  <label className="text-base font-medium text-[#939598]">Email</label>
-                  <p className="text-base font-medium text-[#020617]">{doctor?.email || '-'}</p>
+          {/* Tab Content */}
+          <div className="flex-1">
+            {/* Profile Tab Content */}
+            {activeTab === 'profile' && (
+              <div className="bg-white rounded-lg shadow-sm p-6">
+                {/* Section Header */}
+                <div className="mb-6">
+                  <h3 className="text-lg font-bold text-[#EF7F26] mb-1.5">
+                    Thông tin cơ bản
+                  </h3>
+                  <p className="text-base text-[#71717A]">
+                    Thông tin cá nhân của bác sĩ
+                  </p>
                 </div>
-                <div className="space-y-1.5">
-                  <label className="text-base font-medium text-[#939598]">Chuyên khoa</label>
-                  <p className="text-base font-medium text-[#020617]">{doctor?.specialization || '-'}</p>
-                </div>
-              </div>
 
-              <div className="grid grid-cols-2 gap-6">
-                <div className="space-y-1.5">
-                  <label className="text-base font-medium text-[#939598]">Số giấy phép hành nghề</label>
-                  <p className="text-base font-medium text-[#020617]">{doctor?.licenseNumber || '-'}</p>
-                </div>
-                <div className="space-y-1.5">
-                  <label className="text-base font-medium text-[#939598]">Trạng thái</label>
-                  <div>
-                    <span className={`inline-block px-2 py-1 rounded-md text-sm ${
-                      doctor?.enabled
-                        ? 'bg-green-100 text-green-700'
-                        : 'bg-red-100 text-red-700'
-                    }`}>
-                      {doctor?.enabled ? 'Hoạt động' : 'Không hoạt động'}
-                    </span>
+                {/* Information Grid */}
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-x-12 gap-y-8">
+                  {/* Full Name */}
+                  <div className="flex gap-3">
+                    <User className="h-6 w-6 text-[#71717A] flex-shrink-0" />
+                    <div className="flex-1">
+                      <p className="text-base text-[#71717A] mb-1">Họ và tên</p>
+                      <p className="text-lg font-bold text-[#020617]">
+                        {doctor?.fullName || 'Chưa cập nhật'}
+                      </p>
+                    </div>
+                  </div>
+
+                  {/* Phone Number */}
+                  <div className="flex gap-3">
+                    <Phone className="h-6 w-6 text-[#71717A] flex-shrink-0" />
+                    <div className="flex-1">
+                      <p className="text-base text-[#71717A] mb-1">Số điện thoại</p>
+                      <p className="text-lg font-bold text-[#020617]">
+                        {doctor?.phoneNumber || 'Chưa cập nhật'}
+                      </p>
+                    </div>
+                  </div>
+
+                  {/* Specialization */}
+                  <div className="flex gap-3">
+                    <Stethoscope className="h-6 w-6 text-[#71717A] flex-shrink-0" />
+                    <div className="flex-1">
+                      <p className="text-base text-[#71717A] mb-1">Chuyên khoa</p>
+                      <p className="text-lg font-bold text-[#020617]">
+                        {doctor?.specialization || 'Chưa cập nhật'}
+                      </p>
+                    </div>
+                  </div>
+
+                  {/* Email */}
+                  <div className="flex gap-3">
+                    <Mail className="h-6 w-6 text-[#71717A] flex-shrink-0" />
+                    <div className="flex-1">
+                      <p className="text-base text-[#71717A] mb-1">Email</p>
+                      <p className="text-lg font-bold text-[#020617]">
+                        {doctor?.email || 'Chưa cập nhật'}
+                      </p>
+                    </div>
+                  </div>
+
+                  {/* License Number */}
+                  <div className="flex gap-3">
+                    <FileCheck className="h-6 w-6 text-[#71717A] flex-shrink-0" />
+                    <div className="flex-1">
+                      <p className="text-base text-[#71717A] mb-1">Số giấy phép hành nghề</p>
+                      <p className="text-lg font-bold text-[#020617]">
+                        {doctor?.licenseNumber || 'Chưa cập nhật'}
+                      </p>
+                    </div>
+                  </div>
+
+                  {/* Status */}
+                  <div className="flex gap-3">
+                    <Activity className="h-6 w-6 text-[#71717A] flex-shrink-0" />
+                    <div className="flex-1">
+                      <p className="text-base text-[#71717A] mb-1">Trạng thái</p>
+                      <div>
+                        <span className={`inline-block px-3 py-1 rounded-lg text-base ${
+                          doctor?.enabled
+                            ? 'bg-[#DCFCE7] text-[#020617]'
+                            : 'bg-red-100 text-red-700'
+                        }`}>
+                          {doctor?.enabled ? 'Hoạt động' : 'Không hoạt động'}
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Created Date */}
+                  <div className="flex gap-3">
+                    <Calendar className="h-6 w-6 text-[#71717A] flex-shrink-0" />
+                    <div className="flex-1">
+                      <p className="text-base text-[#71717A] mb-1">Ngày tạo</p>
+                      <p className="text-lg font-bold text-[#020617]">
+                        {formatDate(doctor?.createdAt)}
+                      </p>
+                    </div>
+                  </div>
+
+                  {/* Last Updated */}
+                  <div className="flex gap-3">
+                    <Clock className="h-6 w-6 text-[#71717A] flex-shrink-0" />
+                    <div className="flex-1">
+                      <p className="text-base text-[#71717A] mb-1">Cập nhật lần cuối</p>
+                      <p className="text-lg font-bold text-[#020617]">
+                        {formatDate(doctor?.updatedAt)}
+                      </p>
+                    </div>
                   </div>
                 </div>
               </div>
+            )}
 
-              <div className="grid grid-cols-2 gap-6">
-                <div className="space-y-1.5">
-                  <label className="text-base font-medium text-[#939598]">Số điện thoại</label>
-                  <p className="text-base font-medium text-[#020617]">{doctor?.phoneNumber || '-'}</p>
-                </div>
-                <div className="space-y-1.5">
-                  <label className="text-base font-medium text-[#939598]">Tên khác</label>
-                  <p className="text-base font-medium text-[#020617]">{doctor?.otherName || '-'}</p>
-                </div>
-              </div>
+            {/* Permissions Tab Content */}
+            {activeTab === 'permissions' && (
+              <div className="space-y-6">
+                {/* Permissions Table */}
+                <div className="bg-white rounded-lg shadow-sm p-6">
+                  <div className="mb-6">
+                    <h3 className="text-base font-bold text-[#000000]">Bảng phân quyền</h3>
+                  </div>
 
-              {doctor?.description && (
-                <div className="space-y-1.5">
-                  <label className="text-base font-medium text-[#939598]">Mô tả</label>
-                  <p className="text-base font-medium text-[#020617]">{doctor.description}</p>
-                </div>
-              )}
+                  <div className="overflow-x-auto">
+                    <table className="w-full">
+                      <thead>
+                        <tr className="border-b border-[#E4E4E7]">
+                          <th className="text-left py-3 pr-2 font-medium text-base text-[#6DBAD6] w-[130px]">
+                            Tài nguyên
+                          </th>
+                          <th className="text-center py-3 px-2 font-medium text-base text-[#6DBAD6] w-[126px]">
+                            Xem
+                          </th>
+                          <th className="text-center py-3 px-2 font-medium text-base text-[#6DBAD6] w-[126px]">
+                            Tạo
+                          </th>
+                          <th className="text-center py-3 px-2 font-medium text-base text-[#6DBAD6] w-[126px]">
+                            Sửa
+                          </th>
+                          <th className="text-center py-3 px-2 font-medium text-base text-[#6DBAD6] w-[126px]">
+                            Xoá
+                          </th>
+                          <th className="text-center py-3 px-2 font-medium text-base text-[#6DBAD6] w-[126px]">
+                            Xem
+                          </th>
+                          <th className="text-center py-3 px-2 font-medium text-base text-[#6DBAD6] w-[126px]">
+                            Gán khoá học
+                          </th>
+                          <th className="text-center py-3 px-2 font-medium text-base text-[#6DBAD6] w-[126px]">
+                            Xem lịch sử
+                          </th>
+                          <th className="text-center py-3 px-2 font-medium text-base text-[#6DBAD6] w-[126px]">
+                            Quản lý
+                          </th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {resources.map((resource, idx) => (
+                          <tr key={resource} className={idx !== resources.length - 1 ? 'border-b border-[#F4F4F5]' : ''}>
+                            <td className="py-2.5 pr-2 text-left">
+                              <span className="text-base text-[#09090B]">
+                                {RESOURCE_LABELS[resource] || resource}
+                              </span>
+                            </td>
+                            {COLUMN_ACTIONS.map((action) => (
+                              <td key={action} className="py-2.5 px-2 text-center">
+                                {permissionExists(resource, action) ? (
+                                  <div className="flex items-center justify-center">
+                                    <Checkbox
+                                      checked={hasPermission(resource, action)}
+                                      onCheckedChange={() => togglePermission(resource, action)}
+                                      disabled={saving}
+                                      className="h-5 w-5 border-[#E4E4E7] data-[state=checked]:bg-[#6DBAD6] data-[state=checked]:border-[#6DBAD6]"
+                                    />
+                                  </div>
+                                ) : (
+                                  <span className="text-gray-300">-</span>
+                                )}
+                              </td>
+                            ))}
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </div>
 
-              <div className="grid grid-cols-2 gap-6">
-                <div className="space-y-1.5">
-                  <label className="text-base font-medium text-[#939598]">Ngày tạo</label>
-                  <p className="text-base font-medium text-[#020617]">{formatDate(doctor?.createdAt)}</p>
-                </div>
-                <div className="space-y-1.5">
-                  <label className="text-base font-medium text-[#939598]">Cập nhật lần cuối</label>
-                  <p className="text-base font-medium text-[#020617]">{formatDate(doctor?.updatedAt)}</p>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-
-          {/* Permissions */}
-          <Card>
-            <CardHeader>
-              <div className="flex items-center justify-between">
-                <CardTitle className="text-xl font-bold text-[#020617] flex items-center gap-2">
-                  <Shield className="w-5 h-5 text-[#6DBAD6]" />
-                  Quyền hạn
-                </CardTitle>
-                <Button
-                  size="sm"
-                  onClick={() => router.push(`/dashboard/doctors/${doctorId}/permissions`)}
-                  className="bg-[#6DBAD6] hover:bg-[#5BA8C4] text-white"
-                >
-                  <Settings className="h-4 w-4 mr-1" />
-                  Quản lý quyền
-                </Button>
-              </div>
-            </CardHeader>
-            <CardContent>
-              {doctor?.permissions && doctor.permissions.length > 0 ? (
-                <div className="flex flex-wrap gap-2">
-                  {doctor.permissions.map((permission, index) => (
-                    <span
-                      key={index}
-                      className="px-3 py-1 bg-blue-100 text-blue-700 rounded-md text-sm font-medium"
+                  {/* Save Button */}
+                  <div className="mt-6 flex justify-end">
+                    <Button
+                      onClick={handleSave}
+                      disabled={saving}
+                      className="bg-[#6DBAD6] hover:bg-[#5BA8C4] text-white"
                     >
-                      {permission}
-                    </span>
-                  ))}
+                      <Save className="mr-2 h-4 w-4" />
+                      {saving ? 'Đang lưu...' : 'Lưu thay đổi'}
+                    </Button>
+                  </div>
                 </div>
-              ) : (
-                <p className="text-[#71717A] text-sm">Chưa có quyền nào được gán</p>
-              )}
-            </CardContent>
-          </Card>
+
+                {/* Permission Summary */}
+                <div className="bg-white rounded-lg shadow-sm p-6">
+                  <div className="mb-6">
+                    <h3 className="text-base font-bold text-[#000000]">Tổng quan quyền hạn</h3>
+                  </div>
+
+                  {permissions.size === 0 ? (
+                    <p className="text-base text-[#71717A]">Chưa có quyền hạn nào được gán</p>
+                  ) : (
+                    <div className="flex flex-wrap gap-2">
+                      {Array.from(permissions).sort().map((permission) => (
+                        <span
+                          key={permission}
+                          className="px-3 py-1 bg-blue-100 text-blue-700 rounded-md text-sm font-medium"
+                        >
+                          {permission}
+                        </span>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              </div>
+            )}
+          </div>
         </div>
       </div>
     </div>

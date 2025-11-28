@@ -8,7 +8,8 @@ import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Label } from '@/components/ui/label';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { ArrowLeft, Save, Upload } from 'lucide-react';
+import { ArrowLeft, Save } from 'lucide-react';
+import { FileUpload } from '@/components/file-upload/file-upload';
 import { createBanner } from '@/api/api/carouselBannerManagementController/createBanner';
 import type { CreateCarouselBannerRequest } from '@/api/types/CreateCarouselBannerRequest';
 import { toast } from 'sonner';
@@ -16,13 +17,13 @@ import { toast } from 'sonner';
 export default function CreateBannerPage() {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
-  const [imagePreview, setImagePreview] = useState<string>('');
 
   const {
     register,
     handleSubmit,
     watch,
     setValue,
+    setError,
     formState: { errors },
   } = useForm<CreateCarouselBannerRequest>({
     defaultValues: {
@@ -33,6 +34,15 @@ export default function CreateBannerPage() {
   const imageUrl = watch('imageUrl');
 
   const onSubmit = async (data: CreateCarouselBannerRequest) => {
+    if (!data.imageUrl) {
+      setError('imageUrl', {
+        type: 'manual',
+        message: 'Vui lòng tải lên hình ảnh banner',
+      });
+      toast.error('Vui lòng tải lên hình ảnh banner');
+      return;
+    }
+
     try {
       setLoading(true);
       await createBanner(data);
@@ -46,11 +56,6 @@ export default function CreateBannerPage() {
     } finally {
       setLoading(false);
     }
-  };
-
-  const handleImageUrlChange = (url: string) => {
-    setValue('imageUrl', url);
-    setImagePreview(url);
   };
 
   return (
@@ -109,44 +114,10 @@ export default function CreateBannerPage() {
                     rows={3}
                   />
                 </div>
-
-                <div className="space-y-2">
-                  <Label htmlFor="linkUrl">Link URL</Label>
-                  <Input
-                    id="linkUrl"
-                    {...register('linkUrl')}
-                    placeholder="https://example.com"
-                    type="url"
-                  />
-                  <p className="text-sm text-muted-foreground">
-                    URL sẽ được mở khi người dùng click vào banner
-                  </p>
-                </div>
-
-                <div className="space-y-2">
-                  <Label htmlFor="displayOrder">
-                    Thứ tự hiển thị <span className="text-red-500">*</span>
-                  </Label>
-                  <Input
-                    id="displayOrder"
-                    type="number"
-                    {...register('displayOrder', {
-                      required: 'Thứ tự hiển thị là bắt buộc',
-                      valueAsNumber: true,
-                    })}
-                    placeholder="0"
-                  />
-                  {errors.displayOrder && (
-                    <p className="text-sm text-red-500">{errors.displayOrder.message}</p>
-                  )}
-                  <p className="text-sm text-muted-foreground">
-                    Banner với thứ tự nhỏ hơn sẽ hiển thị trước
-                  </p>
-                </div>
               </CardContent>
             </Card>
 
-            {/* Image */}
+            {/* Image Upload */}
             <Card>
               <CardHeader>
                 <CardTitle className="text-[#EF7F26]">Hình ảnh</CardTitle>
@@ -154,76 +125,25 @@ export default function CreateBannerPage() {
               </CardHeader>
               <CardContent className="space-y-4">
                 <div className="space-y-2">
-                  <Label htmlFor="imageUrl">
-                    URL hình ảnh <span className="text-red-500">*</span>
+                  <Label className="text-base font-medium text-[#09090B]">
+                    Tải lên ảnh <span className="text-red-500">*</span>
                   </Label>
-                  <div className="flex gap-2">
-                    <Input
-                      id="imageUrl"
-                      {...register('imageUrl', { required: 'URL hình ảnh là bắt buộc' })}
-                      placeholder="https://example.com/image.jpg"
-                      onChange={(e) => handleImageUrlChange(e.target.value)}
-                    />
-                    <Button type="button" variant="outline">
-                      <Upload className="h-4 w-4 mr-2" />
-                      Upload
-                    </Button>
-                  </div>
+                  <FileUpload
+                    onUploadCompleteAction={(fileUrl) => setValue('imageUrl', fileUrl)}
+                    acceptedTypes={['image/jpeg', 'image/png', 'image/webp']}
+                    fileType="image"
+                    category="banner"
+                    maxFileSize={10}
+                    disabled={loading}
+                    compact={true}
+                  />
                   {errors.imageUrl && (
                     <p className="text-sm text-red-500">{errors.imageUrl.message}</p>
                   )}
+                  {imageUrl && (
+                    <p className="text-xs text-green-600">✓ Hình ảnh đã được tải lên thành công</p>
+                  )}
                 </div>
-
-                {/* Image Preview */}
-                {(imagePreview || imageUrl) && (
-                  <div className="space-y-2">
-                    <Label>Xem trước</Label>
-                    <div className="border rounded-lg overflow-hidden aspect-[21/9] bg-gray-100">
-                      <img
-                        src={imagePreview || imageUrl}
-                        alt="Preview"
-                        className="w-full h-full object-cover"
-                        onError={(e) => {
-                          e.currentTarget.src = '/placeholder-image.png';
-                        }}
-                      />
-                    </div>
-                  </div>
-                )}
-              </CardContent>
-            </Card>
-
-            {/* Schedule */}
-            <Card>
-              <CardHeader>
-                <CardTitle className="text-[#EF7F26]">Lịch hiển thị</CardTitle>
-                <CardDescription>
-                  Thiết lập thời gian hiển thị banner (không bắt buộc)
-                </CardDescription>
-              </CardHeader>
-              <CardContent className="space-y-4">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <div className="space-y-2">
-                    <Label htmlFor="startDate">Ngày bắt đầu</Label>
-                    <Input
-                      id="startDate"
-                      type="datetime-local"
-                      {...register('startDate')}
-                    />
-                  </div>
-
-                  <div className="space-y-2">
-                    <Label htmlFor="endDate">Ngày kết thúc</Label>
-                    <Input
-                      id="endDate"
-                      type="datetime-local"
-                      {...register('endDate')}
-                    />
-                  </div>
-                </div>
-                <p className="text-sm text-muted-foreground">
-                  Để trống nếu muốn banner hiển thị vô thời hạn
-                </p>
               </CardContent>
             </Card>
 
