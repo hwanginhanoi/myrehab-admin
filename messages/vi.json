@@ -167,5 +167,87 @@
       "published": "Đã xuất bản",
       "archived": "Đã lưu trữ"
     }
+  },
+  "appointments": {
+    "title": "Lịch hẹn",
+    "subtitle": "Quản lý lịch hẹn khám",
+    "viewAll": "Xem tất cả",
+    "pending": "Chờ duyệt",
+    "approved": "Đã duyệt",
+    "completed": "Hoàn thành",
+    "rejected": "Đã từ chối",
+    "cancelled": "Đã hủy",
+    "status": {
+      "pending": "Chờ duyệt",
+      "approved": "Đã duyệt",
+      "completed": "Hoàn thành",
+      "rejected": "Đã từ chối",
+      "cancelled": "Đã hủy"
+    },
+    "type": {
+      "inPerson": "Trực tiếp",
+      "online": "Trực tuyến"
+    },
+    "form": {
+      "patient": "Bệnh nhân",
+      "doctor": "Bác sĩ",
+      "date": "Ngày",
+      "time": "Giờ",
+      "duration": "Thời gian",
+      "type": "Hình thức",
+      "userNotes": "Ghi chú bệnh nhân",
+      "adminNotes": "Ghi chú nội bộ",
+      "rejectionReason": "Lý do từ chối",
+      "selectPatient": "Chọn bệnh nhân",
+      "selectDoctor": "Chọn bác sĩ",
+      "assignLater": "Giao bác sĩ sau"
+    },
+    "actions": {
+      "approve": "Duyệt",
+      "reject": "Từ chối",
+      "complete": "Hoàn thành",
+      "cancel": "Hủy",
+      "assign": "Giao bác sĩ",
+      "edit": "Chỉnh sửa",
+      "delete": "Xóa",
+      "viewDetails": "Xem chi tiết",
+      "startVideoCall": "Bắt đầu gọi video"
+    },
+    "messages": {
+      "approveSuccess": "Đã duyệt lịch hẹn",
+      "rejectSuccess": "Đã từ chối lịch hẹn",
+      "completeSuccess": "Đã hoàn thành lịch hẹn",
+      "cancelSuccess": "Đã hủy lịch hẹn",
+      "createSuccess": "Đã tạo lịch hẹn",
+      "updateSuccess": "Đã cập nhật lịch hẹn",
+      "deleteSuccess": "Đã xóa lịch hẹn",
+      "assignSuccess": "Đã giao bác sĩ",
+      "scheduleConflict": "Khung giờ đã có lịch hẹn khác",
+      "noAppointments": "Chưa có lịch hẹn nào"
+    },
+    "schedule": {
+      "title": "Lịch làm việc",
+      "exception": "Ngoại lệ",
+      "unavailable": "Không làm việc",
+      "customHours": "Giờ tùy chỉnh",
+      "dayOfWeek": "Thứ",
+      "startTime": "Giờ bắt đầu",
+      "endTime": "Giờ kết thúc",
+      "reason": "Lý do",
+      "addSchedule": "Thêm lịch",
+      "addException": "Thêm ngoại lệ"
+    },
+    "analytics": {
+      "title": "Thống kê",
+      "totalAppointments": "Tổng số lịch hẹn",
+      "pendingCount": "Chờ duyệt",
+      "approvedCount": "Đã duyệt",
+      "completedCount": "Hoàn thành",
+      "cancellationRate": "Tỷ lệ hủy",
+      "trends": "Xu hướng",
+      "distribution": "Phân bố",
+      "doctorPerformance": "Hiệu suất bác sĩ",
+      "exportReport": "Xuất báo cáo"
+    }
   }
-} 
+}

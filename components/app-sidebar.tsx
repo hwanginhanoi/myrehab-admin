@@ -12,6 +12,11 @@ import {
   Users,
   FileText,
   Percent,
+  Calendar,
+  Clock,
+  CalendarClock,
+  CalendarX,
+  BarChart3,
 } from "lucide-react"
 
 import { NavMain } from "@/components/nav-main"
@@ -127,6 +132,34 @@ const sidebarData = {
         {
           title: "Phiếu khám phục hồi chức năng",
           url: "/dashboard/rehabilitation-forms",
+        },
+      ],
+    },
+    {
+      title: "Lịch hẹn",
+      url: "/appointments",
+      icon: Calendar,
+      isActive: true,
+      items: [
+        {
+          title: "Tất cả lịch hẹn",
+          url: "/dashboard/appointments",
+        },
+        {
+          title: "Chờ duyệt",
+          url: "/dashboard/appointments/pending",
+        },
+        {
+          title: "Lịch làm việc bác sĩ",
+          url: "/dashboard/appointments/schedules",
+        },
+        {
+          title: "Ngoại lệ lịch",
+          url: "/dashboard/appointments/schedules/exceptions",
+        },
+        {
+          title: "Thống kê",
+          url: "/dashboard/appointments/analytics",
         },
       ],
     },

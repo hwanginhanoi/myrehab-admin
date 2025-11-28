@@ -5,7 +5,6 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { Switch } from '@/components/ui/switch';
-import { Percent } from 'lucide-react';
 import {
   Select,
   SelectContent,
@@ -15,7 +14,7 @@ import {
 } from '@/components/ui/select';
 import { FileUpload } from '@/components/file-upload/file-upload';
 import { getAllCategories1 } from '@/api/api/courseCategoryManagementController/getAllCategories1';
-import { CourseCategoryResponse } from '@/api/types/CourseCategoryResponse';
+import { CourseCategoryResponse } from '@/api/types';
 import { CourseCreationFormData } from '@/lib/types/course-creation';
 
 interface CourseBasicInfoStepProps {

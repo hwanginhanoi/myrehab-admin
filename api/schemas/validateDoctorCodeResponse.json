@@ -1,0 +1,1 @@
+{"type":"object","properties":{"isValid":{"type":"boolean"},"doctorId":{"type":"integer","format":"int64"},"doctorName":{"type":"string"},"specialization":{"type":"string"},"message":{"type":"string"}},"x-readme-ref-name":"ValidateDoctorCodeResponse"}

@@ -1,25 +1,11 @@
 // Agora RTC Configuration
+// Note: App ID and tokens are now provided by the backend server
+// No hardcoded values needed in frontend!
+
 export const AGORA_CONFIG = {
-  // Get your App ID from Agora Console: https://console.agora.io
-  appId: process.env.NEXT_PUBLIC_AGORA_APP_ID || '7ec2c27d896f4a70afcf26758c86a6c4',
-
-  // Hardcoded token (temporary - for development only)
-  // Generate token at: https://console.agora.io/projects
-  // Go to your project > Generate temp RTC token
-  token: '007eJxTYFhc8fO9ir/NLI+FfKoOW9efs2bmbvi68sA7gf2fDRYdeR2twGCemmyUbGSeYmFplmaSaG6QmJacZmRmbmqRbGGWaJZsErOQP7MhkJFhk48oMyMDBIL4TAz52QwMAEJTHuI=',
-
   // Token server URL (optional, for production use)
   tokenServerUrl: process.env.NEXT_PUBLIC_AGORA_TOKEN_SERVER_URL || '',
 } as const;
-
-// Validate Agora configuration
-export function validateAgoraConfig() {
-  if (!AGORA_CONFIG.appId) {
-    console.warn('Agora App ID is not configured. Please add NEXT_PUBLIC_AGORA_APP_ID to your environment variables.');
-    return false;
-  }
-  return true;
-}
 
 // Agora SDK configuration options
 export const AGORA_SDK_CONFIG = {

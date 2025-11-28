@@ -164,5 +164,87 @@
       "published": "Published",
       "archived": "Archived"
     }
+  },
+  "appointments": {
+    "title": "Appointments",
+    "subtitle": "Manage appointments",
+    "viewAll": "View all",
+    "pending": "Pending",
+    "approved": "Approved",
+    "completed": "Completed",
+    "rejected": "Rejected",
+    "cancelled": "Cancelled",
+    "status": {
+      "pending": "Pending",
+      "approved": "Approved",
+      "completed": "Completed",
+      "rejected": "Rejected",
+      "cancelled": "Cancelled"
+    },
+    "type": {
+      "inPerson": "In-Person",
+      "online": "Online"
+    },
+    "form": {
+      "patient": "Patient",
+      "doctor": "Doctor",
+      "date": "Date",
+      "time": "Time",
+      "duration": "Duration",
+      "type": "Type",
+      "userNotes": "Patient notes",
+      "adminNotes": "Internal notes",
+      "rejectionReason": "Rejection reason",
+      "selectPatient": "Select patient",
+      "selectDoctor": "Select doctor",
+      "assignLater": "Assign later"
+    },
+    "actions": {
+      "approve": "Approve",
+      "reject": "Reject",
+      "complete": "Complete",
+      "cancel": "Cancel",
+      "assign": "Assign Doctor",
+      "edit": "Edit",
+      "delete": "Delete",
+      "viewDetails": "View details",
+      "startVideoCall": "Start video call"
+    },
+    "messages": {
+      "approveSuccess": "Appointment approved",
+      "rejectSuccess": "Appointment rejected",
+      "completeSuccess": "Appointment completed",
+      "cancelSuccess": "Appointment cancelled",
+      "createSuccess": "Appointment created",
+      "updateSuccess": "Appointment updated",
+      "deleteSuccess": "Appointment deleted",
+      "assignSuccess": "Doctor assigned",
+      "scheduleConflict": "Time slot already booked",
+      "noAppointments": "No appointments yet"
+    },
+    "schedule": {
+      "title": "Schedules",
+      "exception": "Exception",
+      "unavailable": "Unavailable",
+      "customHours": "Custom hours",
+      "dayOfWeek": "Day of week",
+      "startTime": "Start time",
+      "endTime": "End time",
+      "reason": "Reason",
+      "addSchedule": "Add schedule",
+      "addException": "Add exception"
+    },
+    "analytics": {
+      "title": "Analytics",
+      "totalAppointments": "Total appointments",
+      "pendingCount": "Pending",
+      "approvedCount": "Approved",
+      "completedCount": "Completed",
+      "cancellationRate": "Cancellation rate",
+      "trends": "Trends",
+      "distribution": "Distribution",
+      "doctorPerformance": "Doctor performance",
+      "exportReport": "Export report"
+    }
   }
-} 
+}

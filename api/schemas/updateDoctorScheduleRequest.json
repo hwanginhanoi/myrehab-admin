@@ -1,0 +1,1 @@
+{"type":"object","properties":{"dayOfWeek":{"type":"integer","format":"int32","maximum":6,"minimum":0},"startTime":{"type":"string"},"endTime":{"type":"string"},"isActive":{"type":"boolean"}},"x-readme-ref-name":"UpdateDoctorScheduleRequest"}
