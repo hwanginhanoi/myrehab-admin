@@ -54,10 +54,14 @@ export default function PendingAppointmentsPage() {
   const [rejectDialogOpen, setRejectDialogOpen] = useState(false);
   const [assignDialogOpen, setAssignDialogOpen] = useState(false);
   const [sortBy, setSortBy] = useState<SortOption>('soonest');
+  const [pagination, setPagination] = useState({
+    pageIndex: 0,
+    pageSize: 10,
+  });
 
   // Fetch pending appointments
   const { data: appointmentsResponse, isLoading, error, refetch } = useQuery({
-    queryKey: ['appointments', 'pending', sortBy],
+    queryKey: ['appointments', 'pending', sortBy, pagination.pageIndex, pagination.pageSize],
     queryFn: async () => {
       const sortMapping: Record<SortOption, string[]> = {
         newest: ['createdAt,desc'],
@@ -67,8 +71,8 @@ export default function PendingAppointmentsPage() {
 
       return await getPendingAppointments({
         pageable: {
-          page: 0,
-          size: 100,
+          page: pagination.pageIndex,
+          size: pagination.pageSize,
           sort: sortMapping[sortBy],
         },
       });
@@ -205,7 +209,13 @@ export default function PendingAppointmentsPage() {
   const table = useReactTable({
     data: appointments,
     columns,
+    pageCount: appointmentsResponse?.page?.totalPages ?? 0,
+    state: {
+      pagination,
+    },
+    onPaginationChange: setPagination,
     getCoreRowModel: getCoreRowModel(),
+    manualPagination: true,
   });
 
   if (isLoading) {
@@ -275,20 +285,15 @@ export default function PendingAppointmentsPage() {
         <div className="rounded-md border">
           <Table>
             <TableHeader>
-              {table.getHeaderGroups().map((headerGroup) => (
-                <TableRow key={headerGroup.id}>
-                  {headerGroup.headers.map((header) => (
-                    <TableHead key={header.id}>
-                      {header.isPlaceholder
-                        ? null
-                        : flexRender(
-                            header.column.columnDef.header,
-                            header.getContext()
-                          )}
-                    </TableHead>
-                  ))}
-                </TableRow>
-              ))}
+              <TableRow>
+                <TableHead className="text-[#6DBAD6] font-bold">ID</TableHead>
+                <TableHead className="text-[#6DBAD6] font-bold">Ngày & Giờ</TableHead>
+                <TableHead className="text-[#6DBAD6] font-bold">Bệnh nhân</TableHead>
+                <TableHead className="text-[#6DBAD6] font-bold">Bác sĩ</TableHead>
+                <TableHead className="text-[#6DBAD6] font-bold">Loại</TableHead>
+                <TableHead className="text-[#6DBAD6] font-bold">Trạng thái</TableHead>
+                <TableHead className="text-[#6DBAD6] font-bold">Thao tác</TableHead>
+              </TableRow>
             </TableHeader>
             <TableBody>
               {table.getRowModel().rows.length > 0 ? (
@@ -316,6 +321,43 @@ export default function PendingAppointmentsPage() {
               )}
             </TableBody>
           </Table>
+        </div>
+
+        {/* Footer with Pagination */}
+        <div className="flex items-center justify-between pt-4 mt-4 border-t-0">
+          <div className="text-base text-[#71717A]">
+            {appointmentsResponse && (
+              <>
+                Hiển thị <span className="font-bold">{Math.min(
+                  pagination.pageIndex * pagination.pageSize + 1,
+                  appointmentsResponse.page?.totalElements || 0
+                )}-{Math.min(
+                  (pagination.pageIndex + 1) * pagination.pageSize,
+                  appointmentsResponse.page?.totalElements || 0
+                )}/{appointmentsResponse.page?.totalElements || 0}</span> lịch hẹn
+              </>
+            )}
+          </div>
+          <div className="flex items-center gap-2">
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={() => table.previousPage()}
+              disabled={!table.getCanPreviousPage()}
+              className="text-xs border-[#6DBAD6] text-[#09090B] hover:bg-[#6DBAD6] hover:text-white disabled:opacity-50 disabled:cursor-not-allowed"
+            >
+              Trang trước
+            </Button>
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={() => table.nextPage()}
+              disabled={!table.getCanNextPage()}
+              className="text-xs border-[#6DBAD6] text-[#09090B] hover:bg-[#6DBAD6] hover:text-white disabled:opacity-50 disabled:cursor-not-allowed"
+            >
+              Trang sau
+            </Button>
+          </div>
         </div>
 
         {/* Dialogs */}

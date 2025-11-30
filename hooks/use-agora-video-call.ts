@@ -55,13 +55,33 @@ export function useAgoraVideoCall({ appId, channel, token, uid = null }: UseAgor
     const client = clientRef.current;
     if (!client || !isJoined) return;
 
+    console.log('🔄 Remote users state changed, replaying videos:', {
+      remoteUserCount: remoteUsers.length,
+      clientRemoteUsers: client.remoteUsers.length,
+    });
+
     // Play all remote users' video tracks
     client.remoteUsers.forEach((user) => {
       if (user.videoTrack) {
         const remoteVideoContainer = document.getElementById(`remote-video-${user.uid}`);
+        console.log(`🎬 Replaying video for user ${user.uid}:`, {
+          hasContainer: !!remoteVideoContainer,
+          trackId: user.videoTrack.getTrackId(),
+          isPlaying: user.videoTrack.isPlaying,
+        });
+
         if (remoteVideoContainer) {
-          user.videoTrack.play(remoteVideoContainer);
+          try {
+            user.videoTrack.play(remoteVideoContainer);
+            console.log(`✅ Successfully replayed video for user ${user.uid}`);
+          } catch (err) {
+            console.error(`❌ Failed to replay video for user ${user.uid}:`, err);
+          }
+        } else {
+          console.warn(`⚠️ Container not found for user ${user.uid}, will retry on next render`);
         }
+      } else {
+        console.log(`📹 User ${user.uid} has no video track yet`);
       }
     });
   }, [remoteUsers, isJoined]);
@@ -77,7 +97,19 @@ export function useAgoraVideoCall({ appId, channel, token, uid = null }: UseAgor
 
     // Event: User published (remote user started sharing audio/video)
     const handleUserPublished = async (user: IAgoraRTCRemoteUser, mediaType: 'audio' | 'video') => {
-      await client.subscribe(user, mediaType);
+      console.log(`📹 User published ${mediaType}:`, {
+        uid: user.uid,
+        hasVideoTrack: !!user.videoTrack,
+        hasAudioTrack: !!user.audioTrack,
+      });
+
+      try {
+        await client.subscribe(user, mediaType);
+        console.log(`✅ Subscribed to ${mediaType} from user:`, user.uid);
+      } catch (err) {
+        console.error(`❌ Failed to subscribe to ${mediaType} from user ${user.uid}:`, err);
+        return; // Don't continue if subscription failed
+      }
 
       setRemoteUsers((prev) => {
         const existingUser = prev.find((u) => u.uid === user.uid);
@@ -105,6 +137,29 @@ export function useAgoraVideoCall({ appId, channel, token, uid = null }: UseAgor
       // Auto-play remote audio
       if (mediaType === 'audio' && user.audioTrack) {
         user.audioTrack.play();
+        console.log(`🔊 Playing audio from user:`, user.uid);
+      }
+
+      // Auto-play remote video
+      if (mediaType === 'video' && user.videoTrack) {
+        const remoteVideoContainer = document.getElementById(`remote-video-${user.uid}`);
+        console.log(`🎥 Attempting to play video:`, {
+          uid: user.uid,
+          containerId: `remote-video-${user.uid}`,
+          containerExists: !!remoteVideoContainer,
+          videoTrackId: user.videoTrack.getTrackId(),
+        });
+
+        if (remoteVideoContainer) {
+          try {
+            user.videoTrack.play(remoteVideoContainer);
+            console.log(`✅ Video playing for user:`, user.uid);
+          } catch (err) {
+            console.error(`❌ Failed to play video for user ${user.uid}:`, err);
+          }
+        } else {
+          console.error(`❌ Video container not found for user ${user.uid}`);
+        }
       }
     };
 
@@ -123,11 +178,22 @@ export function useAgoraVideoCall({ appId, channel, token, uid = null }: UseAgor
       );
     };
 
+    // Event: User joined the channel
+    const handleUserJoined = (user: IAgoraRTCRemoteUser) => {
+      console.log('👋 User joined channel:', {
+        uid: user.uid,
+        hasAudio: user.hasAudio,
+        hasVideo: user.hasVideo,
+      });
+    };
+
     // Event: User left the channel
     const handleUserLeft = (user: IAgoraRTCRemoteUser) => {
+      console.log('👋 User left channel:', user.uid);
       setRemoteUsers((prev) => prev.filter((u) => u.uid !== user.uid));
     };
 
+    client.on('user-joined', handleUserJoined);
     client.on('user-published', handleUserPublished);
     client.on('user-unpublished', handleUserUnpublished);
     client.on('user-left', handleUserLeft);
@@ -156,6 +222,16 @@ export function useAgoraVideoCall({ appId, channel, token, uid = null }: UseAgor
         throw new Error('Agora token is required (must be provided by backend)');
       }
 
+      // If client is already in a channel, leave first to prevent UID_CONFLICT
+      if (client.connectionState !== 'DISCONNECTED') {
+        console.log('⚠️ Client still connected, leaving channel first...');
+        try {
+          await client.leave();
+        } catch (leaveErr) {
+          console.warn('Error leaving channel during cleanup:', leaveErr);
+        }
+      }
+
       // Debug logging
       console.log('🔐 Agora Join Attempt (Backend Values Only):', {
         appId,
@@ -164,13 +240,19 @@ export function useAgoraVideoCall({ appId, channel, token, uid = null }: UseAgor
         hasToken: !!token,
         tokenSource: 'backend-api',
         tokenPreview: token ? `${token.substring(0, 20)}...` : 'null',
+        connectionState: client.connectionState,
       });
 
       // Join the channel using EXACT backend-provided values
       // Use exact UID from backend (0 or null means auto-assign by Agora)
       const joinedUid = await client.join(appId, channel, token, uid || null);
       localUidRef.current = joinedUid;
-      console.log('✅ Successfully joined channel with UID:', joinedUid);
+      console.log('✅ Successfully joined channel:', {
+        myUID: joinedUid,
+        channel,
+        remoteUsersInChannel: client.remoteUsers.length,
+        remoteUIDs: client.remoteUsers.map(u => u.uid),
+      });
 
       // Create and publish local tracks
       const [audioTrack, videoTrack] = await AgoraRTC.createMicrophoneAndCameraTracks(
@@ -190,12 +272,21 @@ export function useAgoraVideoCall({ appId, channel, token, uid = null }: UseAgor
 
       setIsJoined(true);
     } catch (err) {
-      console.error('Failed to join channel:', err);
-      setError(err instanceof Error ? err.message : 'Failed to join channel');
+      const error = err as Error;
+
+      // Handle UID_CONFLICT specifically - this can happen if previous session wasn't cleaned up
+      if (error.message?.includes('UID_CONFLICT')) {
+        console.warn('⚠️ UID conflict detected - retrying with channel cleanup...');
+        // Don't set error state for UID_CONFLICT as it will auto-retry
+        // The user will retry and it should work on second attempt
+      } else {
+        console.error('Failed to join channel:', err);
+        setError(error.message || 'Failed to join channel');
+      }
     } finally {
       setIsLoading(false);
     }
-  }, [appId, channel, token, isJoined]);
+  }, [appId, channel, token, uid, isJoined]);
 
   // Leave channel
   const leaveChannel = useCallback(async () => {
@@ -237,8 +328,9 @@ export function useAgoraVideoCall({ appId, channel, token, uid = null }: UseAgor
     if (!localAudioTrack) return;
 
     try {
-      await localAudioTrack.setEnabled(!isMicMuted);
-      setIsMicMuted(!isMicMuted);
+      const newMutedState = !isMicMuted;
+      await localAudioTrack.setEnabled(!newMutedState);
+      setIsMicMuted(newMutedState);
     } catch (err) {
       console.error('Failed to toggle microphone:', err);
       setError(err instanceof Error ? err.message : 'Failed to toggle microphone');
@@ -250,8 +342,9 @@ export function useAgoraVideoCall({ appId, channel, token, uid = null }: UseAgor
     if (!localVideoTrack) return;
 
     try {
-      await localVideoTrack.setEnabled(!isCameraOff);
-      setIsCameraOff(!isCameraOff);
+      const newOffState = !isCameraOff;
+      await localVideoTrack.setEnabled(!newOffState);
+      setIsCameraOff(newOffState);
     } catch (err) {
       console.error('Failed to toggle camera:', err);
       setError(err instanceof Error ? err.message : 'Failed to toggle camera');

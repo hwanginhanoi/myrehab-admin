@@ -73,6 +73,27 @@ export default function VideoCallPage() {
     }
   }, [appointmentId, appIdFromUrl, channelName, uidFromUrl, tokenFromUrl]);
 
+  // Debug: Log remote users when they change
+  useEffect(() => {
+    console.log('👥 Remote users updated:', {
+      count: remoteUsers.length,
+      users: remoteUsers.map(u => ({
+        uid: u.uid,
+        hasAudio: u.hasAudio,
+        hasVideo: u.hasVideo,
+      })),
+    });
+
+    // Check if video containers exist in DOM
+    remoteUsers.forEach(user => {
+      const container = document.getElementById(`remote-video-${user.uid}`);
+      console.log(`🔍 DOM check for user ${user.uid}:`, {
+        containerExists: !!container,
+        containerId: `remote-video-${user.uid}`,
+      });
+    });
+  }, [remoteUsers]);
+
   // Update time remaining for appointment
   useEffect(() => {
     if (!endTime || !isJoined) return;
@@ -250,10 +271,45 @@ export default function VideoCallPage() {
               </div>
             )}
 
-            {/* Video Grid */}
-            <div className="flex-1 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 p-4">
-              {/* Local Video */}
-              <div className="relative aspect-video bg-gray-800 rounded-lg overflow-hidden">
+            {/* Video Container - Optimized for 2 people */}
+            <div className="flex-1 relative bg-gray-900">
+              {/* Main Video (Remote User - Patient) */}
+              {remoteUsers.length > 0 ? (
+                <div className="absolute inset-0">
+                  {/* Always render video container, never hide it with display:none */}
+                  <div
+                    id={`remote-video-${remoteUsers[0].uid}`}
+                    className="w-full h-full"
+                  />
+                  {!remoteUsers[0].hasVideo && (
+                    <div className="absolute inset-0 flex items-center justify-center bg-gray-800 pointer-events-none">
+                      <div className="text-center">
+                        <div className="h-24 w-24 rounded-full bg-gray-600 flex items-center justify-center mx-auto mb-4">
+                          <User className="h-12 w-12 text-white" />
+                        </div>
+                        <p className="text-white text-lg font-medium">{patientName}</p>
+                      </div>
+                    </div>
+                  )}
+                  <div className="absolute bottom-6 left-6 bg-black/60 px-4 py-2 rounded-full text-white font-medium">
+                    {patientName}
+                    {!remoteUsers[0].hasAudio && ' (Đã tắt tiếng)'}
+                  </div>
+                </div>
+              ) : (
+                /* Waiting for patient */
+                <div className="absolute inset-0 flex items-center justify-center bg-gray-800">
+                  <div className="text-center">
+                    <Loader2 className="h-16 w-16 text-gray-400 mx-auto mb-4 animate-spin" />
+                    <p className="text-gray-300 text-lg">
+                      {appointmentId ? `Đang chờ ${patientName} tham gia...` : 'Đang chờ người khác tham gia...'}
+                    </p>
+                  </div>
+                </div>
+              )}
+
+              {/* Picture-in-Picture: Local Video (Doctor) */}
+              <div className="absolute top-4 right-4 w-64 aspect-video bg-gray-800 rounded-lg overflow-hidden shadow-2xl border-2 border-gray-700">
                 <div
                   id="local-video"
                   className="w-full h-full"
@@ -261,57 +317,47 @@ export default function VideoCallPage() {
                 />
                 {isCameraOff && (
                   <div className="absolute inset-0 flex items-center justify-center">
-                    <div className="h-16 w-16 rounded-full bg-[#6DBAD6] flex items-center justify-center">
-                      <User className="h-8 w-8 text-white" />
+                    <div className="h-12 w-12 rounded-full bg-[#6DBAD6] flex items-center justify-center">
+                      <User className="h-6 w-6 text-white" />
                     </div>
                   </div>
                 )}
-                <div className="absolute bottom-4 left-4 bg-black/60 px-3 py-1.5 rounded-full text-white text-sm font-medium">
-                  Bạn {isMicMuted && '(Đã tắt tiếng)'}
+                <div className="absolute bottom-2 left-2 bg-black/60 px-2 py-1 rounded-full text-white text-xs font-medium">
+                  Bạn {isMicMuted && '(Tắt tiếng)'}
                 </div>
                 {localUid && (
-                  <div className="absolute top-4 right-4 bg-black/60 px-2 py-1 rounded text-white text-xs">
+                  <div className="absolute top-2 right-2 bg-black/60 px-2 py-1 rounded text-white text-xs">
                     ID: {localUid}
                   </div>
                 )}
               </div>
 
-              {/* Remote Videos */}
-              {remoteUsers.map((user) => (
-                <div
-                  key={user.uid}
-                  className="relative aspect-video bg-gray-800 rounded-lg overflow-hidden"
-                >
-                  <div
-                    id={`remote-video-${user.uid}`}
-                    className="w-full h-full"
-                    style={{ display: user.hasVideo ? 'block' : 'none' }}
-                  />
-                  {!user.hasVideo && (
-                    <div className="absolute inset-0 flex items-center justify-center">
-                      <div className="h-16 w-16 rounded-full bg-gray-600 flex items-center justify-center">
-                        <User className="h-8 w-8 text-white" />
+              {/* Additional remote users (if more than 2 people) */}
+              {remoteUsers.length > 1 && (
+                <div className="absolute top-4 left-4 flex flex-col gap-2">
+                  {remoteUsers.slice(1).map((user) => (
+                    <div
+                      key={user.uid}
+                      className="w-48 aspect-video bg-gray-800 rounded-lg overflow-hidden shadow-xl border-2 border-gray-700"
+                    >
+                      <div
+                        id={`remote-video-${user.uid}`}
+                        className="w-full h-full"
+                        style={{ display: user.hasVideo ? 'block' : 'none' }}
+                      />
+                      {!user.hasVideo && (
+                        <div className="absolute inset-0 flex items-center justify-center">
+                          <div className="h-10 w-10 rounded-full bg-gray-600 flex items-center justify-center">
+                            <User className="h-5 w-5 text-white" />
+                          </div>
+                        </div>
+                      )}
+                      <div className="absolute bottom-2 left-2 bg-black/60 px-2 py-1 rounded-full text-white text-xs">
+                        Người dùng {user.uid}
+                        {!user.hasAudio && ' (Tắt tiếng)'}
                       </div>
                     </div>
-                  )}
-                  <div className="absolute bottom-4 left-4 bg-black/60 px-3 py-1.5 rounded-full text-white text-sm font-medium">
-                    {appointmentId && remoteUsers.indexOf(user) === 0 ? patientName : `Người dùng ${user.uid}`}
-                    {!user.hasAudio && ' (Đã tắt tiếng)'}
-                  </div>
-                </div>
-              ))}
-
-              {/* Waiting for others */}
-              {remoteUsers.length === 0 && (
-                <div className="relative aspect-video bg-gray-800 rounded-lg overflow-hidden border-2 border-dashed border-gray-600">
-                  <div className="absolute inset-0 flex items-center justify-center">
-                    <div className="text-center">
-                      <Loader2 className="h-12 w-12 text-gray-600 mx-auto mb-2 animate-spin" />
-                      <p className="text-gray-400 text-sm">
-                        {appointmentId ? `Đang chờ ${patientName} tham gia...` : 'Đang chờ người khác tham gia...'}
-                      </p>
-                    </div>
-                  </div>
+                  ))}
                 </div>
               )}
             </div>
