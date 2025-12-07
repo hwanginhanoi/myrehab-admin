@@ -1,1 +1,0 @@
-{"type":"object","properties":{"targetPrice":{"type":"integer","format":"int64","minimum":0},"discountActive":{"type":"boolean"}},"required":["discountActive","targetPrice"],"x-readme-ref-name":"SetCourseDiscountRequest"}

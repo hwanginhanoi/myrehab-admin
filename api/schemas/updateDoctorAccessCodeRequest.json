@@ -1,1 +1,0 @@
-{"type":"object","properties":{"code":{"type":"string"},"isActive":{"type":"boolean"},"expiresAt":{"type":"string","format":"date-time"}},"x-readme-ref-name":"UpdateDoctorAccessCodeRequest"}
