@@ -10,10 +10,11 @@
     "preview": "vite preview",
     "format:check": "prettier --check .",
     "format": "prettier --write .",
-    "knip": "knip"
+    "knip": "knip",
+    "generate:api": "kubb generate",
+    "generate:api:watch": "kubb generate --watch"
   },
   "dependencies": {
-    "@clerk/clerk-react": "^5.57.0",
     "@hookform/resolvers": "^5.2.2",
     "@radix-ui/react-alert-dialog": "^1.1.15",
     "@radix-ui/react-avatar": "^1.1.11",
@@ -60,6 +61,13 @@
   "devDependencies": {
     "@eslint/js": "^9.39.1",
     "@faker-js/faker": "^10.1.0",
+    "@kubb/cli": "^4.8.1",
+    "@kubb/core": "^4.8.1",
+    "@kubb/plugin-client": "^4.8.1",
+    "@kubb/plugin-oas": "^4.8.1",
+    "@kubb/plugin-react-query": "^4.8.1",
+    "@kubb/plugin-ts": "^4.8.1",
+    "@kubb/plugin-zod": "^4.8.1",
     "@tanstack/eslint-plugin-query": "^5.91.2",
     "@tanstack/react-query-devtools": "^5.91.1",
     "@tanstack/react-router-devtools": "^1.139.3",
