@@ -1,1 +1,0 @@
-{"type":"object","properties":{"courseId":{"type":"integer","format":"int64"},"rating":{"type":"integer","format":"int32","maximum":5,"minimum":1},"review":{"type":"string","maxLength":1000,"minLength":0}},"required":["courseId","rating"],"x-readme-ref-name":"CreateCourseRatingRequest"}

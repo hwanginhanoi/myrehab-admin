@@ -1,1 +1,0 @@
-{"type":"object","properties":{"id":{"type":"integer","format":"int64"},"user":{"required":["fullName","phoneNumber"]},"type":{"type":"string","enum":["CREDIT","DEBIT"]},"amount":{"type":"integer","format":"int64"},"description":{"type":"string"},"createdAt":{"type":"string","format":"date-time"}},"required":["amount","type"],"x-readme-ref-name":"Transaction"}

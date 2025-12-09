@@ -1,1 +1,0 @@
-{"type":"object","properties":{"fileName":{"type":"string"},"originalFileName":{"type":"string"},"fileUrl":{"type":"string"},"fileType":{"type":"string"},"fileSize":{"type":"integer","format":"int64"},"folder":{"type":"string"}},"x-readme-ref-name":"FileUploadResponse"}

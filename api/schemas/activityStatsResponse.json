@@ -1,1 +1,0 @@
-{"type":"object","properties":{"totalExercisesCompleted":{"type":"integer","format":"int64"},"currentStreak":{"type":"integer","format":"int32"},"longestStreak":{"type":"integer","format":"int32"},"activeDaysThisWeek":{"type":"integer","format":"int32"},"activeDaysThisMonth":{"type":"integer","format":"int32"}},"x-readme-ref-name":"ActivityStatsResponse"}

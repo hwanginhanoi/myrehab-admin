@@ -1,1 +1,0 @@
-{"type":"object","properties":{"type":{"type":"string","enum":["IN_PERSON","ONLINE"]},"appointmentDateTime":{"type":"string","format":"date-time"},"userNotes":{"type":"string"},"doctorCode":{"type":"string"},"preferredDoctorId":{"type":"integer","format":"int64"}},"required":["appointmentDateTime","type"],"x-readme-ref-name":"CreateAppointmentRequest"}

@@ -1,1 +1,0 @@
-{"type":"object","properties":{"insuranceNumber":{"type":"string"},"placeOfRegistration":{"type":"string"},"expiryDate":{"type":"string","format":"date"}},"x-readme-ref-name":"NonCompulsoryHealthInsuranceRequest"}

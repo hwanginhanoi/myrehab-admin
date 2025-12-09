@@ -1,1 +1,0 @@
-{"type":"object","properties":{"fullName":{"type":"string"},"gender":{"type":"string"},"dateOfBirth":{"type":"string","format":"date"},"phoneNumber":{"type":"string"},"email":{"type":"string"}},"x-readme-ref-name":"UserBasicInfoRequest"}

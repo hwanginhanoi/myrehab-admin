@@ -1,1 +1,0 @@
-{"type":"object","properties":{"exceptionDate":{"type":"string","format":"date"},"type":{"type":"string","enum":["UNAVAILABLE","CUSTOM_HOURS"]},"startTime":{"type":"string"},"endTime":{"type":"string"},"reason":{"type":"string"}},"required":["exceptionDate","type"],"x-readme-ref-name":"CreateScheduleExceptionRequest"}

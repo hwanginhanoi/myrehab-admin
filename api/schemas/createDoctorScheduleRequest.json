@@ -1,1 +1,0 @@
-{"type":"object","properties":{"dayOfWeek":{"type":"integer","format":"int32","maximum":6,"minimum":0},"startTime":{"type":"string"},"endTime":{"type":"string"}},"required":["dayOfWeek","endTime","startTime"],"x-readme-ref-name":"CreateDoctorScheduleRequest"}
