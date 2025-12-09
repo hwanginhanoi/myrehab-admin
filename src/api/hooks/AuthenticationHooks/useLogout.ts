@@ -5,7 +5,7 @@
 
 import fetch from "@/lib/api-client";
 import type { LogoutMutationRequest, LogoutMutationResponse } from "../../types/authenticationController/Logout.ts";
-import type { RequestConfig, ResponseErrorConfig, ResponseConfig } from "@/lib/api-client";
+import type { RequestConfig, ResponseErrorConfig } from "@/lib/api-client";
 import type { UseMutationOptions, UseMutationResult, QueryClient } from "@tanstack/react-query";
 import { logout } from "../../clients/authenticationController/logout.ts";
 import { mutationOptions, useMutation } from "@tanstack/react-query";
@@ -16,7 +16,7 @@ export type LogoutMutationKey = ReturnType<typeof logoutMutationKey>
 
 export function logoutMutationOptions(config: Partial<RequestConfig<LogoutMutationRequest>> & { client?: typeof fetch } = {}) {
   const mutationKey = logoutMutationKey()
-  return mutationOptions<ResponseConfig<LogoutMutationResponse>, ResponseErrorConfig<Error>, {data: LogoutMutationRequest}, typeof mutationKey>({
+  return mutationOptions<LogoutMutationResponse, ResponseErrorConfig<Error>, {data: LogoutMutationRequest}, typeof mutationKey>({
     mutationKey,
     mutationFn: async({ data }) => {
       return logout(data, config)
@@ -31,7 +31,7 @@ export function logoutMutationOptions(config: Partial<RequestConfig<LogoutMutati
  */
 export function useLogout<TContext>(options: 
 {
-  mutation?: UseMutationOptions<ResponseConfig<LogoutMutationResponse>, ResponseErrorConfig<Error>, {data: LogoutMutationRequest}, TContext> & { client?: QueryClient },
+  mutation?: UseMutationOptions<LogoutMutationResponse, ResponseErrorConfig<Error>, {data: LogoutMutationRequest}, TContext> & { client?: QueryClient },
   client?: Partial<RequestConfig<LogoutMutationRequest>> & { client?: typeof fetch },
 }
  = {}) {
@@ -39,11 +39,11 @@ export function useLogout<TContext>(options:
   const { client: queryClient, ...mutationOptions } = mutation;
   const mutationKey = mutationOptions.mutationKey ?? logoutMutationKey()
 
-  const baseOptions = logoutMutationOptions(config) as UseMutationOptions<ResponseConfig<LogoutMutationResponse>, ResponseErrorConfig<Error>, {data: LogoutMutationRequest}, TContext>
+  const baseOptions = logoutMutationOptions(config) as UseMutationOptions<LogoutMutationResponse, ResponseErrorConfig<Error>, {data: LogoutMutationRequest}, TContext>
 
-  return useMutation<ResponseConfig<LogoutMutationResponse>, ResponseErrorConfig<Error>, {data: LogoutMutationRequest}, TContext>({
+  return useMutation<LogoutMutationResponse, ResponseErrorConfig<Error>, {data: LogoutMutationRequest}, TContext>({
     ...baseOptions,
     mutationKey,
     ...mutationOptions,
-  }, queryClient) as UseMutationResult<ResponseConfig<LogoutMutationResponse>, ResponseErrorConfig<Error>, {data: LogoutMutationRequest}, TContext>
+  }, queryClient) as UseMutationResult<LogoutMutationResponse, ResponseErrorConfig<Error>, {data: LogoutMutationRequest}, TContext>
 }

@@ -5,7 +5,7 @@
 
 import fetch from "@/lib/api-client";
 import type { LoginWithPinMutationRequest, LoginWithPinMutationResponse } from "../../types/authenticationController/LoginWithPin.ts";
-import type { RequestConfig, ResponseErrorConfig, ResponseConfig } from "@/lib/api-client";
+import type { RequestConfig, ResponseErrorConfig } from "@/lib/api-client";
 import type { UseMutationOptions, UseMutationResult, QueryClient } from "@tanstack/react-query";
 import { loginWithPin } from "../../clients/authenticationController/loginWithPin.ts";
 import { mutationOptions, useMutation } from "@tanstack/react-query";
@@ -16,7 +16,7 @@ export type LoginWithPinMutationKey = ReturnType<typeof loginWithPinMutationKey>
 
 export function loginWithPinMutationOptions(config: Partial<RequestConfig<LoginWithPinMutationRequest>> & { client?: typeof fetch } = {}) {
   const mutationKey = loginWithPinMutationKey()
-  return mutationOptions<ResponseConfig<LoginWithPinMutationResponse>, ResponseErrorConfig<Error>, {data: LoginWithPinMutationRequest}, typeof mutationKey>({
+  return mutationOptions<LoginWithPinMutationResponse, ResponseErrorConfig<Error>, {data: LoginWithPinMutationRequest}, typeof mutationKey>({
     mutationKey,
     mutationFn: async({ data }) => {
       return loginWithPin(data, config)
@@ -31,7 +31,7 @@ export function loginWithPinMutationOptions(config: Partial<RequestConfig<LoginW
  */
 export function useLoginWithPin<TContext>(options: 
 {
-  mutation?: UseMutationOptions<ResponseConfig<LoginWithPinMutationResponse>, ResponseErrorConfig<Error>, {data: LoginWithPinMutationRequest}, TContext> & { client?: QueryClient },
+  mutation?: UseMutationOptions<LoginWithPinMutationResponse, ResponseErrorConfig<Error>, {data: LoginWithPinMutationRequest}, TContext> & { client?: QueryClient },
   client?: Partial<RequestConfig<LoginWithPinMutationRequest>> & { client?: typeof fetch },
 }
  = {}) {
@@ -39,11 +39,11 @@ export function useLoginWithPin<TContext>(options:
   const { client: queryClient, ...mutationOptions } = mutation;
   const mutationKey = mutationOptions.mutationKey ?? loginWithPinMutationKey()
 
-  const baseOptions = loginWithPinMutationOptions(config) as UseMutationOptions<ResponseConfig<LoginWithPinMutationResponse>, ResponseErrorConfig<Error>, {data: LoginWithPinMutationRequest}, TContext>
+  const baseOptions = loginWithPinMutationOptions(config) as UseMutationOptions<LoginWithPinMutationResponse, ResponseErrorConfig<Error>, {data: LoginWithPinMutationRequest}, TContext>
 
-  return useMutation<ResponseConfig<LoginWithPinMutationResponse>, ResponseErrorConfig<Error>, {data: LoginWithPinMutationRequest}, TContext>({
+  return useMutation<LoginWithPinMutationResponse, ResponseErrorConfig<Error>, {data: LoginWithPinMutationRequest}, TContext>({
     ...baseOptions,
     mutationKey,
     ...mutationOptions,
-  }, queryClient) as UseMutationResult<ResponseConfig<LoginWithPinMutationResponse>, ResponseErrorConfig<Error>, {data: LoginWithPinMutationRequest}, TContext>
+  }, queryClient) as UseMutationResult<LoginWithPinMutationResponse, ResponseErrorConfig<Error>, {data: LoginWithPinMutationRequest}, TContext>
 }

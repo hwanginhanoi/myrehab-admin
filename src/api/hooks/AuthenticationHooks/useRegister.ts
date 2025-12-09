@@ -5,7 +5,7 @@
 
 import fetch from "@/lib/api-client";
 import type { RegisterMutationRequest, RegisterMutationResponse } from "../../types/authenticationController/Register.ts";
-import type { RequestConfig, ResponseErrorConfig, ResponseConfig } from "@/lib/api-client";
+import type { RequestConfig, ResponseErrorConfig } from "@/lib/api-client";
 import type { UseMutationOptions, UseMutationResult, QueryClient } from "@tanstack/react-query";
 import { register } from "../../clients/authenticationController/register.ts";
 import { mutationOptions, useMutation } from "@tanstack/react-query";
@@ -16,7 +16,7 @@ export type RegisterMutationKey = ReturnType<typeof registerMutationKey>
 
 export function registerMutationOptions(config: Partial<RequestConfig<RegisterMutationRequest>> & { client?: typeof fetch } = {}) {
   const mutationKey = registerMutationKey()
-  return mutationOptions<ResponseConfig<RegisterMutationResponse>, ResponseErrorConfig<Error>, {data: RegisterMutationRequest}, typeof mutationKey>({
+  return mutationOptions<RegisterMutationResponse, ResponseErrorConfig<Error>, {data: RegisterMutationRequest}, typeof mutationKey>({
     mutationKey,
     mutationFn: async({ data }) => {
       return register(data, config)
@@ -31,7 +31,7 @@ export function registerMutationOptions(config: Partial<RequestConfig<RegisterMu
  */
 export function useRegister<TContext>(options: 
 {
-  mutation?: UseMutationOptions<ResponseConfig<RegisterMutationResponse>, ResponseErrorConfig<Error>, {data: RegisterMutationRequest}, TContext> & { client?: QueryClient },
+  mutation?: UseMutationOptions<RegisterMutationResponse, ResponseErrorConfig<Error>, {data: RegisterMutationRequest}, TContext> & { client?: QueryClient },
   client?: Partial<RequestConfig<RegisterMutationRequest>> & { client?: typeof fetch },
 }
  = {}) {
@@ -39,11 +39,11 @@ export function useRegister<TContext>(options:
   const { client: queryClient, ...mutationOptions } = mutation;
   const mutationKey = mutationOptions.mutationKey ?? registerMutationKey()
 
-  const baseOptions = registerMutationOptions(config) as UseMutationOptions<ResponseConfig<RegisterMutationResponse>, ResponseErrorConfig<Error>, {data: RegisterMutationRequest}, TContext>
+  const baseOptions = registerMutationOptions(config) as UseMutationOptions<RegisterMutationResponse, ResponseErrorConfig<Error>, {data: RegisterMutationRequest}, TContext>
 
-  return useMutation<ResponseConfig<RegisterMutationResponse>, ResponseErrorConfig<Error>, {data: RegisterMutationRequest}, TContext>({
+  return useMutation<RegisterMutationResponse, ResponseErrorConfig<Error>, {data: RegisterMutationRequest}, TContext>({
     ...baseOptions,
     mutationKey,
     ...mutationOptions,
-  }, queryClient) as UseMutationResult<ResponseConfig<RegisterMutationResponse>, ResponseErrorConfig<Error>, {data: RegisterMutationRequest}, TContext>
+  }, queryClient) as UseMutationResult<RegisterMutationResponse, ResponseErrorConfig<Error>, {data: RegisterMutationRequest}, TContext>
 }

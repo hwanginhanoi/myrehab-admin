@@ -5,7 +5,7 @@
 
 import fetch from "@/lib/api-client";
 import type { CheckPhoneMutationRequest, CheckPhoneMutationResponse } from "../../types/authenticationController/CheckPhone.ts";
-import type { RequestConfig, ResponseErrorConfig, ResponseConfig } from "@/lib/api-client";
+import type { RequestConfig, ResponseErrorConfig } from "@/lib/api-client";
 import type { UseMutationOptions, UseMutationResult, QueryClient } from "@tanstack/react-query";
 import { checkPhone } from "../../clients/authenticationController/checkPhone.ts";
 import { mutationOptions, useMutation } from "@tanstack/react-query";
@@ -16,7 +16,7 @@ export type CheckPhoneMutationKey = ReturnType<typeof checkPhoneMutationKey>
 
 export function checkPhoneMutationOptions(config: Partial<RequestConfig<CheckPhoneMutationRequest>> & { client?: typeof fetch } = {}) {
   const mutationKey = checkPhoneMutationKey()
-  return mutationOptions<ResponseConfig<CheckPhoneMutationResponse>, ResponseErrorConfig<Error>, {data: CheckPhoneMutationRequest}, typeof mutationKey>({
+  return mutationOptions<CheckPhoneMutationResponse, ResponseErrorConfig<Error>, {data: CheckPhoneMutationRequest}, typeof mutationKey>({
     mutationKey,
     mutationFn: async({ data }) => {
       return checkPhone(data, config)
@@ -31,7 +31,7 @@ export function checkPhoneMutationOptions(config: Partial<RequestConfig<CheckPho
  */
 export function useCheckPhone<TContext>(options: 
 {
-  mutation?: UseMutationOptions<ResponseConfig<CheckPhoneMutationResponse>, ResponseErrorConfig<Error>, {data: CheckPhoneMutationRequest}, TContext> & { client?: QueryClient },
+  mutation?: UseMutationOptions<CheckPhoneMutationResponse, ResponseErrorConfig<Error>, {data: CheckPhoneMutationRequest}, TContext> & { client?: QueryClient },
   client?: Partial<RequestConfig<CheckPhoneMutationRequest>> & { client?: typeof fetch },
 }
  = {}) {
@@ -39,11 +39,11 @@ export function useCheckPhone<TContext>(options:
   const { client: queryClient, ...mutationOptions } = mutation;
   const mutationKey = mutationOptions.mutationKey ?? checkPhoneMutationKey()
 
-  const baseOptions = checkPhoneMutationOptions(config) as UseMutationOptions<ResponseConfig<CheckPhoneMutationResponse>, ResponseErrorConfig<Error>, {data: CheckPhoneMutationRequest}, TContext>
+  const baseOptions = checkPhoneMutationOptions(config) as UseMutationOptions<CheckPhoneMutationResponse, ResponseErrorConfig<Error>, {data: CheckPhoneMutationRequest}, TContext>
 
-  return useMutation<ResponseConfig<CheckPhoneMutationResponse>, ResponseErrorConfig<Error>, {data: CheckPhoneMutationRequest}, TContext>({
+  return useMutation<CheckPhoneMutationResponse, ResponseErrorConfig<Error>, {data: CheckPhoneMutationRequest}, TContext>({
     ...baseOptions,
     mutationKey,
     ...mutationOptions,
-  }, queryClient) as UseMutationResult<ResponseConfig<CheckPhoneMutationResponse>, ResponseErrorConfig<Error>, {data: CheckPhoneMutationRequest}, TContext>
+  }, queryClient) as UseMutationResult<CheckPhoneMutationResponse, ResponseErrorConfig<Error>, {data: CheckPhoneMutationRequest}, TContext>
 }

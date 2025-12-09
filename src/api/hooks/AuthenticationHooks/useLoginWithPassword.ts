@@ -5,7 +5,7 @@
 
 import fetch from "@/lib/api-client";
 import type { LoginWithPasswordMutationRequest, LoginWithPasswordMutationResponse } from "../../types/authenticationController/LoginWithPassword.ts";
-import type { RequestConfig, ResponseErrorConfig, ResponseConfig } from "@/lib/api-client";
+import type { RequestConfig, ResponseErrorConfig } from "@/lib/api-client";
 import type { UseMutationOptions, UseMutationResult, QueryClient } from "@tanstack/react-query";
 import { loginWithPassword } from "../../clients/authenticationController/loginWithPassword.ts";
 import { mutationOptions, useMutation } from "@tanstack/react-query";
@@ -16,7 +16,7 @@ export type LoginWithPasswordMutationKey = ReturnType<typeof loginWithPasswordMu
 
 export function loginWithPasswordMutationOptions(config: Partial<RequestConfig<LoginWithPasswordMutationRequest>> & { client?: typeof fetch } = {}) {
   const mutationKey = loginWithPasswordMutationKey()
-  return mutationOptions<ResponseConfig<LoginWithPasswordMutationResponse>, ResponseErrorConfig<Error>, {data: LoginWithPasswordMutationRequest}, typeof mutationKey>({
+  return mutationOptions<LoginWithPasswordMutationResponse, ResponseErrorConfig<Error>, {data: LoginWithPasswordMutationRequest}, typeof mutationKey>({
     mutationKey,
     mutationFn: async({ data }) => {
       return loginWithPassword(data, config)
@@ -31,7 +31,7 @@ export function loginWithPasswordMutationOptions(config: Partial<RequestConfig<L
  */
 export function useLoginWithPassword<TContext>(options: 
 {
-  mutation?: UseMutationOptions<ResponseConfig<LoginWithPasswordMutationResponse>, ResponseErrorConfig<Error>, {data: LoginWithPasswordMutationRequest}, TContext> & { client?: QueryClient },
+  mutation?: UseMutationOptions<LoginWithPasswordMutationResponse, ResponseErrorConfig<Error>, {data: LoginWithPasswordMutationRequest}, TContext> & { client?: QueryClient },
   client?: Partial<RequestConfig<LoginWithPasswordMutationRequest>> & { client?: typeof fetch },
 }
  = {}) {
@@ -39,11 +39,11 @@ export function useLoginWithPassword<TContext>(options:
   const { client: queryClient, ...mutationOptions } = mutation;
   const mutationKey = mutationOptions.mutationKey ?? loginWithPasswordMutationKey()
 
-  const baseOptions = loginWithPasswordMutationOptions(config) as UseMutationOptions<ResponseConfig<LoginWithPasswordMutationResponse>, ResponseErrorConfig<Error>, {data: LoginWithPasswordMutationRequest}, TContext>
+  const baseOptions = loginWithPasswordMutationOptions(config) as UseMutationOptions<LoginWithPasswordMutationResponse, ResponseErrorConfig<Error>, {data: LoginWithPasswordMutationRequest}, TContext>
 
-  return useMutation<ResponseConfig<LoginWithPasswordMutationResponse>, ResponseErrorConfig<Error>, {data: LoginWithPasswordMutationRequest}, TContext>({
+  return useMutation<LoginWithPasswordMutationResponse, ResponseErrorConfig<Error>, {data: LoginWithPasswordMutationRequest}, TContext>({
     ...baseOptions,
     mutationKey,
     ...mutationOptions,
-  }, queryClient) as UseMutationResult<ResponseConfig<LoginWithPasswordMutationResponse>, ResponseErrorConfig<Error>, {data: LoginWithPasswordMutationRequest}, TContext>
+  }, queryClient) as UseMutationResult<LoginWithPasswordMutationResponse, ResponseErrorConfig<Error>, {data: LoginWithPasswordMutationRequest}, TContext>
 }

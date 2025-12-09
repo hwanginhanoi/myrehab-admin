@@ -5,7 +5,7 @@
 
 import fetch from "@/lib/api-client";
 import type { SendRegistrationOtpMutationRequest, SendRegistrationOtpMutationResponse } from "../../types/authenticationController/SendRegistrationOtp.ts";
-import type { RequestConfig, ResponseErrorConfig, ResponseConfig } from "@/lib/api-client";
+import type { RequestConfig, ResponseErrorConfig } from "@/lib/api-client";
 import type { UseMutationOptions, UseMutationResult, QueryClient } from "@tanstack/react-query";
 import { sendRegistrationOtp } from "../../clients/authenticationController/sendRegistrationOtp.ts";
 import { mutationOptions, useMutation } from "@tanstack/react-query";
@@ -16,7 +16,7 @@ export type SendRegistrationOtpMutationKey = ReturnType<typeof sendRegistrationO
 
 export function sendRegistrationOtpMutationOptions(config: Partial<RequestConfig<SendRegistrationOtpMutationRequest>> & { client?: typeof fetch } = {}) {
   const mutationKey = sendRegistrationOtpMutationKey()
-  return mutationOptions<ResponseConfig<SendRegistrationOtpMutationResponse>, ResponseErrorConfig<Error>, {data: SendRegistrationOtpMutationRequest}, typeof mutationKey>({
+  return mutationOptions<SendRegistrationOtpMutationResponse, ResponseErrorConfig<Error>, {data: SendRegistrationOtpMutationRequest}, typeof mutationKey>({
     mutationKey,
     mutationFn: async({ data }) => {
       return sendRegistrationOtp(data, config)
@@ -31,7 +31,7 @@ export function sendRegistrationOtpMutationOptions(config: Partial<RequestConfig
  */
 export function useSendRegistrationOtp<TContext>(options: 
 {
-  mutation?: UseMutationOptions<ResponseConfig<SendRegistrationOtpMutationResponse>, ResponseErrorConfig<Error>, {data: SendRegistrationOtpMutationRequest}, TContext> & { client?: QueryClient },
+  mutation?: UseMutationOptions<SendRegistrationOtpMutationResponse, ResponseErrorConfig<Error>, {data: SendRegistrationOtpMutationRequest}, TContext> & { client?: QueryClient },
   client?: Partial<RequestConfig<SendRegistrationOtpMutationRequest>> & { client?: typeof fetch },
 }
  = {}) {
@@ -39,11 +39,11 @@ export function useSendRegistrationOtp<TContext>(options:
   const { client: queryClient, ...mutationOptions } = mutation;
   const mutationKey = mutationOptions.mutationKey ?? sendRegistrationOtpMutationKey()
 
-  const baseOptions = sendRegistrationOtpMutationOptions(config) as UseMutationOptions<ResponseConfig<SendRegistrationOtpMutationResponse>, ResponseErrorConfig<Error>, {data: SendRegistrationOtpMutationRequest}, TContext>
+  const baseOptions = sendRegistrationOtpMutationOptions(config) as UseMutationOptions<SendRegistrationOtpMutationResponse, ResponseErrorConfig<Error>, {data: SendRegistrationOtpMutationRequest}, TContext>
 
-  return useMutation<ResponseConfig<SendRegistrationOtpMutationResponse>, ResponseErrorConfig<Error>, {data: SendRegistrationOtpMutationRequest}, TContext>({
+  return useMutation<SendRegistrationOtpMutationResponse, ResponseErrorConfig<Error>, {data: SendRegistrationOtpMutationRequest}, TContext>({
     ...baseOptions,
     mutationKey,
     ...mutationOptions,
-  }, queryClient) as UseMutationResult<ResponseConfig<SendRegistrationOtpMutationResponse>, ResponseErrorConfig<Error>, {data: SendRegistrationOtpMutationRequest}, TContext>
+  }, queryClient) as UseMutationResult<SendRegistrationOtpMutationResponse, ResponseErrorConfig<Error>, {data: SendRegistrationOtpMutationRequest}, TContext>
 }

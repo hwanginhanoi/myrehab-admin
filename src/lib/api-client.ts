@@ -1,4 +1,4 @@
-import axios, { type AxiosInstance, type AxiosRequestConfig } from 'axios'
+import axios, { type AxiosInstance, type AxiosRequestConfig, type AxiosResponse } from 'axios'
 
 // Get API base URL from environment variable
 // You can change this in .env file: VITE_API_BASE_URL=http://your-backend:port
@@ -15,12 +15,17 @@ const axiosInstance: AxiosInstance = axios.create({
 // Request interceptor for adding auth token
 axiosInstance.interceptors.request.use(
   (config) => {
-    // Add auth token from your auth store if needed
-    // Example:
-    // const token = useAuthStore.getState().auth.token
-    // if (token) {
-    //   config.headers.Authorization = `Bearer ${token}`
-    // }
+    // Add auth token from auth store
+    const token = typeof window !== 'undefined'
+      ? document.cookie
+          .split('; ')
+          .find(row => row.startsWith('thisisjustarandomstring='))
+          ?.split('=')[1]
+      : undefined
+
+    if (token) {
+      config.headers.Authorization = `Bearer ${token}`
+    }
     return config
   },
   (error) => Promise.reject(error)
@@ -34,6 +39,7 @@ export { axiosInstance as apiClient }
 
 // Type exports expected by Kubb-generated hooks
 export type RequestConfig = AxiosRequestConfig
+export type ResponseConfig<T = unknown> = AxiosResponse<T>
 export type ResponseErrorConfig<T = unknown> = {
   message: string
   error: T

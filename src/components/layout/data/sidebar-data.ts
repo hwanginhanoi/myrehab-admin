@@ -87,12 +87,8 @@ export const sidebarData: SidebarData = {
           icon: ShieldCheck,
           items: [
             {
-              title: 'Sign In',
-              url: '/sign-in',
-            },
-            {
-              title: 'Sign In (2 Col)',
-              url: '/sign-in-2',
+              title: 'Login',
+              url: '/login',
             },
             {
               title: 'Sign Up',

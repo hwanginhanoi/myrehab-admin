@@ -5,7 +5,7 @@
 
 import fetch from "@/lib/api-client";
 import type { ResetPinMutationRequest, ResetPinMutationResponse } from "../../types/authenticationController/ResetPin.ts";
-import type { RequestConfig, ResponseErrorConfig, ResponseConfig } from "@/lib/api-client";
+import type { RequestConfig, ResponseErrorConfig } from "@/lib/api-client";
 import type { UseMutationOptions, UseMutationResult, QueryClient } from "@tanstack/react-query";
 import { resetPin } from "../../clients/authenticationController/resetPin.ts";
 import { mutationOptions, useMutation } from "@tanstack/react-query";
@@ -16,7 +16,7 @@ export type ResetPinMutationKey = ReturnType<typeof resetPinMutationKey>
 
 export function resetPinMutationOptions(config: Partial<RequestConfig<ResetPinMutationRequest>> & { client?: typeof fetch } = {}) {
   const mutationKey = resetPinMutationKey()
-  return mutationOptions<ResponseConfig<ResetPinMutationResponse>, ResponseErrorConfig<Error>, {data: ResetPinMutationRequest}, typeof mutationKey>({
+  return mutationOptions<ResetPinMutationResponse, ResponseErrorConfig<Error>, {data: ResetPinMutationRequest}, typeof mutationKey>({
     mutationKey,
     mutationFn: async({ data }) => {
       return resetPin(data, config)
@@ -31,7 +31,7 @@ export function resetPinMutationOptions(config: Partial<RequestConfig<ResetPinMu
  */
 export function useResetPin<TContext>(options: 
 {
-  mutation?: UseMutationOptions<ResponseConfig<ResetPinMutationResponse>, ResponseErrorConfig<Error>, {data: ResetPinMutationRequest}, TContext> & { client?: QueryClient },
+  mutation?: UseMutationOptions<ResetPinMutationResponse, ResponseErrorConfig<Error>, {data: ResetPinMutationRequest}, TContext> & { client?: QueryClient },
   client?: Partial<RequestConfig<ResetPinMutationRequest>> & { client?: typeof fetch },
 }
  = {}) {
@@ -39,11 +39,11 @@ export function useResetPin<TContext>(options:
   const { client: queryClient, ...mutationOptions } = mutation;
   const mutationKey = mutationOptions.mutationKey ?? resetPinMutationKey()
 
-  const baseOptions = resetPinMutationOptions(config) as UseMutationOptions<ResponseConfig<ResetPinMutationResponse>, ResponseErrorConfig<Error>, {data: ResetPinMutationRequest}, TContext>
+  const baseOptions = resetPinMutationOptions(config) as UseMutationOptions<ResetPinMutationResponse, ResponseErrorConfig<Error>, {data: ResetPinMutationRequest}, TContext>
 
-  return useMutation<ResponseConfig<ResetPinMutationResponse>, ResponseErrorConfig<Error>, {data: ResetPinMutationRequest}, TContext>({
+  return useMutation<ResetPinMutationResponse, ResponseErrorConfig<Error>, {data: ResetPinMutationRequest}, TContext>({
     ...baseOptions,
     mutationKey,
     ...mutationOptions,
-  }, queryClient) as UseMutationResult<ResponseConfig<ResetPinMutationResponse>, ResponseErrorConfig<Error>, {data: ResetPinMutationRequest}, TContext>
+  }, queryClient) as UseMutationResult<ResetPinMutationResponse, ResponseErrorConfig<Error>, {data: ResetPinMutationRequest}, TContext>
 }

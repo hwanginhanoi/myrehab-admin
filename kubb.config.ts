@@ -55,7 +55,7 @@ export default defineConfig({
 			},
 			client: {
 				importPath: '@/lib/api-client',
-				dataReturnType: 'full',
+				dataReturnType: 'data',
 			},
 			mutation: {
 				methods: ['post', 'put', 'delete'],
