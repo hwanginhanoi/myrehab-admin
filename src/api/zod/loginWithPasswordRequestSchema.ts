@@ -6,6 +6,6 @@
 import { z } from "zod/v4";
 
 export const loginWithPasswordRequestSchema = z.object({
-    "email": z.string(),
-"password": z.string()
+    "email": z.string().min(1),
+"password": z.string().min(1)
     })

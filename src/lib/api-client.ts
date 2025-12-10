@@ -16,12 +16,24 @@ const axiosInstance: AxiosInstance = axios.create({
 axiosInstance.interceptors.request.use(
   (config) => {
     // Add auth token from auth store
-    const token = typeof window !== 'undefined'
-      ? document.cookie
-          .split('; ')
-          .find(row => row.startsWith('thisisjustarandomstring='))
-          ?.split('=')[1]
-      : undefined
+    let token: string | undefined
+
+    if (typeof window !== 'undefined') {
+      const cookieValue = document.cookie
+        .split('; ')
+        .find(row => row.startsWith('thisisjustarandomstring='))
+        ?.split('=')[1]
+
+      if (cookieValue) {
+        try {
+          // The cookie stores the token as a JSON string, so we need to parse it
+          token = JSON.parse(decodeURIComponent(cookieValue))
+        } catch {
+          // Fallback if parsing fails
+          token = cookieValue
+        }
+      }
+    }
 
     if (token) {
       config.headers.Authorization = `Bearer ${token}`

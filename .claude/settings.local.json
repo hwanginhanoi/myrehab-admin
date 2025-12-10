@@ -1,0 +1,10 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(cat:*)",
+      "Bash(npm run build:routes:*)",
+      "Bash(pkill:*)",
+      "Bash(npm run dev:*)"
+    ]
+  }
+}

@@ -6,10 +6,12 @@
 
 export type LoginWithPasswordRequest = {
     /**
+     * @minLength 1
      * @type string
     */
     email: string;
     /**
+     * @minLength 1
      * @type string
     */
     password: string;

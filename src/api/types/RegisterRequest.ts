@@ -6,6 +6,7 @@
 
 export type RegisterRequest = {
     /**
+     * @minLength 1
      * @pattern ^\+?[1-9]\d{1,14}$
      * @type string
     */
