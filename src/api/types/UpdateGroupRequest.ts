@@ -6,7 +6,6 @@
 
 export type UpdateGroupRequest = {
     /**
-     * @minLength 1
      * @type string
     */
     name: string;

@@ -17,7 +17,20 @@ export function ExerciseCategories() {
   const search = route.useSearch()
   const navigate = route.useNavigate()
 
-  const { data: categories, isLoading } = useGetAllCategories()
+  // Get pagination params from URL or use defaults
+  // Note: URL uses 1-indexed pages, but API expects 0-indexed
+  const page = (search.page as number) || 1
+  const pageSize = (search.pageSize as number) || 10
+
+  const { data: response, isLoading } = useGetAllCategories({
+    pageable: {
+      page: page - 1, // Convert to 0-indexed for API
+      size: pageSize,
+    },
+  })
+
+  const categories = response?.content || []
+  const totalPages = response?.totalPages || 0
 
   return (
     <CategoriesProvider>
@@ -46,9 +59,10 @@ export function ExerciseCategories() {
           </div>
         ) : (
           <CategoriesTable
-            data={categories || []}
+            data={categories}
             search={search}
             navigate={navigate}
+            pageCount={totalPages}
           />
         )}
       </Main>

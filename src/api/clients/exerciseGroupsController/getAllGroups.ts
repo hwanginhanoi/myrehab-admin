@@ -4,7 +4,7 @@
 */
 
 import fetch from "@/lib/api-client";
-import type { GetAllGroupsQueryResponse } from "../../types/exerciseGroupsController/GetAllGroups.ts";
+import type { GetAllGroupsQueryResponse, GetAllGroupsQueryParams } from "../../types/exerciseGroupsController/GetAllGroups.ts";
 import type { RequestConfig, ResponseErrorConfig } from "@/lib/api-client";
 
 function getGetAllGroupsUrl() {
@@ -13,13 +13,13 @@ function getGetAllGroupsUrl() {
 }
 
 /**
- * @description Retrieve all exercise groups
+ * @description Retrieve exercise groups with pagination. Default page size is 20.
  * @summary Get all groups
  * {@link /api/exercise-groups}
  */
-export async function getAllGroups(config: Partial<RequestConfig> & { client?: typeof fetch } = {}) {
+export async function getAllGroups(params: GetAllGroupsQueryParams, config: Partial<RequestConfig> & { client?: typeof fetch } = {}) {
   const { client: request = fetch, ...requestConfig } = config  
   
-  const res = await request<GetAllGroupsQueryResponse, ResponseErrorConfig<Error>, unknown>({ method : "GET", url : getGetAllGroupsUrl().url.toString(), ... requestConfig })  
+  const res = await request<GetAllGroupsQueryResponse, ResponseErrorConfig<Error>, unknown>({ method : "GET", url : getGetAllGroupsUrl().url.toString(), params, ... requestConfig })  
   return res.data
 }

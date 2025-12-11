@@ -3,16 +3,25 @@
 * Do not edit manually.
 */
 
-import type { GroupResponse } from "../GroupResponse.ts";
+import type { Pageable } from "../Pageable.ts";
+import type { PageGroupResponse } from "../PageGroupResponse.ts";
+
+export type GetAllGroupsQueryParams = {
+    /**
+     * @type object
+    */
+    pageable: Pageable;
+};
 
 /**
  * @description OK
 */
-export type GetAllGroups200 = GroupResponse[];
+export type GetAllGroups200 = PageGroupResponse;
 
 export type GetAllGroupsQueryResponse = GetAllGroups200;
 
 export type GetAllGroupsQuery = {
     Response: GetAllGroups200;
+    QueryParams: GetAllGroupsQueryParams;
     Errors: any;
 };

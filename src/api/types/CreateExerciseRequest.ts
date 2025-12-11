@@ -6,22 +6,18 @@
 
 export type CreateExerciseRequest = {
     /**
-     * @minLength 1
      * @type string
     */
     title: string;
     /**
-     * @minLength 1
      * @type string
     */
     description: string;
     /**
-     * @minLength 1
      * @type string
     */
     imageUrl: string;
     /**
-     * @minLength 1
      * @type string
     */
     videoUrl: string;

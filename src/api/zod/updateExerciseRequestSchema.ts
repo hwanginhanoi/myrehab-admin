@@ -6,10 +6,10 @@
 import { z } from "zod/v4";
 
 export const updateExerciseRequestSchema = z.object({
-    "title": z.string().min(1),
-"description": z.string().min(1),
-"imageUrl": z.string().min(1),
-"videoUrl": z.string().min(1),
+    "title": z.string(),
+"description": z.string(),
+"imageUrl": z.string(),
+"videoUrl": z.string(),
 "durationMinutes": z.optional(z.int()),
 "categoryIds": z.optional(z.array(z.int())),
 "groupIds": z.optional(z.array(z.int()))

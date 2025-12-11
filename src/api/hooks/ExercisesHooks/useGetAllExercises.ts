@@ -4,34 +4,34 @@
 */
 
 import fetch from "@/lib/api-client";
-import type { GetAllExercisesQueryResponse } from "../../types/exercisesController/GetAllExercises.ts";
+import type { GetAllExercisesQueryResponse, GetAllExercisesQueryParams } from "../../types/exercisesController/GetAllExercises.ts";
 import type { RequestConfig, ResponseErrorConfig } from "@/lib/api-client";
 import type { QueryKey, QueryClient, QueryObserverOptions, UseQueryResult } from "@tanstack/react-query";
 import { getAllExercises } from "../../clients/exercisesController/getAllExercises.ts";
 import { queryOptions, useQuery } from "@tanstack/react-query";
 
-export const getAllExercisesQueryKey = () => [{ url: '/api/exercises' }] as const
+export const getAllExercisesQueryKey = (params: GetAllExercisesQueryParams) => [{ url: '/api/exercises' }, ...(params ? [params] : [])] as const
 
 export type GetAllExercisesQueryKey = ReturnType<typeof getAllExercisesQueryKey>
 
-export function getAllExercisesQueryOptions(config: Partial<RequestConfig> & { client?: typeof fetch } = {}) {
-  const queryKey = getAllExercisesQueryKey()
+export function getAllExercisesQueryOptions(params: GetAllExercisesQueryParams, config: Partial<RequestConfig> & { client?: typeof fetch } = {}) {
+  const queryKey = getAllExercisesQueryKey(params)
   return queryOptions<GetAllExercisesQueryResponse, ResponseErrorConfig<Error>, GetAllExercisesQueryResponse, typeof queryKey>({
- 
+   enabled: !!(params),
    queryKey,
    queryFn: async ({ signal }) => {
       config.signal = signal
-      return getAllExercises(config)
+      return getAllExercises(params, config)
    },
   })
 }
 
 /**
- * @description Retrieve all exercises
+ * @description Retrieve exercises with pagination. Default page size is 20.
  * @summary Get all exercises
  * {@link /api/exercises}
  */
-export function useGetAllExercises<TData = GetAllExercisesQueryResponse, TQueryData = GetAllExercisesQueryResponse, TQueryKey extends QueryKey = GetAllExercisesQueryKey>(options: 
+export function useGetAllExercises<TData = GetAllExercisesQueryResponse, TQueryData = GetAllExercisesQueryResponse, TQueryKey extends QueryKey = GetAllExercisesQueryKey>(params: GetAllExercisesQueryParams, options: 
 {
   query?: Partial<QueryObserverOptions<GetAllExercisesQueryResponse, ResponseErrorConfig<Error>, TData, TQueryData, TQueryKey>> & { client?: QueryClient },
   client?: Partial<RequestConfig> & { client?: typeof fetch }
@@ -39,10 +39,10 @@ export function useGetAllExercises<TData = GetAllExercisesQueryResponse, TQueryD
  = {}) {
   const { query: queryConfig = {}, client: config = {} } = options ?? {}
   const { client: queryClient, ...queryOptions } = queryConfig
-  const queryKey = queryOptions?.queryKey ?? getAllExercisesQueryKey()
+  const queryKey = queryOptions?.queryKey ?? getAllExercisesQueryKey(params)
 
   const query = useQuery({
-   ...getAllExercisesQueryOptions(config),
+   ...getAllExercisesQueryOptions(params, config),
    queryKey,
    ...queryOptions
   } as unknown as QueryObserverOptions, queryClient) as UseQueryResult<TData, ResponseErrorConfig<Error>> & { queryKey: TQueryKey }

@@ -16,7 +16,6 @@ export type CreateCategoryRequestTypeEnumKey = (typeof createCategoryRequestType
 
 export type CreateCategoryRequest = {
     /**
-     * @minLength 1
      * @type string
     */
     name: string;

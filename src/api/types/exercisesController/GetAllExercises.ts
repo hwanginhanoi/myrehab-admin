@@ -3,16 +3,25 @@
 * Do not edit manually.
 */
 
-import type { ExerciseResponse } from "../ExerciseResponse.ts";
+import type { Pageable } from "../Pageable.ts";
+import type { PageExerciseResponse } from "../PageExerciseResponse.ts";
+
+export type GetAllExercisesQueryParams = {
+    /**
+     * @type object
+    */
+    pageable: Pageable;
+};
 
 /**
  * @description OK
 */
-export type GetAllExercises200 = ExerciseResponse[];
+export type GetAllExercises200 = PageExerciseResponse;
 
 export type GetAllExercisesQueryResponse = GetAllExercises200;
 
 export type GetAllExercisesQuery = {
     Response: GetAllExercises200;
+    QueryParams: GetAllExercisesQueryParams;
     Errors: any;
 };

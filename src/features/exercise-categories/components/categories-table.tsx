@@ -30,9 +30,10 @@ type DataTableProps = {
   data: CategoryResponse[]
   search: Record<string, unknown>
   navigate: NavigateFn
+  pageCount: number
 }
 
-export function CategoriesTable({ data, search, navigate }: DataTableProps) {
+export function CategoriesTable({ data, search, navigate, pageCount }: DataTableProps) {
   // Local UI-only states
   const [rowSelection, setRowSelection] = useState({})
   const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({})
@@ -59,6 +60,7 @@ export function CategoriesTable({ data, search, navigate }: DataTableProps) {
   const table = useReactTable({
     data,
     columns,
+    pageCount,
     state: {
       sorting,
       pagination,
@@ -67,12 +69,12 @@ export function CategoriesTable({ data, search, navigate }: DataTableProps) {
       columnVisibility,
     },
     enableRowSelection: true,
+    manualPagination: true,
     onPaginationChange,
     onColumnFiltersChange,
     onRowSelectionChange: setRowSelection,
     onSortingChange: setSorting,
     onColumnVisibilityChange: setColumnVisibility,
-    getPaginationRowModel: getPaginationRowModel(),
     getCoreRowModel: getCoreRowModel(),
     getFilteredRowModel: getFilteredRowModel(),
     getSortedRowModel: getSortedRowModel(),
@@ -81,8 +83,8 @@ export function CategoriesTable({ data, search, navigate }: DataTableProps) {
   })
 
   useEffect(() => {
-    ensurePageInRange(table.getPageCount())
-  }, [table, ensurePageInRange])
+    ensurePageInRange(pageCount)
+  }, [pageCount, ensurePageInRange])
 
   return (
     <div

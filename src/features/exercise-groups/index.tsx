@@ -17,7 +17,20 @@ export function ExerciseGroups() {
   const search = route.useSearch()
   const navigate = route.useNavigate()
 
-  const { data: groups, isLoading } = useGetAllGroups()
+  // Get pagination params from URL or use defaults
+  // Note: URL uses 1-indexed pages, but API expects 0-indexed
+  const page = (search.page as number) || 1
+  const pageSize = (search.pageSize as number) || 10
+
+  const { data: response, isLoading } = useGetAllGroups({
+    pageable: {
+      page: page - 1, // Convert to 0-indexed for API
+      size: pageSize,
+    },
+  })
+
+  const groups = response?.content || []
+  const totalPages = response?.totalPages || 0
 
   return (
     <GroupsProvider>
@@ -46,9 +59,10 @@ export function ExerciseGroups() {
           </div>
         ) : (
           <GroupsTable
-            data={groups || []}
+            data={groups}
             search={search}
             navigate={navigate}
+            pageCount={totalPages}
           />
         )}
       </Main>

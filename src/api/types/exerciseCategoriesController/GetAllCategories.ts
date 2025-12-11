@@ -3,16 +3,25 @@
 * Do not edit manually.
 */
 
-import type { CategoryResponse } from "../CategoryResponse.ts";
+import type { Pageable } from "../Pageable.ts";
+import type { PageCategoryResponse } from "../PageCategoryResponse.ts";
+
+export type GetAllCategoriesQueryParams = {
+    /**
+     * @type object
+    */
+    pageable: Pageable;
+};
 
 /**
  * @description OK
 */
-export type GetAllCategories200 = CategoryResponse[];
+export type GetAllCategories200 = PageCategoryResponse;
 
 export type GetAllCategoriesQueryResponse = GetAllCategories200;
 
 export type GetAllCategoriesQuery = {
     Response: GetAllCategories200;
+    QueryParams: GetAllCategoriesQueryParams;
     Errors: any;
 };

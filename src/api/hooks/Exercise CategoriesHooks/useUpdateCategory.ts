@@ -19,7 +19,7 @@ export function updateCategoryMutationOptions(config: Partial<RequestConfig<Upda
   return mutationOptions<UpdateCategoryMutationResponse, ResponseErrorConfig<Error>, {id: UpdateCategoryPathParams["id"], data: UpdateCategoryMutationRequest}, typeof mutationKey>({
     mutationKey,
     mutationFn: async({ id, data }) => {
-      return updateCategory({ id }, data, config)
+      return updateCategory(id, data, config)
     },
   })
 }

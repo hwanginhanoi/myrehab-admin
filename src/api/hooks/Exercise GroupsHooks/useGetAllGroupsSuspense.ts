@@ -4,34 +4,34 @@
 */
 
 import fetch from "@/lib/api-client";
-import type { GetAllGroupsQueryResponse } from "../../types/exerciseGroupsController/GetAllGroups.ts";
+import type { GetAllGroupsQueryResponse, GetAllGroupsQueryParams } from "../../types/exerciseGroupsController/GetAllGroups.ts";
 import type { RequestConfig, ResponseErrorConfig } from "@/lib/api-client";
 import type { QueryKey, QueryClient, UseSuspenseQueryOptions, UseSuspenseQueryResult } from "@tanstack/react-query";
 import { getAllGroups } from "../../clients/exerciseGroupsController/getAllGroups.ts";
 import { queryOptions, useSuspenseQuery } from "@tanstack/react-query";
 
-export const getAllGroupsSuspenseQueryKey = () => [{ url: '/api/exercise-groups' }] as const
+export const getAllGroupsSuspenseQueryKey = (params: GetAllGroupsQueryParams) => [{ url: '/api/exercise-groups' }, ...(params ? [params] : [])] as const
 
 export type GetAllGroupsSuspenseQueryKey = ReturnType<typeof getAllGroupsSuspenseQueryKey>
 
-export function getAllGroupsSuspenseQueryOptions(config: Partial<RequestConfig> & { client?: typeof fetch } = {}) {
-  const queryKey = getAllGroupsSuspenseQueryKey()
+export function getAllGroupsSuspenseQueryOptions(params: GetAllGroupsQueryParams, config: Partial<RequestConfig> & { client?: typeof fetch } = {}) {
+  const queryKey = getAllGroupsSuspenseQueryKey(params)
   return queryOptions<GetAllGroupsQueryResponse, ResponseErrorConfig<Error>, GetAllGroupsQueryResponse, typeof queryKey>({
- 
+   enabled: !!(params),
    queryKey,
    queryFn: async ({ signal }) => {
       config.signal = signal
-      return getAllGroups(config)
+      return getAllGroups(params, config)
    },
   })
 }
 
 /**
- * @description Retrieve all exercise groups
+ * @description Retrieve exercise groups with pagination. Default page size is 20.
  * @summary Get all groups
  * {@link /api/exercise-groups}
  */
-export function useGetAllGroupsSuspense<TData = GetAllGroupsQueryResponse, TQueryKey extends QueryKey = GetAllGroupsSuspenseQueryKey>(options: 
+export function useGetAllGroupsSuspense<TData = GetAllGroupsQueryResponse, TQueryKey extends QueryKey = GetAllGroupsSuspenseQueryKey>(params: GetAllGroupsQueryParams, options: 
 {
   query?: Partial<UseSuspenseQueryOptions<GetAllGroupsQueryResponse, ResponseErrorConfig<Error>, TData, TQueryKey>> & { client?: QueryClient },
   client?: Partial<RequestConfig> & { client?: typeof fetch }
@@ -39,10 +39,10 @@ export function useGetAllGroupsSuspense<TData = GetAllGroupsQueryResponse, TQuer
  = {}) {
   const { query: queryConfig = {}, client: config = {} } = options ?? {}
   const { client: queryClient, ...queryOptions } = queryConfig
-  const queryKey = queryOptions?.queryKey ?? getAllGroupsSuspenseQueryKey()
+  const queryKey = queryOptions?.queryKey ?? getAllGroupsSuspenseQueryKey(params)
 
   const query = useSuspenseQuery({
-   ...getAllGroupsSuspenseQueryOptions(config),
+   ...getAllGroupsSuspenseQueryOptions(params, config),
    queryKey,
    ...queryOptions
   } as unknown as UseSuspenseQueryOptions, queryClient) as UseSuspenseQueryResult<TData, ResponseErrorConfig<Error>> & { queryKey: TQueryKey }

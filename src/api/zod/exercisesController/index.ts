@@ -1,5 +1,5 @@
 export { createExercise200Schema, createExerciseMutationRequestSchema, createExerciseMutationResponseSchema } from "./createExerciseSchema.ts";
-export { getAllExercises200Schema, getAllExercisesQueryResponseSchema } from "./getAllExercisesSchema.ts";
+export { getAllExercisesQueryParamsSchema, getAllExercises200Schema, getAllExercisesQueryResponseSchema } from "./getAllExercisesSchema.ts";
 export { getExerciseByIdPathParamsSchema, getExerciseById200Schema, getExerciseByIdQueryResponseSchema } from "./getExerciseByIdSchema.ts";
 export { getExercisesByCategoryPathParamsSchema, getExercisesByCategory200Schema, getExercisesByCategoryQueryResponseSchema } from "./getExercisesByCategorySchema.ts";
 export { getExercisesByDurationRangeQueryParamsSchema, getExercisesByDurationRange200Schema, getExercisesByDurationRangeQueryResponseSchema } from "./getExercisesByDurationRangeSchema.ts";

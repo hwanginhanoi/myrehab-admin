@@ -29,9 +29,10 @@ type DataTableProps = {
   data: GroupResponse[]
   search: Record<string, unknown>
   navigate: NavigateFn
+  pageCount: number
 }
 
-export function GroupsTable({ data, search, navigate }: DataTableProps) {
+export function GroupsTable({ data, search, navigate, pageCount }: DataTableProps) {
   // Local UI-only states
   const [rowSelection, setRowSelection] = useState({})
   const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({})
@@ -57,6 +58,7 @@ export function GroupsTable({ data, search, navigate }: DataTableProps) {
   const table = useReactTable({
     data,
     columns,
+    pageCount,
     state: {
       sorting,
       pagination,
@@ -65,12 +67,12 @@ export function GroupsTable({ data, search, navigate }: DataTableProps) {
       columnVisibility,
     },
     enableRowSelection: true,
+    manualPagination: true,
     onPaginationChange,
     onColumnFiltersChange,
     onRowSelectionChange: setRowSelection,
     onSortingChange: setSorting,
     onColumnVisibilityChange: setColumnVisibility,
-    getPaginationRowModel: getPaginationRowModel(),
     getCoreRowModel: getCoreRowModel(),
     getFilteredRowModel: getFilteredRowModel(),
     getSortedRowModel: getSortedRowModel(),
@@ -79,8 +81,8 @@ export function GroupsTable({ data, search, navigate }: DataTableProps) {
   })
 
   useEffect(() => {
-    ensurePageInRange(table.getPageCount())
-  }, [table, ensurePageInRange])
+    ensurePageInRange(pageCount)
+  }, [pageCount, ensurePageInRange])
 
   return (
     <div

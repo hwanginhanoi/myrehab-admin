@@ -4,7 +4,7 @@
 */
 
 import fetch from "@/lib/api-client";
-import type { GetAllCategoriesQueryResponse } from "../../types/exerciseCategoriesController/GetAllCategories.ts";
+import type { GetAllCategoriesQueryResponse, GetAllCategoriesQueryParams } from "../../types/exerciseCategoriesController/GetAllCategories.ts";
 import type { RequestConfig, ResponseErrorConfig } from "@/lib/api-client";
 
 function getGetAllCategoriesUrl() {
@@ -13,13 +13,13 @@ function getGetAllCategoriesUrl() {
 }
 
 /**
- * @description Retrieve all exercise categories
+ * @description Retrieve exercise categories with pagination. Default page size is 20.
  * @summary Get all categories
  * {@link /api/exercise-categories}
  */
-export async function getAllCategories(config: Partial<RequestConfig> & { client?: typeof fetch } = {}) {
+export async function getAllCategories(params: GetAllCategoriesQueryParams, config: Partial<RequestConfig> & { client?: typeof fetch } = {}) {
   const { client: request = fetch, ...requestConfig } = config  
   
-  const res = await request<GetAllCategoriesQueryResponse, ResponseErrorConfig<Error>, unknown>({ method : "GET", url : getGetAllCategoriesUrl().url.toString(), ... requestConfig })  
+  const res = await request<GetAllCategoriesQueryResponse, ResponseErrorConfig<Error>, unknown>({ method : "GET", url : getGetAllCategoriesUrl().url.toString(), params, ... requestConfig })  
   return res.data
 }

@@ -3,12 +3,19 @@
 * Do not edit manually.
 */
 
-import { groupResponseSchema } from "../groupResponseSchema.ts";
+import { pageableSchema } from "../pageableSchema.ts";
+import { pageGroupResponseSchema } from "../pageGroupResponseSchema.ts";
 import { z } from "zod/v4";
+
+export const getAllGroupsQueryParamsSchema = z.object({
+    get "pageable"(){
+                return pageableSchema
+              }
+    })
 
 /**
  * @description OK
  */
-export const getAllGroups200Schema = z.array(z.lazy(() => groupResponseSchema))
+export const getAllGroups200Schema = z.lazy(() => pageGroupResponseSchema)
 
 export const getAllGroupsQueryResponseSchema = z.lazy(() => getAllGroups200Schema)

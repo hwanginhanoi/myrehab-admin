@@ -4,34 +4,34 @@
 */
 
 import fetch from "@/lib/api-client";
-import type { GetAllGroupsQueryResponse } from "../../types/exerciseGroupsController/GetAllGroups.ts";
+import type { GetAllGroupsQueryResponse, GetAllGroupsQueryParams } from "../../types/exerciseGroupsController/GetAllGroups.ts";
 import type { RequestConfig, ResponseErrorConfig } from "@/lib/api-client";
 import type { QueryKey, QueryClient, QueryObserverOptions, UseQueryResult } from "@tanstack/react-query";
 import { getAllGroups } from "../../clients/exerciseGroupsController/getAllGroups.ts";
 import { queryOptions, useQuery } from "@tanstack/react-query";
 
-export const getAllGroupsQueryKey = () => [{ url: '/api/exercise-groups' }] as const
+export const getAllGroupsQueryKey = (params: GetAllGroupsQueryParams) => [{ url: '/api/exercise-groups' }, ...(params ? [params] : [])] as const
 
 export type GetAllGroupsQueryKey = ReturnType<typeof getAllGroupsQueryKey>
 
-export function getAllGroupsQueryOptions(config: Partial<RequestConfig> & { client?: typeof fetch } = {}) {
-  const queryKey = getAllGroupsQueryKey()
+export function getAllGroupsQueryOptions(params: GetAllGroupsQueryParams, config: Partial<RequestConfig> & { client?: typeof fetch } = {}) {
+  const queryKey = getAllGroupsQueryKey(params)
   return queryOptions<GetAllGroupsQueryResponse, ResponseErrorConfig<Error>, GetAllGroupsQueryResponse, typeof queryKey>({
- 
+   enabled: !!(params),
    queryKey,
    queryFn: async ({ signal }) => {
       config.signal = signal
-      return getAllGroups(config)
+      return getAllGroups(params, config)
    },
   })
 }
 
 /**
- * @description Retrieve all exercise groups
+ * @description Retrieve exercise groups with pagination. Default page size is 20.
  * @summary Get all groups
  * {@link /api/exercise-groups}
  */
-export function useGetAllGroups<TData = GetAllGroupsQueryResponse, TQueryData = GetAllGroupsQueryResponse, TQueryKey extends QueryKey = GetAllGroupsQueryKey>(options: 
+export function useGetAllGroups<TData = GetAllGroupsQueryResponse, TQueryData = GetAllGroupsQueryResponse, TQueryKey extends QueryKey = GetAllGroupsQueryKey>(params: GetAllGroupsQueryParams, options: 
 {
   query?: Partial<QueryObserverOptions<GetAllGroupsQueryResponse, ResponseErrorConfig<Error>, TData, TQueryData, TQueryKey>> & { client?: QueryClient },
   client?: Partial<RequestConfig> & { client?: typeof fetch }
@@ -39,10 +39,10 @@ export function useGetAllGroups<TData = GetAllGroupsQueryResponse, TQueryData = 
  = {}) {
   const { query: queryConfig = {}, client: config = {} } = options ?? {}
   const { client: queryClient, ...queryOptions } = queryConfig
-  const queryKey = queryOptions?.queryKey ?? getAllGroupsQueryKey()
+  const queryKey = queryOptions?.queryKey ?? getAllGroupsQueryKey(params)
 
   const query = useQuery({
-   ...getAllGroupsQueryOptions(config),
+   ...getAllGroupsQueryOptions(params, config),
    queryKey,
    ...queryOptions
   } as unknown as QueryObserverOptions, queryClient) as UseQueryResult<TData, ResponseErrorConfig<Error>> & { queryKey: TQueryKey }

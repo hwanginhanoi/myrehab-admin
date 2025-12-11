@@ -1,1 +1,1 @@
-{"type":"object","properties":{"phoneNumber":{"type":"string","minLength":1,"pattern":"^\\+?[1-9]\\d{1,14}$"},"pin":{"type":"string","maxLength":6,"minLength":6,"pattern":"^\\d{6}$"}},"required":["phoneNumber","pin"],"x-readme-ref-name":"LoginWithPinRequest"}
+{"type":"object","properties":{"phoneNumber":{"type":"string","pattern":"^\\+?[1-9]\\d{1,14}$"},"pin":{"type":"string","maxLength":6,"minLength":6,"pattern":"^\\d{6}$"}},"required":["phoneNumber","pin"],"x-readme-ref-name":"LoginWithPinRequest"}

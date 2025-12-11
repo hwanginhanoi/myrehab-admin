@@ -4,24 +4,29 @@
 */
 
 import fetch from "@/lib/api-client";
-import type { GetAllGroupsQueryResponse } from "../../types/exerciseGroupsController/GetAllGroups.ts";
+import type { GetAllGroupsQueryResponse, GetAllGroupsQueryParams } from "../../types/exerciseGroupsController/GetAllGroups.ts";
 import type { RequestConfig, ResponseErrorConfig } from "@/lib/api-client";
 import type { InfiniteData, QueryKey, QueryClient, UseSuspenseInfiniteQueryOptions, UseSuspenseInfiniteQueryResult } from "@tanstack/react-query";
 import { getAllGroups } from "../../clients/exerciseGroupsController/getAllGroups.ts";
 import { infiniteQueryOptions, useSuspenseInfiniteQuery } from "@tanstack/react-query";
 
-export const getAllGroupsSuspenseInfiniteQueryKey = () => [{ url: '/api/exercise-groups' }] as const
+export const getAllGroupsSuspenseInfiniteQueryKey = (params: GetAllGroupsQueryParams) => [{ url: '/api/exercise-groups' }, ...(params ? [params] : [])] as const
 
 export type GetAllGroupsSuspenseInfiniteQueryKey = ReturnType<typeof getAllGroupsSuspenseInfiniteQueryKey>
 
-export function getAllGroupsSuspenseInfiniteQueryOptions(config: Partial<RequestConfig> & { client?: typeof fetch } = {}) {
-  const queryKey = getAllGroupsSuspenseInfiniteQueryKey()
-  return infiniteQueryOptions<GetAllGroupsQueryResponse, ResponseErrorConfig<Error>, InfiniteData<GetAllGroupsQueryResponse>, typeof queryKey, number>({
- 
+export function getAllGroupsSuspenseInfiniteQueryOptions(params: GetAllGroupsQueryParams, config: Partial<RequestConfig> & { client?: typeof fetch } = {}) {
+  const queryKey = getAllGroupsSuspenseInfiniteQueryKey(params)
+  return infiniteQueryOptions<GetAllGroupsQueryResponse, ResponseErrorConfig<Error>, InfiniteData<GetAllGroupsQueryResponse>, typeof queryKey, NonNullable<GetAllGroupsQueryParams['next_page']>>({
+   enabled: !!(params),
    queryKey,
-   queryFn: async ({ signal }) => {
+   queryFn: async ({ signal, pageParam }) => {
       config.signal = signal
-      return getAllGroups(config)
+    
+      params = {
+        ...(params ?? {}),
+        ['next_page']: pageParam as unknown as GetAllGroupsQueryParams['next_page'],
+      } as GetAllGroupsQueryParams
+      return getAllGroups(params, config)
    },
    initialPageParam: 0,
   getNextPageParam: (lastPage) => lastPage?.['pagination']?.['next']?.['cursor'],
@@ -30,11 +35,11 @@ export function getAllGroupsSuspenseInfiniteQueryOptions(config: Partial<Request
 }
 
 /**
- * @description Retrieve all exercise groups
+ * @description Retrieve exercise groups with pagination. Default page size is 20.
  * @summary Get all groups
  * {@link /api/exercise-groups}
  */
-export function useGetAllGroupsSuspenseInfinite<TQueryFnData = GetAllGroupsQueryResponse, TError = ResponseErrorConfig<Error>, TData = InfiniteData<TQueryFnData>, TQueryKey extends QueryKey = GetAllGroupsSuspenseInfiniteQueryKey, TPageParam = number>(options: 
+export function useGetAllGroupsSuspenseInfinite<TQueryFnData = GetAllGroupsQueryResponse, TError = ResponseErrorConfig<Error>, TData = InfiniteData<TQueryFnData>, TQueryKey extends QueryKey = GetAllGroupsSuspenseInfiniteQueryKey, TPageParam = NonNullable<GetAllGroupsQueryParams['next_page']>>(params: GetAllGroupsQueryParams, options: 
 {
   query?: Partial<UseSuspenseInfiniteQueryOptions<TQueryFnData, TError, TData, TQueryKey, TPageParam>> & { client?: QueryClient },
   client?: Partial<RequestConfig> & { client?: typeof fetch }
@@ -42,10 +47,10 @@ export function useGetAllGroupsSuspenseInfinite<TQueryFnData = GetAllGroupsQuery
  = {}) {
   const { query: queryConfig = {}, client: config = {} } = options ?? {}
   const { client: queryClient, ...queryOptions } = queryConfig
-  const queryKey = queryOptions?.queryKey ?? getAllGroupsSuspenseInfiniteQueryKey()
+  const queryKey = queryOptions?.queryKey ?? getAllGroupsSuspenseInfiniteQueryKey(params)
 
   const query = useSuspenseInfiniteQuery({
-   ...getAllGroupsSuspenseInfiniteQueryOptions(config),
+   ...getAllGroupsSuspenseInfiniteQueryOptions(params, config),
    queryKey,
    ...queryOptions
   } as unknown as UseSuspenseInfiniteQueryOptions<TQueryFnData, TError, TData, TQueryKey, TPageParam>, queryClient) as UseSuspenseInfiniteQueryResult<TData, TError> & { queryKey: TQueryKey }

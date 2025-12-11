@@ -4,34 +4,34 @@
 */
 
 import fetch from "@/lib/api-client";
-import type { GetAllCategoriesQueryResponse } from "../../types/exerciseCategoriesController/GetAllCategories.ts";
+import type { GetAllCategoriesQueryResponse, GetAllCategoriesQueryParams } from "../../types/exerciseCategoriesController/GetAllCategories.ts";
 import type { RequestConfig, ResponseErrorConfig } from "@/lib/api-client";
 import type { QueryKey, QueryClient, QueryObserverOptions, UseQueryResult } from "@tanstack/react-query";
 import { getAllCategories } from "../../clients/exerciseCategoriesController/getAllCategories.ts";
 import { queryOptions, useQuery } from "@tanstack/react-query";
 
-export const getAllCategoriesQueryKey = () => [{ url: '/api/exercise-categories' }] as const
+export const getAllCategoriesQueryKey = (params: GetAllCategoriesQueryParams) => [{ url: '/api/exercise-categories' }, ...(params ? [params] : [])] as const
 
 export type GetAllCategoriesQueryKey = ReturnType<typeof getAllCategoriesQueryKey>
 
-export function getAllCategoriesQueryOptions(config: Partial<RequestConfig> & { client?: typeof fetch } = {}) {
-  const queryKey = getAllCategoriesQueryKey()
+export function getAllCategoriesQueryOptions(params: GetAllCategoriesQueryParams, config: Partial<RequestConfig> & { client?: typeof fetch } = {}) {
+  const queryKey = getAllCategoriesQueryKey(params)
   return queryOptions<GetAllCategoriesQueryResponse, ResponseErrorConfig<Error>, GetAllCategoriesQueryResponse, typeof queryKey>({
- 
+   enabled: !!(params),
    queryKey,
    queryFn: async ({ signal }) => {
       config.signal = signal
-      return getAllCategories(config)
+      return getAllCategories(params, config)
    },
   })
 }
 
 /**
- * @description Retrieve all exercise categories
+ * @description Retrieve exercise categories with pagination. Default page size is 20.
  * @summary Get all categories
  * {@link /api/exercise-categories}
  */
-export function useGetAllCategories<TData = GetAllCategoriesQueryResponse, TQueryData = GetAllCategoriesQueryResponse, TQueryKey extends QueryKey = GetAllCategoriesQueryKey>(options: 
+export function useGetAllCategories<TData = GetAllCategoriesQueryResponse, TQueryData = GetAllCategoriesQueryResponse, TQueryKey extends QueryKey = GetAllCategoriesQueryKey>(params: GetAllCategoriesQueryParams, options: 
 {
   query?: Partial<QueryObserverOptions<GetAllCategoriesQueryResponse, ResponseErrorConfig<Error>, TData, TQueryData, TQueryKey>> & { client?: QueryClient },
   client?: Partial<RequestConfig> & { client?: typeof fetch }
@@ -39,10 +39,10 @@ export function useGetAllCategories<TData = GetAllCategoriesQueryResponse, TQuer
  = {}) {
   const { query: queryConfig = {}, client: config = {} } = options ?? {}
   const { client: queryClient, ...queryOptions } = queryConfig
-  const queryKey = queryOptions?.queryKey ?? getAllCategoriesQueryKey()
+  const queryKey = queryOptions?.queryKey ?? getAllCategoriesQueryKey(params)
 
   const query = useQuery({
-   ...getAllCategoriesQueryOptions(config),
+   ...getAllCategoriesQueryOptions(params, config),
    queryKey,
    ...queryOptions
   } as unknown as QueryObserverOptions, queryClient) as UseQueryResult<TData, ResponseErrorConfig<Error>> & { queryKey: TQueryKey }

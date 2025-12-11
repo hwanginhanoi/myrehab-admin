@@ -6,7 +6,6 @@
 
 export type CreateGroupRequest = {
     /**
-     * @minLength 1
      * @type string
     */
     name: string;

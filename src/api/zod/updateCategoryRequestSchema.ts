@@ -6,7 +6,7 @@
 import { z } from "zod/v4";
 
 export const updateCategoryRequestSchema = z.object({
-    "name": z.string().min(1),
+    "name": z.string(),
 "description": z.optional(z.string()),
 "type": z.enum(["BODY_PART", "RECOVERY_STAGE", "HEALTH_CONDITION", "DIFFICULTY_LEVEL", "EXERCISE_TYPE"])
     })

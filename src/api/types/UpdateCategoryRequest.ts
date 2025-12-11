@@ -16,7 +16,6 @@ export type UpdateCategoryRequestTypeEnumKey = (typeof updateCategoryRequestType
 
 export type UpdateCategoryRequest = {
     /**
-     * @minLength 1
      * @type string
     */
     name: string;

@@ -6,7 +6,6 @@
 
 export type RefreshTokenRequest = {
     /**
-     * @minLength 1
      * @type string
     */
     refreshToken: string;

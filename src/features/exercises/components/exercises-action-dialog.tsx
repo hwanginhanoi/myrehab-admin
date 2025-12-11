@@ -65,9 +65,16 @@ export function ExercisesActionDialog({
 
   const queryClient = useQueryClient()
 
-  // Fetch categories and groups for the multi-select
-  const { data: categories = [] } = useGetAllCategories()
-  const { data: groups = [] } = useGetAllGroups()
+  // Fetch categories and groups for the multi-select (fetch all without pagination for dropdowns)
+  const { data: categoriesResponse } = useGetAllCategories({
+    pageable: { page: 0, size: 1000 },
+  })
+  const { data: groupsResponse } = useGetAllGroups({
+    pageable: { page: 0, size: 1000 },
+  })
+
+  const categories = categoriesResponse?.content || []
+  const groups = groupsResponse?.content || []
 
   const categoryOptions = categories.map((cat) => ({
     label: cat.name || '',
