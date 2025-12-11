@@ -23,11 +23,9 @@ export function ExerciseGroups() {
   const pageSize = (search.pageSize as number) || 10
 
   const { data: response, isLoading } = useGetAllGroups({
-    pageable: {
-      page: page - 1, // Convert to 0-indexed for API
-      size: pageSize,
-    },
-  })
+    page: page - 1, // Convert to 0-indexed for API
+    size: pageSize,
+  } as any)
 
   const groups = response?.content || []
   const totalPages = response?.totalPages || 0

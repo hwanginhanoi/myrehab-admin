@@ -4,8 +4,8 @@ import { ExerciseCategories } from '@/features/exercise-categories'
 import { CategoryType } from '@/lib/constants/category-type'
 
 const categoriesSearchSchema = z.object({
-  page: z.number().optional().catch(1),
-  pageSize: z.number().optional().catch(10),
+  page: z.coerce.number().optional().catch(1),
+  pageSize: z.coerce.number().optional().catch(10),
   // Facet filters
   type: z
     .array(
