@@ -21,6 +21,9 @@ import {
   AudioWaveform,
   Command,
   GalleryVerticalEnd,
+  FolderTree,
+  Layers,
+  Dumbbell,
 } from 'lucide-react'
 import { type SidebarData } from '../types'
 
@@ -76,6 +79,21 @@ export const sidebarData: SidebarData = {
           title: 'Users',
           url: '/users',
           icon: Users,
+        },
+        {
+          title: 'Exercise Categories',
+          url: '/exercise-categories',
+          icon: FolderTree,
+        },
+        {
+          title: 'Exercise Groups',
+          url: '/exercise-groups',
+          icon: Layers,
+        },
+        {
+          title: 'Exercises',
+          url: '/exercises',
+          icon: Dumbbell,
         },
       ],
     },
