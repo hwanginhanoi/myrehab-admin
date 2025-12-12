@@ -27,7 +27,7 @@ export function getAllCategoriesQueryOptions(params: GetAllCategoriesQueryParams
 }
 
 /**
- * @description Retrieve exercise categories with pagination. Default page size is 20.
+ * @description Retrieve exercise categories with pagination. Default page size is 20. Sorted by newest first.
  * @summary Get all categories
  * {@link /api/exercise-categories}
  */

@@ -4,7 +4,7 @@
 */
 
 import fetch from "@/lib/api-client";
-import type { GetExercisesByCategoryQueryResponse, GetExercisesByCategoryPathParams } from "../../types/exercisesController/GetExercisesByCategory.ts";
+import type { GetExercisesByCategoryQueryResponse, GetExercisesByCategoryPathParams, GetExercisesByCategoryQueryParams } from "../../types/exercisesController/GetExercisesByCategory.ts";
 import type { RequestConfig, ResponseErrorConfig } from "@/lib/api-client";
 
 function getGetExercisesByCategoryUrl({ categoryId }: { categoryId: GetExercisesByCategoryPathParams["categoryId"] }) {
@@ -17,9 +17,9 @@ function getGetExercisesByCategoryUrl({ categoryId }: { categoryId: GetExercises
  * @summary Get exercises by category
  * {@link /api/exercises/category/:categoryId}
  */
-export async function getExercisesByCategory({ categoryId }: { categoryId: GetExercisesByCategoryPathParams["categoryId"] }, config: Partial<RequestConfig> & { client?: typeof fetch } = {}) {
+export async function getExercisesByCategory({ categoryId }: { categoryId: GetExercisesByCategoryPathParams["categoryId"] }, params: GetExercisesByCategoryQueryParams, config: Partial<RequestConfig> & { client?: typeof fetch } = {}) {
   const { client: request = fetch, ...requestConfig } = config  
   
-  const res = await request<GetExercisesByCategoryQueryResponse, ResponseErrorConfig<Error>, unknown>({ method : "GET", url : getGetExercisesByCategoryUrl({ categoryId }).url.toString(), ... requestConfig })  
+  const res = await request<GetExercisesByCategoryQueryResponse, ResponseErrorConfig<Error>, unknown>({ method : "GET", url : getGetExercisesByCategoryUrl({ categoryId }).url.toString(), params, ... requestConfig })  
   return res.data
 }

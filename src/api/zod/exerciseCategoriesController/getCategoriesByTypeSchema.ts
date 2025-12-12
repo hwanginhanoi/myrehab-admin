@@ -3,16 +3,23 @@
 * Do not edit manually.
 */
 
-import { categoryResponseSchema } from "../categoryResponseSchema.ts";
+import { pageableSchema } from "../pageableSchema.ts";
+import { pageCategoryResponseSchema } from "../pageCategoryResponseSchema.ts";
 import { z } from "zod/v4";
 
 export const getCategoriesByTypePathParamsSchema = z.object({
     "type": z.enum(["BODY_PART", "RECOVERY_STAGE", "HEALTH_CONDITION", "DIFFICULTY_LEVEL", "EXERCISE_TYPE"]).describe("Category type")
     })
 
+export const getCategoriesByTypeQueryParamsSchema = z.object({
+    get "pageable"(){
+                return pageableSchema
+              }
+    })
+
 /**
  * @description OK
  */
-export const getCategoriesByType200Schema = z.array(z.lazy(() => categoryResponseSchema))
+export const getCategoriesByType200Schema = z.lazy(() => pageCategoryResponseSchema)
 
 export const getCategoriesByTypeQueryResponseSchema = z.lazy(() => getCategoriesByType200Schema)

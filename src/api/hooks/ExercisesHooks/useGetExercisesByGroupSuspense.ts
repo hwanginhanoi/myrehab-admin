@@ -4,24 +4,24 @@
 */
 
 import fetch from "@/lib/api-client";
-import type { GetExercisesByGroupQueryResponse, GetExercisesByGroupPathParams } from "../../types/exercisesController/GetExercisesByGroup.ts";
+import type { GetExercisesByGroupQueryResponse, GetExercisesByGroupPathParams, GetExercisesByGroupQueryParams } from "../../types/exercisesController/GetExercisesByGroup.ts";
 import type { RequestConfig, ResponseErrorConfig } from "@/lib/api-client";
 import type { QueryKey, QueryClient, UseSuspenseQueryOptions, UseSuspenseQueryResult } from "@tanstack/react-query";
 import { getExercisesByGroup } from "../../clients/exercisesController/getExercisesByGroup.ts";
 import { queryOptions, useSuspenseQuery } from "@tanstack/react-query";
 
-export const getExercisesByGroupSuspenseQueryKey = (groupId: GetExercisesByGroupPathParams["groupId"]) => [{ url: '/api/exercises/group/:groupId', params: {groupId:groupId} }] as const
+export const getExercisesByGroupSuspenseQueryKey = (groupId: GetExercisesByGroupPathParams["groupId"], params: GetExercisesByGroupQueryParams) => [{ url: '/api/exercises/group/:groupId', params: {groupId:groupId} }, ...(params ? [params] : [])] as const
 
 export type GetExercisesByGroupSuspenseQueryKey = ReturnType<typeof getExercisesByGroupSuspenseQueryKey>
 
-export function getExercisesByGroupSuspenseQueryOptions(groupId: GetExercisesByGroupPathParams["groupId"], config: Partial<RequestConfig> & { client?: typeof fetch } = {}) {
-  const queryKey = getExercisesByGroupSuspenseQueryKey(groupId)
+export function getExercisesByGroupSuspenseQueryOptions(groupId: GetExercisesByGroupPathParams["groupId"], params: GetExercisesByGroupQueryParams, config: Partial<RequestConfig> & { client?: typeof fetch } = {}) {
+  const queryKey = getExercisesByGroupSuspenseQueryKey(groupId, params)
   return queryOptions<GetExercisesByGroupQueryResponse, ResponseErrorConfig<Error>, GetExercisesByGroupQueryResponse, typeof queryKey>({
-   enabled: !!(groupId),
+   enabled: !!(groupId&& params),
    queryKey,
    queryFn: async ({ signal }) => {
       config.signal = signal
-      return getExercisesByGroup(groupId, config)
+      return getExercisesByGroup(groupId, params, config)
    },
   })
 }
@@ -31,7 +31,7 @@ export function getExercisesByGroupSuspenseQueryOptions(groupId: GetExercisesByG
  * @summary Get exercises by group
  * {@link /api/exercises/group/:groupId}
  */
-export function useGetExercisesByGroupSuspense<TData = GetExercisesByGroupQueryResponse, TQueryKey extends QueryKey = GetExercisesByGroupSuspenseQueryKey>(groupId: GetExercisesByGroupPathParams["groupId"], options: 
+export function useGetExercisesByGroupSuspense<TData = GetExercisesByGroupQueryResponse, TQueryKey extends QueryKey = GetExercisesByGroupSuspenseQueryKey>(groupId: GetExercisesByGroupPathParams["groupId"], params: GetExercisesByGroupQueryParams, options: 
 {
   query?: Partial<UseSuspenseQueryOptions<GetExercisesByGroupQueryResponse, ResponseErrorConfig<Error>, TData, TQueryKey>> & { client?: QueryClient },
   client?: Partial<RequestConfig> & { client?: typeof fetch }
@@ -39,10 +39,10 @@ export function useGetExercisesByGroupSuspense<TData = GetExercisesByGroupQueryR
  = {}) {
   const { query: queryConfig = {}, client: config = {} } = options ?? {}
   const { client: queryClient, ...queryOptions } = queryConfig
-  const queryKey = queryOptions?.queryKey ?? getExercisesByGroupSuspenseQueryKey(groupId)
+  const queryKey = queryOptions?.queryKey ?? getExercisesByGroupSuspenseQueryKey(groupId, params)
 
   const query = useSuspenseQuery({
-   ...getExercisesByGroupSuspenseQueryOptions(groupId, config),
+   ...getExercisesByGroupSuspenseQueryOptions(groupId, params, config),
    queryKey,
    ...queryOptions
   } as unknown as UseSuspenseQueryOptions, queryClient) as UseSuspenseQueryResult<TData, ResponseErrorConfig<Error>> & { queryKey: TQueryKey }

@@ -3,17 +3,21 @@
 * Do not edit manually.
 */
 
-import { exerciseResponseSchema } from "../exerciseResponseSchema.ts";
+import { pageableSchema } from "../pageableSchema.ts";
+import { pageExerciseResponseSchema } from "../pageExerciseResponseSchema.ts";
 import { z } from "zod/v4";
 
 export const getExercisesByDurationRangeQueryParamsSchema = z.object({
     "minDuration": z.coerce.number().int().describe("Minimum duration in minutes"),
-"maxDuration": z.coerce.number().int().describe("Maximum duration in minutes")
+"maxDuration": z.coerce.number().int().describe("Maximum duration in minutes"),
+get "pageable"(){
+                return pageableSchema
+              }
     })
 
 /**
  * @description OK
  */
-export const getExercisesByDurationRange200Schema = z.array(z.lazy(() => exerciseResponseSchema))
+export const getExercisesByDurationRange200Schema = z.lazy(() => pageExerciseResponseSchema)
 
 export const getExercisesByDurationRangeQueryResponseSchema = z.lazy(() => getExercisesByDurationRange200Schema)

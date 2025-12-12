@@ -24,15 +24,25 @@ import {
 import { DataTablePagination, DataTableToolbar } from '@/components/data-table'
 import type { ExerciseResponse } from '@/api'
 import { exercisesColumns as columns } from './exercises-columns'
+import { ExercisesCategoryFilter } from './exercises-category-filter'
 
 type DataTableProps = {
   data: ExerciseResponse[]
   search: Record<string, unknown>
   navigate: NavigateFn
   pageCount: number
+  categoryId?: number
+  onCategoryIdChange: (id: number | undefined) => void
 }
 
-export function ExercisesTable({ data, search, navigate, pageCount }: DataTableProps) {
+export function ExercisesTable({
+  data,
+  search,
+  navigate,
+  pageCount,
+  categoryId,
+  onCategoryIdChange,
+}: DataTableProps) {
   // Local UI-only states
   const [rowSelection, setRowSelection] = useState({})
   const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({})
@@ -91,12 +101,18 @@ export function ExercisesTable({ data, search, navigate, pageCount }: DataTableP
         'flex flex-1 flex-col gap-4'
       )}
     >
-      <DataTableToolbar
-        table={table}
-        searchPlaceholder='Tìm kiếm bài tập...'
-        searchKey='title'
-        filters={[]}
-      />
+      <div className='flex flex-wrap items-center gap-2'>
+        <ExercisesCategoryFilter
+          categoryId={categoryId}
+          onCategoryIdChange={onCategoryIdChange}
+        />
+        <DataTableToolbar
+          table={table}
+          searchPlaceholder='Tìm kiếm bài tập...'
+          searchKey='title'
+          filters={[]}
+        />
+      </div>
       <div className='overflow-hidden rounded-md border'>
         <Table>
           <TableHeader>

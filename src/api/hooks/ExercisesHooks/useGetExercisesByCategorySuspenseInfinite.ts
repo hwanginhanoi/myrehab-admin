@@ -4,24 +4,29 @@
 */
 
 import fetch from "@/lib/api-client";
-import type { GetExercisesByCategoryQueryResponse, GetExercisesByCategoryPathParams } from "../../types/exercisesController/GetExercisesByCategory.ts";
+import type { GetExercisesByCategoryQueryResponse, GetExercisesByCategoryPathParams, GetExercisesByCategoryQueryParams } from "../../types/exercisesController/GetExercisesByCategory.ts";
 import type { RequestConfig, ResponseErrorConfig } from "@/lib/api-client";
 import type { InfiniteData, QueryKey, QueryClient, UseSuspenseInfiniteQueryOptions, UseSuspenseInfiniteQueryResult } from "@tanstack/react-query";
 import { getExercisesByCategory } from "../../clients/exercisesController/getExercisesByCategory.ts";
 import { infiniteQueryOptions, useSuspenseInfiniteQuery } from "@tanstack/react-query";
 
-export const getExercisesByCategorySuspenseInfiniteQueryKey = (categoryId: GetExercisesByCategoryPathParams["categoryId"]) => [{ url: '/api/exercises/category/:categoryId', params: {categoryId:categoryId} }] as const
+export const getExercisesByCategorySuspenseInfiniteQueryKey = (categoryId: GetExercisesByCategoryPathParams["categoryId"], params: GetExercisesByCategoryQueryParams) => [{ url: '/api/exercises/category/:categoryId', params: {categoryId:categoryId} }, ...(params ? [params] : [])] as const
 
 export type GetExercisesByCategorySuspenseInfiniteQueryKey = ReturnType<typeof getExercisesByCategorySuspenseInfiniteQueryKey>
 
-export function getExercisesByCategorySuspenseInfiniteQueryOptions(categoryId: GetExercisesByCategoryPathParams["categoryId"], config: Partial<RequestConfig> & { client?: typeof fetch } = {}) {
-  const queryKey = getExercisesByCategorySuspenseInfiniteQueryKey(categoryId)
-  return infiniteQueryOptions<GetExercisesByCategoryQueryResponse, ResponseErrorConfig<Error>, InfiniteData<GetExercisesByCategoryQueryResponse>, typeof queryKey, number>({
-   enabled: !!(categoryId),
+export function getExercisesByCategorySuspenseInfiniteQueryOptions(categoryId: GetExercisesByCategoryPathParams["categoryId"], params: GetExercisesByCategoryQueryParams, config: Partial<RequestConfig> & { client?: typeof fetch } = {}) {
+  const queryKey = getExercisesByCategorySuspenseInfiniteQueryKey(categoryId, params)
+  return infiniteQueryOptions<GetExercisesByCategoryQueryResponse, ResponseErrorConfig<Error>, InfiniteData<GetExercisesByCategoryQueryResponse>, typeof queryKey, NonNullable<GetExercisesByCategoryQueryParams['next_page']>>({
+   enabled: !!(categoryId&& params),
    queryKey,
-   queryFn: async ({ signal }) => {
+   queryFn: async ({ signal, pageParam }) => {
       config.signal = signal
-      return getExercisesByCategory(categoryId, config)
+    
+      params = {
+        ...(params ?? {}),
+        ['next_page']: pageParam as unknown as GetExercisesByCategoryQueryParams['next_page'],
+      } as GetExercisesByCategoryQueryParams
+      return getExercisesByCategory(categoryId, params, config)
    },
    initialPageParam: 0,
   getNextPageParam: (lastPage) => lastPage?.['pagination']?.['next']?.['cursor'],
@@ -34,7 +39,7 @@ export function getExercisesByCategorySuspenseInfiniteQueryOptions(categoryId: G
  * @summary Get exercises by category
  * {@link /api/exercises/category/:categoryId}
  */
-export function useGetExercisesByCategorySuspenseInfinite<TQueryFnData = GetExercisesByCategoryQueryResponse, TError = ResponseErrorConfig<Error>, TData = InfiniteData<TQueryFnData>, TQueryKey extends QueryKey = GetExercisesByCategorySuspenseInfiniteQueryKey, TPageParam = number>(categoryId: GetExercisesByCategoryPathParams["categoryId"], options: 
+export function useGetExercisesByCategorySuspenseInfinite<TQueryFnData = GetExercisesByCategoryQueryResponse, TError = ResponseErrorConfig<Error>, TData = InfiniteData<TQueryFnData>, TQueryKey extends QueryKey = GetExercisesByCategorySuspenseInfiniteQueryKey, TPageParam = NonNullable<GetExercisesByCategoryQueryParams['next_page']>>(categoryId: GetExercisesByCategoryPathParams["categoryId"], params: GetExercisesByCategoryQueryParams, options: 
 {
   query?: Partial<UseSuspenseInfiniteQueryOptions<TQueryFnData, TError, TData, TQueryKey, TPageParam>> & { client?: QueryClient },
   client?: Partial<RequestConfig> & { client?: typeof fetch }
@@ -42,10 +47,10 @@ export function useGetExercisesByCategorySuspenseInfinite<TQueryFnData = GetExer
  = {}) {
   const { query: queryConfig = {}, client: config = {} } = options ?? {}
   const { client: queryClient, ...queryOptions } = queryConfig
-  const queryKey = queryOptions?.queryKey ?? getExercisesByCategorySuspenseInfiniteQueryKey(categoryId)
+  const queryKey = queryOptions?.queryKey ?? getExercisesByCategorySuspenseInfiniteQueryKey(categoryId, params)
 
   const query = useSuspenseInfiniteQuery({
-   ...getExercisesByCategorySuspenseInfiniteQueryOptions(categoryId, config),
+   ...getExercisesByCategorySuspenseInfiniteQueryOptions(categoryId, params, config),
    queryKey,
    ...queryOptions
   } as unknown as UseSuspenseInfiniteQueryOptions<TQueryFnData, TError, TData, TQueryKey, TPageParam>, queryClient) as UseSuspenseInfiniteQueryResult<TData, TError> & { queryKey: TQueryKey }

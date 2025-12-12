@@ -3,7 +3,8 @@
 * Do not edit manually.
 */
 
-import type { ExerciseResponse } from "../ExerciseResponse.ts";
+import type { Pageable } from "../Pageable.ts";
+import type { PageExerciseResponse } from "../PageExerciseResponse.ts";
 
 export type GetExercisesByGroupPathParams = {
     /**
@@ -13,15 +14,23 @@ export type GetExercisesByGroupPathParams = {
     groupId: number;
 };
 
+export type GetExercisesByGroupQueryParams = {
+    /**
+     * @type object
+    */
+    pageable: Pageable;
+};
+
 /**
  * @description OK
 */
-export type GetExercisesByGroup200 = ExerciseResponse[];
+export type GetExercisesByGroup200 = PageExerciseResponse;
 
 export type GetExercisesByGroupQueryResponse = GetExercisesByGroup200;
 
 export type GetExercisesByGroupQuery = {
     Response: GetExercisesByGroup200;
     PathParams: GetExercisesByGroupPathParams;
+    QueryParams: GetExercisesByGroupQueryParams;
     Errors: any;
 };

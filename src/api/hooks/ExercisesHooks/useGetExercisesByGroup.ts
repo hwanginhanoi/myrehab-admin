@@ -4,24 +4,24 @@
 */
 
 import fetch from "@/lib/api-client";
-import type { GetExercisesByGroupQueryResponse, GetExercisesByGroupPathParams } from "../../types/exercisesController/GetExercisesByGroup.ts";
+import type { GetExercisesByGroupQueryResponse, GetExercisesByGroupPathParams, GetExercisesByGroupQueryParams } from "../../types/exercisesController/GetExercisesByGroup.ts";
 import type { RequestConfig, ResponseErrorConfig } from "@/lib/api-client";
 import type { QueryKey, QueryClient, QueryObserverOptions, UseQueryResult } from "@tanstack/react-query";
 import { getExercisesByGroup } from "../../clients/exercisesController/getExercisesByGroup.ts";
 import { queryOptions, useQuery } from "@tanstack/react-query";
 
-export const getExercisesByGroupQueryKey = (groupId: GetExercisesByGroupPathParams["groupId"]) => [{ url: '/api/exercises/group/:groupId', params: {groupId:groupId} }] as const
+export const getExercisesByGroupQueryKey = (groupId: GetExercisesByGroupPathParams["groupId"], params: GetExercisesByGroupQueryParams) => [{ url: '/api/exercises/group/:groupId', params: {groupId:groupId} }, ...(params ? [params] : [])] as const
 
 export type GetExercisesByGroupQueryKey = ReturnType<typeof getExercisesByGroupQueryKey>
 
-export function getExercisesByGroupQueryOptions(groupId: GetExercisesByGroupPathParams["groupId"], config: Partial<RequestConfig> & { client?: typeof fetch } = {}) {
-  const queryKey = getExercisesByGroupQueryKey(groupId)
+export function getExercisesByGroupQueryOptions(groupId: GetExercisesByGroupPathParams["groupId"], params: GetExercisesByGroupQueryParams, config: Partial<RequestConfig> & { client?: typeof fetch } = {}) {
+  const queryKey = getExercisesByGroupQueryKey(groupId, params)
   return queryOptions<GetExercisesByGroupQueryResponse, ResponseErrorConfig<Error>, GetExercisesByGroupQueryResponse, typeof queryKey>({
-   enabled: !!(groupId),
+   enabled: !!(groupId&& params),
    queryKey,
    queryFn: async ({ signal }) => {
       config.signal = signal
-      return getExercisesByGroup(groupId, config)
+      return getExercisesByGroup(groupId, params, config)
    },
   })
 }
@@ -31,7 +31,7 @@ export function getExercisesByGroupQueryOptions(groupId: GetExercisesByGroupPath
  * @summary Get exercises by group
  * {@link /api/exercises/group/:groupId}
  */
-export function useGetExercisesByGroup<TData = GetExercisesByGroupQueryResponse, TQueryData = GetExercisesByGroupQueryResponse, TQueryKey extends QueryKey = GetExercisesByGroupQueryKey>(groupId: GetExercisesByGroupPathParams["groupId"], options: 
+export function useGetExercisesByGroup<TData = GetExercisesByGroupQueryResponse, TQueryData = GetExercisesByGroupQueryResponse, TQueryKey extends QueryKey = GetExercisesByGroupQueryKey>(groupId: GetExercisesByGroupPathParams["groupId"], params: GetExercisesByGroupQueryParams, options: 
 {
   query?: Partial<QueryObserverOptions<GetExercisesByGroupQueryResponse, ResponseErrorConfig<Error>, TData, TQueryData, TQueryKey>> & { client?: QueryClient },
   client?: Partial<RequestConfig> & { client?: typeof fetch }
@@ -39,10 +39,10 @@ export function useGetExercisesByGroup<TData = GetExercisesByGroupQueryResponse,
  = {}) {
   const { query: queryConfig = {}, client: config = {} } = options ?? {}
   const { client: queryClient, ...queryOptions } = queryConfig
-  const queryKey = queryOptions?.queryKey ?? getExercisesByGroupQueryKey(groupId)
+  const queryKey = queryOptions?.queryKey ?? getExercisesByGroupQueryKey(groupId, params)
 
   const query = useQuery({
-   ...getExercisesByGroupQueryOptions(groupId, config),
+   ...getExercisesByGroupQueryOptions(groupId, params, config),
    queryKey,
    ...queryOptions
   } as unknown as QueryObserverOptions, queryClient) as UseQueryResult<TData, ResponseErrorConfig<Error>> & { queryKey: TQueryKey }

@@ -4,7 +4,7 @@
 */
 
 import fetch from "@/lib/api-client";
-import type { GetCategoriesByTypeQueryResponse, GetCategoriesByTypePathParams } from "../../types/exerciseCategoriesController/GetCategoriesByType.ts";
+import type { GetCategoriesByTypeQueryResponse, GetCategoriesByTypePathParams, GetCategoriesByTypeQueryParams } from "../../types/exerciseCategoriesController/GetCategoriesByType.ts";
 import type { RequestConfig, ResponseErrorConfig } from "@/lib/api-client";
 
 function getGetCategoriesByTypeUrl({ type }: { type: GetCategoriesByTypePathParams["type"] }) {
@@ -17,9 +17,9 @@ function getGetCategoriesByTypeUrl({ type }: { type: GetCategoriesByTypePathPara
  * @summary Get categories by type
  * {@link /api/exercise-categories/type/:type}
  */
-export async function getCategoriesByType({ type }: { type: GetCategoriesByTypePathParams["type"] }, config: Partial<RequestConfig> & { client?: typeof fetch } = {}) {
+export async function getCategoriesByType({ type }: { type: GetCategoriesByTypePathParams["type"] }, params: GetCategoriesByTypeQueryParams, config: Partial<RequestConfig> & { client?: typeof fetch } = {}) {
   const { client: request = fetch, ...requestConfig } = config  
   
-  const res = await request<GetCategoriesByTypeQueryResponse, ResponseErrorConfig<Error>, unknown>({ method : "GET", url : getGetCategoriesByTypeUrl({ type }).url.toString(), ... requestConfig })  
+  const res = await request<GetCategoriesByTypeQueryResponse, ResponseErrorConfig<Error>, unknown>({ method : "GET", url : getGetCategoriesByTypeUrl({ type }).url.toString(), params, ... requestConfig })  
   return res.data
 }

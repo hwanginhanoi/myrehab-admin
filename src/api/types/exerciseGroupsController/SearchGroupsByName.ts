@@ -3,7 +3,8 @@
 * Do not edit manually.
 */
 
-import type { GroupResponse } from "../GroupResponse.ts";
+import type { Pageable } from "../Pageable.ts";
+import type { PageGroupResponse } from "../PageGroupResponse.ts";
 
 export type SearchGroupsByNameQueryParams = {
     /**
@@ -11,12 +12,16 @@ export type SearchGroupsByNameQueryParams = {
      * @type string
     */
     query: string;
+    /**
+     * @type object
+    */
+    pageable: Pageable;
 };
 
 /**
  * @description OK
 */
-export type SearchGroupsByName200 = GroupResponse[];
+export type SearchGroupsByName200 = PageGroupResponse;
 
 export type SearchGroupsByNameQueryResponse = SearchGroupsByName200;
 

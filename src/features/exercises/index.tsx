@@ -1,3 +1,4 @@
+import { useMemo } from 'react'
 import { getRouteApi } from '@tanstack/react-router'
 import { ConfigDrawer } from '@/components/config-drawer'
 import { Header } from '@/components/layout/header'
@@ -19,14 +20,53 @@ export function Exercises() {
   // Note: URL uses 1-indexed pages, but API expects 0-indexed
   const page = (search.page as number) || 1
   const pageSize = (search.pageSize as number) || 10
+  const categoryId = search.categoryId as number | undefined
 
-  const { data: response, isLoading } = useGetAllExercises({
-    page: page - 1, // Convert to 0-indexed for API
-    size: pageSize,
+  // Always fetch all exercises - we'll filter client-side
+  const { data: allExercisesResponse, isLoading } = useGetAllExercises({
+    page: 0,
+    size: 10000, // Fetch all exercises for client-side filtering
   } as any)
 
-  const exercises = response?.content || []
-  const totalPages = response?.totalPages || 0
+  const allExercises = allExercisesResponse?.content || []
+
+  // Filter exercises by category (client-side)
+  const filteredExercises = useMemo(() => {
+    if (!categoryId) return allExercises
+
+    // Filter exercises that have the selected category
+    return allExercises.filter((exercise) => {
+      return exercise.categories?.some((cat) => cat.id === categoryId)
+    })
+  }, [allExercises, categoryId])
+
+  // Paginate the filtered results
+  const exercises = useMemo(() => {
+    const startIndex = (page - 1) * pageSize
+    const endIndex = startIndex + pageSize
+    return filteredExercises.slice(startIndex, endIndex)
+  }, [filteredExercises, page, pageSize])
+
+  const totalPages = useMemo(() => {
+    return Math.ceil(filteredExercises.length / pageSize)
+  }, [filteredExercises, pageSize])
+
+  // Handler for category filter
+  const handleCategoryIdChange = (id: number | undefined) => {
+    navigate({
+      search: (prev) => {
+        const newSearch = { ...prev, page: 1 }
+
+        if (id !== undefined && id !== null) {
+          newSearch.categoryId = id
+        } else {
+          delete newSearch.categoryId
+        }
+
+        return newSearch
+      },
+    })
+  }
 
   return (
     <>
@@ -59,6 +99,8 @@ export function Exercises() {
             search={search}
             navigate={navigate}
             pageCount={totalPages}
+            categoryId={categoryId}
+            onCategoryIdChange={handleCategoryIdChange}
           />
         )}
       </Main>

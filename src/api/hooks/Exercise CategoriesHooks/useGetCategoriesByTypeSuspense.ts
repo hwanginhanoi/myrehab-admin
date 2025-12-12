@@ -4,24 +4,24 @@
 */
 
 import fetch from "@/lib/api-client";
-import type { GetCategoriesByTypeQueryResponse, GetCategoriesByTypePathParams } from "../../types/exerciseCategoriesController/GetCategoriesByType.ts";
+import type { GetCategoriesByTypeQueryResponse, GetCategoriesByTypePathParams, GetCategoriesByTypeQueryParams } from "../../types/exerciseCategoriesController/GetCategoriesByType.ts";
 import type { RequestConfig, ResponseErrorConfig } from "@/lib/api-client";
 import type { QueryKey, QueryClient, UseSuspenseQueryOptions, UseSuspenseQueryResult } from "@tanstack/react-query";
 import { getCategoriesByType } from "../../clients/exerciseCategoriesController/getCategoriesByType.ts";
 import { queryOptions, useSuspenseQuery } from "@tanstack/react-query";
 
-export const getCategoriesByTypeSuspenseQueryKey = (type: GetCategoriesByTypePathParams["type"]) => [{ url: '/api/exercise-categories/type/:type', params: {type:type} }] as const
+export const getCategoriesByTypeSuspenseQueryKey = (type: GetCategoriesByTypePathParams["type"], params: GetCategoriesByTypeQueryParams) => [{ url: '/api/exercise-categories/type/:type', params: {type:type} }, ...(params ? [params] : [])] as const
 
 export type GetCategoriesByTypeSuspenseQueryKey = ReturnType<typeof getCategoriesByTypeSuspenseQueryKey>
 
-export function getCategoriesByTypeSuspenseQueryOptions(type: GetCategoriesByTypePathParams["type"], config: Partial<RequestConfig> & { client?: typeof fetch } = {}) {
-  const queryKey = getCategoriesByTypeSuspenseQueryKey(type)
+export function getCategoriesByTypeSuspenseQueryOptions(type: GetCategoriesByTypePathParams["type"], params: GetCategoriesByTypeQueryParams, config: Partial<RequestConfig> & { client?: typeof fetch } = {}) {
+  const queryKey = getCategoriesByTypeSuspenseQueryKey(type, params)
   return queryOptions<GetCategoriesByTypeQueryResponse, ResponseErrorConfig<Error>, GetCategoriesByTypeQueryResponse, typeof queryKey>({
-   enabled: !!(type),
+   enabled: !!(type&& params),
    queryKey,
    queryFn: async ({ signal }) => {
       config.signal = signal
-      return getCategoriesByType(type, config)
+      return getCategoriesByType(type, params, config)
    },
   })
 }
@@ -31,7 +31,7 @@ export function getCategoriesByTypeSuspenseQueryOptions(type: GetCategoriesByTyp
  * @summary Get categories by type
  * {@link /api/exercise-categories/type/:type}
  */
-export function useGetCategoriesByTypeSuspense<TData = GetCategoriesByTypeQueryResponse, TQueryKey extends QueryKey = GetCategoriesByTypeSuspenseQueryKey>(type: GetCategoriesByTypePathParams["type"], options: 
+export function useGetCategoriesByTypeSuspense<TData = GetCategoriesByTypeQueryResponse, TQueryKey extends QueryKey = GetCategoriesByTypeSuspenseQueryKey>(type: GetCategoriesByTypePathParams["type"], params: GetCategoriesByTypeQueryParams, options: 
 {
   query?: Partial<UseSuspenseQueryOptions<GetCategoriesByTypeQueryResponse, ResponseErrorConfig<Error>, TData, TQueryKey>> & { client?: QueryClient },
   client?: Partial<RequestConfig> & { client?: typeof fetch }
@@ -39,10 +39,10 @@ export function useGetCategoriesByTypeSuspense<TData = GetCategoriesByTypeQueryR
  = {}) {
   const { query: queryConfig = {}, client: config = {} } = options ?? {}
   const { client: queryClient, ...queryOptions } = queryConfig
-  const queryKey = queryOptions?.queryKey ?? getCategoriesByTypeSuspenseQueryKey(type)
+  const queryKey = queryOptions?.queryKey ?? getCategoriesByTypeSuspenseQueryKey(type, params)
 
   const query = useSuspenseQuery({
-   ...getCategoriesByTypeSuspenseQueryOptions(type, config),
+   ...getCategoriesByTypeSuspenseQueryOptions(type, params, config),
    queryKey,
    ...queryOptions
   } as unknown as UseSuspenseQueryOptions, queryClient) as UseSuspenseQueryResult<TData, ResponseErrorConfig<Error>> & { queryKey: TQueryKey }

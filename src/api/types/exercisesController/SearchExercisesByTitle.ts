@@ -3,7 +3,8 @@
 * Do not edit manually.
 */
 
-import type { ExerciseResponse } from "../ExerciseResponse.ts";
+import type { Pageable } from "../Pageable.ts";
+import type { PageExerciseResponse } from "../PageExerciseResponse.ts";
 
 export type SearchExercisesByTitleQueryParams = {
     /**
@@ -11,12 +12,16 @@ export type SearchExercisesByTitleQueryParams = {
      * @type string
     */
     query: string;
+    /**
+     * @type object
+    */
+    pageable: Pageable;
 };
 
 /**
  * @description OK
 */
-export type SearchExercisesByTitle200 = ExerciseResponse[];
+export type SearchExercisesByTitle200 = PageExerciseResponse;
 
 export type SearchExercisesByTitleQueryResponse = SearchExercisesByTitle200;
 

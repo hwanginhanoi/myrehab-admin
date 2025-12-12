@@ -4,24 +4,29 @@
 */
 
 import fetch from "@/lib/api-client";
-import type { GetExercisesByGroupQueryResponse, GetExercisesByGroupPathParams } from "../../types/exercisesController/GetExercisesByGroup.ts";
+import type { GetExercisesByGroupQueryResponse, GetExercisesByGroupPathParams, GetExercisesByGroupQueryParams } from "../../types/exercisesController/GetExercisesByGroup.ts";
 import type { RequestConfig, ResponseErrorConfig } from "@/lib/api-client";
 import type { InfiniteData, QueryKey, QueryClient, UseSuspenseInfiniteQueryOptions, UseSuspenseInfiniteQueryResult } from "@tanstack/react-query";
 import { getExercisesByGroup } from "../../clients/exercisesController/getExercisesByGroup.ts";
 import { infiniteQueryOptions, useSuspenseInfiniteQuery } from "@tanstack/react-query";
 
-export const getExercisesByGroupSuspenseInfiniteQueryKey = (groupId: GetExercisesByGroupPathParams["groupId"]) => [{ url: '/api/exercises/group/:groupId', params: {groupId:groupId} }] as const
+export const getExercisesByGroupSuspenseInfiniteQueryKey = (groupId: GetExercisesByGroupPathParams["groupId"], params: GetExercisesByGroupQueryParams) => [{ url: '/api/exercises/group/:groupId', params: {groupId:groupId} }, ...(params ? [params] : [])] as const
 
 export type GetExercisesByGroupSuspenseInfiniteQueryKey = ReturnType<typeof getExercisesByGroupSuspenseInfiniteQueryKey>
 
-export function getExercisesByGroupSuspenseInfiniteQueryOptions(groupId: GetExercisesByGroupPathParams["groupId"], config: Partial<RequestConfig> & { client?: typeof fetch } = {}) {
-  const queryKey = getExercisesByGroupSuspenseInfiniteQueryKey(groupId)
-  return infiniteQueryOptions<GetExercisesByGroupQueryResponse, ResponseErrorConfig<Error>, InfiniteData<GetExercisesByGroupQueryResponse>, typeof queryKey, number>({
-   enabled: !!(groupId),
+export function getExercisesByGroupSuspenseInfiniteQueryOptions(groupId: GetExercisesByGroupPathParams["groupId"], params: GetExercisesByGroupQueryParams, config: Partial<RequestConfig> & { client?: typeof fetch } = {}) {
+  const queryKey = getExercisesByGroupSuspenseInfiniteQueryKey(groupId, params)
+  return infiniteQueryOptions<GetExercisesByGroupQueryResponse, ResponseErrorConfig<Error>, InfiniteData<GetExercisesByGroupQueryResponse>, typeof queryKey, NonNullable<GetExercisesByGroupQueryParams['next_page']>>({
+   enabled: !!(groupId&& params),
    queryKey,
-   queryFn: async ({ signal }) => {
+   queryFn: async ({ signal, pageParam }) => {
       config.signal = signal
-      return getExercisesByGroup(groupId, config)
+    
+      params = {
+        ...(params ?? {}),
+        ['next_page']: pageParam as unknown as GetExercisesByGroupQueryParams['next_page'],
+      } as GetExercisesByGroupQueryParams
+      return getExercisesByGroup(groupId, params, config)
    },
    initialPageParam: 0,
   getNextPageParam: (lastPage) => lastPage?.['pagination']?.['next']?.['cursor'],
@@ -34,7 +39,7 @@ export function getExercisesByGroupSuspenseInfiniteQueryOptions(groupId: GetExer
  * @summary Get exercises by group
  * {@link /api/exercises/group/:groupId}
  */
-export function useGetExercisesByGroupSuspenseInfinite<TQueryFnData = GetExercisesByGroupQueryResponse, TError = ResponseErrorConfig<Error>, TData = InfiniteData<TQueryFnData>, TQueryKey extends QueryKey = GetExercisesByGroupSuspenseInfiniteQueryKey, TPageParam = number>(groupId: GetExercisesByGroupPathParams["groupId"], options: 
+export function useGetExercisesByGroupSuspenseInfinite<TQueryFnData = GetExercisesByGroupQueryResponse, TError = ResponseErrorConfig<Error>, TData = InfiniteData<TQueryFnData>, TQueryKey extends QueryKey = GetExercisesByGroupSuspenseInfiniteQueryKey, TPageParam = NonNullable<GetExercisesByGroupQueryParams['next_page']>>(groupId: GetExercisesByGroupPathParams["groupId"], params: GetExercisesByGroupQueryParams, options: 
 {
   query?: Partial<UseSuspenseInfiniteQueryOptions<TQueryFnData, TError, TData, TQueryKey, TPageParam>> & { client?: QueryClient },
   client?: Partial<RequestConfig> & { client?: typeof fetch }
@@ -42,10 +47,10 @@ export function useGetExercisesByGroupSuspenseInfinite<TQueryFnData = GetExercis
  = {}) {
   const { query: queryConfig = {}, client: config = {} } = options ?? {}
   const { client: queryClient, ...queryOptions } = queryConfig
-  const queryKey = queryOptions?.queryKey ?? getExercisesByGroupSuspenseInfiniteQueryKey(groupId)
+  const queryKey = queryOptions?.queryKey ?? getExercisesByGroupSuspenseInfiniteQueryKey(groupId, params)
 
   const query = useSuspenseInfiniteQuery({
-   ...getExercisesByGroupSuspenseInfiniteQueryOptions(groupId, config),
+   ...getExercisesByGroupSuspenseInfiniteQueryOptions(groupId, params, config),
    queryKey,
    ...queryOptions
   } as unknown as UseSuspenseInfiniteQueryOptions<TQueryFnData, TError, TData, TQueryKey, TPageParam>, queryClient) as UseSuspenseInfiniteQueryResult<TData, TError> & { queryKey: TQueryKey }

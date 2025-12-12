@@ -4,24 +4,24 @@
 */
 
 import fetch from "@/lib/api-client";
-import type { GetCategoriesByTypeQueryResponse, GetCategoriesByTypePathParams } from "../../types/exerciseCategoriesController/GetCategoriesByType.ts";
+import type { GetCategoriesByTypeQueryResponse, GetCategoriesByTypePathParams, GetCategoriesByTypeQueryParams } from "../../types/exerciseCategoriesController/GetCategoriesByType.ts";
 import type { RequestConfig, ResponseErrorConfig } from "@/lib/api-client";
 import type { QueryKey, QueryClient, QueryObserverOptions, UseQueryResult } from "@tanstack/react-query";
 import { getCategoriesByType } from "../../clients/exerciseCategoriesController/getCategoriesByType.ts";
 import { queryOptions, useQuery } from "@tanstack/react-query";
 
-export const getCategoriesByTypeQueryKey = (type: GetCategoriesByTypePathParams["type"]) => [{ url: '/api/exercise-categories/type/:type', params: {type:type} }] as const
+export const getCategoriesByTypeQueryKey = (type: GetCategoriesByTypePathParams["type"], params: GetCategoriesByTypeQueryParams) => [{ url: '/api/exercise-categories/type/:type', params: {type:type} }, ...(params ? [params] : [])] as const
 
 export type GetCategoriesByTypeQueryKey = ReturnType<typeof getCategoriesByTypeQueryKey>
 
-export function getCategoriesByTypeQueryOptions(type: GetCategoriesByTypePathParams["type"], config: Partial<RequestConfig> & { client?: typeof fetch } = {}) {
-  const queryKey = getCategoriesByTypeQueryKey(type)
+export function getCategoriesByTypeQueryOptions(type: GetCategoriesByTypePathParams["type"], params: GetCategoriesByTypeQueryParams, config: Partial<RequestConfig> & { client?: typeof fetch } = {}) {
+  const queryKey = getCategoriesByTypeQueryKey(type, params)
   return queryOptions<GetCategoriesByTypeQueryResponse, ResponseErrorConfig<Error>, GetCategoriesByTypeQueryResponse, typeof queryKey>({
-   enabled: !!(type),
+   enabled: !!(type&& params),
    queryKey,
    queryFn: async ({ signal }) => {
       config.signal = signal
-      return getCategoriesByType(type, config)
+      return getCategoriesByType(type, params, config)
    },
   })
 }
@@ -31,7 +31,7 @@ export function getCategoriesByTypeQueryOptions(type: GetCategoriesByTypePathPar
  * @summary Get categories by type
  * {@link /api/exercise-categories/type/:type}
  */
-export function useGetCategoriesByType<TData = GetCategoriesByTypeQueryResponse, TQueryData = GetCategoriesByTypeQueryResponse, TQueryKey extends QueryKey = GetCategoriesByTypeQueryKey>(type: GetCategoriesByTypePathParams["type"], options: 
+export function useGetCategoriesByType<TData = GetCategoriesByTypeQueryResponse, TQueryData = GetCategoriesByTypeQueryResponse, TQueryKey extends QueryKey = GetCategoriesByTypeQueryKey>(type: GetCategoriesByTypePathParams["type"], params: GetCategoriesByTypeQueryParams, options: 
 {
   query?: Partial<QueryObserverOptions<GetCategoriesByTypeQueryResponse, ResponseErrorConfig<Error>, TData, TQueryData, TQueryKey>> & { client?: QueryClient },
   client?: Partial<RequestConfig> & { client?: typeof fetch }
@@ -39,10 +39,10 @@ export function useGetCategoriesByType<TData = GetCategoriesByTypeQueryResponse,
  = {}) {
   const { query: queryConfig = {}, client: config = {} } = options ?? {}
   const { client: queryClient, ...queryOptions } = queryConfig
-  const queryKey = queryOptions?.queryKey ?? getCategoriesByTypeQueryKey(type)
+  const queryKey = queryOptions?.queryKey ?? getCategoriesByTypeQueryKey(type, params)
 
   const query = useQuery({
-   ...getCategoriesByTypeQueryOptions(type, config),
+   ...getCategoriesByTypeQueryOptions(type, params, config),
    queryKey,
    ...queryOptions
   } as unknown as QueryObserverOptions, queryClient) as UseQueryResult<TData, ResponseErrorConfig<Error>> & { queryKey: TQueryKey }

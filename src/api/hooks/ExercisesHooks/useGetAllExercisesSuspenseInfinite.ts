@@ -35,7 +35,7 @@ export function getAllExercisesSuspenseInfiniteQueryOptions(params: GetAllExerci
 }
 
 /**
- * @description Retrieve exercises with pagination. Default page size is 20.
+ * @description Retrieve exercises with pagination. Default page size is 20. Sorted by newest first.
  * @summary Get all exercises
  * {@link /api/exercises}
  */

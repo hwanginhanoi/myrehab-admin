@@ -35,7 +35,7 @@ export function getAllGroupsSuspenseInfiniteQueryOptions(params: GetAllGroupsQue
 }
 
 /**
- * @description Retrieve exercise groups with pagination. Default page size is 20.
+ * @description Retrieve exercise groups with pagination. Default page size is 20. Sorted by newest first.
  * @summary Get all groups
  * {@link /api/exercise-groups}
  */

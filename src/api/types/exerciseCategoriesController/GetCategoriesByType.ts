@@ -3,7 +3,8 @@
 * Do not edit manually.
 */
 
-import type { CategoryResponse } from "../CategoryResponse.ts";
+import type { Pageable } from "../Pageable.ts";
+import type { PageCategoryResponse } from "../PageCategoryResponse.ts";
 
 export const getCategoriesByTypePathParamsTypeEnum = {
     "BODY_PART": "BODY_PART",
@@ -23,15 +24,23 @@ export type GetCategoriesByTypePathParams = {
     type: GetCategoriesByTypePathParamsTypeEnumKey;
 };
 
+export type GetCategoriesByTypeQueryParams = {
+    /**
+     * @type object
+    */
+    pageable: Pageable;
+};
+
 /**
  * @description OK
 */
-export type GetCategoriesByType200 = CategoryResponse[];
+export type GetCategoriesByType200 = PageCategoryResponse;
 
 export type GetCategoriesByTypeQueryResponse = GetCategoriesByType200;
 
 export type GetCategoriesByTypeQuery = {
     Response: GetCategoriesByType200;
     PathParams: GetCategoriesByTypePathParams;
+    QueryParams: GetCategoriesByTypeQueryParams;
     Errors: any;
 };

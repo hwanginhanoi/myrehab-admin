@@ -3,7 +3,8 @@
 * Do not edit manually.
 */
 
-import type { CategoryResponse } from "../CategoryResponse.ts";
+import type { Pageable } from "../Pageable.ts";
+import type { PageCategoryResponse } from "../PageCategoryResponse.ts";
 
 export type SearchCategoriesByNameQueryParams = {
     /**
@@ -11,12 +12,16 @@ export type SearchCategoriesByNameQueryParams = {
      * @type string
     */
     query: string;
+    /**
+     * @type object
+    */
+    pageable: Pageable;
 };
 
 /**
  * @description OK
 */
-export type SearchCategoriesByName200 = CategoryResponse[];
+export type SearchCategoriesByName200 = PageCategoryResponse;
 
 export type SearchCategoriesByNameQueryResponse = SearchCategoriesByName200;
 

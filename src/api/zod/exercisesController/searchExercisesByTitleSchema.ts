@@ -3,16 +3,20 @@
 * Do not edit manually.
 */
 
-import { exerciseResponseSchema } from "../exerciseResponseSchema.ts";
+import { pageableSchema } from "../pageableSchema.ts";
+import { pageExerciseResponseSchema } from "../pageExerciseResponseSchema.ts";
 import { z } from "zod/v4";
 
 export const searchExercisesByTitleQueryParamsSchema = z.object({
-    "query": z.string().describe("Search query")
+    "query": z.string().describe("Search query"),
+get "pageable"(){
+                return pageableSchema
+              }
     })
 
 /**
  * @description OK
  */
-export const searchExercisesByTitle200Schema = z.array(z.lazy(() => exerciseResponseSchema))
+export const searchExercisesByTitle200Schema = z.lazy(() => pageExerciseResponseSchema)
 
 export const searchExercisesByTitleQueryResponseSchema = z.lazy(() => searchExercisesByTitle200Schema)

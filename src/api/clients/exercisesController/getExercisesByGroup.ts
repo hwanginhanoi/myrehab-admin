@@ -4,7 +4,7 @@
 */
 
 import fetch from "@/lib/api-client";
-import type { GetExercisesByGroupQueryResponse, GetExercisesByGroupPathParams } from "../../types/exercisesController/GetExercisesByGroup.ts";
+import type { GetExercisesByGroupQueryResponse, GetExercisesByGroupPathParams, GetExercisesByGroupQueryParams } from "../../types/exercisesController/GetExercisesByGroup.ts";
 import type { RequestConfig, ResponseErrorConfig } from "@/lib/api-client";
 
 function getGetExercisesByGroupUrl({ groupId }: { groupId: GetExercisesByGroupPathParams["groupId"] }) {
@@ -17,9 +17,9 @@ function getGetExercisesByGroupUrl({ groupId }: { groupId: GetExercisesByGroupPa
  * @summary Get exercises by group
  * {@link /api/exercises/group/:groupId}
  */
-export async function getExercisesByGroup({ groupId }: { groupId: GetExercisesByGroupPathParams["groupId"] }, config: Partial<RequestConfig> & { client?: typeof fetch } = {}) {
+export async function getExercisesByGroup({ groupId }: { groupId: GetExercisesByGroupPathParams["groupId"] }, params: GetExercisesByGroupQueryParams, config: Partial<RequestConfig> & { client?: typeof fetch } = {}) {
   const { client: request = fetch, ...requestConfig } = config  
   
-  const res = await request<GetExercisesByGroupQueryResponse, ResponseErrorConfig<Error>, unknown>({ method : "GET", url : getGetExercisesByGroupUrl({ groupId }).url.toString(), ... requestConfig })  
+  const res = await request<GetExercisesByGroupQueryResponse, ResponseErrorConfig<Error>, unknown>({ method : "GET", url : getGetExercisesByGroupUrl({ groupId }).url.toString(), params, ... requestConfig })  
   return res.data
 }

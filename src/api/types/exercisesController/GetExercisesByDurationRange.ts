@@ -3,7 +3,8 @@
 * Do not edit manually.
 */
 
-import type { ExerciseResponse } from "../ExerciseResponse.ts";
+import type { Pageable } from "../Pageable.ts";
+import type { PageExerciseResponse } from "../PageExerciseResponse.ts";
 
 export type GetExercisesByDurationRangeQueryParams = {
     /**
@@ -16,12 +17,16 @@ export type GetExercisesByDurationRangeQueryParams = {
      * @type integer, int32
     */
     maxDuration: number;
+    /**
+     * @type object
+    */
+    pageable: Pageable;
 };
 
 /**
  * @description OK
 */
-export type GetExercisesByDurationRange200 = ExerciseResponse[];
+export type GetExercisesByDurationRange200 = PageExerciseResponse;
 
 export type GetExercisesByDurationRangeQueryResponse = GetExercisesByDurationRange200;
 

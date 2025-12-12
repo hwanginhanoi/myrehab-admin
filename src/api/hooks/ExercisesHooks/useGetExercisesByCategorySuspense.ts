@@ -4,24 +4,24 @@
 */
 
 import fetch from "@/lib/api-client";
-import type { GetExercisesByCategoryQueryResponse, GetExercisesByCategoryPathParams } from "../../types/exercisesController/GetExercisesByCategory.ts";
+import type { GetExercisesByCategoryQueryResponse, GetExercisesByCategoryPathParams, GetExercisesByCategoryQueryParams } from "../../types/exercisesController/GetExercisesByCategory.ts";
 import type { RequestConfig, ResponseErrorConfig } from "@/lib/api-client";
 import type { QueryKey, QueryClient, UseSuspenseQueryOptions, UseSuspenseQueryResult } from "@tanstack/react-query";
 import { getExercisesByCategory } from "../../clients/exercisesController/getExercisesByCategory.ts";
 import { queryOptions, useSuspenseQuery } from "@tanstack/react-query";
 
-export const getExercisesByCategorySuspenseQueryKey = (categoryId: GetExercisesByCategoryPathParams["categoryId"]) => [{ url: '/api/exercises/category/:categoryId', params: {categoryId:categoryId} }] as const
+export const getExercisesByCategorySuspenseQueryKey = (categoryId: GetExercisesByCategoryPathParams["categoryId"], params: GetExercisesByCategoryQueryParams) => [{ url: '/api/exercises/category/:categoryId', params: {categoryId:categoryId} }, ...(params ? [params] : [])] as const
 
 export type GetExercisesByCategorySuspenseQueryKey = ReturnType<typeof getExercisesByCategorySuspenseQueryKey>
 
-export function getExercisesByCategorySuspenseQueryOptions(categoryId: GetExercisesByCategoryPathParams["categoryId"], config: Partial<RequestConfig> & { client?: typeof fetch } = {}) {
-  const queryKey = getExercisesByCategorySuspenseQueryKey(categoryId)
+export function getExercisesByCategorySuspenseQueryOptions(categoryId: GetExercisesByCategoryPathParams["categoryId"], params: GetExercisesByCategoryQueryParams, config: Partial<RequestConfig> & { client?: typeof fetch } = {}) {
+  const queryKey = getExercisesByCategorySuspenseQueryKey(categoryId, params)
   return queryOptions<GetExercisesByCategoryQueryResponse, ResponseErrorConfig<Error>, GetExercisesByCategoryQueryResponse, typeof queryKey>({
-   enabled: !!(categoryId),
+   enabled: !!(categoryId&& params),
    queryKey,
    queryFn: async ({ signal }) => {
       config.signal = signal
-      return getExercisesByCategory(categoryId, config)
+      return getExercisesByCategory(categoryId, params, config)
    },
   })
 }
@@ -31,7 +31,7 @@ export function getExercisesByCategorySuspenseQueryOptions(categoryId: GetExerci
  * @summary Get exercises by category
  * {@link /api/exercises/category/:categoryId}
  */
-export function useGetExercisesByCategorySuspense<TData = GetExercisesByCategoryQueryResponse, TQueryKey extends QueryKey = GetExercisesByCategorySuspenseQueryKey>(categoryId: GetExercisesByCategoryPathParams["categoryId"], options: 
+export function useGetExercisesByCategorySuspense<TData = GetExercisesByCategoryQueryResponse, TQueryKey extends QueryKey = GetExercisesByCategorySuspenseQueryKey>(categoryId: GetExercisesByCategoryPathParams["categoryId"], params: GetExercisesByCategoryQueryParams, options: 
 {
   query?: Partial<UseSuspenseQueryOptions<GetExercisesByCategoryQueryResponse, ResponseErrorConfig<Error>, TData, TQueryKey>> & { client?: QueryClient },
   client?: Partial<RequestConfig> & { client?: typeof fetch }
@@ -39,10 +39,10 @@ export function useGetExercisesByCategorySuspense<TData = GetExercisesByCategory
  = {}) {
   const { query: queryConfig = {}, client: config = {} } = options ?? {}
   const { client: queryClient, ...queryOptions } = queryConfig
-  const queryKey = queryOptions?.queryKey ?? getExercisesByCategorySuspenseQueryKey(categoryId)
+  const queryKey = queryOptions?.queryKey ?? getExercisesByCategorySuspenseQueryKey(categoryId, params)
 
   const query = useSuspenseQuery({
-   ...getExercisesByCategorySuspenseQueryOptions(categoryId, config),
+   ...getExercisesByCategorySuspenseQueryOptions(categoryId, params, config),
    queryKey,
    ...queryOptions
   } as unknown as UseSuspenseQueryOptions, queryClient) as UseSuspenseQueryResult<TData, ResponseErrorConfig<Error>> & { queryKey: TQueryKey }

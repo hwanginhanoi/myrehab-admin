@@ -4,24 +4,24 @@
 */
 
 import fetch from "@/lib/api-client";
-import type { GetExercisesByCategoryQueryResponse, GetExercisesByCategoryPathParams } from "../../types/exercisesController/GetExercisesByCategory.ts";
+import type { GetExercisesByCategoryQueryResponse, GetExercisesByCategoryPathParams, GetExercisesByCategoryQueryParams } from "../../types/exercisesController/GetExercisesByCategory.ts";
 import type { RequestConfig, ResponseErrorConfig } from "@/lib/api-client";
 import type { QueryKey, QueryClient, QueryObserverOptions, UseQueryResult } from "@tanstack/react-query";
 import { getExercisesByCategory } from "../../clients/exercisesController/getExercisesByCategory.ts";
 import { queryOptions, useQuery } from "@tanstack/react-query";
 
-export const getExercisesByCategoryQueryKey = (categoryId: GetExercisesByCategoryPathParams["categoryId"]) => [{ url: '/api/exercises/category/:categoryId', params: {categoryId:categoryId} }] as const
+export const getExercisesByCategoryQueryKey = (categoryId: GetExercisesByCategoryPathParams["categoryId"], params: GetExercisesByCategoryQueryParams) => [{ url: '/api/exercises/category/:categoryId', params: {categoryId:categoryId} }, ...(params ? [params] : [])] as const
 
 export type GetExercisesByCategoryQueryKey = ReturnType<typeof getExercisesByCategoryQueryKey>
 
-export function getExercisesByCategoryQueryOptions(categoryId: GetExercisesByCategoryPathParams["categoryId"], config: Partial<RequestConfig> & { client?: typeof fetch } = {}) {
-  const queryKey = getExercisesByCategoryQueryKey(categoryId)
+export function getExercisesByCategoryQueryOptions(categoryId: GetExercisesByCategoryPathParams["categoryId"], params: GetExercisesByCategoryQueryParams, config: Partial<RequestConfig> & { client?: typeof fetch } = {}) {
+  const queryKey = getExercisesByCategoryQueryKey(categoryId, params)
   return queryOptions<GetExercisesByCategoryQueryResponse, ResponseErrorConfig<Error>, GetExercisesByCategoryQueryResponse, typeof queryKey>({
-   enabled: !!(categoryId),
+   enabled: !!(categoryId&& params),
    queryKey,
    queryFn: async ({ signal }) => {
       config.signal = signal
-      return getExercisesByCategory(categoryId, config)
+      return getExercisesByCategory(categoryId, params, config)
    },
   })
 }
@@ -31,7 +31,7 @@ export function getExercisesByCategoryQueryOptions(categoryId: GetExercisesByCat
  * @summary Get exercises by category
  * {@link /api/exercises/category/:categoryId}
  */
-export function useGetExercisesByCategory<TData = GetExercisesByCategoryQueryResponse, TQueryData = GetExercisesByCategoryQueryResponse, TQueryKey extends QueryKey = GetExercisesByCategoryQueryKey>(categoryId: GetExercisesByCategoryPathParams["categoryId"], options: 
+export function useGetExercisesByCategory<TData = GetExercisesByCategoryQueryResponse, TQueryData = GetExercisesByCategoryQueryResponse, TQueryKey extends QueryKey = GetExercisesByCategoryQueryKey>(categoryId: GetExercisesByCategoryPathParams["categoryId"], params: GetExercisesByCategoryQueryParams, options: 
 {
   query?: Partial<QueryObserverOptions<GetExercisesByCategoryQueryResponse, ResponseErrorConfig<Error>, TData, TQueryData, TQueryKey>> & { client?: QueryClient },
   client?: Partial<RequestConfig> & { client?: typeof fetch }
@@ -39,10 +39,10 @@ export function useGetExercisesByCategory<TData = GetExercisesByCategoryQueryRes
  = {}) {
   const { query: queryConfig = {}, client: config = {} } = options ?? {}
   const { client: queryClient, ...queryOptions } = queryConfig
-  const queryKey = queryOptions?.queryKey ?? getExercisesByCategoryQueryKey(categoryId)
+  const queryKey = queryOptions?.queryKey ?? getExercisesByCategoryQueryKey(categoryId, params)
 
   const query = useQuery({
-   ...getExercisesByCategoryQueryOptions(categoryId, config),
+   ...getExercisesByCategoryQueryOptions(categoryId, params, config),
    queryKey,
    ...queryOptions
   } as unknown as QueryObserverOptions, queryClient) as UseQueryResult<TData, ResponseErrorConfig<Error>> & { queryKey: TQueryKey }

@@ -4,24 +4,29 @@
 */
 
 import fetch from "@/lib/api-client";
-import type { GetCategoriesByTypeQueryResponse, GetCategoriesByTypePathParams } from "../../types/exerciseCategoriesController/GetCategoriesByType.ts";
+import type { GetCategoriesByTypeQueryResponse, GetCategoriesByTypePathParams, GetCategoriesByTypeQueryParams } from "../../types/exerciseCategoriesController/GetCategoriesByType.ts";
 import type { RequestConfig, ResponseErrorConfig } from "@/lib/api-client";
 import type { InfiniteData, QueryKey, QueryClient, UseSuspenseInfiniteQueryOptions, UseSuspenseInfiniteQueryResult } from "@tanstack/react-query";
 import { getCategoriesByType } from "../../clients/exerciseCategoriesController/getCategoriesByType.ts";
 import { infiniteQueryOptions, useSuspenseInfiniteQuery } from "@tanstack/react-query";
 
-export const getCategoriesByTypeSuspenseInfiniteQueryKey = (type: GetCategoriesByTypePathParams["type"]) => [{ url: '/api/exercise-categories/type/:type', params: {type:type} }] as const
+export const getCategoriesByTypeSuspenseInfiniteQueryKey = (type: GetCategoriesByTypePathParams["type"], params: GetCategoriesByTypeQueryParams) => [{ url: '/api/exercise-categories/type/:type', params: {type:type} }, ...(params ? [params] : [])] as const
 
 export type GetCategoriesByTypeSuspenseInfiniteQueryKey = ReturnType<typeof getCategoriesByTypeSuspenseInfiniteQueryKey>
 
-export function getCategoriesByTypeSuspenseInfiniteQueryOptions(type: GetCategoriesByTypePathParams["type"], config: Partial<RequestConfig> & { client?: typeof fetch } = {}) {
-  const queryKey = getCategoriesByTypeSuspenseInfiniteQueryKey(type)
-  return infiniteQueryOptions<GetCategoriesByTypeQueryResponse, ResponseErrorConfig<Error>, InfiniteData<GetCategoriesByTypeQueryResponse>, typeof queryKey, number>({
-   enabled: !!(type),
+export function getCategoriesByTypeSuspenseInfiniteQueryOptions(type: GetCategoriesByTypePathParams["type"], params: GetCategoriesByTypeQueryParams, config: Partial<RequestConfig> & { client?: typeof fetch } = {}) {
+  const queryKey = getCategoriesByTypeSuspenseInfiniteQueryKey(type, params)
+  return infiniteQueryOptions<GetCategoriesByTypeQueryResponse, ResponseErrorConfig<Error>, InfiniteData<GetCategoriesByTypeQueryResponse>, typeof queryKey, NonNullable<GetCategoriesByTypeQueryParams['next_page']>>({
+   enabled: !!(type&& params),
    queryKey,
-   queryFn: async ({ signal }) => {
+   queryFn: async ({ signal, pageParam }) => {
       config.signal = signal
-      return getCategoriesByType(type, config)
+    
+      params = {
+        ...(params ?? {}),
+        ['next_page']: pageParam as unknown as GetCategoriesByTypeQueryParams['next_page'],
+      } as GetCategoriesByTypeQueryParams
+      return getCategoriesByType(type, params, config)
    },
    initialPageParam: 0,
   getNextPageParam: (lastPage) => lastPage?.['pagination']?.['next']?.['cursor'],
@@ -34,7 +39,7 @@ export function getCategoriesByTypeSuspenseInfiniteQueryOptions(type: GetCategor
  * @summary Get categories by type
  * {@link /api/exercise-categories/type/:type}
  */
-export function useGetCategoriesByTypeSuspenseInfinite<TQueryFnData = GetCategoriesByTypeQueryResponse, TError = ResponseErrorConfig<Error>, TData = InfiniteData<TQueryFnData>, TQueryKey extends QueryKey = GetCategoriesByTypeSuspenseInfiniteQueryKey, TPageParam = number>(type: GetCategoriesByTypePathParams["type"], options: 
+export function useGetCategoriesByTypeSuspenseInfinite<TQueryFnData = GetCategoriesByTypeQueryResponse, TError = ResponseErrorConfig<Error>, TData = InfiniteData<TQueryFnData>, TQueryKey extends QueryKey = GetCategoriesByTypeSuspenseInfiniteQueryKey, TPageParam = NonNullable<GetCategoriesByTypeQueryParams['next_page']>>(type: GetCategoriesByTypePathParams["type"], params: GetCategoriesByTypeQueryParams, options: 
 {
   query?: Partial<UseSuspenseInfiniteQueryOptions<TQueryFnData, TError, TData, TQueryKey, TPageParam>> & { client?: QueryClient },
   client?: Partial<RequestConfig> & { client?: typeof fetch }
@@ -42,10 +47,10 @@ export function useGetCategoriesByTypeSuspenseInfinite<TQueryFnData = GetCategor
  = {}) {
   const { query: queryConfig = {}, client: config = {} } = options ?? {}
   const { client: queryClient, ...queryOptions } = queryConfig
-  const queryKey = queryOptions?.queryKey ?? getCategoriesByTypeSuspenseInfiniteQueryKey(type)
+  const queryKey = queryOptions?.queryKey ?? getCategoriesByTypeSuspenseInfiniteQueryKey(type, params)
 
   const query = useSuspenseInfiniteQuery({
-   ...getCategoriesByTypeSuspenseInfiniteQueryOptions(type, config),
+   ...getCategoriesByTypeSuspenseInfiniteQueryOptions(type, params, config),
    queryKey,
    ...queryOptions
   } as unknown as UseSuspenseInfiniteQueryOptions<TQueryFnData, TError, TData, TQueryKey, TPageParam>, queryClient) as UseSuspenseInfiniteQueryResult<TData, TError> & { queryKey: TQueryKey }

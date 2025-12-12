@@ -3,16 +3,23 @@
 * Do not edit manually.
 */
 
-import { exerciseResponseSchema } from "../exerciseResponseSchema.ts";
+import { pageableSchema } from "../pageableSchema.ts";
+import { pageExerciseResponseSchema } from "../pageExerciseResponseSchema.ts";
 import { z } from "zod/v4";
 
 export const getExercisesByGroupPathParamsSchema = z.object({
     "groupId": z.coerce.number().int().describe("Group ID")
     })
 
+export const getExercisesByGroupQueryParamsSchema = z.object({
+    get "pageable"(){
+                return pageableSchema
+              }
+    })
+
 /**
  * @description OK
  */
-export const getExercisesByGroup200Schema = z.array(z.lazy(() => exerciseResponseSchema))
+export const getExercisesByGroup200Schema = z.lazy(() => pageExerciseResponseSchema)
 
 export const getExercisesByGroupQueryResponseSchema = z.lazy(() => getExercisesByGroup200Schema)
