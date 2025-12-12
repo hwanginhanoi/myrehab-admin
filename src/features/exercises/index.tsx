@@ -22,34 +22,63 @@ export function Exercises() {
   const pageSize = (search.pageSize as number) || 10
   const categoryId = search.categoryId as number | undefined
 
-  // Always fetch all exercises - we'll filter client-side
-  const { data: allExercisesResponse, isLoading } = useGetAllExercises({
-    page: 0,
-    size: 10000, // Fetch all exercises for client-side filtering
-  } as any)
+  // When NO filter: use server-side pagination
+  // When filter IS applied: fetch all and filter client-side
+  const { data: paginatedResponse, isLoading: isLoadingPaginated } = useGetAllExercises(
+    {
+      page: page - 1, // Convert to 0-indexed for API
+      size: pageSize,
+    } as any,
+    {
+      query: {
+        enabled: !categoryId, // Only fetch when no category filter
+      },
+    }
+  )
 
-  const allExercises = allExercisesResponse?.content || []
+  // Fetch all exercises when filtering (for client-side filtering)
+  const { data: allExercisesResponse, isLoading: isLoadingAll } = useGetAllExercises(
+    {
+      page: 0,
+      size: 10000, // Fetch all exercises for filtering
+    } as any,
+    {
+      query: {
+        enabled: !!categoryId, // Only fetch when category filter is applied
+      },
+    }
+  )
 
-  // Filter exercises by category (client-side)
-  const filteredExercises = useMemo(() => {
-    if (!categoryId) return allExercises
-
-    // Filter exercises that have the selected category
-    return allExercises.filter((exercise) => {
-      return exercise.categories?.some((cat) => cat.id === categoryId)
-    })
-  }, [allExercises, categoryId])
-
-  // Paginate the filtered results
+  // Determine which data to use
   const exercises = useMemo(() => {
-    const startIndex = (page - 1) * pageSize
-    const endIndex = startIndex + pageSize
-    return filteredExercises.slice(startIndex, endIndex)
-  }, [filteredExercises, page, pageSize])
+    if (categoryId) {
+      // Client-side filtering and pagination
+      const allExercises = allExercisesResponse?.content || []
+      const filtered = allExercises.filter((exercise) => {
+        return exercise.categories?.some((cat) => cat.id === categoryId)
+      })
+      const startIndex = (page - 1) * pageSize
+      const endIndex = startIndex + pageSize
+      return filtered.slice(startIndex, endIndex)
+    }
+    // Server-side pagination
+    return paginatedResponse?.content || []
+  }, [categoryId, allExercisesResponse, paginatedResponse, page, pageSize])
 
   const totalPages = useMemo(() => {
-    return Math.ceil(filteredExercises.length / pageSize)
-  }, [filteredExercises, pageSize])
+    if (categoryId) {
+      // Calculate from filtered results
+      const allExercises = allExercisesResponse?.content || []
+      const filtered = allExercises.filter((exercise) => {
+        return exercise.categories?.some((cat) => cat.id === categoryId)
+      })
+      return Math.ceil(filtered.length / pageSize)
+    }
+    // Use server-provided total pages
+    return paginatedResponse?.totalPages || 0
+  }, [categoryId, allExercisesResponse, paginatedResponse, pageSize])
+
+  const isLoading = categoryId ? isLoadingAll : isLoadingPaginated
 
   // Handler for category filter
   const handleCategoryIdChange = (id: number | undefined) => {
