@@ -22,63 +22,26 @@ export function Exercises() {
   const pageSize = (search.pageSize as number) || 10
   const categoryId = search.categoryId as number | undefined
 
-  // When NO filter: use server-side pagination
-  // When filter IS applied: fetch all and filter client-side
-  const { data: paginatedResponse, isLoading: isLoadingPaginated } = useGetAllExercises(
-    {
+  // Build query params - include categoryId if present
+  const queryParams = useMemo(() => {
+    const params: any = {
       page: page - 1, // Convert to 0-indexed for API
       size: pageSize,
-    } as any,
-    {
-      query: {
-        enabled: !categoryId, // Only fetch when no category filter
-      },
     }
-  )
 
-  // Fetch all exercises when filtering (for client-side filtering)
-  const { data: allExercisesResponse, isLoading: isLoadingAll } = useGetAllExercises(
-    {
-      page: 0,
-      size: 10000, // Fetch all exercises for filtering
-    } as any,
-    {
-      query: {
-        enabled: !!categoryId, // Only fetch when category filter is applied
-      },
+    // Add categoryId as query parameter if filtering
+    if (categoryId !== undefined && categoryId !== null) {
+      params.categoryId = categoryId
     }
-  )
 
-  // Determine which data to use
-  const exercises = useMemo(() => {
-    if (categoryId) {
-      // Client-side filtering and pagination
-      const allExercises = allExercisesResponse?.content || []
-      const filtered = allExercises.filter((exercise) => {
-        return exercise.categories?.some((cat) => cat.id === categoryId)
-      })
-      const startIndex = (page - 1) * pageSize
-      const endIndex = startIndex + pageSize
-      return filtered.slice(startIndex, endIndex)
-    }
-    // Server-side pagination
-    return paginatedResponse?.content || []
-  }, [categoryId, allExercisesResponse, paginatedResponse, page, pageSize])
+    return params
+  }, [page, pageSize, categoryId])
 
-  const totalPages = useMemo(() => {
-    if (categoryId) {
-      // Calculate from filtered results
-      const allExercises = allExercisesResponse?.content || []
-      const filtered = allExercises.filter((exercise) => {
-        return exercise.categories?.some((cat) => cat.id === categoryId)
-      })
-      return Math.ceil(filtered.length / pageSize)
-    }
-    // Use server-provided total pages
-    return paginatedResponse?.totalPages || 0
-  }, [categoryId, allExercisesResponse, paginatedResponse, pageSize])
+  // Fetch exercises with server-side filtering and pagination
+  const { data: response, isLoading } = useGetAllExercises(queryParams as any)
 
-  const isLoading = categoryId ? isLoadingAll : isLoadingPaginated
+  const exercises = response?.content || []
+  const totalPages = response?.totalPages || 0
 
   // Handler for category filter
   const handleCategoryIdChange = (id: number | undefined) => {
