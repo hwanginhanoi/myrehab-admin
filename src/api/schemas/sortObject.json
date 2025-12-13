@@ -1,1 +1,1 @@
-{"type":"object","properties":{"sorted":{"type":"boolean"},"unsorted":{"type":"boolean"},"empty":{"type":"boolean"}},"x-readme-ref-name":"SortObject"}
+{"type":"object","properties":{"empty":{"type":"boolean"},"sorted":{"type":"boolean"},"unsorted":{"type":"boolean"}},"x-readme-ref-name":"SortObject"}

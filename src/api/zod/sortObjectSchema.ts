@@ -6,7 +6,7 @@
 import { z } from "zod/v4";
 
 export const sortObjectSchema = z.object({
-    "sorted": z.optional(z.boolean()),
-"unsorted": z.optional(z.boolean()),
-"empty": z.optional(z.boolean())
+    "empty": z.optional(z.boolean()),
+"sorted": z.optional(z.boolean()),
+"unsorted": z.optional(z.boolean())
     })

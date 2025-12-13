@@ -11,19 +11,19 @@ import { z } from "zod/v4";
 export const pageGroupResponseSchema = z.object({
     "totalElements": z.optional(z.int()),
 "totalPages": z.optional(z.int()),
+"first": z.optional(z.boolean()),
+"last": z.optional(z.boolean()),
+"size": z.optional(z.int()),
+get "content"(){
+                return z.array(groupResponseSchema).optional()
+              },
+"number": z.optional(z.int()),
 get "pageable"(){
                 return pageableObjectSchema.optional()
               },
 get "sort"(){
                 return sortObjectSchema.optional()
               },
-"first": z.optional(z.boolean()),
-"last": z.optional(z.boolean()),
 "numberOfElements": z.optional(z.int()),
-"size": z.optional(z.int()),
-get "content"(){
-                return z.array(groupResponseSchema).optional()
-              },
-"number": z.optional(z.int()),
 "empty": z.optional(z.boolean())
     })

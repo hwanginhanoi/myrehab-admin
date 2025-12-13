@@ -26,12 +26,8 @@ export type { SearchGroupsByNameQueryParams, SearchGroupsByName200, SearchGroups
 export type { UpdateGroupPathParams, UpdateGroup200, UpdateGroupMutationRequest, UpdateGroupMutationResponse, UpdateGroupMutation } from "./exerciseGroupsController/UpdateGroup.ts";
 export type { ExerciseResponse } from "./ExerciseResponse.ts";
 export type { CreateExercise200, CreateExerciseMutationRequest, CreateExerciseMutationResponse, CreateExerciseMutation } from "./exercisesController/CreateExercise.ts";
-export type { GetAllExercisesQueryParams, GetAllExercises200, GetAllExercisesQueryResponse, GetAllExercisesQuery } from "./exercisesController/GetAllExercises.ts";
 export type { GetExerciseByIdPathParams, GetExerciseById200, GetExerciseByIdQueryResponse, GetExerciseByIdQuery } from "./exercisesController/GetExerciseById.ts";
-export type { GetExercisesByCategoryPathParams, GetExercisesByCategoryQueryParams, GetExercisesByCategory200, GetExercisesByCategoryQueryResponse, GetExercisesByCategoryQuery } from "./exercisesController/GetExercisesByCategory.ts";
-export type { GetExercisesByDurationRangeQueryParams, GetExercisesByDurationRange200, GetExercisesByDurationRangeQueryResponse, GetExercisesByDurationRangeQuery } from "./exercisesController/GetExercisesByDurationRange.ts";
-export type { GetExercisesByGroupPathParams, GetExercisesByGroupQueryParams, GetExercisesByGroup200, GetExercisesByGroupQueryResponse, GetExercisesByGroupQuery } from "./exercisesController/GetExercisesByGroup.ts";
-export type { SearchExercisesByTitleQueryParams, SearchExercisesByTitle200, SearchExercisesByTitleQueryResponse, SearchExercisesByTitleQuery } from "./exercisesController/SearchExercisesByTitle.ts";
+export type { GetExercisesQueryParams, GetExercises200, GetExercisesQueryResponse, GetExercisesQuery } from "./exercisesController/GetExercises.ts";
 export type { UpdateExercisePathParams, UpdateExercise200, UpdateExerciseMutationRequest, UpdateExerciseMutationResponse, UpdateExerciseMutation } from "./exercisesController/UpdateExercise.ts";
 export type { GroupResponse } from "./GroupResponse.ts";
 export type { LoginWithPasswordRequest } from "./LoginWithPasswordRequest.ts";
