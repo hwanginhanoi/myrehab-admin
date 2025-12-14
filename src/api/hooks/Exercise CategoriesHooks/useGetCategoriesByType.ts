@@ -7,12 +7,23 @@ import fetch from "@/lib/api-client";
 import type { GetCategoriesByTypeQueryResponse, GetCategoriesByTypePathParams, GetCategoriesByTypeQueryParams } from "../../types/exerciseCategoriesController/GetCategoriesByType.ts";
 import type { RequestConfig, ResponseErrorConfig } from "@/lib/api-client";
 import type { QueryKey, QueryClient, QueryObserverOptions, UseQueryResult } from "@tanstack/react-query";
-import { getCategoriesByType } from "../../clients/exerciseCategoriesController/getCategoriesByType.ts";
 import { queryOptions, useQuery } from "@tanstack/react-query";
 
 export const getCategoriesByTypeQueryKey = (type: GetCategoriesByTypePathParams["type"], params: GetCategoriesByTypeQueryParams) => [{ url: '/api/exercise-categories/type/:type', params: {type:type} }, ...(params ? [params] : [])] as const
 
 export type GetCategoriesByTypeQueryKey = ReturnType<typeof getCategoriesByTypeQueryKey>
+
+/**
+ * @description Retrieve exercise categories filtered by type (BODY_PART, RECOVERY_STAGE, HEALTH_CONDITION, DIFFICULTY_LEVEL, EXERCISE_TYPE)
+ * @summary Get categories by type
+ * {@link /api/exercise-categories/type/:type}
+ */
+export async function getCategoriesByType(type: GetCategoriesByTypePathParams["type"], params: GetCategoriesByTypeQueryParams, config: Partial<RequestConfig> & { client?: typeof fetch } = {}) {
+  const { client: request = fetch, ...requestConfig } = config  
+  
+  const res = await request<GetCategoriesByTypeQueryResponse, ResponseErrorConfig<Error>, unknown>({ method : "GET", url : `/api/exercise-categories/type/${type}`, params, ... requestConfig })  
+  return res.data
+}
 
 export function getCategoriesByTypeQueryOptions(type: GetCategoriesByTypePathParams["type"], params: GetCategoriesByTypeQueryParams, config: Partial<RequestConfig> & { client?: typeof fetch } = {}) {
   const queryKey = getCategoriesByTypeQueryKey(type, params)

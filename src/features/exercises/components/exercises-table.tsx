@@ -7,7 +7,6 @@ import {
   getFacetedRowModel,
   getFacetedUniqueValues,
   getFilteredRowModel,
-  getPaginationRowModel,
   getSortedRowModel,
   useReactTable,
 } from '@tanstack/react-table'
@@ -24,7 +23,7 @@ import {
 import { DataTablePagination, DataTableToolbar } from '@/components/data-table'
 import type { ExerciseResponse } from '@/api'
 import { exercisesColumns as columns } from './exercises-columns'
-import { ExercisesCategoryFilter } from './exercises-category-filter'
+import {categoryTypeOptions} from "@/lib/constants/category-type.ts";
 
 type DataTableProps = {
   data: ExerciseResponse[]
@@ -95,24 +94,17 @@ export function ExercisesTable({
   }, [pageCount, ensurePageInRange])
 
   return (
-    <div
-      className={cn(
-        'max-sm:has-[div[role="toolbar"]]:mb-16',
-        'flex flex-1 flex-col gap-4'
-      )}
-    >
-      <div className='flex flex-wrap items-center gap-2'>
-        <ExercisesCategoryFilter
-          categoryId={categoryId}
-          onCategoryIdChange={onCategoryIdChange}
-        />
-        <DataTableToolbar
-          table={table}
-          searchPlaceholder='Tìm kiếm bài tập...'
-          searchKey='title'
-          filters={[]}
-        />
-      </div>
+	  <div
+		  className={cn(
+			  'max-sm:has-[div[role="toolbar"]]:mb-16',
+			  'flex flex-1 flex-col gap-4'
+		  )}
+	  >
+		  <DataTableToolbar
+			  table={table}
+			  searchPlaceholder='Tìm kiếm danh mục...'
+			  searchKey='exercise_title'
+		  />
       <div className='overflow-hidden rounded-md border'>
         <Table>
           <TableHeader>

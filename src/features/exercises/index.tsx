@@ -6,7 +6,7 @@ import { Main } from '@/components/layout/main'
 import { ProfileDropdown } from '@/components/profile-dropdown'
 import { Search } from '@/components/search'
 import { ThemeSwitch } from '@/components/theme-switch'
-import { useGetAllExercises } from '@/api'
+import { useGetExercises } from '@/api'
 import { ExercisesPrimaryButtons } from './components/exercises-primary-buttons'
 import { ExercisesTable } from './components/exercises-table'
 
@@ -38,7 +38,7 @@ export function Exercises() {
   }, [page, pageSize, categoryId])
 
   // Fetch exercises with server-side filtering and pagination
-  const { data: response, isLoading } = useGetAllExercises(queryParams as any)
+  const { data: response, isLoading } = useGetExercises(queryParams as any)
 
   const exercises = response?.content || []
   const totalPages = response?.totalPages || 0
@@ -46,17 +46,11 @@ export function Exercises() {
   // Handler for category filter
   const handleCategoryIdChange = (id: number | undefined) => {
     navigate({
-      search: (prev) => {
-        const newSearch = { ...prev, page: 1 }
-
-        if (id !== undefined && id !== null) {
-          newSearch.categoryId = id
-        } else {
-          delete newSearch.categoryId
-        }
-
-        return newSearch
-      },
+      search: (prev) => ({
+        ...prev,
+        page: 1,
+        categoryId: id !== undefined && id !== null ? id : undefined,
+      }),
     })
   }
 

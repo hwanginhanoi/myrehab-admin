@@ -7,12 +7,23 @@ import fetch from "@/lib/api-client";
 import type { GetExerciseByIdQueryResponse, GetExerciseByIdPathParams } from "../../types/exercisesController/GetExerciseById.ts";
 import type { RequestConfig, ResponseErrorConfig } from "@/lib/api-client";
 import type { QueryKey, QueryClient, UseSuspenseQueryOptions, UseSuspenseQueryResult } from "@tanstack/react-query";
-import { getExerciseById } from "../../clients/exercisesController/getExerciseById.ts";
 import { queryOptions, useSuspenseQuery } from "@tanstack/react-query";
 
 export const getExerciseByIdSuspenseQueryKey = (id: GetExerciseByIdPathParams["id"]) => [{ url: '/api/exercises/:id', params: {id:id} }] as const
 
 export type GetExerciseByIdSuspenseQueryKey = ReturnType<typeof getExerciseByIdSuspenseQueryKey>
+
+/**
+ * @description Retrieve a specific exercise by its ID
+ * @summary Get exercise by ID
+ * {@link /api/exercises/:id}
+ */
+export async function getExerciseByIdSuspense(id: GetExerciseByIdPathParams["id"], config: Partial<RequestConfig> & { client?: typeof fetch } = {}) {
+  const { client: request = fetch, ...requestConfig } = config  
+  
+  const res = await request<GetExerciseByIdQueryResponse, ResponseErrorConfig<Error>, unknown>({ method : "GET", url : `/api/exercises/${id}`, ... requestConfig })  
+  return res.data
+}
 
 export function getExerciseByIdSuspenseQueryOptions(id: GetExerciseByIdPathParams["id"], config: Partial<RequestConfig> & { client?: typeof fetch } = {}) {
   const queryKey = getExerciseByIdSuspenseQueryKey(id)
@@ -21,7 +32,7 @@ export function getExerciseByIdSuspenseQueryOptions(id: GetExerciseByIdPathParam
    queryKey,
    queryFn: async ({ signal }) => {
       config.signal = signal
-      return getExerciseById(id, config)
+      return getExerciseByIdSuspense(id, config)
    },
   })
 }

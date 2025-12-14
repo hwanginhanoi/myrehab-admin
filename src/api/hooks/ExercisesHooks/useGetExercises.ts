@@ -7,12 +7,23 @@ import fetch from "@/lib/api-client";
 import type { GetExercisesQueryResponse, GetExercisesQueryParams } from "../../types/exercisesController/GetExercises.ts";
 import type { RequestConfig, ResponseErrorConfig } from "@/lib/api-client";
 import type { QueryKey, QueryClient, QueryObserverOptions, UseQueryResult } from "@tanstack/react-query";
-import { getExercises } from "../../clients/exercisesController/getExercises.ts";
 import { queryOptions, useQuery } from "@tanstack/react-query";
 
 export const getExercisesQueryKey = (params: GetExercisesQueryParams) => [{ url: '/api/exercises' }, ...(params ? [params] : [])] as const
 
 export type GetExercisesQueryKey = ReturnType<typeof getExercisesQueryKey>
+
+/**
+ * @description Retrieve exercises with optional filters (category, group, title). All filters are optional and can be combined. Default page size is 20. Sorted by newest first.
+ * @summary Get exercises with filters
+ * {@link /api/exercises}
+ */
+export async function getExercises(params: GetExercisesQueryParams, config: Partial<RequestConfig> & { client?: typeof fetch } = {}) {
+  const { client: request = fetch, ...requestConfig } = config  
+  
+  const res = await request<GetExercisesQueryResponse, ResponseErrorConfig<Error>, unknown>({ method : "GET", url : `/api/exercises`, params, ... requestConfig })  
+  return res.data
+}
 
 export function getExercisesQueryOptions(params: GetExercisesQueryParams, config: Partial<RequestConfig> & { client?: typeof fetch } = {}) {
   const queryKey = getExercisesQueryKey(params)

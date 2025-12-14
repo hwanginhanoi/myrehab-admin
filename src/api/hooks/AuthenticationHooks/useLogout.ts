@@ -7,12 +7,25 @@ import fetch from "@/lib/api-client";
 import type { LogoutMutationRequest, LogoutMutationResponse } from "../../types/authenticationController/Logout.ts";
 import type { RequestConfig, ResponseErrorConfig } from "@/lib/api-client";
 import type { UseMutationOptions, UseMutationResult, QueryClient } from "@tanstack/react-query";
-import { logout } from "../../clients/authenticationController/logout.ts";
 import { mutationOptions, useMutation } from "@tanstack/react-query";
 
 export const logoutMutationKey = () => [{ url: '/api/auth/logout' }] as const
 
 export type LogoutMutationKey = ReturnType<typeof logoutMutationKey>
+
+/**
+ * @description Revoke the provided refresh token. Mobile users only.
+ * @summary Logout
+ * {@link /api/auth/logout}
+ */
+export async function logout(data: LogoutMutationRequest, config: Partial<RequestConfig<LogoutMutationRequest>> & { client?: typeof fetch } = {}) {
+  const { client: request = fetch, ...requestConfig } = config  
+  
+  const requestData = data  
+  
+  const res = await request<LogoutMutationResponse, ResponseErrorConfig<Error>, LogoutMutationRequest>({ method : "POST", url : `/api/auth/logout`, data : requestData, ... requestConfig })  
+  return res.data
+}
 
 export function logoutMutationOptions(config: Partial<RequestConfig<LogoutMutationRequest>> & { client?: typeof fetch } = {}) {
   const mutationKey = logoutMutationKey()

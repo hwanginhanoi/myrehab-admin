@@ -7,12 +7,25 @@ import fetch from "@/lib/api-client";
 import type { CreateCategoryMutationRequest, CreateCategoryMutationResponse } from "../../types/exerciseCategoriesController/CreateCategory.ts";
 import type { RequestConfig, ResponseErrorConfig } from "@/lib/api-client";
 import type { UseMutationOptions, UseMutationResult, QueryClient } from "@tanstack/react-query";
-import { createCategory } from "../../clients/exerciseCategoriesController/createCategory.ts";
 import { mutationOptions, useMutation } from "@tanstack/react-query";
 
 export const createCategoryMutationKey = () => [{ url: '/api/exercise-categories' }] as const
 
 export type CreateCategoryMutationKey = ReturnType<typeof createCategoryMutationKey>
+
+/**
+ * @description Create a new exercise category with name, description, and type
+ * @summary Create exercise category
+ * {@link /api/exercise-categories}
+ */
+export async function createCategory(data: CreateCategoryMutationRequest, config: Partial<RequestConfig<CreateCategoryMutationRequest>> & { client?: typeof fetch } = {}) {
+  const { client: request = fetch, ...requestConfig } = config  
+  
+  const requestData = data  
+  
+  const res = await request<CreateCategoryMutationResponse, ResponseErrorConfig<Error>, CreateCategoryMutationRequest>({ method : "POST", url : `/api/exercise-categories`, data : requestData, ... requestConfig })  
+  return res.data
+}
 
 export function createCategoryMutationOptions(config: Partial<RequestConfig<CreateCategoryMutationRequest>> & { client?: typeof fetch } = {}) {
   const mutationKey = createCategoryMutationKey()

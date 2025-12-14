@@ -7,12 +7,23 @@ import fetch from "@/lib/api-client";
 import type { SearchCategoriesByNameQueryResponse, SearchCategoriesByNameQueryParams } from "../../types/exerciseCategoriesController/SearchCategoriesByName.ts";
 import type { RequestConfig, ResponseErrorConfig } from "@/lib/api-client";
 import type { QueryKey, QueryClient, UseSuspenseQueryOptions, UseSuspenseQueryResult } from "@tanstack/react-query";
-import { searchCategoriesByName } from "../../clients/exerciseCategoriesController/searchCategoriesByName.ts";
 import { queryOptions, useSuspenseQuery } from "@tanstack/react-query";
 
 export const searchCategoriesByNameSuspenseQueryKey = (params: SearchCategoriesByNameQueryParams) => [{ url: '/api/exercise-categories/search' }, ...(params ? [params] : [])] as const
 
 export type SearchCategoriesByNameSuspenseQueryKey = ReturnType<typeof searchCategoriesByNameSuspenseQueryKey>
+
+/**
+ * @description Search exercise categories by name (case-insensitive, partial match)
+ * @summary Search categories by name
+ * {@link /api/exercise-categories/search}
+ */
+export async function searchCategoriesByNameSuspense(params: SearchCategoriesByNameQueryParams, config: Partial<RequestConfig> & { client?: typeof fetch } = {}) {
+  const { client: request = fetch, ...requestConfig } = config  
+  
+  const res = await request<SearchCategoriesByNameQueryResponse, ResponseErrorConfig<Error>, unknown>({ method : "GET", url : `/api/exercise-categories/search`, params, ... requestConfig })  
+  return res.data
+}
 
 export function searchCategoriesByNameSuspenseQueryOptions(params: SearchCategoriesByNameQueryParams, config: Partial<RequestConfig> & { client?: typeof fetch } = {}) {
   const queryKey = searchCategoriesByNameSuspenseQueryKey(params)
@@ -21,7 +32,7 @@ export function searchCategoriesByNameSuspenseQueryOptions(params: SearchCategor
    queryKey,
    queryFn: async ({ signal }) => {
       config.signal = signal
-      return searchCategoriesByName(params, config)
+      return searchCategoriesByNameSuspense(params, config)
    },
   })
 }

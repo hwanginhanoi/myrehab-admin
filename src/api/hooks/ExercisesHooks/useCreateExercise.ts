@@ -7,12 +7,25 @@ import fetch from "@/lib/api-client";
 import type { CreateExerciseMutationRequest, CreateExerciseMutationResponse } from "../../types/exercisesController/CreateExercise.ts";
 import type { RequestConfig, ResponseErrorConfig } from "@/lib/api-client";
 import type { UseMutationOptions, UseMutationResult, QueryClient } from "@tanstack/react-query";
-import { createExercise } from "../../clients/exercisesController/createExercise.ts";
 import { mutationOptions, useMutation } from "@tanstack/react-query";
 
 export const createExerciseMutationKey = () => [{ url: '/api/exercises' }] as const
 
 export type CreateExerciseMutationKey = ReturnType<typeof createExerciseMutationKey>
+
+/**
+ * @description Create a new exercise with title, description, media URLs, duration, multiple categories, and multiple groups
+ * @summary Create exercise
+ * {@link /api/exercises}
+ */
+export async function createExercise(data: CreateExerciseMutationRequest, config: Partial<RequestConfig<CreateExerciseMutationRequest>> & { client?: typeof fetch } = {}) {
+  const { client: request = fetch, ...requestConfig } = config  
+  
+  const requestData = data  
+  
+  const res = await request<CreateExerciseMutationResponse, ResponseErrorConfig<Error>, CreateExerciseMutationRequest>({ method : "POST", url : `/api/exercises`, data : requestData, ... requestConfig })  
+  return res.data
+}
 
 export function createExerciseMutationOptions(config: Partial<RequestConfig<CreateExerciseMutationRequest>> & { client?: typeof fetch } = {}) {
   const mutationKey = createExerciseMutationKey()

@@ -7,12 +7,23 @@ import fetch from "@/lib/api-client";
 import type { GetGroupByIdQueryResponse, GetGroupByIdPathParams } from "../../types/exerciseGroupsController/GetGroupById.ts";
 import type { RequestConfig, ResponseErrorConfig } from "@/lib/api-client";
 import type { QueryKey, QueryClient, QueryObserverOptions, UseQueryResult } from "@tanstack/react-query";
-import { getGroupById } from "../../clients/exerciseGroupsController/getGroupById.ts";
 import { queryOptions, useQuery } from "@tanstack/react-query";
 
 export const getGroupByIdQueryKey = (id: GetGroupByIdPathParams["id"]) => [{ url: '/api/exercise-groups/:id', params: {id:id} }] as const
 
 export type GetGroupByIdQueryKey = ReturnType<typeof getGroupByIdQueryKey>
+
+/**
+ * @description Retrieve a specific exercise group by its ID
+ * @summary Get group by ID
+ * {@link /api/exercise-groups/:id}
+ */
+export async function getGroupById(id: GetGroupByIdPathParams["id"], config: Partial<RequestConfig> & { client?: typeof fetch } = {}) {
+  const { client: request = fetch, ...requestConfig } = config  
+  
+  const res = await request<GetGroupByIdQueryResponse, ResponseErrorConfig<Error>, unknown>({ method : "GET", url : `/api/exercise-groups/${id}`, ... requestConfig })  
+  return res.data
+}
 
 export function getGroupByIdQueryOptions(id: GetGroupByIdPathParams["id"], config: Partial<RequestConfig> & { client?: typeof fetch } = {}) {
   const queryKey = getGroupByIdQueryKey(id)

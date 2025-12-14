@@ -7,12 +7,25 @@ import fetch from "@/lib/api-client";
 import type { CreateGroupMutationRequest, CreateGroupMutationResponse } from "../../types/exerciseGroupsController/CreateGroup.ts";
 import type { RequestConfig, ResponseErrorConfig } from "@/lib/api-client";
 import type { UseMutationOptions, UseMutationResult, QueryClient } from "@tanstack/react-query";
-import { createGroup } from "../../clients/exerciseGroupsController/createGroup.ts";
 import { mutationOptions, useMutation } from "@tanstack/react-query";
 
 export const createGroupMutationKey = () => [{ url: '/api/exercise-groups' }] as const
 
 export type CreateGroupMutationKey = ReturnType<typeof createGroupMutationKey>
+
+/**
+ * @description Create a new exercise group with name and description
+ * @summary Create exercise group
+ * {@link /api/exercise-groups}
+ */
+export async function createGroup(data: CreateGroupMutationRequest, config: Partial<RequestConfig<CreateGroupMutationRequest>> & { client?: typeof fetch } = {}) {
+  const { client: request = fetch, ...requestConfig } = config  
+  
+  const requestData = data  
+  
+  const res = await request<CreateGroupMutationResponse, ResponseErrorConfig<Error>, CreateGroupMutationRequest>({ method : "POST", url : `/api/exercise-groups`, data : requestData, ... requestConfig })  
+  return res.data
+}
 
 export function createGroupMutationOptions(config: Partial<RequestConfig<CreateGroupMutationRequest>> & { client?: typeof fetch } = {}) {
   const mutationKey = createGroupMutationKey()

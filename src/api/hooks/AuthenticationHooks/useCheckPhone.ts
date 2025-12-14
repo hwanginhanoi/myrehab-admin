@@ -7,12 +7,25 @@ import fetch from "@/lib/api-client";
 import type { CheckPhoneMutationRequest, CheckPhoneMutationResponse } from "../../types/authenticationController/CheckPhone.ts";
 import type { RequestConfig, ResponseErrorConfig } from "@/lib/api-client";
 import type { UseMutationOptions, UseMutationResult, QueryClient } from "@tanstack/react-query";
-import { checkPhone } from "../../clients/authenticationController/checkPhone.ts";
 import { mutationOptions, useMutation } from "@tanstack/react-query";
 
 export const checkPhoneMutationKey = () => [{ url: '/api/auth/user/check-phone' }] as const
 
 export type CheckPhoneMutationKey = ReturnType<typeof checkPhoneMutationKey>
+
+/**
+ * @description Verify if a phone number is already registered in the system
+ * @summary Check if phone number exists
+ * {@link /api/auth/user/check-phone}
+ */
+export async function checkPhone(data: CheckPhoneMutationRequest, config: Partial<RequestConfig<CheckPhoneMutationRequest>> & { client?: typeof fetch } = {}) {
+  const { client: request = fetch, ...requestConfig } = config  
+  
+  const requestData = data  
+  
+  const res = await request<CheckPhoneMutationResponse, ResponseErrorConfig<Error>, CheckPhoneMutationRequest>({ method : "POST", url : `/api/auth/user/check-phone`, data : requestData, ... requestConfig })  
+  return res.data
+}
 
 export function checkPhoneMutationOptions(config: Partial<RequestConfig<CheckPhoneMutationRequest>> & { client?: typeof fetch } = {}) {
   const mutationKey = checkPhoneMutationKey()

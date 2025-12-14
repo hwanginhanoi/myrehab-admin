@@ -28,7 +28,6 @@ import {
   type ExerciseResponse,
   useCreateExercise,
   useUpdateExercise,
-  getAllExercisesQueryKey,
   useGetAllCategories,
   useGetAllGroups,
 } from '@/api'
@@ -39,9 +38,9 @@ const formSchema = z.object({
   description: z.string().min(1, 'Mô tả là bắt buộc'),
   imageUrl: z.string().min(1, 'Link ảnh là bắt buộc'),
   videoUrl: z.string().min(1, 'Link video là bắt buộc'),
-  durationMinutes: z.coerce.number().min(1, 'Thời lượng phải lớn hơn 0').optional(),
-  categoryIds: z.array(z.string()).optional(),
-  groupIds: z.array(z.string()).optional(),
+  durationMinutes: z.number().min(1, 'Thời lượng phải lớn hơn 0'),
+  categoryIds: z.array(z.string()),
+  groupIds: z.array(z.string()),
   isEdit: z.boolean(),
 })
 
@@ -94,7 +93,7 @@ export function ExercisesActionDialog({
           description: currentRow?.description || '',
           imageUrl: currentRow?.imageUrl || '',
           videoUrl: currentRow?.videoUrl || '',
-          durationMinutes: currentRow?.durationMinutes || undefined,
+          durationMinutes: currentRow?.durationMinutes || 0,
           categoryIds: currentRow?.categories?.map((c) => String(c.id)) || [],
           groupIds: currentRow?.groups?.map((g) => String(g.id)) || [],
           isEdit,
@@ -104,7 +103,7 @@ export function ExercisesActionDialog({
           description: '',
           imageUrl: '',
           videoUrl: '',
-          durationMinutes: undefined,
+          durationMinutes: 0,
           categoryIds: [],
           groupIds: [],
           isEdit: false,
@@ -117,7 +116,7 @@ export function ExercisesActionDialog({
         toast.success('Tạo bài tập thành công')
         form.reset()
         onOpenChange(false)
-        queryClient.invalidateQueries({ queryKey: getAllExercisesQueryKey() })
+        queryClient.invalidateQueries({ queryKey: [{ url: '/api/exercises' }] })
       },
       onError: (error) => {
         toast.error('Tạo bài tập thất bại: ' + error.message)
@@ -131,7 +130,7 @@ export function ExercisesActionDialog({
         toast.success('Cập nhật bài tập thành công')
         form.reset()
         onOpenChange(false)
-        queryClient.invalidateQueries({ queryKey: getAllExercisesQueryKey() })
+        queryClient.invalidateQueries({ queryKey: [{ url: '/api/exercises' }] })
       },
       onError: (error) => {
         toast.error('Cập nhật bài tập thất bại: ' + error.message)

@@ -7,12 +7,23 @@ import fetch from "@/lib/api-client";
 import type { SearchGroupsByNameQueryResponse, SearchGroupsByNameQueryParams } from "../../types/exerciseGroupsController/SearchGroupsByName.ts";
 import type { RequestConfig, ResponseErrorConfig } from "@/lib/api-client";
 import type { QueryKey, QueryClient, QueryObserverOptions, UseQueryResult } from "@tanstack/react-query";
-import { searchGroupsByName } from "../../clients/exerciseGroupsController/searchGroupsByName.ts";
 import { queryOptions, useQuery } from "@tanstack/react-query";
 
 export const searchGroupsByNameQueryKey = (params: SearchGroupsByNameQueryParams) => [{ url: '/api/exercise-groups/search' }, ...(params ? [params] : [])] as const
 
 export type SearchGroupsByNameQueryKey = ReturnType<typeof searchGroupsByNameQueryKey>
+
+/**
+ * @description Search exercise groups by name (case-insensitive, partial match)
+ * @summary Search groups by name
+ * {@link /api/exercise-groups/search}
+ */
+export async function searchGroupsByName(params: SearchGroupsByNameQueryParams, config: Partial<RequestConfig> & { client?: typeof fetch } = {}) {
+  const { client: request = fetch, ...requestConfig } = config  
+  
+  const res = await request<SearchGroupsByNameQueryResponse, ResponseErrorConfig<Error>, unknown>({ method : "GET", url : `/api/exercise-groups/search`, params, ... requestConfig })  
+  return res.data
+}
 
 export function searchGroupsByNameQueryOptions(params: SearchGroupsByNameQueryParams, config: Partial<RequestConfig> & { client?: typeof fetch } = {}) {
   const queryKey = searchGroupsByNameQueryKey(params)

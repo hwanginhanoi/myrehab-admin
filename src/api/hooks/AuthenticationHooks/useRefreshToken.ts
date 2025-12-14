@@ -7,12 +7,25 @@ import fetch from "@/lib/api-client";
 import type { RefreshTokenMutationRequest, RefreshTokenMutationResponse } from "../../types/authenticationController/RefreshToken.ts";
 import type { RequestConfig, ResponseErrorConfig } from "@/lib/api-client";
 import type { UseMutationOptions, UseMutationResult, QueryClient } from "@tanstack/react-query";
-import { refreshToken } from "../../clients/authenticationController/refreshToken.ts";
 import { mutationOptions, useMutation } from "@tanstack/react-query";
 
 export const refreshTokenMutationKey = () => [{ url: '/api/auth/refresh-token' }] as const
 
 export type RefreshTokenMutationKey = ReturnType<typeof refreshTokenMutationKey>
+
+/**
+ * @description Generate new access and refresh tokens using a valid refresh token. Mobile users only. Old refresh token is automatically revoked.
+ * @summary Refresh access token
+ * {@link /api/auth/refresh-token}
+ */
+export async function refreshToken(data: RefreshTokenMutationRequest, config: Partial<RequestConfig<RefreshTokenMutationRequest>> & { client?: typeof fetch } = {}) {
+  const { client: request = fetch, ...requestConfig } = config  
+  
+  const requestData = data  
+  
+  const res = await request<RefreshTokenMutationResponse, ResponseErrorConfig<Error>, RefreshTokenMutationRequest>({ method : "POST", url : `/api/auth/refresh-token`, data : requestData, ... requestConfig })  
+  return res.data
+}
 
 export function refreshTokenMutationOptions(config: Partial<RequestConfig<RefreshTokenMutationRequest>> & { client?: typeof fetch } = {}) {
   const mutationKey = refreshTokenMutationKey()

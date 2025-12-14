@@ -7,12 +7,23 @@ import fetch from "@/lib/api-client";
 import type { SearchGroupsByNameQueryResponse, SearchGroupsByNameQueryParams } from "../../types/exerciseGroupsController/SearchGroupsByName.ts";
 import type { RequestConfig, ResponseErrorConfig } from "@/lib/api-client";
 import type { QueryKey, QueryClient, UseSuspenseQueryOptions, UseSuspenseQueryResult } from "@tanstack/react-query";
-import { searchGroupsByName } from "../../clients/exerciseGroupsController/searchGroupsByName.ts";
 import { queryOptions, useSuspenseQuery } from "@tanstack/react-query";
 
 export const searchGroupsByNameSuspenseQueryKey = (params: SearchGroupsByNameQueryParams) => [{ url: '/api/exercise-groups/search' }, ...(params ? [params] : [])] as const
 
 export type SearchGroupsByNameSuspenseQueryKey = ReturnType<typeof searchGroupsByNameSuspenseQueryKey>
+
+/**
+ * @description Search exercise groups by name (case-insensitive, partial match)
+ * @summary Search groups by name
+ * {@link /api/exercise-groups/search}
+ */
+export async function searchGroupsByNameSuspense(params: SearchGroupsByNameQueryParams, config: Partial<RequestConfig> & { client?: typeof fetch } = {}) {
+  const { client: request = fetch, ...requestConfig } = config  
+  
+  const res = await request<SearchGroupsByNameQueryResponse, ResponseErrorConfig<Error>, unknown>({ method : "GET", url : `/api/exercise-groups/search`, params, ... requestConfig })  
+  return res.data
+}
 
 export function searchGroupsByNameSuspenseQueryOptions(params: SearchGroupsByNameQueryParams, config: Partial<RequestConfig> & { client?: typeof fetch } = {}) {
   const queryKey = searchGroupsByNameSuspenseQueryKey(params)
@@ -21,7 +32,7 @@ export function searchGroupsByNameSuspenseQueryOptions(params: SearchGroupsByNam
    queryKey,
    queryFn: async ({ signal }) => {
       config.signal = signal
-      return searchGroupsByName(params, config)
+      return searchGroupsByNameSuspense(params, config)
    },
   })
 }

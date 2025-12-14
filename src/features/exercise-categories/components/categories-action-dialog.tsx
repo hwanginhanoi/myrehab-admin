@@ -25,7 +25,7 @@ import { Input } from '@/components/ui/input'
 import { Textarea } from '@/components/ui/textarea'
 import { SelectDropdown } from '@/components/select-dropdown'
 import { categoryTypeOptions } from '@/lib/constants/category-type'
-import { type CategoryResponse, useCreateCategory, useUpdateCategory, getAllCategoriesQueryKey } from '@/api'
+import { type CategoryResponse, useCreateCategory, useUpdateCategory } from '@/api'
 import { toast } from 'sonner'
 
 const formSchema = z.object({
@@ -78,7 +78,7 @@ export function CategoriesActionDialog({
         toast.success('Tạo danh mục thành công')
         form.reset()
         onOpenChange(false)
-        queryClient.invalidateQueries({ queryKey: getAllCategoriesQueryKey() })
+        queryClient.invalidateQueries({ queryKey: [{ url: '/api/exercise-categories' }] })
       },
       onError: (error) => {
         toast.error('Tạo danh mục thất bại: ' + error.message)
@@ -92,7 +92,7 @@ export function CategoriesActionDialog({
         toast.success('Cập nhật danh mục thành công')
         form.reset()
         onOpenChange(false)
-        queryClient.invalidateQueries({ queryKey: getAllCategoriesQueryKey() })
+        queryClient.invalidateQueries({ queryKey: [{ url: '/api/exercise-categories' }] })
       },
       onError: (error) => {
         toast.error('Cập nhật danh mục thất bại: ' + error.message)
@@ -108,7 +108,7 @@ export function CategoriesActionDialog({
 
     const payload = {
       name: values.name,
-      type: values.type as CategoryResponse['type'],
+      type: values.type as NonNullable<CategoryResponse['type']>,
       description: values.description,
     }
 

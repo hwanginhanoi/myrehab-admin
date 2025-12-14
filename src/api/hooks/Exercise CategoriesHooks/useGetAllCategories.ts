@@ -7,12 +7,23 @@ import fetch from "@/lib/api-client";
 import type { GetAllCategoriesQueryResponse, GetAllCategoriesQueryParams } from "../../types/exerciseCategoriesController/GetAllCategories.ts";
 import type { RequestConfig, ResponseErrorConfig } from "@/lib/api-client";
 import type { QueryKey, QueryClient, QueryObserverOptions, UseQueryResult } from "@tanstack/react-query";
-import { getAllCategories } from "../../clients/exerciseCategoriesController/getAllCategories.ts";
 import { queryOptions, useQuery } from "@tanstack/react-query";
 
 export const getAllCategoriesQueryKey = (params: GetAllCategoriesQueryParams) => [{ url: '/api/exercise-categories' }, ...(params ? [params] : [])] as const
 
 export type GetAllCategoriesQueryKey = ReturnType<typeof getAllCategoriesQueryKey>
+
+/**
+ * @description Retrieve exercise categories with pagination. Default page size is 20. Sorted by newest first.
+ * @summary Get all categories
+ * {@link /api/exercise-categories}
+ */
+export async function getAllCategories(params: GetAllCategoriesQueryParams, config: Partial<RequestConfig> & { client?: typeof fetch } = {}) {
+  const { client: request = fetch, ...requestConfig } = config  
+  
+  const res = await request<GetAllCategoriesQueryResponse, ResponseErrorConfig<Error>, unknown>({ method : "GET", url : `/api/exercise-categories`, params, ... requestConfig })  
+  return res.data
+}
 
 export function getAllCategoriesQueryOptions(params: GetAllCategoriesQueryParams, config: Partial<RequestConfig> & { client?: typeof fetch } = {}) {
   const queryKey = getAllCategoriesQueryKey(params)

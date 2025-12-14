@@ -7,12 +7,25 @@ import fetch from "@/lib/api-client";
 import type { LoginWithPinMutationRequest, LoginWithPinMutationResponse } from "../../types/authenticationController/LoginWithPin.ts";
 import type { RequestConfig, ResponseErrorConfig } from "@/lib/api-client";
 import type { UseMutationOptions, UseMutationResult, QueryClient } from "@tanstack/react-query";
-import { loginWithPin } from "../../clients/authenticationController/loginWithPin.ts";
 import { mutationOptions, useMutation } from "@tanstack/react-query";
 
 export const loginWithPinMutationKey = () => [{ url: '/api/auth/user/login-with-pin' }] as const
 
 export type LoginWithPinMutationKey = ReturnType<typeof loginWithPinMutationKey>
+
+/**
+ * @description Authenticate mobile user using phone number and 6-digit PIN
+ * @summary Login mobile user with PIN
+ * {@link /api/auth/user/login-with-pin}
+ */
+export async function loginWithPin(data: LoginWithPinMutationRequest, config: Partial<RequestConfig<LoginWithPinMutationRequest>> & { client?: typeof fetch } = {}) {
+  const { client: request = fetch, ...requestConfig } = config  
+  
+  const requestData = data  
+  
+  const res = await request<LoginWithPinMutationResponse, ResponseErrorConfig<Error>, LoginWithPinMutationRequest>({ method : "POST", url : `/api/auth/user/login-with-pin`, data : requestData, ... requestConfig })  
+  return res.data
+}
 
 export function loginWithPinMutationOptions(config: Partial<RequestConfig<LoginWithPinMutationRequest>> & { client?: typeof fetch } = {}) {
   const mutationKey = loginWithPinMutationKey()

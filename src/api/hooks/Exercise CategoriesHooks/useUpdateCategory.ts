@@ -7,12 +7,25 @@ import fetch from "@/lib/api-client";
 import type { UpdateCategoryMutationRequest, UpdateCategoryMutationResponse, UpdateCategoryPathParams } from "../../types/exerciseCategoriesController/UpdateCategory.ts";
 import type { RequestConfig, ResponseErrorConfig } from "@/lib/api-client";
 import type { UseMutationOptions, UseMutationResult, QueryClient } from "@tanstack/react-query";
-import { updateCategory } from "../../clients/exerciseCategoriesController/updateCategory.ts";
 import { mutationOptions, useMutation } from "@tanstack/react-query";
 
 export const updateCategoryMutationKey = () => [{ url: '/api/exercise-categories/:id' }] as const
 
 export type UpdateCategoryMutationKey = ReturnType<typeof updateCategoryMutationKey>
+
+/**
+ * @description Update an existing exercise category
+ * @summary Update exercise category
+ * {@link /api/exercise-categories/:id}
+ */
+export async function updateCategory(id: UpdateCategoryPathParams["id"], data: UpdateCategoryMutationRequest, config: Partial<RequestConfig<UpdateCategoryMutationRequest>> & { client?: typeof fetch } = {}) {
+  const { client: request = fetch, ...requestConfig } = config  
+  
+  const requestData = data  
+  
+  const res = await request<UpdateCategoryMutationResponse, ResponseErrorConfig<Error>, UpdateCategoryMutationRequest>({ method : "PUT", url : `/api/exercise-categories/${id}`, data : requestData, ... requestConfig })  
+  return res.data
+}
 
 export function updateCategoryMutationOptions(config: Partial<RequestConfig<UpdateCategoryMutationRequest>> & { client?: typeof fetch } = {}) {
   const mutationKey = updateCategoryMutationKey()

@@ -23,7 +23,7 @@ import {
 } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
 import { Textarea } from '@/components/ui/textarea'
-import { type GroupResponse, useCreateGroup, useUpdateGroup, getAllGroupsQueryKey } from '@/api'
+import { type GroupResponse, useCreateGroup, useUpdateGroup } from '@/api'
 import { toast } from 'sonner'
 
 const formSchema = z.object({
@@ -73,7 +73,7 @@ export function GroupsActionDialog({
         toast.success('Tạo nhóm thành công')
         form.reset()
         onOpenChange(false)
-        queryClient.invalidateQueries({ queryKey: getAllGroupsQueryKey() })
+        queryClient.invalidateQueries({ queryKey: [{ url: '/api/exercise-groups' }] })
       },
       onError: (error) => {
         toast.error('Tạo nhóm thất bại: ' + error.message)
@@ -87,7 +87,7 @@ export function GroupsActionDialog({
         toast.success('Cập nhật nhóm thành công')
         form.reset()
         onOpenChange(false)
-        queryClient.invalidateQueries({ queryKey: getAllGroupsQueryKey() })
+        queryClient.invalidateQueries({ queryKey: [{ url: '/api/exercise-groups' }] })
       },
       onError: (error) => {
         toast.error('Cập nhật nhóm thất bại: ' + error.message)

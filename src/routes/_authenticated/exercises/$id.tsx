@@ -17,9 +17,7 @@ function ExerciseDetail() {
   const { id } = Route.useParams()
   const { mode } = Route.useSearch()
 
-  const { data: exercise, isLoading } = useGetExerciseById({
-    id: Number(id),
-  })
+  const { data: exercise, isLoading } = useGetExerciseById(Number(id))
 
   return (
     <>

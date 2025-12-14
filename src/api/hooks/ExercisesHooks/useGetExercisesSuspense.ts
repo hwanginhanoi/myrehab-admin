@@ -7,12 +7,23 @@ import fetch from "@/lib/api-client";
 import type { GetExercisesQueryResponse, GetExercisesQueryParams } from "../../types/exercisesController/GetExercises.ts";
 import type { RequestConfig, ResponseErrorConfig } from "@/lib/api-client";
 import type { QueryKey, QueryClient, UseSuspenseQueryOptions, UseSuspenseQueryResult } from "@tanstack/react-query";
-import { getExercises } from "../../clients/exercisesController/getExercises.ts";
 import { queryOptions, useSuspenseQuery } from "@tanstack/react-query";
 
 export const getExercisesSuspenseQueryKey = (params: GetExercisesQueryParams) => [{ url: '/api/exercises' }, ...(params ? [params] : [])] as const
 
 export type GetExercisesSuspenseQueryKey = ReturnType<typeof getExercisesSuspenseQueryKey>
+
+/**
+ * @description Retrieve exercises with optional filters (category, group, title). All filters are optional and can be combined. Default page size is 20. Sorted by newest first.
+ * @summary Get exercises with filters
+ * {@link /api/exercises}
+ */
+export async function getExercisesSuspense(params: GetExercisesQueryParams, config: Partial<RequestConfig> & { client?: typeof fetch } = {}) {
+  const { client: request = fetch, ...requestConfig } = config  
+  
+  const res = await request<GetExercisesQueryResponse, ResponseErrorConfig<Error>, unknown>({ method : "GET", url : `/api/exercises`, params, ... requestConfig })  
+  return res.data
+}
 
 export function getExercisesSuspenseQueryOptions(params: GetExercisesQueryParams, config: Partial<RequestConfig> & { client?: typeof fetch } = {}) {
   const queryKey = getExercisesSuspenseQueryKey(params)
@@ -21,7 +32,7 @@ export function getExercisesSuspenseQueryOptions(params: GetExercisesQueryParams
    queryKey,
    queryFn: async ({ signal }) => {
       config.signal = signal
-      return getExercises(params, config)
+      return getExercisesSuspense(params, config)
    },
   })
 }

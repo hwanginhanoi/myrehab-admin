@@ -7,12 +7,23 @@ import fetch from "@/lib/api-client";
 import type { GetAllGroupsQueryResponse, GetAllGroupsQueryParams } from "../../types/exerciseGroupsController/GetAllGroups.ts";
 import type { RequestConfig, ResponseErrorConfig } from "@/lib/api-client";
 import type { QueryKey, QueryClient, UseSuspenseQueryOptions, UseSuspenseQueryResult } from "@tanstack/react-query";
-import { getAllGroups } from "../../clients/exerciseGroupsController/getAllGroups.ts";
 import { queryOptions, useSuspenseQuery } from "@tanstack/react-query";
 
 export const getAllGroupsSuspenseQueryKey = (params: GetAllGroupsQueryParams) => [{ url: '/api/exercise-groups' }, ...(params ? [params] : [])] as const
 
 export type GetAllGroupsSuspenseQueryKey = ReturnType<typeof getAllGroupsSuspenseQueryKey>
+
+/**
+ * @description Retrieve exercise groups with pagination. Default page size is 20. Sorted by newest first.
+ * @summary Get all groups
+ * {@link /api/exercise-groups}
+ */
+export async function getAllGroupsSuspense(params: GetAllGroupsQueryParams, config: Partial<RequestConfig> & { client?: typeof fetch } = {}) {
+  const { client: request = fetch, ...requestConfig } = config  
+  
+  const res = await request<GetAllGroupsQueryResponse, ResponseErrorConfig<Error>, unknown>({ method : "GET", url : `/api/exercise-groups`, params, ... requestConfig })  
+  return res.data
+}
 
 export function getAllGroupsSuspenseQueryOptions(params: GetAllGroupsQueryParams, config: Partial<RequestConfig> & { client?: typeof fetch } = {}) {
   const queryKey = getAllGroupsSuspenseQueryKey(params)
@@ -21,7 +32,7 @@ export function getAllGroupsSuspenseQueryOptions(params: GetAllGroupsQueryParams
    queryKey,
    queryFn: async ({ signal }) => {
       config.signal = signal
-      return getAllGroups(params, config)
+      return getAllGroupsSuspense(params, config)
    },
   })
 }

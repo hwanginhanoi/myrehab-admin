@@ -7,12 +7,25 @@ import fetch from "@/lib/api-client";
 import type { RequestPinResetMutationRequest, RequestPinResetMutationResponse } from "../../types/authenticationController/RequestPinReset.ts";
 import type { RequestConfig, ResponseErrorConfig } from "@/lib/api-client";
 import type { UseMutationOptions, UseMutationResult, QueryClient } from "@tanstack/react-query";
-import { requestPinReset } from "../../clients/authenticationController/requestPinReset.ts";
 import { mutationOptions, useMutation } from "@tanstack/react-query";
 
 export const requestPinResetMutationKey = () => [{ url: '/api/auth/user/request-pin-reset' }] as const
 
 export type RequestPinResetMutationKey = ReturnType<typeof requestPinResetMutationKey>
+
+/**
+ * @description Send OTP to registered phone number to initiate PIN reset process
+ * @summary Request PIN reset OTP
+ * {@link /api/auth/user/request-pin-reset}
+ */
+export async function requestPinReset(data: RequestPinResetMutationRequest, config: Partial<RequestConfig<RequestPinResetMutationRequest>> & { client?: typeof fetch } = {}) {
+  const { client: request = fetch, ...requestConfig } = config  
+  
+  const requestData = data  
+  
+  const res = await request<RequestPinResetMutationResponse, ResponseErrorConfig<Error>, RequestPinResetMutationRequest>({ method : "POST", url : `/api/auth/user/request-pin-reset`, data : requestData, ... requestConfig })  
+  return res.data
+}
 
 export function requestPinResetMutationOptions(config: Partial<RequestConfig<RequestPinResetMutationRequest>> & { client?: typeof fetch } = {}) {
   const mutationKey = requestPinResetMutationKey()

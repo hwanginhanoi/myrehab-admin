@@ -7,12 +7,25 @@ import fetch from "@/lib/api-client";
 import type { SendRegistrationOtpMutationRequest, SendRegistrationOtpMutationResponse } from "../../types/authenticationController/SendRegistrationOtp.ts";
 import type { RequestConfig, ResponseErrorConfig } from "@/lib/api-client";
 import type { UseMutationOptions, UseMutationResult, QueryClient } from "@tanstack/react-query";
-import { sendRegistrationOtp } from "../../clients/authenticationController/sendRegistrationOtp.ts";
 import { mutationOptions, useMutation } from "@tanstack/react-query";
 
 export const sendRegistrationOtpMutationKey = () => [{ url: '/api/auth/user/send-registration-otp' }] as const
 
 export type SendRegistrationOtpMutationKey = ReturnType<typeof sendRegistrationOtpMutationKey>
+
+/**
+ * @description Generate and send a 6-digit OTP to the provided phone number for registration
+ * @summary Send registration OTP
+ * {@link /api/auth/user/send-registration-otp}
+ */
+export async function sendRegistrationOtp(data: SendRegistrationOtpMutationRequest, config: Partial<RequestConfig<SendRegistrationOtpMutationRequest>> & { client?: typeof fetch } = {}) {
+  const { client: request = fetch, ...requestConfig } = config  
+  
+  const requestData = data  
+  
+  const res = await request<SendRegistrationOtpMutationResponse, ResponseErrorConfig<Error>, SendRegistrationOtpMutationRequest>({ method : "POST", url : `/api/auth/user/send-registration-otp`, data : requestData, ... requestConfig })  
+  return res.data
+}
 
 export function sendRegistrationOtpMutationOptions(config: Partial<RequestConfig<SendRegistrationOtpMutationRequest>> & { client?: typeof fetch } = {}) {
   const mutationKey = sendRegistrationOtpMutationKey()

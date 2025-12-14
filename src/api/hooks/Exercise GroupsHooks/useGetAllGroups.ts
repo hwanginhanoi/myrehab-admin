@@ -7,12 +7,23 @@ import fetch from "@/lib/api-client";
 import type { GetAllGroupsQueryResponse, GetAllGroupsQueryParams } from "../../types/exerciseGroupsController/GetAllGroups.ts";
 import type { RequestConfig, ResponseErrorConfig } from "@/lib/api-client";
 import type { QueryKey, QueryClient, QueryObserverOptions, UseQueryResult } from "@tanstack/react-query";
-import { getAllGroups } from "../../clients/exerciseGroupsController/getAllGroups.ts";
 import { queryOptions, useQuery } from "@tanstack/react-query";
 
 export const getAllGroupsQueryKey = (params: GetAllGroupsQueryParams) => [{ url: '/api/exercise-groups' }, ...(params ? [params] : [])] as const
 
 export type GetAllGroupsQueryKey = ReturnType<typeof getAllGroupsQueryKey>
+
+/**
+ * @description Retrieve exercise groups with pagination. Default page size is 20. Sorted by newest first.
+ * @summary Get all groups
+ * {@link /api/exercise-groups}
+ */
+export async function getAllGroups(params: GetAllGroupsQueryParams, config: Partial<RequestConfig> & { client?: typeof fetch } = {}) {
+  const { client: request = fetch, ...requestConfig } = config  
+  
+  const res = await request<GetAllGroupsQueryResponse, ResponseErrorConfig<Error>, unknown>({ method : "GET", url : `/api/exercise-groups`, params, ... requestConfig })  
+  return res.data
+}
 
 export function getAllGroupsQueryOptions(params: GetAllGroupsQueryParams, config: Partial<RequestConfig> & { client?: typeof fetch } = {}) {
   const queryKey = getAllGroupsQueryKey(params)

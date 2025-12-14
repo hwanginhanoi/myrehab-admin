@@ -7,12 +7,25 @@ import fetch from "@/lib/api-client";
 import type { UpdateExerciseMutationRequest, UpdateExerciseMutationResponse, UpdateExercisePathParams } from "../../types/exercisesController/UpdateExercise.ts";
 import type { RequestConfig, ResponseErrorConfig } from "@/lib/api-client";
 import type { UseMutationOptions, UseMutationResult, QueryClient } from "@tanstack/react-query";
-import { updateExercise } from "../../clients/exercisesController/updateExercise.ts";
 import { mutationOptions, useMutation } from "@tanstack/react-query";
 
 export const updateExerciseMutationKey = () => [{ url: '/api/exercises/:id' }] as const
 
 export type UpdateExerciseMutationKey = ReturnType<typeof updateExerciseMutationKey>
+
+/**
+ * @description Update an existing exercise with multiple categories and groups
+ * @summary Update exercise
+ * {@link /api/exercises/:id}
+ */
+export async function updateExercise(id: UpdateExercisePathParams["id"], data: UpdateExerciseMutationRequest, config: Partial<RequestConfig<UpdateExerciseMutationRequest>> & { client?: typeof fetch } = {}) {
+  const { client: request = fetch, ...requestConfig } = config  
+  
+  const requestData = data  
+  
+  const res = await request<UpdateExerciseMutationResponse, ResponseErrorConfig<Error>, UpdateExerciseMutationRequest>({ method : "PUT", url : `/api/exercises/${id}`, data : requestData, ... requestConfig })  
+  return res.data
+}
 
 export function updateExerciseMutationOptions(config: Partial<RequestConfig<UpdateExerciseMutationRequest>> & { client?: typeof fetch } = {}) {
   const mutationKey = updateExerciseMutationKey()

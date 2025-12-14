@@ -7,12 +7,25 @@ import fetch from "@/lib/api-client";
 import type { RegisterMutationRequest, RegisterMutationResponse } from "../../types/authenticationController/Register.ts";
 import type { RequestConfig, ResponseErrorConfig } from "@/lib/api-client";
 import type { UseMutationOptions, UseMutationResult, QueryClient } from "@tanstack/react-query";
-import { register } from "../../clients/authenticationController/register.ts";
 import { mutationOptions, useMutation } from "@tanstack/react-query";
 
 export const registerMutationKey = () => [{ url: '/api/auth/user/register' }] as const
 
 export type RegisterMutationKey = ReturnType<typeof registerMutationKey>
+
+/**
+ * @description Register a new mobile user with OTP verification and 6-digit PIN
+ * @summary Register mobile user
+ * {@link /api/auth/user/register}
+ */
+export async function register(data: RegisterMutationRequest, config: Partial<RequestConfig<RegisterMutationRequest>> & { client?: typeof fetch } = {}) {
+  const { client: request = fetch, ...requestConfig } = config  
+  
+  const requestData = data  
+  
+  const res = await request<RegisterMutationResponse, ResponseErrorConfig<Error>, RegisterMutationRequest>({ method : "POST", url : `/api/auth/user/register`, data : requestData, ... requestConfig })  
+  return res.data
+}
 
 export function registerMutationOptions(config: Partial<RequestConfig<RegisterMutationRequest>> & { client?: typeof fetch } = {}) {
   const mutationKey = registerMutationKey()

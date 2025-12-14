@@ -21,7 +21,6 @@ import {
   type ExerciseResponse,
   useCreateExercise,
   useUpdateExercise,
-  getAllExercisesQueryKey,
   useGetAllCategories,
   useGetAllGroups,
 } from '@/api'
@@ -29,10 +28,10 @@ import { toast } from 'sonner'
 
 const formSchema = z.object({
   title: z.string().min(1, 'Tên bài tập là bắt buộc'),
-  description: z.string().optional(),
+  description: z.string(),
   imageUrl: z.string().min(1, 'Link ảnh là bắt buộc'),
   videoUrl: z.string().min(1, 'Link video là bắt buộc'),
-  durationMinutes: z.coerce.number().min(1, 'Thời lượng phải lớn hơn 0'),
+  durationMinutes: z.number().min(1, 'Thời lượng phải lớn hơn 0'),
   categoryIds: z.array(z.string()).min(1, 'Vui lòng chọn ít nhất một danh mục'),
   groupIds: z.array(z.string()).min(1, 'Vui lòng chọn ít nhất một kho bài tập'),
 })
@@ -79,7 +78,7 @@ export function ExerciseFormComponent({ exercise, mode }: ExerciseFormComponentP
           description: exercise.description || '',
           imageUrl: exercise.imageUrl || '',
           videoUrl: exercise.videoUrl || '',
-          durationMinutes: exercise.durationMinutes || undefined,
+          durationMinutes: exercise.durationMinutes || 0,
           categoryIds: exercise.categories?.map((c) => String(c.id)) || [],
           groupIds: exercise.groups?.map((g) => String(g.id)) || [],
         }
@@ -88,7 +87,7 @@ export function ExerciseFormComponent({ exercise, mode }: ExerciseFormComponentP
           description: '',
           imageUrl: '',
           videoUrl: '',
-          durationMinutes: undefined,
+          durationMinutes: 0,
           categoryIds: [],
           groupIds: [],
         },
@@ -98,8 +97,8 @@ export function ExerciseFormComponent({ exercise, mode }: ExerciseFormComponentP
     mutation: {
       onSuccess: () => {
         toast.success('Tạo bài tập thành công')
-        queryClient.invalidateQueries({ queryKey: getAllExercisesQueryKey() })
-        navigate({ to: '/exercises' })
+        queryClient.invalidateQueries({ queryKey: [{ url: '/api/exercises' }] })
+        navigate({ to: '/exercises', search: { categoryId: undefined } })
       },
       onError: (error) => {
         toast.error('Tạo bài tập thất bại: ' + error.message)
@@ -111,8 +110,8 @@ export function ExerciseFormComponent({ exercise, mode }: ExerciseFormComponentP
     mutation: {
       onSuccess: () => {
         toast.success('Cập nhật bài tập thành công')
-        queryClient.invalidateQueries({ queryKey: getAllExercisesQueryKey() })
-        navigate({ to: '/exercises' })
+        queryClient.invalidateQueries({ queryKey: [{ url: '/api/exercises' }] })
+        navigate({ to: '/exercises', search: { categoryId: undefined } })
       },
       onError: (error) => {
         toast.error('Cập nhật bài tập thất bại: ' + error.message)
@@ -305,7 +304,7 @@ export function ExerciseFormComponent({ exercise, mode }: ExerciseFormComponentP
             <Button
               type='button'
               variant='outline'
-              onClick={() => navigate({ to: '/exercises' })}
+              onClick={() => navigate({ to: '/exercises', search: { categoryId: undefined } })}
             >
               {isView ? 'Đóng' : 'Hủy'}
             </Button>

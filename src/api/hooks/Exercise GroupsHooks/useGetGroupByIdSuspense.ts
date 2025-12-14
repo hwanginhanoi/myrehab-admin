@@ -7,12 +7,23 @@ import fetch from "@/lib/api-client";
 import type { GetGroupByIdQueryResponse, GetGroupByIdPathParams } from "../../types/exerciseGroupsController/GetGroupById.ts";
 import type { RequestConfig, ResponseErrorConfig } from "@/lib/api-client";
 import type { QueryKey, QueryClient, UseSuspenseQueryOptions, UseSuspenseQueryResult } from "@tanstack/react-query";
-import { getGroupById } from "../../clients/exerciseGroupsController/getGroupById.ts";
 import { queryOptions, useSuspenseQuery } from "@tanstack/react-query";
 
 export const getGroupByIdSuspenseQueryKey = (id: GetGroupByIdPathParams["id"]) => [{ url: '/api/exercise-groups/:id', params: {id:id} }] as const
 
 export type GetGroupByIdSuspenseQueryKey = ReturnType<typeof getGroupByIdSuspenseQueryKey>
+
+/**
+ * @description Retrieve a specific exercise group by its ID
+ * @summary Get group by ID
+ * {@link /api/exercise-groups/:id}
+ */
+export async function getGroupByIdSuspense(id: GetGroupByIdPathParams["id"], config: Partial<RequestConfig> & { client?: typeof fetch } = {}) {
+  const { client: request = fetch, ...requestConfig } = config  
+  
+  const res = await request<GetGroupByIdQueryResponse, ResponseErrorConfig<Error>, unknown>({ method : "GET", url : `/api/exercise-groups/${id}`, ... requestConfig })  
+  return res.data
+}
 
 export function getGroupByIdSuspenseQueryOptions(id: GetGroupByIdPathParams["id"], config: Partial<RequestConfig> & { client?: typeof fetch } = {}) {
   const queryKey = getGroupByIdSuspenseQueryKey(id)
@@ -21,7 +32,7 @@ export function getGroupByIdSuspenseQueryOptions(id: GetGroupByIdPathParams["id"
    queryKey,
    queryFn: async ({ signal }) => {
       config.signal = signal
-      return getGroupById(id, config)
+      return getGroupByIdSuspense(id, config)
    },
   })
 }

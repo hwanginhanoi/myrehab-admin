@@ -22,12 +22,12 @@
     },
 
     /* Linting */
-    "strict": true,
+    "strict": false,
+    "strictNullChecks": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true,
     "noUncheckedSideEffectImports": true
   },
-  "include": ["src"],
-  "exclude": ["src/api/**"]
+  "include": ["src"]
 }

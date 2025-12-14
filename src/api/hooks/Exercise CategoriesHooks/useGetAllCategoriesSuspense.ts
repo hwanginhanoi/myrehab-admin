@@ -7,12 +7,23 @@ import fetch from "@/lib/api-client";
 import type { GetAllCategoriesQueryResponse, GetAllCategoriesQueryParams } from "../../types/exerciseCategoriesController/GetAllCategories.ts";
 import type { RequestConfig, ResponseErrorConfig } from "@/lib/api-client";
 import type { QueryKey, QueryClient, UseSuspenseQueryOptions, UseSuspenseQueryResult } from "@tanstack/react-query";
-import { getAllCategories } from "../../clients/exerciseCategoriesController/getAllCategories.ts";
 import { queryOptions, useSuspenseQuery } from "@tanstack/react-query";
 
 export const getAllCategoriesSuspenseQueryKey = (params: GetAllCategoriesQueryParams) => [{ url: '/api/exercise-categories' }, ...(params ? [params] : [])] as const
 
 export type GetAllCategoriesSuspenseQueryKey = ReturnType<typeof getAllCategoriesSuspenseQueryKey>
+
+/**
+ * @description Retrieve exercise categories with pagination. Default page size is 20. Sorted by newest first.
+ * @summary Get all categories
+ * {@link /api/exercise-categories}
+ */
+export async function getAllCategoriesSuspense(params: GetAllCategoriesQueryParams, config: Partial<RequestConfig> & { client?: typeof fetch } = {}) {
+  const { client: request = fetch, ...requestConfig } = config  
+  
+  const res = await request<GetAllCategoriesQueryResponse, ResponseErrorConfig<Error>, unknown>({ method : "GET", url : `/api/exercise-categories`, params, ... requestConfig })  
+  return res.data
+}
 
 export function getAllCategoriesSuspenseQueryOptions(params: GetAllCategoriesQueryParams, config: Partial<RequestConfig> & { client?: typeof fetch } = {}) {
   const queryKey = getAllCategoriesSuspenseQueryKey(params)
@@ -21,7 +32,7 @@ export function getAllCategoriesSuspenseQueryOptions(params: GetAllCategoriesQue
    queryKey,
    queryFn: async ({ signal }) => {
       config.signal = signal
-      return getAllCategories(params, config)
+      return getAllCategoriesSuspense(params, config)
    },
   })
 }

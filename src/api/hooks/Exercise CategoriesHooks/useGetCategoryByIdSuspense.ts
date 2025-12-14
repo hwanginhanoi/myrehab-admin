@@ -7,12 +7,23 @@ import fetch from "@/lib/api-client";
 import type { GetCategoryByIdQueryResponse, GetCategoryByIdPathParams } from "../../types/exerciseCategoriesController/GetCategoryById.ts";
 import type { RequestConfig, ResponseErrorConfig } from "@/lib/api-client";
 import type { QueryKey, QueryClient, UseSuspenseQueryOptions, UseSuspenseQueryResult } from "@tanstack/react-query";
-import { getCategoryById } from "../../clients/exerciseCategoriesController/getCategoryById.ts";
 import { queryOptions, useSuspenseQuery } from "@tanstack/react-query";
 
 export const getCategoryByIdSuspenseQueryKey = (id: GetCategoryByIdPathParams["id"]) => [{ url: '/api/exercise-categories/:id', params: {id:id} }] as const
 
 export type GetCategoryByIdSuspenseQueryKey = ReturnType<typeof getCategoryByIdSuspenseQueryKey>
+
+/**
+ * @description Retrieve a specific exercise category by its ID
+ * @summary Get category by ID
+ * {@link /api/exercise-categories/:id}
+ */
+export async function getCategoryByIdSuspense(id: GetCategoryByIdPathParams["id"], config: Partial<RequestConfig> & { client?: typeof fetch } = {}) {
+  const { client: request = fetch, ...requestConfig } = config  
+  
+  const res = await request<GetCategoryByIdQueryResponse, ResponseErrorConfig<Error>, unknown>({ method : "GET", url : `/api/exercise-categories/${id}`, ... requestConfig })  
+  return res.data
+}
 
 export function getCategoryByIdSuspenseQueryOptions(id: GetCategoryByIdPathParams["id"], config: Partial<RequestConfig> & { client?: typeof fetch } = {}) {
   const queryKey = getCategoryByIdSuspenseQueryKey(id)
@@ -21,7 +32,7 @@ export function getCategoryByIdSuspenseQueryOptions(id: GetCategoryByIdPathParam
    queryKey,
    queryFn: async ({ signal }) => {
       config.signal = signal
-      return getCategoryById(id, config)
+      return getCategoryByIdSuspense(id, config)
    },
   })
 }

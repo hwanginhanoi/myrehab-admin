@@ -7,12 +7,25 @@ import fetch from "@/lib/api-client";
 import type { ResetPinMutationRequest, ResetPinMutationResponse } from "../../types/authenticationController/ResetPin.ts";
 import type { RequestConfig, ResponseErrorConfig } from "@/lib/api-client";
 import type { UseMutationOptions, UseMutationResult, QueryClient } from "@tanstack/react-query";
-import { resetPin } from "../../clients/authenticationController/resetPin.ts";
 import { mutationOptions, useMutation } from "@tanstack/react-query";
 
 export const resetPinMutationKey = () => [{ url: '/api/auth/user/reset-pin' }] as const
 
 export type ResetPinMutationKey = ReturnType<typeof resetPinMutationKey>
+
+/**
+ * @description Reset PIN with OTP verification. All refresh tokens will be revoked for security.
+ * @summary Reset user PIN
+ * {@link /api/auth/user/reset-pin}
+ */
+export async function resetPin(data: ResetPinMutationRequest, config: Partial<RequestConfig<ResetPinMutationRequest>> & { client?: typeof fetch } = {}) {
+  const { client: request = fetch, ...requestConfig } = config  
+  
+  const requestData = data  
+  
+  const res = await request<ResetPinMutationResponse, ResponseErrorConfig<Error>, ResetPinMutationRequest>({ method : "POST", url : `/api/auth/user/reset-pin`, data : requestData, ... requestConfig })  
+  return res.data
+}
 
 export function resetPinMutationOptions(config: Partial<RequestConfig<ResetPinMutationRequest>> & { client?: typeof fetch } = {}) {
   const mutationKey = resetPinMutationKey()
