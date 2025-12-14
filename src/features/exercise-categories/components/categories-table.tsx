@@ -4,10 +4,6 @@ import {
   type VisibilityState,
   flexRender,
   getCoreRowModel,
-  getFacetedRowModel,
-  getFacetedUniqueValues,
-  getFilteredRowModel,
-  getSortedRowModel,
   useReactTable,
 } from '@tanstack/react-table'
 import { cn } from '@/lib/utils'
@@ -20,10 +16,10 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table'
-import { DataTablePagination, DataTableToolbar } from '@/components/data-table'
+import { DataTablePagination } from '@/components/server-data-table'
 import type { CategoryResponse } from '@/api'
-import { categoryTypeOptions } from '@/lib/constants/category-type'
 import { categoriesColumns as columns } from './categories-columns'
+import { CategoriesTableToolbar } from './categories-table-toolbar'
 
 type DataTableProps = {
   data: CategoryResponse[]
@@ -69,16 +65,13 @@ export function CategoriesTable({ data, search, navigate, pageCount }: DataTable
     },
     enableRowSelection: true,
     manualPagination: true,
+    manualFiltering: true,
     onPaginationChange,
     onColumnFiltersChange,
     onRowSelectionChange: setRowSelection,
     onSortingChange: setSorting,
     onColumnVisibilityChange: setColumnVisibility,
     getCoreRowModel: getCoreRowModel(),
-    getFilteredRowModel: getFilteredRowModel(),
-    getSortedRowModel: getSortedRowModel(),
-    getFacetedRowModel: getFacetedRowModel(),
-    getFacetedUniqueValues: getFacetedUniqueValues(),
   })
 
   useEffect(() => {
@@ -92,18 +85,7 @@ export function CategoriesTable({ data, search, navigate, pageCount }: DataTable
         'flex flex-1 flex-col gap-4'
       )}
     >
-      <DataTableToolbar
-        table={table}
-        searchPlaceholder='Tìm kiếm danh mục...'
-        searchKey='name'
-        filters={[
-          {
-            columnId: 'type',
-            title: 'Phân loại',
-            options: categoryTypeOptions,
-          },
-        ]}
-      />
+      <CategoriesTableToolbar table={table} />
       <div className='overflow-hidden rounded-md border'>
         <Table>
           <TableHeader>

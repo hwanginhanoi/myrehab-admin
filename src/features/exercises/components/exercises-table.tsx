@@ -4,10 +4,6 @@ import {
   type VisibilityState,
   flexRender,
   getCoreRowModel,
-  getFacetedRowModel,
-  getFacetedUniqueValues,
-  getFilteredRowModel,
-  getSortedRowModel,
   useReactTable,
 } from '@tanstack/react-table'
 import { cn } from '@/lib/utils'
@@ -20,10 +16,10 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table'
-import { DataTablePagination, DataTableToolbar } from '@/components/data-table'
+import { DataTablePagination } from '@/components/server-data-table'
 import type { ExerciseResponse } from '@/api'
 import { exercisesColumns as columns } from './exercises-columns'
-import {categoryTypeOptions} from "@/lib/constants/category-type.ts";
+import { ExercisesTableToolbar } from './exercises-table-toolbar'
 
 type DataTableProps = {
   data: ExerciseResponse[]
@@ -77,16 +73,13 @@ export function ExercisesTable({
     },
     enableRowSelection: true,
     manualPagination: true,
+    manualFiltering: true,
     onPaginationChange,
     onColumnFiltersChange,
     onRowSelectionChange: setRowSelection,
     onSortingChange: setSorting,
     onColumnVisibilityChange: setColumnVisibility,
     getCoreRowModel: getCoreRowModel(),
-    getFilteredRowModel: getFilteredRowModel(),
-    getSortedRowModel: getSortedRowModel(),
-    getFacetedRowModel: getFacetedRowModel(),
-    getFacetedUniqueValues: getFacetedUniqueValues(),
   })
 
   useEffect(() => {
@@ -100,11 +93,7 @@ export function ExercisesTable({
 			  'flex flex-1 flex-col gap-4'
 		  )}
 	  >
-		  <DataTableToolbar
-			  table={table}
-			  searchPlaceholder='Tìm kiếm danh mục...'
-			  searchKey='exercise_title'
-		  />
+		  <ExercisesTableToolbar table={table} />
       <div className='overflow-hidden rounded-md border'>
         <Table>
           <TableHeader>

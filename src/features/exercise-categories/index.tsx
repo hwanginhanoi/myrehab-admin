@@ -1,3 +1,4 @@
+import { useMemo } from 'react'
 import { getRouteApi } from '@tanstack/react-router'
 import { ConfigDrawer } from '@/components/config-drawer'
 import { Header } from '@/components/layout/header'
@@ -5,7 +6,8 @@ import { Main } from '@/components/layout/main'
 import { ProfileDropdown } from '@/components/profile-dropdown'
 import { Search } from '@/components/search'
 import { ThemeSwitch } from '@/components/theme-switch'
-import { useGetAllCategories } from '@/api'
+import { useGetAllCategories, useGetCategoriesByType } from '@/api'
+import type { GetCategoriesByTypePathParams } from '@/api/types/exerciseCategoriesController/GetCategoriesByType'
 import { CategoriesDialogs } from './components/categories-dialogs'
 import { CategoriesPrimaryButtons } from './components/categories-primary-buttons'
 import { CategoriesProvider } from './components/categories-provider'
@@ -21,11 +23,40 @@ export function ExerciseCategories() {
   // Note: URL uses 1-indexed pages, but API expects 0-indexed
   const page = (search.page as number) || 1
   const pageSize = (search.pageSize as number) || 10
+  const typeFilter = search.type as string[] | undefined
 
-  const { data: response, isLoading } = useGetAllCategories({
+  // Get the first type from the array if it exists (for API call)
+  const selectedType = typeFilter && typeFilter.length > 0 ? typeFilter[0] : undefined
+
+  // Build query params for pagination
+  const paginationParams = useMemo(() => ({
     page: page - 1, // Convert to 0-indexed for API
     size: pageSize,
-  } as any)
+  }), [page, pageSize])
+
+  // Conditionally use the appropriate hook based on whether type filter is selected
+  const { data: allCategoriesResponse, isLoading: isLoadingAll } = useGetAllCategories(
+    paginationParams as any,
+    {
+      query: {
+        enabled: !selectedType, // Only fetch when no type filter is selected
+      }
+    }
+  )
+
+  const { data: filteredCategoriesResponse, isLoading: isLoadingFiltered } = useGetCategoriesByType(
+    selectedType as GetCategoriesByTypePathParams['type'],
+    { pageable: paginationParams } as any,
+    {
+      query: {
+        enabled: !!selectedType, // Only fetch when type filter is selected
+      }
+    }
+  )
+
+  // Use the appropriate response based on which query is enabled
+  const response = selectedType ? filteredCategoriesResponse : allCategoriesResponse
+  const isLoading = selectedType ? isLoadingFiltered : isLoadingAll
 
   const categories = response?.content || []
   const totalPages = response?.totalPages || 0

@@ -4,10 +4,6 @@ import {
   type VisibilityState,
   flexRender,
   getCoreRowModel,
-  getFacetedRowModel,
-  getFacetedUniqueValues,
-  getFilteredRowModel,
-  getSortedRowModel,
   useReactTable,
 } from '@tanstack/react-table'
 import { cn } from '@/lib/utils'
@@ -20,9 +16,10 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table'
-import { DataTablePagination, DataTableToolbar } from '@/components/data-table'
+import { DataTablePagination } from '@/components/server-data-table'
 import type { GroupResponse } from '@/api'
 import { groupsColumns as columns } from './groups-columns'
+import { GroupsTableToolbar } from './groups-table-toolbar'
 
 type DataTableProps = {
   data: GroupResponse[]
@@ -67,16 +64,13 @@ export function GroupsTable({ data, search, navigate, pageCount }: DataTableProp
     },
     enableRowSelection: true,
     manualPagination: true,
+    manualFiltering: true,
     onPaginationChange,
     onColumnFiltersChange,
     onRowSelectionChange: setRowSelection,
     onSortingChange: setSorting,
     onColumnVisibilityChange: setColumnVisibility,
     getCoreRowModel: getCoreRowModel(),
-    getFilteredRowModel: getFilteredRowModel(),
-    getSortedRowModel: getSortedRowModel(),
-    getFacetedRowModel: getFacetedRowModel(),
-    getFacetedUniqueValues: getFacetedUniqueValues(),
   })
 
   useEffect(() => {
@@ -90,12 +84,7 @@ export function GroupsTable({ data, search, navigate, pageCount }: DataTableProp
         'flex flex-1 flex-col gap-4'
       )}
     >
-      <DataTableToolbar
-        table={table}
-        searchPlaceholder='Tìm kiếm nhóm...'
-        searchKey='name'
-        filters={[]}
-      />
+      <GroupsTableToolbar table={table} />
       <div className='overflow-hidden rounded-md border'>
         <Table>
           <TableHeader>
