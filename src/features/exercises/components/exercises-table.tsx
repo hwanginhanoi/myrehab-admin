@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useMemo } from 'react'
 import {
   type SortingState,
   type VisibilityState,
@@ -17,8 +17,8 @@ import {
   TableRow,
 } from '@/components/ui/table'
 import { DataTablePagination } from '@/components/server-data-table'
-import type { ExerciseResponse } from '@/api'
-import { exercisesColumns as columns } from './exercises-columns'
+import type { ExerciseResponse, CategoryResponse } from '@/api'
+import { exercisesColumns } from './exercises-columns'
 import { ExercisesTableToolbar } from './exercises-table-toolbar'
 
 type DataTableProps = {
@@ -26,8 +26,7 @@ type DataTableProps = {
   search: Record<string, unknown>
   navigate: NavigateFn
   pageCount: number
-  categoryId?: number
-  onCategoryIdChange: (id: number | undefined) => void
+  allCategories: CategoryResponse[]
 }
 
 export function ExercisesTable({
@@ -35,8 +34,7 @@ export function ExercisesTable({
   search,
   navigate,
   pageCount,
-  categoryId,
-  onCategoryIdChange,
+  allCategories,
 }: DataTableProps) {
   // Local UI-only states
   const [rowSelection, setRowSelection] = useState({})
@@ -57,8 +55,21 @@ export function ExercisesTable({
     globalFilter: { enabled: false },
     columnFilters: [
       { columnId: 'title', searchKey: 'title', type: 'string' },
+      { columnId: 'categoryIds', searchKey: 'categoryIds', type: 'array' },
     ],
   })
+
+  // Add hidden column for categoryIds filter
+  const columns = useMemo(() => [
+    {
+      id: 'categoryIds',
+      header: () => null,
+      cell: () => null,
+      enableHiding: false,
+      enableSorting: false,
+    },
+    ...exercisesColumns,
+  ], [])
 
   const table = useReactTable({
     data,
@@ -93,7 +104,7 @@ export function ExercisesTable({
 			  'flex flex-1 flex-col gap-4'
 		  )}
 	  >
-		  <ExercisesTableToolbar table={table} />
+		  <ExercisesTableToolbar table={table} allCategories={allCategories} />
       <div className='overflow-hidden rounded-md border'>
         <Table>
           <TableHeader>

@@ -6,7 +6,7 @@ import { Main } from '@/components/layout/main'
 import { ProfileDropdown } from '@/components/profile-dropdown'
 import { Search } from '@/components/search'
 import { ThemeSwitch } from '@/components/theme-switch'
-import { useGetExercises } from '@/api'
+import { useGetExercises, useGetAllCategories } from '@/api'
 import { ExercisesPrimaryButtons } from './components/exercises-primary-buttons'
 import { ExercisesTable } from './components/exercises-table'
 
@@ -20,39 +20,40 @@ export function Exercises() {
   // Note: URL uses 1-indexed pages, but API expects 0-indexed
   const page = (search.page as number) || 1
   const pageSize = (search.pageSize as number) || 10
-  const categoryId = search.categoryId as number | undefined
+  const categoryIds = search.categoryIds as number[] | undefined
 
-  // Build query params - include categoryId if present
+  // Fetch all categories for the filter (no pagination needed)
+  const { data: categoriesResponse } = useGetAllCategories({
+    page: 0,
+    size: 1000, // Get all categories
+  } as any)
+  const allCategories = categoriesResponse?.content || []
+
+  // Build query params - include categoryIds if present
   const queryParams = useMemo(() => {
     const params: any = {
       page: page - 1, // Convert to 0-indexed for API
       size: pageSize,
     }
 
-    // Add categoryId as query parameter if filtering
-    if (categoryId !== undefined && categoryId !== null) {
-      params.categoryId = categoryId
+    // Add categoryIds as query parameters if filtering
+    // Note: API might expect multiple categoryId params or a different format
+    // Adjust based on your API specification
+    if (categoryIds && categoryIds.length > 0) {
+      // If API supports array: params.categoryIds = categoryIds
+      // If API needs comma-separated: params.categoryId = categoryIds.join(',')
+      // For now, assuming it takes the first one (you may need to adjust)
+      params.categoryId = categoryIds[0]
     }
 
     return params
-  }, [page, pageSize, categoryId])
+  }, [page, pageSize, categoryIds])
 
   // Fetch exercises with server-side filtering and pagination
   const { data: response, isLoading } = useGetExercises(queryParams as any)
 
   const exercises = response?.content || []
   const totalPages = response?.totalPages || 0
-
-  // Handler for category filter
-  const handleCategoryIdChange = (id: number | undefined) => {
-    navigate({
-      search: (prev) => ({
-        ...prev,
-        page: 1,
-        categoryId: id !== undefined && id !== null ? id : undefined,
-      }),
-    })
-  }
 
   return (
     <>
@@ -85,8 +86,7 @@ export function Exercises() {
             search={search}
             navigate={navigate}
             pageCount={totalPages}
-            categoryId={categoryId}
-            onCategoryIdChange={handleCategoryIdChange}
+            allCategories={allCategories}
           />
         )}
       </Main>

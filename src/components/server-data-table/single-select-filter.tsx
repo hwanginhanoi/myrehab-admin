@@ -46,7 +46,7 @@ export function DataTableSingleSelectFilter<TData, TValue>({
   const selectedOption = options.find((option) => option.value === selectedValue)
 
   return (
-    <Popover>
+    <Popover modal={false}>
       <PopoverTrigger asChild>
         <Button variant='outline' size='sm' className='h-8 border-dashed'>
           <PlusCircledIcon className='size-4' />

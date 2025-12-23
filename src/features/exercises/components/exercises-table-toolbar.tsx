@@ -1,17 +1,40 @@
+import { useMemo } from 'react'
 import { Cross2Icon } from '@radix-ui/react-icons'
 import { type Table } from '@tanstack/react-table'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
-import { DataTableViewOptions } from '@/components/server-data-table'
-import type { ExerciseResponse } from '@/api'
+import { DataTableGroupedMultiSelectFilter, DataTableViewOptions } from '@/components/server-data-table'
+import type { ExerciseResponse, CategoryResponse } from '@/api'
 
 type ExercisesTableToolbarProps = {
   table: Table<ExerciseResponse>
+  allCategories: CategoryResponse[]
 }
 
-export function ExercisesTableToolbar({ table }: ExercisesTableToolbarProps) {
+export function ExercisesTableToolbar({ table, allCategories }: ExercisesTableToolbarProps) {
   const isFiltered =
     table.getState().columnFilters.length > 0 || table.getState().globalFilter
+
+  // Group categories by type
+  const categoryGroups = useMemo(() => {
+    const groups = new Map<string, CategoryResponse[]>()
+
+    allCategories.forEach((category) => {
+      if (!groups.has(category.type)) {
+        groups.set(category.type, [])
+      }
+      groups.get(category.type)?.push(category)
+    })
+
+    // Convert to array format expected by the filter
+    return Array.from(groups.entries()).map(([type, categories]) => ({
+      label: getCategoryTypeLabel(type),
+      options: categories.map((cat) => ({
+        label: cat.name,
+        value: String(cat.id), // Convert to string for filter
+      })),
+    }))
+  }, [allCategories])
 
   return (
     <div className='flex items-center justify-between'>
@@ -26,9 +49,15 @@ export function ExercisesTableToolbar({ table }: ExercisesTableToolbarProps) {
           className='h-8 w-[150px] lg:w-[250px]'
         />
 
-        {/* Add more filters here if needed */}
+        {/* Category filter - grouped by type */}
         <div className='flex gap-x-2'>
-          {/* Example: Category filter can be added here */}
+          {categoryGroups.length > 0 && (
+            <DataTableGroupedMultiSelectFilter
+              column={table.getColumn('categoryIds')}
+              title='Danh mục'
+              groups={categoryGroups}
+            />
+          )}
         </div>
 
         {/* Reset filters button */}
@@ -51,4 +80,16 @@ export function ExercisesTableToolbar({ table }: ExercisesTableToolbarProps) {
       <DataTableViewOptions table={table} />
     </div>
   )
+}
+
+// Helper function to get Vietnamese labels for category types
+function getCategoryTypeLabel(type: string): string {
+  const labels: Record<string, string> = {
+    BODY_PART: 'Vị trí cơ thể',
+    RECOVERY_STAGE: 'Giai đoạn phục hồi',
+    HEALTH_CONDITION: 'Tình trạng sức khỏe',
+    DIFFICULTY_LEVEL: 'Độ khó',
+    EXERCISE_TYPE: 'Loại bài tập',
+  }
+  return labels[type] || type
 }
