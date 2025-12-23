@@ -1,0 +1,1 @@
+{"type":"object","properties":{"title":{"type":"string"},"content":{"type":"string"},"summary":{"type":"string"},"thumbnailUrl":{"type":"string"},"authorId":{"type":"integer","format":"int64"},"status":{"type":"string","enum":["DRAFT","PUBLISHED","ARCHIVED"]},"category":{"type":"string"}},"required":["content","status","title"],"x-readme-ref-name":"CreateNewsRequest"}

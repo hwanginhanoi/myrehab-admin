@@ -4,9 +4,9 @@
 */
 
 import fetch from "@/lib/api-client";
+import type { CheckPhoneMutationRequest, CheckPhoneMutationResponse } from "../../types/authenticationController/CheckPhone.ts";
 import type { RequestConfig, ResponseErrorConfig } from "@/lib/api-client";
 import type { UseMutationOptions, UseMutationResult, QueryClient } from "@tanstack/react-query";
-import type { CheckPhoneMutationRequest, CheckPhoneMutationResponse } from "../../types/authenticationController/CheckPhone.ts";
 import { mutationOptions, useMutation } from "@tanstack/react-query";
 
 export const checkPhoneMutationKey = () => [{ url: '/api/auth/user/check-phone' }] as const

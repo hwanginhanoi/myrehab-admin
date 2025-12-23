@@ -4,9 +4,9 @@
 */
 
 import fetch from "@/lib/api-client";
+import type { GetAllExercisesQueryResponse, GetAllExercisesQueryParams } from "../../types/exercisesController/GetAllExercises.ts";
 import type { RequestConfig, ResponseErrorConfig } from "@/lib/api-client";
 import type { QueryKey, QueryClient, QueryObserverOptions, UseQueryResult } from "@tanstack/react-query";
-import type { GetAllExercisesQueryResponse, GetAllExercisesQueryParams } from "../../types/exercisesController/GetAllExercises.ts";
 import { queryOptions, useQuery } from "@tanstack/react-query";
 
 export const getAllExercisesQueryKey = (params: GetAllExercisesQueryParams) => [{ url: '/api/exercises' }, ...(params ? [params] : [])] as const

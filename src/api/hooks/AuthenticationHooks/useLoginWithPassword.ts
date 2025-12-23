@@ -4,9 +4,9 @@
 */
 
 import fetch from "@/lib/api-client";
+import type { LoginWithPasswordMutationRequest, LoginWithPasswordMutationResponse } from "../../types/authenticationController/LoginWithPassword.ts";
 import type { RequestConfig, ResponseErrorConfig } from "@/lib/api-client";
 import type { UseMutationOptions, UseMutationResult, QueryClient } from "@tanstack/react-query";
-import type { LoginWithPasswordMutationRequest, LoginWithPasswordMutationResponse } from "../../types/authenticationController/LoginWithPassword.ts";
 import { mutationOptions, useMutation } from "@tanstack/react-query";
 
 export const loginWithPasswordMutationKey = () => [{ url: '/api/auth/staff/login' }] as const

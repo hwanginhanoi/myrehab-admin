@@ -24,6 +24,7 @@ import { Route as AuthenticatedSettingsRouteRouteImport } from './routes/_authen
 import { Route as AuthenticatedUsersIndexRouteImport } from './routes/_authenticated/users/index'
 import { Route as AuthenticatedTasksIndexRouteImport } from './routes/_authenticated/tasks/index'
 import { Route as AuthenticatedSettingsIndexRouteImport } from './routes/_authenticated/settings/index'
+import { Route as AuthenticatedNewsIndexRouteImport } from './routes/_authenticated/news/index'
 import { Route as AuthenticatedHelpCenterIndexRouteImport } from './routes/_authenticated/help-center/index'
 import { Route as AuthenticatedExercisesIndexRouteImport } from './routes/_authenticated/exercises/index'
 import { Route as AuthenticatedExerciseGroupsIndexRouteImport } from './routes/_authenticated/exercise-groups/index'
@@ -114,6 +115,11 @@ const AuthenticatedSettingsIndexRoute =
     path: '/',
     getParentRoute: () => AuthenticatedSettingsRouteRoute,
   } as any)
+const AuthenticatedNewsIndexRoute = AuthenticatedNewsIndexRouteImport.update({
+  id: '/news/',
+  path: '/news/',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
 const AuthenticatedHelpCenterIndexRoute =
   AuthenticatedHelpCenterIndexRouteImport.update({
     id: '/help-center/',
@@ -216,6 +222,7 @@ export interface FileRoutesByFullPath {
   '/exercise-groups': typeof AuthenticatedExerciseGroupsIndexRoute
   '/exercises': typeof AuthenticatedExercisesIndexRoute
   '/help-center': typeof AuthenticatedHelpCenterIndexRoute
+  '/news': typeof AuthenticatedNewsIndexRoute
   '/settings/': typeof AuthenticatedSettingsIndexRoute
   '/tasks': typeof AuthenticatedTasksIndexRoute
   '/users': typeof AuthenticatedUsersIndexRoute
@@ -244,6 +251,7 @@ export interface FileRoutesByTo {
   '/exercise-groups': typeof AuthenticatedExerciseGroupsIndexRoute
   '/exercises': typeof AuthenticatedExercisesIndexRoute
   '/help-center': typeof AuthenticatedHelpCenterIndexRoute
+  '/news': typeof AuthenticatedNewsIndexRoute
   '/settings': typeof AuthenticatedSettingsIndexRoute
   '/tasks': typeof AuthenticatedTasksIndexRoute
   '/users': typeof AuthenticatedUsersIndexRoute
@@ -275,6 +283,7 @@ export interface FileRoutesById {
   '/_authenticated/exercise-groups/': typeof AuthenticatedExerciseGroupsIndexRoute
   '/_authenticated/exercises/': typeof AuthenticatedExercisesIndexRoute
   '/_authenticated/help-center/': typeof AuthenticatedHelpCenterIndexRoute
+  '/_authenticated/news/': typeof AuthenticatedNewsIndexRoute
   '/_authenticated/settings/': typeof AuthenticatedSettingsIndexRoute
   '/_authenticated/tasks/': typeof AuthenticatedTasksIndexRoute
   '/_authenticated/users/': typeof AuthenticatedUsersIndexRoute
@@ -306,6 +315,7 @@ export interface FileRouteTypes {
     | '/exercise-groups'
     | '/exercises'
     | '/help-center'
+    | '/news'
     | '/settings/'
     | '/tasks'
     | '/users'
@@ -334,6 +344,7 @@ export interface FileRouteTypes {
     | '/exercise-groups'
     | '/exercises'
     | '/help-center'
+    | '/news'
     | '/settings'
     | '/tasks'
     | '/users'
@@ -364,6 +375,7 @@ export interface FileRouteTypes {
     | '/_authenticated/exercise-groups/'
     | '/_authenticated/exercises/'
     | '/_authenticated/help-center/'
+    | '/_authenticated/news/'
     | '/_authenticated/settings/'
     | '/_authenticated/tasks/'
     | '/_authenticated/users/'
@@ -488,6 +500,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/settings/'
       preLoaderRoute: typeof AuthenticatedSettingsIndexRouteImport
       parentRoute: typeof AuthenticatedSettingsRouteRoute
+    }
+    '/_authenticated/news/': {
+      id: '/_authenticated/news/'
+      path: '/news'
+      fullPath: '/news'
+      preLoaderRoute: typeof AuthenticatedNewsIndexRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
     }
     '/_authenticated/help-center/': {
       id: '/_authenticated/help-center/'
@@ -618,6 +637,7 @@ interface AuthenticatedRouteRouteChildren {
   AuthenticatedExerciseGroupsIndexRoute: typeof AuthenticatedExerciseGroupsIndexRoute
   AuthenticatedExercisesIndexRoute: typeof AuthenticatedExercisesIndexRoute
   AuthenticatedHelpCenterIndexRoute: typeof AuthenticatedHelpCenterIndexRoute
+  AuthenticatedNewsIndexRoute: typeof AuthenticatedNewsIndexRoute
   AuthenticatedTasksIndexRoute: typeof AuthenticatedTasksIndexRoute
   AuthenticatedUsersIndexRoute: typeof AuthenticatedUsersIndexRoute
 }
@@ -635,6 +655,7 @@ const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedExerciseGroupsIndexRoute: AuthenticatedExerciseGroupsIndexRoute,
   AuthenticatedExercisesIndexRoute: AuthenticatedExercisesIndexRoute,
   AuthenticatedHelpCenterIndexRoute: AuthenticatedHelpCenterIndexRoute,
+  AuthenticatedNewsIndexRoute: AuthenticatedNewsIndexRoute,
   AuthenticatedTasksIndexRoute: AuthenticatedTasksIndexRoute,
   AuthenticatedUsersIndexRoute: AuthenticatedUsersIndexRoute,
 }

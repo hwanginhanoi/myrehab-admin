@@ -11,19 +11,19 @@ import { z } from "zod/v4";
 export const pageExerciseResponseSchema = z.object({
     "totalElements": z.optional(z.int()),
 "totalPages": z.optional(z.int()),
+"first": z.optional(z.boolean()),
+"last": z.optional(z.boolean()),
+"numberOfElements": z.optional(z.int()),
+get "pageable"(){
+                return pageableObjectSchema.optional()
+              },
+get "sort"(){
+                return sortObjectSchema.optional()
+              },
 "size": z.optional(z.int()),
 get "content"(){
                 return z.array(exerciseResponseSchema).optional()
               },
 "number": z.optional(z.int()),
-"first": z.optional(z.boolean()),
-"last": z.optional(z.boolean()),
-"numberOfElements": z.optional(z.int()),
-get "sort"(){
-                return sortObjectSchema.optional()
-              },
-get "pageable"(){
-                return pageableObjectSchema.optional()
-              },
 "empty": z.optional(z.boolean())
     })

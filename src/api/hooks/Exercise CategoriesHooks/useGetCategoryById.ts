@@ -4,9 +4,9 @@
 */
 
 import fetch from "@/lib/api-client";
+import type { GetCategoryByIdQueryResponse, GetCategoryByIdPathParams } from "../../types/exerciseCategoriesController/GetCategoryById.ts";
 import type { RequestConfig, ResponseErrorConfig } from "@/lib/api-client";
 import type { QueryKey, QueryClient, QueryObserverOptions, UseQueryResult } from "@tanstack/react-query";
-import type { GetCategoryByIdQueryResponse, GetCategoryByIdPathParams } from "../../types/exerciseCategoriesController/GetCategoryById.ts";
 import { queryOptions, useQuery } from "@tanstack/react-query";
 
 export const getCategoryByIdQueryKey = (id: GetCategoryByIdPathParams["id"]) => [{ url: '/api/exercise-categories/:id', params: {id:id} }] as const
