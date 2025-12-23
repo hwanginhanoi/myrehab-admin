@@ -4,9 +4,9 @@
 */
 
 import fetch from "@/lib/api-client";
+import type { CreateExerciseMutationRequest, CreateExerciseMutationResponse } from "../../types/exercisesController/CreateExercise.ts";
 import type { RequestConfig, ResponseErrorConfig } from "@/lib/api-client";
 import type { UseMutationOptions, UseMutationResult, QueryClient } from "@tanstack/react-query";
-import type { CreateExerciseMutationRequest, CreateExerciseMutationResponse } from "../../types/exercisesController/CreateExercise.ts";
 import { mutationOptions, useMutation } from "@tanstack/react-query";
 
 export const createExerciseMutationKey = () => [{ url: '/api/exercises' }] as const

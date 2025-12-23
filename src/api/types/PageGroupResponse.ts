@@ -17,18 +17,6 @@ export type PageGroupResponse = {
     */
     totalPages?: number;
     /**
-     * @type integer | undefined, int32
-    */
-    size?: number;
-    /**
-     * @type array | undefined
-    */
-    content?: GroupResponse[];
-    /**
-     * @type integer | undefined, int32
-    */
-    number?: number;
-    /**
      * @type boolean | undefined
     */
     first?: boolean;
@@ -43,11 +31,23 @@ export type PageGroupResponse = {
     /**
      * @type object | undefined
     */
-    sort?: SortObject;
+    pageable?: PageableObject;
     /**
      * @type object | undefined
     */
-    pageable?: PageableObject;
+    sort?: SortObject;
+    /**
+     * @type integer | undefined, int32
+    */
+    size?: number;
+    /**
+     * @type array | undefined
+    */
+    content?: GroupResponse[];
+    /**
+     * @type integer | undefined, int32
+    */
+    number?: number;
     /**
      * @type boolean | undefined
     */

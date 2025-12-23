@@ -24,6 +24,7 @@ import {
   FolderTree,
   Layers,
   Dumbbell,
+  Newspaper,
 } from 'lucide-react'
 import { type SidebarData } from '../types'
 
@@ -94,6 +95,11 @@ export const sidebarData: SidebarData = {
           title: 'Exercises',
           url: '/exercises',
           icon: Dumbbell,
+        },
+        {
+          title: 'News',
+          url: '/news',
+          icon: Newspaper,
         },
       ],
     },
