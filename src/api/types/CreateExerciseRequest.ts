@@ -22,15 +22,15 @@ export type CreateExerciseRequest = {
     */
     videoUrl: string;
     /**
-     * @type integer | undefined, int32
+     * @type integer, int32
     */
-    durationMinutes?: number;
+    durationMinutes: number;
     /**
-     * @type array | undefined
+     * @type array
     */
-    categoryIds?: number[];
+    categoryIds: number[];
     /**
-     * @type array | undefined
+     * @type array
     */
-    groupIds?: number[];
+    groupIds: number[];
 };

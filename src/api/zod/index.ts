@@ -26,8 +26,8 @@ export { searchGroupsByNameQueryParamsSchema, searchGroupsByName200Schema, searc
 export { updateGroupPathParamsSchema, updateGroup200Schema, updateGroupMutationRequestSchema, updateGroupMutationResponseSchema } from "./exerciseGroupsController/updateGroupSchema.ts";
 export { exerciseResponseSchema } from "./exerciseResponseSchema.ts";
 export { createExercise200Schema, createExerciseMutationRequestSchema, createExerciseMutationResponseSchema } from "./exercisesController/createExerciseSchema.ts";
+export { getAllExercisesQueryParamsSchema, getAllExercises200Schema, getAllExercisesQueryResponseSchema } from "./exercisesController/getAllExercisesSchema.ts";
 export { getExerciseByIdPathParamsSchema, getExerciseById200Schema, getExerciseByIdQueryResponseSchema } from "./exercisesController/getExerciseByIdSchema.ts";
-export { getExercisesQueryParamsSchema, getExercises200Schema, getExercisesQueryResponseSchema } from "./exercisesController/getExercisesSchema.ts";
 export { updateExercisePathParamsSchema, updateExercise200Schema, updateExerciseMutationRequestSchema, updateExerciseMutationResponseSchema } from "./exercisesController/updateExerciseSchema.ts";
 export { groupResponseSchema } from "./groupResponseSchema.ts";
 export { loginWithPasswordRequestSchema } from "./loginWithPasswordRequestSchema.ts";

@@ -20,19 +20,24 @@ export function ExercisesTableToolbar({ table, allCategories }: ExercisesTableTo
     const groups = new Map<string, CategoryResponse[]>()
 
     allCategories.forEach((category) => {
-      if (!groups.has(category.type)) {
-        groups.set(category.type, [])
+      const type = category.type
+      if (type && !groups.has(type)) {
+        groups.set(type, [])
       }
-      groups.get(category.type)?.push(category)
+      if (type) {
+        groups.get(type)?.push(category)
+      }
     })
 
     // Convert to array format expected by the filter
     return Array.from(groups.entries()).map(([type, categories]) => ({
       label: getCategoryTypeLabel(type),
-      options: categories.map((cat) => ({
-        label: cat.name,
-        value: String(cat.id), // Convert to string for filter
-      })),
+      options: categories
+        .filter((cat) => cat.name && cat.id !== undefined)
+        .map((cat) => ({
+          label: cat.name!,
+          value: String(cat.id!), // Convert to string for filter
+        })),
     }))
   }, [allCategories])
 

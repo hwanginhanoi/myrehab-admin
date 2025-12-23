@@ -4,9 +4,9 @@
 */
 
 import fetch from "@/lib/api-client";
-import type { GetExerciseByIdQueryResponse, GetExerciseByIdPathParams } from "../../types/exercisesController/GetExerciseById.ts";
 import type { RequestConfig, ResponseErrorConfig } from "@/lib/api-client";
 import type { QueryKey, QueryClient, QueryObserverOptions, UseQueryResult } from "@tanstack/react-query";
+import type { GetExerciseByIdQueryResponse, GetExerciseByIdPathParams } from "../../types/exercisesController/GetExerciseById.ts";
 import { queryOptions, useQuery } from "@tanstack/react-query";
 
 export const getExerciseByIdQueryKey = (id: GetExerciseByIdPathParams["id"]) => [{ url: '/api/exercises/:id', params: {id:id} }] as const

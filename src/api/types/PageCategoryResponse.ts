@@ -17,14 +17,6 @@ export type PageCategoryResponse = {
     */
     totalPages?: number;
     /**
-     * @type boolean | undefined
-    */
-    first?: boolean;
-    /**
-     * @type boolean | undefined
-    */
-    last?: boolean;
-    /**
      * @type integer | undefined, int32
     */
     size?: number;
@@ -37,17 +29,25 @@ export type PageCategoryResponse = {
     */
     number?: number;
     /**
-     * @type object | undefined
+     * @type boolean | undefined
     */
-    pageable?: PageableObject;
+    first?: boolean;
+    /**
+     * @type boolean | undefined
+    */
+    last?: boolean;
+    /**
+     * @type integer | undefined, int32
+    */
+    numberOfElements?: number;
     /**
      * @type object | undefined
     */
     sort?: SortObject;
     /**
-     * @type integer | undefined, int32
+     * @type object | undefined
     */
-    numberOfElements?: number;
+    pageable?: PageableObject;
     /**
      * @type boolean | undefined
     */

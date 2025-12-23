@@ -4,9 +4,9 @@
 */
 
 import fetch from "@/lib/api-client";
-import type { SearchCategoriesByNameQueryResponse, SearchCategoriesByNameQueryParams } from "../../types/exerciseCategoriesController/SearchCategoriesByName.ts";
 import type { RequestConfig, ResponseErrorConfig } from "@/lib/api-client";
 import type { QueryKey, QueryClient, UseSuspenseQueryOptions, UseSuspenseQueryResult } from "@tanstack/react-query";
+import type { SearchCategoriesByNameQueryResponse, SearchCategoriesByNameQueryParams } from "../../types/exerciseCategoriesController/SearchCategoriesByName.ts";
 import { queryOptions, useSuspenseQuery } from "@tanstack/react-query";
 
 export const searchCategoriesByNameSuspenseQueryKey = (params: SearchCategoriesByNameQueryParams) => [{ url: '/api/exercise-categories/search' }, ...(params ? [params] : [])] as const

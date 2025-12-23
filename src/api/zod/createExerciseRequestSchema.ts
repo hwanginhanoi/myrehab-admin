@@ -10,7 +10,7 @@ export const createExerciseRequestSchema = z.object({
 "description": z.string(),
 "imageUrl": z.string(),
 "videoUrl": z.string(),
-"durationMinutes": z.optional(z.int()),
-"categoryIds": z.optional(z.array(z.int())),
-"groupIds": z.optional(z.array(z.int()))
+"durationMinutes": z.int(),
+"categoryIds": z.array(z.int()),
+"groupIds": z.array(z.int())
     })

@@ -4,9 +4,9 @@
 */
 
 import fetch from "@/lib/api-client";
-import type { GetGroupByIdQueryResponse, GetGroupByIdPathParams } from "../../types/exerciseGroupsController/GetGroupById.ts";
 import type { RequestConfig, ResponseErrorConfig } from "@/lib/api-client";
 import type { QueryKey, QueryClient, QueryObserverOptions, UseQueryResult } from "@tanstack/react-query";
+import type { GetGroupByIdQueryResponse, GetGroupByIdPathParams } from "../../types/exerciseGroupsController/GetGroupById.ts";
 import { queryOptions, useQuery } from "@tanstack/react-query";
 
 export const getGroupByIdQueryKey = (id: GetGroupByIdPathParams["id"]) => [{ url: '/api/exercise-groups/:id', params: {id:id} }] as const

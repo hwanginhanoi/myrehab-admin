@@ -4,9 +4,9 @@
 */
 
 import fetch from "@/lib/api-client";
-import type { GetCategoriesByTypeQueryResponse, GetCategoriesByTypePathParams, GetCategoriesByTypeQueryParams } from "../../types/exerciseCategoriesController/GetCategoriesByType.ts";
 import type { RequestConfig, ResponseErrorConfig } from "@/lib/api-client";
 import type { QueryKey, QueryClient, QueryObserverOptions, UseQueryResult } from "@tanstack/react-query";
+import type { GetCategoriesByTypeQueryResponse, GetCategoriesByTypePathParams, GetCategoriesByTypeQueryParams } from "../../types/exerciseCategoriesController/GetCategoriesByType.ts";
 import { queryOptions, useQuery } from "@tanstack/react-query";
 
 export const getCategoriesByTypeQueryKey = (type: GetCategoriesByTypePathParams["type"], params: GetCategoriesByTypeQueryParams) => [{ url: '/api/exercise-categories/type/:type', params: {type:type} }, ...(params ? [params] : [])] as const

@@ -11,9 +11,9 @@ export type PageableObject = {
     */
     offset?: number;
     /**
-     * @type boolean | undefined
+     * @type object | undefined
     */
-    unpaged?: boolean;
+    sort?: SortObject;
     /**
      * @type boolean | undefined
     */
@@ -21,13 +21,13 @@ export type PageableObject = {
     /**
      * @type integer | undefined, int32
     */
-    pageNumber?: number;
+    pageSize?: number;
     /**
      * @type integer | undefined, int32
     */
-    pageSize?: number;
+    pageNumber?: number;
     /**
-     * @type object | undefined
+     * @type boolean | undefined
     */
-    sort?: SortObject;
+    unpaged?: boolean;
 };

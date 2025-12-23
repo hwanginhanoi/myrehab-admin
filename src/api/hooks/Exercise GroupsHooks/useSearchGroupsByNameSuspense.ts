@@ -4,9 +4,9 @@
 */
 
 import fetch from "@/lib/api-client";
-import type { SearchGroupsByNameQueryResponse, SearchGroupsByNameQueryParams } from "../../types/exerciseGroupsController/SearchGroupsByName.ts";
 import type { RequestConfig, ResponseErrorConfig } from "@/lib/api-client";
 import type { QueryKey, QueryClient, UseSuspenseQueryOptions, UseSuspenseQueryResult } from "@tanstack/react-query";
+import type { SearchGroupsByNameQueryResponse, SearchGroupsByNameQueryParams } from "../../types/exerciseGroupsController/SearchGroupsByName.ts";
 import { queryOptions, useSuspenseQuery } from "@tanstack/react-query";
 
 export const searchGroupsByNameSuspenseQueryKey = (params: SearchGroupsByNameQueryParams) => [{ url: '/api/exercise-groups/search' }, ...(params ? [params] : [])] as const

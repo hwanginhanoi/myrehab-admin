@@ -4,9 +4,9 @@
 */
 
 import fetch from "@/lib/api-client";
-import type { GetAllGroupsQueryResponse, GetAllGroupsQueryParams } from "../../types/exerciseGroupsController/GetAllGroups.ts";
 import type { RequestConfig, ResponseErrorConfig } from "@/lib/api-client";
 import type { QueryKey, QueryClient, QueryObserverOptions, UseQueryResult } from "@tanstack/react-query";
+import type { GetAllGroupsQueryResponse, GetAllGroupsQueryParams } from "../../types/exerciseGroupsController/GetAllGroups.ts";
 import { queryOptions, useQuery } from "@tanstack/react-query";
 
 export const getAllGroupsQueryKey = (params: GetAllGroupsQueryParams) => [{ url: '/api/exercise-groups' }, ...(params ? [params] : [])] as const
