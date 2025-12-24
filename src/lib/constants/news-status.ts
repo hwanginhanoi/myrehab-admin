@@ -6,8 +6,8 @@ export enum NewsStatus {
 
 export const newsStatusLabels: Record<NewsStatus, string> = {
   [NewsStatus.DRAFT]: 'Bản nháp',
-  [NewsStatus.PUBLISHED]: 'Đã công khai',
-  [NewsStatus.ARCHIVED]: 'Đã ẩn'
+  [NewsStatus.PUBLISHED]: 'Công khai',
+  [NewsStatus.ARCHIVED]: 'Ẩn tin tức'
 }
 
 export const newsStatusOptions = Object.entries(newsStatusLabels).map(([value, label]) => ({

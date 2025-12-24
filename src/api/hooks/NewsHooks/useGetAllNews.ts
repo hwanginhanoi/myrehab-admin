@@ -14,7 +14,7 @@ export const getAllNewsQueryKey = (params: GetAllNewsQueryParams) => [{ url: '/a
 export type GetAllNewsQueryKey = ReturnType<typeof getAllNewsQueryKey>
 
 /**
- * @description Retrieve a paginated list of news with optional status and category filtering. Use query params: ?status=PUBLISHED&category=HEALTH_TIPS&page=0&size=10&sort=createdAt,desc
+ * @description Retrieve a paginated list of news with optional status, category, and title filtering. Use query params: ?status=PUBLISHED&category=HEALTH_TIPS&title=exercise&page=0&size=10&sort=createdAt,desc
  * @summary Get paginated news with filtering
  * {@link /api/news}
  */
@@ -38,7 +38,7 @@ export function getAllNewsQueryOptions(params: GetAllNewsQueryParams, config: Pa
 }
 
 /**
- * @description Retrieve a paginated list of news with optional status and category filtering. Use query params: ?status=PUBLISHED&category=HEALTH_TIPS&page=0&size=10&sort=createdAt,desc
+ * @description Retrieve a paginated list of news with optional status, category, and title filtering. Use query params: ?status=PUBLISHED&category=HEALTH_TIPS&title=exercise&page=0&size=10&sort=createdAt,desc
  * @summary Get paginated news with filtering
  * {@link /api/news}
  */

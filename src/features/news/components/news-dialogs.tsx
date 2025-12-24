@@ -1,5 +1,4 @@
 import { NewsActionDialog } from './news-action-dialog'
-import { NewsDeleteDialog } from './news-delete-dialog'
 import { useNews } from './news-provider'
 
 export function NewsDialogs() {
@@ -39,18 +38,6 @@ export function NewsDialogs() {
             }}
             currentRow={currentRow}
             mode='view'
-          />
-
-          <NewsDeleteDialog
-            key={`news-delete-${currentRow.id}`}
-            open={open === 'delete'}
-            onOpenChange={() => {
-              setOpen('delete')
-              setTimeout(() => {
-                setCurrentRow(null)
-              }, 500)
-            }}
-            currentRow={currentRow}
           />
         </>
       )}

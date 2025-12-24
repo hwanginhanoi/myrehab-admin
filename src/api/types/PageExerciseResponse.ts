@@ -17,6 +17,10 @@ export type PageExerciseResponse = {
     */
     totalPages?: number;
     /**
+     * @type integer | undefined, int32
+    */
+    numberOfElements?: number;
+    /**
      * @type boolean | undefined
     */
     first?: boolean;
@@ -25,17 +29,13 @@ export type PageExerciseResponse = {
     */
     last?: boolean;
     /**
-     * @type integer | undefined, int32
+     * @type object | undefined
     */
-    numberOfElements?: number;
+    sort?: SortObject;
     /**
      * @type object | undefined
     */
     pageable?: PageableObject;
-    /**
-     * @type object | undefined
-    */
-    sort?: SortObject;
     /**
      * @type integer | undefined, int32
     */

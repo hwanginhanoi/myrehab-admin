@@ -7,6 +7,10 @@ import type { SortObject } from "./SortObject.ts";
 
 export type PageableObject = {
     /**
+     * @type object | undefined
+    */
+    sort?: SortObject;
+    /**
      * @type boolean | undefined
     */
     paged?: boolean;
@@ -18,10 +22,6 @@ export type PageableObject = {
      * @type integer | undefined, int32
     */
     pageSize?: number;
-    /**
-     * @type object | undefined
-    */
-    sort?: SortObject;
     /**
      * @type boolean | undefined
     */

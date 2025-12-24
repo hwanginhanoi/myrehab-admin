@@ -27,6 +27,10 @@ export type GetAllNewsQueryParams = {
      * @type string | undefined
     */
     category?: string;
+    /**
+     * @type string | undefined
+    */
+    title?: string;
 };
 
 /**

@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import useDialogState from '@/hooks/use-dialog-state'
 import type { NewsResponse } from '@/api'
 
-type NewsDialogType = 'add' | 'edit' | 'view' | 'delete'
+type NewsDialogType = 'add' | 'edit' | 'view'
 
 type NewsContextType = {
   open: NewsDialogType | null

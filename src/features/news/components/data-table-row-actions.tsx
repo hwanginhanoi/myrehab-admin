@@ -1,6 +1,6 @@
 import { DotsHorizontalIcon } from '@radix-ui/react-icons'
 import { type Row } from '@tanstack/react-table'
-import { Eye, Pencil, Trash2 } from 'lucide-react'
+import { Eye, Pencil } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import {
   DropdownMenu,
@@ -53,19 +53,6 @@ export function DataTableRowActions({ row }: DataTableRowActionsProps) {
             Chỉnh sửa
             <DropdownMenuShortcut>
               <Pencil size={16} />
-            </DropdownMenuShortcut>
-          </DropdownMenuItem>
-          <DropdownMenuSeparator />
-          <DropdownMenuItem
-            onClick={() => {
-              setCurrentRow(row.original)
-              setOpen('delete')
-            }}
-            className='text-destructive'
-          >
-            Xóa
-            <DropdownMenuShortcut>
-              <Trash2 size={16} />
             </DropdownMenuShortcut>
           </DropdownMenuItem>
         </DropdownMenuContent>

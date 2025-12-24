@@ -11,14 +11,14 @@ import { z } from "zod/v4";
 export const pageNewsResponseSchema = z.object({
     "totalElements": z.optional(z.int()),
 "totalPages": z.optional(z.int()),
+"numberOfElements": z.optional(z.int()),
 "first": z.optional(z.boolean()),
 "last": z.optional(z.boolean()),
-"numberOfElements": z.optional(z.int()),
-get "pageable"(){
-                return pageableObjectSchema.optional()
-              },
 get "sort"(){
                 return sortObjectSchema.optional()
+              },
+get "pageable"(){
+                return pageableObjectSchema.optional()
               },
 "size": z.optional(z.int()),
 get "content"(){
