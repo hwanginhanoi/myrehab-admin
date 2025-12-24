@@ -2,7 +2,6 @@ import {defineConfig} from '@kubb/core'
 import {pluginOas} from '@kubb/plugin-oas'
 import {pluginTs} from '@kubb/plugin-ts'
 import {pluginZod} from '@kubb/plugin-zod'
-import {pluginClient} from '@kubb/plugin-client'
 import {pluginReactQuery} from '@kubb/plugin-react-query'
 
 export default defineConfig({
@@ -33,18 +32,6 @@ export default defineConfig({
 				type: 'tag',
 			},
 		}),
-		pluginClient({
-			output: {
-				path: 'clients',
-			},
-			group: {
-				type: 'tag',
-			},
-			client: 'axios',
-			importPath: '@/lib/api-client',
-			dataReturnType: 'data',
-			pathParamsType: 'object',
-		}),
 		pluginReactQuery({
 			output: {
 				path: './hooks',
@@ -58,13 +45,7 @@ export default defineConfig({
 				dataReturnType: 'data',
 			},
 			mutation: {
-				methods: ['post', 'put', 'delete'],
-			},
-			infinite: {
-				queryParam: 'next_page',
-				initialPageParam: 0,
-				nextParam: 'pagination.next.cursor',
-				previousParam: ['pagination', 'prev', 'cursor'],
+				methods: ['post', 'put', 'delete', 'patch'],
 			},
 			query: {
 				methods: ['get'],

@@ -33,6 +33,15 @@ import {
   type NavGroup as NavGroupProps,
 } from './types'
 
+// Type guard functions
+function isNavLink(item: NavItem): item is NavLink {
+  return 'url' in item && !item.items
+}
+
+function isNavCollapsible(item: NavItem): item is NavCollapsible {
+  return 'items' in item && Array.isArray(item.items)
+}
+
 export function NavGroup({ title, items }: NavGroupProps) {
   const { state, isMobile } = useSidebar()
   const href = useLocation({ select: (location) => location.href })
@@ -43,15 +52,18 @@ export function NavGroup({ title, items }: NavGroupProps) {
         {items.map((item) => {
           const key = `${item.title}-${item.url}`
 
-          if (!item.items)
+          if (isNavLink(item))
             return <SidebarMenuLink key={key} item={item} href={href} />
 
-          if (state === 'collapsed' && !isMobile)
+          if (state === 'collapsed' && !isMobile && isNavCollapsible(item))
             return (
               <SidebarMenuCollapsedDropdown key={key} item={item} href={href} />
             )
 
-          return <SidebarMenuCollapsible key={key} item={item} href={href} />
+          if (isNavCollapsible(item))
+            return <SidebarMenuCollapsible key={key} item={item} href={href} />
+
+          return null
         })}
       </SidebarMenu>
     </SidebarGroup>

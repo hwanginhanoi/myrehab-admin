@@ -1,9 +1,0 @@
-export { checkPhone } from "./authenticationController/checkPhone.ts";
-export { loginWithPassword } from "./authenticationController/loginWithPassword.ts";
-export { loginWithPin } from "./authenticationController/loginWithPin.ts";
-export { logout } from "./authenticationController/logout.ts";
-export { refreshToken } from "./authenticationController/refreshToken.ts";
-export { register } from "./authenticationController/register.ts";
-export { requestPinReset } from "./authenticationController/requestPinReset.ts";
-export { resetPin } from "./authenticationController/resetPin.ts";
-export { sendRegistrationOtp } from "./authenticationController/sendRegistrationOtp.ts";
