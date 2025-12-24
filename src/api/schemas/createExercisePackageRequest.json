@@ -1,0 +1,1 @@
+{"type":"object","properties":{"title":{"type":"string"},"description":{"type":"string"},"imageUrl":{"type":"string"},"exerciseIds":{"type":"array","items":{"type":"integer","format":"int64"}}},"required":["description","exerciseIds","title"],"x-readme-ref-name":"CreateExercisePackageRequest"}
