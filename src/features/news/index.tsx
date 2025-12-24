@@ -6,7 +6,7 @@ import { Main } from '@/components/layout/main'
 import { ProfileDropdown } from '@/components/profile-dropdown'
 import { Search } from '@/components/search'
 import { ThemeSwitch } from '@/components/theme-switch'
-import { useGetAllNews, useGetNewsByTitle } from '@/api'
+import { useGetAllNews } from '@/api'
 import { NewsDialogs } from './components/news-dialogs'
 import { NewsPrimaryButtons } from './components/news-primary-buttons'
 import { NewsProvider } from './components/news-provider'
@@ -30,59 +30,30 @@ export function News() {
   const selectedStatus = statusFilter && statusFilter.length > 0 ? statusFilter[0] : undefined
   const selectedCategory = categoryFilter && categoryFilter.length > 0 ? categoryFilter[0] : undefined
 
-  // Build pagination params
-  const paginationParams = useMemo(() => ({
-    page: page - 1, // Convert to 0-indexed for API
-    size: pageSize,
-  }), [page, pageSize])
-
-  // Conditionally use search API when title is provided
-  const hasSearchTerm = titleSearch && titleSearch.trim()
-
-  // Use search API when title is provided
-  const { data: searchResponse, isLoading: isLoadingSearch } = useGetNewsByTitle(
-    {
-      title: titleSearch || '',
-      pageable: paginationParams,
-    } as any,
-    {
-      query: {
-        enabled: !!hasSearchTerm, // Only fetch when title is provided
-      }
-    }
-  )
-
-  // Build query params for regular getAllNews (with status/category filters)
+  // Build query params for getAllNews (with all filters: status, category, and title)
   const queryParams = useMemo(() => {
     const params: any = {
-      page: page - 1,
+      page: page - 1, // Convert to 0-indexed for API
       size: pageSize,
     }
 
-    // Only include filters if they have values
+    // Include all filters if they have values
     if (selectedStatus) {
       params.status = selectedStatus
     }
     if (selectedCategory) {
       params.category = selectedCategory
     }
+    if (titleSearch && titleSearch.trim()) {
+      params.title = titleSearch.trim()
+    }
 
     return params
-  }, [page, pageSize, selectedStatus, selectedCategory])
+  }, [page, pageSize, selectedStatus, selectedCategory, titleSearch])
 
-  // Use regular API when no title search
-  const { data: allNewsResponse, isLoading: isLoadingAll } = useGetAllNews(
-    queryParams as any,
-    {
-      query: {
-        enabled: !hasSearchTerm, // Only fetch when no title search
-      }
-    }
+  const { data: response, isLoading } = useGetAllNews(
+    queryParams as any
   )
-
-  // Use the appropriate response based on which query is enabled
-  const response = hasSearchTerm ? searchResponse : allNewsResponse
-  const isLoading = hasSearchTerm ? isLoadingSearch : isLoadingAll
 
   const news = response?.content || []
   const totalPages = response?.totalPages || 0

@@ -12,7 +12,8 @@ export const getAllNewsQueryParamsSchema = z.object({
                 return pageableSchema
               },
 "status": z.optional(z.enum(["DRAFT", "PUBLISHED", "ARCHIVED"])),
-"category": z.optional(z.string())
+"category": z.optional(z.string()),
+"title": z.optional(z.string())
     })
 
 /**
