@@ -5,9 +5,9 @@ import { Exercises } from '@/features/exercises'
 const exercisesSearchSchema = z.object({
   page: z.coerce.number().optional().catch(1),
   pageSize: z.coerce.number().optional().catch(10),
-  // Per-column text filter
+  // Per-column text filter (search by title)
   title: z.string().optional().catch(''),
-  // Category filter
+  // Category filter (single category ID)
   categoryId: z
     .preprocess(
       (val) => {

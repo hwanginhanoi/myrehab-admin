@@ -4,6 +4,7 @@ export { DataTableColumnHeader } from './column-header'
 export { DataTableFacetedFilter } from './faceted-filter'
 export { DataTableSingleSelectFilter } from './single-select-filter'
 export { DataTableGroupedMultiSelectFilter } from './grouped-multi-select-filter'
+export { DataTableGroupedSingleSelectFilter } from './grouped-single-select-filter'
 export { DataTableViewOptions } from './view-options'
 export { DataTableBulkActions } from './bulk-actions'
 

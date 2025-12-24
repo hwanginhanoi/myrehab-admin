@@ -6,19 +6,17 @@ import { CategoryType } from '@/lib/constants/category-type'
 const categoriesSearchSchema = z.object({
   page: z.coerce.number().optional().catch(1),
   pageSize: z.coerce.number().optional().catch(10),
-  // Facet filters
+  // Type filter - single select
   type: z
-    .array(
-      z.enum([
-        CategoryType.BODY_PART,
-        CategoryType.RECOVERY_STAGE,
-        CategoryType.HEALTH_CONDITION,
-        CategoryType.DIFFICULTY_LEVEL,
-        CategoryType.EXERCISE_TYPE,
-      ])
-    )
+    .enum([
+      CategoryType.BODY_PART,
+      CategoryType.RECOVERY_STAGE,
+      CategoryType.HEALTH_CONDITION,
+      CategoryType.DIFFICULTY_LEVEL,
+      CategoryType.EXERCISE_TYPE,
+    ])
     .optional()
-    .catch([]),
+    .catch(undefined),
   // Per-column text filter (example for name)
   name: z.string().optional().catch(''),
 })

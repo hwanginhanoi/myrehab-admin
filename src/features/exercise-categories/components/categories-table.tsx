@@ -48,7 +48,7 @@ export function CategoriesTable({ data, search, navigate, pageCount }: DataTable
     globalFilter: { enabled: false },
     columnFilters: [
       { columnId: 'name', searchKey: 'name', type: 'string' },
-      { columnId: 'type', searchKey: 'type', type: 'array' },
+      { columnId: 'type', searchKey: 'type', type: 'string' },
     ],
   })
 

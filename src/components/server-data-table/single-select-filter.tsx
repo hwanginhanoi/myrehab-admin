@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { CheckIcon, PlusCircledIcon } from '@radix-ui/react-icons'
+import { CircleIcon } from '@radix-ui/react-icons'
 import { type Column } from '@tanstack/react-table'
 import { cn } from '@/lib/utils'
 import { Badge } from '@/components/ui/badge'
@@ -40,8 +40,7 @@ export function DataTableSingleSelectFilter<TData, TValue>({
   title,
   options,
 }: DataTableSingleSelectFilterProps<TData, TValue>) {
-  const filterValue = column?.getFilterValue() as string[] | undefined
-  const selectedValue = filterValue && filterValue.length > 0 ? filterValue[0] : undefined
+  const selectedValue = column?.getFilterValue() as string | undefined
 
   const selectedOption = options.find((option) => option.value === selectedValue)
 
@@ -49,7 +48,7 @@ export function DataTableSingleSelectFilter<TData, TValue>({
     <Popover modal={false}>
       <PopoverTrigger asChild>
         <Button variant='outline' size='sm' className='h-8 border-dashed'>
-          <PlusCircledIcon className='size-4' />
+          <CircleIcon className='size-4' />
           {title}
           {selectedOption && (
             <>
@@ -80,20 +79,22 @@ export function DataTableSingleSelectFilter<TData, TValue>({
                       if (isSelected) {
                         column?.setFilterValue(undefined)
                       } else {
-                        // Set as array with single value for consistency with useTableUrlState
-                        column?.setFilterValue([option.value])
+                        // Set single value (not array)
+                        column?.setFilterValue(option.value)
                       }
                     }}
                   >
                     <div
                       className={cn(
-                        'border-primary flex size-4 items-center justify-center rounded-sm border',
+                        'border-primary flex size-4 items-center justify-center rounded-full border',
                         isSelected
-                          ? 'bg-primary text-primary-foreground'
-                          : 'opacity-50 [&_svg]:invisible'
+                          ? 'bg-primary'
+                          : 'opacity-50'
                       )}
                     >
-                      <CheckIcon className={cn('text-background h-4 w-4')} />
+                      {isSelected && (
+                        <div className='size-2 rounded-full bg-primary-foreground' />
+                      )}
                     </div>
                     {option.icon && (
                       <option.icon className='text-muted-foreground size-4' />

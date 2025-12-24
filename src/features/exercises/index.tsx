@@ -20,7 +20,8 @@ export function Exercises() {
   // Note: URL uses 1-indexed pages, but API expects 0-indexed
   const page = (search.page as number) || 1
   const pageSize = (search.pageSize as number) || 10
-  const categoryId = search.categoryId as number | undefined
+  const title = search.title as string | undefined
+  const categoryIds = search.categoryIds as number[] | undefined
 
   // Fetch all categories for the filter (no pagination needed)
   const { data: categoriesResponse } = useGetAllCategories({
@@ -29,23 +30,32 @@ export function Exercises() {
   } as any)
   const allCategories = categoriesResponse?.content || []
 
-  // Build query params - include categoryId if present
+  // Build query params - include filters if present
   const queryParams = useMemo(() => {
     const params: any = {
       page: page - 1, // Convert to 0-indexed for API
       size: pageSize,
     }
 
-    // Add categoryId as query parameter if filtering
-    if (categoryId) {
-      params.categoryId = categoryId
+    // Add search query if present
+    if (title && title.trim()) {
+      params.query = title.trim()
+    }
+
+    // Add categoryIds filter if present
+    if (categoryIds && categoryIds.length > 0) {
+      params.categoryIds = categoryIds
     }
 
     return params
-  }, [page, pageSize, categoryId])
+  }, [page, pageSize, title, categoryIds])
 
   // Fetch exercises with server-side filtering and pagination
-  const { data: response, isLoading } = useGetAllExercises(queryParams as any)
+  const { data: response, isLoading } = useGetAllExercises(queryParams as any, {
+    query: {
+      placeholderData: (previousData) => previousData,
+    },
+  })
 
   const exercises = response?.content || []
   const totalPages = response?.totalPages || 0

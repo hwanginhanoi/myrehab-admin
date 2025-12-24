@@ -23,10 +23,7 @@ export function ExerciseCategories() {
   // Note: URL uses 1-indexed pages, but API expects 0-indexed
   const page = (search.page as number) || 1
   const pageSize = (search.pageSize as number) || 10
-  const typeFilter = search.type as string[] | undefined
-
-  // Get the first type from the array if it exists (for API call)
-  const selectedType = typeFilter && typeFilter.length > 0 ? typeFilter[0] : undefined
+  const selectedType = search.type as string | undefined
 
   // Build query params for pagination
   const paginationParams = useMemo(() => ({
@@ -40,6 +37,7 @@ export function ExerciseCategories() {
     {
       query: {
         enabled: !selectedType, // Only fetch when no type filter is selected
+        placeholderData: (previousData) => previousData,
       }
     }
   )
@@ -50,6 +48,7 @@ export function ExerciseCategories() {
     {
       query: {
         enabled: !!selectedType, // Only fetch when type filter is selected
+        placeholderData: (previousData) => previousData,
       }
     }
   )

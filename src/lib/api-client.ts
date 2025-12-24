@@ -45,7 +45,36 @@ export const setConfig = (config: RequestConfig) => {
 }
 
 // Create axios instance with interceptors
-const axiosInstance = axios.create(getConfig())
+const axiosInstance = axios.create({
+	...getConfig(),
+	paramsSerializer: {
+		serialize: (params) => {
+			// Manually build query string to avoid encoding commas
+			const parts: string[] = []
+
+			Object.entries(params).forEach(([key, value]) => {
+				if (value === undefined || value === null) {
+					return
+				}
+
+				if (Array.isArray(value)) {
+					// Serialize arrays as comma-separated values without encoding the comma
+					if (value.length > 0) {
+						const encodedKey = encodeURIComponent(key)
+						const encodedValues = value.map(v => encodeURIComponent(String(v))).join(',')
+						parts.push(`${encodedKey}=${encodedValues}`)
+					}
+				} else {
+					const encodedKey = encodeURIComponent(key)
+					const encodedValue = encodeURIComponent(String(value))
+					parts.push(`${encodedKey}=${encodedValue}`)
+				}
+			})
+
+			return parts.join('&')
+		},
+	},
+})
 
 // Request interceptor for adding auth token
 axiosInstance.interceptors.request.use(
