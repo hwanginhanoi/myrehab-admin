@@ -26,7 +26,6 @@ export type { SearchGroupsByNameQueryKey } from "./Exercise GroupsHooks/useSearc
 export type { SearchGroupsByNameSuspenseQueryKey } from "./Exercise GroupsHooks/useSearchGroupsByNameSuspense.ts";
 export type { UpdateGroupMutationKey } from "./Exercise GroupsHooks/useUpdateGroup.ts";
 export type { CreateExercisePackageMutationKey } from "./Exercise PackagesHooks/useCreateExercisePackage.ts";
-export type { DeleteExercisePackageMutationKey } from "./Exercise PackagesHooks/useDeleteExercisePackage.ts";
 export type { GetAllExercisePackagesQueryKey } from "./Exercise PackagesHooks/useGetAllExercisePackages.ts";
 export type { GetAllExercisePackagesSuspenseQueryKey } from "./Exercise PackagesHooks/useGetAllExercisePackagesSuspense.ts";
 export type { GetExercisePackageByIdQueryKey } from "./Exercise PackagesHooks/useGetExercisePackageById.ts";
@@ -150,10 +149,6 @@ export { createExercisePackageMutationKey } from "./Exercise PackagesHooks/useCr
 export { createExercisePackage } from "./Exercise PackagesHooks/useCreateExercisePackage.ts";
 export { createExercisePackageMutationOptions } from "./Exercise PackagesHooks/useCreateExercisePackage.ts";
 export { useCreateExercisePackage } from "./Exercise PackagesHooks/useCreateExercisePackage.ts";
-export { deleteExercisePackageMutationKey } from "./Exercise PackagesHooks/useDeleteExercisePackage.ts";
-export { deleteExercisePackage } from "./Exercise PackagesHooks/useDeleteExercisePackage.ts";
-export { deleteExercisePackageMutationOptions } from "./Exercise PackagesHooks/useDeleteExercisePackage.ts";
-export { useDeleteExercisePackage } from "./Exercise PackagesHooks/useDeleteExercisePackage.ts";
 export { getAllExercisePackagesQueryKey } from "./Exercise PackagesHooks/useGetAllExercisePackages.ts";
 export { getAllExercisePackages } from "./Exercise PackagesHooks/useGetAllExercisePackages.ts";
 export { getAllExercisePackagesQueryOptions } from "./Exercise PackagesHooks/useGetAllExercisePackages.ts";

@@ -27,7 +27,6 @@ export { searchGroupsByNameQueryParamsSchema, searchGroupsByName200Schema, searc
 export { updateGroupPathParamsSchema, updateGroup200Schema, updateGroupMutationRequestSchema, updateGroupMutationResponseSchema } from "./exerciseGroupsController/updateGroupSchema.ts";
 export { exercisePackageResponseSchema } from "./exercisePackageResponseSchema.ts";
 export { createExercisePackage200Schema, createExercisePackageMutationRequestSchema, createExercisePackageMutationResponseSchema } from "./exercisePackagesController/createExercisePackageSchema.ts";
-export { deleteExercisePackagePathParamsSchema, deleteExercisePackage200Schema, deleteExercisePackageMutationResponseSchema } from "./exercisePackagesController/deleteExercisePackageSchema.ts";
 export { getAllExercisePackagesQueryParamsSchema, getAllExercisePackages200Schema, getAllExercisePackagesQueryResponseSchema } from "./exercisePackagesController/getAllExercisePackagesSchema.ts";
 export { getExercisePackageByIdPathParamsSchema, getExercisePackageById200Schema, getExercisePackageByIdQueryResponseSchema } from "./exercisePackagesController/getExercisePackageByIdSchema.ts";
 export { updateExercisePackagePathParamsSchema, updateExercisePackage200Schema, updateExercisePackageMutationRequestSchema, updateExercisePackageMutationResponseSchema } from "./exercisePackagesController/updateExercisePackageSchema.ts";

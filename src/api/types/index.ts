@@ -27,7 +27,6 @@ export type { SearchGroupsByNameQueryParams, SearchGroupsByName200, SearchGroups
 export type { UpdateGroupPathParams, UpdateGroup200, UpdateGroupMutationRequest, UpdateGroupMutationResponse, UpdateGroupMutation } from "./exerciseGroupsController/UpdateGroup.ts";
 export type { ExercisePackageResponse } from "./ExercisePackageResponse.ts";
 export type { CreateExercisePackage200, CreateExercisePackageMutationRequest, CreateExercisePackageMutationResponse, CreateExercisePackageMutation } from "./exercisePackagesController/CreateExercisePackage.ts";
-export type { DeleteExercisePackagePathParams, DeleteExercisePackage200, DeleteExercisePackageMutationResponse, DeleteExercisePackageMutation } from "./exercisePackagesController/DeleteExercisePackage.ts";
 export type { GetAllExercisePackagesQueryParams, GetAllExercisePackages200, GetAllExercisePackagesQueryResponse, GetAllExercisePackagesQuery } from "./exercisePackagesController/GetAllExercisePackages.ts";
 export type { GetExercisePackageByIdPathParams, GetExercisePackageById200, GetExercisePackageByIdQueryResponse, GetExercisePackageByIdQuery } from "./exercisePackagesController/GetExercisePackageById.ts";
 export type { UpdateExercisePackagePathParams, UpdateExercisePackage200, UpdateExercisePackageMutationRequest, UpdateExercisePackageMutationResponse, UpdateExercisePackageMutation } from "./exercisePackagesController/UpdateExercisePackage.ts";

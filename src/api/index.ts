@@ -26,7 +26,6 @@ export type { SearchGroupsByNameQueryKey } from "./hooks/Exercise GroupsHooks/us
 export type { SearchGroupsByNameSuspenseQueryKey } from "./hooks/Exercise GroupsHooks/useSearchGroupsByNameSuspense.ts";
 export type { UpdateGroupMutationKey } from "./hooks/Exercise GroupsHooks/useUpdateGroup.ts";
 export type { CreateExercisePackageMutationKey } from "./hooks/Exercise PackagesHooks/useCreateExercisePackage.ts";
-export type { DeleteExercisePackageMutationKey } from "./hooks/Exercise PackagesHooks/useDeleteExercisePackage.ts";
 export type { GetAllExercisePackagesQueryKey } from "./hooks/Exercise PackagesHooks/useGetAllExercisePackages.ts";
 export type { GetAllExercisePackagesSuspenseQueryKey } from "./hooks/Exercise PackagesHooks/useGetAllExercisePackagesSuspense.ts";
 export type { GetExercisePackageByIdQueryKey } from "./hooks/Exercise PackagesHooks/useGetExercisePackageById.ts";
@@ -67,7 +66,6 @@ export type { SearchGroupsByNameQueryParams, SearchGroupsByName200, SearchGroups
 export type { UpdateGroupPathParams, UpdateGroup200, UpdateGroupMutationRequest, UpdateGroupMutationResponse, UpdateGroupMutation } from "./types/exerciseGroupsController/UpdateGroup.ts";
 export type { ExercisePackageResponse } from "./types/ExercisePackageResponse.ts";
 export type { CreateExercisePackage200, CreateExercisePackageMutationRequest, CreateExercisePackageMutationResponse, CreateExercisePackageMutation } from "./types/exercisePackagesController/CreateExercisePackage.ts";
-export type { DeleteExercisePackagePathParams, DeleteExercisePackage200, DeleteExercisePackageMutationResponse, DeleteExercisePackageMutation } from "./types/exercisePackagesController/DeleteExercisePackage.ts";
 export type { GetAllExercisePackagesQueryParams, GetAllExercisePackages200, GetAllExercisePackagesQueryResponse, GetAllExercisePackagesQuery } from "./types/exercisePackagesController/GetAllExercisePackages.ts";
 export type { GetExercisePackageByIdPathParams, GetExercisePackageById200, GetExercisePackageByIdQueryResponse, GetExercisePackageByIdQuery } from "./types/exercisePackagesController/GetExercisePackageById.ts";
 export type { UpdateExercisePackagePathParams, UpdateExercisePackage200, UpdateExercisePackageMutationRequest, UpdateExercisePackageMutationResponse, UpdateExercisePackageMutation } from "./types/exercisePackagesController/UpdateExercisePackage.ts";
@@ -209,10 +207,6 @@ export { createExercisePackageMutationKey } from "./hooks/Exercise PackagesHooks
 export { createExercisePackage } from "./hooks/Exercise PackagesHooks/useCreateExercisePackage.ts";
 export { createExercisePackageMutationOptions } from "./hooks/Exercise PackagesHooks/useCreateExercisePackage.ts";
 export { useCreateExercisePackage } from "./hooks/Exercise PackagesHooks/useCreateExercisePackage.ts";
-export { deleteExercisePackageMutationKey } from "./hooks/Exercise PackagesHooks/useDeleteExercisePackage.ts";
-export { deleteExercisePackage } from "./hooks/Exercise PackagesHooks/useDeleteExercisePackage.ts";
-export { deleteExercisePackageMutationOptions } from "./hooks/Exercise PackagesHooks/useDeleteExercisePackage.ts";
-export { useDeleteExercisePackage } from "./hooks/Exercise PackagesHooks/useDeleteExercisePackage.ts";
 export { getAllExercisePackagesQueryKey } from "./hooks/Exercise PackagesHooks/useGetAllExercisePackages.ts";
 export { getAllExercisePackages } from "./hooks/Exercise PackagesHooks/useGetAllExercisePackages.ts";
 export { getAllExercisePackagesQueryOptions } from "./hooks/Exercise PackagesHooks/useGetAllExercisePackages.ts";
@@ -290,7 +284,6 @@ export { searchGroupsByNameQueryParamsSchema, searchGroupsByName200Schema, searc
 export { updateGroupPathParamsSchema, updateGroup200Schema, updateGroupMutationRequestSchema, updateGroupMutationResponseSchema } from "./zod/exerciseGroupsController/updateGroupSchema.ts";
 export { exercisePackageResponseSchema } from "./zod/exercisePackageResponseSchema.ts";
 export { createExercisePackage200Schema, createExercisePackageMutationRequestSchema, createExercisePackageMutationResponseSchema } from "./zod/exercisePackagesController/createExercisePackageSchema.ts";
-export { deleteExercisePackagePathParamsSchema, deleteExercisePackage200Schema, deleteExercisePackageMutationResponseSchema } from "./zod/exercisePackagesController/deleteExercisePackageSchema.ts";
 export { getAllExercisePackagesQueryParamsSchema, getAllExercisePackages200Schema, getAllExercisePackagesQueryResponseSchema } from "./zod/exercisePackagesController/getAllExercisePackagesSchema.ts";
 export { getExercisePackageByIdPathParamsSchema, getExercisePackageById200Schema, getExercisePackageByIdQueryResponseSchema } from "./zod/exercisePackagesController/getExercisePackageByIdSchema.ts";
 export { updateExercisePackagePathParamsSchema, updateExercisePackage200Schema, updateExercisePackageMutationRequestSchema, updateExercisePackageMutationResponseSchema } from "./zod/exercisePackagesController/updateExercisePackageSchema.ts";
