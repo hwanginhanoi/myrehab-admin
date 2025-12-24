@@ -6,13 +6,13 @@ import { Main } from '@/components/layout/main'
 import { ProfileDropdown } from '@/components/profile-dropdown'
 import { Search } from '@/components/search'
 import { ThemeSwitch } from '@/components/theme-switch'
-import { useGetAllExercises, useGetAllCategories } from '@/api'
-import { ExercisesPrimaryButtons } from './components/exercises-primary-buttons'
-import { ExercisesTable } from './components/exercises-table'
+import { useGetAllExercisePackages } from '@/api'
+import { ExercisePackagesPrimaryButtons } from './components/exercise-packages-primary-buttons'
+import { ExercisePackagesTable } from './components/exercise-packages-table'
 
-const route = getRouteApi('/_authenticated/exercises/')
+const route = getRouteApi('/_authenticated/exercise-packages/')
 
-export function Exercises() {
+export function ExercisePackages() {
   const search = route.useSearch()
   const navigate = route.useNavigate()
 
@@ -21,20 +21,14 @@ export function Exercises() {
   const page = (search.page as number) || 1
   const pageSize = (search.pageSize as number) || 10
   const title = search.title as string | undefined
-  const categoryId = search.categoryId as number | undefined
-
-  // Fetch all categories for the filter (no pagination needed)
-  const { data: categoriesResponse } = useGetAllCategories({
-    page: 0,
-    size: 1000, // Get all categories
-  } as any)
-  const allCategories = categoriesResponse?.content || []
 
   // Build query params - include filters if present
   const queryParams = useMemo(() => {
     const params: any = {
-      page: page - 1, // Convert to 0-indexed for API
-      size: pageSize,
+      pageable: {
+        page: page - 1, // Convert to 0-indexed for API
+        size: pageSize,
+      },
     }
 
     // Add search query if present
@@ -42,22 +36,17 @@ export function Exercises() {
       params.query = title.trim()
     }
 
-    // Add categoryId filter if present
-    if (categoryId) {
-      params.categoryIds = [categoryId]
-    }
-
     return params
-  }, [page, pageSize, title, categoryId])
+  }, [page, pageSize, title])
 
-  // Fetch exercises with server-side filtering and pagination
-  const { data: response, isLoading } = useGetAllExercises(queryParams as any, {
+  // Fetch exercise packages with server-side filtering and pagination
+  const { data: response, isLoading } = useGetAllExercisePackages(queryParams as any, {
     query: {
       placeholderData: (previousData) => previousData,
     },
   })
 
-  const exercises = response?.content || []
+  const exercisePackages = response?.content || []
   const totalPages = response?.totalPages || 0
 
   return (
@@ -71,27 +60,26 @@ export function Exercises() {
         </div>
       </Header>
 
-      <Main className='flex fl  ex-1 flex-col gap-4 sm:gap-6'>
+      <Main className='flex flex-1 flex-col gap-4 sm:gap-6'>
         <div className='flex flex-wrap items-end justify-between gap-2'>
           <div>
-            <h2 className='text-2xl font-bold tracking-tight'>Bài tập</h2>
+            <h2 className='text-2xl font-bold tracking-tight'>Gói bài tập</h2>
             <p className='text-muted-foreground'>
-              Quản lý bài tập phục hồi chức năng.
+              Quản lý gói bài tập phục hồi chức năng.
             </p>
           </div>
-          <ExercisesPrimaryButtons />
+          <ExercisePackagesPrimaryButtons />
         </div>
         {isLoading ? (
           <div className='flex items-center justify-center h-64'>
             <p className='text-muted-foreground'>Đang tải...</p>
           </div>
         ) : (
-          <ExercisesTable
-            data={exercises}
+          <ExercisePackagesTable
+            data={exercisePackages}
             search={search}
             navigate={navigate}
             pageCount={totalPages}
-            allCategories={allCategories}
           />
         )}
       </Main>

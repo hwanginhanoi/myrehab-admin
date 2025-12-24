@@ -26,6 +26,7 @@ import { Route as AuthenticatedTasksIndexRouteImport } from './routes/_authentic
 import { Route as AuthenticatedSettingsIndexRouteImport } from './routes/_authenticated/settings/index'
 import { Route as AuthenticatedHelpCenterIndexRouteImport } from './routes/_authenticated/help-center/index'
 import { Route as AuthenticatedExercisesIndexRouteImport } from './routes/_authenticated/exercises/index'
+import { Route as AuthenticatedExercisePackagesIndexRouteImport } from './routes/_authenticated/exercise-packages/index'
 import { Route as AuthenticatedExerciseGroupsIndexRouteImport } from './routes/_authenticated/exercise-groups/index'
 import { Route as AuthenticatedExerciseCategoriesIndexRouteImport } from './routes/_authenticated/exercise-categories/index'
 import { Route as AuthenticatedChatsIndexRouteImport } from './routes/_authenticated/chats/index'
@@ -36,6 +37,8 @@ import { Route as AuthenticatedSettingsAppearanceRouteImport } from './routes/_a
 import { Route as AuthenticatedSettingsAccountRouteImport } from './routes/_authenticated/settings/account'
 import { Route as AuthenticatedExercisesNewRouteImport } from './routes/_authenticated/exercises/new'
 import { Route as AuthenticatedExercisesIdRouteImport } from './routes/_authenticated/exercises/$id'
+import { Route as AuthenticatedExercisePackagesNewRouteImport } from './routes/_authenticated/exercise-packages/new'
+import { Route as AuthenticatedExercisePackagesIdRouteImport } from './routes/_authenticated/exercise-packages/$id'
 import { Route as AuthenticatedErrorsErrorRouteImport } from './routes/_authenticated/errors/$error'
 
 const AuthenticatedRouteRoute = AuthenticatedRouteRouteImport.update({
@@ -126,6 +129,12 @@ const AuthenticatedExercisesIndexRoute =
     path: '/exercises/',
     getParentRoute: () => AuthenticatedRouteRoute,
   } as any)
+const AuthenticatedExercisePackagesIndexRoute =
+  AuthenticatedExercisePackagesIndexRouteImport.update({
+    id: '/exercise-packages/',
+    path: '/exercise-packages/',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
 const AuthenticatedExerciseGroupsIndexRoute =
   AuthenticatedExerciseGroupsIndexRouteImport.update({
     id: '/exercise-groups/',
@@ -184,6 +193,18 @@ const AuthenticatedExercisesIdRoute =
     path: '/exercises/$id',
     getParentRoute: () => AuthenticatedRouteRoute,
   } as any)
+const AuthenticatedExercisePackagesNewRoute =
+  AuthenticatedExercisePackagesNewRouteImport.update({
+    id: '/exercise-packages/new',
+    path: '/exercise-packages/new',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedExercisePackagesIdRoute =
+  AuthenticatedExercisePackagesIdRouteImport.update({
+    id: '/exercise-packages/$id',
+    path: '/exercise-packages/$id',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
 const AuthenticatedErrorsErrorRoute =
   AuthenticatedErrorsErrorRouteImport.update({
     id: '/errors/$error',
@@ -204,6 +225,8 @@ export interface FileRoutesByFullPath {
   '/503': typeof errors503Route
   '/': typeof AuthenticatedIndexRoute
   '/errors/$error': typeof AuthenticatedErrorsErrorRoute
+  '/exercise-packages/$id': typeof AuthenticatedExercisePackagesIdRoute
+  '/exercise-packages/new': typeof AuthenticatedExercisePackagesNewRoute
   '/exercises/$id': typeof AuthenticatedExercisesIdRoute
   '/exercises/new': typeof AuthenticatedExercisesNewRoute
   '/settings/account': typeof AuthenticatedSettingsAccountRoute
@@ -214,6 +237,7 @@ export interface FileRoutesByFullPath {
   '/chats': typeof AuthenticatedChatsIndexRoute
   '/exercise-categories': typeof AuthenticatedExerciseCategoriesIndexRoute
   '/exercise-groups': typeof AuthenticatedExerciseGroupsIndexRoute
+  '/exercise-packages': typeof AuthenticatedExercisePackagesIndexRoute
   '/exercises': typeof AuthenticatedExercisesIndexRoute
   '/help-center': typeof AuthenticatedHelpCenterIndexRoute
   '/settings/': typeof AuthenticatedSettingsIndexRoute
@@ -232,6 +256,8 @@ export interface FileRoutesByTo {
   '/503': typeof errors503Route
   '/': typeof AuthenticatedIndexRoute
   '/errors/$error': typeof AuthenticatedErrorsErrorRoute
+  '/exercise-packages/$id': typeof AuthenticatedExercisePackagesIdRoute
+  '/exercise-packages/new': typeof AuthenticatedExercisePackagesNewRoute
   '/exercises/$id': typeof AuthenticatedExercisesIdRoute
   '/exercises/new': typeof AuthenticatedExercisesNewRoute
   '/settings/account': typeof AuthenticatedSettingsAccountRoute
@@ -242,6 +268,7 @@ export interface FileRoutesByTo {
   '/chats': typeof AuthenticatedChatsIndexRoute
   '/exercise-categories': typeof AuthenticatedExerciseCategoriesIndexRoute
   '/exercise-groups': typeof AuthenticatedExerciseGroupsIndexRoute
+  '/exercise-packages': typeof AuthenticatedExercisePackagesIndexRoute
   '/exercises': typeof AuthenticatedExercisesIndexRoute
   '/help-center': typeof AuthenticatedHelpCenterIndexRoute
   '/settings': typeof AuthenticatedSettingsIndexRoute
@@ -263,6 +290,8 @@ export interface FileRoutesById {
   '/(errors)/503': typeof errors503Route
   '/_authenticated/': typeof AuthenticatedIndexRoute
   '/_authenticated/errors/$error': typeof AuthenticatedErrorsErrorRoute
+  '/_authenticated/exercise-packages/$id': typeof AuthenticatedExercisePackagesIdRoute
+  '/_authenticated/exercise-packages/new': typeof AuthenticatedExercisePackagesNewRoute
   '/_authenticated/exercises/$id': typeof AuthenticatedExercisesIdRoute
   '/_authenticated/exercises/new': typeof AuthenticatedExercisesNewRoute
   '/_authenticated/settings/account': typeof AuthenticatedSettingsAccountRoute
@@ -273,6 +302,7 @@ export interface FileRoutesById {
   '/_authenticated/chats/': typeof AuthenticatedChatsIndexRoute
   '/_authenticated/exercise-categories/': typeof AuthenticatedExerciseCategoriesIndexRoute
   '/_authenticated/exercise-groups/': typeof AuthenticatedExerciseGroupsIndexRoute
+  '/_authenticated/exercise-packages/': typeof AuthenticatedExercisePackagesIndexRoute
   '/_authenticated/exercises/': typeof AuthenticatedExercisesIndexRoute
   '/_authenticated/help-center/': typeof AuthenticatedHelpCenterIndexRoute
   '/_authenticated/settings/': typeof AuthenticatedSettingsIndexRoute
@@ -294,6 +324,8 @@ export interface FileRouteTypes {
     | '/503'
     | '/'
     | '/errors/$error'
+    | '/exercise-packages/$id'
+    | '/exercise-packages/new'
     | '/exercises/$id'
     | '/exercises/new'
     | '/settings/account'
@@ -304,6 +336,7 @@ export interface FileRouteTypes {
     | '/chats'
     | '/exercise-categories'
     | '/exercise-groups'
+    | '/exercise-packages'
     | '/exercises'
     | '/help-center'
     | '/settings/'
@@ -322,6 +355,8 @@ export interface FileRouteTypes {
     | '/503'
     | '/'
     | '/errors/$error'
+    | '/exercise-packages/$id'
+    | '/exercise-packages/new'
     | '/exercises/$id'
     | '/exercises/new'
     | '/settings/account'
@@ -332,6 +367,7 @@ export interface FileRouteTypes {
     | '/chats'
     | '/exercise-categories'
     | '/exercise-groups'
+    | '/exercise-packages'
     | '/exercises'
     | '/help-center'
     | '/settings'
@@ -352,6 +388,8 @@ export interface FileRouteTypes {
     | '/(errors)/503'
     | '/_authenticated/'
     | '/_authenticated/errors/$error'
+    | '/_authenticated/exercise-packages/$id'
+    | '/_authenticated/exercise-packages/new'
     | '/_authenticated/exercises/$id'
     | '/_authenticated/exercises/new'
     | '/_authenticated/settings/account'
@@ -362,6 +400,7 @@ export interface FileRouteTypes {
     | '/_authenticated/chats/'
     | '/_authenticated/exercise-categories/'
     | '/_authenticated/exercise-groups/'
+    | '/_authenticated/exercise-packages/'
     | '/_authenticated/exercises/'
     | '/_authenticated/help-center/'
     | '/_authenticated/settings/'
@@ -503,6 +542,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedExercisesIndexRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/_authenticated/exercise-packages/': {
+      id: '/_authenticated/exercise-packages/'
+      path: '/exercise-packages'
+      fullPath: '/exercise-packages'
+      preLoaderRoute: typeof AuthenticatedExercisePackagesIndexRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
     '/_authenticated/exercise-groups/': {
       id: '/_authenticated/exercise-groups/'
       path: '/exercise-groups'
@@ -573,6 +619,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedExercisesIdRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/_authenticated/exercise-packages/new': {
+      id: '/_authenticated/exercise-packages/new'
+      path: '/exercise-packages/new'
+      fullPath: '/exercise-packages/new'
+      preLoaderRoute: typeof AuthenticatedExercisePackagesNewRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/exercise-packages/$id': {
+      id: '/_authenticated/exercise-packages/$id'
+      path: '/exercise-packages/$id'
+      fullPath: '/exercise-packages/$id'
+      preLoaderRoute: typeof AuthenticatedExercisePackagesIdRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
     '/_authenticated/errors/$error': {
       id: '/_authenticated/errors/$error'
       path: '/errors/$error'
@@ -610,12 +670,15 @@ interface AuthenticatedRouteRouteChildren {
   AuthenticatedSettingsRouteRoute: typeof AuthenticatedSettingsRouteRouteWithChildren
   AuthenticatedIndexRoute: typeof AuthenticatedIndexRoute
   AuthenticatedErrorsErrorRoute: typeof AuthenticatedErrorsErrorRoute
+  AuthenticatedExercisePackagesIdRoute: typeof AuthenticatedExercisePackagesIdRoute
+  AuthenticatedExercisePackagesNewRoute: typeof AuthenticatedExercisePackagesNewRoute
   AuthenticatedExercisesIdRoute: typeof AuthenticatedExercisesIdRoute
   AuthenticatedExercisesNewRoute: typeof AuthenticatedExercisesNewRoute
   AuthenticatedAppsIndexRoute: typeof AuthenticatedAppsIndexRoute
   AuthenticatedChatsIndexRoute: typeof AuthenticatedChatsIndexRoute
   AuthenticatedExerciseCategoriesIndexRoute: typeof AuthenticatedExerciseCategoriesIndexRoute
   AuthenticatedExerciseGroupsIndexRoute: typeof AuthenticatedExerciseGroupsIndexRoute
+  AuthenticatedExercisePackagesIndexRoute: typeof AuthenticatedExercisePackagesIndexRoute
   AuthenticatedExercisesIndexRoute: typeof AuthenticatedExercisesIndexRoute
   AuthenticatedHelpCenterIndexRoute: typeof AuthenticatedHelpCenterIndexRoute
   AuthenticatedTasksIndexRoute: typeof AuthenticatedTasksIndexRoute
@@ -626,6 +689,8 @@ const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedSettingsRouteRoute: AuthenticatedSettingsRouteRouteWithChildren,
   AuthenticatedIndexRoute: AuthenticatedIndexRoute,
   AuthenticatedErrorsErrorRoute: AuthenticatedErrorsErrorRoute,
+  AuthenticatedExercisePackagesIdRoute: AuthenticatedExercisePackagesIdRoute,
+  AuthenticatedExercisePackagesNewRoute: AuthenticatedExercisePackagesNewRoute,
   AuthenticatedExercisesIdRoute: AuthenticatedExercisesIdRoute,
   AuthenticatedExercisesNewRoute: AuthenticatedExercisesNewRoute,
   AuthenticatedAppsIndexRoute: AuthenticatedAppsIndexRoute,
@@ -633,6 +698,8 @@ const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedExerciseCategoriesIndexRoute:
     AuthenticatedExerciseCategoriesIndexRoute,
   AuthenticatedExerciseGroupsIndexRoute: AuthenticatedExerciseGroupsIndexRoute,
+  AuthenticatedExercisePackagesIndexRoute:
+    AuthenticatedExercisePackagesIndexRoute,
   AuthenticatedExercisesIndexRoute: AuthenticatedExercisesIndexRoute,
   AuthenticatedHelpCenterIndexRoute: AuthenticatedHelpCenterIndexRoute,
   AuthenticatedTasksIndexRoute: AuthenticatedTasksIndexRoute,
