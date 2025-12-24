@@ -6,7 +6,7 @@ import { Main } from '@/components/layout/main'
 import { ProfileDropdown } from '@/components/profile-dropdown'
 import { Search } from '@/components/search'
 import { ThemeSwitch } from '@/components/theme-switch'
-import { useGetAllExercises, useGetAllCategories } from '@/api'
+import { useGetAllExercises, useGetAllCategories, useGetAllGroups } from '@/api'
 import { ExercisesPrimaryButtons } from './components/exercises-primary-buttons'
 import { ExercisesTable } from './components/exercises-table'
 
@@ -21,7 +21,8 @@ export function Exercises() {
   const page = (search.page as number) || 1
   const pageSize = (search.pageSize as number) || 10
   const title = search.title as string | undefined
-  const categoryId = search.categoryId as number | undefined
+  const categoryIds = search.categoryIds as number[] | undefined
+  const groupIds = search.groupIds as number[] | undefined
 
   // Fetch all categories for the filter (no pagination needed)
   const { data: categoriesResponse } = useGetAllCategories({
@@ -29,6 +30,13 @@ export function Exercises() {
     size: 1000, // Get all categories
   } as any)
   const allCategories = categoriesResponse?.content || []
+
+  // Fetch all groups for the filter (no pagination needed)
+  const { data: groupsResponse } = useGetAllGroups({
+    page: 0,
+    size: 1000, // Get all groups
+  } as any)
+  const allGroups = groupsResponse?.content || []
 
   // Build query params - include filters if present
   const queryParams = useMemo(() => {
@@ -42,13 +50,18 @@ export function Exercises() {
       params.query = title.trim()
     }
 
-    // Add categoryId filter if present
-    if (categoryId) {
-      params.categoryIds = [categoryId]
+    // Add categoryIds filter if present
+    if (categoryIds && categoryIds.length > 0) {
+      params.categoryIds = categoryIds
+    }
+
+    // Add groupIds filter if present
+    if (groupIds && groupIds.length > 0) {
+      params.groupIds = groupIds
     }
 
     return params
-  }, [page, pageSize, title, categoryId])
+  }, [page, pageSize, title, categoryIds, groupIds])
 
   // Fetch exercises with server-side filtering and pagination
   const { data: response, isLoading } = useGetAllExercises(queryParams as any, {
@@ -92,6 +105,7 @@ export function Exercises() {
             navigate={navigate}
             pageCount={totalPages}
             allCategories={allCategories}
+            allGroups={allGroups}
           />
         )}
       </Main>

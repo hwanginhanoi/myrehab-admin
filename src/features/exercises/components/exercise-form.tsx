@@ -1,5 +1,6 @@
 'use client'
 
+import { useMemo } from 'react'
 import { z } from 'zod'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
@@ -16,7 +17,7 @@ import {
 } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
 import { Textarea } from '@/components/ui/textarea'
-import { MultiSelect } from '@/components/multi-select'
+import { GroupedMultiSelect } from '@/components/grouped-multi-select'
 import {
   type ExerciseResponse,
   useCreateExercise,
@@ -32,7 +33,9 @@ const formSchema = z.object({
   imageUrl: z.string().min(1, 'Link ảnh là bắt buộc'),
   videoUrl: z.string().min(1, 'Link video là bắt buộc'),
   durationMinutes: z.number().min(1, 'Thời lượng phải lớn hơn 0'),
-  categoryIds: z.array(z.string()).min(1, 'Vui lòng chọn ít nhất một danh mục'),
+  categoryIds: z
+    .array(z.string())
+    .max(6, 'Chỉ được chọn tối đa 6 danh mục'),
   groupIds: z.array(z.string()).min(1, 'Vui lòng chọn ít nhất một kho bài tập'),
 })
 
@@ -51,24 +54,56 @@ export function ExerciseFormComponent({ exercise, mode }: ExerciseFormComponentP
 
   // Fetch categories and groups for the multi-select (fetch all without pagination for dropdowns)
   const { data: categoriesResponse } = useGetAllCategories({
-    pageable: { page: 0, size: 1000 },
+    pageable: {
+      page: 0,
+      size: 10000, // Get all categories
+    },
   })
   const { data: groupsResponse } = useGetAllGroups({
-    pageable: { page: 0, size: 1000 },
+    pageable: {
+      page: 0,
+      size: 10000, // Get all groups
+    },
   })
 
-  const categories = categoriesResponse?.content || []
-  const groups = groupsResponse?.content || []
+  // Group categories by type
+  const categoryGroups = useMemo(() => {
+    const categories = categoriesResponse?.content || []
+    const groupsMap = new Map<string, typeof categories>()
 
-  const categoryOptions = categories.map((cat) => ({
-    label: cat.name || '',
-    value: String(cat.id),
-  }))
+    categories.forEach((category) => {
+      const type = category.type
+      if (type && !groupsMap.has(type)) {
+        groupsMap.set(type, [])
+      }
+      if (type) {
+        groupsMap.get(type)?.push(category)
+      }
+    })
 
-  const groupOptions = groups.map((group) => ({
-    label: group.name || '',
-    value: String(group.id),
-  }))
+    // Convert to array format expected by the grouped multi-select
+    return Array.from(groupsMap.entries()).map(([type, cats]) => ({
+      label: getCategoryTypeLabel(type),
+      options: cats
+        .filter((cat) => cat.name && cat.id !== undefined)
+        .map((cat) => ({
+          label: cat.name!,
+          value: String(cat.id!),
+        })),
+    }))
+  }, [categoriesResponse])
+
+  // Wrap groups in a single group for consistent styling
+  const groupOptions = useMemo(() => {
+    const groups = groupsResponse?.content || []
+    return [{
+      label: 'Kho bài tập',
+      options: groups.map((group) => ({
+        label: group.name || '',
+        value: String(group.id),
+      })),
+    }]
+  }, [groupsResponse])
 
   const form = useForm<ExerciseForm>({
     resolver: zodResolver(formSchema),
@@ -97,8 +132,8 @@ export function ExerciseFormComponent({ exercise, mode }: ExerciseFormComponentP
     mutation: {
       onSuccess: () => {
         toast.success('Tạo bài tập thành công')
-        queryClient.invalidateQueries({ queryKey: [{ url: '/api/exercises' }] })
-        navigate({ to: '/exercises', search: { categoryId: undefined } })
+        void queryClient.invalidateQueries({ queryKey: [{ url: '/api/exercises' }] })
+        void navigate({ to: '/exercises', search: { categoryIds: undefined, groupIds: undefined } })
       },
       onError: (error) => {
         toast.error('Tạo bài tập thất bại: ' + error.message)
@@ -110,8 +145,8 @@ export function ExerciseFormComponent({ exercise, mode }: ExerciseFormComponentP
     mutation: {
       onSuccess: () => {
         toast.success('Cập nhật bài tập thành công')
-        queryClient.invalidateQueries({ queryKey: [{ url: '/api/exercises' }] })
-        navigate({ to: '/exercises', search: { categoryId: undefined } })
+        void queryClient.invalidateQueries({ queryKey: [{ url: '/api/exercises' }] })
+        void navigate({ to: '/exercises', search: { categoryIds: undefined, groupIds: undefined } })
       },
       onError: (error) => {
         toast.error('Cập nhật bài tập thất bại: ' + error.message)
@@ -210,12 +245,13 @@ export function ExerciseFormComponent({ exercise, mode }: ExerciseFormComponentP
               <FormItem>
                 <FormLabel>Danh mục</FormLabel>
                 <FormControl>
-                  <MultiSelect
-                    options={categoryOptions}
+                  <GroupedMultiSelect
+                    groups={categoryGroups}
                     selected={field.value || []}
                     onChange={field.onChange}
                     placeholder='Chọn danh mục'
                     disabled={isView}
+                    maxSelections={6}
                   />
                 </FormControl>
                 <FormMessage />
@@ -230,8 +266,8 @@ export function ExerciseFormComponent({ exercise, mode }: ExerciseFormComponentP
               <FormItem>
                 <FormLabel>Kho bài tập</FormLabel>
                 <FormControl>
-                  <MultiSelect
-                    options={groupOptions}
+                  <GroupedMultiSelect
+                    groups={groupOptions}
                     selected={field.value || []}
                     onChange={field.onChange}
                     placeholder='Chọn kho bài tập'
@@ -304,7 +340,7 @@ export function ExerciseFormComponent({ exercise, mode }: ExerciseFormComponentP
             <Button
               type='button'
               variant='outline'
-              onClick={() => navigate({ to: '/exercises', search: { categoryId: undefined } })}
+              onClick={() => void navigate({ to: '/exercises', search: { categoryIds: undefined, groupIds: undefined } })}
             >
               {isView ? 'Đóng' : 'Hủy'}
             </Button>
@@ -323,4 +359,16 @@ export function ExerciseFormComponent({ exercise, mode }: ExerciseFormComponentP
       </Form>
     </div>
   )
+}
+
+// Helper function to get Vietnamese labels for category types
+function getCategoryTypeLabel(type: string): string {
+  const labels: Record<string, string> = {
+    BODY_PART: 'Vị trí cơ thể',
+    RECOVERY_STAGE: 'Giai đoạn phục hồi',
+    HEALTH_CONDITION: 'Tình trạng sức khỏe',
+    DIFFICULTY_LEVEL: 'Độ khó',
+    EXERCISE_TYPE: 'Loại bài tập',
+  }
+  return labels[type] || type
 }

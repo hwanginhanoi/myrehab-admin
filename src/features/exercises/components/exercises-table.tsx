@@ -17,7 +17,7 @@ import {
   TableRow,
 } from '@/components/ui/table'
 import { DataTablePagination } from '@/components/server-data-table'
-import type { ExerciseResponse, CategoryResponse } from '@/api'
+import type { ExerciseResponse, CategoryResponse, GroupResponse } from '@/api'
 import { exercisesColumns } from './exercises-columns'
 import { ExercisesTableToolbar } from './exercises-table-toolbar'
 
@@ -27,6 +27,7 @@ type DataTableProps = {
   navigate: NavigateFn
   pageCount: number
   allCategories: CategoryResponse[]
+  allGroups: GroupResponse[]
 }
 
 export function ExercisesTable({
@@ -35,6 +36,7 @@ export function ExercisesTable({
   navigate,
   pageCount,
   allCategories,
+  allGroups,
 }: DataTableProps) {
   // Local UI-only states
   const [rowSelection, setRowSelection] = useState({})
@@ -56,13 +58,21 @@ export function ExercisesTable({
     columnFilters: [
       { columnId: 'title', searchKey: 'title', type: 'string' },
       { columnId: 'categoryIds', searchKey: 'categoryIds', type: 'array' },
+      { columnId: 'groupIds', searchKey: 'groupIds', type: 'array' },
     ],
   })
 
-  // Add hidden column for categoryIds filter
+  // Add hidden columns for categoryIds and groupIds filters
   const columns = useMemo(() => [
     {
       id: 'categoryIds',
+      header: () => null,
+      cell: () => null,
+      enableHiding: false,
+      enableSorting: false,
+    },
+    {
+      id: 'groupIds',
       header: () => null,
       cell: () => null,
       enableHiding: false,
@@ -104,7 +114,7 @@ export function ExercisesTable({
 			  'flex flex-1 flex-col gap-4'
 		  )}
 	  >
-		  <ExercisesTableToolbar table={table} allCategories={allCategories} />
+		  <ExercisesTableToolbar table={table} allCategories={allCategories} allGroups={allGroups} />
       <div className='overflow-hidden rounded-md border'>
         <Table>
           <TableHeader>
