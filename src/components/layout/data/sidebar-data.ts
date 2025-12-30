@@ -25,6 +25,7 @@ import {
   Layers,
   Dumbbell,
   Newspaper,
+  ClipboardList,
 } from 'lucide-react'
 import { type SidebarData } from '../types'
 
@@ -100,6 +101,11 @@ export const sidebarData: SidebarData = {
           title: 'News',
           url: '/news',
           icon: Newspaper,
+        },
+        {
+          title: 'Phiếu khám',
+          url: '/rehabilitation-forms',
+          icon: ClipboardList,
         },
       ],
     },
