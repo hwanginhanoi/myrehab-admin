@@ -3,12 +3,12 @@
 * Do not edit manually.
 */
 
-import { newsResponseSchema } from "./newsResponseSchema.ts";
 import { pageableObjectSchema } from "./pageableObjectSchema.ts";
+import { rehabilitationExaminationFormResponseSchema } from "./rehabilitationExaminationFormResponseSchema.ts";
 import { sortObjectSchema } from "./sortObjectSchema.ts";
 import { z } from "zod/v4";
 
-export const pageNewsResponseSchema = z.object({
+export const pageRehabilitationExaminationFormResponseSchema = z.object({
     "totalPages": z.optional(z.int()),
 "totalElements": z.optional(z.int()),
 get "pageable"(){
@@ -22,7 +22,7 @@ get "sort"(){
 "last": z.optional(z.boolean()),
 "size": z.optional(z.int()),
 get "content"(){
-                return z.array(newsResponseSchema).optional()
+                return z.array(rehabilitationExaminationFormResponseSchema).optional()
               },
 "number": z.optional(z.int()),
 "empty": z.optional(z.boolean())

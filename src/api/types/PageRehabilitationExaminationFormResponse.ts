@@ -3,11 +3,11 @@
 * Do not edit manually.
 */
 
-import type { NewsResponse } from "./NewsResponse.ts";
 import type { PageableObject } from "./PageableObject.ts";
+import type { RehabilitationExaminationFormResponse } from "./RehabilitationExaminationFormResponse.ts";
 import type { SortObject } from "./SortObject.ts";
 
-export type PageNewsResponse = {
+export type PageRehabilitationExaminationFormResponse = {
     /**
      * @type integer | undefined, int32
     */
@@ -43,7 +43,7 @@ export type PageNewsResponse = {
     /**
      * @type array | undefined
     */
-    content?: NewsResponse[];
+    content?: RehabilitationExaminationFormResponse[];
     /**
      * @type integer | undefined, int32
     */
