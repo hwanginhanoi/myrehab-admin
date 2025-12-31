@@ -1,1 +1,0 @@
-{"type":"object","properties":{"id":{"type":"integer","format":"int64"},"appointmentDateTime":{"type":"string","format":"date-time"},"durationMinutes":{"type":"integer","format":"int32"},"calculatedEndTime":{"type":"string","format":"date-time"}},"x-readme-ref-name":"AppointmentContext"}

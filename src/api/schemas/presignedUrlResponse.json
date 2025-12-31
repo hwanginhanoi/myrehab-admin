@@ -1,0 +1,9 @@
+{
+  "type": "object",
+  "properties": {
+    "presignedUrl": { "type": "string" },
+    "objectKey": { "type": "string" },
+    "expiresIn": { "type": "string" }
+  },
+  "x-readme-ref-name": "PresignedUrlResponse"
+}

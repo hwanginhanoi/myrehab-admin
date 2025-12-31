@@ -1,0 +1,30 @@
+{
+  "type": "object",
+  "properties": {
+    "title": { "type": "string" },
+    "description": { "type": "string" },
+    "imageUrl": { "type": "string" },
+    "videoUrl": { "type": "string" },
+    "durationMinutes": { "type": "integer", "format": "int32" },
+    "categoryIds": {
+      "type": "array",
+      "items": { "type": "integer", "format": "int64" },
+      "maxItems": 6,
+      "minItems": 0
+    },
+    "groupIds": {
+      "type": "array",
+      "items": { "type": "integer", "format": "int64" }
+    }
+  },
+  "required": [
+    "categoryIds",
+    "description",
+    "durationMinutes",
+    "groupIds",
+    "imageUrl",
+    "title",
+    "videoUrl"
+  ],
+  "x-readme-ref-name": "CreateExerciseRequest"
+}
