@@ -1,0 +1,10 @@
+{
+  "type": "object",
+  "properties": {
+    "size": { "type": "integer", "format": "int64" },
+    "number": { "type": "integer", "format": "int64" },
+    "totalElements": { "type": "integer", "format": "int64" },
+    "totalPages": { "type": "integer", "format": "int64" }
+  },
+  "x-readme-ref-name": "PageMetadata"
+}

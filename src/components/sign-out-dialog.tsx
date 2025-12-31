@@ -18,7 +18,7 @@ export function SignOutDialog({ open, onOpenChange }: SignOutDialogProps) {
     const currentPath = location.href
     navigate({
       to: '/login',
-      search: { redirect: currentPath },
+      search: () => ({ redirect: currentPath }),
       replace: true,
     })
   }

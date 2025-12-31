@@ -1,0 +1,19 @@
+{
+  "type": "object",
+  "properties": {
+    "name": { "type": "string" },
+    "description": { "type": "string" },
+    "type": {
+      "type": "string",
+      "enum": [
+        "BODY_PART",
+        "RECOVERY_STAGE",
+        "HEALTH_CONDITION",
+        "DIFFICULTY_LEVEL",
+        "EXERCISE_TYPE"
+      ]
+    }
+  },
+  "required": ["name", "type"],
+  "x-readme-ref-name": "CreateCategoryRequest"
+}
