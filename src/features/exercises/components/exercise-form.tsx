@@ -1,6 +1,6 @@
 'use client'
 
-import { useMemo } from 'react'
+import { useMemo, useRef } from 'react'
 import { z } from 'zod'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
@@ -18,6 +18,7 @@ import {
 import { Input } from '@/components/ui/input'
 import { Textarea } from '@/components/ui/textarea'
 import { GroupedMultiSelect } from '@/components/grouped-multi-select'
+import { FileUpload, type FileUploadRef } from '@/components/file-upload'
 import {
   type ExerciseResponse,
   useCreateExercise,
@@ -30,8 +31,8 @@ import { toast } from 'sonner'
 const formSchema = z.object({
   title: z.string().min(1, 'Tên bài tập là bắt buộc'),
   description: z.string(),
-  imageUrl: z.string().min(1, 'Link ảnh là bắt buộc'),
-  videoUrl: z.string().min(1, 'Link video là bắt buộc'),
+  imageUrl: z.string(), // Can be empty if file is selected
+  videoUrl: z.string(), // Can be empty if file is selected
   durationMinutes: z.number().min(1, 'Thời lượng phải lớn hơn 0'),
   categoryIds: z
     .array(z.string())
@@ -51,6 +52,10 @@ export function ExerciseFormComponent({ exercise, mode }: ExerciseFormComponentP
   const queryClient = useQueryClient()
   const isView = mode === 'view'
   const isEdit = mode === 'edit'
+
+  // Refs for file uploads
+  const imageUploadRef = useRef<FileUploadRef>(null)
+  const videoUploadRef = useRef<FileUploadRef>(null)
 
   // Fetch categories and groups for the multi-select (fetch all without pagination for dropdowns)
   const { data: categoriesResponse } = useGetAllCategories({
@@ -154,26 +159,71 @@ export function ExerciseFormComponent({ exercise, mode }: ExerciseFormComponentP
     },
   })
 
-  const onSubmit = (values: ExerciseForm) => {
-    const payload = {
-      title: values.title,
-      description: values.description,
-      imageUrl: values.imageUrl,
-      videoUrl: values.videoUrl,
-      durationMinutes: values.durationMinutes,
-      categoryIds: values.categoryIds?.map(Number) || [],
-      groupIds: values.groupIds?.map(Number) || [],
-    }
+  const onSubmit = async (values: ExerciseForm) => {
+    try {
+      // Check if image is provided (either uploaded or new file)
+      const hasImage = values.imageUrl || imageUploadRef.current?.hasFile()
+      if (!hasImage) {
+        toast.error('Vui lòng chọn ảnh bài tập')
+        return
+      }
 
-    if (isEdit && exercise?.id) {
-      updateMutation.mutate({
-        id: exercise.id,
-        data: payload,
-      })
-    } else {
-      createMutation.mutate({
-        data: payload,
-      })
+      // Check if video is provided (either uploaded or new file)
+      const hasVideo = values.videoUrl || videoUploadRef.current?.hasFile()
+      if (!hasVideo) {
+        toast.error('Vui lòng chọn video bài tập')
+        return
+      }
+
+      // Upload files if they exist
+      let imageUrl = values.imageUrl
+      let videoUrl = values.videoUrl
+
+      // Upload image if new file selected
+      if (imageUploadRef.current?.hasFile()) {
+        const uploadedImageKey = await imageUploadRef.current.upload()
+        if (uploadedImageKey) {
+          imageUrl = uploadedImageKey
+        } else {
+          toast.error('Không thể tải lên ảnh')
+          return
+        }
+      }
+
+      // Upload video if new file selected
+      if (videoUploadRef.current?.hasFile()) {
+        const uploadedVideoKey = await videoUploadRef.current.upload()
+        if (uploadedVideoKey) {
+          videoUrl = uploadedVideoKey
+        } else {
+          toast.error('Không thể tải lên video')
+          return
+        }
+      }
+
+      const payload = {
+        title: values.title,
+        description: values.description,
+        imageUrl,
+        videoUrl,
+        durationMinutes: values.durationMinutes,
+        categoryIds: values.categoryIds?.map(Number) || [],
+        groupIds: values.groupIds?.map(Number) || [],
+      }
+
+      if (isEdit && exercise?.id) {
+        updateMutation.mutate({
+          id: exercise.id,
+          data: payload,
+        })
+      } else {
+        createMutation.mutate({
+          data: payload,
+        })
+      }
+    } catch (error) {
+      toast.error('Có lỗi xảy ra khi tải lên file')
+      console.error('Upload error:', error)
     }
   }
 
@@ -226,8 +276,8 @@ export function ExerciseFormComponent({ exercise, mode }: ExerciseFormComponentP
                   <FormControl>
                     <Input
                       type='number'
-                      placeholder='Nhập thời lượng'
-                      disabled={isView}
+                      placeholder='Tự động từ video'
+                      disabled={true}
                       {...field}
                       value={field.value || ''}
                     />
@@ -304,12 +354,15 @@ export function ExerciseFormComponent({ exercise, mode }: ExerciseFormComponentP
               name='imageUrl'
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Link ảnh</FormLabel>
+                  <FormLabel>Ảnh bài tập</FormLabel>
                   <FormControl>
-                    <Input
-                      placeholder='https://example.com/image.jpg'
+                    <FileUpload
+                      ref={imageUploadRef}
+                      category='exercise-image'
+                      value={field.value}
+                      onChange={field.onChange}
                       disabled={isView}
-                      {...field}
+                      label={undefined}
                     />
                   </FormControl>
                   <FormMessage />
@@ -322,12 +375,18 @@ export function ExerciseFormComponent({ exercise, mode }: ExerciseFormComponentP
               name='videoUrl'
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Link video</FormLabel>
+                  <FormLabel>Video bài tập</FormLabel>
                   <FormControl>
-                    <Input
-                      placeholder='https://example.com/video.mp4'
+                    <FileUpload
+                      ref={videoUploadRef}
+                      category='exercise-video'
+                      value={field.value}
+                      onChange={field.onChange}
+                      onVideoDurationChange={(duration) => {
+                        form.setValue('durationMinutes', duration)
+                      }}
                       disabled={isView}
-                      {...field}
+                      label={undefined}
                     />
                   </FormControl>
                   <FormMessage />

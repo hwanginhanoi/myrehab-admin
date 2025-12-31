@@ -47,7 +47,7 @@ export function ExercisePackages() {
   })
 
   const exercisePackages = response?.content || []
-  const totalPages = response?.totalPages || 0
+  const totalPages = response?.page?.totalPages || 0
 
   return (
     <>

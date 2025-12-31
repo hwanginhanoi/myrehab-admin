@@ -26,23 +26,29 @@ export function Exercises() {
 
   // Fetch all categories for the filter (no pagination needed)
   const { data: categoriesResponse } = useGetAllCategories({
-    page: 0,
-    size: 1000, // Get all categories
-  } as any)
+    pageable: {
+      page: 0,
+      size: 1000, // Get all categories
+    },
+  })
   const allCategories = categoriesResponse?.content || []
 
   // Fetch all groups for the filter (no pagination needed)
   const { data: groupsResponse } = useGetAllGroups({
-    page: 0,
-    size: 1000, // Get all groups
-  } as any)
+    pageable: {
+      page: 0,
+      size: 1000, // Get all groups
+    },
+  })
   const allGroups = groupsResponse?.content || []
 
   // Build query params - include filters if present
   const queryParams = useMemo(() => {
     const params: any = {
-      page: page - 1, // Convert to 0-indexed for API
-      size: pageSize,
+      pageable: {
+        page: page - 1, // Convert to 0-indexed for API
+        size: pageSize,
+      },
     }
 
     // Add search query if present
@@ -64,14 +70,14 @@ export function Exercises() {
   }, [page, pageSize, title, categoryIds, groupIds])
 
   // Fetch exercises with server-side filtering and pagination
-  const { data: response, isLoading } = useGetAllExercises(queryParams as any, {
+  const { data: response, isLoading } = useGetAllExercises(queryParams, {
     query: {
       placeholderData: (previousData) => previousData,
     },
   })
 
   const exercises = response?.content || []
-  const totalPages = response?.totalPages || 0
+  const totalPages = response?.page?.totalPages || 0
 
   return (
     <>

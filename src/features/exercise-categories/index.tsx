@@ -27,13 +27,15 @@ export function ExerciseCategories() {
 
   // Build query params for pagination
   const paginationParams = useMemo(() => ({
-    page: page - 1, // Convert to 0-indexed for API
-    size: pageSize,
+    pageable: {
+      page: page - 1, // Convert to 0-indexed for API
+      size: pageSize,
+    },
   }), [page, pageSize])
 
   // Conditionally use the appropriate hook based on whether type filter is selected
   const { data: allCategoriesResponse, isLoading: isLoadingAll } = useGetAllCategories(
-    paginationParams as any,
+    paginationParams,
     {
       query: {
         enabled: !selectedType, // Only fetch when no type filter is selected
@@ -44,7 +46,7 @@ export function ExerciseCategories() {
 
   const { data: filteredCategoriesResponse, isLoading: isLoadingFiltered } = useGetCategoriesByType(
     selectedType as GetCategoriesByTypePathParams['type'],
-    { pageable: paginationParams } as any,
+    paginationParams,
     {
       query: {
         enabled: !!selectedType, // Only fetch when type filter is selected
@@ -58,7 +60,7 @@ export function ExerciseCategories() {
   const isLoading = selectedType ? isLoadingFiltered : isLoadingAll
 
   const categories = response?.content || []
-  const totalPages = response?.totalPages || 0
+  const totalPages = response?.page?.totalPages || 0
 
   return (
     <CategoriesProvider>

@@ -1,7 +1,16 @@
 {
   "permissions": {
     "allow": [
-      "Bash(npm run build:*)"
+      "Bash(npm run build:*)",
+      "Bash(npm install:*)",
+      "Bash(npx tsc:*)",
+      "mcp__ide__getDiagnostics",
+      "WebFetch(domain:ui.shadcn.com)",
+      "Bash(npx shadcn@latest add:*)",
+      "Bash(npx shadcn-ui@latest add progress)",
+      "Bash(set /p dummy=)",
+      "Bash(pnpm install:*)",
+      "Bash(del package-lock.json)"
     ]
   }
 }

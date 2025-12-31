@@ -57,13 +57,32 @@ const axiosInstance = axios.create({
 					return
 				}
 
-				if (Array.isArray(value)) {
+				// Special handling for 'pageable' - flatten it to Spring Data Web format
+				if (key === 'pageable' && typeof value === 'object' && !Array.isArray(value)) {
+					Object.entries(value as Record<string, unknown>).forEach(([pageableKey, pageableValue]) => {
+						if (pageableValue !== undefined && pageableValue !== null) {
+							const encodedKey = encodeURIComponent(pageableKey)
+							const encodedValue = encodeURIComponent(String(pageableValue))
+							parts.push(`${encodedKey}=${encodedValue}`)
+						}
+					})
+				} else if (Array.isArray(value)) {
 					// Serialize arrays as comma-separated values without encoding the comma
 					if (value.length > 0) {
 						const encodedKey = encodeURIComponent(key)
 						const encodedValues = value.map(v => encodeURIComponent(String(v))).join(',')
 						parts.push(`${encodedKey}=${encodedValues}`)
 					}
+				} else if (typeof value === 'object') {
+					// For other nested objects, use dot notation
+					Object.entries(value as Record<string, unknown>).forEach(([nestedKey, nestedValue]) => {
+						if (nestedValue !== undefined && nestedValue !== null) {
+							const fullKey = `${key}.${nestedKey}`
+							const encodedKey = encodeURIComponent(fullKey)
+							const encodedValue = encodeURIComponent(String(nestedValue))
+							parts.push(`${encodedKey}=${encodedValue}`)
+						}
+					})
 				} else {
 					const encodedKey = encodeURIComponent(key)
 					const encodedValue = encodeURIComponent(String(value))

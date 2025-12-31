@@ -37,6 +37,9 @@ export type { GetAllExercisesSuspenseQueryKey } from "./ExercisesHooks/useGetAll
 export type { GetExerciseByIdQueryKey } from "./ExercisesHooks/useGetExerciseById.ts";
 export type { GetExerciseByIdSuspenseQueryKey } from "./ExercisesHooks/useGetExerciseByIdSuspense.ts";
 export type { UpdateExerciseMutationKey } from "./ExercisesHooks/useUpdateExercise.ts";
+export type { DeleteFileMutationKey } from "./File ManagementHooks/useDeleteFile.ts";
+export type { GenerateDownloadUrlMutationKey } from "./File ManagementHooks/useGenerateDownloadUrl.ts";
+export type { GenerateUploadUrlMutationKey } from "./File ManagementHooks/useGenerateUploadUrl.ts";
 export { checkPhoneMutationKey } from "./AuthenticationHooks/useCheckPhone.ts";
 export { checkPhone } from "./AuthenticationHooks/useCheckPhone.ts";
 export { checkPhoneMutationOptions } from "./AuthenticationHooks/useCheckPhone.ts";
@@ -193,3 +196,15 @@ export { updateExerciseMutationKey } from "./ExercisesHooks/useUpdateExercise.ts
 export { updateExercise } from "./ExercisesHooks/useUpdateExercise.ts";
 export { updateExerciseMutationOptions } from "./ExercisesHooks/useUpdateExercise.ts";
 export { useUpdateExercise } from "./ExercisesHooks/useUpdateExercise.ts";
+export { deleteFileMutationKey } from "./File ManagementHooks/useDeleteFile.ts";
+export { deleteFile } from "./File ManagementHooks/useDeleteFile.ts";
+export { deleteFileMutationOptions } from "./File ManagementHooks/useDeleteFile.ts";
+export { useDeleteFile } from "./File ManagementHooks/useDeleteFile.ts";
+export { generateDownloadUrlMutationKey } from "./File ManagementHooks/useGenerateDownloadUrl.ts";
+export { generateDownloadUrl } from "./File ManagementHooks/useGenerateDownloadUrl.ts";
+export { generateDownloadUrlMutationOptions } from "./File ManagementHooks/useGenerateDownloadUrl.ts";
+export { useGenerateDownloadUrl } from "./File ManagementHooks/useGenerateDownloadUrl.ts";
+export { generateUploadUrlMutationKey } from "./File ManagementHooks/useGenerateUploadUrl.ts";
+export { generateUploadUrl } from "./File ManagementHooks/useGenerateUploadUrl.ts";
+export { generateUploadUrlMutationOptions } from "./File ManagementHooks/useGenerateUploadUrl.ts";
+export { useGenerateUploadUrl } from "./File ManagementHooks/useGenerateUploadUrl.ts";
