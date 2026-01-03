@@ -7,7 +7,10 @@ import type { PageableObject } from "./PageableObject.ts";
 import type { RehabilitationExaminationFormResponse } from "./RehabilitationExaminationFormResponse.ts";
 import type { SortObject } from "./SortObject.ts";
 
+<<<<<<<< HEAD:src/api/types/PageRehabilitationExaminationFormResponse.ts
 export type PageRehabilitationExaminationFormResponse = {
+========
+export type PageCategoryResponse = {
     /**
      * @type integer | undefined, int32
     */
@@ -16,6 +19,7 @@ export type PageRehabilitationExaminationFormResponse = {
      * @type integer | undefined, int64
     */
     totalElements?: number;
+>>>>>>>> origin/feature/news:src/api/types/PageCategoryResponse.ts
     /**
      * @type object | undefined
     */
@@ -37,6 +41,31 @@ export type PageRehabilitationExaminationFormResponse = {
     */
     last?: boolean;
     /**
+     * @type integer | undefined, int64
+    */
+    totalElements?: number;
+    /**
+     * @type object | undefined
+    */
+    pageable?: PageableObject;
+    /**
+     * @type integer | undefined, int32
+    */
+    numberOfElements?: number;
+    /**
+     * @type object | undefined
+    */
+    sort?: SortObject;
+    /**
+     * @type boolean | undefined
+    */
+<<<<<<<< HEAD:src/api/types/PageRehabilitationExaminationFormResponse.ts
+    first?: boolean;
+    /**
+     * @type boolean | undefined
+    */
+    last?: boolean;
+    /**
      * @type integer | undefined, int32
     */
     size?: number;
@@ -51,5 +80,7 @@ export type PageRehabilitationExaminationFormResponse = {
     /**
      * @type boolean | undefined
     */
+========
+>>>>>>>> origin/feature/news:src/api/types/PageCategoryResponse.ts
     empty?: boolean;
 };

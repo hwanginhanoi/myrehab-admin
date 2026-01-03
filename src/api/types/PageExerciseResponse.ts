@@ -3,14 +3,11 @@
 * Do not edit manually.
 */
 
-import type { NewsResponse } from "./NewsResponse.ts";
+import type { ExerciseResponse } from "./ExerciseResponse.ts";
 import type { PageableObject } from "./PageableObject.ts";
 import type { SortObject } from "./SortObject.ts";
 
-<<<<<<<< HEAD:src/api/types/PageNewsResponse.ts
-export type PageNewsResponse = {
-========
-export type PageGroupResponse = {
+export type PageExerciseResponse = {
     /**
      * @type integer | undefined, int32
     */
@@ -19,7 +16,6 @@ export type PageGroupResponse = {
      * @type integer | undefined, int64
     */
     totalElements?: number;
->>>>>>>> origin/feature/news:src/api/types/PageGroupResponse.ts
     /**
      * @type object | undefined
     */
@@ -35,31 +31,6 @@ export type PageGroupResponse = {
     /**
      * @type boolean | undefined
     */
-    first?: boolean;
-    /**
-     * @type boolean | undefined
-    */
-    last?: boolean;
-    /**
-     * @type integer | undefined, int64
-    */
-    totalElements?: number;
-    /**
-     * @type object | undefined
-    */
-    pageable?: PageableObject;
-    /**
-     * @type integer | undefined, int32
-    */
-    numberOfElements?: number;
-    /**
-     * @type object | undefined
-    */
-    sort?: SortObject;
-    /**
-     * @type boolean | undefined
-    */
-<<<<<<<< HEAD:src/api/types/PageNewsResponse.ts
     first?: boolean;
     /**
      * @type boolean | undefined
@@ -72,7 +43,7 @@ export type PageGroupResponse = {
     /**
      * @type array | undefined
     */
-    content?: NewsResponse[];
+    content?: ExerciseResponse[];
     /**
      * @type integer | undefined, int32
     */
@@ -80,7 +51,5 @@ export type PageGroupResponse = {
     /**
      * @type boolean | undefined
     */
-========
->>>>>>>> origin/feature/news:src/api/types/PageGroupResponse.ts
     empty?: boolean;
 };

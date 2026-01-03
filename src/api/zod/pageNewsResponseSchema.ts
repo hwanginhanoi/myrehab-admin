@@ -8,11 +8,16 @@ import { pageableObjectSchema } from "./pageableObjectSchema.ts";
 import { sortObjectSchema } from "./sortObjectSchema.ts";
 import { z } from "zod/v4";
 
+<<<<<<<< HEAD:src/api/zod/pageNewsResponseSchema.ts
 export const pageNewsResponseSchema = z.object({
+========
+export const pageGroupResponseSchema = z.object({
+>>>>>>>> origin/feature/news:src/api/zod/pageGroupResponseSchema.ts
     "totalPages": z.optional(z.int()),
 "totalElements": z.optional(z.int()),
 get "pageable"(){
                 return pageableObjectSchema.optional()
+<<<<<<<< HEAD:src/api/zod/pageNewsResponseSchema.ts
               },
 "numberOfElements": z.optional(z.int()),
 get "sort"(){
@@ -24,6 +29,19 @@ get "sort"(){
 get "content"(){
                 return z.array(newsResponseSchema).optional()
               },
+========
+              },
+"numberOfElements": z.optional(z.int()),
+get "sort"(){
+                return sortObjectSchema.optional()
+              },
+"first": z.optional(z.boolean()),
+"last": z.optional(z.boolean()),
+"size": z.optional(z.int()),
+get "content"(){
+                return z.array(groupResponseSchema).optional()
+              },
+>>>>>>>> origin/feature/news:src/api/zod/pageGroupResponseSchema.ts
 "number": z.optional(z.int()),
 "empty": z.optional(z.boolean())
     })

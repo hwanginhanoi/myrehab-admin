@@ -8,11 +8,16 @@ import { rehabilitationExaminationFormResponseSchema } from "./rehabilitationExa
 import { sortObjectSchema } from "./sortObjectSchema.ts";
 import { z } from "zod/v4";
 
+<<<<<<<< HEAD:src/api/zod/pageRehabilitationExaminationFormResponseSchema.ts
 export const pageRehabilitationExaminationFormResponseSchema = z.object({
+========
+export const pageCategoryResponseSchema = z.object({
+>>>>>>>> origin/feature/news:src/api/zod/pageCategoryResponseSchema.ts
     "totalPages": z.optional(z.int()),
 "totalElements": z.optional(z.int()),
 get "pageable"(){
                 return pageableObjectSchema.optional()
+<<<<<<<< HEAD:src/api/zod/pageRehabilitationExaminationFormResponseSchema.ts
               },
 "numberOfElements": z.optional(z.int()),
 get "sort"(){
@@ -24,6 +29,19 @@ get "sort"(){
 get "content"(){
                 return z.array(rehabilitationExaminationFormResponseSchema).optional()
               },
+========
+              },
+"numberOfElements": z.optional(z.int()),
+get "sort"(){
+                return sortObjectSchema.optional()
+              },
+"first": z.optional(z.boolean()),
+"last": z.optional(z.boolean()),
+"size": z.optional(z.int()),
+get "content"(){
+                return z.array(categoryResponseSchema).optional()
+              },
+>>>>>>>> origin/feature/news:src/api/zod/pageCategoryResponseSchema.ts
 "number": z.optional(z.int()),
 "empty": z.optional(z.boolean())
     })
