@@ -18,7 +18,6 @@ export function RehabilitationFormsTableToolbar({ table }: RehabilitationFormsTa
   const isFiltered =
     table.getState().columnFilters.length > 0 || table.getState().globalFilter
 
-  // Debounce search: only update filter after 500ms of no typing
   useEffect(() => {
     const timer = setTimeout(() => {
       table.getColumn('patientName')?.setFilterValue(searchValue || undefined)

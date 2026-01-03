@@ -29,7 +29,6 @@ type DataTableProps = {
 }
 
 export function RehabilitationFormsTable({ data, search, navigate, pageCount }: DataTableProps) {
-  // Local UI-only states
   const [rowSelection, setRowSelection] = useState({})
   const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({})
   const [sorting, setSorting] = useState<SortingState>([])

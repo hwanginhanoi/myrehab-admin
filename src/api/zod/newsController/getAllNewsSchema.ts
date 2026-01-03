@@ -4,7 +4,7 @@
 */
 
 import { pageableSchema } from "../pageableSchema.ts";
-import { pageNewsResponseSchema } from "../pageNewsResponseSchema.ts";
+import { pagedModelSchema } from "../pagedModelSchema.ts";
 import { z } from "zod/v4";
 
 export const getAllNewsQueryParamsSchema = z.object({
@@ -19,6 +19,6 @@ export const getAllNewsQueryParamsSchema = z.object({
 /**
  * @description OK
  */
-export const getAllNews200Schema = z.lazy(() => pageNewsResponseSchema)
+export const getAllNews200Schema = z.lazy(() => pagedModelSchema)
 
 export const getAllNewsQueryResponseSchema = z.lazy(() => getAllNews200Schema)

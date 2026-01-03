@@ -4,7 +4,7 @@
 */
 
 import type { Pageable } from "../Pageable.ts";
-import type { PageRehabilitationExaminationFormResponse } from "../PageRehabilitationExaminationFormResponse.ts";
+import type { PagedModel } from "../PagedModel.ts";
 
 export type GetAllFormsQueryParams = {
     /**
@@ -20,7 +20,7 @@ export type GetAllFormsQueryParams = {
 /**
  * @description OK
 */
-export type GetAllForms200 = PageRehabilitationExaminationFormResponse;
+export type GetAllForms200 = PagedModel;
 
 export type GetAllFormsQueryResponse = GetAllForms200;
 
