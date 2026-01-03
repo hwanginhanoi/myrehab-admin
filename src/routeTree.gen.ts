@@ -24,6 +24,8 @@ import { Route as AuthenticatedSettingsRouteRouteImport } from './routes/_authen
 import { Route as AuthenticatedUsersIndexRouteImport } from './routes/_authenticated/users/index'
 import { Route as AuthenticatedTasksIndexRouteImport } from './routes/_authenticated/tasks/index'
 import { Route as AuthenticatedSettingsIndexRouteImport } from './routes/_authenticated/settings/index'
+import { Route as AuthenticatedRehabilitationFormsIndexRouteImport } from './routes/_authenticated/rehabilitation-forms/index'
+import { Route as AuthenticatedNewsIndexRouteImport } from './routes/_authenticated/news/index'
 import { Route as AuthenticatedHelpCenterIndexRouteImport } from './routes/_authenticated/help-center/index'
 import { Route as AuthenticatedExercisesIndexRouteImport } from './routes/_authenticated/exercises/index'
 import { Route as AuthenticatedExercisePackagesIndexRouteImport } from './routes/_authenticated/exercise-packages/index'
@@ -35,6 +37,8 @@ import { Route as AuthenticatedSettingsNotificationsRouteImport } from './routes
 import { Route as AuthenticatedSettingsDisplayRouteImport } from './routes/_authenticated/settings/display'
 import { Route as AuthenticatedSettingsAppearanceRouteImport } from './routes/_authenticated/settings/appearance'
 import { Route as AuthenticatedSettingsAccountRouteImport } from './routes/_authenticated/settings/account'
+import { Route as AuthenticatedRehabilitationFormsNewRouteImport } from './routes/_authenticated/rehabilitation-forms/new'
+import { Route as AuthenticatedRehabilitationFormsIdRouteImport } from './routes/_authenticated/rehabilitation-forms/$id'
 import { Route as AuthenticatedExercisesNewRouteImport } from './routes/_authenticated/exercises/new'
 import { Route as AuthenticatedExercisesIdRouteImport } from './routes/_authenticated/exercises/$id'
 import { Route as AuthenticatedExercisePackagesNewRouteImport } from './routes/_authenticated/exercise-packages/new'
@@ -117,6 +121,17 @@ const AuthenticatedSettingsIndexRoute =
     path: '/',
     getParentRoute: () => AuthenticatedSettingsRouteRoute,
   } as any)
+const AuthenticatedRehabilitationFormsIndexRoute =
+  AuthenticatedRehabilitationFormsIndexRouteImport.update({
+    id: '/rehabilitation-forms/',
+    path: '/rehabilitation-forms/',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedNewsIndexRoute = AuthenticatedNewsIndexRouteImport.update({
+  id: '/news/',
+  path: '/news/',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
 const AuthenticatedHelpCenterIndexRoute =
   AuthenticatedHelpCenterIndexRouteImport.update({
     id: '/help-center/',
@@ -181,6 +196,18 @@ const AuthenticatedSettingsAccountRoute =
     path: '/account',
     getParentRoute: () => AuthenticatedSettingsRouteRoute,
   } as any)
+const AuthenticatedRehabilitationFormsNewRoute =
+  AuthenticatedRehabilitationFormsNewRouteImport.update({
+    id: '/rehabilitation-forms/new',
+    path: '/rehabilitation-forms/new',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedRehabilitationFormsIdRoute =
+  AuthenticatedRehabilitationFormsIdRouteImport.update({
+    id: '/rehabilitation-forms/$id',
+    path: '/rehabilitation-forms/$id',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
 const AuthenticatedExercisesNewRoute =
   AuthenticatedExercisesNewRouteImport.update({
     id: '/exercises/new',
@@ -229,6 +256,8 @@ export interface FileRoutesByFullPath {
   '/exercise-packages/new': typeof AuthenticatedExercisePackagesNewRoute
   '/exercises/$id': typeof AuthenticatedExercisesIdRoute
   '/exercises/new': typeof AuthenticatedExercisesNewRoute
+  '/rehabilitation-forms/$id': typeof AuthenticatedRehabilitationFormsIdRoute
+  '/rehabilitation-forms/new': typeof AuthenticatedRehabilitationFormsNewRoute
   '/settings/account': typeof AuthenticatedSettingsAccountRoute
   '/settings/appearance': typeof AuthenticatedSettingsAppearanceRoute
   '/settings/display': typeof AuthenticatedSettingsDisplayRoute
@@ -240,6 +269,8 @@ export interface FileRoutesByFullPath {
   '/exercise-packages': typeof AuthenticatedExercisePackagesIndexRoute
   '/exercises': typeof AuthenticatedExercisesIndexRoute
   '/help-center': typeof AuthenticatedHelpCenterIndexRoute
+  '/news': typeof AuthenticatedNewsIndexRoute
+  '/rehabilitation-forms': typeof AuthenticatedRehabilitationFormsIndexRoute
   '/settings/': typeof AuthenticatedSettingsIndexRoute
   '/tasks': typeof AuthenticatedTasksIndexRoute
   '/users': typeof AuthenticatedUsersIndexRoute
@@ -260,6 +291,8 @@ export interface FileRoutesByTo {
   '/exercise-packages/new': typeof AuthenticatedExercisePackagesNewRoute
   '/exercises/$id': typeof AuthenticatedExercisesIdRoute
   '/exercises/new': typeof AuthenticatedExercisesNewRoute
+  '/rehabilitation-forms/$id': typeof AuthenticatedRehabilitationFormsIdRoute
+  '/rehabilitation-forms/new': typeof AuthenticatedRehabilitationFormsNewRoute
   '/settings/account': typeof AuthenticatedSettingsAccountRoute
   '/settings/appearance': typeof AuthenticatedSettingsAppearanceRoute
   '/settings/display': typeof AuthenticatedSettingsDisplayRoute
@@ -271,6 +304,8 @@ export interface FileRoutesByTo {
   '/exercise-packages': typeof AuthenticatedExercisePackagesIndexRoute
   '/exercises': typeof AuthenticatedExercisesIndexRoute
   '/help-center': typeof AuthenticatedHelpCenterIndexRoute
+  '/news': typeof AuthenticatedNewsIndexRoute
+  '/rehabilitation-forms': typeof AuthenticatedRehabilitationFormsIndexRoute
   '/settings': typeof AuthenticatedSettingsIndexRoute
   '/tasks': typeof AuthenticatedTasksIndexRoute
   '/users': typeof AuthenticatedUsersIndexRoute
@@ -294,6 +329,8 @@ export interface FileRoutesById {
   '/_authenticated/exercise-packages/new': typeof AuthenticatedExercisePackagesNewRoute
   '/_authenticated/exercises/$id': typeof AuthenticatedExercisesIdRoute
   '/_authenticated/exercises/new': typeof AuthenticatedExercisesNewRoute
+  '/_authenticated/rehabilitation-forms/$id': typeof AuthenticatedRehabilitationFormsIdRoute
+  '/_authenticated/rehabilitation-forms/new': typeof AuthenticatedRehabilitationFormsNewRoute
   '/_authenticated/settings/account': typeof AuthenticatedSettingsAccountRoute
   '/_authenticated/settings/appearance': typeof AuthenticatedSettingsAppearanceRoute
   '/_authenticated/settings/display': typeof AuthenticatedSettingsDisplayRoute
@@ -305,6 +342,8 @@ export interface FileRoutesById {
   '/_authenticated/exercise-packages/': typeof AuthenticatedExercisePackagesIndexRoute
   '/_authenticated/exercises/': typeof AuthenticatedExercisesIndexRoute
   '/_authenticated/help-center/': typeof AuthenticatedHelpCenterIndexRoute
+  '/_authenticated/news/': typeof AuthenticatedNewsIndexRoute
+  '/_authenticated/rehabilitation-forms/': typeof AuthenticatedRehabilitationFormsIndexRoute
   '/_authenticated/settings/': typeof AuthenticatedSettingsIndexRoute
   '/_authenticated/tasks/': typeof AuthenticatedTasksIndexRoute
   '/_authenticated/users/': typeof AuthenticatedUsersIndexRoute
@@ -328,6 +367,8 @@ export interface FileRouteTypes {
     | '/exercise-packages/new'
     | '/exercises/$id'
     | '/exercises/new'
+    | '/rehabilitation-forms/$id'
+    | '/rehabilitation-forms/new'
     | '/settings/account'
     | '/settings/appearance'
     | '/settings/display'
@@ -339,6 +380,8 @@ export interface FileRouteTypes {
     | '/exercise-packages'
     | '/exercises'
     | '/help-center'
+    | '/news'
+    | '/rehabilitation-forms'
     | '/settings/'
     | '/tasks'
     | '/users'
@@ -359,6 +402,8 @@ export interface FileRouteTypes {
     | '/exercise-packages/new'
     | '/exercises/$id'
     | '/exercises/new'
+    | '/rehabilitation-forms/$id'
+    | '/rehabilitation-forms/new'
     | '/settings/account'
     | '/settings/appearance'
     | '/settings/display'
@@ -370,6 +415,8 @@ export interface FileRouteTypes {
     | '/exercise-packages'
     | '/exercises'
     | '/help-center'
+    | '/news'
+    | '/rehabilitation-forms'
     | '/settings'
     | '/tasks'
     | '/users'
@@ -392,6 +439,8 @@ export interface FileRouteTypes {
     | '/_authenticated/exercise-packages/new'
     | '/_authenticated/exercises/$id'
     | '/_authenticated/exercises/new'
+    | '/_authenticated/rehabilitation-forms/$id'
+    | '/_authenticated/rehabilitation-forms/new'
     | '/_authenticated/settings/account'
     | '/_authenticated/settings/appearance'
     | '/_authenticated/settings/display'
@@ -403,6 +452,8 @@ export interface FileRouteTypes {
     | '/_authenticated/exercise-packages/'
     | '/_authenticated/exercises/'
     | '/_authenticated/help-center/'
+    | '/_authenticated/news/'
+    | '/_authenticated/rehabilitation-forms/'
     | '/_authenticated/settings/'
     | '/_authenticated/tasks/'
     | '/_authenticated/users/'
@@ -528,6 +579,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedSettingsIndexRouteImport
       parentRoute: typeof AuthenticatedSettingsRouteRoute
     }
+    '/_authenticated/rehabilitation-forms/': {
+      id: '/_authenticated/rehabilitation-forms/'
+      path: '/rehabilitation-forms'
+      fullPath: '/rehabilitation-forms'
+      preLoaderRoute: typeof AuthenticatedRehabilitationFormsIndexRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/news/': {
+      id: '/_authenticated/news/'
+      path: '/news'
+      fullPath: '/news'
+      preLoaderRoute: typeof AuthenticatedNewsIndexRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
     '/_authenticated/help-center/': {
       id: '/_authenticated/help-center/'
       path: '/help-center'
@@ -605,6 +670,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedSettingsAccountRouteImport
       parentRoute: typeof AuthenticatedSettingsRouteRoute
     }
+    '/_authenticated/rehabilitation-forms/new': {
+      id: '/_authenticated/rehabilitation-forms/new'
+      path: '/rehabilitation-forms/new'
+      fullPath: '/rehabilitation-forms/new'
+      preLoaderRoute: typeof AuthenticatedRehabilitationFormsNewRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/rehabilitation-forms/$id': {
+      id: '/_authenticated/rehabilitation-forms/$id'
+      path: '/rehabilitation-forms/$id'
+      fullPath: '/rehabilitation-forms/$id'
+      preLoaderRoute: typeof AuthenticatedRehabilitationFormsIdRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
     '/_authenticated/exercises/new': {
       id: '/_authenticated/exercises/new'
       path: '/exercises/new'
@@ -674,6 +753,8 @@ interface AuthenticatedRouteRouteChildren {
   AuthenticatedExercisePackagesNewRoute: typeof AuthenticatedExercisePackagesNewRoute
   AuthenticatedExercisesIdRoute: typeof AuthenticatedExercisesIdRoute
   AuthenticatedExercisesNewRoute: typeof AuthenticatedExercisesNewRoute
+  AuthenticatedRehabilitationFormsIdRoute: typeof AuthenticatedRehabilitationFormsIdRoute
+  AuthenticatedRehabilitationFormsNewRoute: typeof AuthenticatedRehabilitationFormsNewRoute
   AuthenticatedAppsIndexRoute: typeof AuthenticatedAppsIndexRoute
   AuthenticatedChatsIndexRoute: typeof AuthenticatedChatsIndexRoute
   AuthenticatedExerciseCategoriesIndexRoute: typeof AuthenticatedExerciseCategoriesIndexRoute
@@ -681,6 +762,8 @@ interface AuthenticatedRouteRouteChildren {
   AuthenticatedExercisePackagesIndexRoute: typeof AuthenticatedExercisePackagesIndexRoute
   AuthenticatedExercisesIndexRoute: typeof AuthenticatedExercisesIndexRoute
   AuthenticatedHelpCenterIndexRoute: typeof AuthenticatedHelpCenterIndexRoute
+  AuthenticatedNewsIndexRoute: typeof AuthenticatedNewsIndexRoute
+  AuthenticatedRehabilitationFormsIndexRoute: typeof AuthenticatedRehabilitationFormsIndexRoute
   AuthenticatedTasksIndexRoute: typeof AuthenticatedTasksIndexRoute
   AuthenticatedUsersIndexRoute: typeof AuthenticatedUsersIndexRoute
 }
@@ -693,6 +776,10 @@ const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedExercisePackagesNewRoute: AuthenticatedExercisePackagesNewRoute,
   AuthenticatedExercisesIdRoute: AuthenticatedExercisesIdRoute,
   AuthenticatedExercisesNewRoute: AuthenticatedExercisesNewRoute,
+  AuthenticatedRehabilitationFormsIdRoute:
+    AuthenticatedRehabilitationFormsIdRoute,
+  AuthenticatedRehabilitationFormsNewRoute:
+    AuthenticatedRehabilitationFormsNewRoute,
   AuthenticatedAppsIndexRoute: AuthenticatedAppsIndexRoute,
   AuthenticatedChatsIndexRoute: AuthenticatedChatsIndexRoute,
   AuthenticatedExerciseCategoriesIndexRoute:
@@ -702,6 +789,9 @@ const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
     AuthenticatedExercisePackagesIndexRoute,
   AuthenticatedExercisesIndexRoute: AuthenticatedExercisesIndexRoute,
   AuthenticatedHelpCenterIndexRoute: AuthenticatedHelpCenterIndexRoute,
+  AuthenticatedNewsIndexRoute: AuthenticatedNewsIndexRoute,
+  AuthenticatedRehabilitationFormsIndexRoute:
+    AuthenticatedRehabilitationFormsIndexRoute,
   AuthenticatedTasksIndexRoute: AuthenticatedTasksIndexRoute,
   AuthenticatedUsersIndexRoute: AuthenticatedUsersIndexRoute,
 }
