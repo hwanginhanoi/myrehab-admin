@@ -1,5 +1,6 @@
 'use client'
 
+import { useRef } from 'react'
 import { z } from 'zod'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
@@ -24,6 +25,7 @@ import {
 import { Input } from '@/components/ui/input'
 import { Textarea } from '@/components/ui/textarea'
 import { SelectDropdown } from '@/components/select-dropdown'
+import { FileUpload, type FileUploadRef } from '@/components/file-upload'
 import { newsStatusOptions } from '@/lib/constants/news-status'
 import { newsCategoryTypeOptions } from '@/lib/constants/news-catergories'
 import { type NewsResponse, useCreateNews, useUpdateNews } from '@/api'
@@ -58,6 +60,7 @@ export function NewsActionDialog({
   const isView = mode === 'view'
 
   const queryClient = useQueryClient()
+  const imageUploadRef = useRef<FileUploadRef>(null)
 
   const form = useForm<NewsForm>({
     resolver: zodResolver(formSchema),
@@ -110,30 +113,48 @@ export function NewsActionDialog({
     },
   })
 
-  const onSubmit = (values: NewsForm) => {
+  const onSubmit = async (values: NewsForm) => {
     if (isView) {
       onOpenChange(false)
       return
     }
 
-    const payload = {
-      title: values.title,
-      content: values.content,
-      summary: values.summary || undefined,
-      thumbnailUrl: values.thumbnailUrl || undefined,
-      status: values.status as NonNullable<NewsResponse['status']>,
-      category: values.category || undefined,
-    }
+    try {
+      // Upload image if new file selected
+      let thumbnailUrl = values.thumbnailUrl
 
-    if (isEdit && currentRow?.id) {
-      updateMutation.mutate({
-        id: currentRow.id,
-        data: payload,
-      })
-    } else {
-      createMutation.mutate({
-        data: payload,
-      })
+      if (imageUploadRef.current?.hasFile()) {
+        const uploadedImageKey = await imageUploadRef.current.upload()
+        if (uploadedImageKey) {
+          thumbnailUrl = uploadedImageKey
+        } else {
+          toast.error('Không thể tải lên ảnh')
+          return
+        }
+      }
+
+      const payload = {
+        title: values.title,
+        content: values.content,
+        summary: values.summary || undefined,
+        thumbnailUrl: thumbnailUrl || undefined,
+        status: values.status as NonNullable<NewsResponse['status']>,
+        category: values.category || undefined,
+      }
+
+      if (isEdit && currentRow?.id) {
+        updateMutation.mutate({
+          id: currentRow.id,
+          data: payload,
+        })
+      } else {
+        createMutation.mutate({
+          data: payload,
+        })
+      }
+    } catch (error) {
+      console.error('Error submitting form:', error)
+      toast.error('Có lỗi xảy ra khi lưu tin tức')
     }
   }
 
@@ -157,7 +178,7 @@ export function NewsActionDialog({
             onOpenChange(state)
           }}
       >
-        <DialogContent className='sm:max-w-3xl max-h-[85vh] overflow-y-auto'>
+        <DialogContent className='sm:max-w-6xl max-h-[90vh] overflow-y-auto'>
           <DialogHeader className='text-start'>
             <DialogTitle>{getTitle()}</DialogTitle>
             <DialogDescription>{getDescription()}</DialogDescription>
@@ -232,16 +253,19 @@ export function NewsActionDialog({
                   control={form.control}
                   name='thumbnailUrl'
                   render={({ field }) => (
-                      <FormItem className='grid grid-cols-6 items-center space-y-0 gap-x-4 gap-y-1'>
-                        <FormLabel className='col-span-2 text-end'>
-                          URL ảnh đại diện
+                      <FormItem className='grid grid-cols-6 items-start space-y-0 gap-x-4 gap-y-1'>
+                        <FormLabel className='col-span-2 text-end pt-2'>
+                          Ảnh đại diện
                         </FormLabel>
                         <FormControl>
-                          <Input
-                              placeholder='Nhập URL ảnh đại diện'
-                              className='col-span-4'
+                          <FileUpload
+                              ref={imageUploadRef}
+                              category='news-image'
+                              value={field.value}
+                              onChange={field.onChange}
                               disabled={isView}
-                              {...field}
+                              className='col-span-4'
+                              label={undefined}
                           />
                         </FormControl>
                         <FormMessage className='col-span-4 col-start-3' />
@@ -254,14 +278,16 @@ export function NewsActionDialog({
                   render={({ field }) => (
                       <FormItem className='grid grid-cols-6 items-center space-y-0 gap-x-4 gap-y-1'>
                         <FormLabel className='col-span-2 text-end'>Danh mục</FormLabel>
-                        <SelectDropdown
-                            defaultValue={field.value}
-                            onValueChange={field.onChange}
-                            placeholder='Chọn danh mục'
-                            className='col-span-4'
-                            disabled={isView}
-                            items={newsCategoryTypeOptions}
-                        />
+                        <FormControl>
+                          <SelectDropdown
+                              defaultValue={field.value}
+                              onValueChange={field.onChange}
+                              placeholder='Chọn danh mục'
+                              className='col-span-4'
+                              disabled={isView}
+                              items={newsCategoryTypeOptions}
+                          />
+                        </FormControl>
                         <FormMessage className='col-span-4 col-start-3' />
                       </FormItem>
                   )}
@@ -272,14 +298,16 @@ export function NewsActionDialog({
                   render={({ field }) => (
                       <FormItem className='grid grid-cols-6 items-center space-y-0 gap-x-4 gap-y-1'>
                         <FormLabel className='col-span-2 text-end'>Trạng thái</FormLabel>
-                        <SelectDropdown
-                            defaultValue={field.value}
-                            onValueChange={field.onChange}
-                            placeholder='Chọn trạng thái'
-                            className='col-span-4'
-                            disabled={isView}
-                            items={newsStatusOptions}
-                        />
+                        <FormControl>
+                          <SelectDropdown
+                              defaultValue={field.value}
+                              onValueChange={field.onChange}
+                              placeholder='Chọn trạng thái'
+                              className='col-span-4'
+                              disabled={isView}
+                              items={newsStatusOptions}
+                          />
+                        </FormControl>
                         <FormMessage className='col-span-4 col-start-3' />
                       </FormItem>
                   )}
