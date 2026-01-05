@@ -39,7 +39,6 @@ export function ExercisesTable({
   allGroups,
 }: DataTableProps) {
   // Local UI-only states
-  const [rowSelection, setRowSelection] = useState({})
   const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({})
   const [sorting, setSorting] = useState<SortingState>([])
 
@@ -88,16 +87,13 @@ export function ExercisesTable({
     state: {
       sorting,
       pagination,
-      rowSelection,
       columnFilters,
       columnVisibility,
     },
-    enableRowSelection: true,
     manualPagination: true,
     manualFiltering: true,
     onPaginationChange,
     onColumnFiltersChange,
-    onRowSelectionChange: setRowSelection,
     onSortingChange: setSorting,
     onColumnVisibilityChange: setColumnVisibility,
     getCoreRowModel: getCoreRowModel(),
