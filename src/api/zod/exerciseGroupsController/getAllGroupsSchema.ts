@@ -8,6 +8,9 @@ import { pagedModelSchema } from "../pagedModelSchema.ts";
 import { z } from "zod/v4";
 
 export const getAllGroupsQueryParamsSchema = z.object({
+  query: z.optional(
+    z.string().describe("Search query for group name (case-insensitive)"),
+  ),
   get pageable() {
     return pageableSchema;
   },

@@ -8,6 +8,22 @@ import { pagedModelSchema } from "../pagedModelSchema.ts";
 import { z } from "zod/v4";
 
 export const getAllCategoriesQueryParamsSchema = z.object({
+  type: z.optional(
+    z
+      .enum([
+        "BODY_PART",
+        "RECOVERY_STAGE",
+        "HEALTH_CONDITION",
+        "DIFFICULTY_LEVEL",
+        "EXERCISE_TYPE",
+      ])
+      .describe(
+        "Category type (BODY_PART, RECOVERY_STAGE, HEALTH_CONDITION, DIFFICULTY_LEVEL, EXERCISE_TYPE)",
+      ),
+  ),
+  query: z.optional(
+    z.string().describe("Search query for category name (case-insensitive)"),
+  ),
   get pageable() {
     return pageableSchema;
   },

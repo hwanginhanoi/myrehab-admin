@@ -10,20 +10,14 @@ export type { SendRegistrationOtpMutationKey } from "./hooks/AuthenticationHooks
 export type { CreateCategoryMutationKey } from "./hooks/Exercise CategoriesHooks/useCreateCategory.ts";
 export type { GetAllCategoriesQueryKey } from "./hooks/Exercise CategoriesHooks/useGetAllCategories.ts";
 export type { GetAllCategoriesSuspenseQueryKey } from "./hooks/Exercise CategoriesHooks/useGetAllCategoriesSuspense.ts";
-export type { GetCategoriesByTypeQueryKey } from "./hooks/Exercise CategoriesHooks/useGetCategoriesByType.ts";
-export type { GetCategoriesByTypeSuspenseQueryKey } from "./hooks/Exercise CategoriesHooks/useGetCategoriesByTypeSuspense.ts";
 export type { GetCategoryByIdQueryKey } from "./hooks/Exercise CategoriesHooks/useGetCategoryById.ts";
 export type { GetCategoryByIdSuspenseQueryKey } from "./hooks/Exercise CategoriesHooks/useGetCategoryByIdSuspense.ts";
-export type { SearchCategoriesByNameQueryKey } from "./hooks/Exercise CategoriesHooks/useSearchCategoriesByName.ts";
-export type { SearchCategoriesByNameSuspenseQueryKey } from "./hooks/Exercise CategoriesHooks/useSearchCategoriesByNameSuspense.ts";
 export type { UpdateCategoryMutationKey } from "./hooks/Exercise CategoriesHooks/useUpdateCategory.ts";
 export type { CreateGroupMutationKey } from "./hooks/Exercise GroupsHooks/useCreateGroup.ts";
 export type { GetAllGroupsQueryKey } from "./hooks/Exercise GroupsHooks/useGetAllGroups.ts";
 export type { GetAllGroupsSuspenseQueryKey } from "./hooks/Exercise GroupsHooks/useGetAllGroupsSuspense.ts";
 export type { GetGroupByIdQueryKey } from "./hooks/Exercise GroupsHooks/useGetGroupById.ts";
 export type { GetGroupByIdSuspenseQueryKey } from "./hooks/Exercise GroupsHooks/useGetGroupByIdSuspense.ts";
-export type { SearchGroupsByNameQueryKey } from "./hooks/Exercise GroupsHooks/useSearchGroupsByName.ts";
-export type { SearchGroupsByNameSuspenseQueryKey } from "./hooks/Exercise GroupsHooks/useSearchGroupsByNameSuspense.ts";
 export type { UpdateGroupMutationKey } from "./hooks/Exercise GroupsHooks/useUpdateGroup.ts";
 export type { CreateExercisePackageMutationKey } from "./hooks/Exercise PackagesHooks/useCreateExercisePackage.ts";
 export type { GetAllExercisePackagesQueryKey } from "./hooks/Exercise PackagesHooks/useGetAllExercisePackages.ts";
@@ -40,6 +34,14 @@ export type { UpdateExerciseMutationKey } from "./hooks/ExercisesHooks/useUpdate
 export type { DeleteFileMutationKey } from "./hooks/File ManagementHooks/useDeleteFile.ts";
 export type { GenerateDownloadUrlMutationKey } from "./hooks/File ManagementHooks/useGenerateDownloadUrl.ts";
 export type { GenerateUploadUrlMutationKey } from "./hooks/File ManagementHooks/useGenerateUploadUrl.ts";
+export type { AssignExerciseGroupToDoctorMutationKey } from "./hooks/Staff ManagementHooks/useAssignExerciseGroupToDoctor.ts";
+export type { AssignTrainerToDoctorMutationKey } from "./hooks/Staff ManagementHooks/useAssignTrainerToDoctor.ts";
+export type { GetExerciseGroupsByDoctorQueryKey } from "./hooks/Staff ManagementHooks/useGetExerciseGroupsByDoctor.ts";
+export type { GetExerciseGroupsByDoctorSuspenseQueryKey } from "./hooks/Staff ManagementHooks/useGetExerciseGroupsByDoctorSuspense.ts";
+export type { GetTrainersByDoctorQueryKey } from "./hooks/Staff ManagementHooks/useGetTrainersByDoctor.ts";
+export type { GetTrainersByDoctorSuspenseQueryKey } from "./hooks/Staff ManagementHooks/useGetTrainersByDoctorSuspense.ts";
+export type { RemoveExerciseGroupFromDoctorMutationKey } from "./hooks/Staff ManagementHooks/useRemoveExerciseGroupFromDoctor.ts";
+export type { RemoveTrainerFromDoctorMutationKey } from "./hooks/Staff ManagementHooks/useRemoveTrainerFromDoctor.ts";
 export type {
   CheckPhone200,
   CheckPhoneMutationRequest,
@@ -115,31 +117,18 @@ export type {
   CreateCategoryMutation,
 } from "./types/exerciseCategoriesController/CreateCategory.ts";
 export type {
+  GetAllCategoriesQueryParamsTypeEnumKey,
   GetAllCategoriesQueryParams,
   GetAllCategories200,
   GetAllCategoriesQueryResponse,
   GetAllCategoriesQuery,
 } from "./types/exerciseCategoriesController/GetAllCategories.ts";
 export type {
-  GetCategoriesByTypePathParamsTypeEnumKey,
-  GetCategoriesByTypePathParams,
-  GetCategoriesByTypeQueryParams,
-  GetCategoriesByType200,
-  GetCategoriesByTypeQueryResponse,
-  GetCategoriesByTypeQuery,
-} from "./types/exerciseCategoriesController/GetCategoriesByType.ts";
-export type {
   GetCategoryByIdPathParams,
   GetCategoryById200,
   GetCategoryByIdQueryResponse,
   GetCategoryByIdQuery,
 } from "./types/exerciseCategoriesController/GetCategoryById.ts";
-export type {
-  SearchCategoriesByNameQueryParams,
-  SearchCategoriesByName200,
-  SearchCategoriesByNameQueryResponse,
-  SearchCategoriesByNameQuery,
-} from "./types/exerciseCategoriesController/SearchCategoriesByName.ts";
 export type {
   UpdateCategoryPathParams,
   UpdateCategory200,
@@ -165,12 +154,6 @@ export type {
   GetGroupByIdQueryResponse,
   GetGroupByIdQuery,
 } from "./types/exerciseGroupsController/GetGroupById.ts";
-export type {
-  SearchGroupsByNameQueryParams,
-  SearchGroupsByName200,
-  SearchGroupsByNameQueryResponse,
-  SearchGroupsByNameQuery,
-} from "./types/exerciseGroupsController/SearchGroupsByName.ts";
 export type {
   UpdateGroupPathParams,
   UpdateGroup200,
@@ -265,6 +248,43 @@ export type { ResetPinRequest } from "./types/ResetPinRequest.ts";
 export type { SendOtpRequest } from "./types/SendOtpRequest.ts";
 export type { StaffAuthResponse } from "./types/StaffAuthResponse.ts";
 export type {
+  AssignExerciseGroupToDoctorPathParams,
+  AssignExerciseGroupToDoctor200,
+  AssignExerciseGroupToDoctorMutationResponse,
+  AssignExerciseGroupToDoctorMutation,
+} from "./types/staffManagementController/AssignExerciseGroupToDoctor.ts";
+export type {
+  AssignTrainerToDoctorPathParams,
+  AssignTrainerToDoctor200,
+  AssignTrainerToDoctorMutationResponse,
+  AssignTrainerToDoctorMutation,
+} from "./types/staffManagementController/AssignTrainerToDoctor.ts";
+export type {
+  GetExerciseGroupsByDoctorPathParams,
+  GetExerciseGroupsByDoctor200,
+  GetExerciseGroupsByDoctorQueryResponse,
+  GetExerciseGroupsByDoctorQuery,
+} from "./types/staffManagementController/GetExerciseGroupsByDoctor.ts";
+export type {
+  GetTrainersByDoctorPathParams,
+  GetTrainersByDoctor200,
+  GetTrainersByDoctorQueryResponse,
+  GetTrainersByDoctorQuery,
+} from "./types/staffManagementController/GetTrainersByDoctor.ts";
+export type {
+  RemoveExerciseGroupFromDoctorPathParams,
+  RemoveExerciseGroupFromDoctor200,
+  RemoveExerciseGroupFromDoctorMutationResponse,
+  RemoveExerciseGroupFromDoctorMutation,
+} from "./types/staffManagementController/RemoveExerciseGroupFromDoctor.ts";
+export type {
+  RemoveTrainerFromDoctorPathParams,
+  RemoveTrainerFromDoctor200,
+  RemoveTrainerFromDoctorMutationResponse,
+  RemoveTrainerFromDoctorMutation,
+} from "./types/staffManagementController/RemoveTrainerFromDoctor.ts";
+export type { TrainerResponse } from "./types/TrainerResponse.ts";
+export type {
   UpdateCategoryRequestTypeEnumKey,
   UpdateCategoryRequest,
 } from "./types/UpdateCategoryRequest.ts";
@@ -320,14 +340,6 @@ export { getAllCategoriesSuspenseQueryKey } from "./hooks/Exercise CategoriesHoo
 export { getAllCategoriesSuspense } from "./hooks/Exercise CategoriesHooks/useGetAllCategoriesSuspense.ts";
 export { getAllCategoriesSuspenseQueryOptions } from "./hooks/Exercise CategoriesHooks/useGetAllCategoriesSuspense.ts";
 export { useGetAllCategoriesSuspense } from "./hooks/Exercise CategoriesHooks/useGetAllCategoriesSuspense.ts";
-export { getCategoriesByTypeQueryKey } from "./hooks/Exercise CategoriesHooks/useGetCategoriesByType.ts";
-export { getCategoriesByType } from "./hooks/Exercise CategoriesHooks/useGetCategoriesByType.ts";
-export { getCategoriesByTypeQueryOptions } from "./hooks/Exercise CategoriesHooks/useGetCategoriesByType.ts";
-export { useGetCategoriesByType } from "./hooks/Exercise CategoriesHooks/useGetCategoriesByType.ts";
-export { getCategoriesByTypeSuspenseQueryKey } from "./hooks/Exercise CategoriesHooks/useGetCategoriesByTypeSuspense.ts";
-export { getCategoriesByTypeSuspense } from "./hooks/Exercise CategoriesHooks/useGetCategoriesByTypeSuspense.ts";
-export { getCategoriesByTypeSuspenseQueryOptions } from "./hooks/Exercise CategoriesHooks/useGetCategoriesByTypeSuspense.ts";
-export { useGetCategoriesByTypeSuspense } from "./hooks/Exercise CategoriesHooks/useGetCategoriesByTypeSuspense.ts";
 export { getCategoryByIdQueryKey } from "./hooks/Exercise CategoriesHooks/useGetCategoryById.ts";
 export { getCategoryById } from "./hooks/Exercise CategoriesHooks/useGetCategoryById.ts";
 export { getCategoryByIdQueryOptions } from "./hooks/Exercise CategoriesHooks/useGetCategoryById.ts";
@@ -336,14 +348,6 @@ export { getCategoryByIdSuspenseQueryKey } from "./hooks/Exercise CategoriesHook
 export { getCategoryByIdSuspense } from "./hooks/Exercise CategoriesHooks/useGetCategoryByIdSuspense.ts";
 export { getCategoryByIdSuspenseQueryOptions } from "./hooks/Exercise CategoriesHooks/useGetCategoryByIdSuspense.ts";
 export { useGetCategoryByIdSuspense } from "./hooks/Exercise CategoriesHooks/useGetCategoryByIdSuspense.ts";
-export { searchCategoriesByNameQueryKey } from "./hooks/Exercise CategoriesHooks/useSearchCategoriesByName.ts";
-export { searchCategoriesByName } from "./hooks/Exercise CategoriesHooks/useSearchCategoriesByName.ts";
-export { searchCategoriesByNameQueryOptions } from "./hooks/Exercise CategoriesHooks/useSearchCategoriesByName.ts";
-export { useSearchCategoriesByName } from "./hooks/Exercise CategoriesHooks/useSearchCategoriesByName.ts";
-export { searchCategoriesByNameSuspenseQueryKey } from "./hooks/Exercise CategoriesHooks/useSearchCategoriesByNameSuspense.ts";
-export { searchCategoriesByNameSuspense } from "./hooks/Exercise CategoriesHooks/useSearchCategoriesByNameSuspense.ts";
-export { searchCategoriesByNameSuspenseQueryOptions } from "./hooks/Exercise CategoriesHooks/useSearchCategoriesByNameSuspense.ts";
-export { useSearchCategoriesByNameSuspense } from "./hooks/Exercise CategoriesHooks/useSearchCategoriesByNameSuspense.ts";
 export { updateCategoryMutationKey } from "./hooks/Exercise CategoriesHooks/useUpdateCategory.ts";
 export { updateCategory } from "./hooks/Exercise CategoriesHooks/useUpdateCategory.ts";
 export { updateCategoryMutationOptions } from "./hooks/Exercise CategoriesHooks/useUpdateCategory.ts";
@@ -368,14 +372,6 @@ export { getGroupByIdSuspenseQueryKey } from "./hooks/Exercise GroupsHooks/useGe
 export { getGroupByIdSuspense } from "./hooks/Exercise GroupsHooks/useGetGroupByIdSuspense.ts";
 export { getGroupByIdSuspenseQueryOptions } from "./hooks/Exercise GroupsHooks/useGetGroupByIdSuspense.ts";
 export { useGetGroupByIdSuspense } from "./hooks/Exercise GroupsHooks/useGetGroupByIdSuspense.ts";
-export { searchGroupsByNameQueryKey } from "./hooks/Exercise GroupsHooks/useSearchGroupsByName.ts";
-export { searchGroupsByName } from "./hooks/Exercise GroupsHooks/useSearchGroupsByName.ts";
-export { searchGroupsByNameQueryOptions } from "./hooks/Exercise GroupsHooks/useSearchGroupsByName.ts";
-export { useSearchGroupsByName } from "./hooks/Exercise GroupsHooks/useSearchGroupsByName.ts";
-export { searchGroupsByNameSuspenseQueryKey } from "./hooks/Exercise GroupsHooks/useSearchGroupsByNameSuspense.ts";
-export { searchGroupsByNameSuspense } from "./hooks/Exercise GroupsHooks/useSearchGroupsByNameSuspense.ts";
-export { searchGroupsByNameSuspenseQueryOptions } from "./hooks/Exercise GroupsHooks/useSearchGroupsByNameSuspense.ts";
-export { useSearchGroupsByNameSuspense } from "./hooks/Exercise GroupsHooks/useSearchGroupsByNameSuspense.ts";
 export { updateGroupMutationKey } from "./hooks/Exercise GroupsHooks/useUpdateGroup.ts";
 export { updateGroup } from "./hooks/Exercise GroupsHooks/useUpdateGroup.ts";
 export { updateGroupMutationOptions } from "./hooks/Exercise GroupsHooks/useUpdateGroup.ts";
@@ -440,9 +436,41 @@ export { generateUploadUrlMutationKey } from "./hooks/File ManagementHooks/useGe
 export { generateUploadUrl } from "./hooks/File ManagementHooks/useGenerateUploadUrl.ts";
 export { generateUploadUrlMutationOptions } from "./hooks/File ManagementHooks/useGenerateUploadUrl.ts";
 export { useGenerateUploadUrl } from "./hooks/File ManagementHooks/useGenerateUploadUrl.ts";
+export { assignExerciseGroupToDoctorMutationKey } from "./hooks/Staff ManagementHooks/useAssignExerciseGroupToDoctor.ts";
+export { assignExerciseGroupToDoctor } from "./hooks/Staff ManagementHooks/useAssignExerciseGroupToDoctor.ts";
+export { assignExerciseGroupToDoctorMutationOptions } from "./hooks/Staff ManagementHooks/useAssignExerciseGroupToDoctor.ts";
+export { useAssignExerciseGroupToDoctor } from "./hooks/Staff ManagementHooks/useAssignExerciseGroupToDoctor.ts";
+export { assignTrainerToDoctorMutationKey } from "./hooks/Staff ManagementHooks/useAssignTrainerToDoctor.ts";
+export { assignTrainerToDoctor } from "./hooks/Staff ManagementHooks/useAssignTrainerToDoctor.ts";
+export { assignTrainerToDoctorMutationOptions } from "./hooks/Staff ManagementHooks/useAssignTrainerToDoctor.ts";
+export { useAssignTrainerToDoctor } from "./hooks/Staff ManagementHooks/useAssignTrainerToDoctor.ts";
+export { getExerciseGroupsByDoctorQueryKey } from "./hooks/Staff ManagementHooks/useGetExerciseGroupsByDoctor.ts";
+export { getExerciseGroupsByDoctor } from "./hooks/Staff ManagementHooks/useGetExerciseGroupsByDoctor.ts";
+export { getExerciseGroupsByDoctorQueryOptions } from "./hooks/Staff ManagementHooks/useGetExerciseGroupsByDoctor.ts";
+export { useGetExerciseGroupsByDoctor } from "./hooks/Staff ManagementHooks/useGetExerciseGroupsByDoctor.ts";
+export { getExerciseGroupsByDoctorSuspenseQueryKey } from "./hooks/Staff ManagementHooks/useGetExerciseGroupsByDoctorSuspense.ts";
+export { getExerciseGroupsByDoctorSuspense } from "./hooks/Staff ManagementHooks/useGetExerciseGroupsByDoctorSuspense.ts";
+export { getExerciseGroupsByDoctorSuspenseQueryOptions } from "./hooks/Staff ManagementHooks/useGetExerciseGroupsByDoctorSuspense.ts";
+export { useGetExerciseGroupsByDoctorSuspense } from "./hooks/Staff ManagementHooks/useGetExerciseGroupsByDoctorSuspense.ts";
+export { getTrainersByDoctorQueryKey } from "./hooks/Staff ManagementHooks/useGetTrainersByDoctor.ts";
+export { getTrainersByDoctor } from "./hooks/Staff ManagementHooks/useGetTrainersByDoctor.ts";
+export { getTrainersByDoctorQueryOptions } from "./hooks/Staff ManagementHooks/useGetTrainersByDoctor.ts";
+export { useGetTrainersByDoctor } from "./hooks/Staff ManagementHooks/useGetTrainersByDoctor.ts";
+export { getTrainersByDoctorSuspenseQueryKey } from "./hooks/Staff ManagementHooks/useGetTrainersByDoctorSuspense.ts";
+export { getTrainersByDoctorSuspense } from "./hooks/Staff ManagementHooks/useGetTrainersByDoctorSuspense.ts";
+export { getTrainersByDoctorSuspenseQueryOptions } from "./hooks/Staff ManagementHooks/useGetTrainersByDoctorSuspense.ts";
+export { useGetTrainersByDoctorSuspense } from "./hooks/Staff ManagementHooks/useGetTrainersByDoctorSuspense.ts";
+export { removeExerciseGroupFromDoctorMutationKey } from "./hooks/Staff ManagementHooks/useRemoveExerciseGroupFromDoctor.ts";
+export { removeExerciseGroupFromDoctor } from "./hooks/Staff ManagementHooks/useRemoveExerciseGroupFromDoctor.ts";
+export { removeExerciseGroupFromDoctorMutationOptions } from "./hooks/Staff ManagementHooks/useRemoveExerciseGroupFromDoctor.ts";
+export { useRemoveExerciseGroupFromDoctor } from "./hooks/Staff ManagementHooks/useRemoveExerciseGroupFromDoctor.ts";
+export { removeTrainerFromDoctorMutationKey } from "./hooks/Staff ManagementHooks/useRemoveTrainerFromDoctor.ts";
+export { removeTrainerFromDoctor } from "./hooks/Staff ManagementHooks/useRemoveTrainerFromDoctor.ts";
+export { removeTrainerFromDoctorMutationOptions } from "./hooks/Staff ManagementHooks/useRemoveTrainerFromDoctor.ts";
+export { useRemoveTrainerFromDoctor } from "./hooks/Staff ManagementHooks/useRemoveTrainerFromDoctor.ts";
 export { categoryResponseTypeEnum } from "./types/CategoryResponse.ts";
 export { createCategoryRequestTypeEnum } from "./types/CreateCategoryRequest.ts";
-export { getCategoriesByTypePathParamsTypeEnum } from "./types/exerciseCategoriesController/GetCategoriesByType.ts";
+export { getAllCategoriesQueryParamsTypeEnum } from "./types/exerciseCategoriesController/GetAllCategories.ts";
 export { updateCategoryRequestTypeEnum } from "./types/UpdateCategoryRequest.ts";
 export {
   checkPhone200Schema,
@@ -508,21 +536,10 @@ export {
   getAllCategoriesQueryResponseSchema,
 } from "./zod/exerciseCategoriesController/getAllCategoriesSchema.ts";
 export {
-  getCategoriesByTypePathParamsSchema,
-  getCategoriesByTypeQueryParamsSchema,
-  getCategoriesByType200Schema,
-  getCategoriesByTypeQueryResponseSchema,
-} from "./zod/exerciseCategoriesController/getCategoriesByTypeSchema.ts";
-export {
   getCategoryByIdPathParamsSchema,
   getCategoryById200Schema,
   getCategoryByIdQueryResponseSchema,
 } from "./zod/exerciseCategoriesController/getCategoryByIdSchema.ts";
-export {
-  searchCategoriesByNameQueryParamsSchema,
-  searchCategoriesByName200Schema,
-  searchCategoriesByNameQueryResponseSchema,
-} from "./zod/exerciseCategoriesController/searchCategoriesByNameSchema.ts";
 export {
   updateCategoryPathParamsSchema,
   updateCategory200Schema,
@@ -544,11 +561,6 @@ export {
   getGroupById200Schema,
   getGroupByIdQueryResponseSchema,
 } from "./zod/exerciseGroupsController/getGroupByIdSchema.ts";
-export {
-  searchGroupsByNameQueryParamsSchema,
-  searchGroupsByName200Schema,
-  searchGroupsByNameQueryResponseSchema,
-} from "./zod/exerciseGroupsController/searchGroupsByNameSchema.ts";
 export {
   updateGroupPathParamsSchema,
   updateGroup200Schema,
@@ -630,6 +642,37 @@ export { registerRequestSchema } from "./zod/registerRequestSchema.ts";
 export { resetPinRequestSchema } from "./zod/resetPinRequestSchema.ts";
 export { sendOtpRequestSchema } from "./zod/sendOtpRequestSchema.ts";
 export { staffAuthResponseSchema } from "./zod/staffAuthResponseSchema.ts";
+export {
+  assignExerciseGroupToDoctorPathParamsSchema,
+  assignExerciseGroupToDoctor200Schema,
+  assignExerciseGroupToDoctorMutationResponseSchema,
+} from "./zod/staffManagementController/assignExerciseGroupToDoctorSchema.ts";
+export {
+  assignTrainerToDoctorPathParamsSchema,
+  assignTrainerToDoctor200Schema,
+  assignTrainerToDoctorMutationResponseSchema,
+} from "./zod/staffManagementController/assignTrainerToDoctorSchema.ts";
+export {
+  getExerciseGroupsByDoctorPathParamsSchema,
+  getExerciseGroupsByDoctor200Schema,
+  getExerciseGroupsByDoctorQueryResponseSchema,
+} from "./zod/staffManagementController/getExerciseGroupsByDoctorSchema.ts";
+export {
+  getTrainersByDoctorPathParamsSchema,
+  getTrainersByDoctor200Schema,
+  getTrainersByDoctorQueryResponseSchema,
+} from "./zod/staffManagementController/getTrainersByDoctorSchema.ts";
+export {
+  removeExerciseGroupFromDoctorPathParamsSchema,
+  removeExerciseGroupFromDoctor200Schema,
+  removeExerciseGroupFromDoctorMutationResponseSchema,
+} from "./zod/staffManagementController/removeExerciseGroupFromDoctorSchema.ts";
+export {
+  removeTrainerFromDoctorPathParamsSchema,
+  removeTrainerFromDoctor200Schema,
+  removeTrainerFromDoctorMutationResponseSchema,
+} from "./zod/staffManagementController/removeTrainerFromDoctorSchema.ts";
+export { trainerResponseSchema } from "./zod/trainerResponseSchema.ts";
 export { updateCategoryRequestSchema } from "./zod/updateCategoryRequestSchema.ts";
 export { updateExercisePackageRequestSchema } from "./zod/updateExercisePackageRequestSchema.ts";
 export { updateExerciseRequestSchema } from "./zod/updateExerciseRequestSchema.ts";

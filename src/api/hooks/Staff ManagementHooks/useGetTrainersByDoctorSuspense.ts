@@ -12,81 +12,82 @@ import type {
   UseSuspenseQueryResult,
 } from "@tanstack/react-query";
 import type {
-  SearchGroupsByNameQueryResponse,
-  SearchGroupsByNameQueryParams,
-} from "../../types/exerciseGroupsController/SearchGroupsByName.ts";
+  GetTrainersByDoctorQueryResponse,
+  GetTrainersByDoctorPathParams,
+} from "../../types/staffManagementController/GetTrainersByDoctor.ts";
 import { queryOptions, useSuspenseQuery } from "@tanstack/react-query";
 
-export const searchGroupsByNameSuspenseQueryKey = (
-  params: SearchGroupsByNameQueryParams,
+export const getTrainersByDoctorSuspenseQueryKey = (
+  doctorId: GetTrainersByDoctorPathParams["doctorId"],
 ) =>
   [
-    { url: "/api/exercise-groups/search" },
-    ...(params ? [params] : []),
+    {
+      url: "/api/admin/doctors/:doctorId/trainers",
+      params: { doctorId: doctorId },
+    },
   ] as const;
 
-export type SearchGroupsByNameSuspenseQueryKey = ReturnType<
-  typeof searchGroupsByNameSuspenseQueryKey
+export type GetTrainersByDoctorSuspenseQueryKey = ReturnType<
+  typeof getTrainersByDoctorSuspenseQueryKey
 >;
 
 /**
- * @description Search exercise groups by name (case-insensitive, partial match)
- * @summary Search groups by name
- * {@link /api/exercise-groups/search}
+ * @description List all trainers assigned to a specific doctor
+ * @summary Get trainers by doctor
+ * {@link /api/admin/doctors/:doctorId/trainers}
  */
-export async function searchGroupsByNameSuspense(
-  params: SearchGroupsByNameQueryParams,
+export async function getTrainersByDoctorSuspense(
+  doctorId: GetTrainersByDoctorPathParams["doctorId"],
   config: Partial<RequestConfig> & { client?: typeof fetch } = {},
 ) {
   const { client: request = fetch, ...requestConfig } = config;
 
   const res = await request<
-    SearchGroupsByNameQueryResponse,
+    GetTrainersByDoctorQueryResponse,
     ResponseErrorConfig<Error>,
     unknown
   >({
     method: "GET",
-    url: `/api/exercise-groups/search`,
-    params,
+    url: `/api/admin/doctors/${doctorId}/trainers`,
     ...requestConfig,
   });
   return res.data;
 }
 
-export function searchGroupsByNameSuspenseQueryOptions(
-  params: SearchGroupsByNameQueryParams,
+export function getTrainersByDoctorSuspenseQueryOptions(
+  doctorId: GetTrainersByDoctorPathParams["doctorId"],
   config: Partial<RequestConfig> & { client?: typeof fetch } = {},
 ) {
-  const queryKey = searchGroupsByNameSuspenseQueryKey(params);
+  const queryKey = getTrainersByDoctorSuspenseQueryKey(doctorId);
   return queryOptions<
-    SearchGroupsByNameQueryResponse,
+    GetTrainersByDoctorQueryResponse,
     ResponseErrorConfig<Error>,
-    SearchGroupsByNameQueryResponse,
+    GetTrainersByDoctorQueryResponse,
     typeof queryKey
   >({
-    enabled: !!params,
+    enabled: !!doctorId,
     queryKey,
     queryFn: async ({ signal }) => {
       config.signal = signal;
-      return searchGroupsByNameSuspense(params, config);
+      return getTrainersByDoctorSuspense(doctorId, config);
     },
   });
 }
 
 /**
- * @description Search exercise groups by name (case-insensitive, partial match)
- * @summary Search groups by name
- * {@link /api/exercise-groups/search}
+ * @description List all trainers assigned to a specific doctor
+ * @summary Get trainers by doctor
+ * {@link /api/admin/doctors/:doctorId/trainers}
  */
-export function useSearchGroupsByNameSuspense<
-  TData = SearchGroupsByNameQueryResponse,
-  TQueryKey extends QueryKey = SearchGroupsByNameSuspenseQueryKey,
+export function useGetTrainersByDoctorSuspense<
+  TData = GetTrainersByDoctorQueryResponse,
+  TQueryKey extends QueryKey = GetTrainersByDoctorSuspenseQueryKey,
 >(
-  params: SearchGroupsByNameQueryParams,
+  doctorId: GetTrainersByDoctorPathParams["doctorId"],
   options: {
     query?: Partial<
       UseSuspenseQueryOptions<
-        SearchGroupsByNameQueryResponse,
+        GetTrainersByDoctorQueryResponse,
         ResponseErrorConfig<Error>,
         TData,
         TQueryKey
@@ -98,11 +99,11 @@ export function useSearchGroupsByNameSuspense<
   const { query: queryConfig = {}, client: config = {} } = options ?? {};
   const { client: queryClient, ...queryOptions } = queryConfig;
   const queryKey =
-    queryOptions?.queryKey ?? searchGroupsByNameSuspenseQueryKey(params);
+    queryOptions?.queryKey ?? getTrainersByDoctorSuspenseQueryKey(doctorId);
 
   const query = useSuspenseQuery(
     {
-      ...searchGroupsByNameSuspenseQueryOptions(params, config),
+      ...getTrainersByDoctorSuspenseQueryOptions(doctorId, config),
       queryKey,
       ...queryOptions,
     } as unknown as UseSuspenseQueryOptions,

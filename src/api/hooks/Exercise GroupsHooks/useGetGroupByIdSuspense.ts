@@ -26,7 +26,7 @@ export type GetGroupByIdSuspenseQueryKey = ReturnType<
 >;
 
 /**
- * @description Retrieve a specific exercise group by its ID
+ * @description Retrieve a specific exercise group by its ID. User must have access to this group.
  * @summary Get group by ID
  * {@link /api/exercise-groups/:id}
  */
@@ -65,7 +65,7 @@ export function getGroupByIdSuspenseQueryOptions(
 }
 
 /**
- * @description Retrieve a specific exercise group by its ID
+ * @description Retrieve a specific exercise group by its ID. User must have access to this group.
  * @summary Get group by ID
  * {@link /api/exercise-groups/:id}
  */

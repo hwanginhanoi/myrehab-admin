@@ -26,7 +26,7 @@ export type GetExerciseByIdSuspenseQueryKey = ReturnType<
 >;
 
 /**
- * @description Retrieve a specific exercise by its ID
+ * @description Retrieve a specific exercise. User must have access through exercise groups.
  * @summary Get exercise by ID
  * {@link /api/exercises/:id}
  */
@@ -65,7 +65,7 @@ export function getExerciseByIdSuspenseQueryOptions(
 }
 
 /**
- * @description Retrieve a specific exercise by its ID
+ * @description Retrieve a specific exercise. User must have access through exercise groups.
  * @summary Get exercise by ID
  * {@link /api/exercises/:id}
  */

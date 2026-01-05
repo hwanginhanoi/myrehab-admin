@@ -62,21 +62,10 @@ export {
   getAllCategoriesQueryResponseSchema,
 } from "./exerciseCategoriesController/getAllCategoriesSchema.ts";
 export {
-  getCategoriesByTypePathParamsSchema,
-  getCategoriesByTypeQueryParamsSchema,
-  getCategoriesByType200Schema,
-  getCategoriesByTypeQueryResponseSchema,
-} from "./exerciseCategoriesController/getCategoriesByTypeSchema.ts";
-export {
   getCategoryByIdPathParamsSchema,
   getCategoryById200Schema,
   getCategoryByIdQueryResponseSchema,
 } from "./exerciseCategoriesController/getCategoryByIdSchema.ts";
-export {
-  searchCategoriesByNameQueryParamsSchema,
-  searchCategoriesByName200Schema,
-  searchCategoriesByNameQueryResponseSchema,
-} from "./exerciseCategoriesController/searchCategoriesByNameSchema.ts";
 export {
   updateCategoryPathParamsSchema,
   updateCategory200Schema,
@@ -98,11 +87,6 @@ export {
   getGroupById200Schema,
   getGroupByIdQueryResponseSchema,
 } from "./exerciseGroupsController/getGroupByIdSchema.ts";
-export {
-  searchGroupsByNameQueryParamsSchema,
-  searchGroupsByName200Schema,
-  searchGroupsByNameQueryResponseSchema,
-} from "./exerciseGroupsController/searchGroupsByNameSchema.ts";
 export {
   updateGroupPathParamsSchema,
   updateGroup200Schema,
@@ -184,6 +168,37 @@ export { registerRequestSchema } from "./registerRequestSchema.ts";
 export { resetPinRequestSchema } from "./resetPinRequestSchema.ts";
 export { sendOtpRequestSchema } from "./sendOtpRequestSchema.ts";
 export { staffAuthResponseSchema } from "./staffAuthResponseSchema.ts";
+export {
+  assignExerciseGroupToDoctorPathParamsSchema,
+  assignExerciseGroupToDoctor200Schema,
+  assignExerciseGroupToDoctorMutationResponseSchema,
+} from "./staffManagementController/assignExerciseGroupToDoctorSchema.ts";
+export {
+  assignTrainerToDoctorPathParamsSchema,
+  assignTrainerToDoctor200Schema,
+  assignTrainerToDoctorMutationResponseSchema,
+} from "./staffManagementController/assignTrainerToDoctorSchema.ts";
+export {
+  getExerciseGroupsByDoctorPathParamsSchema,
+  getExerciseGroupsByDoctor200Schema,
+  getExerciseGroupsByDoctorQueryResponseSchema,
+} from "./staffManagementController/getExerciseGroupsByDoctorSchema.ts";
+export {
+  getTrainersByDoctorPathParamsSchema,
+  getTrainersByDoctor200Schema,
+  getTrainersByDoctorQueryResponseSchema,
+} from "./staffManagementController/getTrainersByDoctorSchema.ts";
+export {
+  removeExerciseGroupFromDoctorPathParamsSchema,
+  removeExerciseGroupFromDoctor200Schema,
+  removeExerciseGroupFromDoctorMutationResponseSchema,
+} from "./staffManagementController/removeExerciseGroupFromDoctorSchema.ts";
+export {
+  removeTrainerFromDoctorPathParamsSchema,
+  removeTrainerFromDoctor200Schema,
+  removeTrainerFromDoctorMutationResponseSchema,
+} from "./staffManagementController/removeTrainerFromDoctorSchema.ts";
+export { trainerResponseSchema } from "./trainerResponseSchema.ts";
 export { updateCategoryRequestSchema } from "./updateCategoryRequestSchema.ts";
 export { updateExercisePackageRequestSchema } from "./updateExercisePackageRequestSchema.ts";
 export { updateExerciseRequestSchema } from "./updateExerciseRequestSchema.ts";

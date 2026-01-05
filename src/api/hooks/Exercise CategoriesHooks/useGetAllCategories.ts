@@ -25,8 +25,8 @@ export type GetAllCategoriesQueryKey = ReturnType<
 >;
 
 /**
- * @description Retrieve exercise categories with pagination. Default page size is 20. Sorted by newest first.
- * @summary Get all categories
+ * @description Retrieve exercise categories with pagination and optional filters. Can filter by type and/or search by name. Both parameters are optional.
+ * @summary Get all categories with optional filters
  * {@link /api/exercise-categories}
  */
 export async function getAllCategories(
@@ -69,8 +69,8 @@ export function getAllCategoriesQueryOptions(
 }
 
 /**
- * @description Retrieve exercise categories with pagination. Default page size is 20. Sorted by newest first.
- * @summary Get all categories
+ * @description Retrieve exercise categories with pagination and optional filters. Can filter by type and/or search by name. Both parameters are optional.
+ * @summary Get all categories with optional filters
  * {@link /api/exercise-categories}
  */
 export function useGetAllCategories<

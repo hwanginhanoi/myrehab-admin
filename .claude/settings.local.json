@@ -10,7 +10,8 @@
       "Bash(npx shadcn-ui@latest add progress)",
       "Bash(set /p dummy=)",
       "Bash(pnpm install:*)",
-      "Bash(del package-lock.json)"
+      "Bash(del package-lock.json)",
+      "Bash(npm run generate:api:*)"
     ]
   }
 }

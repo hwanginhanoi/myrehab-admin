@@ -23,8 +23,8 @@ export const getAllGroupsQueryKey = (params: GetAllGroupsQueryParams) =>
 export type GetAllGroupsQueryKey = ReturnType<typeof getAllGroupsQueryKey>;
 
 /**
- * @description Retrieve exercise groups with pagination. Default page size is 20. Sorted by newest first.
- * @summary Get all groups
+ * @description Retrieve exercise groups with pagination and optional search query. Returns only groups the user has access to.
+ * @summary Get all groups with optional search
  * {@link /api/exercise-groups}
  */
 export async function getAllGroups(
@@ -62,8 +62,8 @@ export function getAllGroupsQueryOptions(
 }
 
 /**
- * @description Retrieve exercise groups with pagination. Default page size is 20. Sorted by newest first.
- * @summary Get all groups
+ * @description Retrieve exercise groups with pagination and optional search query. Returns only groups the user has access to.
+ * @summary Get all groups with optional search
  * {@link /api/exercise-groups}
  */
 export function useGetAllGroups<

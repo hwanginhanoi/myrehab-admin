@@ -25,8 +25,8 @@ export type GetAllGroupsSuspenseQueryKey = ReturnType<
 >;
 
 /**
- * @description Retrieve exercise groups with pagination. Default page size is 20. Sorted by newest first.
- * @summary Get all groups
+ * @description Retrieve exercise groups with pagination and optional search query. Returns only groups the user has access to.
+ * @summary Get all groups with optional search
  * {@link /api/exercise-groups}
  */
 export async function getAllGroupsSuspense(
@@ -64,8 +64,8 @@ export function getAllGroupsSuspenseQueryOptions(
 }
 
 /**
- * @description Retrieve exercise groups with pagination. Default page size is 20. Sorted by newest first.
- * @summary Get all groups
+ * @description Retrieve exercise groups with pagination and optional search query. Returns only groups the user has access to.
+ * @summary Get all groups with optional search
  * {@link /api/exercise-groups}
  */
 export function useGetAllGroupsSuspense<

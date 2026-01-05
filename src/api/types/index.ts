@@ -73,31 +73,18 @@ export type {
   CreateCategoryMutation,
 } from "./exerciseCategoriesController/CreateCategory.ts";
 export type {
+  GetAllCategoriesQueryParamsTypeEnumKey,
   GetAllCategoriesQueryParams,
   GetAllCategories200,
   GetAllCategoriesQueryResponse,
   GetAllCategoriesQuery,
 } from "./exerciseCategoriesController/GetAllCategories.ts";
 export type {
-  GetCategoriesByTypePathParamsTypeEnumKey,
-  GetCategoriesByTypePathParams,
-  GetCategoriesByTypeQueryParams,
-  GetCategoriesByType200,
-  GetCategoriesByTypeQueryResponse,
-  GetCategoriesByTypeQuery,
-} from "./exerciseCategoriesController/GetCategoriesByType.ts";
-export type {
   GetCategoryByIdPathParams,
   GetCategoryById200,
   GetCategoryByIdQueryResponse,
   GetCategoryByIdQuery,
 } from "./exerciseCategoriesController/GetCategoryById.ts";
-export type {
-  SearchCategoriesByNameQueryParams,
-  SearchCategoriesByName200,
-  SearchCategoriesByNameQueryResponse,
-  SearchCategoriesByNameQuery,
-} from "./exerciseCategoriesController/SearchCategoriesByName.ts";
 export type {
   UpdateCategoryPathParams,
   UpdateCategory200,
@@ -123,12 +110,6 @@ export type {
   GetGroupByIdQueryResponse,
   GetGroupByIdQuery,
 } from "./exerciseGroupsController/GetGroupById.ts";
-export type {
-  SearchGroupsByNameQueryParams,
-  SearchGroupsByName200,
-  SearchGroupsByNameQueryResponse,
-  SearchGroupsByNameQuery,
-} from "./exerciseGroupsController/SearchGroupsByName.ts";
 export type {
   UpdateGroupPathParams,
   UpdateGroup200,
@@ -223,6 +204,43 @@ export type { ResetPinRequest } from "./ResetPinRequest.ts";
 export type { SendOtpRequest } from "./SendOtpRequest.ts";
 export type { StaffAuthResponse } from "./StaffAuthResponse.ts";
 export type {
+  AssignExerciseGroupToDoctorPathParams,
+  AssignExerciseGroupToDoctor200,
+  AssignExerciseGroupToDoctorMutationResponse,
+  AssignExerciseGroupToDoctorMutation,
+} from "./staffManagementController/AssignExerciseGroupToDoctor.ts";
+export type {
+  AssignTrainerToDoctorPathParams,
+  AssignTrainerToDoctor200,
+  AssignTrainerToDoctorMutationResponse,
+  AssignTrainerToDoctorMutation,
+} from "./staffManagementController/AssignTrainerToDoctor.ts";
+export type {
+  GetExerciseGroupsByDoctorPathParams,
+  GetExerciseGroupsByDoctor200,
+  GetExerciseGroupsByDoctorQueryResponse,
+  GetExerciseGroupsByDoctorQuery,
+} from "./staffManagementController/GetExerciseGroupsByDoctor.ts";
+export type {
+  GetTrainersByDoctorPathParams,
+  GetTrainersByDoctor200,
+  GetTrainersByDoctorQueryResponse,
+  GetTrainersByDoctorQuery,
+} from "./staffManagementController/GetTrainersByDoctor.ts";
+export type {
+  RemoveExerciseGroupFromDoctorPathParams,
+  RemoveExerciseGroupFromDoctor200,
+  RemoveExerciseGroupFromDoctorMutationResponse,
+  RemoveExerciseGroupFromDoctorMutation,
+} from "./staffManagementController/RemoveExerciseGroupFromDoctor.ts";
+export type {
+  RemoveTrainerFromDoctorPathParams,
+  RemoveTrainerFromDoctor200,
+  RemoveTrainerFromDoctorMutationResponse,
+  RemoveTrainerFromDoctorMutation,
+} from "./staffManagementController/RemoveTrainerFromDoctor.ts";
+export type { TrainerResponse } from "./TrainerResponse.ts";
+export type {
   UpdateCategoryRequestTypeEnumKey,
   UpdateCategoryRequest,
 } from "./UpdateCategoryRequest.ts";
@@ -232,5 +250,5 @@ export type { UpdateGroupRequest } from "./UpdateGroupRequest.ts";
 export type { UserAuthResponse } from "./UserAuthResponse.ts";
 export { categoryResponseTypeEnum } from "./CategoryResponse.ts";
 export { createCategoryRequestTypeEnum } from "./CreateCategoryRequest.ts";
-export { getCategoriesByTypePathParamsTypeEnum } from "./exerciseCategoriesController/GetCategoriesByType.ts";
+export { getAllCategoriesQueryParamsTypeEnum } from "./exerciseCategoriesController/GetAllCategories.ts";
 export { updateCategoryRequestTypeEnum } from "./UpdateCategoryRequest.ts";

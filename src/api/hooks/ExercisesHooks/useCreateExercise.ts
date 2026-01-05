@@ -24,7 +24,7 @@ export type CreateExerciseMutationKey = ReturnType<
 >;
 
 /**
- * @description Create a new exercise with title, description, media URLs, duration, multiple categories, and multiple groups
+ * @description Create a new exercise. Requires Admin role.
  * @summary Create exercise
  * {@link /api/exercises}
  */
@@ -71,7 +71,7 @@ export function createExerciseMutationOptions(
 }
 
 /**
- * @description Create a new exercise with title, description, media URLs, duration, multiple categories, and multiple groups
+ * @description Create a new exercise. Requires Admin role.
  * @summary Create exercise
  * {@link /api/exercises}
  */

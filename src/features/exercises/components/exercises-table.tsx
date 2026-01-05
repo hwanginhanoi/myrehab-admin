@@ -39,7 +39,10 @@ export function ExercisesTable({
   allGroups,
 }: DataTableProps) {
   // Local UI-only states
-  const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({})
+  const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({
+    categoryIds: false,
+    groupIds: false,
+  })
   const [sorting, setSorting] = useState<SortingState>([])
 
   // Synced with URL states
@@ -67,14 +70,12 @@ export function ExercisesTable({
       id: 'categoryIds',
       header: () => null,
       cell: () => null,
-      enableHiding: false,
       enableSorting: false,
     },
     {
       id: 'groupIds',
       header: () => null,
       cell: () => null,
-      enableHiding: false,
       enableSorting: false,
     },
     ...exercisesColumns,

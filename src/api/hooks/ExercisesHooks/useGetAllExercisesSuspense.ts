@@ -26,7 +26,7 @@ export type GetAllExercisesSuspenseQueryKey = ReturnType<
 >;
 
 /**
- * @description Retrieve exercises with pagination and optional filters. All filters are optional and can be combined. OR logic: Match ANY category or ANY group. Examples: ?page=0&size=20 | ?categoryIds=1,2,3 | ?groupIds=1,2 | ?query=shoulder | ?categoryIds=1,2&groupIds=3&query=neck
+ * @description Retrieve exercises with pagination and optional filters. Returns only exercises the user has access to through their assigned groups.
  * @summary Get all exercises with optional filters
  * {@link /api/exercises}
  */
@@ -65,7 +65,7 @@ export function getAllExercisesSuspenseQueryOptions(
 }
 
 /**
- * @description Retrieve exercises with pagination and optional filters. All filters are optional and can be combined. OR logic: Match ANY category or ANY group. Examples: ?page=0&size=20 | ?categoryIds=1,2,3 | ?groupIds=1,2 | ?query=shoulder | ?categoryIds=1,2&groupIds=3&query=neck
+ * @description Retrieve exercises with pagination and optional filters. Returns only exercises the user has access to through their assigned groups.
  * @summary Get all exercises with optional filters
  * {@link /api/exercises}
  */
