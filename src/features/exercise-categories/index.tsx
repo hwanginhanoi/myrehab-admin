@@ -6,8 +6,7 @@ import { Main } from '@/components/layout/main'
 import { ProfileDropdown } from '@/components/profile-dropdown'
 import { Search } from '@/components/search'
 import { ThemeSwitch } from '@/components/theme-switch'
-import { useGetAllCategories, useGetCategoriesByType } from '@/api'
-import type { GetCategoriesByTypePathParams } from '@/api/types/exerciseCategoriesController/GetCategoriesByType'
+import { useGetAllCategories, type GetAllCategoriesQueryParams, type GetAllCategoriesQueryParamsTypeEnumKey } from '@/api'
 import { CategoriesDialogs } from './components/categories-dialogs'
 import { CategoriesPrimaryButtons } from './components/categories-primary-buttons'
 import { CategoriesProvider } from './components/categories-provider'
@@ -23,41 +22,25 @@ export function ExerciseCategories() {
   // Note: URL uses 1-indexed pages, but API expects 0-indexed
   const page = (search.page as number) || 1
   const pageSize = (search.pageSize as number) || 10
-  const selectedType = search.type as string | undefined
+  const name = (search.name as string | undefined)?.trim()
+  const selectedType = search.type as GetAllCategoriesQueryParamsTypeEnumKey | undefined
 
-  // Build query params for pagination
-  const paginationParams = useMemo(() => ({
+  // Build query params with optional filters
+  const queryParams = useMemo<GetAllCategoriesQueryParams>(() => ({
     pageable: {
       page: page - 1, // Convert to 0-indexed for API
       size: pageSize,
     },
-  }), [page, pageSize])
+    ...(name && { query: name }),
+    ...(selectedType && { type: selectedType }),
+  }), [page, pageSize, name, selectedType])
 
-  // Conditionally use the appropriate hook based on whether type filter is selected
-  const { data: allCategoriesResponse, isLoading: isLoadingAll } = useGetAllCategories(
-    paginationParams,
-    {
-      query: {
-        enabled: !selectedType, // Only fetch when no type filter is selected
-        placeholderData: (previousData) => previousData,
-      }
-    }
-  )
-
-  const { data: filteredCategoriesResponse, isLoading: isLoadingFiltered } = useGetCategoriesByType(
-    selectedType as GetCategoriesByTypePathParams['type'],
-    paginationParams,
-    {
-      query: {
-        enabled: !!selectedType, // Only fetch when type filter is selected
-        placeholderData: (previousData) => previousData,
-      }
-    }
-  )
-
-  // Use the appropriate response based on which query is enabled
-  const response = selectedType ? filteredCategoriesResponse : allCategoriesResponse
-  const isLoading = selectedType ? isLoadingFiltered : isLoadingAll
+  // Fetch categories with server-side filtering and pagination
+  const { data: response, isLoading } = useGetAllCategories(queryParams, {
+    query: {
+      placeholderData: (previousData) => previousData,
+    },
+  })
 
   const categories = response?.content || []
   const totalPages = response?.page?.totalPages || 0
