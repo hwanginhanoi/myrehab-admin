@@ -65,7 +65,16 @@ export type {
 export type { CreateExercisePackageRequest } from "./CreateExercisePackageRequest.ts";
 export type { CreateExerciseRequest } from "./CreateExerciseRequest.ts";
 export type { CreateGroupRequest } from "./CreateGroupRequest.ts";
+export type {
+  CreateStaffRequestStaffTypeEnumKey,
+  CreateStaffRequest,
+} from "./CreateStaffRequest.ts";
 export type { DeleteFileRequest } from "./DeleteFileRequest.ts";
+export type {
+  GetMyTrainers200,
+  GetMyTrainersQueryResponse,
+  GetMyTrainersQuery,
+} from "./doctorController/GetMyTrainers.ts";
 export type {
   CreateCategory200,
   CreateCategoryMutationRequest,
@@ -216,11 +225,42 @@ export type {
   AssignTrainerToDoctorMutation,
 } from "./staffManagementController/AssignTrainerToDoctor.ts";
 export type {
+  CreateStaff200,
+  CreateStaffMutationRequest,
+  CreateStaffMutationResponse,
+  CreateStaffMutation,
+} from "./staffManagementController/CreateStaff.ts";
+export type {
+  DisableStaffPathParams,
+  DisableStaff200,
+  DisableStaffMutationResponse,
+  DisableStaffMutation,
+} from "./staffManagementController/DisableStaff.ts";
+export type {
+  EnableStaffPathParams,
+  EnableStaff200,
+  EnableStaffMutationResponse,
+  EnableStaffMutation,
+} from "./staffManagementController/EnableStaff.ts";
+export type {
+  GetAllStaffQueryParamsStaffTypeEnumKey,
+  GetAllStaffQueryParams,
+  GetAllStaff200,
+  GetAllStaffQueryResponse,
+  GetAllStaffQuery,
+} from "./staffManagementController/GetAllStaff.ts";
+export type {
   GetExerciseGroupsByDoctorPathParams,
   GetExerciseGroupsByDoctor200,
   GetExerciseGroupsByDoctorQueryResponse,
   GetExerciseGroupsByDoctorQuery,
 } from "./staffManagementController/GetExerciseGroupsByDoctor.ts";
+export type {
+  GetStaffByIdPathParams,
+  GetStaffById200,
+  GetStaffByIdQueryResponse,
+  GetStaffByIdQuery,
+} from "./staffManagementController/GetStaffById.ts";
 export type {
   GetTrainersByDoctorPathParams,
   GetTrainersByDoctor200,
@@ -239,6 +279,14 @@ export type {
   RemoveTrainerFromDoctorMutationResponse,
   RemoveTrainerFromDoctorMutation,
 } from "./staffManagementController/RemoveTrainerFromDoctor.ts";
+export type {
+  UpdateStaffPathParams,
+  UpdateStaff200,
+  UpdateStaffMutationRequest,
+  UpdateStaffMutationResponse,
+  UpdateStaffMutation,
+} from "./staffManagementController/UpdateStaff.ts";
+export type { StaffResponse } from "./StaffResponse.ts";
 export type { TrainerResponse } from "./TrainerResponse.ts";
 export type {
   UpdateCategoryRequestTypeEnumKey,
@@ -247,8 +295,11 @@ export type {
 export type { UpdateExercisePackageRequest } from "./UpdateExercisePackageRequest.ts";
 export type { UpdateExerciseRequest } from "./UpdateExerciseRequest.ts";
 export type { UpdateGroupRequest } from "./UpdateGroupRequest.ts";
+export type { UpdateStaffRequest } from "./UpdateStaffRequest.ts";
 export type { UserAuthResponse } from "./UserAuthResponse.ts";
 export { categoryResponseTypeEnum } from "./CategoryResponse.ts";
 export { createCategoryRequestTypeEnum } from "./CreateCategoryRequest.ts";
+export { createStaffRequestStaffTypeEnum } from "./CreateStaffRequest.ts";
 export { getAllCategoriesQueryParamsTypeEnum } from "./exerciseCategoriesController/GetAllCategories.ts";
+export { getAllStaffQueryParamsStaffTypeEnum } from "./staffManagementController/GetAllStaff.ts";
 export { updateCategoryRequestTypeEnum } from "./UpdateCategoryRequest.ts";

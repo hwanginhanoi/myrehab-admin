@@ -50,7 +50,12 @@ export { createCategoryRequestSchema } from "./createCategoryRequestSchema.ts";
 export { createExercisePackageRequestSchema } from "./createExercisePackageRequestSchema.ts";
 export { createExerciseRequestSchema } from "./createExerciseRequestSchema.ts";
 export { createGroupRequestSchema } from "./createGroupRequestSchema.ts";
+export { createStaffRequestSchema } from "./createStaffRequestSchema.ts";
 export { deleteFileRequestSchema } from "./deleteFileRequestSchema.ts";
+export {
+  getMyTrainers200Schema,
+  getMyTrainersQueryResponseSchema,
+} from "./doctorController/getMyTrainersSchema.ts";
 export {
   createCategory200Schema,
   createCategoryMutationRequestSchema,
@@ -179,10 +184,35 @@ export {
   assignTrainerToDoctorMutationResponseSchema,
 } from "./staffManagementController/assignTrainerToDoctorSchema.ts";
 export {
+  createStaff200Schema,
+  createStaffMutationRequestSchema,
+  createStaffMutationResponseSchema,
+} from "./staffManagementController/createStaffSchema.ts";
+export {
+  disableStaffPathParamsSchema,
+  disableStaff200Schema,
+  disableStaffMutationResponseSchema,
+} from "./staffManagementController/disableStaffSchema.ts";
+export {
+  enableStaffPathParamsSchema,
+  enableStaff200Schema,
+  enableStaffMutationResponseSchema,
+} from "./staffManagementController/enableStaffSchema.ts";
+export {
+  getAllStaffQueryParamsSchema,
+  getAllStaff200Schema,
+  getAllStaffQueryResponseSchema,
+} from "./staffManagementController/getAllStaffSchema.ts";
+export {
   getExerciseGroupsByDoctorPathParamsSchema,
   getExerciseGroupsByDoctor200Schema,
   getExerciseGroupsByDoctorQueryResponseSchema,
 } from "./staffManagementController/getExerciseGroupsByDoctorSchema.ts";
+export {
+  getStaffByIdPathParamsSchema,
+  getStaffById200Schema,
+  getStaffByIdQueryResponseSchema,
+} from "./staffManagementController/getStaffByIdSchema.ts";
 export {
   getTrainersByDoctorPathParamsSchema,
   getTrainersByDoctor200Schema,
@@ -198,9 +228,17 @@ export {
   removeTrainerFromDoctor200Schema,
   removeTrainerFromDoctorMutationResponseSchema,
 } from "./staffManagementController/removeTrainerFromDoctorSchema.ts";
+export {
+  updateStaffPathParamsSchema,
+  updateStaff200Schema,
+  updateStaffMutationRequestSchema,
+  updateStaffMutationResponseSchema,
+} from "./staffManagementController/updateStaffSchema.ts";
+export { staffResponseSchema } from "./staffResponseSchema.ts";
 export { trainerResponseSchema } from "./trainerResponseSchema.ts";
 export { updateCategoryRequestSchema } from "./updateCategoryRequestSchema.ts";
 export { updateExercisePackageRequestSchema } from "./updateExercisePackageRequestSchema.ts";
 export { updateExerciseRequestSchema } from "./updateExerciseRequestSchema.ts";
 export { updateGroupRequestSchema } from "./updateGroupRequestSchema.ts";
+export { updateStaffRequestSchema } from "./updateStaffRequestSchema.ts";
 export { userAuthResponseSchema } from "./userAuthResponseSchema.ts";

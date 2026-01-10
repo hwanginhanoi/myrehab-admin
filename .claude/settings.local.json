@@ -11,7 +11,11 @@
       "Bash(set /p dummy=)",
       "Bash(pnpm install:*)",
       "Bash(del package-lock.json)",
-      "Bash(npm run generate:api:*)"
+      "Bash(npm run generate:api:*)",
+      "Bash(findstr:*)",
+      "Bash(cat:*)",
+      "Bash(dir /b \"C:\\\\Users\\\\Hwang\\\\Desktop\\\\Dev\\\\myrehab-admin\\\\src\\\\api\\\\types\")",
+      "Bash(dir /b \"C:\\\\Users\\\\Hwang\\\\Desktop\\\\Dev\\\\myrehab-admin\\\\src\\\\api\\\\hooks\\\\Staff ManagementHooks\")"
     ]
   }
 }

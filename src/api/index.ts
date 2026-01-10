@@ -7,6 +7,8 @@ export type { RegisterMutationKey } from "./hooks/AuthenticationHooks/useRegiste
 export type { RequestPinResetMutationKey } from "./hooks/AuthenticationHooks/useRequestPinReset.ts";
 export type { ResetPinMutationKey } from "./hooks/AuthenticationHooks/useResetPin.ts";
 export type { SendRegistrationOtpMutationKey } from "./hooks/AuthenticationHooks/useSendRegistrationOtp.ts";
+export type { GetMyTrainersQueryKey } from "./hooks/DoctorHooks/useGetMyTrainers.ts";
+export type { GetMyTrainersSuspenseQueryKey } from "./hooks/DoctorHooks/useGetMyTrainersSuspense.ts";
 export type { CreateCategoryMutationKey } from "./hooks/Exercise CategoriesHooks/useCreateCategory.ts";
 export type { GetAllCategoriesQueryKey } from "./hooks/Exercise CategoriesHooks/useGetAllCategories.ts";
 export type { GetAllCategoriesSuspenseQueryKey } from "./hooks/Exercise CategoriesHooks/useGetAllCategoriesSuspense.ts";
@@ -36,12 +38,20 @@ export type { GenerateDownloadUrlMutationKey } from "./hooks/File ManagementHook
 export type { GenerateUploadUrlMutationKey } from "./hooks/File ManagementHooks/useGenerateUploadUrl.ts";
 export type { AssignExerciseGroupToDoctorMutationKey } from "./hooks/Staff ManagementHooks/useAssignExerciseGroupToDoctor.ts";
 export type { AssignTrainerToDoctorMutationKey } from "./hooks/Staff ManagementHooks/useAssignTrainerToDoctor.ts";
+export type { CreateStaffMutationKey } from "./hooks/Staff ManagementHooks/useCreateStaff.ts";
+export type { DisableStaffMutationKey } from "./hooks/Staff ManagementHooks/useDisableStaff.ts";
+export type { EnableStaffMutationKey } from "./hooks/Staff ManagementHooks/useEnableStaff.ts";
+export type { GetAllStaffQueryKey } from "./hooks/Staff ManagementHooks/useGetAllStaff.ts";
+export type { GetAllStaffSuspenseQueryKey } from "./hooks/Staff ManagementHooks/useGetAllStaffSuspense.ts";
 export type { GetExerciseGroupsByDoctorQueryKey } from "./hooks/Staff ManagementHooks/useGetExerciseGroupsByDoctor.ts";
 export type { GetExerciseGroupsByDoctorSuspenseQueryKey } from "./hooks/Staff ManagementHooks/useGetExerciseGroupsByDoctorSuspense.ts";
+export type { GetStaffByIdQueryKey } from "./hooks/Staff ManagementHooks/useGetStaffById.ts";
+export type { GetStaffByIdSuspenseQueryKey } from "./hooks/Staff ManagementHooks/useGetStaffByIdSuspense.ts";
 export type { GetTrainersByDoctorQueryKey } from "./hooks/Staff ManagementHooks/useGetTrainersByDoctor.ts";
 export type { GetTrainersByDoctorSuspenseQueryKey } from "./hooks/Staff ManagementHooks/useGetTrainersByDoctorSuspense.ts";
 export type { RemoveExerciseGroupFromDoctorMutationKey } from "./hooks/Staff ManagementHooks/useRemoveExerciseGroupFromDoctor.ts";
 export type { RemoveTrainerFromDoctorMutationKey } from "./hooks/Staff ManagementHooks/useRemoveTrainerFromDoctor.ts";
+export type { UpdateStaffMutationKey } from "./hooks/Staff ManagementHooks/useUpdateStaff.ts";
 export type {
   CheckPhone200,
   CheckPhoneMutationRequest,
@@ -109,7 +119,16 @@ export type {
 export type { CreateExercisePackageRequest } from "./types/CreateExercisePackageRequest.ts";
 export type { CreateExerciseRequest } from "./types/CreateExerciseRequest.ts";
 export type { CreateGroupRequest } from "./types/CreateGroupRequest.ts";
+export type {
+  CreateStaffRequestStaffTypeEnumKey,
+  CreateStaffRequest,
+} from "./types/CreateStaffRequest.ts";
 export type { DeleteFileRequest } from "./types/DeleteFileRequest.ts";
+export type {
+  GetMyTrainers200,
+  GetMyTrainersQueryResponse,
+  GetMyTrainersQuery,
+} from "./types/doctorController/GetMyTrainers.ts";
 export type {
   CreateCategory200,
   CreateCategoryMutationRequest,
@@ -260,11 +279,42 @@ export type {
   AssignTrainerToDoctorMutation,
 } from "./types/staffManagementController/AssignTrainerToDoctor.ts";
 export type {
+  CreateStaff200,
+  CreateStaffMutationRequest,
+  CreateStaffMutationResponse,
+  CreateStaffMutation,
+} from "./types/staffManagementController/CreateStaff.ts";
+export type {
+  DisableStaffPathParams,
+  DisableStaff200,
+  DisableStaffMutationResponse,
+  DisableStaffMutation,
+} from "./types/staffManagementController/DisableStaff.ts";
+export type {
+  EnableStaffPathParams,
+  EnableStaff200,
+  EnableStaffMutationResponse,
+  EnableStaffMutation,
+} from "./types/staffManagementController/EnableStaff.ts";
+export type {
+  GetAllStaffQueryParamsStaffTypeEnumKey,
+  GetAllStaffQueryParams,
+  GetAllStaff200,
+  GetAllStaffQueryResponse,
+  GetAllStaffQuery,
+} from "./types/staffManagementController/GetAllStaff.ts";
+export type {
   GetExerciseGroupsByDoctorPathParams,
   GetExerciseGroupsByDoctor200,
   GetExerciseGroupsByDoctorQueryResponse,
   GetExerciseGroupsByDoctorQuery,
 } from "./types/staffManagementController/GetExerciseGroupsByDoctor.ts";
+export type {
+  GetStaffByIdPathParams,
+  GetStaffById200,
+  GetStaffByIdQueryResponse,
+  GetStaffByIdQuery,
+} from "./types/staffManagementController/GetStaffById.ts";
 export type {
   GetTrainersByDoctorPathParams,
   GetTrainersByDoctor200,
@@ -283,6 +333,14 @@ export type {
   RemoveTrainerFromDoctorMutationResponse,
   RemoveTrainerFromDoctorMutation,
 } from "./types/staffManagementController/RemoveTrainerFromDoctor.ts";
+export type {
+  UpdateStaffPathParams,
+  UpdateStaff200,
+  UpdateStaffMutationRequest,
+  UpdateStaffMutationResponse,
+  UpdateStaffMutation,
+} from "./types/staffManagementController/UpdateStaff.ts";
+export type { StaffResponse } from "./types/StaffResponse.ts";
 export type { TrainerResponse } from "./types/TrainerResponse.ts";
 export type {
   UpdateCategoryRequestTypeEnumKey,
@@ -291,6 +349,7 @@ export type {
 export type { UpdateExercisePackageRequest } from "./types/UpdateExercisePackageRequest.ts";
 export type { UpdateExerciseRequest } from "./types/UpdateExerciseRequest.ts";
 export type { UpdateGroupRequest } from "./types/UpdateGroupRequest.ts";
+export type { UpdateStaffRequest } from "./types/UpdateStaffRequest.ts";
 export type { UserAuthResponse } from "./types/UserAuthResponse.ts";
 export { checkPhoneMutationKey } from "./hooks/AuthenticationHooks/useCheckPhone.ts";
 export { checkPhone } from "./hooks/AuthenticationHooks/useCheckPhone.ts";
@@ -328,6 +387,14 @@ export { sendRegistrationOtpMutationKey } from "./hooks/AuthenticationHooks/useS
 export { sendRegistrationOtp } from "./hooks/AuthenticationHooks/useSendRegistrationOtp.ts";
 export { sendRegistrationOtpMutationOptions } from "./hooks/AuthenticationHooks/useSendRegistrationOtp.ts";
 export { useSendRegistrationOtp } from "./hooks/AuthenticationHooks/useSendRegistrationOtp.ts";
+export { getMyTrainersQueryKey } from "./hooks/DoctorHooks/useGetMyTrainers.ts";
+export { getMyTrainers } from "./hooks/DoctorHooks/useGetMyTrainers.ts";
+export { getMyTrainersQueryOptions } from "./hooks/DoctorHooks/useGetMyTrainers.ts";
+export { useGetMyTrainers } from "./hooks/DoctorHooks/useGetMyTrainers.ts";
+export { getMyTrainersSuspenseQueryKey } from "./hooks/DoctorHooks/useGetMyTrainersSuspense.ts";
+export { getMyTrainersSuspense } from "./hooks/DoctorHooks/useGetMyTrainersSuspense.ts";
+export { getMyTrainersSuspenseQueryOptions } from "./hooks/DoctorHooks/useGetMyTrainersSuspense.ts";
+export { useGetMyTrainersSuspense } from "./hooks/DoctorHooks/useGetMyTrainersSuspense.ts";
 export { createCategoryMutationKey } from "./hooks/Exercise CategoriesHooks/useCreateCategory.ts";
 export { createCategory } from "./hooks/Exercise CategoriesHooks/useCreateCategory.ts";
 export { createCategoryMutationOptions } from "./hooks/Exercise CategoriesHooks/useCreateCategory.ts";
@@ -444,6 +511,26 @@ export { assignTrainerToDoctorMutationKey } from "./hooks/Staff ManagementHooks/
 export { assignTrainerToDoctor } from "./hooks/Staff ManagementHooks/useAssignTrainerToDoctor.ts";
 export { assignTrainerToDoctorMutationOptions } from "./hooks/Staff ManagementHooks/useAssignTrainerToDoctor.ts";
 export { useAssignTrainerToDoctor } from "./hooks/Staff ManagementHooks/useAssignTrainerToDoctor.ts";
+export { createStaffMutationKey } from "./hooks/Staff ManagementHooks/useCreateStaff.ts";
+export { createStaff } from "./hooks/Staff ManagementHooks/useCreateStaff.ts";
+export { createStaffMutationOptions } from "./hooks/Staff ManagementHooks/useCreateStaff.ts";
+export { useCreateStaff } from "./hooks/Staff ManagementHooks/useCreateStaff.ts";
+export { disableStaffMutationKey } from "./hooks/Staff ManagementHooks/useDisableStaff.ts";
+export { disableStaff } from "./hooks/Staff ManagementHooks/useDisableStaff.ts";
+export { disableStaffMutationOptions } from "./hooks/Staff ManagementHooks/useDisableStaff.ts";
+export { useDisableStaff } from "./hooks/Staff ManagementHooks/useDisableStaff.ts";
+export { enableStaffMutationKey } from "./hooks/Staff ManagementHooks/useEnableStaff.ts";
+export { enableStaff } from "./hooks/Staff ManagementHooks/useEnableStaff.ts";
+export { enableStaffMutationOptions } from "./hooks/Staff ManagementHooks/useEnableStaff.ts";
+export { useEnableStaff } from "./hooks/Staff ManagementHooks/useEnableStaff.ts";
+export { getAllStaffQueryKey } from "./hooks/Staff ManagementHooks/useGetAllStaff.ts";
+export { getAllStaff } from "./hooks/Staff ManagementHooks/useGetAllStaff.ts";
+export { getAllStaffQueryOptions } from "./hooks/Staff ManagementHooks/useGetAllStaff.ts";
+export { useGetAllStaff } from "./hooks/Staff ManagementHooks/useGetAllStaff.ts";
+export { getAllStaffSuspenseQueryKey } from "./hooks/Staff ManagementHooks/useGetAllStaffSuspense.ts";
+export { getAllStaffSuspense } from "./hooks/Staff ManagementHooks/useGetAllStaffSuspense.ts";
+export { getAllStaffSuspenseQueryOptions } from "./hooks/Staff ManagementHooks/useGetAllStaffSuspense.ts";
+export { useGetAllStaffSuspense } from "./hooks/Staff ManagementHooks/useGetAllStaffSuspense.ts";
 export { getExerciseGroupsByDoctorQueryKey } from "./hooks/Staff ManagementHooks/useGetExerciseGroupsByDoctor.ts";
 export { getExerciseGroupsByDoctor } from "./hooks/Staff ManagementHooks/useGetExerciseGroupsByDoctor.ts";
 export { getExerciseGroupsByDoctorQueryOptions } from "./hooks/Staff ManagementHooks/useGetExerciseGroupsByDoctor.ts";
@@ -452,6 +539,14 @@ export { getExerciseGroupsByDoctorSuspenseQueryKey } from "./hooks/Staff Managem
 export { getExerciseGroupsByDoctorSuspense } from "./hooks/Staff ManagementHooks/useGetExerciseGroupsByDoctorSuspense.ts";
 export { getExerciseGroupsByDoctorSuspenseQueryOptions } from "./hooks/Staff ManagementHooks/useGetExerciseGroupsByDoctorSuspense.ts";
 export { useGetExerciseGroupsByDoctorSuspense } from "./hooks/Staff ManagementHooks/useGetExerciseGroupsByDoctorSuspense.ts";
+export { getStaffByIdQueryKey } from "./hooks/Staff ManagementHooks/useGetStaffById.ts";
+export { getStaffById } from "./hooks/Staff ManagementHooks/useGetStaffById.ts";
+export { getStaffByIdQueryOptions } from "./hooks/Staff ManagementHooks/useGetStaffById.ts";
+export { useGetStaffById } from "./hooks/Staff ManagementHooks/useGetStaffById.ts";
+export { getStaffByIdSuspenseQueryKey } from "./hooks/Staff ManagementHooks/useGetStaffByIdSuspense.ts";
+export { getStaffByIdSuspense } from "./hooks/Staff ManagementHooks/useGetStaffByIdSuspense.ts";
+export { getStaffByIdSuspenseQueryOptions } from "./hooks/Staff ManagementHooks/useGetStaffByIdSuspense.ts";
+export { useGetStaffByIdSuspense } from "./hooks/Staff ManagementHooks/useGetStaffByIdSuspense.ts";
 export { getTrainersByDoctorQueryKey } from "./hooks/Staff ManagementHooks/useGetTrainersByDoctor.ts";
 export { getTrainersByDoctor } from "./hooks/Staff ManagementHooks/useGetTrainersByDoctor.ts";
 export { getTrainersByDoctorQueryOptions } from "./hooks/Staff ManagementHooks/useGetTrainersByDoctor.ts";
@@ -468,9 +563,15 @@ export { removeTrainerFromDoctorMutationKey } from "./hooks/Staff ManagementHook
 export { removeTrainerFromDoctor } from "./hooks/Staff ManagementHooks/useRemoveTrainerFromDoctor.ts";
 export { removeTrainerFromDoctorMutationOptions } from "./hooks/Staff ManagementHooks/useRemoveTrainerFromDoctor.ts";
 export { useRemoveTrainerFromDoctor } from "./hooks/Staff ManagementHooks/useRemoveTrainerFromDoctor.ts";
+export { updateStaffMutationKey } from "./hooks/Staff ManagementHooks/useUpdateStaff.ts";
+export { updateStaff } from "./hooks/Staff ManagementHooks/useUpdateStaff.ts";
+export { updateStaffMutationOptions } from "./hooks/Staff ManagementHooks/useUpdateStaff.ts";
+export { useUpdateStaff } from "./hooks/Staff ManagementHooks/useUpdateStaff.ts";
 export { categoryResponseTypeEnum } from "./types/CategoryResponse.ts";
 export { createCategoryRequestTypeEnum } from "./types/CreateCategoryRequest.ts";
+export { createStaffRequestStaffTypeEnum } from "./types/CreateStaffRequest.ts";
 export { getAllCategoriesQueryParamsTypeEnum } from "./types/exerciseCategoriesController/GetAllCategories.ts";
+export { getAllStaffQueryParamsStaffTypeEnum } from "./types/staffManagementController/GetAllStaff.ts";
 export { updateCategoryRequestTypeEnum } from "./types/UpdateCategoryRequest.ts";
 export {
   checkPhone200Schema,
@@ -524,7 +625,12 @@ export { createCategoryRequestSchema } from "./zod/createCategoryRequestSchema.t
 export { createExercisePackageRequestSchema } from "./zod/createExercisePackageRequestSchema.ts";
 export { createExerciseRequestSchema } from "./zod/createExerciseRequestSchema.ts";
 export { createGroupRequestSchema } from "./zod/createGroupRequestSchema.ts";
+export { createStaffRequestSchema } from "./zod/createStaffRequestSchema.ts";
 export { deleteFileRequestSchema } from "./zod/deleteFileRequestSchema.ts";
+export {
+  getMyTrainers200Schema,
+  getMyTrainersQueryResponseSchema,
+} from "./zod/doctorController/getMyTrainersSchema.ts";
 export {
   createCategory200Schema,
   createCategoryMutationRequestSchema,
@@ -653,10 +759,35 @@ export {
   assignTrainerToDoctorMutationResponseSchema,
 } from "./zod/staffManagementController/assignTrainerToDoctorSchema.ts";
 export {
+  createStaff200Schema,
+  createStaffMutationRequestSchema,
+  createStaffMutationResponseSchema,
+} from "./zod/staffManagementController/createStaffSchema.ts";
+export {
+  disableStaffPathParamsSchema,
+  disableStaff200Schema,
+  disableStaffMutationResponseSchema,
+} from "./zod/staffManagementController/disableStaffSchema.ts";
+export {
+  enableStaffPathParamsSchema,
+  enableStaff200Schema,
+  enableStaffMutationResponseSchema,
+} from "./zod/staffManagementController/enableStaffSchema.ts";
+export {
+  getAllStaffQueryParamsSchema,
+  getAllStaff200Schema,
+  getAllStaffQueryResponseSchema,
+} from "./zod/staffManagementController/getAllStaffSchema.ts";
+export {
   getExerciseGroupsByDoctorPathParamsSchema,
   getExerciseGroupsByDoctor200Schema,
   getExerciseGroupsByDoctorQueryResponseSchema,
 } from "./zod/staffManagementController/getExerciseGroupsByDoctorSchema.ts";
+export {
+  getStaffByIdPathParamsSchema,
+  getStaffById200Schema,
+  getStaffByIdQueryResponseSchema,
+} from "./zod/staffManagementController/getStaffByIdSchema.ts";
 export {
   getTrainersByDoctorPathParamsSchema,
   getTrainersByDoctor200Schema,
@@ -672,9 +803,17 @@ export {
   removeTrainerFromDoctor200Schema,
   removeTrainerFromDoctorMutationResponseSchema,
 } from "./zod/staffManagementController/removeTrainerFromDoctorSchema.ts";
+export {
+  updateStaffPathParamsSchema,
+  updateStaff200Schema,
+  updateStaffMutationRequestSchema,
+  updateStaffMutationResponseSchema,
+} from "./zod/staffManagementController/updateStaffSchema.ts";
+export { staffResponseSchema } from "./zod/staffResponseSchema.ts";
 export { trainerResponseSchema } from "./zod/trainerResponseSchema.ts";
 export { updateCategoryRequestSchema } from "./zod/updateCategoryRequestSchema.ts";
 export { updateExercisePackageRequestSchema } from "./zod/updateExercisePackageRequestSchema.ts";
 export { updateExerciseRequestSchema } from "./zod/updateExerciseRequestSchema.ts";
 export { updateGroupRequestSchema } from "./zod/updateGroupRequestSchema.ts";
+export { updateStaffRequestSchema } from "./zod/updateStaffRequestSchema.ts";
 export { userAuthResponseSchema } from "./zod/userAuthResponseSchema.ts";
