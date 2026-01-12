@@ -1,7 +1,7 @@
 import { type Row } from '@tanstack/react-table'
 import { useNavigate } from '@tanstack/react-router'
 import { DotsHorizontalIcon } from '@radix-ui/react-icons'
-import { Eye, Pencil, Trash2 } from 'lucide-react'
+import { Eye, Pencil } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import {
   DropdownMenu,
@@ -59,10 +59,6 @@ export function DataTableRowActions<TData>({
           Chỉnh sửa
         </DropdownMenuItem>
         <DropdownMenuSeparator />
-        <DropdownMenuItem className='text-destructive focus:text-destructive'>
-          <Trash2 className='me-2 h-4 w-4' />
-          Xóa
-        </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
   )

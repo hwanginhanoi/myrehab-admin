@@ -40,7 +40,7 @@ export function RehabilitationForms() {
   const { data: response, isLoading } = useGetAllForms(queryParams as any)
 
   const forms = response?.content || []
-  const totalPages = response?.totalPages || 0
+  const totalPages = response?.page?.totalPages || 0
 
   return (
     <>

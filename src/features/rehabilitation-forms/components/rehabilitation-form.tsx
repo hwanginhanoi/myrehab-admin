@@ -19,7 +19,6 @@ import { Textarea } from '@/components/ui/textarea'
 import {
   type RehabilitationExaminationFormResponse,
   type CreateRehabilitationExaminationFormRequest,
-  type UserResponse,
   useCreateForm,
   useUpdateForm,
   useGetAllUsers,
