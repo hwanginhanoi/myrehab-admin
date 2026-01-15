@@ -46,11 +46,51 @@ export {
 export { categoryResponseSchema } from "./categoryResponseSchema.ts";
 export { checkPhoneRequestSchema } from "./checkPhoneRequestSchema.ts";
 export { checkPhoneResponseSchema } from "./checkPhoneResponseSchema.ts";
+export { courseDaySummaryDtoSchema } from "./courseDaySummaryDtoSchema.ts";
+export { courseMetadataDtoSchema } from "./courseMetadataDtoSchema.ts";
+export {
+  completeCoursePathParamsSchema,
+  completeCourse200Schema,
+  completeCourseMutationResponseSchema,
+} from "./courseProgressController/completeCourseSchema.ts";
+export {
+  completeExercisePathParamsSchema,
+  completeExercise200Schema,
+  completeExerciseMutationResponseSchema,
+} from "./courseProgressController/completeExerciseSchema.ts";
+export {
+  getCurrentProgress200Schema,
+  getCurrentProgressQueryResponseSchema,
+} from "./courseProgressController/getCurrentProgressSchema.ts";
+export {
+  getDayContentPathParamsSchema,
+  getDayContent200Schema,
+  getDayContentQueryResponseSchema,
+} from "./courseProgressController/getDayContentSchema.ts";
+export {
+  startCourse200Schema,
+  startCourseMutationRequestSchema,
+  startCourseMutationResponseSchema,
+} from "./courseProgressController/startCourseSchema.ts";
+export { courseProgressResponseSchema } from "./courseProgressResponseSchema.ts";
+export {
+  getAllCoursesQueryParamsSchema,
+  getAllCourses200Schema,
+  getAllCoursesQueryResponseSchema,
+} from "./coursesController/getAllCoursesSchema.ts";
+export {
+  getCourseStructurePathParamsSchema,
+  getCourseStructure200Schema,
+  getCourseStructureQueryResponseSchema,
+} from "./coursesController/getCourseStructureSchema.ts";
+export { courseWithDaysResponseSchema } from "./courseWithDaysResponseSchema.ts";
 export { createCategoryRequestSchema } from "./createCategoryRequestSchema.ts";
 export { createExercisePackageRequestSchema } from "./createExercisePackageRequestSchema.ts";
 export { createExerciseRequestSchema } from "./createExerciseRequestSchema.ts";
 export { createGroupRequestSchema } from "./createGroupRequestSchema.ts";
 export { createStaffRequestSchema } from "./createStaffRequestSchema.ts";
+export { dayContentResponseSchema } from "./dayContentResponseSchema.ts";
+export { dayExerciseItemResponseSchema } from "./dayExerciseItemResponseSchema.ts";
 export { deleteFileRequestSchema } from "./deleteFileRequestSchema.ts";
 export {
   getMyTrainers200Schema,
@@ -77,6 +117,7 @@ export {
   updateCategoryMutationRequestSchema,
   updateCategoryMutationResponseSchema,
 } from "./exerciseCategoriesController/updateCategorySchema.ts";
+export { exerciseCompletionResponseSchema } from "./exerciseCompletionResponseSchema.ts";
 export {
   createGroup200Schema,
   createGroupMutationRequestSchema,
@@ -235,6 +276,7 @@ export {
   updateStaffMutationResponseSchema,
 } from "./staffManagementController/updateStaffSchema.ts";
 export { staffResponseSchema } from "./staffResponseSchema.ts";
+export { startCourseRequestSchema } from "./startCourseRequestSchema.ts";
 export { trainerResponseSchema } from "./trainerResponseSchema.ts";
 export { updateCategoryRequestSchema } from "./updateCategoryRequestSchema.ts";
 export { updateExercisePackageRequestSchema } from "./updateExercisePackageRequestSchema.ts";

@@ -4,6 +4,10 @@
  */
 
 import fetch from "@/lib/api-client";
+import type {
+  GetAllStaffQueryResponse,
+  GetAllStaffQueryParams,
+} from "../../types/staffManagementController/GetAllStaff.ts";
 import type { RequestConfig, ResponseErrorConfig } from "@/lib/api-client";
 import type {
   QueryKey,
@@ -11,10 +15,6 @@ import type {
   UseSuspenseQueryOptions,
   UseSuspenseQueryResult,
 } from "@tanstack/react-query";
-import type {
-  GetAllStaffQueryResponse,
-  GetAllStaffQueryParams,
-} from "../../types/staffManagementController/GetAllStaff.ts";
 import { queryOptions, useSuspenseQuery } from "@tanstack/react-query";
 
 export const getAllStaffSuspenseQueryKey = (params: GetAllStaffQueryParams) =>

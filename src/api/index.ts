@@ -7,6 +7,17 @@ export type { RegisterMutationKey } from "./hooks/AuthenticationHooks/useRegiste
 export type { RequestPinResetMutationKey } from "./hooks/AuthenticationHooks/useRequestPinReset.ts";
 export type { ResetPinMutationKey } from "./hooks/AuthenticationHooks/useResetPin.ts";
 export type { SendRegistrationOtpMutationKey } from "./hooks/AuthenticationHooks/useSendRegistrationOtp.ts";
+export type { CompleteCourseMutationKey } from "./hooks/Course ProgressHooks/useCompleteCourse.ts";
+export type { CompleteExerciseMutationKey } from "./hooks/Course ProgressHooks/useCompleteExercise.ts";
+export type { GetCurrentProgressQueryKey } from "./hooks/Course ProgressHooks/useGetCurrentProgress.ts";
+export type { GetCurrentProgressSuspenseQueryKey } from "./hooks/Course ProgressHooks/useGetCurrentProgressSuspense.ts";
+export type { GetDayContentQueryKey } from "./hooks/Course ProgressHooks/useGetDayContent.ts";
+export type { GetDayContentSuspenseQueryKey } from "./hooks/Course ProgressHooks/useGetDayContentSuspense.ts";
+export type { StartCourseMutationKey } from "./hooks/Course ProgressHooks/useStartCourse.ts";
+export type { GetAllCoursesQueryKey } from "./hooks/CoursesHooks/useGetAllCourses.ts";
+export type { GetAllCoursesSuspenseQueryKey } from "./hooks/CoursesHooks/useGetAllCoursesSuspense.ts";
+export type { GetCourseStructureQueryKey } from "./hooks/CoursesHooks/useGetCourseStructure.ts";
+export type { GetCourseStructureSuspenseQueryKey } from "./hooks/CoursesHooks/useGetCourseStructureSuspense.ts";
 export type { GetMyTrainersQueryKey } from "./hooks/DoctorHooks/useGetMyTrainers.ts";
 export type { GetMyTrainersSuspenseQueryKey } from "./hooks/DoctorHooks/useGetMyTrainersSuspense.ts";
 export type { CreateCategoryMutationKey } from "./hooks/Exercise CategoriesHooks/useCreateCategory.ts";
@@ -112,6 +123,51 @@ export type {
 } from "./types/CategoryResponse.ts";
 export type { CheckPhoneRequest } from "./types/CheckPhoneRequest.ts";
 export type { CheckPhoneResponse } from "./types/CheckPhoneResponse.ts";
+export type { CourseDaySummaryDto } from "./types/CourseDaySummaryDto.ts";
+export type { CourseMetadataDto } from "./types/CourseMetadataDto.ts";
+export type {
+  CompleteCoursePathParams,
+  CompleteCourse200,
+  CompleteCourseMutationResponse,
+  CompleteCourseMutation,
+} from "./types/courseProgressController/CompleteCourse.ts";
+export type {
+  CompleteExercisePathParams,
+  CompleteExercise200,
+  CompleteExerciseMutationResponse,
+  CompleteExerciseMutation,
+} from "./types/courseProgressController/CompleteExercise.ts";
+export type {
+  GetCurrentProgress200,
+  GetCurrentProgressQueryResponse,
+  GetCurrentProgressQuery,
+} from "./types/courseProgressController/GetCurrentProgress.ts";
+export type {
+  GetDayContentPathParams,
+  GetDayContent200,
+  GetDayContentQueryResponse,
+  GetDayContentQuery,
+} from "./types/courseProgressController/GetDayContent.ts";
+export type {
+  StartCourse200,
+  StartCourseMutationRequest,
+  StartCourseMutationResponse,
+  StartCourseMutation,
+} from "./types/courseProgressController/StartCourse.ts";
+export type { CourseProgressResponse } from "./types/CourseProgressResponse.ts";
+export type {
+  GetAllCoursesQueryParams,
+  GetAllCourses200,
+  GetAllCoursesQueryResponse,
+  GetAllCoursesQuery,
+} from "./types/coursesController/GetAllCourses.ts";
+export type {
+  GetCourseStructurePathParams,
+  GetCourseStructure200,
+  GetCourseStructureQueryResponse,
+  GetCourseStructureQuery,
+} from "./types/coursesController/GetCourseStructure.ts";
+export type { CourseWithDaysResponse } from "./types/CourseWithDaysResponse.ts";
 export type {
   CreateCategoryRequestTypeEnumKey,
   CreateCategoryRequest,
@@ -123,6 +179,8 @@ export type {
   CreateStaffRequestStaffTypeEnumKey,
   CreateStaffRequest,
 } from "./types/CreateStaffRequest.ts";
+export type { DayContentResponse } from "./types/DayContentResponse.ts";
+export type { DayExerciseItemResponse } from "./types/DayExerciseItemResponse.ts";
 export type { DeleteFileRequest } from "./types/DeleteFileRequest.ts";
 export type {
   GetMyTrainers200,
@@ -155,6 +213,7 @@ export type {
   UpdateCategoryMutationResponse,
   UpdateCategoryMutation,
 } from "./types/exerciseCategoriesController/UpdateCategory.ts";
+export type { ExerciseCompletionResponse } from "./types/ExerciseCompletionResponse.ts";
 export type {
   CreateGroup200,
   CreateGroupMutationRequest,
@@ -341,6 +400,7 @@ export type {
   UpdateStaffMutation,
 } from "./types/staffManagementController/UpdateStaff.ts";
 export type { StaffResponse } from "./types/StaffResponse.ts";
+export type { StartCourseRequest } from "./types/StartCourseRequest.ts";
 export type { TrainerResponse } from "./types/TrainerResponse.ts";
 export type {
   UpdateCategoryRequestTypeEnumKey,
@@ -387,6 +447,50 @@ export { sendRegistrationOtpMutationKey } from "./hooks/AuthenticationHooks/useS
 export { sendRegistrationOtp } from "./hooks/AuthenticationHooks/useSendRegistrationOtp.ts";
 export { sendRegistrationOtpMutationOptions } from "./hooks/AuthenticationHooks/useSendRegistrationOtp.ts";
 export { useSendRegistrationOtp } from "./hooks/AuthenticationHooks/useSendRegistrationOtp.ts";
+export { completeCourseMutationKey } from "./hooks/Course ProgressHooks/useCompleteCourse.ts";
+export { completeCourse } from "./hooks/Course ProgressHooks/useCompleteCourse.ts";
+export { completeCourseMutationOptions } from "./hooks/Course ProgressHooks/useCompleteCourse.ts";
+export { useCompleteCourse } from "./hooks/Course ProgressHooks/useCompleteCourse.ts";
+export { completeExerciseMutationKey } from "./hooks/Course ProgressHooks/useCompleteExercise.ts";
+export { completeExercise } from "./hooks/Course ProgressHooks/useCompleteExercise.ts";
+export { completeExerciseMutationOptions } from "./hooks/Course ProgressHooks/useCompleteExercise.ts";
+export { useCompleteExercise } from "./hooks/Course ProgressHooks/useCompleteExercise.ts";
+export { getCurrentProgressQueryKey } from "./hooks/Course ProgressHooks/useGetCurrentProgress.ts";
+export { getCurrentProgress } from "./hooks/Course ProgressHooks/useGetCurrentProgress.ts";
+export { getCurrentProgressQueryOptions } from "./hooks/Course ProgressHooks/useGetCurrentProgress.ts";
+export { useGetCurrentProgress } from "./hooks/Course ProgressHooks/useGetCurrentProgress.ts";
+export { getCurrentProgressSuspenseQueryKey } from "./hooks/Course ProgressHooks/useGetCurrentProgressSuspense.ts";
+export { getCurrentProgressSuspense } from "./hooks/Course ProgressHooks/useGetCurrentProgressSuspense.ts";
+export { getCurrentProgressSuspenseQueryOptions } from "./hooks/Course ProgressHooks/useGetCurrentProgressSuspense.ts";
+export { useGetCurrentProgressSuspense } from "./hooks/Course ProgressHooks/useGetCurrentProgressSuspense.ts";
+export { getDayContentQueryKey } from "./hooks/Course ProgressHooks/useGetDayContent.ts";
+export { getDayContent } from "./hooks/Course ProgressHooks/useGetDayContent.ts";
+export { getDayContentQueryOptions } from "./hooks/Course ProgressHooks/useGetDayContent.ts";
+export { useGetDayContent } from "./hooks/Course ProgressHooks/useGetDayContent.ts";
+export { getDayContentSuspenseQueryKey } from "./hooks/Course ProgressHooks/useGetDayContentSuspense.ts";
+export { getDayContentSuspense } from "./hooks/Course ProgressHooks/useGetDayContentSuspense.ts";
+export { getDayContentSuspenseQueryOptions } from "./hooks/Course ProgressHooks/useGetDayContentSuspense.ts";
+export { useGetDayContentSuspense } from "./hooks/Course ProgressHooks/useGetDayContentSuspense.ts";
+export { startCourseMutationKey } from "./hooks/Course ProgressHooks/useStartCourse.ts";
+export { startCourse } from "./hooks/Course ProgressHooks/useStartCourse.ts";
+export { startCourseMutationOptions } from "./hooks/Course ProgressHooks/useStartCourse.ts";
+export { useStartCourse } from "./hooks/Course ProgressHooks/useStartCourse.ts";
+export { getAllCoursesQueryKey } from "./hooks/CoursesHooks/useGetAllCourses.ts";
+export { getAllCourses } from "./hooks/CoursesHooks/useGetAllCourses.ts";
+export { getAllCoursesQueryOptions } from "./hooks/CoursesHooks/useGetAllCourses.ts";
+export { useGetAllCourses } from "./hooks/CoursesHooks/useGetAllCourses.ts";
+export { getAllCoursesSuspenseQueryKey } from "./hooks/CoursesHooks/useGetAllCoursesSuspense.ts";
+export { getAllCoursesSuspense } from "./hooks/CoursesHooks/useGetAllCoursesSuspense.ts";
+export { getAllCoursesSuspenseQueryOptions } from "./hooks/CoursesHooks/useGetAllCoursesSuspense.ts";
+export { useGetAllCoursesSuspense } from "./hooks/CoursesHooks/useGetAllCoursesSuspense.ts";
+export { getCourseStructureQueryKey } from "./hooks/CoursesHooks/useGetCourseStructure.ts";
+export { getCourseStructure } from "./hooks/CoursesHooks/useGetCourseStructure.ts";
+export { getCourseStructureQueryOptions } from "./hooks/CoursesHooks/useGetCourseStructure.ts";
+export { useGetCourseStructure } from "./hooks/CoursesHooks/useGetCourseStructure.ts";
+export { getCourseStructureSuspenseQueryKey } from "./hooks/CoursesHooks/useGetCourseStructureSuspense.ts";
+export { getCourseStructureSuspense } from "./hooks/CoursesHooks/useGetCourseStructureSuspense.ts";
+export { getCourseStructureSuspenseQueryOptions } from "./hooks/CoursesHooks/useGetCourseStructureSuspense.ts";
+export { useGetCourseStructureSuspense } from "./hooks/CoursesHooks/useGetCourseStructureSuspense.ts";
 export { getMyTrainersQueryKey } from "./hooks/DoctorHooks/useGetMyTrainers.ts";
 export { getMyTrainers } from "./hooks/DoctorHooks/useGetMyTrainers.ts";
 export { getMyTrainersQueryOptions } from "./hooks/DoctorHooks/useGetMyTrainers.ts";
@@ -621,11 +725,51 @@ export {
 export { categoryResponseSchema } from "./zod/categoryResponseSchema.ts";
 export { checkPhoneRequestSchema } from "./zod/checkPhoneRequestSchema.ts";
 export { checkPhoneResponseSchema } from "./zod/checkPhoneResponseSchema.ts";
+export { courseDaySummaryDtoSchema } from "./zod/courseDaySummaryDtoSchema.ts";
+export { courseMetadataDtoSchema } from "./zod/courseMetadataDtoSchema.ts";
+export {
+  completeCoursePathParamsSchema,
+  completeCourse200Schema,
+  completeCourseMutationResponseSchema,
+} from "./zod/courseProgressController/completeCourseSchema.ts";
+export {
+  completeExercisePathParamsSchema,
+  completeExercise200Schema,
+  completeExerciseMutationResponseSchema,
+} from "./zod/courseProgressController/completeExerciseSchema.ts";
+export {
+  getCurrentProgress200Schema,
+  getCurrentProgressQueryResponseSchema,
+} from "./zod/courseProgressController/getCurrentProgressSchema.ts";
+export {
+  getDayContentPathParamsSchema,
+  getDayContent200Schema,
+  getDayContentQueryResponseSchema,
+} from "./zod/courseProgressController/getDayContentSchema.ts";
+export {
+  startCourse200Schema,
+  startCourseMutationRequestSchema,
+  startCourseMutationResponseSchema,
+} from "./zod/courseProgressController/startCourseSchema.ts";
+export { courseProgressResponseSchema } from "./zod/courseProgressResponseSchema.ts";
+export {
+  getAllCoursesQueryParamsSchema,
+  getAllCourses200Schema,
+  getAllCoursesQueryResponseSchema,
+} from "./zod/coursesController/getAllCoursesSchema.ts";
+export {
+  getCourseStructurePathParamsSchema,
+  getCourseStructure200Schema,
+  getCourseStructureQueryResponseSchema,
+} from "./zod/coursesController/getCourseStructureSchema.ts";
+export { courseWithDaysResponseSchema } from "./zod/courseWithDaysResponseSchema.ts";
 export { createCategoryRequestSchema } from "./zod/createCategoryRequestSchema.ts";
 export { createExercisePackageRequestSchema } from "./zod/createExercisePackageRequestSchema.ts";
 export { createExerciseRequestSchema } from "./zod/createExerciseRequestSchema.ts";
 export { createGroupRequestSchema } from "./zod/createGroupRequestSchema.ts";
 export { createStaffRequestSchema } from "./zod/createStaffRequestSchema.ts";
+export { dayContentResponseSchema } from "./zod/dayContentResponseSchema.ts";
+export { dayExerciseItemResponseSchema } from "./zod/dayExerciseItemResponseSchema.ts";
 export { deleteFileRequestSchema } from "./zod/deleteFileRequestSchema.ts";
 export {
   getMyTrainers200Schema,
@@ -652,6 +796,7 @@ export {
   updateCategoryMutationRequestSchema,
   updateCategoryMutationResponseSchema,
 } from "./zod/exerciseCategoriesController/updateCategorySchema.ts";
+export { exerciseCompletionResponseSchema } from "./zod/exerciseCompletionResponseSchema.ts";
 export {
   createGroup200Schema,
   createGroupMutationRequestSchema,
@@ -810,6 +955,7 @@ export {
   updateStaffMutationResponseSchema,
 } from "./zod/staffManagementController/updateStaffSchema.ts";
 export { staffResponseSchema } from "./zod/staffResponseSchema.ts";
+export { startCourseRequestSchema } from "./zod/startCourseRequestSchema.ts";
 export { trainerResponseSchema } from "./zod/trainerResponseSchema.ts";
 export { updateCategoryRequestSchema } from "./zod/updateCategoryRequestSchema.ts";
 export { updateExercisePackageRequestSchema } from "./zod/updateExercisePackageRequestSchema.ts";

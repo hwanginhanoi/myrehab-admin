@@ -4,16 +4,16 @@
  */
 
 import fetch from "@/lib/api-client";
+import type {
+  SendRegistrationOtpMutationRequest,
+  SendRegistrationOtpMutationResponse,
+} from "../../types/authenticationController/SendRegistrationOtp.ts";
 import type { RequestConfig, ResponseErrorConfig } from "@/lib/api-client";
 import type {
   UseMutationOptions,
   UseMutationResult,
   QueryClient,
 } from "@tanstack/react-query";
-import type {
-  SendRegistrationOtpMutationRequest,
-  SendRegistrationOtpMutationResponse,
-} from "../../types/authenticationController/SendRegistrationOtp.ts";
 import { mutationOptions, useMutation } from "@tanstack/react-query";
 
 export const sendRegistrationOtpMutationKey = () =>

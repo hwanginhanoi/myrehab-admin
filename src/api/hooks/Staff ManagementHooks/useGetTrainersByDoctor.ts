@@ -4,6 +4,10 @@
  */
 
 import fetch from "@/lib/api-client";
+import type {
+  GetTrainersByDoctorQueryResponse,
+  GetTrainersByDoctorPathParams,
+} from "../../types/staffManagementController/GetTrainersByDoctor.ts";
 import type { RequestConfig, ResponseErrorConfig } from "@/lib/api-client";
 import type {
   QueryKey,
@@ -11,10 +15,6 @@ import type {
   QueryObserverOptions,
   UseQueryResult,
 } from "@tanstack/react-query";
-import type {
-  GetTrainersByDoctorQueryResponse,
-  GetTrainersByDoctorPathParams,
-} from "../../types/staffManagementController/GetTrainersByDoctor.ts";
 import { queryOptions, useQuery } from "@tanstack/react-query";
 
 export const getTrainersByDoctorQueryKey = (

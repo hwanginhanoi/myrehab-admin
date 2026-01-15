@@ -58,6 +58,51 @@ export type {
 } from "./CategoryResponse.ts";
 export type { CheckPhoneRequest } from "./CheckPhoneRequest.ts";
 export type { CheckPhoneResponse } from "./CheckPhoneResponse.ts";
+export type { CourseDaySummaryDto } from "./CourseDaySummaryDto.ts";
+export type { CourseMetadataDto } from "./CourseMetadataDto.ts";
+export type {
+  CompleteCoursePathParams,
+  CompleteCourse200,
+  CompleteCourseMutationResponse,
+  CompleteCourseMutation,
+} from "./courseProgressController/CompleteCourse.ts";
+export type {
+  CompleteExercisePathParams,
+  CompleteExercise200,
+  CompleteExerciseMutationResponse,
+  CompleteExerciseMutation,
+} from "./courseProgressController/CompleteExercise.ts";
+export type {
+  GetCurrentProgress200,
+  GetCurrentProgressQueryResponse,
+  GetCurrentProgressQuery,
+} from "./courseProgressController/GetCurrentProgress.ts";
+export type {
+  GetDayContentPathParams,
+  GetDayContent200,
+  GetDayContentQueryResponse,
+  GetDayContentQuery,
+} from "./courseProgressController/GetDayContent.ts";
+export type {
+  StartCourse200,
+  StartCourseMutationRequest,
+  StartCourseMutationResponse,
+  StartCourseMutation,
+} from "./courseProgressController/StartCourse.ts";
+export type { CourseProgressResponse } from "./CourseProgressResponse.ts";
+export type {
+  GetAllCoursesQueryParams,
+  GetAllCourses200,
+  GetAllCoursesQueryResponse,
+  GetAllCoursesQuery,
+} from "./coursesController/GetAllCourses.ts";
+export type {
+  GetCourseStructurePathParams,
+  GetCourseStructure200,
+  GetCourseStructureQueryResponse,
+  GetCourseStructureQuery,
+} from "./coursesController/GetCourseStructure.ts";
+export type { CourseWithDaysResponse } from "./CourseWithDaysResponse.ts";
 export type {
   CreateCategoryRequestTypeEnumKey,
   CreateCategoryRequest,
@@ -69,6 +114,8 @@ export type {
   CreateStaffRequestStaffTypeEnumKey,
   CreateStaffRequest,
 } from "./CreateStaffRequest.ts";
+export type { DayContentResponse } from "./DayContentResponse.ts";
+export type { DayExerciseItemResponse } from "./DayExerciseItemResponse.ts";
 export type { DeleteFileRequest } from "./DeleteFileRequest.ts";
 export type {
   GetMyTrainers200,
@@ -101,6 +148,7 @@ export type {
   UpdateCategoryMutationResponse,
   UpdateCategoryMutation,
 } from "./exerciseCategoriesController/UpdateCategory.ts";
+export type { ExerciseCompletionResponse } from "./ExerciseCompletionResponse.ts";
 export type {
   CreateGroup200,
   CreateGroupMutationRequest,
@@ -287,6 +335,7 @@ export type {
   UpdateStaffMutation,
 } from "./staffManagementController/UpdateStaff.ts";
 export type { StaffResponse } from "./StaffResponse.ts";
+export type { StartCourseRequest } from "./StartCourseRequest.ts";
 export type { TrainerResponse } from "./TrainerResponse.ts";
 export type {
   UpdateCategoryRequestTypeEnumKey,

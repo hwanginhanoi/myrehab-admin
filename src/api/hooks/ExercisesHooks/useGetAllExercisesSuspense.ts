@@ -4,6 +4,10 @@
  */
 
 import fetch from "@/lib/api-client";
+import type {
+  GetAllExercisesQueryResponse,
+  GetAllExercisesQueryParams,
+} from "../../types/exercisesController/GetAllExercises.ts";
 import type { RequestConfig, ResponseErrorConfig } from "@/lib/api-client";
 import type {
   QueryKey,
@@ -11,10 +15,6 @@ import type {
   UseSuspenseQueryOptions,
   UseSuspenseQueryResult,
 } from "@tanstack/react-query";
-import type {
-  GetAllExercisesQueryResponse,
-  GetAllExercisesQueryParams,
-} from "../../types/exercisesController/GetAllExercises.ts";
 import { queryOptions, useSuspenseQuery } from "@tanstack/react-query";
 
 export const getAllExercisesSuspenseQueryKey = (

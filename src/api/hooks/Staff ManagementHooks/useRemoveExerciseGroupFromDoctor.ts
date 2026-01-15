@@ -4,16 +4,16 @@
  */
 
 import fetch from "@/lib/api-client";
+import type {
+  RemoveExerciseGroupFromDoctorMutationResponse,
+  RemoveExerciseGroupFromDoctorPathParams,
+} from "../../types/staffManagementController/RemoveExerciseGroupFromDoctor.ts";
 import type { RequestConfig, ResponseErrorConfig } from "@/lib/api-client";
 import type {
   UseMutationOptions,
   UseMutationResult,
   QueryClient,
 } from "@tanstack/react-query";
-import type {
-  RemoveExerciseGroupFromDoctorMutationResponse,
-  RemoveExerciseGroupFromDoctorPathParams,
-} from "../../types/staffManagementController/RemoveExerciseGroupFromDoctor.ts";
 import { mutationOptions, useMutation } from "@tanstack/react-query";
 
 export const removeExerciseGroupFromDoctorMutationKey = () =>

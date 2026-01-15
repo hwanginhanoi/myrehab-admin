@@ -4,6 +4,10 @@
  */
 
 import fetch from "@/lib/api-client";
+import type {
+  GetExerciseByIdQueryResponse,
+  GetExerciseByIdPathParams,
+} from "../../types/exercisesController/GetExerciseById.ts";
 import type { RequestConfig, ResponseErrorConfig } from "@/lib/api-client";
 import type {
   QueryKey,
@@ -11,10 +15,6 @@ import type {
   UseSuspenseQueryOptions,
   UseSuspenseQueryResult,
 } from "@tanstack/react-query";
-import type {
-  GetExerciseByIdQueryResponse,
-  GetExerciseByIdPathParams,
-} from "../../types/exercisesController/GetExerciseById.ts";
 import { queryOptions, useSuspenseQuery } from "@tanstack/react-query";
 
 export const getExerciseByIdSuspenseQueryKey = (

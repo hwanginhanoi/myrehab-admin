@@ -4,16 +4,16 @@
  */
 
 import fetch from "@/lib/api-client";
+import type {
+  RegisterMutationRequest,
+  RegisterMutationResponse,
+} from "../../types/authenticationController/Register.ts";
 import type { RequestConfig, ResponseErrorConfig } from "@/lib/api-client";
 import type {
   UseMutationOptions,
   UseMutationResult,
   QueryClient,
 } from "@tanstack/react-query";
-import type {
-  RegisterMutationRequest,
-  RegisterMutationResponse,
-} from "../../types/authenticationController/Register.ts";
 import { mutationOptions, useMutation } from "@tanstack/react-query";
 
 export const registerMutationKey = () =>

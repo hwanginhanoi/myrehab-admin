@@ -4,16 +4,16 @@
  */
 
 import fetch from "@/lib/api-client";
+import type {
+  RequestPinResetMutationRequest,
+  RequestPinResetMutationResponse,
+} from "../../types/authenticationController/RequestPinReset.ts";
 import type { RequestConfig, ResponseErrorConfig } from "@/lib/api-client";
 import type {
   UseMutationOptions,
   UseMutationResult,
   QueryClient,
 } from "@tanstack/react-query";
-import type {
-  RequestPinResetMutationRequest,
-  RequestPinResetMutationResponse,
-} from "../../types/authenticationController/RequestPinReset.ts";
 import { mutationOptions, useMutation } from "@tanstack/react-query";
 
 export const requestPinResetMutationKey = () =>

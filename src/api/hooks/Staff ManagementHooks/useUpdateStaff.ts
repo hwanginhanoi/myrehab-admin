@@ -4,17 +4,17 @@
  */
 
 import fetch from "@/lib/api-client";
+import type {
+  UpdateStaffMutationRequest,
+  UpdateStaffMutationResponse,
+  UpdateStaffPathParams,
+} from "../../types/staffManagementController/UpdateStaff.ts";
 import type { RequestConfig, ResponseErrorConfig } from "@/lib/api-client";
 import type {
   UseMutationOptions,
   UseMutationResult,
   QueryClient,
 } from "@tanstack/react-query";
-import type {
-  UpdateStaffMutationRequest,
-  UpdateStaffMutationResponse,
-  UpdateStaffPathParams,
-} from "../../types/staffManagementController/UpdateStaff.ts";
 import { mutationOptions, useMutation } from "@tanstack/react-query";
 
 export const updateStaffMutationKey = () =>

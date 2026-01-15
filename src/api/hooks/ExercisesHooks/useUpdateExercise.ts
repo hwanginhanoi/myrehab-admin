@@ -4,17 +4,17 @@
  */
 
 import fetch from "@/lib/api-client";
+import type {
+  UpdateExerciseMutationRequest,
+  UpdateExerciseMutationResponse,
+  UpdateExercisePathParams,
+} from "../../types/exercisesController/UpdateExercise.ts";
 import type { RequestConfig, ResponseErrorConfig } from "@/lib/api-client";
 import type {
   UseMutationOptions,
   UseMutationResult,
   QueryClient,
 } from "@tanstack/react-query";
-import type {
-  UpdateExerciseMutationRequest,
-  UpdateExerciseMutationResponse,
-  UpdateExercisePathParams,
-} from "../../types/exercisesController/UpdateExercise.ts";
 import { mutationOptions, useMutation } from "@tanstack/react-query";
 
 export const updateExerciseMutationKey = () =>

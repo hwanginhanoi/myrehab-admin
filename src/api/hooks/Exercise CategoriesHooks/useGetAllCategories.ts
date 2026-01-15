@@ -4,6 +4,10 @@
  */
 
 import fetch from "@/lib/api-client";
+import type {
+  GetAllCategoriesQueryResponse,
+  GetAllCategoriesQueryParams,
+} from "../../types/exerciseCategoriesController/GetAllCategories.ts";
 import type { RequestConfig, ResponseErrorConfig } from "@/lib/api-client";
 import type {
   QueryKey,
@@ -11,10 +15,6 @@ import type {
   QueryObserverOptions,
   UseQueryResult,
 } from "@tanstack/react-query";
-import type {
-  GetAllCategoriesQueryResponse,
-  GetAllCategoriesQueryParams,
-} from "../../types/exerciseCategoriesController/GetAllCategories.ts";
 import { queryOptions, useQuery } from "@tanstack/react-query";
 
 export const getAllCategoriesQueryKey = (params: GetAllCategoriesQueryParams) =>

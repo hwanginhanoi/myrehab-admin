@@ -1,0 +1,9 @@
+{
+  "type": "object",
+  "properties": {
+    "dayNumber": { "type": "integer", "format": "int32" },
+    "description": { "type": "string" },
+    "exerciseCount": { "type": "integer", "format": "int32" }
+  },
+  "x-readme-ref-name": "CourseDaySummaryDto"
+}
