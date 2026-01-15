@@ -1,11 +1,11 @@
 import { useMemo } from 'react'
-import { getRouteApi } from '@tanstack/react-router'
+import { getRouteApi, Outlet } from '@tanstack/react-router'
 import { Button } from '@/components/ui/button'
-import { ChevronLeft } from 'lucide-react'
+import { Separator } from '@/components/ui/separator'
+import { ChevronLeft, UserCog, Users } from 'lucide-react'
 import { useGetStaffById, useGetTrainersByDoctor } from '@/api'
 import { DoctorDetailProvider, useDoctorDetail } from './components/doctor-detail-provider'
-import { DoctorInfoCard } from './components/doctor-info-card'
-import { TrainerListCard } from './components/trainer-list-card'
+import { DoctorSidebarNav } from './components/doctor-sidebar-nav'
 import { TrainerAssignmentDialog } from './components/trainer-assignment-dialog'
 import { TrainerRemovalDialog } from './components/trainer-removal-dialog'
 
@@ -66,6 +66,19 @@ function DoctorDetailContent() {
     )
   }
 
+  const sidebarNavItems = [
+    {
+      title: 'Thông tin',
+      href: `/staff/doctors/${doctorId}`,
+      icon: <UserCog size={18} />,
+    },
+    {
+      title: 'Huấn luyện viên',
+      href: `/staff/doctors/${doctorId}/trainers`,
+      icon: <Users size={18} />,
+    },
+  ]
+
   return (
     <>
       {/* Breadcrumb Navigation */}
@@ -88,24 +101,25 @@ function DoctorDetailContent() {
       </div>
 
       {/* Page Header */}
-      <div className='flex flex-wrap items-end justify-between gap-2'>
-        <div>
-          <h2 className='text-2xl font-bold tracking-tight'>
-            {isLoading ? 'Đang tải...' : doctor?.fullName || 'Chi tiết Bác sĩ'}
-          </h2>
-          <p className='text-muted-foreground'>
-            Xem thông tin bác sĩ và quản lý huấn luyện viên được gán.
-          </p>
-        </div>
+      <div className='space-y-0.5'>
+        <h1 className='text-2xl font-bold tracking-tight md:text-3xl'>
+          {isLoading ? 'Đang tải...' : doctor?.fullName || 'Chi tiết Bác sĩ'}
+        </h1>
+        <p className='text-muted-foreground'>
+          Xem và quản lý thông tin bác sĩ, huấn luyện viên được gán.
+        </p>
       </div>
 
-      {/* Content */}
-      <div className='grid grid-cols-1 gap-4 sm:gap-6'>
-        {/* Doctor Info Card */}
-        {doctor && <DoctorInfoCard doctor={doctor} isLoading={isLoading} />}
+      <Separator className='my-4 lg:my-6' />
 
-        {/* Trainer List Card */}
-        <TrainerListCard doctorId={Number(doctorId)} />
+      {/* Content with Sidebar */}
+      <div className='flex flex-1 flex-col space-y-2 overflow-hidden md:space-y-2 lg:flex-row lg:space-y-0 lg:space-x-12'>
+        <aside className='top-0 lg:sticky lg:w-1/5'>
+          <DoctorSidebarNav items={sidebarNavItems} doctorId={doctorId} />
+        </aside>
+        <div className='flex w-full overflow-y-hidden p-1'>
+          <Outlet />
+        </div>
       </div>
 
       {/* Dialogs */}

@@ -10,7 +10,7 @@ import { DoctorDetail } from '@/features/staff/doctor-detail'
 function DoctorDetailRoute() {
   return (
     <>
-      <Header fixed>
+      <Header>
         <Search />
         <div className='ms-auto flex items-center space-x-4'>
           <ThemeSwitch />
@@ -19,7 +19,7 @@ function DoctorDetailRoute() {
         </div>
       </Header>
 
-      <Main className='flex flex-1 flex-col gap-4 sm:gap-6'>
+      <Main fixed>
         <DoctorDetail />
       </Main>
     </>
