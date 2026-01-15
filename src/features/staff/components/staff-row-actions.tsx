@@ -1,7 +1,8 @@
 import { DotsHorizontalIcon } from '@radix-ui/react-icons'
 import { type Row } from '@tanstack/react-table'
-import { Trash2, UserPen, UserCheck, UserX } from 'lucide-react'
+import { Trash2, UserPen, UserCheck, UserX, Eye } from 'lucide-react'
 import { useQueryClient } from '@tanstack/react-query'
+import { getRouteApi } from '@tanstack/react-router'
 import { Button } from '@/components/ui/button'
 import {
   DropdownMenu,
@@ -20,9 +21,12 @@ type StaffRowActionsProps = {
   row: Row<StaffResponse>
 }
 
+const route = getRouteApi('/_authenticated/staff/')
+
 export function StaffRowActions({ row }: StaffRowActionsProps) {
   const { setOpen, setCurrentRow } = useStaff()
   const queryClient = useQueryClient()
+  const navigate = route.useNavigate()
 
   const enableStaffMutation = useEnableStaff({
     mutation: {
@@ -82,6 +86,24 @@ export function StaffRowActions({ row }: StaffRowActionsProps) {
             <UserPen size={16} />
           </DropdownMenuShortcut>
         </DropdownMenuItem>
+        {row.original.staffType === 'DOCTOR' && (
+          <>
+            <DropdownMenuItem
+              onClick={() => {
+                navigate({
+                  to: '/staff/doctors/$doctorId',
+                  params: { doctorId: String(row.original.id) },
+                })
+              }}
+            >
+              Xem chi tiết
+              <DropdownMenuShortcut>
+                <Eye size={16} />
+              </DropdownMenuShortcut>
+            </DropdownMenuItem>
+            <DropdownMenuSeparator />
+          </>
+        )}
         <DropdownMenuItem onClick={handleToggleStatus}>
           {row.original.enabled ? 'Vô hiệu hóa' : 'Kích hoạt'}
           <DropdownMenuShortcut>
