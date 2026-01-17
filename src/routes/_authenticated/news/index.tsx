@@ -9,30 +9,26 @@ const newsSearchSchema = z.object({
   pageSize: z.coerce.number().optional().catch(10),
   // Filter by title
   title: z.string().optional().catch(''),
-  // Filter by status
+  // Filter by status (single select)
   status: z
-    .array(
-      z.enum([
-        NewsStatus.DRAFT,
-        NewsStatus.PUBLISHED,
-        NewsStatus.ARCHIVED,
-      ])
-    )
+    .enum([
+      NewsStatus.DRAFT,
+      NewsStatus.PUBLISHED,
+      NewsStatus.ARCHIVED,
+    ])
     .optional()
-    .catch([]),
-  // Filter by category
+    .catch(undefined),
+  // Filter by category (single select)
   category: z
-    .array(
-      z.enum([
-        CategoryType.GENERAL,
-        CategoryType.HEALTH_TIPS,
-        CategoryType.REHABILITATION,
-        CategoryType.CLINIC_NEWS,
-        CategoryType.SUCCESS_STORIES,
-      ])
-    )
+    .enum([
+      CategoryType.GENERAL,
+      CategoryType.HEALTH_TIPS,
+      CategoryType.REHABILITATION,
+      CategoryType.CLINIC_NEWS,
+      CategoryType.SUCCESS_STORIES,
+    ])
     .optional()
-    .catch([]),
+    .catch(undefined),
 })
 
 export const Route = createFileRoute('/_authenticated/news/')({
