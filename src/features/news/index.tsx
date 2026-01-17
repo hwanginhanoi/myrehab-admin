@@ -7,9 +7,7 @@ import { ProfileDropdown } from '@/components/profile-dropdown'
 import { Search } from '@/components/search'
 import { ThemeSwitch } from '@/components/theme-switch'
 import { useGetAllNews } from '@/api'
-import { NewsDialogs } from './components/news-dialogs'
 import { NewsPrimaryButtons } from './components/news-primary-buttons'
-import { NewsProvider } from './components/news-provider'
 import { NewsTable } from './components/news-table'
 
 const route = getRouteApi('/_authenticated/news/')
@@ -59,7 +57,7 @@ export function News() {
   const totalPages = response?.page?.totalPages || 0
 
   return (
-    <NewsProvider>
+    <>
       <Header fixed>
         <Search />
         <div className='ms-auto flex items-center space-x-4'>
@@ -92,8 +90,6 @@ export function News() {
           />
         )}
       </Main>
-
-      <NewsDialogs />
-    </NewsProvider>
+    </>
   )
 }

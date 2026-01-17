@@ -1,6 +1,7 @@
 import { DotsHorizontalIcon } from '@radix-ui/react-icons'
 import { type Row } from '@tanstack/react-table'
 import { Eye, Pencil } from 'lucide-react'
+import { useNavigate } from '@tanstack/react-router'
 import { Button } from '@/components/ui/button'
 import {
   DropdownMenu,
@@ -11,14 +12,13 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
 import type { NewsResponse } from '@/api'
-import { useNews } from './news-provider'
 
 type DataTableRowActionsProps = {
   row: Row<NewsResponse>
 }
 
 export function DataTableRowActions({ row }: DataTableRowActionsProps) {
-  const { setOpen, setCurrentRow } = useNews()
+  const navigate = useNavigate()
   return (
     <>
       <DropdownMenu modal={false}>
@@ -34,8 +34,11 @@ export function DataTableRowActions({ row }: DataTableRowActionsProps) {
         <DropdownMenuContent align='end' className='w-[160px]'>
           <DropdownMenuItem
             onClick={() => {
-              setCurrentRow(row.original)
-              setOpen('view')
+              navigate({
+                to: '/news/$id',
+                params: { id: String(row.original.id) },
+                search: { mode: 'view' },
+              })
             }}
           >
             Xem
@@ -46,8 +49,11 @@ export function DataTableRowActions({ row }: DataTableRowActionsProps) {
           <DropdownMenuSeparator />
           <DropdownMenuItem
             onClick={() => {
-              setCurrentRow(row.original)
-              setOpen('edit')
+              navigate({
+                to: '/news/$id',
+                params: { id: String(row.original.id) },
+                search: { mode: 'edit' },
+              })
             }}
           >
             Chỉnh sửa

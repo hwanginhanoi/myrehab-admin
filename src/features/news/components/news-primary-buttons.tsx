@@ -1,12 +1,12 @@
 import { Plus } from 'lucide-react'
+import { useNavigate } from '@tanstack/react-router'
 import { Button } from '@/components/ui/button'
-import { useNews } from './news-provider'
 
 export function NewsPrimaryButtons() {
-  const { setOpen } = useNews()
+  const navigate = useNavigate()
   return (
     <div className='flex gap-2'>
-      <Button className='space-x-1' onClick={() => setOpen('add')}>
+      <Button className='space-x-1' onClick={() => navigate({ to: '/news/new' })}>
         <span>Thêm tin tức</span> <Plus size={18} />
       </Button>
     </div>

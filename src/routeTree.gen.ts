@@ -39,6 +39,8 @@ import { Route as AuthenticatedSettingsAppearanceRouteImport } from './routes/_a
 import { Route as AuthenticatedSettingsAccountRouteImport } from './routes/_authenticated/settings/account'
 import { Route as AuthenticatedRehabilitationFormsNewRouteImport } from './routes/_authenticated/rehabilitation-forms/new'
 import { Route as AuthenticatedRehabilitationFormsIdRouteImport } from './routes/_authenticated/rehabilitation-forms/$id'
+import { Route as AuthenticatedNewsNewRouteImport } from './routes/_authenticated/news/new'
+import { Route as AuthenticatedNewsIdRouteImport } from './routes/_authenticated/news/$id'
 import { Route as AuthenticatedExercisesNewRouteImport } from './routes/_authenticated/exercises/new'
 import { Route as AuthenticatedExercisesIdRouteImport } from './routes/_authenticated/exercises/$id'
 import { Route as AuthenticatedExercisePackagesNewRouteImport } from './routes/_authenticated/exercise-packages/new'
@@ -208,6 +210,16 @@ const AuthenticatedRehabilitationFormsIdRoute =
     path: '/rehabilitation-forms/$id',
     getParentRoute: () => AuthenticatedRouteRoute,
   } as any)
+const AuthenticatedNewsNewRoute = AuthenticatedNewsNewRouteImport.update({
+  id: '/news/new',
+  path: '/news/new',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedNewsIdRoute = AuthenticatedNewsIdRouteImport.update({
+  id: '/news/$id',
+  path: '/news/$id',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
 const AuthenticatedExercisesNewRoute =
   AuthenticatedExercisesNewRouteImport.update({
     id: '/exercises/new',
@@ -256,6 +268,8 @@ export interface FileRoutesByFullPath {
   '/exercise-packages/new': typeof AuthenticatedExercisePackagesNewRoute
   '/exercises/$id': typeof AuthenticatedExercisesIdRoute
   '/exercises/new': typeof AuthenticatedExercisesNewRoute
+  '/news/$id': typeof AuthenticatedNewsIdRoute
+  '/news/new': typeof AuthenticatedNewsNewRoute
   '/rehabilitation-forms/$id': typeof AuthenticatedRehabilitationFormsIdRoute
   '/rehabilitation-forms/new': typeof AuthenticatedRehabilitationFormsNewRoute
   '/settings/account': typeof AuthenticatedSettingsAccountRoute
@@ -291,6 +305,8 @@ export interface FileRoutesByTo {
   '/exercise-packages/new': typeof AuthenticatedExercisePackagesNewRoute
   '/exercises/$id': typeof AuthenticatedExercisesIdRoute
   '/exercises/new': typeof AuthenticatedExercisesNewRoute
+  '/news/$id': typeof AuthenticatedNewsIdRoute
+  '/news/new': typeof AuthenticatedNewsNewRoute
   '/rehabilitation-forms/$id': typeof AuthenticatedRehabilitationFormsIdRoute
   '/rehabilitation-forms/new': typeof AuthenticatedRehabilitationFormsNewRoute
   '/settings/account': typeof AuthenticatedSettingsAccountRoute
@@ -329,6 +345,8 @@ export interface FileRoutesById {
   '/_authenticated/exercise-packages/new': typeof AuthenticatedExercisePackagesNewRoute
   '/_authenticated/exercises/$id': typeof AuthenticatedExercisesIdRoute
   '/_authenticated/exercises/new': typeof AuthenticatedExercisesNewRoute
+  '/_authenticated/news/$id': typeof AuthenticatedNewsIdRoute
+  '/_authenticated/news/new': typeof AuthenticatedNewsNewRoute
   '/_authenticated/rehabilitation-forms/$id': typeof AuthenticatedRehabilitationFormsIdRoute
   '/_authenticated/rehabilitation-forms/new': typeof AuthenticatedRehabilitationFormsNewRoute
   '/_authenticated/settings/account': typeof AuthenticatedSettingsAccountRoute
@@ -367,6 +385,8 @@ export interface FileRouteTypes {
     | '/exercise-packages/new'
     | '/exercises/$id'
     | '/exercises/new'
+    | '/news/$id'
+    | '/news/new'
     | '/rehabilitation-forms/$id'
     | '/rehabilitation-forms/new'
     | '/settings/account'
@@ -402,6 +422,8 @@ export interface FileRouteTypes {
     | '/exercise-packages/new'
     | '/exercises/$id'
     | '/exercises/new'
+    | '/news/$id'
+    | '/news/new'
     | '/rehabilitation-forms/$id'
     | '/rehabilitation-forms/new'
     | '/settings/account'
@@ -439,6 +461,8 @@ export interface FileRouteTypes {
     | '/_authenticated/exercise-packages/new'
     | '/_authenticated/exercises/$id'
     | '/_authenticated/exercises/new'
+    | '/_authenticated/news/$id'
+    | '/_authenticated/news/new'
     | '/_authenticated/rehabilitation-forms/$id'
     | '/_authenticated/rehabilitation-forms/new'
     | '/_authenticated/settings/account'
@@ -684,6 +708,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedRehabilitationFormsIdRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/_authenticated/news/new': {
+      id: '/_authenticated/news/new'
+      path: '/news/new'
+      fullPath: '/news/new'
+      preLoaderRoute: typeof AuthenticatedNewsNewRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/news/$id': {
+      id: '/_authenticated/news/$id'
+      path: '/news/$id'
+      fullPath: '/news/$id'
+      preLoaderRoute: typeof AuthenticatedNewsIdRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
     '/_authenticated/exercises/new': {
       id: '/_authenticated/exercises/new'
       path: '/exercises/new'
@@ -753,6 +791,8 @@ interface AuthenticatedRouteRouteChildren {
   AuthenticatedExercisePackagesNewRoute: typeof AuthenticatedExercisePackagesNewRoute
   AuthenticatedExercisesIdRoute: typeof AuthenticatedExercisesIdRoute
   AuthenticatedExercisesNewRoute: typeof AuthenticatedExercisesNewRoute
+  AuthenticatedNewsIdRoute: typeof AuthenticatedNewsIdRoute
+  AuthenticatedNewsNewRoute: typeof AuthenticatedNewsNewRoute
   AuthenticatedRehabilitationFormsIdRoute: typeof AuthenticatedRehabilitationFormsIdRoute
   AuthenticatedRehabilitationFormsNewRoute: typeof AuthenticatedRehabilitationFormsNewRoute
   AuthenticatedAppsIndexRoute: typeof AuthenticatedAppsIndexRoute
@@ -776,6 +816,8 @@ const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedExercisePackagesNewRoute: AuthenticatedExercisePackagesNewRoute,
   AuthenticatedExercisesIdRoute: AuthenticatedExercisesIdRoute,
   AuthenticatedExercisesNewRoute: AuthenticatedExercisesNewRoute,
+  AuthenticatedNewsIdRoute: AuthenticatedNewsIdRoute,
+  AuthenticatedNewsNewRoute: AuthenticatedNewsNewRoute,
   AuthenticatedRehabilitationFormsIdRoute:
     AuthenticatedRehabilitationFormsIdRoute,
   AuthenticatedRehabilitationFormsNewRoute:
