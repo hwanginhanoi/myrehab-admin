@@ -1,0 +1,10 @@
+export {
+  getAllCoursesQueryParamsSchema,
+  getAllCourses200Schema,
+  getAllCoursesQueryResponseSchema,
+} from "./getAllCoursesSchema.ts";
+export {
+  getCourseStructurePathParamsSchema,
+  getCourseStructure200Schema,
+  getCourseStructureQueryResponseSchema,
+} from "./getCourseStructureSchema.ts";

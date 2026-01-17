@@ -6,7 +6,7 @@ import { Main } from '@/components/layout/main'
 import { ProfileDropdown } from '@/components/profile-dropdown'
 import { Search } from '@/components/search'
 import { ThemeSwitch } from '@/components/theme-switch'
-import { useGetAllExercises, useGetAllCategories, useGetAllGroups } from '@/api'
+import { useGetAllExercises, useGetAllCategories, useGetAllGroups, type GetAllExercisesQueryParams } from '@/api'
 import { ExercisesPrimaryButtons } from './components/exercises-primary-buttons'
 import { ExercisesTable } from './components/exercises-table'
 
@@ -20,7 +20,7 @@ export function Exercises() {
   // Note: URL uses 1-indexed pages, but API expects 0-indexed
   const page = (search.page as number) || 1
   const pageSize = (search.pageSize as number) || 10
-  const title = search.title as string | undefined
+  const title = (search.title as string | undefined)?.trim()
   const categoryIds = search.categoryIds as number[] | undefined
   const groupIds = search.groupIds as number[] | undefined
 
@@ -42,32 +42,16 @@ export function Exercises() {
   })
   const allGroups = groupsResponse?.content || []
 
-  // Build query params - include filters if present
-  const queryParams = useMemo(() => {
-    const params: any = {
-      pageable: {
-        page: page - 1, // Convert to 0-indexed for API
-        size: pageSize,
-      },
-    }
-
-    // Add search query if present
-    if (title && title.trim()) {
-      params.query = title.trim()
-    }
-
-    // Add categoryIds filter if present
-    if (categoryIds && categoryIds.length > 0) {
-      params.categoryIds = categoryIds
-    }
-
-    // Add groupIds filter if present
-    if (groupIds && groupIds.length > 0) {
-      params.groupIds = groupIds
-    }
-
-    return params
-  }, [page, pageSize, title, categoryIds, groupIds])
+  // Build query params with optional filters
+  const queryParams = useMemo<GetAllExercisesQueryParams>(() => ({
+    pageable: {
+      page: page - 1, // Convert to 0-indexed for API
+      size: pageSize,
+    },
+    ...(title && { query: title }),
+    ...(categoryIds && categoryIds.length > 0 && { categoryIds }),
+    ...(groupIds && groupIds.length > 0 && { groupIds }),
+  }), [page, pageSize, title, categoryIds, groupIds])
 
   // Fetch exercises with server-side filtering and pagination
   const { data: response, isLoading } = useGetAllExercises(queryParams, {
@@ -90,7 +74,7 @@ export function Exercises() {
         </div>
       </Header>
 
-      <Main className='flex fl  ex-1 flex-col gap-4 sm:gap-6'>
+      <Main className='flex flex-1 flex-col gap-4 sm:gap-6'>
         <div className='flex flex-wrap items-end justify-between gap-2'>
           <div>
             <h2 className='text-2xl font-bold tracking-tight'>Bài tập</h2>

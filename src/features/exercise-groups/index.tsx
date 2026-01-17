@@ -1,3 +1,4 @@
+import { useMemo } from 'react'
 import { getRouteApi } from '@tanstack/react-router'
 import { ConfigDrawer } from '@/components/config-drawer'
 import { Header } from '@/components/layout/header'
@@ -5,7 +6,7 @@ import { Main } from '@/components/layout/main'
 import { ProfileDropdown } from '@/components/profile-dropdown'
 import { Search } from '@/components/search'
 import { ThemeSwitch } from '@/components/theme-switch'
-import { useGetAllGroups } from '@/api'
+import { useGetAllGroups, type GetAllGroupsQueryParams } from '@/api'
 import { GroupsDialogs } from './components/groups-dialogs'
 import { GroupsPrimaryButtons } from './components/groups-primary-buttons'
 import { GroupsProvider } from './components/groups-provider'
@@ -21,11 +22,21 @@ export function ExerciseGroups() {
   // Note: URL uses 1-indexed pages, but API expects 0-indexed
   const page = (search.page as number) || 1
   const pageSize = (search.pageSize as number) || 10
+  const name = (search.name as string | undefined)?.trim()
 
-  const { data: response, isLoading } = useGetAllGroups({
+  // Build query params with optional filters
+  const queryParams = useMemo<GetAllGroupsQueryParams>(() => ({
     pageable: {
       page: page - 1, // Convert to 0-indexed for API
       size: pageSize,
+    },
+    ...(name && { query: name }),
+  }), [page, pageSize, name])
+
+  // Fetch groups with server-side filtering and pagination
+  const { data: response, isLoading } = useGetAllGroups(queryParams, {
+    query: {
+      placeholderData: (previousData) => previousData,
     },
   })
 

@@ -1,0 +1,10 @@
+{
+  "type": "object",
+  "properties": {
+    "userId": { "type": "integer", "format": "int64" },
+    "amount": { "type": "number" },
+    "description": { "type": "string" }
+  },
+  "required": ["amount", "userId"],
+  "x-readme-ref-name": "AddBalanceRequest"
+}

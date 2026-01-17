@@ -1,0 +1,5 @@
+{
+  "type": "object",
+  "properties": { "balance": { "type": "number" } },
+  "x-readme-ref-name": "BalanceResponse"
+}

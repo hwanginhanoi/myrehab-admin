@@ -23,6 +23,7 @@ import { Route as authForgotPasswordRouteImport } from './routes/(auth)/forgot-p
 import { Route as AuthenticatedSettingsRouteRouteImport } from './routes/_authenticated/settings/route'
 import { Route as AuthenticatedUsersIndexRouteImport } from './routes/_authenticated/users/index'
 import { Route as AuthenticatedTasksIndexRouteImport } from './routes/_authenticated/tasks/index'
+import { Route as AuthenticatedStaffIndexRouteImport } from './routes/_authenticated/staff/index'
 import { Route as AuthenticatedSettingsIndexRouteImport } from './routes/_authenticated/settings/index'
 import { Route as AuthenticatedRehabilitationFormsIndexRouteImport } from './routes/_authenticated/rehabilitation-forms/index'
 import { Route as AuthenticatedNewsIndexRouteImport } from './routes/_authenticated/news/index'
@@ -46,6 +47,9 @@ import { Route as AuthenticatedExercisesIdRouteImport } from './routes/_authenti
 import { Route as AuthenticatedExercisePackagesNewRouteImport } from './routes/_authenticated/exercise-packages/new'
 import { Route as AuthenticatedExercisePackagesIdRouteImport } from './routes/_authenticated/exercise-packages/$id'
 import { Route as AuthenticatedErrorsErrorRouteImport } from './routes/_authenticated/errors/$error'
+import { Route as AuthenticatedStaffDoctorsDoctorIdRouteRouteImport } from './routes/_authenticated/staff/doctors/$doctorId.route'
+import { Route as AuthenticatedStaffDoctorsDoctorIdIndexRouteImport } from './routes/_authenticated/staff/doctors/$doctorId.index'
+import { Route as AuthenticatedStaffDoctorsDoctorIdTrainersRouteImport } from './routes/_authenticated/staff/doctors/$doctorId.trainers'
 
 const AuthenticatedRouteRoute = AuthenticatedRouteRouteImport.update({
   id: '/_authenticated',
@@ -115,6 +119,11 @@ const AuthenticatedUsersIndexRoute = AuthenticatedUsersIndexRouteImport.update({
 const AuthenticatedTasksIndexRoute = AuthenticatedTasksIndexRouteImport.update({
   id: '/tasks/',
   path: '/tasks/',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedStaffIndexRoute = AuthenticatedStaffIndexRouteImport.update({
+  id: '/staff/',
+  path: '/staff/',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
 const AuthenticatedSettingsIndexRoute =
@@ -250,6 +259,24 @@ const AuthenticatedErrorsErrorRoute =
     path: '/errors/$error',
     getParentRoute: () => AuthenticatedRouteRoute,
   } as any)
+const AuthenticatedStaffDoctorsDoctorIdRouteRoute =
+  AuthenticatedStaffDoctorsDoctorIdRouteRouteImport.update({
+    id: '/staff/doctors/$doctorId',
+    path: '/staff/doctors/$doctorId',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedStaffDoctorsDoctorIdIndexRoute =
+  AuthenticatedStaffDoctorsDoctorIdIndexRouteImport.update({
+    id: '/',
+    path: '/',
+    getParentRoute: () => AuthenticatedStaffDoctorsDoctorIdRouteRoute,
+  } as any)
+const AuthenticatedStaffDoctorsDoctorIdTrainersRoute =
+  AuthenticatedStaffDoctorsDoctorIdTrainersRouteImport.update({
+    id: '/trainers',
+    path: '/trainers',
+    getParentRoute: () => AuthenticatedStaffDoctorsDoctorIdRouteRoute,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/settings': typeof AuthenticatedSettingsRouteRouteWithChildren
@@ -286,8 +313,12 @@ export interface FileRoutesByFullPath {
   '/news': typeof AuthenticatedNewsIndexRoute
   '/rehabilitation-forms': typeof AuthenticatedRehabilitationFormsIndexRoute
   '/settings/': typeof AuthenticatedSettingsIndexRoute
+  '/staff': typeof AuthenticatedStaffIndexRoute
   '/tasks': typeof AuthenticatedTasksIndexRoute
   '/users': typeof AuthenticatedUsersIndexRoute
+  '/staff/doctors/$doctorId': typeof AuthenticatedStaffDoctorsDoctorIdRouteRouteWithChildren
+  '/staff/doctors/$doctorId/trainers': typeof AuthenticatedStaffDoctorsDoctorIdTrainersRoute
+  '/staff/doctors/$doctorId/': typeof AuthenticatedStaffDoctorsDoctorIdIndexRoute
 }
 export interface FileRoutesByTo {
   '/forgot-password': typeof authForgotPasswordRoute
@@ -323,8 +354,11 @@ export interface FileRoutesByTo {
   '/news': typeof AuthenticatedNewsIndexRoute
   '/rehabilitation-forms': typeof AuthenticatedRehabilitationFormsIndexRoute
   '/settings': typeof AuthenticatedSettingsIndexRoute
+  '/staff': typeof AuthenticatedStaffIndexRoute
   '/tasks': typeof AuthenticatedTasksIndexRoute
   '/users': typeof AuthenticatedUsersIndexRoute
+  '/staff/doctors/$doctorId/trainers': typeof AuthenticatedStaffDoctorsDoctorIdTrainersRoute
+  '/staff/doctors/$doctorId': typeof AuthenticatedStaffDoctorsDoctorIdIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -363,8 +397,12 @@ export interface FileRoutesById {
   '/_authenticated/news/': typeof AuthenticatedNewsIndexRoute
   '/_authenticated/rehabilitation-forms/': typeof AuthenticatedRehabilitationFormsIndexRoute
   '/_authenticated/settings/': typeof AuthenticatedSettingsIndexRoute
+  '/_authenticated/staff/': typeof AuthenticatedStaffIndexRoute
   '/_authenticated/tasks/': typeof AuthenticatedTasksIndexRoute
   '/_authenticated/users/': typeof AuthenticatedUsersIndexRoute
+  '/_authenticated/staff/doctors/$doctorId': typeof AuthenticatedStaffDoctorsDoctorIdRouteRouteWithChildren
+  '/_authenticated/staff/doctors/$doctorId/trainers': typeof AuthenticatedStaffDoctorsDoctorIdTrainersRoute
+  '/_authenticated/staff/doctors/$doctorId/': typeof AuthenticatedStaffDoctorsDoctorIdIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -403,8 +441,12 @@ export interface FileRouteTypes {
     | '/news'
     | '/rehabilitation-forms'
     | '/settings/'
+    | '/staff'
     | '/tasks'
     | '/users'
+    | '/staff/doctors/$doctorId'
+    | '/staff/doctors/$doctorId/trainers'
+    | '/staff/doctors/$doctorId/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/forgot-password'
@@ -440,8 +482,11 @@ export interface FileRouteTypes {
     | '/news'
     | '/rehabilitation-forms'
     | '/settings'
+    | '/staff'
     | '/tasks'
     | '/users'
+    | '/staff/doctors/$doctorId/trainers'
+    | '/staff/doctors/$doctorId'
   id:
     | '__root__'
     | '/_authenticated'
@@ -479,8 +524,12 @@ export interface FileRouteTypes {
     | '/_authenticated/news/'
     | '/_authenticated/rehabilitation-forms/'
     | '/_authenticated/settings/'
+    | '/_authenticated/staff/'
     | '/_authenticated/tasks/'
     | '/_authenticated/users/'
+    | '/_authenticated/staff/doctors/$doctorId'
+    | '/_authenticated/staff/doctors/$doctorId/trainers'
+    | '/_authenticated/staff/doctors/$doctorId/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -594,6 +643,13 @@ declare module '@tanstack/react-router' {
       path: '/tasks'
       fullPath: '/tasks'
       preLoaderRoute: typeof AuthenticatedTasksIndexRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/staff/': {
+      id: '/_authenticated/staff/'
+      path: '/staff'
+      fullPath: '/staff'
+      preLoaderRoute: typeof AuthenticatedStaffIndexRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
     '/_authenticated/settings/': {
@@ -757,6 +813,27 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedErrorsErrorRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/_authenticated/staff/doctors/$doctorId': {
+      id: '/_authenticated/staff/doctors/$doctorId'
+      path: '/staff/doctors/$doctorId'
+      fullPath: '/staff/doctors/$doctorId'
+      preLoaderRoute: typeof AuthenticatedStaffDoctorsDoctorIdRouteRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/staff/doctors/$doctorId/': {
+      id: '/_authenticated/staff/doctors/$doctorId/'
+      path: '/'
+      fullPath: '/staff/doctors/$doctorId/'
+      preLoaderRoute: typeof AuthenticatedStaffDoctorsDoctorIdIndexRouteImport
+      parentRoute: typeof AuthenticatedStaffDoctorsDoctorIdRouteRoute
+    }
+    '/_authenticated/staff/doctors/$doctorId/trainers': {
+      id: '/_authenticated/staff/doctors/$doctorId/trainers'
+      path: '/trainers'
+      fullPath: '/staff/doctors/$doctorId/trainers'
+      preLoaderRoute: typeof AuthenticatedStaffDoctorsDoctorIdTrainersRouteImport
+      parentRoute: typeof AuthenticatedStaffDoctorsDoctorIdRouteRoute
+    }
   }
 }
 
@@ -783,6 +860,24 @@ const AuthenticatedSettingsRouteRouteWithChildren =
     AuthenticatedSettingsRouteRouteChildren,
   )
 
+interface AuthenticatedStaffDoctorsDoctorIdRouteRouteChildren {
+  AuthenticatedStaffDoctorsDoctorIdTrainersRoute: typeof AuthenticatedStaffDoctorsDoctorIdTrainersRoute
+  AuthenticatedStaffDoctorsDoctorIdIndexRoute: typeof AuthenticatedStaffDoctorsDoctorIdIndexRoute
+}
+
+const AuthenticatedStaffDoctorsDoctorIdRouteRouteChildren: AuthenticatedStaffDoctorsDoctorIdRouteRouteChildren =
+  {
+    AuthenticatedStaffDoctorsDoctorIdTrainersRoute:
+      AuthenticatedStaffDoctorsDoctorIdTrainersRoute,
+    AuthenticatedStaffDoctorsDoctorIdIndexRoute:
+      AuthenticatedStaffDoctorsDoctorIdIndexRoute,
+  }
+
+const AuthenticatedStaffDoctorsDoctorIdRouteRouteWithChildren =
+  AuthenticatedStaffDoctorsDoctorIdRouteRoute._addFileChildren(
+    AuthenticatedStaffDoctorsDoctorIdRouteRouteChildren,
+  )
+
 interface AuthenticatedRouteRouteChildren {
   AuthenticatedSettingsRouteRoute: typeof AuthenticatedSettingsRouteRouteWithChildren
   AuthenticatedIndexRoute: typeof AuthenticatedIndexRoute
@@ -804,8 +899,10 @@ interface AuthenticatedRouteRouteChildren {
   AuthenticatedHelpCenterIndexRoute: typeof AuthenticatedHelpCenterIndexRoute
   AuthenticatedNewsIndexRoute: typeof AuthenticatedNewsIndexRoute
   AuthenticatedRehabilitationFormsIndexRoute: typeof AuthenticatedRehabilitationFormsIndexRoute
+  AuthenticatedStaffIndexRoute: typeof AuthenticatedStaffIndexRoute
   AuthenticatedTasksIndexRoute: typeof AuthenticatedTasksIndexRoute
   AuthenticatedUsersIndexRoute: typeof AuthenticatedUsersIndexRoute
+  AuthenticatedStaffDoctorsDoctorIdRouteRoute: typeof AuthenticatedStaffDoctorsDoctorIdRouteRouteWithChildren
 }
 
 const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
@@ -834,8 +931,11 @@ const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedNewsIndexRoute: AuthenticatedNewsIndexRoute,
   AuthenticatedRehabilitationFormsIndexRoute:
     AuthenticatedRehabilitationFormsIndexRoute,
+  AuthenticatedStaffIndexRoute: AuthenticatedStaffIndexRoute,
   AuthenticatedTasksIndexRoute: AuthenticatedTasksIndexRoute,
   AuthenticatedUsersIndexRoute: AuthenticatedUsersIndexRoute,
+  AuthenticatedStaffDoctorsDoctorIdRouteRoute:
+    AuthenticatedStaffDoctorsDoctorIdRouteRouteWithChildren,
 }
 
 const AuthenticatedRouteRouteWithChildren =

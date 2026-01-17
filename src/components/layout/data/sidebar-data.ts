@@ -83,6 +83,11 @@ export const sidebarData: SidebarData = {
           icon: Users,
         },
         {
+          title: 'Staff',
+          url: '/staff',
+          icon: UserCog,
+        },
+        {
           title: 'Exercise Categories',
           url: '/exercise-categories',
           icon: FolderTree,
