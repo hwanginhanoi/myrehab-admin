@@ -1,35 +1,46 @@
-import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
-import { Table, TableHeader, TableBody, TableRow, TableCell, TableHead } from '@/components/ui/table'
-import { Badge } from '@/components/ui/badge'
-import { UserPlus, Trash2, Loader2 } from 'lucide-react'
-import { format } from 'date-fns'
+import { UserPlus, Loader2 } from 'lucide-react'
+import { type NavigateFn } from '@/hooks/use-table-url-state'
 import { useGetTrainersByDoctor, type TrainerResponse } from '@/api'
 import { useDoctorDetail } from './doctor-detail-provider'
+import { TrainersTable } from './trainers-table'
 
 type TrainerListCardProps = {
   doctorId: number
+  search: Record<string, unknown>
+  navigate: NavigateFn
 }
 
-export function TrainerListCard({ doctorId }: TrainerListCardProps) {
-  const { setOpen, setCurrentTrainer } = useDoctorDetail()
-  const { data: trainers, isLoading } = useGetTrainersByDoctor(doctorId)
+export function TrainerListCard({
+  doctorId,
+  search,
+  navigate,
+}: TrainerListCardProps) {
+  const { setOpen } = useDoctorDetail()
 
-  const handleRemoveClick = (trainer: TrainerResponse) => {
-    setCurrentTrainer(trainer)
-    setOpen('remove')
-  }
+  // Extract pagination params from URL
+  const page = (search.page as number) || 1
+  const pageSize = (search.pageSize as number) || 10
+  // TODO: Add search support when backend API supports it
+  // const query = (search.query as string) || undefined
+
+  // Use paginated API
+  const { data, isLoading } = useGetTrainersByDoctor(
+    doctorId,
+    { pageable: { page: page - 1, size: pageSize } }
+  )
+
+  const trainers = (data?.content as TrainerResponse[]) || []
+  const pageCount = data?.page?.totalPages || 0
+  const totalCount = data?.page?.totalElements || 0
 
   return (
-    <Card>
-      <CardHeader className='flex flex-row items-center justify-between space-y-0 pb-4'>
-        <div className='flex items-center gap-2'>
-          <CardTitle>Huấn luyện viên</CardTitle>
-          {trainers && trainers.length > 0 && (
-            <Badge variant='secondary' className='ml-2'>
-              {trainers.length}
-            </Badge>
-          )}
+    <div className='flex flex-col gap-4'>
+      <div className='flex items-center justify-between'>
+        <div>
+          <p className='text-sm text-muted-foreground'>
+            {isLoading ? 'Đang tải...' : `${totalCount} huấn luyện viên`}
+          </p>
         </div>
         <Button
           onClick={() => setOpen('assign')}
@@ -39,58 +50,29 @@ export function TrainerListCard({ doctorId }: TrainerListCardProps) {
           <UserPlus className='mr-2 h-4 w-4' />
           Gán huấn luyện viên
         </Button>
-      </CardHeader>
-      <CardContent>
-        {isLoading ? (
-          <div className='flex items-center justify-center h-32'>
-            <Loader2 className='mr-2 h-4 w-4 animate-spin' />
-            <p className='text-sm text-muted-foreground'>Đang tải...</p>
-          </div>
-        ) : trainers && trainers.length > 0 ? (
-          <Table>
-            <TableHeader>
-              <TableRow>
-                <TableHead>Họ và tên</TableHead>
-                <TableHead>Email</TableHead>
-                <TableHead>Ngày thêm</TableHead>
-                <TableHead className='w-[100px]'>Thao tác</TableHead>
-              </TableRow>
-            </TableHeader>
-            <TableBody>
-              {trainers.map((trainer) => (
-                <TableRow key={trainer.id}>
-                  <TableCell className='font-medium'>{trainer.fullName || '-'}</TableCell>
-                  <TableCell>{trainer.email || '-'}</TableCell>
-                  <TableCell>
-                    {trainer.createdAt
-                      ? format(new Date(trainer.createdAt), 'dd/MM/yyyy')
-                      : '-'}
-                  </TableCell>
-                  <TableCell>
-                    <Button
-                      variant='ghost'
-                      size='sm'
-                      onClick={() => handleRemoveClick(trainer)}
-                      className='h-8 w-8 p-0 text-destructive hover:text-destructive'
-                    >
-                      <Trash2 className='h-4 w-4' />
-                      <span className='sr-only'>Xóa huấn luyện viên</span>
-                    </Button>
-                  </TableCell>
-                </TableRow>
-              ))}
-            </TableBody>
-          </Table>
-        ) : (
-          <div className='flex flex-col items-center justify-center h-32 border-2 border-dashed rounded-lg'>
-            <p className='text-sm text-muted-foreground text-center'>
-              Chưa có huấn luyện viên nào được gán.
-              <br />
-              Nhấn "Gán huấn luyện viên" để thêm.
-            </p>
-          </div>
-        )}
-      </CardContent>
-    </Card>
+      </div>
+
+      {isLoading ? (
+        <div className='flex items-center justify-center h-32 border rounded-md'>
+          <Loader2 className='mr-2 h-4 w-4 animate-spin' />
+          <p className='text-sm text-muted-foreground'>Đang tải...</p>
+        </div>
+      ) : totalCount > 0 ? (
+        <TrainersTable
+          data={trainers}
+          search={search}
+          navigate={navigate}
+          pageCount={pageCount}
+        />
+      ) : (
+        <div className='flex flex-col items-center justify-center h-32 border-2 border-dashed rounded-lg'>
+          <p className='text-sm text-muted-foreground text-center'>
+            Chưa có huấn luyện viên nào được gán.
+            <br />
+            Nhấn "Gán huấn luyện viên" để thêm.
+          </p>
+        </div>
+      )}
+    </div>
   )
 }

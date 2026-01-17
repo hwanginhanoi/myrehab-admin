@@ -49,6 +49,7 @@ export type {
 } from "./GetStaffById.ts";
 export type {
   GetTrainersByDoctorPathParams,
+  GetTrainersByDoctorQueryParams,
   GetTrainersByDoctor200,
   GetTrainersByDoctorQueryResponse,
   GetTrainersByDoctorQuery,

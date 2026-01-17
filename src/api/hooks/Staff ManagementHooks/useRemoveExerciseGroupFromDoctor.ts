@@ -17,7 +17,9 @@ import type {
 import { mutationOptions, useMutation } from "@tanstack/react-query";
 
 export const removeExerciseGroupFromDoctorMutationKey = () =>
-  [{ url: "/api/admin/doctors/:doctorId/exercise-groups/:groupId" }] as const;
+  [
+    { url: "/api/admin/staff/doctors/:doctorId/exercise-groups/:groupId" },
+  ] as const;
 
 export type RemoveExerciseGroupFromDoctorMutationKey = ReturnType<
   typeof removeExerciseGroupFromDoctorMutationKey
@@ -26,7 +28,7 @@ export type RemoveExerciseGroupFromDoctorMutationKey = ReturnType<
 /**
  * @description Remove an exercise group assignment from a doctor
  * @summary Remove exercise group from doctor
- * {@link /api/admin/doctors/:doctorId/exercise-groups/:groupId}
+ * {@link /api/admin/staff/doctors/:doctorId/exercise-groups/:groupId}
  */
 export async function removeExerciseGroupFromDoctor(
   doctorId: RemoveExerciseGroupFromDoctorPathParams["doctorId"],
@@ -41,7 +43,7 @@ export async function removeExerciseGroupFromDoctor(
     unknown
   >({
     method: "DELETE",
-    url: `/api/admin/doctors/${doctorId}/exercise-groups/${groupId}`,
+    url: `/api/admin/staff/doctors/${doctorId}/exercise-groups/${groupId}`,
     ...requestConfig,
   });
   return res.data;
@@ -70,7 +72,7 @@ export function removeExerciseGroupFromDoctorMutationOptions(
 /**
  * @description Remove an exercise group assignment from a doctor
  * @summary Remove exercise group from doctor
- * {@link /api/admin/doctors/:doctorId/exercise-groups/:groupId}
+ * {@link /api/admin/staff/doctors/:doctorId/exercise-groups/:groupId}
  */
 export function useRemoveExerciseGroupFromDoctor<TContext>(
   options: {

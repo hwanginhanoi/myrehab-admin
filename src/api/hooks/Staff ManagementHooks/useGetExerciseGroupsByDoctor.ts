@@ -22,7 +22,7 @@ export const getExerciseGroupsByDoctorQueryKey = (
 ) =>
   [
     {
-      url: "/api/admin/doctors/:doctorId/exercise-groups",
+      url: "/api/admin/staff/doctors/:doctorId/exercise-groups",
       params: { doctorId: doctorId },
     },
   ] as const;
@@ -34,7 +34,7 @@ export type GetExerciseGroupsByDoctorQueryKey = ReturnType<
 /**
  * @description List all exercise groups assigned to a specific doctor
  * @summary Get exercise groups by doctor
- * {@link /api/admin/doctors/:doctorId/exercise-groups}
+ * {@link /api/admin/staff/doctors/:doctorId/exercise-groups}
  */
 export async function getExerciseGroupsByDoctor(
   doctorId: GetExerciseGroupsByDoctorPathParams["doctorId"],
@@ -48,7 +48,7 @@ export async function getExerciseGroupsByDoctor(
     unknown
   >({
     method: "GET",
-    url: `/api/admin/doctors/${doctorId}/exercise-groups`,
+    url: `/api/admin/staff/doctors/${doctorId}/exercise-groups`,
     ...requestConfig,
   });
   return res.data;
@@ -77,7 +77,7 @@ export function getExerciseGroupsByDoctorQueryOptions(
 /**
  * @description List all exercise groups assigned to a specific doctor
  * @summary Get exercise groups by doctor
- * {@link /api/admin/doctors/:doctorId/exercise-groups}
+ * {@link /api/admin/staff/doctors/:doctorId/exercise-groups}
  */
 export function useGetExerciseGroupsByDoctor<
   TData = GetExerciseGroupsByDoctorQueryResponse,

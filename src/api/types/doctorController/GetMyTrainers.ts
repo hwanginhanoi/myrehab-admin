@@ -3,16 +3,25 @@
  * Do not edit manually.
  */
 
-import type { TrainerResponse } from "../TrainerResponse.ts";
+import type { Pageable } from "../Pageable.ts";
+import type { PagedModel } from "../PagedModel.ts";
+
+export type GetMyTrainersQueryParams = {
+  /**
+   * @type object
+   */
+  pageable: Pageable;
+};
 
 /**
  * @description OK
  */
-export type GetMyTrainers200 = TrainerResponse[];
+export type GetMyTrainers200 = PagedModel;
 
 export type GetMyTrainersQueryResponse = GetMyTrainers200;
 
 export type GetMyTrainersQuery = {
   Response: GetMyTrainers200;
+  QueryParams: GetMyTrainersQueryParams;
   Errors: any;
 };

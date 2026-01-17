@@ -3,15 +3,20 @@
  * Do not edit manually.
  */
 
-import { trainerResponseSchema } from "../trainerResponseSchema.ts";
+import { pageableSchema } from "../pageableSchema.ts";
+import { pagedModelSchema } from "../pagedModelSchema.ts";
 import { z } from "zod/v4";
+
+export const getMyTrainersQueryParamsSchema = z.object({
+  get pageable() {
+    return pageableSchema;
+  },
+});
 
 /**
  * @description OK
  */
-export const getMyTrainers200Schema = z.array(
-  z.lazy(() => trainerResponseSchema),
-);
+export const getMyTrainers200Schema = z.lazy(() => pagedModelSchema);
 
 export const getMyTrainersQueryResponseSchema = z.lazy(
   () => getMyTrainers200Schema,

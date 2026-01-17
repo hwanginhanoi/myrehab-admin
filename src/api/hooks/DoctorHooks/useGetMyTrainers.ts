@@ -4,7 +4,10 @@
  */
 
 import fetch from "@/lib/api-client";
-import type { GetMyTrainersQueryResponse } from "../../types/doctorController/GetMyTrainers.ts";
+import type {
+  GetMyTrainersQueryResponse,
+  GetMyTrainersQueryParams,
+} from "../../types/doctorController/GetMyTrainers.ts";
 import type { RequestConfig, ResponseErrorConfig } from "@/lib/api-client";
 import type {
   QueryKey,
@@ -14,8 +17,8 @@ import type {
 } from "@tanstack/react-query";
 import { queryOptions, useQuery } from "@tanstack/react-query";
 
-export const getMyTrainersQueryKey = () =>
-  [{ url: "/api/doctors/my-trainers" }] as const;
+export const getMyTrainersQueryKey = (params: GetMyTrainersQueryParams) =>
+  [{ url: "/api/doctors/my-trainers" }, ...(params ? [params] : [])] as const;
 
 export type GetMyTrainersQueryKey = ReturnType<typeof getMyTrainersQueryKey>;
 
@@ -25,6 +28,7 @@ export type GetMyTrainersQueryKey = ReturnType<typeof getMyTrainersQueryKey>;
  * {@link /api/doctors/my-trainers}
  */
 export async function getMyTrainers(
+  params: GetMyTrainersQueryParams,
   config: Partial<RequestConfig> & { client?: typeof fetch } = {},
 ) {
   const { client: request = fetch, ...requestConfig } = config;
@@ -33,24 +37,31 @@ export async function getMyTrainers(
     GetMyTrainersQueryResponse,
     ResponseErrorConfig<Error>,
     unknown
-  >({ method: "GET", url: `/api/doctors/my-trainers`, ...requestConfig });
+  >({
+    method: "GET",
+    url: `/api/doctors/my-trainers`,
+    params,
+    ...requestConfig,
+  });
   return res.data;
 }
 
 export function getMyTrainersQueryOptions(
+  params: GetMyTrainersQueryParams,
   config: Partial<RequestConfig> & { client?: typeof fetch } = {},
 ) {
-  const queryKey = getMyTrainersQueryKey();
+  const queryKey = getMyTrainersQueryKey(params);
   return queryOptions<
     GetMyTrainersQueryResponse,
     ResponseErrorConfig<Error>,
     GetMyTrainersQueryResponse,
     typeof queryKey
   >({
+    enabled: !!params,
     queryKey,
     queryFn: async ({ signal }) => {
       config.signal = signal;
-      return getMyTrainers(config);
+      return getMyTrainers(params, config);
     },
   });
 }
@@ -65,6 +76,7 @@ export function useGetMyTrainers<
   TQueryData = GetMyTrainersQueryResponse,
   TQueryKey extends QueryKey = GetMyTrainersQueryKey,
 >(
+  params: GetMyTrainersQueryParams,
   options: {
     query?: Partial<
       QueryObserverOptions<
@@ -80,11 +92,11 @@ export function useGetMyTrainers<
 ) {
   const { query: queryConfig = {}, client: config = {} } = options ?? {};
   const { client: queryClient, ...queryOptions } = queryConfig;
-  const queryKey = queryOptions?.queryKey ?? getMyTrainersQueryKey();
+  const queryKey = queryOptions?.queryKey ?? getMyTrainersQueryKey(params);
 
   const query = useQuery(
     {
-      ...getMyTrainersQueryOptions(config),
+      ...getMyTrainersQueryOptions(params, config),
       queryKey,
       ...queryOptions,
     } as unknown as QueryObserverOptions,

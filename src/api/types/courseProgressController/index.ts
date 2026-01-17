@@ -22,6 +22,11 @@ export type {
   GetDayContentQuery,
 } from "./GetDayContent.ts";
 export type {
+  GetMyAssignedCourses1200,
+  GetMyAssignedCourses1QueryResponse,
+  GetMyAssignedCourses1Query,
+} from "./GetMyAssignedCourses1.ts";
+export type {
   StartCourse200,
   StartCourseMutationRequest,
   StartCourseMutationResponse,

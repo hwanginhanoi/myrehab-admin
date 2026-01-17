@@ -40,6 +40,7 @@ export {
 } from "./getStaffByIdSchema.ts";
 export {
   getTrainersByDoctorPathParamsSchema,
+  getTrainersByDoctorQueryParamsSchema,
   getTrainersByDoctor200Schema,
   getTrainersByDoctorQueryResponseSchema,
 } from "./getTrainersByDoctorSchema.ts";

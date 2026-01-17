@@ -18,6 +18,10 @@ export {
   getDayContentQueryResponseSchema,
 } from "./getDayContentSchema.ts";
 export {
+  getMyAssignedCourses1200Schema,
+  getMyAssignedCourses1QueryResponseSchema,
+} from "./getMyAssignedCourses1Schema.ts";
+export {
   startCourse200Schema,
   startCourseMutationRequestSchema,
   startCourseMutationResponseSchema,

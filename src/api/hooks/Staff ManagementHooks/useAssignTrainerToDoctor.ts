@@ -17,7 +17,7 @@ import type {
 import { mutationOptions, useMutation } from "@tanstack/react-query";
 
 export const assignTrainerToDoctorMutationKey = () =>
-  [{ url: "/api/admin/doctors/:doctorId/trainers/:trainerId" }] as const;
+  [{ url: "/api/admin/staff/doctors/:doctorId/trainers/:trainerId" }] as const;
 
 export type AssignTrainerToDoctorMutationKey = ReturnType<
   typeof assignTrainerToDoctorMutationKey
@@ -26,7 +26,7 @@ export type AssignTrainerToDoctorMutationKey = ReturnType<
 /**
  * @description Assign a trainer to work under a specific doctor
  * @summary Assign trainer to doctor
- * {@link /api/admin/doctors/:doctorId/trainers/:trainerId}
+ * {@link /api/admin/staff/doctors/:doctorId/trainers/:trainerId}
  */
 export async function assignTrainerToDoctor(
   doctorId: AssignTrainerToDoctorPathParams["doctorId"],
@@ -41,7 +41,7 @@ export async function assignTrainerToDoctor(
     unknown
   >({
     method: "POST",
-    url: `/api/admin/doctors/${doctorId}/trainers/${trainerId}`,
+    url: `/api/admin/staff/doctors/${doctorId}/trainers/${trainerId}`,
     ...requestConfig,
   });
   return res.data;
@@ -70,7 +70,7 @@ export function assignTrainerToDoctorMutationOptions(
 /**
  * @description Assign a trainer to work under a specific doctor
  * @summary Assign trainer to doctor
- * {@link /api/admin/doctors/:doctorId/trainers/:trainerId}
+ * {@link /api/admin/staff/doctors/:doctorId/trainers/:trainerId}
  */
 export function useAssignTrainerToDoctor<TContext>(
   options: {

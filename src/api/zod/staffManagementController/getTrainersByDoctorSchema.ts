@@ -3,19 +3,24 @@
  * Do not edit manually.
  */
 
-import { trainerResponseSchema } from "../trainerResponseSchema.ts";
+import { pageableSchema } from "../pageableSchema.ts";
+import { pagedModelSchema } from "../pagedModelSchema.ts";
 import { z } from "zod/v4";
 
 export const getTrainersByDoctorPathParamsSchema = z.object({
   doctorId: z.coerce.number().int().describe("Doctor ID"),
 });
 
+export const getTrainersByDoctorQueryParamsSchema = z.object({
+  get pageable() {
+    return pageableSchema;
+  },
+});
+
 /**
  * @description OK
  */
-export const getTrainersByDoctor200Schema = z.array(
-  z.lazy(() => trainerResponseSchema),
-);
+export const getTrainersByDoctor200Schema = z.lazy(() => pagedModelSchema);
 
 export const getTrainersByDoctorQueryResponseSchema = z.lazy(
   () => getTrainersByDoctor200Schema,

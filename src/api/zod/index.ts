@@ -1,3 +1,6 @@
+export { addBalanceRequestSchema } from "./addBalanceRequestSchema.ts";
+export { assignCourseToPatientRequestSchema } from "./assignCourseToPatientRequestSchema.ts";
+export { assignPatientToDoctorRequestSchema } from "./assignPatientToDoctorRequestSchema.ts";
 export {
   checkPhone200Schema,
   checkPhoneMutationRequestSchema,
@@ -43,6 +46,16 @@ export {
   sendRegistrationOtpMutationRequestSchema,
   sendRegistrationOtpMutationResponseSchema,
 } from "./authenticationController/sendRegistrationOtpSchema.ts";
+export {
+  addBalance200Schema,
+  addBalanceMutationRequestSchema,
+  addBalanceMutationResponseSchema,
+} from "./balanceControllerController/addBalanceSchema.ts";
+export {
+  getMyBalance200Schema,
+  getMyBalanceQueryResponseSchema,
+} from "./balanceControllerController/getMyBalanceSchema.ts";
+export { balanceResponseSchema } from "./balanceResponseSchema.ts";
 export { categoryResponseSchema } from "./categoryResponseSchema.ts";
 export { checkPhoneRequestSchema } from "./checkPhoneRequestSchema.ts";
 export { checkPhoneResponseSchema } from "./checkPhoneResponseSchema.ts";
@@ -67,6 +80,10 @@ export {
   getDayContent200Schema,
   getDayContentQueryResponseSchema,
 } from "./courseProgressController/getDayContentSchema.ts";
+export {
+  getMyAssignedCourses1200Schema,
+  getMyAssignedCourses1QueryResponseSchema,
+} from "./courseProgressController/getMyAssignedCourses1Schema.ts";
 export {
   startCourse200Schema,
   startCourseMutationRequestSchema,
@@ -93,9 +110,37 @@ export { dayContentResponseSchema } from "./dayContentResponseSchema.ts";
 export { dayExerciseItemResponseSchema } from "./dayExerciseItemResponseSchema.ts";
 export { deleteFileRequestSchema } from "./deleteFileRequestSchema.ts";
 export {
+  assignCourseToPatientPathParamsSchema,
+  assignCourseToPatient200Schema,
+  assignCourseToPatientMutationRequestSchema,
+  assignCourseToPatientMutationResponseSchema,
+} from "./doctorController/assignCourseToPatientSchema.ts";
+export {
+  getMyAssignedCoursesQueryParamsSchema,
+  getMyAssignedCourses200Schema,
+  getMyAssignedCoursesQueryResponseSchema,
+} from "./doctorController/getMyAssignedCoursesSchema.ts";
+export {
+  getMyPatientsQueryParamsSchema,
+  getMyPatients200Schema,
+  getMyPatientsQueryResponseSchema,
+} from "./doctorController/getMyPatientsSchema.ts";
+export {
+  getMyTrainersQueryParamsSchema,
   getMyTrainers200Schema,
   getMyTrainersQueryResponseSchema,
 } from "./doctorController/getMyTrainersSchema.ts";
+export {
+  getPatientCoursesPathParamsSchema,
+  getPatientCourses200Schema,
+  getPatientCoursesQueryResponseSchema,
+} from "./doctorController/getPatientCoursesSchema.ts";
+export {
+  revokeCourseAssignmentPathParamsSchema,
+  revokeCourseAssignment200Schema,
+  revokeCourseAssignmentMutationResponseSchema,
+} from "./doctorController/revokeCourseAssignmentSchema.ts";
+export { doctorPatientResponseSchema } from "./doctorPatientResponseSchema.ts";
 export {
   createCategory200Schema,
   createCategoryMutationRequestSchema,
@@ -204,15 +249,37 @@ export { generateUploadUrlRequestSchema } from "./generateUploadUrlRequestSchema
 export { groupResponseSchema } from "./groupResponseSchema.ts";
 export { loginWithPasswordRequestSchema } from "./loginWithPasswordRequestSchema.ts";
 export { loginWithPinRequestSchema } from "./loginWithPinRequestSchema.ts";
+export { myAssignedCourseResponseSchema } from "./myAssignedCourseResponseSchema.ts";
 export { otpResponseSchema } from "./otpResponseSchema.ts";
 export { pageableSchema } from "./pageableSchema.ts";
 export { pagedModelSchema } from "./pagedModelSchema.ts";
 export { pageMetadataSchema } from "./pageMetadataSchema.ts";
+export {
+  assignPatientToDoctorPathParamsSchema,
+  assignPatientToDoctor200Schema,
+  assignPatientToDoctorMutationRequestSchema,
+  assignPatientToDoctorMutationResponseSchema,
+} from "./patientManagementController/assignPatientToDoctorSchema.ts";
+export {
+  getDoctorPatientsPathParamsSchema,
+  getDoctorPatientsQueryParamsSchema,
+  getDoctorPatients200Schema,
+  getDoctorPatientsQueryResponseSchema,
+} from "./patientManagementController/getDoctorPatientsSchema.ts";
+export {
+  removePatientFromDoctorPathParamsSchema,
+  removePatientFromDoctor200Schema,
+  removePatientFromDoctorMutationResponseSchema,
+} from "./patientManagementController/removePatientFromDoctorSchema.ts";
+export { pendingPurchaseResponseSchema } from "./pendingPurchaseResponseSchema.ts";
 export { presignedUrlResponseSchema } from "./presignedUrlResponseSchema.ts";
+export { purchaseCourseRequestSchema } from "./purchaseCourseRequestSchema.ts";
+export { purchasePackageRequestSchema } from "./purchasePackageRequestSchema.ts";
 export { refreshTokenRequestSchema } from "./refreshTokenRequestSchema.ts";
 export { registerRequestSchema } from "./registerRequestSchema.ts";
 export { resetPinRequestSchema } from "./resetPinRequestSchema.ts";
 export { sendOtpRequestSchema } from "./sendOtpRequestSchema.ts";
+export { spendingSummaryResponseSchema } from "./spendingSummaryResponseSchema.ts";
 export { staffAuthResponseSchema } from "./staffAuthResponseSchema.ts";
 export {
   assignExerciseGroupToDoctorPathParamsSchema,
@@ -256,6 +323,7 @@ export {
 } from "./staffManagementController/getStaffByIdSchema.ts";
 export {
   getTrainersByDoctorPathParamsSchema,
+  getTrainersByDoctorQueryParamsSchema,
   getTrainersByDoctor200Schema,
   getTrainersByDoctorQueryResponseSchema,
 } from "./staffManagementController/getTrainersByDoctorSchema.ts";
@@ -277,10 +345,38 @@ export {
 } from "./staffManagementController/updateStaffSchema.ts";
 export { staffResponseSchema } from "./staffResponseSchema.ts";
 export { startCourseRequestSchema } from "./startCourseRequestSchema.ts";
-export { trainerResponseSchema } from "./trainerResponseSchema.ts";
+export {
+  getMySubscriptions200Schema,
+  getMySubscriptionsQueryResponseSchema,
+} from "./subscriptionControllerController/getMySubscriptionsSchema.ts";
+export {
+  getPendingPurchases200Schema,
+  getPendingPurchasesQueryResponseSchema,
+} from "./subscriptionControllerController/getPendingPurchasesSchema.ts";
+export {
+  purchaseCourse200Schema,
+  purchaseCourseMutationRequestSchema,
+  purchaseCourseMutationResponseSchema,
+} from "./subscriptionControllerController/purchaseCourseSchema.ts";
+export {
+  purchasePackage200Schema,
+  purchasePackageMutationRequestSchema,
+  purchasePackageMutationResponseSchema,
+} from "./subscriptionControllerController/purchasePackageSchema.ts";
+export { subscriptionResponseSchema } from "./subscriptionResponseSchema.ts";
+export {
+  getMyTotalSpending200Schema,
+  getMyTotalSpendingQueryResponseSchema,
+} from "./transactionControllerController/getMyTotalSpendingSchema.ts";
+export {
+  getMyTransactionHistoryQueryParamsSchema,
+  getMyTransactionHistory200Schema,
+  getMyTransactionHistoryQueryResponseSchema,
+} from "./transactionControllerController/getMyTransactionHistorySchema.ts";
 export { updateCategoryRequestSchema } from "./updateCategoryRequestSchema.ts";
 export { updateExercisePackageRequestSchema } from "./updateExercisePackageRequestSchema.ts";
 export { updateExerciseRequestSchema } from "./updateExerciseRequestSchema.ts";
 export { updateGroupRequestSchema } from "./updateGroupRequestSchema.ts";
 export { updateStaffRequestSchema } from "./updateStaffRequestSchema.ts";
 export { userAuthResponseSchema } from "./userAuthResponseSchema.ts";
+export { userCourseAssignmentResponseSchema } from "./userCourseAssignmentResponseSchema.ts";

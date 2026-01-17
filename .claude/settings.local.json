@@ -17,7 +17,8 @@
       "Bash(dir /b \"C:\\\\Users\\\\Hwang\\\\Desktop\\\\Dev\\\\myrehab-admin\\\\src\\\\api\\\\types\")",
       "Bash(dir /b \"C:\\\\Users\\\\Hwang\\\\Desktop\\\\Dev\\\\myrehab-admin\\\\src\\\\api\\\\hooks\\\\Staff ManagementHooks\")",
       "Bash(find:*)",
-      "Bash(tree:*)"
+      "Bash(tree:*)",
+      "Bash(grep:*)"
     ]
   }
 }

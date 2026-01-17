@@ -3,7 +3,8 @@
  * Do not edit manually.
  */
 
-import type { TrainerResponse } from "../TrainerResponse.ts";
+import type { Pageable } from "../Pageable.ts";
+import type { PagedModel } from "../PagedModel.ts";
 
 export type GetTrainersByDoctorPathParams = {
   /**
@@ -13,15 +14,23 @@ export type GetTrainersByDoctorPathParams = {
   doctorId: number;
 };
 
+export type GetTrainersByDoctorQueryParams = {
+  /**
+   * @type object
+   */
+  pageable: Pageable;
+};
+
 /**
  * @description OK
  */
-export type GetTrainersByDoctor200 = TrainerResponse[];
+export type GetTrainersByDoctor200 = PagedModel;
 
 export type GetTrainersByDoctorQueryResponse = GetTrainersByDoctor200;
 
 export type GetTrainersByDoctorQuery = {
   Response: GetTrainersByDoctor200;
   PathParams: GetTrainersByDoctorPathParams;
+  QueryParams: GetTrainersByDoctorQueryParams;
   Errors: any;
 };

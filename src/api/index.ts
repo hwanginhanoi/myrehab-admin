@@ -7,19 +7,32 @@ export type { RegisterMutationKey } from "./hooks/AuthenticationHooks/useRegiste
 export type { RequestPinResetMutationKey } from "./hooks/AuthenticationHooks/useRequestPinReset.ts";
 export type { ResetPinMutationKey } from "./hooks/AuthenticationHooks/useResetPin.ts";
 export type { SendRegistrationOtpMutationKey } from "./hooks/AuthenticationHooks/useSendRegistrationOtp.ts";
+export type { AddBalanceMutationKey } from "./hooks/balance-controllerHooks/useAddBalance.ts";
+export type { GetMyBalanceQueryKey } from "./hooks/balance-controllerHooks/useGetMyBalance.ts";
+export type { GetMyBalanceSuspenseQueryKey } from "./hooks/balance-controllerHooks/useGetMyBalanceSuspense.ts";
 export type { CompleteCourseMutationKey } from "./hooks/Course ProgressHooks/useCompleteCourse.ts";
 export type { CompleteExerciseMutationKey } from "./hooks/Course ProgressHooks/useCompleteExercise.ts";
 export type { GetCurrentProgressQueryKey } from "./hooks/Course ProgressHooks/useGetCurrentProgress.ts";
 export type { GetCurrentProgressSuspenseQueryKey } from "./hooks/Course ProgressHooks/useGetCurrentProgressSuspense.ts";
 export type { GetDayContentQueryKey } from "./hooks/Course ProgressHooks/useGetDayContent.ts";
 export type { GetDayContentSuspenseQueryKey } from "./hooks/Course ProgressHooks/useGetDayContentSuspense.ts";
+export type { GetMyAssignedCourses1QueryKey } from "./hooks/Course ProgressHooks/useGetMyAssignedCourses1.ts";
+export type { GetMyAssignedCourses1SuspenseQueryKey } from "./hooks/Course ProgressHooks/useGetMyAssignedCourses1Suspense.ts";
 export type { StartCourseMutationKey } from "./hooks/Course ProgressHooks/useStartCourse.ts";
 export type { GetAllCoursesQueryKey } from "./hooks/CoursesHooks/useGetAllCourses.ts";
 export type { GetAllCoursesSuspenseQueryKey } from "./hooks/CoursesHooks/useGetAllCoursesSuspense.ts";
 export type { GetCourseStructureQueryKey } from "./hooks/CoursesHooks/useGetCourseStructure.ts";
 export type { GetCourseStructureSuspenseQueryKey } from "./hooks/CoursesHooks/useGetCourseStructureSuspense.ts";
+export type { AssignCourseToPatientMutationKey } from "./hooks/DoctorHooks/useAssignCourseToPatient.ts";
+export type { GetMyAssignedCoursesQueryKey } from "./hooks/DoctorHooks/useGetMyAssignedCourses.ts";
+export type { GetMyAssignedCoursesSuspenseQueryKey } from "./hooks/DoctorHooks/useGetMyAssignedCoursesSuspense.ts";
+export type { GetMyPatientsQueryKey } from "./hooks/DoctorHooks/useGetMyPatients.ts";
+export type { GetMyPatientsSuspenseQueryKey } from "./hooks/DoctorHooks/useGetMyPatientsSuspense.ts";
 export type { GetMyTrainersQueryKey } from "./hooks/DoctorHooks/useGetMyTrainers.ts";
 export type { GetMyTrainersSuspenseQueryKey } from "./hooks/DoctorHooks/useGetMyTrainersSuspense.ts";
+export type { GetPatientCoursesQueryKey } from "./hooks/DoctorHooks/useGetPatientCourses.ts";
+export type { GetPatientCoursesSuspenseQueryKey } from "./hooks/DoctorHooks/useGetPatientCoursesSuspense.ts";
+export type { RevokeCourseAssignmentMutationKey } from "./hooks/DoctorHooks/useRevokeCourseAssignment.ts";
 export type { CreateCategoryMutationKey } from "./hooks/Exercise CategoriesHooks/useCreateCategory.ts";
 export type { GetAllCategoriesQueryKey } from "./hooks/Exercise CategoriesHooks/useGetAllCategories.ts";
 export type { GetAllCategoriesSuspenseQueryKey } from "./hooks/Exercise CategoriesHooks/useGetAllCategoriesSuspense.ts";
@@ -47,6 +60,10 @@ export type { UpdateExerciseMutationKey } from "./hooks/ExercisesHooks/useUpdate
 export type { DeleteFileMutationKey } from "./hooks/File ManagementHooks/useDeleteFile.ts";
 export type { GenerateDownloadUrlMutationKey } from "./hooks/File ManagementHooks/useGenerateDownloadUrl.ts";
 export type { GenerateUploadUrlMutationKey } from "./hooks/File ManagementHooks/useGenerateUploadUrl.ts";
+export type { AssignPatientToDoctorMutationKey } from "./hooks/Patient ManagementHooks/useAssignPatientToDoctor.ts";
+export type { GetDoctorPatientsQueryKey } from "./hooks/Patient ManagementHooks/useGetDoctorPatients.ts";
+export type { GetDoctorPatientsSuspenseQueryKey } from "./hooks/Patient ManagementHooks/useGetDoctorPatientsSuspense.ts";
+export type { RemovePatientFromDoctorMutationKey } from "./hooks/Patient ManagementHooks/useRemovePatientFromDoctor.ts";
 export type { AssignExerciseGroupToDoctorMutationKey } from "./hooks/Staff ManagementHooks/useAssignExerciseGroupToDoctor.ts";
 export type { AssignTrainerToDoctorMutationKey } from "./hooks/Staff ManagementHooks/useAssignTrainerToDoctor.ts";
 export type { CreateStaffMutationKey } from "./hooks/Staff ManagementHooks/useCreateStaff.ts";
@@ -63,6 +80,19 @@ export type { GetTrainersByDoctorSuspenseQueryKey } from "./hooks/Staff Manageme
 export type { RemoveExerciseGroupFromDoctorMutationKey } from "./hooks/Staff ManagementHooks/useRemoveExerciseGroupFromDoctor.ts";
 export type { RemoveTrainerFromDoctorMutationKey } from "./hooks/Staff ManagementHooks/useRemoveTrainerFromDoctor.ts";
 export type { UpdateStaffMutationKey } from "./hooks/Staff ManagementHooks/useUpdateStaff.ts";
+export type { GetMySubscriptionsQueryKey } from "./hooks/subscription-controllerHooks/useGetMySubscriptions.ts";
+export type { GetMySubscriptionsSuspenseQueryKey } from "./hooks/subscription-controllerHooks/useGetMySubscriptionsSuspense.ts";
+export type { GetPendingPurchasesQueryKey } from "./hooks/subscription-controllerHooks/useGetPendingPurchases.ts";
+export type { GetPendingPurchasesSuspenseQueryKey } from "./hooks/subscription-controllerHooks/useGetPendingPurchasesSuspense.ts";
+export type { PurchaseCourseMutationKey } from "./hooks/subscription-controllerHooks/usePurchaseCourse.ts";
+export type { PurchasePackageMutationKey } from "./hooks/subscription-controllerHooks/usePurchasePackage.ts";
+export type { GetMyTotalSpendingQueryKey } from "./hooks/transaction-controllerHooks/useGetMyTotalSpending.ts";
+export type { GetMyTotalSpendingSuspenseQueryKey } from "./hooks/transaction-controllerHooks/useGetMyTotalSpendingSuspense.ts";
+export type { GetMyTransactionHistoryQueryKey } from "./hooks/transaction-controllerHooks/useGetMyTransactionHistory.ts";
+export type { GetMyTransactionHistorySuspenseQueryKey } from "./hooks/transaction-controllerHooks/useGetMyTransactionHistorySuspense.ts";
+export type { AddBalanceRequest } from "./types/AddBalanceRequest.ts";
+export type { AssignCourseToPatientRequest } from "./types/AssignCourseToPatientRequest.ts";
+export type { AssignPatientToDoctorRequest } from "./types/AssignPatientToDoctorRequest.ts";
 export type {
   CheckPhone200,
   CheckPhoneMutationRequest,
@@ -118,6 +148,18 @@ export type {
   SendRegistrationOtpMutation,
 } from "./types/authenticationController/SendRegistrationOtp.ts";
 export type {
+  AddBalance200,
+  AddBalanceMutationRequest,
+  AddBalanceMutationResponse,
+  AddBalanceMutation,
+} from "./types/balanceControllerController/AddBalance.ts";
+export type {
+  GetMyBalance200,
+  GetMyBalanceQueryResponse,
+  GetMyBalanceQuery,
+} from "./types/balanceControllerController/GetMyBalance.ts";
+export type { BalanceResponse } from "./types/BalanceResponse.ts";
+export type {
   CategoryResponseTypeEnumKey,
   CategoryResponse,
 } from "./types/CategoryResponse.ts";
@@ -148,6 +190,11 @@ export type {
   GetDayContentQueryResponse,
   GetDayContentQuery,
 } from "./types/courseProgressController/GetDayContent.ts";
+export type {
+  GetMyAssignedCourses1200,
+  GetMyAssignedCourses1QueryResponse,
+  GetMyAssignedCourses1Query,
+} from "./types/courseProgressController/GetMyAssignedCourses1.ts";
 export type {
   StartCourse200,
   StartCourseMutationRequest,
@@ -183,10 +230,43 @@ export type { DayContentResponse } from "./types/DayContentResponse.ts";
 export type { DayExerciseItemResponse } from "./types/DayExerciseItemResponse.ts";
 export type { DeleteFileRequest } from "./types/DeleteFileRequest.ts";
 export type {
+  AssignCourseToPatientPathParams,
+  AssignCourseToPatient200,
+  AssignCourseToPatientMutationRequest,
+  AssignCourseToPatientMutationResponse,
+  AssignCourseToPatientMutation,
+} from "./types/doctorController/AssignCourseToPatient.ts";
+export type {
+  GetMyAssignedCoursesQueryParams,
+  GetMyAssignedCourses200,
+  GetMyAssignedCoursesQueryResponse,
+  GetMyAssignedCoursesQuery,
+} from "./types/doctorController/GetMyAssignedCourses.ts";
+export type {
+  GetMyPatientsQueryParams,
+  GetMyPatients200,
+  GetMyPatientsQueryResponse,
+  GetMyPatientsQuery,
+} from "./types/doctorController/GetMyPatients.ts";
+export type {
+  GetMyTrainersQueryParams,
   GetMyTrainers200,
   GetMyTrainersQueryResponse,
   GetMyTrainersQuery,
 } from "./types/doctorController/GetMyTrainers.ts";
+export type {
+  GetPatientCoursesPathParams,
+  GetPatientCourses200,
+  GetPatientCoursesQueryResponse,
+  GetPatientCoursesQuery,
+} from "./types/doctorController/GetPatientCourses.ts";
+export type {
+  RevokeCourseAssignmentPathParams,
+  RevokeCourseAssignment200,
+  RevokeCourseAssignmentMutationResponse,
+  RevokeCourseAssignmentMutation,
+} from "./types/doctorController/RevokeCourseAssignment.ts";
+export type { DoctorPatientResponse } from "./types/DoctorPatientResponse.ts";
 export type {
   CreateCategory200,
   CreateCategoryMutationRequest,
@@ -315,15 +395,46 @@ export type { GenerateUploadUrlRequest } from "./types/GenerateUploadUrlRequest.
 export type { GroupResponse } from "./types/GroupResponse.ts";
 export type { LoginWithPasswordRequest } from "./types/LoginWithPasswordRequest.ts";
 export type { LoginWithPinRequest } from "./types/LoginWithPinRequest.ts";
+export type { MyAssignedCourseResponse } from "./types/MyAssignedCourseResponse.ts";
 export type { OtpResponse } from "./types/OtpResponse.ts";
 export type { Pageable } from "./types/Pageable.ts";
 export type { PagedModel } from "./types/PagedModel.ts";
 export type { PageMetadata } from "./types/PageMetadata.ts";
+export type {
+  AssignPatientToDoctorPathParams,
+  AssignPatientToDoctor200,
+  AssignPatientToDoctorMutationRequest,
+  AssignPatientToDoctorMutationResponse,
+  AssignPatientToDoctorMutation,
+} from "./types/patientManagementController/AssignPatientToDoctor.ts";
+export type {
+  GetDoctorPatientsPathParams,
+  GetDoctorPatientsQueryParams,
+  GetDoctorPatients200,
+  GetDoctorPatientsQueryResponse,
+  GetDoctorPatientsQuery,
+} from "./types/patientManagementController/GetDoctorPatients.ts";
+export type {
+  RemovePatientFromDoctorPathParams,
+  RemovePatientFromDoctor200,
+  RemovePatientFromDoctorMutationResponse,
+  RemovePatientFromDoctorMutation,
+} from "./types/patientManagementController/RemovePatientFromDoctor.ts";
+export type { PendingPurchaseResponse } from "./types/PendingPurchaseResponse.ts";
 export type { PresignedUrlResponse } from "./types/PresignedUrlResponse.ts";
+export type {
+  PurchaseCourseRequestSubscriptionTypeEnumKey,
+  PurchaseCourseRequest,
+} from "./types/PurchaseCourseRequest.ts";
+export type {
+  PurchasePackageRequestSubscriptionTypeEnumKey,
+  PurchasePackageRequest,
+} from "./types/PurchasePackageRequest.ts";
 export type { RefreshTokenRequest } from "./types/RefreshTokenRequest.ts";
 export type { RegisterRequest } from "./types/RegisterRequest.ts";
 export type { ResetPinRequest } from "./types/ResetPinRequest.ts";
 export type { SendOtpRequest } from "./types/SendOtpRequest.ts";
+export type { SpendingSummaryResponse } from "./types/SpendingSummaryResponse.ts";
 export type { StaffAuthResponse } from "./types/StaffAuthResponse.ts";
 export type {
   AssignExerciseGroupToDoctorPathParams,
@@ -376,6 +487,7 @@ export type {
 } from "./types/staffManagementController/GetStaffById.ts";
 export type {
   GetTrainersByDoctorPathParams,
+  GetTrainersByDoctorQueryParams,
   GetTrainersByDoctor200,
   GetTrainersByDoctorQueryResponse,
   GetTrainersByDoctorQuery,
@@ -401,7 +513,43 @@ export type {
 } from "./types/staffManagementController/UpdateStaff.ts";
 export type { StaffResponse } from "./types/StaffResponse.ts";
 export type { StartCourseRequest } from "./types/StartCourseRequest.ts";
-export type { TrainerResponse } from "./types/TrainerResponse.ts";
+export type {
+  GetMySubscriptions200,
+  GetMySubscriptionsQueryResponse,
+  GetMySubscriptionsQuery,
+} from "./types/subscriptionControllerController/GetMySubscriptions.ts";
+export type {
+  GetPendingPurchases200,
+  GetPendingPurchasesQueryResponse,
+  GetPendingPurchasesQuery,
+} from "./types/subscriptionControllerController/GetPendingPurchases.ts";
+export type {
+  PurchaseCourse200,
+  PurchaseCourseMutationRequest,
+  PurchaseCourseMutationResponse,
+  PurchaseCourseMutation,
+} from "./types/subscriptionControllerController/PurchaseCourse.ts";
+export type {
+  PurchasePackage200,
+  PurchasePackageMutationRequest,
+  PurchasePackageMutationResponse,
+  PurchasePackageMutation,
+} from "./types/subscriptionControllerController/PurchasePackage.ts";
+export type {
+  SubscriptionResponseSubscriptionTypeEnumKey,
+  SubscriptionResponse,
+} from "./types/SubscriptionResponse.ts";
+export type {
+  GetMyTotalSpending200,
+  GetMyTotalSpendingQueryResponse,
+  GetMyTotalSpendingQuery,
+} from "./types/transactionControllerController/GetMyTotalSpending.ts";
+export type {
+  GetMyTransactionHistoryQueryParams,
+  GetMyTransactionHistory200,
+  GetMyTransactionHistoryQueryResponse,
+  GetMyTransactionHistoryQuery,
+} from "./types/transactionControllerController/GetMyTransactionHistory.ts";
 export type {
   UpdateCategoryRequestTypeEnumKey,
   UpdateCategoryRequest,
@@ -411,6 +559,7 @@ export type { UpdateExerciseRequest } from "./types/UpdateExerciseRequest.ts";
 export type { UpdateGroupRequest } from "./types/UpdateGroupRequest.ts";
 export type { UpdateStaffRequest } from "./types/UpdateStaffRequest.ts";
 export type { UserAuthResponse } from "./types/UserAuthResponse.ts";
+export type { UserCourseAssignmentResponse } from "./types/UserCourseAssignmentResponse.ts";
 export { checkPhoneMutationKey } from "./hooks/AuthenticationHooks/useCheckPhone.ts";
 export { checkPhone } from "./hooks/AuthenticationHooks/useCheckPhone.ts";
 export { checkPhoneMutationOptions } from "./hooks/AuthenticationHooks/useCheckPhone.ts";
@@ -447,6 +596,18 @@ export { sendRegistrationOtpMutationKey } from "./hooks/AuthenticationHooks/useS
 export { sendRegistrationOtp } from "./hooks/AuthenticationHooks/useSendRegistrationOtp.ts";
 export { sendRegistrationOtpMutationOptions } from "./hooks/AuthenticationHooks/useSendRegistrationOtp.ts";
 export { useSendRegistrationOtp } from "./hooks/AuthenticationHooks/useSendRegistrationOtp.ts";
+export { addBalanceMutationKey } from "./hooks/balance-controllerHooks/useAddBalance.ts";
+export { addBalance } from "./hooks/balance-controllerHooks/useAddBalance.ts";
+export { addBalanceMutationOptions } from "./hooks/balance-controllerHooks/useAddBalance.ts";
+export { useAddBalance } from "./hooks/balance-controllerHooks/useAddBalance.ts";
+export { getMyBalanceQueryKey } from "./hooks/balance-controllerHooks/useGetMyBalance.ts";
+export { getMyBalance } from "./hooks/balance-controllerHooks/useGetMyBalance.ts";
+export { getMyBalanceQueryOptions } from "./hooks/balance-controllerHooks/useGetMyBalance.ts";
+export { useGetMyBalance } from "./hooks/balance-controllerHooks/useGetMyBalance.ts";
+export { getMyBalanceSuspenseQueryKey } from "./hooks/balance-controllerHooks/useGetMyBalanceSuspense.ts";
+export { getMyBalanceSuspense } from "./hooks/balance-controllerHooks/useGetMyBalanceSuspense.ts";
+export { getMyBalanceSuspenseQueryOptions } from "./hooks/balance-controllerHooks/useGetMyBalanceSuspense.ts";
+export { useGetMyBalanceSuspense } from "./hooks/balance-controllerHooks/useGetMyBalanceSuspense.ts";
 export { completeCourseMutationKey } from "./hooks/Course ProgressHooks/useCompleteCourse.ts";
 export { completeCourse } from "./hooks/Course ProgressHooks/useCompleteCourse.ts";
 export { completeCourseMutationOptions } from "./hooks/Course ProgressHooks/useCompleteCourse.ts";
@@ -471,6 +632,14 @@ export { getDayContentSuspenseQueryKey } from "./hooks/Course ProgressHooks/useG
 export { getDayContentSuspense } from "./hooks/Course ProgressHooks/useGetDayContentSuspense.ts";
 export { getDayContentSuspenseQueryOptions } from "./hooks/Course ProgressHooks/useGetDayContentSuspense.ts";
 export { useGetDayContentSuspense } from "./hooks/Course ProgressHooks/useGetDayContentSuspense.ts";
+export { getMyAssignedCourses1QueryKey } from "./hooks/Course ProgressHooks/useGetMyAssignedCourses1.ts";
+export { getMyAssignedCourses1 } from "./hooks/Course ProgressHooks/useGetMyAssignedCourses1.ts";
+export { getMyAssignedCourses1QueryOptions } from "./hooks/Course ProgressHooks/useGetMyAssignedCourses1.ts";
+export { useGetMyAssignedCourses1 } from "./hooks/Course ProgressHooks/useGetMyAssignedCourses1.ts";
+export { getMyAssignedCourses1SuspenseQueryKey } from "./hooks/Course ProgressHooks/useGetMyAssignedCourses1Suspense.ts";
+export { getMyAssignedCourses1Suspense } from "./hooks/Course ProgressHooks/useGetMyAssignedCourses1Suspense.ts";
+export { getMyAssignedCourses1SuspenseQueryOptions } from "./hooks/Course ProgressHooks/useGetMyAssignedCourses1Suspense.ts";
+export { useGetMyAssignedCourses1Suspense } from "./hooks/Course ProgressHooks/useGetMyAssignedCourses1Suspense.ts";
 export { startCourseMutationKey } from "./hooks/Course ProgressHooks/useStartCourse.ts";
 export { startCourse } from "./hooks/Course ProgressHooks/useStartCourse.ts";
 export { startCourseMutationOptions } from "./hooks/Course ProgressHooks/useStartCourse.ts";
@@ -491,6 +660,26 @@ export { getCourseStructureSuspenseQueryKey } from "./hooks/CoursesHooks/useGetC
 export { getCourseStructureSuspense } from "./hooks/CoursesHooks/useGetCourseStructureSuspense.ts";
 export { getCourseStructureSuspenseQueryOptions } from "./hooks/CoursesHooks/useGetCourseStructureSuspense.ts";
 export { useGetCourseStructureSuspense } from "./hooks/CoursesHooks/useGetCourseStructureSuspense.ts";
+export { assignCourseToPatientMutationKey } from "./hooks/DoctorHooks/useAssignCourseToPatient.ts";
+export { assignCourseToPatient } from "./hooks/DoctorHooks/useAssignCourseToPatient.ts";
+export { assignCourseToPatientMutationOptions } from "./hooks/DoctorHooks/useAssignCourseToPatient.ts";
+export { useAssignCourseToPatient } from "./hooks/DoctorHooks/useAssignCourseToPatient.ts";
+export { getMyAssignedCoursesQueryKey } from "./hooks/DoctorHooks/useGetMyAssignedCourses.ts";
+export { getMyAssignedCourses } from "./hooks/DoctorHooks/useGetMyAssignedCourses.ts";
+export { getMyAssignedCoursesQueryOptions } from "./hooks/DoctorHooks/useGetMyAssignedCourses.ts";
+export { useGetMyAssignedCourses } from "./hooks/DoctorHooks/useGetMyAssignedCourses.ts";
+export { getMyAssignedCoursesSuspenseQueryKey } from "./hooks/DoctorHooks/useGetMyAssignedCoursesSuspense.ts";
+export { getMyAssignedCoursesSuspense } from "./hooks/DoctorHooks/useGetMyAssignedCoursesSuspense.ts";
+export { getMyAssignedCoursesSuspenseQueryOptions } from "./hooks/DoctorHooks/useGetMyAssignedCoursesSuspense.ts";
+export { useGetMyAssignedCoursesSuspense } from "./hooks/DoctorHooks/useGetMyAssignedCoursesSuspense.ts";
+export { getMyPatientsQueryKey } from "./hooks/DoctorHooks/useGetMyPatients.ts";
+export { getMyPatients } from "./hooks/DoctorHooks/useGetMyPatients.ts";
+export { getMyPatientsQueryOptions } from "./hooks/DoctorHooks/useGetMyPatients.ts";
+export { useGetMyPatients } from "./hooks/DoctorHooks/useGetMyPatients.ts";
+export { getMyPatientsSuspenseQueryKey } from "./hooks/DoctorHooks/useGetMyPatientsSuspense.ts";
+export { getMyPatientsSuspense } from "./hooks/DoctorHooks/useGetMyPatientsSuspense.ts";
+export { getMyPatientsSuspenseQueryOptions } from "./hooks/DoctorHooks/useGetMyPatientsSuspense.ts";
+export { useGetMyPatientsSuspense } from "./hooks/DoctorHooks/useGetMyPatientsSuspense.ts";
 export { getMyTrainersQueryKey } from "./hooks/DoctorHooks/useGetMyTrainers.ts";
 export { getMyTrainers } from "./hooks/DoctorHooks/useGetMyTrainers.ts";
 export { getMyTrainersQueryOptions } from "./hooks/DoctorHooks/useGetMyTrainers.ts";
@@ -499,6 +688,18 @@ export { getMyTrainersSuspenseQueryKey } from "./hooks/DoctorHooks/useGetMyTrain
 export { getMyTrainersSuspense } from "./hooks/DoctorHooks/useGetMyTrainersSuspense.ts";
 export { getMyTrainersSuspenseQueryOptions } from "./hooks/DoctorHooks/useGetMyTrainersSuspense.ts";
 export { useGetMyTrainersSuspense } from "./hooks/DoctorHooks/useGetMyTrainersSuspense.ts";
+export { getPatientCoursesQueryKey } from "./hooks/DoctorHooks/useGetPatientCourses.ts";
+export { getPatientCourses } from "./hooks/DoctorHooks/useGetPatientCourses.ts";
+export { getPatientCoursesQueryOptions } from "./hooks/DoctorHooks/useGetPatientCourses.ts";
+export { useGetPatientCourses } from "./hooks/DoctorHooks/useGetPatientCourses.ts";
+export { getPatientCoursesSuspenseQueryKey } from "./hooks/DoctorHooks/useGetPatientCoursesSuspense.ts";
+export { getPatientCoursesSuspense } from "./hooks/DoctorHooks/useGetPatientCoursesSuspense.ts";
+export { getPatientCoursesSuspenseQueryOptions } from "./hooks/DoctorHooks/useGetPatientCoursesSuspense.ts";
+export { useGetPatientCoursesSuspense } from "./hooks/DoctorHooks/useGetPatientCoursesSuspense.ts";
+export { revokeCourseAssignmentMutationKey } from "./hooks/DoctorHooks/useRevokeCourseAssignment.ts";
+export { revokeCourseAssignment } from "./hooks/DoctorHooks/useRevokeCourseAssignment.ts";
+export { revokeCourseAssignmentMutationOptions } from "./hooks/DoctorHooks/useRevokeCourseAssignment.ts";
+export { useRevokeCourseAssignment } from "./hooks/DoctorHooks/useRevokeCourseAssignment.ts";
 export { createCategoryMutationKey } from "./hooks/Exercise CategoriesHooks/useCreateCategory.ts";
 export { createCategory } from "./hooks/Exercise CategoriesHooks/useCreateCategory.ts";
 export { createCategoryMutationOptions } from "./hooks/Exercise CategoriesHooks/useCreateCategory.ts";
@@ -607,6 +808,22 @@ export { generateUploadUrlMutationKey } from "./hooks/File ManagementHooks/useGe
 export { generateUploadUrl } from "./hooks/File ManagementHooks/useGenerateUploadUrl.ts";
 export { generateUploadUrlMutationOptions } from "./hooks/File ManagementHooks/useGenerateUploadUrl.ts";
 export { useGenerateUploadUrl } from "./hooks/File ManagementHooks/useGenerateUploadUrl.ts";
+export { assignPatientToDoctorMutationKey } from "./hooks/Patient ManagementHooks/useAssignPatientToDoctor.ts";
+export { assignPatientToDoctor } from "./hooks/Patient ManagementHooks/useAssignPatientToDoctor.ts";
+export { assignPatientToDoctorMutationOptions } from "./hooks/Patient ManagementHooks/useAssignPatientToDoctor.ts";
+export { useAssignPatientToDoctor } from "./hooks/Patient ManagementHooks/useAssignPatientToDoctor.ts";
+export { getDoctorPatientsQueryKey } from "./hooks/Patient ManagementHooks/useGetDoctorPatients.ts";
+export { getDoctorPatients } from "./hooks/Patient ManagementHooks/useGetDoctorPatients.ts";
+export { getDoctorPatientsQueryOptions } from "./hooks/Patient ManagementHooks/useGetDoctorPatients.ts";
+export { useGetDoctorPatients } from "./hooks/Patient ManagementHooks/useGetDoctorPatients.ts";
+export { getDoctorPatientsSuspenseQueryKey } from "./hooks/Patient ManagementHooks/useGetDoctorPatientsSuspense.ts";
+export { getDoctorPatientsSuspense } from "./hooks/Patient ManagementHooks/useGetDoctorPatientsSuspense.ts";
+export { getDoctorPatientsSuspenseQueryOptions } from "./hooks/Patient ManagementHooks/useGetDoctorPatientsSuspense.ts";
+export { useGetDoctorPatientsSuspense } from "./hooks/Patient ManagementHooks/useGetDoctorPatientsSuspense.ts";
+export { removePatientFromDoctorMutationKey } from "./hooks/Patient ManagementHooks/useRemovePatientFromDoctor.ts";
+export { removePatientFromDoctor } from "./hooks/Patient ManagementHooks/useRemovePatientFromDoctor.ts";
+export { removePatientFromDoctorMutationOptions } from "./hooks/Patient ManagementHooks/useRemovePatientFromDoctor.ts";
+export { useRemovePatientFromDoctor } from "./hooks/Patient ManagementHooks/useRemovePatientFromDoctor.ts";
 export { assignExerciseGroupToDoctorMutationKey } from "./hooks/Staff ManagementHooks/useAssignExerciseGroupToDoctor.ts";
 export { assignExerciseGroupToDoctor } from "./hooks/Staff ManagementHooks/useAssignExerciseGroupToDoctor.ts";
 export { assignExerciseGroupToDoctorMutationOptions } from "./hooks/Staff ManagementHooks/useAssignExerciseGroupToDoctor.ts";
@@ -671,12 +888,58 @@ export { updateStaffMutationKey } from "./hooks/Staff ManagementHooks/useUpdateS
 export { updateStaff } from "./hooks/Staff ManagementHooks/useUpdateStaff.ts";
 export { updateStaffMutationOptions } from "./hooks/Staff ManagementHooks/useUpdateStaff.ts";
 export { useUpdateStaff } from "./hooks/Staff ManagementHooks/useUpdateStaff.ts";
+export { getMySubscriptionsQueryKey } from "./hooks/subscription-controllerHooks/useGetMySubscriptions.ts";
+export { getMySubscriptions } from "./hooks/subscription-controllerHooks/useGetMySubscriptions.ts";
+export { getMySubscriptionsQueryOptions } from "./hooks/subscription-controllerHooks/useGetMySubscriptions.ts";
+export { useGetMySubscriptions } from "./hooks/subscription-controllerHooks/useGetMySubscriptions.ts";
+export { getMySubscriptionsSuspenseQueryKey } from "./hooks/subscription-controllerHooks/useGetMySubscriptionsSuspense.ts";
+export { getMySubscriptionsSuspense } from "./hooks/subscription-controllerHooks/useGetMySubscriptionsSuspense.ts";
+export { getMySubscriptionsSuspenseQueryOptions } from "./hooks/subscription-controllerHooks/useGetMySubscriptionsSuspense.ts";
+export { useGetMySubscriptionsSuspense } from "./hooks/subscription-controllerHooks/useGetMySubscriptionsSuspense.ts";
+export { getPendingPurchasesQueryKey } from "./hooks/subscription-controllerHooks/useGetPendingPurchases.ts";
+export { getPendingPurchases } from "./hooks/subscription-controllerHooks/useGetPendingPurchases.ts";
+export { getPendingPurchasesQueryOptions } from "./hooks/subscription-controllerHooks/useGetPendingPurchases.ts";
+export { useGetPendingPurchases } from "./hooks/subscription-controllerHooks/useGetPendingPurchases.ts";
+export { getPendingPurchasesSuspenseQueryKey } from "./hooks/subscription-controllerHooks/useGetPendingPurchasesSuspense.ts";
+export { getPendingPurchasesSuspense } from "./hooks/subscription-controllerHooks/useGetPendingPurchasesSuspense.ts";
+export { getPendingPurchasesSuspenseQueryOptions } from "./hooks/subscription-controllerHooks/useGetPendingPurchasesSuspense.ts";
+export { useGetPendingPurchasesSuspense } from "./hooks/subscription-controllerHooks/useGetPendingPurchasesSuspense.ts";
+export { purchaseCourseMutationKey } from "./hooks/subscription-controllerHooks/usePurchaseCourse.ts";
+export { purchaseCourse } from "./hooks/subscription-controllerHooks/usePurchaseCourse.ts";
+export { purchaseCourseMutationOptions } from "./hooks/subscription-controllerHooks/usePurchaseCourse.ts";
+export { usePurchaseCourse } from "./hooks/subscription-controllerHooks/usePurchaseCourse.ts";
+export { purchasePackageMutationKey } from "./hooks/subscription-controllerHooks/usePurchasePackage.ts";
+export { purchasePackage } from "./hooks/subscription-controllerHooks/usePurchasePackage.ts";
+export { purchasePackageMutationOptions } from "./hooks/subscription-controllerHooks/usePurchasePackage.ts";
+export { usePurchasePackage } from "./hooks/subscription-controllerHooks/usePurchasePackage.ts";
+export { getMyTotalSpendingQueryKey } from "./hooks/transaction-controllerHooks/useGetMyTotalSpending.ts";
+export { getMyTotalSpending } from "./hooks/transaction-controllerHooks/useGetMyTotalSpending.ts";
+export { getMyTotalSpendingQueryOptions } from "./hooks/transaction-controllerHooks/useGetMyTotalSpending.ts";
+export { useGetMyTotalSpending } from "./hooks/transaction-controllerHooks/useGetMyTotalSpending.ts";
+export { getMyTotalSpendingSuspenseQueryKey } from "./hooks/transaction-controllerHooks/useGetMyTotalSpendingSuspense.ts";
+export { getMyTotalSpendingSuspense } from "./hooks/transaction-controllerHooks/useGetMyTotalSpendingSuspense.ts";
+export { getMyTotalSpendingSuspenseQueryOptions } from "./hooks/transaction-controllerHooks/useGetMyTotalSpendingSuspense.ts";
+export { useGetMyTotalSpendingSuspense } from "./hooks/transaction-controllerHooks/useGetMyTotalSpendingSuspense.ts";
+export { getMyTransactionHistoryQueryKey } from "./hooks/transaction-controllerHooks/useGetMyTransactionHistory.ts";
+export { getMyTransactionHistory } from "./hooks/transaction-controllerHooks/useGetMyTransactionHistory.ts";
+export { getMyTransactionHistoryQueryOptions } from "./hooks/transaction-controllerHooks/useGetMyTransactionHistory.ts";
+export { useGetMyTransactionHistory } from "./hooks/transaction-controllerHooks/useGetMyTransactionHistory.ts";
+export { getMyTransactionHistorySuspenseQueryKey } from "./hooks/transaction-controllerHooks/useGetMyTransactionHistorySuspense.ts";
+export { getMyTransactionHistorySuspense } from "./hooks/transaction-controllerHooks/useGetMyTransactionHistorySuspense.ts";
+export { getMyTransactionHistorySuspenseQueryOptions } from "./hooks/transaction-controllerHooks/useGetMyTransactionHistorySuspense.ts";
+export { useGetMyTransactionHistorySuspense } from "./hooks/transaction-controllerHooks/useGetMyTransactionHistorySuspense.ts";
 export { categoryResponseTypeEnum } from "./types/CategoryResponse.ts";
 export { createCategoryRequestTypeEnum } from "./types/CreateCategoryRequest.ts";
 export { createStaffRequestStaffTypeEnum } from "./types/CreateStaffRequest.ts";
 export { getAllCategoriesQueryParamsTypeEnum } from "./types/exerciseCategoriesController/GetAllCategories.ts";
+export { purchaseCourseRequestSubscriptionTypeEnum } from "./types/PurchaseCourseRequest.ts";
+export { purchasePackageRequestSubscriptionTypeEnum } from "./types/PurchasePackageRequest.ts";
 export { getAllStaffQueryParamsStaffTypeEnum } from "./types/staffManagementController/GetAllStaff.ts";
+export { subscriptionResponseSubscriptionTypeEnum } from "./types/SubscriptionResponse.ts";
 export { updateCategoryRequestTypeEnum } from "./types/UpdateCategoryRequest.ts";
+export { addBalanceRequestSchema } from "./zod/addBalanceRequestSchema.ts";
+export { assignCourseToPatientRequestSchema } from "./zod/assignCourseToPatientRequestSchema.ts";
+export { assignPatientToDoctorRequestSchema } from "./zod/assignPatientToDoctorRequestSchema.ts";
 export {
   checkPhone200Schema,
   checkPhoneMutationRequestSchema,
@@ -722,6 +985,16 @@ export {
   sendRegistrationOtpMutationRequestSchema,
   sendRegistrationOtpMutationResponseSchema,
 } from "./zod/authenticationController/sendRegistrationOtpSchema.ts";
+export {
+  addBalance200Schema,
+  addBalanceMutationRequestSchema,
+  addBalanceMutationResponseSchema,
+} from "./zod/balanceControllerController/addBalanceSchema.ts";
+export {
+  getMyBalance200Schema,
+  getMyBalanceQueryResponseSchema,
+} from "./zod/balanceControllerController/getMyBalanceSchema.ts";
+export { balanceResponseSchema } from "./zod/balanceResponseSchema.ts";
 export { categoryResponseSchema } from "./zod/categoryResponseSchema.ts";
 export { checkPhoneRequestSchema } from "./zod/checkPhoneRequestSchema.ts";
 export { checkPhoneResponseSchema } from "./zod/checkPhoneResponseSchema.ts";
@@ -746,6 +1019,10 @@ export {
   getDayContent200Schema,
   getDayContentQueryResponseSchema,
 } from "./zod/courseProgressController/getDayContentSchema.ts";
+export {
+  getMyAssignedCourses1200Schema,
+  getMyAssignedCourses1QueryResponseSchema,
+} from "./zod/courseProgressController/getMyAssignedCourses1Schema.ts";
 export {
   startCourse200Schema,
   startCourseMutationRequestSchema,
@@ -772,9 +1049,37 @@ export { dayContentResponseSchema } from "./zod/dayContentResponseSchema.ts";
 export { dayExerciseItemResponseSchema } from "./zod/dayExerciseItemResponseSchema.ts";
 export { deleteFileRequestSchema } from "./zod/deleteFileRequestSchema.ts";
 export {
+  assignCourseToPatientPathParamsSchema,
+  assignCourseToPatient200Schema,
+  assignCourseToPatientMutationRequestSchema,
+  assignCourseToPatientMutationResponseSchema,
+} from "./zod/doctorController/assignCourseToPatientSchema.ts";
+export {
+  getMyAssignedCoursesQueryParamsSchema,
+  getMyAssignedCourses200Schema,
+  getMyAssignedCoursesQueryResponseSchema,
+} from "./zod/doctorController/getMyAssignedCoursesSchema.ts";
+export {
+  getMyPatientsQueryParamsSchema,
+  getMyPatients200Schema,
+  getMyPatientsQueryResponseSchema,
+} from "./zod/doctorController/getMyPatientsSchema.ts";
+export {
+  getMyTrainersQueryParamsSchema,
   getMyTrainers200Schema,
   getMyTrainersQueryResponseSchema,
 } from "./zod/doctorController/getMyTrainersSchema.ts";
+export {
+  getPatientCoursesPathParamsSchema,
+  getPatientCourses200Schema,
+  getPatientCoursesQueryResponseSchema,
+} from "./zod/doctorController/getPatientCoursesSchema.ts";
+export {
+  revokeCourseAssignmentPathParamsSchema,
+  revokeCourseAssignment200Schema,
+  revokeCourseAssignmentMutationResponseSchema,
+} from "./zod/doctorController/revokeCourseAssignmentSchema.ts";
+export { doctorPatientResponseSchema } from "./zod/doctorPatientResponseSchema.ts";
 export {
   createCategory200Schema,
   createCategoryMutationRequestSchema,
@@ -883,15 +1188,37 @@ export { generateUploadUrlRequestSchema } from "./zod/generateUploadUrlRequestSc
 export { groupResponseSchema } from "./zod/groupResponseSchema.ts";
 export { loginWithPasswordRequestSchema } from "./zod/loginWithPasswordRequestSchema.ts";
 export { loginWithPinRequestSchema } from "./zod/loginWithPinRequestSchema.ts";
+export { myAssignedCourseResponseSchema } from "./zod/myAssignedCourseResponseSchema.ts";
 export { otpResponseSchema } from "./zod/otpResponseSchema.ts";
 export { pageableSchema } from "./zod/pageableSchema.ts";
 export { pagedModelSchema } from "./zod/pagedModelSchema.ts";
 export { pageMetadataSchema } from "./zod/pageMetadataSchema.ts";
+export {
+  assignPatientToDoctorPathParamsSchema,
+  assignPatientToDoctor200Schema,
+  assignPatientToDoctorMutationRequestSchema,
+  assignPatientToDoctorMutationResponseSchema,
+} from "./zod/patientManagementController/assignPatientToDoctorSchema.ts";
+export {
+  getDoctorPatientsPathParamsSchema,
+  getDoctorPatientsQueryParamsSchema,
+  getDoctorPatients200Schema,
+  getDoctorPatientsQueryResponseSchema,
+} from "./zod/patientManagementController/getDoctorPatientsSchema.ts";
+export {
+  removePatientFromDoctorPathParamsSchema,
+  removePatientFromDoctor200Schema,
+  removePatientFromDoctorMutationResponseSchema,
+} from "./zod/patientManagementController/removePatientFromDoctorSchema.ts";
+export { pendingPurchaseResponseSchema } from "./zod/pendingPurchaseResponseSchema.ts";
 export { presignedUrlResponseSchema } from "./zod/presignedUrlResponseSchema.ts";
+export { purchaseCourseRequestSchema } from "./zod/purchaseCourseRequestSchema.ts";
+export { purchasePackageRequestSchema } from "./zod/purchasePackageRequestSchema.ts";
 export { refreshTokenRequestSchema } from "./zod/refreshTokenRequestSchema.ts";
 export { registerRequestSchema } from "./zod/registerRequestSchema.ts";
 export { resetPinRequestSchema } from "./zod/resetPinRequestSchema.ts";
 export { sendOtpRequestSchema } from "./zod/sendOtpRequestSchema.ts";
+export { spendingSummaryResponseSchema } from "./zod/spendingSummaryResponseSchema.ts";
 export { staffAuthResponseSchema } from "./zod/staffAuthResponseSchema.ts";
 export {
   assignExerciseGroupToDoctorPathParamsSchema,
@@ -935,6 +1262,7 @@ export {
 } from "./zod/staffManagementController/getStaffByIdSchema.ts";
 export {
   getTrainersByDoctorPathParamsSchema,
+  getTrainersByDoctorQueryParamsSchema,
   getTrainersByDoctor200Schema,
   getTrainersByDoctorQueryResponseSchema,
 } from "./zod/staffManagementController/getTrainersByDoctorSchema.ts";
@@ -956,10 +1284,38 @@ export {
 } from "./zod/staffManagementController/updateStaffSchema.ts";
 export { staffResponseSchema } from "./zod/staffResponseSchema.ts";
 export { startCourseRequestSchema } from "./zod/startCourseRequestSchema.ts";
-export { trainerResponseSchema } from "./zod/trainerResponseSchema.ts";
+export {
+  getMySubscriptions200Schema,
+  getMySubscriptionsQueryResponseSchema,
+} from "./zod/subscriptionControllerController/getMySubscriptionsSchema.ts";
+export {
+  getPendingPurchases200Schema,
+  getPendingPurchasesQueryResponseSchema,
+} from "./zod/subscriptionControllerController/getPendingPurchasesSchema.ts";
+export {
+  purchaseCourse200Schema,
+  purchaseCourseMutationRequestSchema,
+  purchaseCourseMutationResponseSchema,
+} from "./zod/subscriptionControllerController/purchaseCourseSchema.ts";
+export {
+  purchasePackage200Schema,
+  purchasePackageMutationRequestSchema,
+  purchasePackageMutationResponseSchema,
+} from "./zod/subscriptionControllerController/purchasePackageSchema.ts";
+export { subscriptionResponseSchema } from "./zod/subscriptionResponseSchema.ts";
+export {
+  getMyTotalSpending200Schema,
+  getMyTotalSpendingQueryResponseSchema,
+} from "./zod/transactionControllerController/getMyTotalSpendingSchema.ts";
+export {
+  getMyTransactionHistoryQueryParamsSchema,
+  getMyTransactionHistory200Schema,
+  getMyTransactionHistoryQueryResponseSchema,
+} from "./zod/transactionControllerController/getMyTransactionHistorySchema.ts";
 export { updateCategoryRequestSchema } from "./zod/updateCategoryRequestSchema.ts";
 export { updateExercisePackageRequestSchema } from "./zod/updateExercisePackageRequestSchema.ts";
 export { updateExerciseRequestSchema } from "./zod/updateExerciseRequestSchema.ts";
 export { updateGroupRequestSchema } from "./zod/updateGroupRequestSchema.ts";
 export { updateStaffRequestSchema } from "./zod/updateStaffRequestSchema.ts";
 export { userAuthResponseSchema } from "./zod/userAuthResponseSchema.ts";
+export { userCourseAssignmentResponseSchema } from "./zod/userCourseAssignmentResponseSchema.ts";

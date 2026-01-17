@@ -17,7 +17,7 @@ import type {
 import { mutationOptions, useMutation } from "@tanstack/react-query";
 
 export const removeTrainerFromDoctorMutationKey = () =>
-  [{ url: "/api/admin/doctors/:doctorId/trainers/:trainerId" }] as const;
+  [{ url: "/api/admin/staff/doctors/:doctorId/trainers/:trainerId" }] as const;
 
 export type RemoveTrainerFromDoctorMutationKey = ReturnType<
   typeof removeTrainerFromDoctorMutationKey
@@ -26,7 +26,7 @@ export type RemoveTrainerFromDoctorMutationKey = ReturnType<
 /**
  * @description Remove the assignment of a trainer from a doctor
  * @summary Remove trainer from doctor
- * {@link /api/admin/doctors/:doctorId/trainers/:trainerId}
+ * {@link /api/admin/staff/doctors/:doctorId/trainers/:trainerId}
  */
 export async function removeTrainerFromDoctor(
   doctorId: RemoveTrainerFromDoctorPathParams["doctorId"],
@@ -41,7 +41,7 @@ export async function removeTrainerFromDoctor(
     unknown
   >({
     method: "DELETE",
-    url: `/api/admin/doctors/${doctorId}/trainers/${trainerId}`,
+    url: `/api/admin/staff/doctors/${doctorId}/trainers/${trainerId}`,
     ...requestConfig,
   });
   return res.data;
@@ -70,7 +70,7 @@ export function removeTrainerFromDoctorMutationOptions(
 /**
  * @description Remove the assignment of a trainer from a doctor
  * @summary Remove trainer from doctor
- * {@link /api/admin/doctors/:doctorId/trainers/:trainerId}
+ * {@link /api/admin/staff/doctors/:doctorId/trainers/:trainerId}
  */
 export function useRemoveTrainerFromDoctor<TContext>(
   options: {

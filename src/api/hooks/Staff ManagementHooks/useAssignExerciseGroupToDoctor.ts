@@ -17,7 +17,9 @@ import type {
 import { mutationOptions, useMutation } from "@tanstack/react-query";
 
 export const assignExerciseGroupToDoctorMutationKey = () =>
-  [{ url: "/api/admin/doctors/:doctorId/exercise-groups/:groupId" }] as const;
+  [
+    { url: "/api/admin/staff/doctors/:doctorId/exercise-groups/:groupId" },
+  ] as const;
 
 export type AssignExerciseGroupToDoctorMutationKey = ReturnType<
   typeof assignExerciseGroupToDoctorMutationKey
@@ -26,7 +28,7 @@ export type AssignExerciseGroupToDoctorMutationKey = ReturnType<
 /**
  * @description Assign an exercise group to a doctor for access
  * @summary Assign exercise group to doctor
- * {@link /api/admin/doctors/:doctorId/exercise-groups/:groupId}
+ * {@link /api/admin/staff/doctors/:doctorId/exercise-groups/:groupId}
  */
 export async function assignExerciseGroupToDoctor(
   doctorId: AssignExerciseGroupToDoctorPathParams["doctorId"],
@@ -41,7 +43,7 @@ export async function assignExerciseGroupToDoctor(
     unknown
   >({
     method: "POST",
-    url: `/api/admin/doctors/${doctorId}/exercise-groups/${groupId}`,
+    url: `/api/admin/staff/doctors/${doctorId}/exercise-groups/${groupId}`,
     ...requestConfig,
   });
   return res.data;
@@ -70,7 +72,7 @@ export function assignExerciseGroupToDoctorMutationOptions(
 /**
  * @description Assign an exercise group to a doctor for access
  * @summary Assign exercise group to doctor
- * {@link /api/admin/doctors/:doctorId/exercise-groups/:groupId}
+ * {@link /api/admin/staff/doctors/:doctorId/exercise-groups/:groupId}
  */
 export function useAssignExerciseGroupToDoctor<TContext>(
   options: {

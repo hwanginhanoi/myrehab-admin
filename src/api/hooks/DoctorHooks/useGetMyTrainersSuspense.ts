@@ -4,7 +4,10 @@
  */
 
 import fetch from "@/lib/api-client";
-import type { GetMyTrainersQueryResponse } from "../../types/doctorController/GetMyTrainers.ts";
+import type {
+  GetMyTrainersQueryResponse,
+  GetMyTrainersQueryParams,
+} from "../../types/doctorController/GetMyTrainers.ts";
 import type { RequestConfig, ResponseErrorConfig } from "@/lib/api-client";
 import type {
   QueryKey,
@@ -14,8 +17,10 @@ import type {
 } from "@tanstack/react-query";
 import { queryOptions, useSuspenseQuery } from "@tanstack/react-query";
 
-export const getMyTrainersSuspenseQueryKey = () =>
-  [{ url: "/api/doctors/my-trainers" }] as const;
+export const getMyTrainersSuspenseQueryKey = (
+  params: GetMyTrainersQueryParams,
+) =>
+  [{ url: "/api/doctors/my-trainers" }, ...(params ? [params] : [])] as const;
 
 export type GetMyTrainersSuspenseQueryKey = ReturnType<
   typeof getMyTrainersSuspenseQueryKey
@@ -27,6 +32,7 @@ export type GetMyTrainersSuspenseQueryKey = ReturnType<
  * {@link /api/doctors/my-trainers}
  */
 export async function getMyTrainersSuspense(
+  params: GetMyTrainersQueryParams,
   config: Partial<RequestConfig> & { client?: typeof fetch } = {},
 ) {
   const { client: request = fetch, ...requestConfig } = config;
@@ -35,24 +41,31 @@ export async function getMyTrainersSuspense(
     GetMyTrainersQueryResponse,
     ResponseErrorConfig<Error>,
     unknown
-  >({ method: "GET", url: `/api/doctors/my-trainers`, ...requestConfig });
+  >({
+    method: "GET",
+    url: `/api/doctors/my-trainers`,
+    params,
+    ...requestConfig,
+  });
   return res.data;
 }
 
 export function getMyTrainersSuspenseQueryOptions(
+  params: GetMyTrainersQueryParams,
   config: Partial<RequestConfig> & { client?: typeof fetch } = {},
 ) {
-  const queryKey = getMyTrainersSuspenseQueryKey();
+  const queryKey = getMyTrainersSuspenseQueryKey(params);
   return queryOptions<
     GetMyTrainersQueryResponse,
     ResponseErrorConfig<Error>,
     GetMyTrainersQueryResponse,
     typeof queryKey
   >({
+    enabled: !!params,
     queryKey,
     queryFn: async ({ signal }) => {
       config.signal = signal;
-      return getMyTrainersSuspense(config);
+      return getMyTrainersSuspense(params, config);
     },
   });
 }
@@ -66,6 +79,7 @@ export function useGetMyTrainersSuspense<
   TData = GetMyTrainersQueryResponse,
   TQueryKey extends QueryKey = GetMyTrainersSuspenseQueryKey,
 >(
+  params: GetMyTrainersQueryParams,
   options: {
     query?: Partial<
       UseSuspenseQueryOptions<
@@ -80,11 +94,12 @@ export function useGetMyTrainersSuspense<
 ) {
   const { query: queryConfig = {}, client: config = {} } = options ?? {};
   const { client: queryClient, ...queryOptions } = queryConfig;
-  const queryKey = queryOptions?.queryKey ?? getMyTrainersSuspenseQueryKey();
+  const queryKey =
+    queryOptions?.queryKey ?? getMyTrainersSuspenseQueryKey(params);
 
   const query = useSuspenseQuery(
     {
-      ...getMyTrainersSuspenseQueryOptions(config),
+      ...getMyTrainersSuspenseQueryOptions(params, config),
       queryKey,
       ...queryOptions,
     } as unknown as UseSuspenseQueryOptions,
