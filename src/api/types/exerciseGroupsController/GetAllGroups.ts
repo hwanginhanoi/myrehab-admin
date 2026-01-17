@@ -8,6 +8,11 @@ import type { PagedModel } from "../PagedModel.ts";
 
 export type GetAllGroupsQueryParams = {
   /**
+   * @description Search query for group name (case-insensitive)
+   * @type string | undefined
+   */
+  query?: string;
+  /**
    * @type object
    */
   pageable: Pageable;

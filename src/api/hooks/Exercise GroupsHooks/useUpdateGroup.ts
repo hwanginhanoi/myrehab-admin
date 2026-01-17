@@ -4,17 +4,17 @@
  */
 
 import fetch from "@/lib/api-client";
+import type {
+  UpdateGroupMutationRequest,
+  UpdateGroupMutationResponse,
+  UpdateGroupPathParams,
+} from "../../types/exerciseGroupsController/UpdateGroup.ts";
 import type { RequestConfig, ResponseErrorConfig } from "@/lib/api-client";
 import type {
   UseMutationOptions,
   UseMutationResult,
   QueryClient,
 } from "@tanstack/react-query";
-import type {
-  UpdateGroupMutationRequest,
-  UpdateGroupMutationResponse,
-  UpdateGroupPathParams,
-} from "../../types/exerciseGroupsController/UpdateGroup.ts";
 import { mutationOptions, useMutation } from "@tanstack/react-query";
 
 export const updateGroupMutationKey = () =>
@@ -23,7 +23,7 @@ export const updateGroupMutationKey = () =>
 export type UpdateGroupMutationKey = ReturnType<typeof updateGroupMutationKey>;
 
 /**
- * @description Update an existing exercise group
+ * @description Update an existing exercise group. Requires Admin role.
  * @summary Update exercise group
  * {@link /api/exercise-groups/:id}
  */
@@ -71,7 +71,7 @@ export function updateGroupMutationOptions(
 }
 
 /**
- * @description Update an existing exercise group
+ * @description Update an existing exercise group. Requires Admin role.
  * @summary Update exercise group
  * {@link /api/exercise-groups/:id}
  */

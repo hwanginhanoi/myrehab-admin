@@ -4,6 +4,10 @@
  */
 
 import fetch from "@/lib/api-client";
+import type {
+  GetGroupByIdQueryResponse,
+  GetGroupByIdPathParams,
+} from "../../types/exerciseGroupsController/GetGroupById.ts";
 import type { RequestConfig, ResponseErrorConfig } from "@/lib/api-client";
 import type {
   QueryKey,
@@ -11,10 +15,6 @@ import type {
   QueryObserverOptions,
   UseQueryResult,
 } from "@tanstack/react-query";
-import type {
-  GetGroupByIdQueryResponse,
-  GetGroupByIdPathParams,
-} from "../../types/exerciseGroupsController/GetGroupById.ts";
 import { queryOptions, useQuery } from "@tanstack/react-query";
 
 export const getGroupByIdQueryKey = (id: GetGroupByIdPathParams["id"]) =>
@@ -23,7 +23,7 @@ export const getGroupByIdQueryKey = (id: GetGroupByIdPathParams["id"]) =>
 export type GetGroupByIdQueryKey = ReturnType<typeof getGroupByIdQueryKey>;
 
 /**
- * @description Retrieve a specific exercise group by its ID
+ * @description Retrieve a specific exercise group by its ID. User must have access to this group.
  * @summary Get group by ID
  * {@link /api/exercise-groups/:id}
  */
@@ -62,7 +62,7 @@ export function getGroupByIdQueryOptions(
 }
 
 /**
- * @description Retrieve a specific exercise group by its ID
+ * @description Retrieve a specific exercise group by its ID. User must have access to this group.
  * @summary Get group by ID
  * {@link /api/exercise-groups/:id}
  */

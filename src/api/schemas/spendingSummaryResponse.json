@@ -1,0 +1,5 @@
+{
+  "type": "object",
+  "properties": { "totalSpending": { "type": "number" } },
+  "x-readme-ref-name": "SpendingSummaryResponse"
+}

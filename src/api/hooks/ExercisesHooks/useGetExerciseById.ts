@@ -4,6 +4,10 @@
  */
 
 import fetch from "@/lib/api-client";
+import type {
+  GetExerciseByIdQueryResponse,
+  GetExerciseByIdPathParams,
+} from "../../types/exercisesController/GetExerciseById.ts";
 import type { RequestConfig, ResponseErrorConfig } from "@/lib/api-client";
 import type {
   QueryKey,
@@ -11,10 +15,6 @@ import type {
   QueryObserverOptions,
   UseQueryResult,
 } from "@tanstack/react-query";
-import type {
-  GetExerciseByIdQueryResponse,
-  GetExerciseByIdPathParams,
-} from "../../types/exercisesController/GetExerciseById.ts";
 import { queryOptions, useQuery } from "@tanstack/react-query";
 
 export const getExerciseByIdQueryKey = (id: GetExerciseByIdPathParams["id"]) =>
@@ -25,7 +25,7 @@ export type GetExerciseByIdQueryKey = ReturnType<
 >;
 
 /**
- * @description Retrieve a specific exercise by its ID
+ * @description Retrieve a specific exercise. User must have access through exercise groups.
  * @summary Get exercise by ID
  * {@link /api/exercises/:id}
  */
@@ -64,7 +64,7 @@ export function getExerciseByIdQueryOptions(
 }
 
 /**
- * @description Retrieve a specific exercise by its ID
+ * @description Retrieve a specific exercise. User must have access through exercise groups.
  * @summary Get exercise by ID
  * {@link /api/exercises/:id}
  */

@@ -1,3 +1,6 @@
+export type { AddBalanceRequest } from "./AddBalanceRequest.ts";
+export type { AssignCourseToPatientRequest } from "./AssignCourseToPatientRequest.ts";
+export type { AssignPatientToDoctorRequest } from "./AssignPatientToDoctorRequest.ts";
 export type {
   CheckPhone200,
   CheckPhoneMutationRequest,
@@ -53,11 +56,73 @@ export type {
   SendRegistrationOtpMutation,
 } from "./authenticationController/SendRegistrationOtp.ts";
 export type {
+  AddBalance200,
+  AddBalanceMutationRequest,
+  AddBalanceMutationResponse,
+  AddBalanceMutation,
+} from "./balanceControllerController/AddBalance.ts";
+export type {
+  GetMyBalance200,
+  GetMyBalanceQueryResponse,
+  GetMyBalanceQuery,
+} from "./balanceControllerController/GetMyBalance.ts";
+export type { BalanceResponse } from "./BalanceResponse.ts";
+export type {
   CategoryResponseTypeEnumKey,
   CategoryResponse,
 } from "./CategoryResponse.ts";
 export type { CheckPhoneRequest } from "./CheckPhoneRequest.ts";
 export type { CheckPhoneResponse } from "./CheckPhoneResponse.ts";
+export type { CourseDaySummaryDto } from "./CourseDaySummaryDto.ts";
+export type { CourseMetadataDto } from "./CourseMetadataDto.ts";
+export type {
+  CompleteCoursePathParams,
+  CompleteCourse200,
+  CompleteCourseMutationResponse,
+  CompleteCourseMutation,
+} from "./courseProgressController/CompleteCourse.ts";
+export type {
+  CompleteExercisePathParams,
+  CompleteExercise200,
+  CompleteExerciseMutationResponse,
+  CompleteExerciseMutation,
+} from "./courseProgressController/CompleteExercise.ts";
+export type {
+  GetCurrentProgress200,
+  GetCurrentProgressQueryResponse,
+  GetCurrentProgressQuery,
+} from "./courseProgressController/GetCurrentProgress.ts";
+export type {
+  GetDayContentPathParams,
+  GetDayContent200,
+  GetDayContentQueryResponse,
+  GetDayContentQuery,
+} from "./courseProgressController/GetDayContent.ts";
+export type {
+  GetMyAssignedCourses1200,
+  GetMyAssignedCourses1QueryResponse,
+  GetMyAssignedCourses1Query,
+} from "./courseProgressController/GetMyAssignedCourses1.ts";
+export type {
+  StartCourse200,
+  StartCourseMutationRequest,
+  StartCourseMutationResponse,
+  StartCourseMutation,
+} from "./courseProgressController/StartCourse.ts";
+export type { CourseProgressResponse } from "./CourseProgressResponse.ts";
+export type {
+  GetAllCoursesQueryParams,
+  GetAllCourses200,
+  GetAllCoursesQueryResponse,
+  GetAllCoursesQuery,
+} from "./coursesController/GetAllCourses.ts";
+export type {
+  GetCourseStructurePathParams,
+  GetCourseStructure200,
+  GetCourseStructureQueryResponse,
+  GetCourseStructureQuery,
+} from "./coursesController/GetCourseStructure.ts";
+export type { CourseWithDaysResponse } from "./CourseWithDaysResponse.ts";
 export type {
   CreateCategoryRequestTypeEnumKey,
   CreateCategoryRequest,
@@ -65,7 +130,51 @@ export type {
 export type { CreateExercisePackageRequest } from "./CreateExercisePackageRequest.ts";
 export type { CreateExerciseRequest } from "./CreateExerciseRequest.ts";
 export type { CreateGroupRequest } from "./CreateGroupRequest.ts";
+export type {
+  CreateStaffRequestStaffTypeEnumKey,
+  CreateStaffRequest,
+} from "./CreateStaffRequest.ts";
+export type { DayContentResponse } from "./DayContentResponse.ts";
+export type { DayExerciseItemResponse } from "./DayExerciseItemResponse.ts";
 export type { DeleteFileRequest } from "./DeleteFileRequest.ts";
+export type {
+  AssignCourseToPatientPathParams,
+  AssignCourseToPatient200,
+  AssignCourseToPatientMutationRequest,
+  AssignCourseToPatientMutationResponse,
+  AssignCourseToPatientMutation,
+} from "./doctorController/AssignCourseToPatient.ts";
+export type {
+  GetMyAssignedCoursesQueryParams,
+  GetMyAssignedCourses200,
+  GetMyAssignedCoursesQueryResponse,
+  GetMyAssignedCoursesQuery,
+} from "./doctorController/GetMyAssignedCourses.ts";
+export type {
+  GetMyPatientsQueryParams,
+  GetMyPatients200,
+  GetMyPatientsQueryResponse,
+  GetMyPatientsQuery,
+} from "./doctorController/GetMyPatients.ts";
+export type {
+  GetMyTrainersQueryParams,
+  GetMyTrainers200,
+  GetMyTrainersQueryResponse,
+  GetMyTrainersQuery,
+} from "./doctorController/GetMyTrainers.ts";
+export type {
+  GetPatientCoursesPathParams,
+  GetPatientCourses200,
+  GetPatientCoursesQueryResponse,
+  GetPatientCoursesQuery,
+} from "./doctorController/GetPatientCourses.ts";
+export type {
+  RevokeCourseAssignmentPathParams,
+  RevokeCourseAssignment200,
+  RevokeCourseAssignmentMutationResponse,
+  RevokeCourseAssignmentMutation,
+} from "./doctorController/RevokeCourseAssignment.ts";
+export type { DoctorPatientResponse } from "./DoctorPatientResponse.ts";
 export type {
   CreateCategory200,
   CreateCategoryMutationRequest,
@@ -73,19 +182,12 @@ export type {
   CreateCategoryMutation,
 } from "./exerciseCategoriesController/CreateCategory.ts";
 export type {
+  GetAllCategoriesQueryParamsTypeEnumKey,
   GetAllCategoriesQueryParams,
   GetAllCategories200,
   GetAllCategoriesQueryResponse,
   GetAllCategoriesQuery,
 } from "./exerciseCategoriesController/GetAllCategories.ts";
-export type {
-  GetCategoriesByTypePathParamsTypeEnumKey,
-  GetCategoriesByTypePathParams,
-  GetCategoriesByTypeQueryParams,
-  GetCategoriesByType200,
-  GetCategoriesByTypeQueryResponse,
-  GetCategoriesByTypeQuery,
-} from "./exerciseCategoriesController/GetCategoriesByType.ts";
 export type {
   GetCategoryByIdPathParams,
   GetCategoryById200,
@@ -93,18 +195,13 @@ export type {
   GetCategoryByIdQuery,
 } from "./exerciseCategoriesController/GetCategoryById.ts";
 export type {
-  SearchCategoriesByNameQueryParams,
-  SearchCategoriesByName200,
-  SearchCategoriesByNameQueryResponse,
-  SearchCategoriesByNameQuery,
-} from "./exerciseCategoriesController/SearchCategoriesByName.ts";
-export type {
   UpdateCategoryPathParams,
   UpdateCategory200,
   UpdateCategoryMutationRequest,
   UpdateCategoryMutationResponse,
   UpdateCategoryMutation,
 } from "./exerciseCategoriesController/UpdateCategory.ts";
+export type { ExerciseCompletionResponse } from "./ExerciseCompletionResponse.ts";
 export type {
   CreateGroup200,
   CreateGroupMutationRequest,
@@ -123,12 +220,6 @@ export type {
   GetGroupByIdQueryResponse,
   GetGroupByIdQuery,
 } from "./exerciseGroupsController/GetGroupById.ts";
-export type {
-  SearchGroupsByNameQueryParams,
-  SearchGroupsByName200,
-  SearchGroupsByNameQueryResponse,
-  SearchGroupsByNameQuery,
-} from "./exerciseGroupsController/SearchGroupsByName.ts";
 export type {
   UpdateGroupPathParams,
   UpdateGroup200,
@@ -212,16 +303,161 @@ export type { GenerateUploadUrlRequest } from "./GenerateUploadUrlRequest.ts";
 export type { GroupResponse } from "./GroupResponse.ts";
 export type { LoginWithPasswordRequest } from "./LoginWithPasswordRequest.ts";
 export type { LoginWithPinRequest } from "./LoginWithPinRequest.ts";
+export type { MyAssignedCourseResponse } from "./MyAssignedCourseResponse.ts";
 export type { OtpResponse } from "./OtpResponse.ts";
 export type { Pageable } from "./Pageable.ts";
 export type { PagedModel } from "./PagedModel.ts";
 export type { PageMetadata } from "./PageMetadata.ts";
+export type {
+  AssignPatientToDoctorPathParams,
+  AssignPatientToDoctor200,
+  AssignPatientToDoctorMutationRequest,
+  AssignPatientToDoctorMutationResponse,
+  AssignPatientToDoctorMutation,
+} from "./patientManagementController/AssignPatientToDoctor.ts";
+export type {
+  GetDoctorPatientsPathParams,
+  GetDoctorPatientsQueryParams,
+  GetDoctorPatients200,
+  GetDoctorPatientsQueryResponse,
+  GetDoctorPatientsQuery,
+} from "./patientManagementController/GetDoctorPatients.ts";
+export type {
+  RemovePatientFromDoctorPathParams,
+  RemovePatientFromDoctor200,
+  RemovePatientFromDoctorMutationResponse,
+  RemovePatientFromDoctorMutation,
+} from "./patientManagementController/RemovePatientFromDoctor.ts";
+export type { PendingPurchaseResponse } from "./PendingPurchaseResponse.ts";
 export type { PresignedUrlResponse } from "./PresignedUrlResponse.ts";
+export type {
+  PurchaseCourseRequestSubscriptionTypeEnumKey,
+  PurchaseCourseRequest,
+} from "./PurchaseCourseRequest.ts";
+export type {
+  PurchasePackageRequestSubscriptionTypeEnumKey,
+  PurchasePackageRequest,
+} from "./PurchasePackageRequest.ts";
 export type { RefreshTokenRequest } from "./RefreshTokenRequest.ts";
 export type { RegisterRequest } from "./RegisterRequest.ts";
 export type { ResetPinRequest } from "./ResetPinRequest.ts";
 export type { SendOtpRequest } from "./SendOtpRequest.ts";
+export type { SpendingSummaryResponse } from "./SpendingSummaryResponse.ts";
 export type { StaffAuthResponse } from "./StaffAuthResponse.ts";
+export type {
+  AssignExerciseGroupToDoctorPathParams,
+  AssignExerciseGroupToDoctor200,
+  AssignExerciseGroupToDoctorMutationResponse,
+  AssignExerciseGroupToDoctorMutation,
+} from "./staffManagementController/AssignExerciseGroupToDoctor.ts";
+export type {
+  AssignTrainerToDoctorPathParams,
+  AssignTrainerToDoctor200,
+  AssignTrainerToDoctorMutationResponse,
+  AssignTrainerToDoctorMutation,
+} from "./staffManagementController/AssignTrainerToDoctor.ts";
+export type {
+  CreateStaff200,
+  CreateStaffMutationRequest,
+  CreateStaffMutationResponse,
+  CreateStaffMutation,
+} from "./staffManagementController/CreateStaff.ts";
+export type {
+  DisableStaffPathParams,
+  DisableStaff200,
+  DisableStaffMutationResponse,
+  DisableStaffMutation,
+} from "./staffManagementController/DisableStaff.ts";
+export type {
+  EnableStaffPathParams,
+  EnableStaff200,
+  EnableStaffMutationResponse,
+  EnableStaffMutation,
+} from "./staffManagementController/EnableStaff.ts";
+export type {
+  GetAllStaffQueryParamsStaffTypeEnumKey,
+  GetAllStaffQueryParams,
+  GetAllStaff200,
+  GetAllStaffQueryResponse,
+  GetAllStaffQuery,
+} from "./staffManagementController/GetAllStaff.ts";
+export type {
+  GetExerciseGroupsByDoctorPathParams,
+  GetExerciseGroupsByDoctor200,
+  GetExerciseGroupsByDoctorQueryResponse,
+  GetExerciseGroupsByDoctorQuery,
+} from "./staffManagementController/GetExerciseGroupsByDoctor.ts";
+export type {
+  GetStaffByIdPathParams,
+  GetStaffById200,
+  GetStaffByIdQueryResponse,
+  GetStaffByIdQuery,
+} from "./staffManagementController/GetStaffById.ts";
+export type {
+  GetTrainersByDoctorPathParams,
+  GetTrainersByDoctorQueryParams,
+  GetTrainersByDoctor200,
+  GetTrainersByDoctorQueryResponse,
+  GetTrainersByDoctorQuery,
+} from "./staffManagementController/GetTrainersByDoctor.ts";
+export type {
+  RemoveExerciseGroupFromDoctorPathParams,
+  RemoveExerciseGroupFromDoctor200,
+  RemoveExerciseGroupFromDoctorMutationResponse,
+  RemoveExerciseGroupFromDoctorMutation,
+} from "./staffManagementController/RemoveExerciseGroupFromDoctor.ts";
+export type {
+  RemoveTrainerFromDoctorPathParams,
+  RemoveTrainerFromDoctor200,
+  RemoveTrainerFromDoctorMutationResponse,
+  RemoveTrainerFromDoctorMutation,
+} from "./staffManagementController/RemoveTrainerFromDoctor.ts";
+export type {
+  UpdateStaffPathParams,
+  UpdateStaff200,
+  UpdateStaffMutationRequest,
+  UpdateStaffMutationResponse,
+  UpdateStaffMutation,
+} from "./staffManagementController/UpdateStaff.ts";
+export type { StaffResponse } from "./StaffResponse.ts";
+export type { StartCourseRequest } from "./StartCourseRequest.ts";
+export type {
+  GetMySubscriptions200,
+  GetMySubscriptionsQueryResponse,
+  GetMySubscriptionsQuery,
+} from "./subscriptionControllerController/GetMySubscriptions.ts";
+export type {
+  GetPendingPurchases200,
+  GetPendingPurchasesQueryResponse,
+  GetPendingPurchasesQuery,
+} from "./subscriptionControllerController/GetPendingPurchases.ts";
+export type {
+  PurchaseCourse200,
+  PurchaseCourseMutationRequest,
+  PurchaseCourseMutationResponse,
+  PurchaseCourseMutation,
+} from "./subscriptionControllerController/PurchaseCourse.ts";
+export type {
+  PurchasePackage200,
+  PurchasePackageMutationRequest,
+  PurchasePackageMutationResponse,
+  PurchasePackageMutation,
+} from "./subscriptionControllerController/PurchasePackage.ts";
+export type {
+  SubscriptionResponseSubscriptionTypeEnumKey,
+  SubscriptionResponse,
+} from "./SubscriptionResponse.ts";
+export type {
+  GetMyTotalSpending200,
+  GetMyTotalSpendingQueryResponse,
+  GetMyTotalSpendingQuery,
+} from "./transactionControllerController/GetMyTotalSpending.ts";
+export type {
+  GetMyTransactionHistoryQueryParams,
+  GetMyTransactionHistory200,
+  GetMyTransactionHistoryQueryResponse,
+  GetMyTransactionHistoryQuery,
+} from "./transactionControllerController/GetMyTransactionHistory.ts";
 export type {
   UpdateCategoryRequestTypeEnumKey,
   UpdateCategoryRequest,
@@ -229,8 +465,15 @@ export type {
 export type { UpdateExercisePackageRequest } from "./UpdateExercisePackageRequest.ts";
 export type { UpdateExerciseRequest } from "./UpdateExerciseRequest.ts";
 export type { UpdateGroupRequest } from "./UpdateGroupRequest.ts";
+export type { UpdateStaffRequest } from "./UpdateStaffRequest.ts";
 export type { UserAuthResponse } from "./UserAuthResponse.ts";
+export type { UserCourseAssignmentResponse } from "./UserCourseAssignmentResponse.ts";
 export { categoryResponseTypeEnum } from "./CategoryResponse.ts";
 export { createCategoryRequestTypeEnum } from "./CreateCategoryRequest.ts";
-export { getCategoriesByTypePathParamsTypeEnum } from "./exerciseCategoriesController/GetCategoriesByType.ts";
+export { createStaffRequestStaffTypeEnum } from "./CreateStaffRequest.ts";
+export { getAllCategoriesQueryParamsTypeEnum } from "./exerciseCategoriesController/GetAllCategories.ts";
+export { purchaseCourseRequestSubscriptionTypeEnum } from "./PurchaseCourseRequest.ts";
+export { purchasePackageRequestSubscriptionTypeEnum } from "./PurchasePackageRequest.ts";
+export { getAllStaffQueryParamsStaffTypeEnum } from "./staffManagementController/GetAllStaff.ts";
+export { subscriptionResponseSubscriptionTypeEnum } from "./SubscriptionResponse.ts";
 export { updateCategoryRequestTypeEnum } from "./UpdateCategoryRequest.ts";

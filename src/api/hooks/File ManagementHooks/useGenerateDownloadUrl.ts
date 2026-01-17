@@ -4,16 +4,16 @@
  */
 
 import fetch from "@/lib/api-client";
+import type {
+  GenerateDownloadUrlMutationRequest,
+  GenerateDownloadUrlMutationResponse,
+} from "../../types/fileManagementController/GenerateDownloadUrl.ts";
 import type { RequestConfig, ResponseErrorConfig } from "@/lib/api-client";
 import type {
   UseMutationOptions,
   UseMutationResult,
   QueryClient,
 } from "@tanstack/react-query";
-import type {
-  GenerateDownloadUrlMutationRequest,
-  GenerateDownloadUrlMutationResponse,
-} from "../../types/fileManagementController/GenerateDownloadUrl.ts";
 import { mutationOptions, useMutation } from "@tanstack/react-query";
 
 export const generateDownloadUrlMutationKey = () =>

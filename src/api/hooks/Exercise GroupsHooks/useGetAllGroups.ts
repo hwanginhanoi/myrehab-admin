@@ -4,6 +4,10 @@
  */
 
 import fetch from "@/lib/api-client";
+import type {
+  GetAllGroupsQueryResponse,
+  GetAllGroupsQueryParams,
+} from "../../types/exerciseGroupsController/GetAllGroups.ts";
 import type { RequestConfig, ResponseErrorConfig } from "@/lib/api-client";
 import type {
   QueryKey,
@@ -11,10 +15,6 @@ import type {
   QueryObserverOptions,
   UseQueryResult,
 } from "@tanstack/react-query";
-import type {
-  GetAllGroupsQueryResponse,
-  GetAllGroupsQueryParams,
-} from "../../types/exerciseGroupsController/GetAllGroups.ts";
 import { queryOptions, useQuery } from "@tanstack/react-query";
 
 export const getAllGroupsQueryKey = (params: GetAllGroupsQueryParams) =>
@@ -23,8 +23,8 @@ export const getAllGroupsQueryKey = (params: GetAllGroupsQueryParams) =>
 export type GetAllGroupsQueryKey = ReturnType<typeof getAllGroupsQueryKey>;
 
 /**
- * @description Retrieve exercise groups with pagination. Default page size is 20. Sorted by newest first.
- * @summary Get all groups
+ * @description Retrieve exercise groups with pagination and optional search query. Returns only groups the user has access to.
+ * @summary Get all groups with optional search
  * {@link /api/exercise-groups}
  */
 export async function getAllGroups(
@@ -62,8 +62,8 @@ export function getAllGroupsQueryOptions(
 }
 
 /**
- * @description Retrieve exercise groups with pagination. Default page size is 20. Sorted by newest first.
- * @summary Get all groups
+ * @description Retrieve exercise groups with pagination and optional search query. Returns only groups the user has access to.
+ * @summary Get all groups with optional search
  * {@link /api/exercise-groups}
  */
 export function useGetAllGroups<

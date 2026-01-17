@@ -4,16 +4,16 @@
  */
 
 import fetch from "@/lib/api-client";
+import type {
+  RefreshTokenMutationRequest,
+  RefreshTokenMutationResponse,
+} from "../../types/authenticationController/RefreshToken.ts";
 import type { RequestConfig, ResponseErrorConfig } from "@/lib/api-client";
 import type {
   UseMutationOptions,
   UseMutationResult,
   QueryClient,
 } from "@tanstack/react-query";
-import type {
-  RefreshTokenMutationRequest,
-  RefreshTokenMutationResponse,
-} from "../../types/authenticationController/RefreshToken.ts";
 import { mutationOptions, useMutation } from "@tanstack/react-query";
 
 export const refreshTokenMutationKey = () =>

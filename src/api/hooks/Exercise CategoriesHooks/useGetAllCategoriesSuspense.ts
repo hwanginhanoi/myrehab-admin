@@ -4,6 +4,10 @@
  */
 
 import fetch from "@/lib/api-client";
+import type {
+  GetAllCategoriesQueryResponse,
+  GetAllCategoriesQueryParams,
+} from "../../types/exerciseCategoriesController/GetAllCategories.ts";
 import type { RequestConfig, ResponseErrorConfig } from "@/lib/api-client";
 import type {
   QueryKey,
@@ -11,10 +15,6 @@ import type {
   UseSuspenseQueryOptions,
   UseSuspenseQueryResult,
 } from "@tanstack/react-query";
-import type {
-  GetAllCategoriesQueryResponse,
-  GetAllCategoriesQueryParams,
-} from "../../types/exerciseCategoriesController/GetAllCategories.ts";
 import { queryOptions, useSuspenseQuery } from "@tanstack/react-query";
 
 export const getAllCategoriesSuspenseQueryKey = (
@@ -27,8 +27,8 @@ export type GetAllCategoriesSuspenseQueryKey = ReturnType<
 >;
 
 /**
- * @description Retrieve exercise categories with pagination. Default page size is 20. Sorted by newest first.
- * @summary Get all categories
+ * @description Retrieve exercise categories with pagination and optional filters. Can filter by type and/or search by name. Both parameters are optional.
+ * @summary Get all categories with optional filters
  * {@link /api/exercise-categories}
  */
 export async function getAllCategoriesSuspense(
@@ -71,8 +71,8 @@ export function getAllCategoriesSuspenseQueryOptions(
 }
 
 /**
- * @description Retrieve exercise categories with pagination. Default page size is 20. Sorted by newest first.
- * @summary Get all categories
+ * @description Retrieve exercise categories with pagination and optional filters. Can filter by type and/or search by name. Both parameters are optional.
+ * @summary Get all categories with optional filters
  * {@link /api/exercise-categories}
  */
 export function useGetAllCategoriesSuspense<

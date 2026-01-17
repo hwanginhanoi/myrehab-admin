@@ -4,16 +4,16 @@
  */
 
 import fetch from "@/lib/api-client";
+import type {
+  CreateGroupMutationRequest,
+  CreateGroupMutationResponse,
+} from "../../types/exerciseGroupsController/CreateGroup.ts";
 import type { RequestConfig, ResponseErrorConfig } from "@/lib/api-client";
 import type {
   UseMutationOptions,
   UseMutationResult,
   QueryClient,
 } from "@tanstack/react-query";
-import type {
-  CreateGroupMutationRequest,
-  CreateGroupMutationResponse,
-} from "../../types/exerciseGroupsController/CreateGroup.ts";
 import { mutationOptions, useMutation } from "@tanstack/react-query";
 
 export const createGroupMutationKey = () =>
@@ -22,7 +22,7 @@ export const createGroupMutationKey = () =>
 export type CreateGroupMutationKey = ReturnType<typeof createGroupMutationKey>;
 
 /**
- * @description Create a new exercise group with name and description
+ * @description Create a new exercise group with name and description. Requires Admin role.
  * @summary Create exercise group
  * {@link /api/exercise-groups}
  */
@@ -69,7 +69,7 @@ export function createGroupMutationOptions(
 }
 
 /**
- * @description Create a new exercise group with name and description
+ * @description Create a new exercise group with name and description. Requires Admin role.
  * @summary Create exercise group
  * {@link /api/exercise-groups}
  */

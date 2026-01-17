@@ -6,7 +6,28 @@
 import type { Pageable } from "../Pageable.ts";
 import type { PagedModel } from "../PagedModel.ts";
 
+export const getAllCategoriesQueryParamsTypeEnum = {
+  BODY_PART: "BODY_PART",
+  RECOVERY_STAGE: "RECOVERY_STAGE",
+  HEALTH_CONDITION: "HEALTH_CONDITION",
+  DIFFICULTY_LEVEL: "DIFFICULTY_LEVEL",
+  EXERCISE_TYPE: "EXERCISE_TYPE",
+} as const;
+
+export type GetAllCategoriesQueryParamsTypeEnumKey =
+  (typeof getAllCategoriesQueryParamsTypeEnum)[keyof typeof getAllCategoriesQueryParamsTypeEnum];
+
 export type GetAllCategoriesQueryParams = {
+  /**
+   * @description Category type (BODY_PART, RECOVERY_STAGE, HEALTH_CONDITION, DIFFICULTY_LEVEL, EXERCISE_TYPE)
+   * @type string | undefined
+   */
+  type?: GetAllCategoriesQueryParamsTypeEnumKey;
+  /**
+   * @description Search query for category name (case-insensitive)
+   * @type string | undefined
+   */
+  query?: string;
   /**
    * @type object
    */

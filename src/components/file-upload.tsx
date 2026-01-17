@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useRef, useImperativeHandle, forwardRef } from 'react'
+import { useState, useRef, useImperativeHandle, forwardRef, useEffect } from 'react'
 import { Upload, X, Loader2, FileVideo, Image as ImageIcon } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Progress } from '@/components/ui/progress'
@@ -10,6 +10,8 @@ import {
   validateFile,
   requestPresignedUploadUrl,
   uploadFileToMinIO,
+  requestPresignedDownloadUrl,
+  getPublicImageUrl,
 } from '@/lib/file-upload'
 import { toast } from 'sonner'
 
@@ -36,6 +38,9 @@ export const FileUpload = forwardRef<FileUploadRef, FileUploadProps>(
     const [uploading, setUploading] = useState(false)
     const [progress, setProgress] = useState(0)
     const [uploadStatus, setUploadStatus] = useState<string>('')
+    const [backendPreviewUrl, setBackendPreviewUrl] = useState<string | null>(null)
+    const [previewLoading, setPreviewLoading] = useState(false)
+    const [previewError, setPreviewError] = useState<string | null>(null)
     const inputRef = useRef<HTMLInputElement>(null)
 
     const isImage = category.includes('image')
@@ -144,6 +149,41 @@ export const FileUpload = forwardRef<FileUploadRef, FileUploadProps>(
       }
     }
 
+    // Fetch and generate preview URL when value is provided
+    useEffect(() => {
+      if (value && !file && !preview) {
+        const fetchPreview = async () => {
+          try {
+            setPreviewLoading(true)
+            setPreviewError(null)
+
+            if (isImage) {
+              // For images, use public URL directly (no presigned URL needed)
+              // Check if value is already a full URL
+              const url = value.startsWith('http://') || value.startsWith('https://')
+                ? value
+                : getPublicImageUrl(value)
+              setBackendPreviewUrl(url)
+            } else if (isVideo) {
+              // For videos, request presigned URL for security
+              const response = await requestPresignedDownloadUrl({
+                objectKey: value,
+                category,
+              })
+              setBackendPreviewUrl(response.presignedUrl)
+            }
+          } catch (error) {
+            console.error('Failed to fetch preview URL:', error)
+            setPreviewError('Không thể tải xem trước')
+          } finally {
+            setPreviewLoading(false)
+          }
+        }
+
+        fetchPreview()
+      }
+    }, [value, file, preview, isImage, isVideo, category])
+
     return (
       <div className={cn('space-y-3', className)}>
         {label && <div className='text-sm font-medium'>{label}</div>}
@@ -191,21 +231,21 @@ export const FileUpload = forwardRef<FileUploadRef, FileUploadProps>(
             {/* Preview with 16:9 container */}
             {(file || value) && (
               <div className='h-full w-full relative rounded-lg overflow-hidden border bg-black'>
-                {isImage && preview && (
+                {isImage && (preview || backendPreviewUrl) && (
                   <img
-                    src={preview}
+                    src={preview || backendPreviewUrl || ''}
                     alt='Preview'
                     className='h-full w-full object-cover'
                   />
                 )}
-                {isVideo && preview && (
+                {isVideo && (preview || backendPreviewUrl) && (
                   <video
-                    src={preview}
+                    src={preview || backendPreviewUrl || ''}
                     className='h-full w-full object-cover'
                     controls
                   />
                 )}
-                {value && !preview && (
+                {value && !preview && !backendPreviewUrl && !previewLoading && (
                   <div className='h-full w-full flex items-center justify-center'>
                     <div className='text-center text-white'>
                       {isImage ? (
@@ -220,15 +260,33 @@ export const FileUpload = forwardRef<FileUploadRef, FileUploadProps>(
                     </div>
                   </div>
                 )}
+                {previewLoading && (
+                  <div className='h-full w-full flex items-center justify-center'>
+                    <div className='text-center text-white'>
+                      <Loader2 className='h-10 w-10 mx-auto mb-2 animate-spin opacity-50' />
+                      <div className='text-sm opacity-70'>Đang tải xem trước...</div>
+                    </div>
+                  </div>
+                )}
+                {previewError && (
+                  <div className='h-full w-full flex items-center justify-center'>
+                    <div className='text-center text-white'>
+                      <FileVideo className='h-10 w-10 mx-auto mb-2 opacity-50' />
+                      <div className='text-sm opacity-70'>{previewError}</div>
+                      <div className='text-xs opacity-50 mt-1 px-4 break-all'>
+                        {value}
+                      </div>
+                    </div>
+                  </div>
+                )}
 
                 {/* Remove button overlay */}
-                {!uploading && (
+                {!uploading && !disabled && (
                   <Button
                     type='button'
                     variant='destructive'
                     size='sm'
                     onClick={handleRemove}
-                    disabled={disabled}
                     className='absolute top-2 right-2'
                   >
                     <X className='h-4 w-4' />

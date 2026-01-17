@@ -4,16 +4,16 @@
  */
 
 import fetch from "@/lib/api-client";
+import type {
+  DeleteFileMutationRequest,
+  DeleteFileMutationResponse,
+} from "../../types/fileManagementController/DeleteFile.ts";
 import type { RequestConfig, ResponseErrorConfig } from "@/lib/api-client";
 import type {
   UseMutationOptions,
   UseMutationResult,
   QueryClient,
 } from "@tanstack/react-query";
-import type {
-  DeleteFileMutationRequest,
-  DeleteFileMutationResponse,
-} from "../../types/fileManagementController/DeleteFile.ts";
 import { mutationOptions, useMutation } from "@tanstack/react-query";
 
 export const deleteFileMutationKey = () => [{ url: "/api/files" }] as const;

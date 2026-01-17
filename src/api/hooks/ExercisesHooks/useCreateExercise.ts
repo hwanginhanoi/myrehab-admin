@@ -4,16 +4,16 @@
  */
 
 import fetch from "@/lib/api-client";
+import type {
+  CreateExerciseMutationRequest,
+  CreateExerciseMutationResponse,
+} from "../../types/exercisesController/CreateExercise.ts";
 import type { RequestConfig, ResponseErrorConfig } from "@/lib/api-client";
 import type {
   UseMutationOptions,
   UseMutationResult,
   QueryClient,
 } from "@tanstack/react-query";
-import type {
-  CreateExerciseMutationRequest,
-  CreateExerciseMutationResponse,
-} from "../../types/exercisesController/CreateExercise.ts";
 import { mutationOptions, useMutation } from "@tanstack/react-query";
 
 export const createExerciseMutationKey = () =>
@@ -24,7 +24,7 @@ export type CreateExerciseMutationKey = ReturnType<
 >;
 
 /**
- * @description Create a new exercise with title, description, media URLs, duration, multiple categories, and multiple groups
+ * @description Create a new exercise. Requires Admin role.
  * @summary Create exercise
  * {@link /api/exercises}
  */
@@ -71,7 +71,7 @@ export function createExerciseMutationOptions(
 }
 
 /**
- * @description Create a new exercise with title, description, media URLs, duration, multiple categories, and multiple groups
+ * @description Create a new exercise. Requires Admin role.
  * @summary Create exercise
  * {@link /api/exercises}
  */
