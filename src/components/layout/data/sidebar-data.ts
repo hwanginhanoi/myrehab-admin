@@ -9,7 +9,6 @@ import {
   Lock,
   Bell,
   Package,
-  PackageOpen,
   Palette,
   ServerOff,
   Settings,
@@ -25,6 +24,8 @@ import {
   FolderTree,
   Layers,
   Dumbbell,
+  Newspaper,
+  ClipboardList,
 } from 'lucide-react'
 import { type SidebarData } from '../types'
 
@@ -102,9 +103,14 @@ export const sidebarData: SidebarData = {
           icon: Dumbbell,
         },
         {
-          title: 'Exercise Packages',
-          url: '/exercise-packages',
-          icon: PackageOpen,
+          title: 'News',
+          url: '/news',
+          icon: Newspaper,
+        },
+        {
+          title: 'Phiếu khám',
+          url: '/rehabilitation-forms',
+          icon: ClipboardList,
         },
       ],
     },
