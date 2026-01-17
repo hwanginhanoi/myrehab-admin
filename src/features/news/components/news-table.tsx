@@ -48,8 +48,8 @@ export function NewsTable({ data, search, navigate, pageCount }: DataTableProps)
     globalFilter: { enabled: false },
     columnFilters: [
       { columnId: 'title', searchKey: 'title', type: 'string' },
-      { columnId: 'status', searchKey: 'status', type: 'array' },
-      { columnId: 'category', searchKey: 'category', type: 'array' },
+      { columnId: 'status', searchKey: 'status', type: 'string' },
+      { columnId: 'category', searchKey: 'category', type: 'string' },
     ],
   })
 

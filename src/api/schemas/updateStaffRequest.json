@@ -1,12 +1,1 @@
-{
-  "type": "object",
-  "properties": {
-    "email": { "type": "string" },
-    "fullName": { "type": "string" },
-    "phoneNumber": { "type": "string" },
-    "specialization": { "type": "string" },
-    "permissions": { "type": "array", "items": { "type": "string" } }
-  },
-  "required": ["email", "fullName"],
-  "x-readme-ref-name": "UpdateStaffRequest"
-}
+{"type":"object","properties":{"email":{"type":"string"},"fullName":{"type":"string"},"phoneNumber":{"type":"string"},"specialization":{"type":"string"},"permissions":{"type":"array","items":{"type":"string"}}},"required":["email","fullName"],"x-readme-ref-name":"UpdateStaffRequest"}

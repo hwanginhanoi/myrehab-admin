@@ -6,7 +6,7 @@ import { Main } from '@/components/layout/main'
 import { ProfileDropdown } from '@/components/profile-dropdown'
 import { Search } from '@/components/search'
 import { ThemeSwitch } from '@/components/theme-switch'
-import { useGetAllNews } from '@/api'
+import { useGetAllNews, type GetAllNewsQueryParams } from '@/api'
 import { NewsPrimaryButtons } from './components/news-primary-buttons'
 import { NewsTable } from './components/news-table'
 
@@ -20,38 +20,27 @@ export function News() {
   // Note: URL uses 1-indexed pages, but API expects 0-indexed
   const page = (search.page as number) || 1
   const pageSize = (search.pageSize as number) || 10
-  const statusFilter = search.status as string[] | undefined
-  const categoryFilter = search.category as string[] | undefined
-  const titleSearch = search.title as string | undefined
+  const status = search.status as string | undefined
+  const category = search.category as string | undefined
+  const title = (search.title as string | undefined)?.trim()
 
-  // Get the first status from the array if it exists (for API call)
-  const selectedStatus = statusFilter && statusFilter.length > 0 ? statusFilter[0] : undefined
-  const selectedCategory = categoryFilter && categoryFilter.length > 0 ? categoryFilter[0] : undefined
-
-  // Build query params for getAllNews (with all filters: status, category, and title)
-  const queryParams = useMemo(() => {
-    const params: any = {
+  // Build query params with proper structure matching GetAllNewsQueryParams
+  const queryParams = useMemo<GetAllNewsQueryParams>(() => ({
+    pageable: {
       page: page - 1, // Convert to 0-indexed for API
       size: pageSize,
-    }
+    },
+    ...(status && { status: status as GetAllNewsQueryParams['status'] }),
+    ...(category && { category }),
+    ...(title && { title }),
+  }), [page, pageSize, status, category, title])
 
-    // Include all filters if they have values
-    if (selectedStatus) {
-      params.status = selectedStatus
-    }
-    if (selectedCategory) {
-      params.category = selectedCategory
-    }
-    if (titleSearch && titleSearch.trim()) {
-      params.title = titleSearch.trim()
-    }
-
-    return params
-  }, [page, pageSize, selectedStatus, selectedCategory, titleSearch])
-
-  const { data: response, isLoading } = useGetAllNews(
-    queryParams as any
-  )
+  // Fetch news with server-side filtering and pagination
+  const { data: response, isLoading } = useGetAllNews(queryParams, {
+    query: {
+      placeholderData: (previousData) => previousData,
+    },
+  })
 
   const news = response?.content || []
   const totalPages = response?.page?.totalPages || 0
