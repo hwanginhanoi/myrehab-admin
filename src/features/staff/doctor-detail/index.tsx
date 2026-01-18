@@ -2,19 +2,21 @@ import { useMemo } from 'react'
 import { getRouteApi, Outlet } from '@tanstack/react-router'
 import { Button } from '@/components/ui/button'
 import { Separator } from '@/components/ui/separator'
-import { ChevronLeft, UserCog, Users } from 'lucide-react'
+import { ChevronLeft, UserCog, Users, UserRound } from 'lucide-react'
 import { useGetStaffById, useGetTrainersByDoctor } from '@/api'
 import { DoctorDetailProvider, useDoctorDetail } from './components/doctor-detail-provider'
 import { DoctorSidebarNav } from './components/doctor-sidebar-nav'
 import { TrainerAssignmentDialog } from './components/trainer-assignment-dialog'
 import { TrainerRemovalDialog } from './components/trainer-removal-dialog'
+import { PatientAssignmentDialog } from './components/patient-assignment-dialog'
+import { PatientRemovalDialog } from './components/patient-removal-dialog'
 
 const route = getRouteApi('/_authenticated/staff/doctors/$doctorId')
 
 function DoctorDetailContent() {
   const { doctorId } = route.useParams()
   const navigate = route.useNavigate()
-  const { open, setOpen, currentTrainer } = useDoctorDetail()
+  const { open, setOpen, currentTrainer, currentPatient } = useDoctorDetail()
 
   // Fetch doctor data
   const { data: doctor, isLoading, error } = useGetStaffById(Number(doctorId))
@@ -77,6 +79,11 @@ function DoctorDetailContent() {
       href: `/staff/doctors/${doctorId}/trainers`,
       icon: <Users size={18} />,
     },
+    {
+      title: 'Bệnh nhân',
+      href: `/staff/doctors/${doctorId}/patients`,
+      icon: <UserRound size={18} />,
+    },
   ]
 
   return (
@@ -106,7 +113,7 @@ function DoctorDetailContent() {
           {isLoading ? 'Đang tải...' : doctor?.fullName || 'Chi tiết Bác sĩ'}
         </h1>
         <p className='text-muted-foreground'>
-          Xem và quản lý thông tin bác sĩ, huấn luyện viên được gán.
+          Xem và quản lý thông tin bác sĩ, huấn luyện viên và bệnh nhân được gán.
         </p>
       </div>
 
@@ -135,6 +142,20 @@ function DoctorDetailContent() {
         trainer={currentTrainer}
         open={open === 'remove'}
         onOpenChange={(isOpen) => setOpen(isOpen ? 'remove' : null)}
+      />
+
+      <PatientAssignmentDialog
+        doctorId={Number(doctorId)}
+        open={open === 'assignPatient'}
+        onOpenChange={(isOpen) => setOpen(isOpen ? 'assignPatient' : null)}
+        assignedPatientIds={[]}
+      />
+
+      <PatientRemovalDialog
+        doctorId={Number(doctorId)}
+        patient={currentPatient}
+        open={open === 'removePatient'}
+        onOpenChange={(isOpen) => setOpen(isOpen ? 'removePatient' : null)}
       />
     </>
   )

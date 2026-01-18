@@ -50,6 +50,7 @@ import { Route as AuthenticatedErrorsErrorRouteImport } from './routes/_authenti
 import { Route as AuthenticatedStaffDoctorsDoctorIdRouteRouteImport } from './routes/_authenticated/staff/doctors/$doctorId.route'
 import { Route as AuthenticatedStaffDoctorsDoctorIdIndexRouteImport } from './routes/_authenticated/staff/doctors/$doctorId.index'
 import { Route as AuthenticatedStaffDoctorsDoctorIdTrainersRouteImport } from './routes/_authenticated/staff/doctors/$doctorId.trainers'
+import { Route as AuthenticatedStaffDoctorsDoctorIdPatientsRouteImport } from './routes/_authenticated/staff/doctors/$doctorId.patients'
 
 const AuthenticatedRouteRoute = AuthenticatedRouteRouteImport.update({
   id: '/_authenticated',
@@ -277,6 +278,12 @@ const AuthenticatedStaffDoctorsDoctorIdTrainersRoute =
     path: '/trainers',
     getParentRoute: () => AuthenticatedStaffDoctorsDoctorIdRouteRoute,
   } as any)
+const AuthenticatedStaffDoctorsDoctorIdPatientsRoute =
+  AuthenticatedStaffDoctorsDoctorIdPatientsRouteImport.update({
+    id: '/patients',
+    path: '/patients',
+    getParentRoute: () => AuthenticatedStaffDoctorsDoctorIdRouteRoute,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/settings': typeof AuthenticatedSettingsRouteRouteWithChildren
@@ -317,6 +324,7 @@ export interface FileRoutesByFullPath {
   '/tasks': typeof AuthenticatedTasksIndexRoute
   '/users': typeof AuthenticatedUsersIndexRoute
   '/staff/doctors/$doctorId': typeof AuthenticatedStaffDoctorsDoctorIdRouteRouteWithChildren
+  '/staff/doctors/$doctorId/patients': typeof AuthenticatedStaffDoctorsDoctorIdPatientsRoute
   '/staff/doctors/$doctorId/trainers': typeof AuthenticatedStaffDoctorsDoctorIdTrainersRoute
   '/staff/doctors/$doctorId/': typeof AuthenticatedStaffDoctorsDoctorIdIndexRoute
 }
@@ -357,6 +365,7 @@ export interface FileRoutesByTo {
   '/staff': typeof AuthenticatedStaffIndexRoute
   '/tasks': typeof AuthenticatedTasksIndexRoute
   '/users': typeof AuthenticatedUsersIndexRoute
+  '/staff/doctors/$doctorId/patients': typeof AuthenticatedStaffDoctorsDoctorIdPatientsRoute
   '/staff/doctors/$doctorId/trainers': typeof AuthenticatedStaffDoctorsDoctorIdTrainersRoute
   '/staff/doctors/$doctorId': typeof AuthenticatedStaffDoctorsDoctorIdIndexRoute
 }
@@ -401,6 +410,7 @@ export interface FileRoutesById {
   '/_authenticated/tasks/': typeof AuthenticatedTasksIndexRoute
   '/_authenticated/users/': typeof AuthenticatedUsersIndexRoute
   '/_authenticated/staff/doctors/$doctorId': typeof AuthenticatedStaffDoctorsDoctorIdRouteRouteWithChildren
+  '/_authenticated/staff/doctors/$doctorId/patients': typeof AuthenticatedStaffDoctorsDoctorIdPatientsRoute
   '/_authenticated/staff/doctors/$doctorId/trainers': typeof AuthenticatedStaffDoctorsDoctorIdTrainersRoute
   '/_authenticated/staff/doctors/$doctorId/': typeof AuthenticatedStaffDoctorsDoctorIdIndexRoute
 }
@@ -445,6 +455,7 @@ export interface FileRouteTypes {
     | '/tasks'
     | '/users'
     | '/staff/doctors/$doctorId'
+    | '/staff/doctors/$doctorId/patients'
     | '/staff/doctors/$doctorId/trainers'
     | '/staff/doctors/$doctorId/'
   fileRoutesByTo: FileRoutesByTo
@@ -485,6 +496,7 @@ export interface FileRouteTypes {
     | '/staff'
     | '/tasks'
     | '/users'
+    | '/staff/doctors/$doctorId/patients'
     | '/staff/doctors/$doctorId/trainers'
     | '/staff/doctors/$doctorId'
   id:
@@ -528,6 +540,7 @@ export interface FileRouteTypes {
     | '/_authenticated/tasks/'
     | '/_authenticated/users/'
     | '/_authenticated/staff/doctors/$doctorId'
+    | '/_authenticated/staff/doctors/$doctorId/patients'
     | '/_authenticated/staff/doctors/$doctorId/trainers'
     | '/_authenticated/staff/doctors/$doctorId/'
   fileRoutesById: FileRoutesById
@@ -834,6 +847,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedStaffDoctorsDoctorIdTrainersRouteImport
       parentRoute: typeof AuthenticatedStaffDoctorsDoctorIdRouteRoute
     }
+    '/_authenticated/staff/doctors/$doctorId/patients': {
+      id: '/_authenticated/staff/doctors/$doctorId/patients'
+      path: '/patients'
+      fullPath: '/staff/doctors/$doctorId/patients'
+      preLoaderRoute: typeof AuthenticatedStaffDoctorsDoctorIdPatientsRouteImport
+      parentRoute: typeof AuthenticatedStaffDoctorsDoctorIdRouteRoute
+    }
   }
 }
 
@@ -861,12 +881,15 @@ const AuthenticatedSettingsRouteRouteWithChildren =
   )
 
 interface AuthenticatedStaffDoctorsDoctorIdRouteRouteChildren {
+  AuthenticatedStaffDoctorsDoctorIdPatientsRoute: typeof AuthenticatedStaffDoctorsDoctorIdPatientsRoute
   AuthenticatedStaffDoctorsDoctorIdTrainersRoute: typeof AuthenticatedStaffDoctorsDoctorIdTrainersRoute
   AuthenticatedStaffDoctorsDoctorIdIndexRoute: typeof AuthenticatedStaffDoctorsDoctorIdIndexRoute
 }
 
 const AuthenticatedStaffDoctorsDoctorIdRouteRouteChildren: AuthenticatedStaffDoctorsDoctorIdRouteRouteChildren =
   {
+    AuthenticatedStaffDoctorsDoctorIdPatientsRoute:
+      AuthenticatedStaffDoctorsDoctorIdPatientsRoute,
     AuthenticatedStaffDoctorsDoctorIdTrainersRoute:
       AuthenticatedStaffDoctorsDoctorIdTrainersRoute,
     AuthenticatedStaffDoctorsDoctorIdIndexRoute:
