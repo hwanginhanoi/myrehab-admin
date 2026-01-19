@@ -1,12 +1,14 @@
 import { DotsHorizontalIcon } from '@radix-ui/react-icons'
 import { type Row } from '@tanstack/react-table'
-import { Trash2 } from 'lucide-react'
+import { Trash2, BookOpen } from 'lucide-react'
+import { useNavigate } from '@tanstack/react-router'
 import { type DoctorPatientResponse } from '@/api'
 import { Button } from '@/components/ui/button'
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
+  DropdownMenuSeparator,
   DropdownMenuShortcut,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
@@ -18,6 +20,7 @@ type PatientsTableRowActionsProps = {
 
 export function PatientsTableRowActions({ row }: PatientsTableRowActionsProps) {
   const { setOpen, setCurrentPatient } = useDoctorDetail()
+  const navigate = useNavigate()
 
   return (
     <div className='flex justify-end'>
@@ -31,7 +34,21 @@ export function PatientsTableRowActions({ row }: PatientsTableRowActionsProps) {
             <span className='sr-only'>Mở menu</span>
           </Button>
         </DropdownMenuTrigger>
-        <DropdownMenuContent align='end' className='w-[160px]'>
+        <DropdownMenuContent align='end' className='w-[180px]'>
+          <DropdownMenuItem
+            onClick={() => {
+              navigate({
+                to: '/courses/assign',
+                search: { patientId: row.original.userId },
+              })
+            }}
+          >
+            Gán khóa học
+            <DropdownMenuShortcut>
+              <BookOpen size={16} />
+            </DropdownMenuShortcut>
+          </DropdownMenuItem>
+          <DropdownMenuSeparator />
           <DropdownMenuItem
             onClick={() => {
               setCurrentPatient(row.original)

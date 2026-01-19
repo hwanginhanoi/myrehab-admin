@@ -20,7 +20,10 @@
       "Bash(tree:*)",
       "Bash(grep:*)",
       "Bash(xargs:*)",
-      "WebSearch"
+      "WebSearch",
+      "WebFetch(domain:www.figma.com)",
+      "mcp__Framelink_Figma_MCP__get_figma_data",
+      "Bash(npm run build:check:*)"
     ]
   }
 }
