@@ -1,12 +1,10 @@
 'use client'
 
-import { useDroppable } from '@dnd-kit/core'
 import { SortableContext, verticalListSortingStrategy } from '@dnd-kit/sortable'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
 import { GripVertical, Copy, Trash2 } from 'lucide-react'
-import { cn } from '@/lib/utils'
 import { ExerciseCardDraggable } from './exercise-card-draggable'
 import { EmptyDayPlaceholder } from './empty-day-placeholder'
 import type { DayWithExercises, CustomExercise } from './course-assignment-screen'
@@ -21,20 +19,8 @@ type DayContainerProps = {
 }
 
 export function DayContainer({ day, onEditExercise, onRemoveExercise, onDeleteDay, onDuplicateDay, canDelete }: DayContainerProps) {
-
-  const { setNodeRef, isOver } = useDroppable({
-    id: `day-${day.dayNumber}`,
-    data: { type: 'day', dayNumber: day.dayNumber },
-  })
-
   return (
-    <Card
-      ref={setNodeRef}
-      className={cn(
-        'min-h-[200px] transition-colors',
-        isOver && 'border-primary bg-accent/50'
-      )}
-    >
+    <Card className='min-h-[200px]'>
       <CardHeader className='pb-3'>
         <div className='flex items-center gap-3'>
           <GripVertical className='h-5 w-5 text-muted-foreground cursor-grab' />
@@ -72,7 +58,7 @@ export function DayContainer({ day, onEditExercise, onRemoveExercise, onDeleteDa
       <CardContent className='space-y-4'>
         <div className='space-y-3'>
           {day.exercises.length === 0 ? (
-            <EmptyDayPlaceholder />
+            <EmptyDayPlaceholder dayNumber={day.dayNumber} />
           ) : (
             <>
               <SortableContext
@@ -92,7 +78,7 @@ export function DayContainer({ day, onEditExercise, onRemoveExercise, onDeleteDa
                   ))}
                 </div>
               </SortableContext>
-              <EmptyDayPlaceholder isAddButton />
+              <EmptyDayPlaceholder dayNumber={day.dayNumber} isAddButton />
             </>
           )}
         </div>
