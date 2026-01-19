@@ -16,13 +16,12 @@ import {
 import { sortableKeyboardCoordinates, arrayMove } from '@dnd-kit/sortable'
 import { Plus } from 'lucide-react'
 import { ScrollArea } from '@/components/ui/scroll-area'
-import { Card, CardContent } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
+import { Badge } from '@/components/ui/badge'
 import { toast } from 'sonner'
 import { DayContainer } from './day-container'
 import { ExerciseLibraryPanel } from './exercise-library-panel'
 import { ExerciseCustomizationDialog } from './exercise-customization-dialog'
-import { ExerciseCardDraggable } from './exercise-card-draggable'
 import type { ExerciseResponse } from '@/api'
 import type { DayWithExercises, CustomExercise } from './course-assignment-screen'
 
@@ -38,6 +37,7 @@ export function CourseCustomizationSection({
   dispatch,
 }: CourseCustomizationSectionProps) {
   const [activeId, setActiveId] = useState<string | null>(null)
+  const [activeExercise, setActiveExercise] = useState<ExerciseResponse | null>(null)
   const [editingExercise, setEditingExercise] = useState<CustomExercise | null>(null)
   const [dialogOpen, setDialogOpen] = useState(false)
 
@@ -67,15 +67,6 @@ export function CourseCustomizationSection({
     }
   }
 
-  // Find active exercise for drag overlay
-  const findExerciseById = (id: string): CustomExercise | null => {
-    for (const [, day] of customizedDays) {
-      const exercise = day.exercises.find((ex) => ex.id === id)
-      if (exercise) return exercise
-    }
-    return null
-  }
-
   // Find day number for exercise
   const findDayNumberForExercise = (id: string): number | null => {
     for (const [dayNum, day] of customizedDays) {
@@ -88,7 +79,14 @@ export function CourseCustomizationSection({
 
   // Drag handlers
   const handleDragStart = (event: DragStartEvent) => {
-    setActiveId(event.active.id as string)
+    const { active } = event
+    setActiveId(active.id as string)
+
+    // If dragging from library, store the exercise
+    const activeData = active.data.current
+    if (activeData?.type === 'library-exercise') {
+      setActiveExercise(activeData.exercise as ExerciseResponse)
+    }
   }
 
   const handleDragOver = (event: DragOverEvent) => {
@@ -134,6 +132,7 @@ export function CourseCustomizationSection({
   const handleDragEnd = (event: DragEndEvent) => {
     const { active, over } = event
     setActiveId(null)
+    setActiveExercise(null)
 
     if (!over) return
 
@@ -253,8 +252,6 @@ export function CourseCustomizationSection({
     toast.success('Đã nhân bản ngày')
   }
 
-  const activeExercise = activeId ? findExerciseById(activeId) : null
-
   return (
     <div className='flex flex-col h-full'>
       {/* Header */}
@@ -311,21 +308,24 @@ export function CourseCustomizationSection({
           </div>
         </div>
 
-        {/* Drag Overlay */}
-        <DragOverlay dropAnimation={{ duration: 200 }}>
+        {/* Simple Drag Overlay for Library Exercises */}
+        <DragOverlay>
           {activeExercise && (
-            <Card className='shadow-lg opacity-90 rotate-2 w-[400px]'>
-              <CardContent className='p-3'>
-                <ExerciseCardDraggable
-                  exercise={activeExercise}
-                  index={0}
-                  dayNumber={findDayNumberForExercise(activeExercise.id) || 0}
-                  onEdit={() => {}}
-                  onRemove={() => {}}
-                  isDragOverlay
+            <div className='flex items-center gap-3 p-3 border rounded-lg bg-background shadow-lg opacity-90'>
+              {activeExercise.imageUrl && (
+                <img
+                  src={activeExercise.imageUrl}
+                  alt={activeExercise.title || ''}
+                  className='w-12 h-12 rounded object-cover'
                 />
-              </CardContent>
-            </Card>
+              )}
+              <div className='flex-1 min-w-0'>
+                <p className='font-medium text-sm truncate'>{activeExercise.title}</p>
+                {activeExercise.durationMinutes && (
+                  <p className='text-xs text-muted-foreground'>{activeExercise.durationMinutes} phút</p>
+                )}
+              </div>
+            </div>
           )}
         </DragOverlay>
       </DndContext>
