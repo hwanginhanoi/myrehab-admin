@@ -8,5 +8,5 @@ import { z } from "zod/v4";
 export const generateUploadUrlRequestSchema = z.object({
     "fileName": z.string(),
 "contentType": z.string().regex(/^(image|video)\/.*/),
-"category": z.string().regex(/^(exercise-image|exercise-video|course-image|course-video|profile-image|news-image)$/)
+"category": z.string().regex(/^(exercise-image|exercise-video|course-image|course-video|profile-image|news-image|banner-image)$/)
     })

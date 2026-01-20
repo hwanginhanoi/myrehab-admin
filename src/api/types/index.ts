@@ -13,6 +13,12 @@ export type { SendRegistrationOtp200, SendRegistrationOtpMutationRequest, SendRe
 export type { AddBalance200, AddBalanceMutationRequest, AddBalanceMutationResponse, AddBalanceMutation } from "./balanceControllerController/AddBalance.ts";
 export type { GetMyBalance200, GetMyBalanceQueryResponse, GetMyBalanceQuery } from "./balanceControllerController/GetMyBalance.ts";
 export type { BalanceResponse } from "./BalanceResponse.ts";
+export type { BannerResponse } from "./BannerResponse.ts";
+export type { CreateBanner200, CreateBannerMutationRequest, CreateBannerMutationResponse, CreateBannerMutation } from "./carouselBannersController/CreateBanner.ts";
+export type { GetActiveBanners200, GetActiveBannersQueryResponse, GetActiveBannersQuery } from "./carouselBannersController/GetActiveBanners.ts";
+export type { GetAllBannersQueryParams, GetAllBanners200, GetAllBannersQueryResponse, GetAllBannersQuery } from "./carouselBannersController/GetAllBanners.ts";
+export type { GetBannerByIdPathParams, GetBannerById200, GetBannerByIdQueryResponse, GetBannerByIdQuery } from "./carouselBannersController/GetBannerById.ts";
+export type { UpdateBannerPathParams, UpdateBanner200, UpdateBannerMutationRequest, UpdateBannerMutationResponse, UpdateBannerMutation } from "./carouselBannersController/UpdateBanner.ts";
 export type { CategoryResponseTypeEnumKey, CategoryResponse } from "./CategoryResponse.ts";
 export type { CheckPhoneRequest } from "./CheckPhoneRequest.ts";
 export type { CheckPhoneResponse } from "./CheckPhoneResponse.ts";
@@ -28,6 +34,7 @@ export type { CourseProgressResponse } from "./CourseProgressResponse.ts";
 export type { GetAllCoursesQueryParams, GetAllCourses200, GetAllCoursesQueryResponse, GetAllCoursesQuery } from "./coursesController/GetAllCourses.ts";
 export type { GetCourseStructurePathParams, GetCourseStructure200, GetCourseStructureQueryResponse, GetCourseStructureQuery } from "./coursesController/GetCourseStructure.ts";
 export type { CourseWithDaysResponse } from "./CourseWithDaysResponse.ts";
+export type { CreateBannerRequest } from "./CreateBannerRequest.ts";
 export type { CreateCategoryRequestTypeEnumKey, CreateCategoryRequest } from "./CreateCategoryRequest.ts";
 export type { CreateExercisePackageRequest } from "./CreateExercisePackageRequest.ts";
 export type { CreateExerciseRequest } from "./CreateExerciseRequest.ts";
@@ -123,6 +130,7 @@ export type { PurchasePackage200, PurchasePackageMutationRequest, PurchasePackag
 export type { SubscriptionResponseSubscriptionTypeEnumKey, SubscriptionResponse } from "./SubscriptionResponse.ts";
 export type { GetMyTotalSpending200, GetMyTotalSpendingQueryResponse, GetMyTotalSpendingQuery } from "./transactionControllerController/GetMyTotalSpending.ts";
 export type { GetMyTransactionHistoryQueryParams, GetMyTransactionHistory200, GetMyTransactionHistoryQueryResponse, GetMyTransactionHistoryQuery } from "./transactionControllerController/GetMyTransactionHistory.ts";
+export type { UpdateBannerRequest } from "./UpdateBannerRequest.ts";
 export type { UpdateCategoryRequestTypeEnumKey, UpdateCategoryRequest } from "./UpdateCategoryRequest.ts";
 export type { UpdateExercisePackageRequest } from "./UpdateExercisePackageRequest.ts";
 export type { UpdateExerciseRequest } from "./UpdateExerciseRequest.ts";

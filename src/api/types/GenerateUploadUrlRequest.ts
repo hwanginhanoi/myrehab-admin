@@ -15,7 +15,7 @@ export type GenerateUploadUrlRequest = {
     */
     contentType: string;
     /**
-     * @pattern ^(exercise-image|exercise-video|course-image|course-video|profile-image|news-image)$
+     * @pattern ^(exercise-image|exercise-video|course-image|course-video|profile-image|news-image|banner-image)$
      * @type string
     */
     category: string;

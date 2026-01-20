@@ -13,6 +13,12 @@ export { sendRegistrationOtp200Schema, sendRegistrationOtpMutationRequestSchema,
 export { addBalance200Schema, addBalanceMutationRequestSchema, addBalanceMutationResponseSchema } from "./balanceControllerController/addBalanceSchema.ts";
 export { getMyBalance200Schema, getMyBalanceQueryResponseSchema } from "./balanceControllerController/getMyBalanceSchema.ts";
 export { balanceResponseSchema } from "./balanceResponseSchema.ts";
+export { bannerResponseSchema } from "./bannerResponseSchema.ts";
+export { createBanner200Schema, createBannerMutationRequestSchema, createBannerMutationResponseSchema } from "./carouselBannersController/createBannerSchema.ts";
+export { getActiveBanners200Schema, getActiveBannersQueryResponseSchema } from "./carouselBannersController/getActiveBannersSchema.ts";
+export { getAllBannersQueryParamsSchema, getAllBanners200Schema, getAllBannersQueryResponseSchema } from "./carouselBannersController/getAllBannersSchema.ts";
+export { getBannerByIdPathParamsSchema, getBannerById200Schema, getBannerByIdQueryResponseSchema } from "./carouselBannersController/getBannerByIdSchema.ts";
+export { updateBannerPathParamsSchema, updateBanner200Schema, updateBannerMutationRequestSchema, updateBannerMutationResponseSchema } from "./carouselBannersController/updateBannerSchema.ts";
 export { categoryResponseSchema } from "./categoryResponseSchema.ts";
 export { checkPhoneRequestSchema } from "./checkPhoneRequestSchema.ts";
 export { checkPhoneResponseSchema } from "./checkPhoneResponseSchema.ts";
@@ -28,6 +34,7 @@ export { courseProgressResponseSchema } from "./courseProgressResponseSchema.ts"
 export { getAllCoursesQueryParamsSchema, getAllCourses200Schema, getAllCoursesQueryResponseSchema } from "./coursesController/getAllCoursesSchema.ts";
 export { getCourseStructurePathParamsSchema, getCourseStructure200Schema, getCourseStructureQueryResponseSchema } from "./coursesController/getCourseStructureSchema.ts";
 export { courseWithDaysResponseSchema } from "./courseWithDaysResponseSchema.ts";
+export { createBannerRequestSchema } from "./createBannerRequestSchema.ts";
 export { createCategoryRequestSchema } from "./createCategoryRequestSchema.ts";
 export { createExercisePackageRequestSchema } from "./createExercisePackageRequestSchema.ts";
 export { createExerciseRequestSchema } from "./createExerciseRequestSchema.ts";
@@ -123,6 +130,7 @@ export { purchasePackage200Schema, purchasePackageMutationRequestSchema, purchas
 export { subscriptionResponseSchema } from "./subscriptionResponseSchema.ts";
 export { getMyTotalSpending200Schema, getMyTotalSpendingQueryResponseSchema } from "./transactionControllerController/getMyTotalSpendingSchema.ts";
 export { getMyTransactionHistoryQueryParamsSchema, getMyTransactionHistory200Schema, getMyTransactionHistoryQueryResponseSchema } from "./transactionControllerController/getMyTransactionHistorySchema.ts";
+export { updateBannerRequestSchema } from "./updateBannerRequestSchema.ts";
 export { updateCategoryRequestSchema } from "./updateCategoryRequestSchema.ts";
 export { updateExercisePackageRequestSchema } from "./updateExercisePackageRequestSchema.ts";
 export { updateExerciseRequestSchema } from "./updateExerciseRequestSchema.ts";
