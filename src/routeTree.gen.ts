@@ -48,6 +48,7 @@ import { Route as AuthenticatedExercisesIdRouteImport } from './routes/_authenti
 import { Route as AuthenticatedExercisePackagesNewRouteImport } from './routes/_authenticated/exercise-packages/new'
 import { Route as AuthenticatedExercisePackagesIdRouteImport } from './routes/_authenticated/exercise-packages/$id'
 import { Route as AuthenticatedErrorsErrorRouteImport } from './routes/_authenticated/errors/$error'
+import { Route as AuthenticatedBannersReorderRouteImport } from './routes/_authenticated/banners/reorder'
 import { Route as AuthenticatedBannersNewRouteImport } from './routes/_authenticated/banners/new'
 import { Route as AuthenticatedBannersIdRouteImport } from './routes/_authenticated/banners/$id'
 import { Route as AuthenticatedStaffDoctorsDoctorIdRouteRouteImport } from './routes/_authenticated/staff/doctors/$doctorId.route'
@@ -268,6 +269,12 @@ const AuthenticatedErrorsErrorRoute =
     path: '/errors/$error',
     getParentRoute: () => AuthenticatedRouteRoute,
   } as any)
+const AuthenticatedBannersReorderRoute =
+  AuthenticatedBannersReorderRouteImport.update({
+    id: '/banners/reorder',
+    path: '/banners/reorder',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
 const AuthenticatedBannersNewRoute = AuthenticatedBannersNewRouteImport.update({
   id: '/banners/new',
   path: '/banners/new',
@@ -311,6 +318,7 @@ export interface FileRoutesByFullPath {
   '/': typeof AuthenticatedIndexRoute
   '/banners/$id': typeof AuthenticatedBannersIdRoute
   '/banners/new': typeof AuthenticatedBannersNewRoute
+  '/banners/reorder': typeof AuthenticatedBannersReorderRoute
   '/errors/$error': typeof AuthenticatedErrorsErrorRoute
   '/exercise-packages/$id': typeof AuthenticatedExercisePackagesIdRoute
   '/exercise-packages/new': typeof AuthenticatedExercisePackagesNewRoute
@@ -355,6 +363,7 @@ export interface FileRoutesByTo {
   '/': typeof AuthenticatedIndexRoute
   '/banners/$id': typeof AuthenticatedBannersIdRoute
   '/banners/new': typeof AuthenticatedBannersNewRoute
+  '/banners/reorder': typeof AuthenticatedBannersReorderRoute
   '/errors/$error': typeof AuthenticatedErrorsErrorRoute
   '/exercise-packages/$id': typeof AuthenticatedExercisePackagesIdRoute
   '/exercise-packages/new': typeof AuthenticatedExercisePackagesNewRoute
@@ -401,6 +410,7 @@ export interface FileRoutesById {
   '/_authenticated/': typeof AuthenticatedIndexRoute
   '/_authenticated/banners/$id': typeof AuthenticatedBannersIdRoute
   '/_authenticated/banners/new': typeof AuthenticatedBannersNewRoute
+  '/_authenticated/banners/reorder': typeof AuthenticatedBannersReorderRoute
   '/_authenticated/errors/$error': typeof AuthenticatedErrorsErrorRoute
   '/_authenticated/exercise-packages/$id': typeof AuthenticatedExercisePackagesIdRoute
   '/_authenticated/exercise-packages/new': typeof AuthenticatedExercisePackagesNewRoute
@@ -448,6 +458,7 @@ export interface FileRouteTypes {
     | '/'
     | '/banners/$id'
     | '/banners/new'
+    | '/banners/reorder'
     | '/errors/$error'
     | '/exercise-packages/$id'
     | '/exercise-packages/new'
@@ -492,6 +503,7 @@ export interface FileRouteTypes {
     | '/'
     | '/banners/$id'
     | '/banners/new'
+    | '/banners/reorder'
     | '/errors/$error'
     | '/exercise-packages/$id'
     | '/exercise-packages/new'
@@ -537,6 +549,7 @@ export interface FileRouteTypes {
     | '/_authenticated/'
     | '/_authenticated/banners/$id'
     | '/_authenticated/banners/new'
+    | '/_authenticated/banners/reorder'
     | '/_authenticated/errors/$error'
     | '/_authenticated/exercise-packages/$id'
     | '/_authenticated/exercise-packages/new'
@@ -857,6 +870,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedErrorsErrorRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/_authenticated/banners/reorder': {
+      id: '/_authenticated/banners/reorder'
+      path: '/banners/reorder'
+      fullPath: '/banners/reorder'
+      preLoaderRoute: typeof AuthenticatedBannersReorderRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
     '/_authenticated/banners/new': {
       id: '/_authenticated/banners/new'
       path: '/banners/new'
@@ -941,6 +961,7 @@ interface AuthenticatedRouteRouteChildren {
   AuthenticatedIndexRoute: typeof AuthenticatedIndexRoute
   AuthenticatedBannersIdRoute: typeof AuthenticatedBannersIdRoute
   AuthenticatedBannersNewRoute: typeof AuthenticatedBannersNewRoute
+  AuthenticatedBannersReorderRoute: typeof AuthenticatedBannersReorderRoute
   AuthenticatedErrorsErrorRoute: typeof AuthenticatedErrorsErrorRoute
   AuthenticatedExercisePackagesIdRoute: typeof AuthenticatedExercisePackagesIdRoute
   AuthenticatedExercisePackagesNewRoute: typeof AuthenticatedExercisePackagesNewRoute
@@ -971,6 +992,7 @@ const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedIndexRoute: AuthenticatedIndexRoute,
   AuthenticatedBannersIdRoute: AuthenticatedBannersIdRoute,
   AuthenticatedBannersNewRoute: AuthenticatedBannersNewRoute,
+  AuthenticatedBannersReorderRoute: AuthenticatedBannersReorderRoute,
   AuthenticatedErrorsErrorRoute: AuthenticatedErrorsErrorRoute,
   AuthenticatedExercisePackagesIdRoute: AuthenticatedExercisePackagesIdRoute,
   AuthenticatedExercisePackagesNewRoute: AuthenticatedExercisePackagesNewRoute,
