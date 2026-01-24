@@ -68,20 +68,20 @@ export function UserAuthForm({
           email: data.email || form.getValues('email'),
           role: data.permissions || [],
           exp: expiryMs,
-          userType: data.userType,
+          // userType: data.userType,
         }
 
         auth.setUser(user)
         auth.setAccessToken(data.accessToken)
-        auth.setUserType(data.userType || null)
+        // auth.setUserType(data.userType || null)
 
         toast.success(`Welcome back!`)
 
         // Redirect based on user type
         // Admin users go to dashboard, others go to exercises page
-        const isAdmin = data.userType === 'SUPER_ADMIN' || data.userType === 'ADMIN'
-        const defaultPath = isAdmin ? '/' : '/exercises'
-        const targetPath = redirectTo || defaultPath
+        // const isAdmin = data.userType === 'SUPER_ADMIN' || data.userType === 'ADMIN'
+        // const defaultPath = isAdmin ? '/' : '/exercises'
+        const targetPath = redirectTo || '/'
         navigate({ to: targetPath, replace: true })
       },
       onError: (error) => {

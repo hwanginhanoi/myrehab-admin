@@ -1,6 +1,6 @@
-import { useMemo } from 'react'
+// import { useMemo } from 'react'
 import { useLayout } from '@/context/layout-provider'
-import { useAuthStore } from '@/stores/auth-store'
+// import { useAuthStore } from '@/stores/auth-store'
 import {
   Sidebar,
   SidebarContent,
@@ -15,25 +15,25 @@ import { NavUser } from './nav-user'
 import { TeamSwitcher } from './team-switcher'
 
 // Groups that require admin access (SUPER_ADMIN or ADMIN only)
-const ADMIN_ONLY_GROUPS = ['Quản trị hệ thống']
+// const ADMIN_ONLY_GROUPS = ['Quản trị hệ thống']
 
 export function AppSidebar() {
   const { collapsible, variant } = useLayout()
-  const { auth } = useAuthStore()
+  // const { auth } = useAuthStore()
 
   // Filter nav groups based on user type
-  const filteredNavGroups = useMemo(() => {
-    const userType = auth.userType
-    const isAdmin = userType === 'SUPER_ADMIN' || userType === 'ADMIN'
-
-    return sidebarData.navGroups.filter((group) => {
-      // If group is admin-only, only show for SUPER_ADMIN or ADMIN
-      if (ADMIN_ONLY_GROUPS.includes(group.title)) {
-        return isAdmin
-      }
-      return true
-    })
-  }, [auth.userType])
+  // const filteredNavGroups = useMemo(() => {
+  //   const userType = auth.userType
+  //   const isAdmin = userType === 'SUPER_ADMIN' || userType === 'ADMIN'
+  //
+  //   return sidebarData.navGroups.filter((group) => {
+  //     // If group is admin-only, only show for SUPER_ADMIN or ADMIN
+  //     if (ADMIN_ONLY_GROUPS.includes(group.title)) {
+  //       return isAdmin
+  //     }
+  //     return true
+  //   })
+  // }, [auth.userType])
 
   return (
     <Sidebar collapsible={collapsible} variant={variant}>
@@ -45,7 +45,7 @@ export function AppSidebar() {
         {/* <AppTitle /> */}
       </SidebarHeader>
       <SidebarContent>
-        {filteredNavGroups.map((props) => (
+        {sidebarData.navGroups.map((props) => (
           <NavGroup key={props.title} {...props} />
         ))}
       </SidebarContent>
