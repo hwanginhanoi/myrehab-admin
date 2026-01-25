@@ -1,24 +1,26 @@
-import { type SVGProps } from 'react'
 import { cn } from '@/lib/utils'
+import logoImage from '@/features/auth/login/assets/logo.png'
 
-export function Logo({ className, ...props }: SVGProps<SVGSVGElement>) {
+type LogoProps = {
+  className?: string
+  size?: 'sm' | 'md' | 'lg'
+}
+
+export function Logo({ className, size = 'md' }: LogoProps) {
+  const sizeClasses = {
+    sm: 'h-4 w-4',
+    md: 'h-6 w-6',
+    lg: 'h-8 w-8',
+  }
+
   return (
-    <svg
-      id='shadcn-admin-logo'
-      viewBox='0 0 24 24'
-      xmlns='http://www.w3.org/2000/svg'
-      height='24'
-      width='24'
-      fill='none'
-      stroke='currentColor'
-      strokeWidth='2'
-      strokeLinecap='round'
-      strokeLinejoin='round'
-      className={cn('size-6', className)}
-      {...props}
-    >
-      <title>Shadcn-Admin</title>
-      <path d='M15 6v12a3 3 0 1 0 3-3H6a3 3 0 1 0 3 3V6a3 3 0 1 0-3 3h12a3 3 0 1 0-3-3' />
-    </svg>
+    <img
+      src={logoImage}
+      alt='MyRehab'
+      className={cn(sizeClasses[size], 'object-contain', className)}
+    />
   )
 }
+
+// Export the image URL for direct use
+export { logoImage }
