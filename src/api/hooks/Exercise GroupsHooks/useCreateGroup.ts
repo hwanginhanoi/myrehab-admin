@@ -14,7 +14,7 @@ export const createGroupMutationKey = () => [{ url: '/api/exercise-groups' }] as
 export type CreateGroupMutationKey = ReturnType<typeof createGroupMutationKey>
 
 /**
- * @description Create a new exercise group with name and description. Requires Admin role.
+ * @description Create a new exercise group with name and description. Requires exercise_groups:create permission.
  * @summary Create exercise group
  * {@link /api/exercise-groups}
  */
@@ -38,7 +38,7 @@ export function createGroupMutationOptions(config: Partial<RequestConfig<CreateG
 }
 
 /**
- * @description Create a new exercise group with name and description. Requires Admin role.
+ * @description Create a new exercise group with name and description. Requires exercise_groups:create permission.
  * @summary Create exercise group
  * {@link /api/exercise-groups}
  */

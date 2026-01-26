@@ -12,6 +12,6 @@ import { z } from "zod/v4";
  */
 export const createStaff200Schema = z.lazy(() => staffResponseSchema)
 
-export const createStaffMutationRequestSchema = z.lazy(() => createStaffRequestSchema)
+export const createStaffMutationRequestSchema = z.lazy(() => createStaffRequestSchema).describe("Create request for staff - contains only Staff entity fields")
 
 export const createStaffMutationResponseSchema = z.lazy(() => createStaff200Schema)

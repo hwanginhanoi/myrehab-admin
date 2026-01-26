@@ -14,7 +14,7 @@ export const updateGroupMutationKey = () => [{ url: '/api/exercise-groups/:id' }
 export type UpdateGroupMutationKey = ReturnType<typeof updateGroupMutationKey>
 
 /**
- * @description Update an existing exercise group. Requires Admin role.
+ * @description Update an existing exercise group. Requires exercise_groups:update permission.
  * @summary Update exercise group
  * {@link /api/exercise-groups/:id}
  */
@@ -38,7 +38,7 @@ export function updateGroupMutationOptions(config: Partial<RequestConfig<UpdateG
 }
 
 /**
- * @description Update an existing exercise group. Requires Admin role.
+ * @description Update an existing exercise group. Requires exercise_groups:update permission.
  * @summary Update exercise group
  * {@link /api/exercise-groups/:id}
  */

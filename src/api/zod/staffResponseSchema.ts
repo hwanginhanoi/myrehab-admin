@@ -12,6 +12,7 @@ export const staffResponseSchema = z.object({
 "phoneNumber": z.optional(z.string()),
 "staffType": z.optional(z.string()),
 "specialization": z.optional(z.string()),
+"description": z.optional(z.string()),
 "doctorId": z.optional(z.int()),
 "permissions": z.optional(z.array(z.string())),
 "enabled": z.optional(z.boolean()),

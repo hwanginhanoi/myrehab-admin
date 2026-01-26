@@ -13,8 +13,7 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
 import { toast } from 'sonner'
-import type { StaffResponse } from '@/api'
-import { useEnableStaff, useDisableStaff } from '@/api'
+import { useEnableStaff, useDisableStaff, type StaffResponse } from '@/api'
 import { useStaff } from './staff-provider'
 
 type StaffRowActionsProps = {
@@ -93,6 +92,42 @@ export function StaffRowActions({ row }: StaffRowActionsProps) {
                 navigate({
                   to: '/staff/doctors/$doctorId',
                   params: { doctorId: String(row.original.id) },
+                })
+              }}
+            >
+              Xem chi tiết
+              <DropdownMenuShortcut>
+                <Eye size={16} />
+              </DropdownMenuShortcut>
+            </DropdownMenuItem>
+            <DropdownMenuSeparator />
+          </>
+        )}
+        {row.original.staffType === 'TRAINER' && (
+          <>
+            <DropdownMenuItem
+              onClick={() => {
+                navigate({
+                  to: '/staff/trainers/$trainerId',
+                  params: { trainerId: String(row.original.id) },
+                })
+              }}
+            >
+              Xem chi tiết
+              <DropdownMenuShortcut>
+                <Eye size={16} />
+              </DropdownMenuShortcut>
+            </DropdownMenuItem>
+            <DropdownMenuSeparator />
+          </>
+        )}
+        {(row.original.staffType === 'ADMIN') && (
+          <>
+            <DropdownMenuItem
+              onClick={() => {
+                navigate({
+                  to: '/staff/admins/$adminId',
+                  params: { adminId: String(row.original.id) },
                 })
               }}
             >

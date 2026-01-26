@@ -30,6 +30,10 @@ export type StaffResponse = {
     */
     specialization?: string;
     /**
+     * @type string | undefined
+    */
+    description?: string;
+    /**
      * @type integer | undefined, int64
     */
     doctorId?: number;

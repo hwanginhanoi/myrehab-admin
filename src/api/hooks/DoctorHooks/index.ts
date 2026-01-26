@@ -1,4 +1,5 @@
 export type { AssignCourseToPatientMutationKey } from "./useAssignCourseToPatient.ts";
+export type { CreateAndAssignCustomCourseMutationKey } from "./useCreateAndAssignCustomCourse.ts";
 export type { GetMyAssignedCoursesQueryKey } from "./useGetMyAssignedCourses.ts";
 export type { GetMyAssignedCoursesSuspenseQueryKey } from "./useGetMyAssignedCoursesSuspense.ts";
 export type { GetMyPatientsQueryKey } from "./useGetMyPatients.ts";
@@ -12,6 +13,10 @@ export { assignCourseToPatientMutationKey } from "./useAssignCourseToPatient.ts"
 export { assignCourseToPatient } from "./useAssignCourseToPatient.ts";
 export { assignCourseToPatientMutationOptions } from "./useAssignCourseToPatient.ts";
 export { useAssignCourseToPatient } from "./useAssignCourseToPatient.ts";
+export { createAndAssignCustomCourseMutationKey } from "./useCreateAndAssignCustomCourse.ts";
+export { createAndAssignCustomCourse } from "./useCreateAndAssignCustomCourse.ts";
+export { createAndAssignCustomCourseMutationOptions } from "./useCreateAndAssignCustomCourse.ts";
+export { useCreateAndAssignCustomCourse } from "./useCreateAndAssignCustomCourse.ts";
 export { getMyAssignedCoursesQueryKey } from "./useGetMyAssignedCourses.ts";
 export { getMyAssignedCourses } from "./useGetMyAssignedCourses.ts";
 export { getMyAssignedCoursesQueryOptions } from "./useGetMyAssignedCourses.ts";

@@ -14,6 +14,7 @@ export type { GetTrainersByDoctorSuspenseQueryKey } from "./useGetTrainersByDoct
 export type { RemoveExerciseGroupFromDoctorMutationKey } from "./useRemoveExerciseGroupFromDoctor.ts";
 export type { RemoveTrainerFromDoctorMutationKey } from "./useRemoveTrainerFromDoctor.ts";
 export type { UpdateStaffMutationKey } from "./useUpdateStaff.ts";
+export type { UpdateStaffPermissionsMutationKey } from "./useUpdateStaffPermissions.ts";
 export { assignExerciseGroupToDoctorMutationKey } from "./useAssignExerciseGroupToDoctor.ts";
 export { assignExerciseGroupToDoctor } from "./useAssignExerciseGroupToDoctor.ts";
 export { assignExerciseGroupToDoctorMutationOptions } from "./useAssignExerciseGroupToDoctor.ts";
@@ -78,3 +79,7 @@ export { updateStaffMutationKey } from "./useUpdateStaff.ts";
 export { updateStaff } from "./useUpdateStaff.ts";
 export { updateStaffMutationOptions } from "./useUpdateStaff.ts";
 export { useUpdateStaff } from "./useUpdateStaff.ts";
+export { updateStaffPermissionsMutationKey } from "./useUpdateStaffPermissions.ts";
+export { updateStaffPermissions } from "./useUpdateStaffPermissions.ts";
+export { updateStaffPermissionsMutationOptions } from "./useUpdateStaffPermissions.ts";
+export { useUpdateStaffPermissions } from "./useUpdateStaffPermissions.ts";

@@ -3,26 +3,136 @@
 * Do not edit manually.
 */
 
+import type { UpdateAdminRequest } from "./UpdateAdminRequest.ts";
+import type { UpdateDoctorRequest } from "./UpdateDoctorRequest.ts";
+import type { UpdateSuperAdminRequest } from "./UpdateSuperAdminRequest.ts";
+import type { UpdateTrainerRequest } from "./UpdateTrainerRequest.ts";
 
-export type UpdateStaffRequest = {
+/**
+ * @description Base update request for staff
+*/
+export type UpdateStaffRequest = ((UpdateDoctorRequest & {
     /**
+     * @description Staff type discriminator
+     * @type string
+    */
+    staffType: "DOCTOR";
+    /**
+     * @description Staff email address
      * @type string
     */
     email: string;
     /**
+     * @description Staff full name
      * @type string
     */
     fullName: string;
     /**
+     * @description Staff phone number
      * @type string | undefined
     */
     phoneNumber?: string;
     /**
+     * @description Staff description or bio
      * @type string | undefined
     */
-    specialization?: string;
+    description?: string;
     /**
+     * @description List of permission codes assigned to this staff member
      * @type array | undefined
     */
     permissions?: string[];
-};
+}) | (UpdateTrainerRequest & {
+    /**
+     * @description Staff type discriminator
+     * @type string
+    */
+    staffType: "TRAINER";
+    /**
+     * @description Staff email address
+     * @type string
+    */
+    email: string;
+    /**
+     * @description Staff full name
+     * @type string
+    */
+    fullName: string;
+    /**
+     * @description Staff phone number
+     * @type string | undefined
+    */
+    phoneNumber?: string;
+    /**
+     * @description Staff description or bio
+     * @type string | undefined
+    */
+    description?: string;
+    /**
+     * @description List of permission codes assigned to this staff member
+     * @type array | undefined
+    */
+    permissions?: string[];
+}) | (UpdateAdminRequest & {
+    /**
+     * @description Staff type discriminator
+     * @type string
+    */
+    staffType: "ADMIN";
+    /**
+     * @description Staff email address
+     * @type string
+    */
+    email: string;
+    /**
+     * @description Staff full name
+     * @type string
+    */
+    fullName: string;
+    /**
+     * @description Staff phone number
+     * @type string | undefined
+    */
+    phoneNumber?: string;
+    /**
+     * @description Staff description or bio
+     * @type string | undefined
+    */
+    description?: string;
+    /**
+     * @description List of permission codes assigned to this staff member
+     * @type array | undefined
+    */
+    permissions?: string[];
+}) | (UpdateSuperAdminRequest & {
+    /**
+     * @description Staff type discriminator
+     * @type string
+    */
+    staffType: "SUPER_ADMIN";
+    /**
+     * @description Staff email address
+     * @type string
+    */
+    email: string;
+    /**
+     * @description Staff full name
+     * @type string
+    */
+    fullName: string;
+    /**
+     * @description Staff phone number
+     * @type string | undefined
+    */
+    phoneNumber?: string;
+    /**
+     * @description Staff description or bio
+     * @type string | undefined
+    */
+    description?: string;
+    /**
+     * @description List of permission codes assigned to this staff member
+     * @type array | undefined
+    */
+    permissions?: string[];
+}));

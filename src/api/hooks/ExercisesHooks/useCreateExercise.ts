@@ -14,7 +14,7 @@ export const createExerciseMutationKey = () => [{ url: '/api/exercises' }] as co
 export type CreateExerciseMutationKey = ReturnType<typeof createExerciseMutationKey>
 
 /**
- * @description Create a new exercise. Requires Admin role.
+ * @description Create a new exercise. Requires exercises:create permission.
  * @summary Create exercise
  * {@link /api/exercises}
  */
@@ -38,7 +38,7 @@ export function createExerciseMutationOptions(config: Partial<RequestConfig<Crea
 }
 
 /**
- * @description Create a new exercise. Requires Admin role.
+ * @description Create a new exercise. Requires exercises:create permission.
  * @summary Create exercise
  * {@link /api/exercises}
  */
