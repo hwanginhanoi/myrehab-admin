@@ -117,7 +117,6 @@ export { getStaffByIdPathParamsSchema, getStaffById200Schema, getStaffByIdQueryR
 export { getTrainersByDoctorPathParamsSchema, getTrainersByDoctorQueryParamsSchema, getTrainersByDoctor200Schema, getTrainersByDoctorQueryResponseSchema } from "./staffManagementController/getTrainersByDoctorSchema.ts";
 export { removeExerciseGroupFromDoctorPathParamsSchema, removeExerciseGroupFromDoctor200Schema, removeExerciseGroupFromDoctorMutationResponseSchema } from "./staffManagementController/removeExerciseGroupFromDoctorSchema.ts";
 export { removeTrainerFromDoctorPathParamsSchema, removeTrainerFromDoctor200Schema, removeTrainerFromDoctorMutationResponseSchema } from "./staffManagementController/removeTrainerFromDoctorSchema.ts";
-export { updateStaffPermissionsPathParamsSchema, updateStaffPermissions200Schema, updateStaffPermissionsMutationRequestSchema, updateStaffPermissionsMutationResponseSchema } from "./staffManagementController/updateStaffPermissionsSchema.ts";
 export { updateStaffPathParamsSchema, updateStaff200Schema, updateStaffMutationRequestSchema, updateStaffMutationResponseSchema } from "./staffManagementController/updateStaffSchema.ts";
 export { staffResponseSchema } from "./staffResponseSchema.ts";
 export { startCourseRequestSchema } from "./startCourseRequestSchema.ts";

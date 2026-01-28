@@ -95,7 +95,6 @@ export type { GetTrainersByDoctorSuspenseQueryKey } from "./hooks/Staff Manageme
 export type { RemoveExerciseGroupFromDoctorMutationKey } from "./hooks/Staff ManagementHooks/useRemoveExerciseGroupFromDoctor.ts";
 export type { RemoveTrainerFromDoctorMutationKey } from "./hooks/Staff ManagementHooks/useRemoveTrainerFromDoctor.ts";
 export type { UpdateStaffMutationKey } from "./hooks/Staff ManagementHooks/useUpdateStaff.ts";
-export type { UpdateStaffPermissionsMutationKey } from "./hooks/Staff ManagementHooks/useUpdateStaffPermissions.ts";
 export type { GetMySubscriptionsQueryKey } from "./hooks/SubscriptionsHooks/useGetMySubscriptions.ts";
 export type { GetMySubscriptionsSuspenseQueryKey } from "./hooks/SubscriptionsHooks/useGetMySubscriptionsSuspense.ts";
 export type { GetPendingPurchasesQueryKey } from "./hooks/SubscriptionsHooks/useGetPendingPurchases.ts";
@@ -230,7 +229,6 @@ export type { GetTrainersByDoctorPathParams, GetTrainersByDoctorQueryParams, Get
 export type { RemoveExerciseGroupFromDoctorPathParams, RemoveExerciseGroupFromDoctor200, RemoveExerciseGroupFromDoctorMutationResponse, RemoveExerciseGroupFromDoctorMutation } from "./types/staffManagementController/RemoveExerciseGroupFromDoctor.ts";
 export type { RemoveTrainerFromDoctorPathParams, RemoveTrainerFromDoctor200, RemoveTrainerFromDoctorMutationResponse, RemoveTrainerFromDoctorMutation } from "./types/staffManagementController/RemoveTrainerFromDoctor.ts";
 export type { UpdateStaffPathParams, UpdateStaff200, UpdateStaffMutationRequest, UpdateStaffMutationResponse, UpdateStaffMutation } from "./types/staffManagementController/UpdateStaff.ts";
-export type { UpdateStaffPermissionsPathParams, UpdateStaffPermissions200, UpdateStaffPermissionsMutationRequest, UpdateStaffPermissionsMutationResponse, UpdateStaffPermissionsMutation } from "./types/staffManagementController/UpdateStaffPermissions.ts";
 export type { StaffResponse } from "./types/StaffResponse.ts";
 export type { StartCourseRequest } from "./types/StartCourseRequest.ts";
 export type { SubscriptionResponseSubscriptionTypeEnumKey, SubscriptionResponse } from "./types/SubscriptionResponse.ts";
@@ -644,10 +642,6 @@ export { updateStaffMutationKey } from "./hooks/Staff ManagementHooks/useUpdateS
 export { updateStaff } from "./hooks/Staff ManagementHooks/useUpdateStaff.ts";
 export { updateStaffMutationOptions } from "./hooks/Staff ManagementHooks/useUpdateStaff.ts";
 export { useUpdateStaff } from "./hooks/Staff ManagementHooks/useUpdateStaff.ts";
-export { updateStaffPermissionsMutationKey } from "./hooks/Staff ManagementHooks/useUpdateStaffPermissions.ts";
-export { updateStaffPermissions } from "./hooks/Staff ManagementHooks/useUpdateStaffPermissions.ts";
-export { updateStaffPermissionsMutationOptions } from "./hooks/Staff ManagementHooks/useUpdateStaffPermissions.ts";
-export { useUpdateStaffPermissions } from "./hooks/Staff ManagementHooks/useUpdateStaffPermissions.ts";
 export { getMySubscriptionsQueryKey } from "./hooks/SubscriptionsHooks/useGetMySubscriptions.ts";
 export { getMySubscriptions } from "./hooks/SubscriptionsHooks/useGetMySubscriptions.ts";
 export { getMySubscriptionsQueryOptions } from "./hooks/SubscriptionsHooks/useGetMySubscriptions.ts";
@@ -840,7 +834,6 @@ export { getStaffByIdPathParamsSchema, getStaffById200Schema, getStaffByIdQueryR
 export { getTrainersByDoctorPathParamsSchema, getTrainersByDoctorQueryParamsSchema, getTrainersByDoctor200Schema, getTrainersByDoctorQueryResponseSchema } from "./zod/staffManagementController/getTrainersByDoctorSchema.ts";
 export { removeExerciseGroupFromDoctorPathParamsSchema, removeExerciseGroupFromDoctor200Schema, removeExerciseGroupFromDoctorMutationResponseSchema } from "./zod/staffManagementController/removeExerciseGroupFromDoctorSchema.ts";
 export { removeTrainerFromDoctorPathParamsSchema, removeTrainerFromDoctor200Schema, removeTrainerFromDoctorMutationResponseSchema } from "./zod/staffManagementController/removeTrainerFromDoctorSchema.ts";
-export { updateStaffPermissionsPathParamsSchema, updateStaffPermissions200Schema, updateStaffPermissionsMutationRequestSchema, updateStaffPermissionsMutationResponseSchema } from "./zod/staffManagementController/updateStaffPermissionsSchema.ts";
 export { updateStaffPathParamsSchema, updateStaff200Schema, updateStaffMutationRequestSchema, updateStaffMutationResponseSchema } from "./zod/staffManagementController/updateStaffSchema.ts";
 export { staffResponseSchema } from "./zod/staffResponseSchema.ts";
 export { startCourseRequestSchema } from "./zod/startCourseRequestSchema.ts";

@@ -10,5 +10,4 @@ export type { GetTrainersByDoctorPathParams, GetTrainersByDoctorQueryParams, Get
 export type { RemoveExerciseGroupFromDoctorPathParams, RemoveExerciseGroupFromDoctor200, RemoveExerciseGroupFromDoctorMutationResponse, RemoveExerciseGroupFromDoctorMutation } from "./RemoveExerciseGroupFromDoctor.ts";
 export type { RemoveTrainerFromDoctorPathParams, RemoveTrainerFromDoctor200, RemoveTrainerFromDoctorMutationResponse, RemoveTrainerFromDoctorMutation } from "./RemoveTrainerFromDoctor.ts";
 export type { UpdateStaffPathParams, UpdateStaff200, UpdateStaffMutationRequest, UpdateStaffMutationResponse, UpdateStaffMutation } from "./UpdateStaff.ts";
-export type { UpdateStaffPermissionsPathParams, UpdateStaffPermissions200, UpdateStaffPermissionsMutationRequest, UpdateStaffPermissionsMutationResponse, UpdateStaffPermissionsMutation } from "./UpdateStaffPermissions.ts";
 export { getAllStaffQueryParamsStaffTypeEnum } from "./GetAllStaff.ts";

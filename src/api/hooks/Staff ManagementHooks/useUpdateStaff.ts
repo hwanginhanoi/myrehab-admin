@@ -14,7 +14,7 @@ export const updateStaffMutationKey = () => [{ url: '/api/admin/staff/:id' }] as
 export type UpdateStaffMutationKey = ReturnType<typeof updateStaffMutationKey>
 
 /**
- * @description Update an existing staff member's profile information
+ * @description Update an existing staff member's profile information and permissions
  * @summary Update staff profile
  * {@link /api/admin/staff/:id}
  */
@@ -38,7 +38,7 @@ export function updateStaffMutationOptions(config: Partial<RequestConfig<UpdateS
 }
 
 /**
- * @description Update an existing staff member's profile information
+ * @description Update an existing staff member's profile information and permissions
  * @summary Update staff profile
  * {@link /api/admin/staff/:id}
  */

@@ -11,7 +11,7 @@ import { Switch } from '@/components/ui/switch'
 import { Form, FormControl, FormField, FormItem } from '@/components/ui/form'
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible'
 import { ChevronDown } from 'lucide-react'
-import { useUpdateStaffPermissions, type StaffResponse } from '@/api'
+import { useUpdateStaff, type StaffResponse } from '@/api'
 import { getPermissionCategoriesByStaffType } from '../data/permissions'
 import { cn } from '@/lib/utils'
 
@@ -43,7 +43,7 @@ export function StaffPermissionForm({ staff }: StaffPermissionFormProps) {
     })
   }, [staff.permissions, form])
 
-  const updateMutation = useUpdateStaffPermissions({
+  const updateMutation = useUpdateStaff({
     mutation: {
       onSuccess: () => {
         queryClient.invalidateQueries({

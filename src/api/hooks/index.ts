@@ -95,7 +95,6 @@ export type { GetTrainersByDoctorSuspenseQueryKey } from "./Staff ManagementHook
 export type { RemoveExerciseGroupFromDoctorMutationKey } from "./Staff ManagementHooks/useRemoveExerciseGroupFromDoctor.ts";
 export type { RemoveTrainerFromDoctorMutationKey } from "./Staff ManagementHooks/useRemoveTrainerFromDoctor.ts";
 export type { UpdateStaffMutationKey } from "./Staff ManagementHooks/useUpdateStaff.ts";
-export type { UpdateStaffPermissionsMutationKey } from "./Staff ManagementHooks/useUpdateStaffPermissions.ts";
 export type { GetMySubscriptionsQueryKey } from "./SubscriptionsHooks/useGetMySubscriptions.ts";
 export type { GetMySubscriptionsSuspenseQueryKey } from "./SubscriptionsHooks/useGetMySubscriptionsSuspense.ts";
 export type { GetPendingPurchasesQueryKey } from "./SubscriptionsHooks/useGetPendingPurchases.ts";
@@ -498,10 +497,6 @@ export { updateStaffMutationKey } from "./Staff ManagementHooks/useUpdateStaff.t
 export { updateStaff } from "./Staff ManagementHooks/useUpdateStaff.ts";
 export { updateStaffMutationOptions } from "./Staff ManagementHooks/useUpdateStaff.ts";
 export { useUpdateStaff } from "./Staff ManagementHooks/useUpdateStaff.ts";
-export { updateStaffPermissionsMutationKey } from "./Staff ManagementHooks/useUpdateStaffPermissions.ts";
-export { updateStaffPermissions } from "./Staff ManagementHooks/useUpdateStaffPermissions.ts";
-export { updateStaffPermissionsMutationOptions } from "./Staff ManagementHooks/useUpdateStaffPermissions.ts";
-export { useUpdateStaffPermissions } from "./Staff ManagementHooks/useUpdateStaffPermissions.ts";
 export { getMySubscriptionsQueryKey } from "./SubscriptionsHooks/useGetMySubscriptions.ts";
 export { getMySubscriptions } from "./SubscriptionsHooks/useGetMySubscriptions.ts";
 export { getMySubscriptionsQueryOptions } from "./SubscriptionsHooks/useGetMySubscriptions.ts";
