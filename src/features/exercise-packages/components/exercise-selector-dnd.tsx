@@ -40,8 +40,7 @@ import {
   PopoverTrigger,
 } from '@/components/ui/popover'
 import { Separator } from '@/components/ui/separator'
-import { useGetAllExercises, useGetAllCategories, useGetAllGroups } from '@/api'
-import type { ExerciseResponse } from '@/api'
+import { useGetAllExercises, useGetAllCategories, useGetAllGroups, type ExerciseResponse } from '@/api'
 import { cn } from '@/lib/utils'
 
 interface ExerciseSelectorDNDProps {
@@ -554,11 +553,11 @@ function FilterButton({
 // Helper function to get Vietnamese labels for category types
 function getCategoryTypeLabel(type: string): string {
   const labels: Record<string, string> = {
-    BODY_PART: 'Vị trí cơ thể',
-    RECOVERY_STAGE: 'Giai đoạn phục hồi',
+    BODY_PART: 'Bộ phận cơ thể',
     HEALTH_CONDITION: 'Tình trạng sức khỏe',
-    DIFFICULTY_LEVEL: 'Độ khó',
     EXERCISE_TYPE: 'Loại bài tập',
+    EXERCISE_EQUIPMENTS: 'Dụng cụ tập luyện',
+    OTHERS: 'Khác',
   }
   return labels[type] || type
 }

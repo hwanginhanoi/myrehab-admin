@@ -1,4 +1,5 @@
 export { assignCourseToPatientPathParamsSchema, assignCourseToPatient200Schema, assignCourseToPatientMutationRequestSchema, assignCourseToPatientMutationResponseSchema } from "./assignCourseToPatientSchema.ts";
+export { createAndAssignCustomCoursePathParamsSchema, createAndAssignCustomCourse200Schema, createAndAssignCustomCourseMutationRequestSchema, createAndAssignCustomCourseMutationResponseSchema } from "./createAndAssignCustomCourseSchema.ts";
 export { getMyAssignedCoursesQueryParamsSchema, getMyAssignedCourses200Schema, getMyAssignedCoursesQueryResponseSchema } from "./getMyAssignedCoursesSchema.ts";
 export { getMyPatientsQueryParamsSchema, getMyPatients200Schema, getMyPatientsQueryResponseSchema } from "./getMyPatientsSchema.ts";
 export { getMyTrainersQueryParamsSchema, getMyTrainers200Schema, getMyTrainersQueryResponseSchema } from "./getMyTrainersSchema.ts";
