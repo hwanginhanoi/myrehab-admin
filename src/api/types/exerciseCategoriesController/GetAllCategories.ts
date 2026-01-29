@@ -8,17 +8,17 @@ import type { PagedModel } from "../PagedModel.ts";
 
 export const getAllCategoriesQueryParamsTypeEnum = {
     "BODY_PART": "BODY_PART",
-    "RECOVERY_STAGE": "RECOVERY_STAGE",
     "HEALTH_CONDITION": "HEALTH_CONDITION",
-    "DIFFICULTY_LEVEL": "DIFFICULTY_LEVEL",
-    "EXERCISE_TYPE": "EXERCISE_TYPE"
+    "EXERCISE_TYPE": "EXERCISE_TYPE",
+    "EXERCISE_EQUIPMENTS": "EXERCISE_EQUIPMENTS",
+    "OTHERS": "OTHERS"
 } as const;
 
 export type GetAllCategoriesQueryParamsTypeEnumKey = (typeof getAllCategoriesQueryParamsTypeEnum)[keyof typeof getAllCategoriesQueryParamsTypeEnum];
 
 export type GetAllCategoriesQueryParams = {
     /**
-     * @description Category type (BODY_PART, RECOVERY_STAGE, HEALTH_CONDITION, DIFFICULTY_LEVEL, EXERCISE_TYPE)
+     * @description Category type (BODY_PART, HEALTH_CONDITION, EXERCISE_TYPE, EXERCISE_EQUIPMENTS, OTHERS)
      * @type string | undefined
     */
     type?: GetAllCategoriesQueryParamsTypeEnumKey;

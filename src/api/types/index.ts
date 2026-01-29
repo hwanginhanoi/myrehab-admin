@@ -16,6 +16,7 @@ export type { BalanceResponse } from "./BalanceResponse.ts";
 export type { CategoryResponseTypeEnumKey, CategoryResponse } from "./CategoryResponse.ts";
 export type { CheckPhoneRequest } from "./CheckPhoneRequest.ts";
 export type { CheckPhoneResponse } from "./CheckPhoneResponse.ts";
+export type { CourseDayDto } from "./CourseDayDto.ts";
 export type { CourseDaySummaryDto } from "./CourseDaySummaryDto.ts";
 export type { CourseMetadataDto } from "./CourseMetadataDto.ts";
 export type { CompleteCoursePathParams, CompleteCourse200, CompleteCourseMutationResponse, CompleteCourseMutation } from "./courseProgressController/CompleteCourse.ts";
@@ -29,6 +30,7 @@ export type { GetAllCoursesQueryParams, GetAllCourses200, GetAllCoursesQueryResp
 export type { GetCourseStructurePathParams, GetCourseStructure200, GetCourseStructureQueryResponse, GetCourseStructureQuery } from "./coursesController/GetCourseStructure.ts";
 export type { CourseWithDaysResponse } from "./CourseWithDaysResponse.ts";
 export type { CreateCategoryRequestTypeEnumKey, CreateCategoryRequest } from "./CreateCategoryRequest.ts";
+export type { CreateCustomCourseRequest } from "./CreateCustomCourseRequest.ts";
 export type { CreateExercisePackageRequest } from "./CreateExercisePackageRequest.ts";
 export type { CreateExerciseRequest } from "./CreateExerciseRequest.ts";
 export type { CreateGroupRequest } from "./CreateGroupRequest.ts";
@@ -36,9 +38,11 @@ export type { CreateNewsRequestStatusEnumKey, CreateNewsRequest } from "./Create
 export type { CreateRehabilitationExaminationFormRequest } from "./CreateRehabilitationExaminationFormRequest.ts";
 export type { CreateStaffRequestStaffTypeEnumKey, CreateStaffRequest } from "./CreateStaffRequest.ts";
 export type { DayContentResponse } from "./DayContentResponse.ts";
+export type { DayExerciseDto } from "./DayExerciseDto.ts";
 export type { DayExerciseItemResponse } from "./DayExerciseItemResponse.ts";
 export type { DeleteFileRequest } from "./DeleteFileRequest.ts";
 export type { AssignCourseToPatientPathParams, AssignCourseToPatient200, AssignCourseToPatientMutationRequest, AssignCourseToPatientMutationResponse, AssignCourseToPatientMutation } from "./doctorController/AssignCourseToPatient.ts";
+export type { CreateAndAssignCustomCoursePathParams, CreateAndAssignCustomCourse200, CreateAndAssignCustomCourseMutationRequest, CreateAndAssignCustomCourseMutationResponse, CreateAndAssignCustomCourseMutation } from "./doctorController/CreateAndAssignCustomCourse.ts";
 export type { GetMyAssignedCoursesQueryParams, GetMyAssignedCourses200, GetMyAssignedCoursesQueryResponse, GetMyAssignedCoursesQuery } from "./doctorController/GetMyAssignedCourses.ts";
 export type { GetMyPatientsQueryParams, GetMyPatients200, GetMyPatientsQueryResponse, GetMyPatientsQuery } from "./doctorController/GetMyPatients.ts";
 export type { GetMyTrainersQueryParams, GetMyTrainers200, GetMyTrainersQueryResponse, GetMyTrainersQuery } from "./doctorController/GetMyTrainers.ts";

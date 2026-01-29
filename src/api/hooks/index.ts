@@ -24,6 +24,7 @@ export type { GetAllCoursesSuspenseQueryKey } from "./CoursesHooks/useGetAllCour
 export type { GetCourseStructureQueryKey } from "./CoursesHooks/useGetCourseStructure.ts";
 export type { GetCourseStructureSuspenseQueryKey } from "./CoursesHooks/useGetCourseStructureSuspense.ts";
 export type { AssignCourseToPatientMutationKey } from "./DoctorHooks/useAssignCourseToPatient.ts";
+export type { CreateAndAssignCustomCourseMutationKey } from "./DoctorHooks/useCreateAndAssignCustomCourse.ts";
 export type { GetMyAssignedCoursesQueryKey } from "./DoctorHooks/useGetMyAssignedCourses.ts";
 export type { GetMyAssignedCoursesSuspenseQueryKey } from "./DoctorHooks/useGetMyAssignedCoursesSuspense.ts";
 export type { GetMyPatientsQueryKey } from "./DoctorHooks/useGetMyPatients.ts";
@@ -212,6 +213,10 @@ export { assignCourseToPatientMutationKey } from "./DoctorHooks/useAssignCourseT
 export { assignCourseToPatient } from "./DoctorHooks/useAssignCourseToPatient.ts";
 export { assignCourseToPatientMutationOptions } from "./DoctorHooks/useAssignCourseToPatient.ts";
 export { useAssignCourseToPatient } from "./DoctorHooks/useAssignCourseToPatient.ts";
+export { createAndAssignCustomCourseMutationKey } from "./DoctorHooks/useCreateAndAssignCustomCourse.ts";
+export { createAndAssignCustomCourse } from "./DoctorHooks/useCreateAndAssignCustomCourse.ts";
+export { createAndAssignCustomCourseMutationOptions } from "./DoctorHooks/useCreateAndAssignCustomCourse.ts";
+export { useCreateAndAssignCustomCourse } from "./DoctorHooks/useCreateAndAssignCustomCourse.ts";
 export { getMyAssignedCoursesQueryKey } from "./DoctorHooks/useGetMyAssignedCourses.ts";
 export { getMyAssignedCourses } from "./DoctorHooks/useGetMyAssignedCourses.ts";
 export { getMyAssignedCoursesQueryOptions } from "./DoctorHooks/useGetMyAssignedCourses.ts";

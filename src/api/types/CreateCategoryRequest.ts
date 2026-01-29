@@ -6,10 +6,10 @@
 
 export const createCategoryRequestTypeEnum = {
     "BODY_PART": "BODY_PART",
-    "RECOVERY_STAGE": "RECOVERY_STAGE",
     "HEALTH_CONDITION": "HEALTH_CONDITION",
-    "DIFFICULTY_LEVEL": "DIFFICULTY_LEVEL",
-    "EXERCISE_TYPE": "EXERCISE_TYPE"
+    "EXERCISE_TYPE": "EXERCISE_TYPE",
+    "EXERCISE_EQUIPMENTS": "EXERCISE_EQUIPMENTS",
+    "OTHERS": "OTHERS"
 } as const;
 
 export type CreateCategoryRequestTypeEnumKey = (typeof createCategoryRequestTypeEnum)[keyof typeof createCategoryRequestTypeEnum];
