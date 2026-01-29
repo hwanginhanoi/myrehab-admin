@@ -40,7 +40,7 @@ import {
   PopoverTrigger,
 } from '@/components/ui/popover'
 import { Separator } from '@/components/ui/separator'
-import { useGetAllExercises, useGetAllCategories, useGetAllGroups, type ExerciseResponse } from '@/api'
+import { useGetAllExercises, useGetAllCategories, useGetAllGroups, type ExerciseResponse, type CategoryResponse, type GroupResponse } from '@/api'
 import { cn } from '@/lib/utils'
 
 interface ExerciseSelectorDNDProps {
@@ -76,8 +76,8 @@ export function ExerciseSelectorDND({
 
   // Group categories by type
   const categoryGroups = useMemo(() => {
-    const categories = categoriesResponse?.content || []
-    const groupsMap = new Map<string, typeof categories>()
+    const categories = (categoriesResponse?.content || []) as CategoryResponse[]
+    const groupsMap = new Map<string, CategoryResponse[]>()
 
     categories.forEach((category) => {
       const type = category.type
@@ -103,7 +103,7 @@ export function ExerciseSelectorDND({
 
   // Wrap groups in a single group for consistent styling
   const groupOptions = useMemo(() => {
-    const groups = groupsResponse?.content || []
+    const groups = (groupsResponse?.content || []) as GroupResponse[]
     return [{
       label: 'Kho bài tập',
       options: groups.map((group) => ({
@@ -120,7 +120,7 @@ export function ExerciseSelectorDND({
       query: searchQuery || undefined,
       categoryIds: selectedCategoryIds.length > 0 ? selectedCategoryIds.map(Number) : undefined,
       groupIds: selectedGroupIds.length > 0 ? selectedGroupIds.map(Number) : undefined,
-    } as any,
+    },
     {
       query: {
         placeholderData: (previousData) => previousData,
@@ -128,7 +128,7 @@ export function ExerciseSelectorDND({
     }
   )
 
-  const availableExercises = exercisesResponse?.content || []
+  const availableExercises = (exercisesResponse?.content || []) as ExerciseResponse[]
   const totalPages = exercisesResponse?.page?.totalPages || 0
 
   // Filter out already selected exercises from available list
