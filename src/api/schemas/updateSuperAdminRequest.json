@@ -1,1 +1,0 @@
-{"allOf":[{"$ref":"#/components/schemas/UpdateStaffRequest"}],"description":"Update request for Super Admin staff","required":["email","fullName","staffType"],"x-readme-ref-name":"UpdateSuperAdminRequest"}
