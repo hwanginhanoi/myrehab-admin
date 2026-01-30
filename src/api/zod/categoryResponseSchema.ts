@@ -9,7 +9,7 @@ export const categoryResponseSchema = z.object({
     "id": z.optional(z.int()),
 "name": z.optional(z.string()),
 "description": z.optional(z.string()),
-"type": z.optional(z.enum(["BODY_PART", "RECOVERY_STAGE", "HEALTH_CONDITION", "DIFFICULTY_LEVEL", "EXERCISE_TYPE"])),
+"type": z.optional(z.enum(["BODY_PART", "HEALTH_CONDITION", "EXERCISE_TYPE", "EXERCISE_EQUIPMENTS", "OTHERS"])),
 "createdAt": z.optional(z.string().datetime()),
 "updatedAt": z.optional(z.string().datetime())
     })

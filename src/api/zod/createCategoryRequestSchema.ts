@@ -8,5 +8,5 @@ import { z } from "zod/v4";
 export const createCategoryRequestSchema = z.object({
     "name": z.string(),
 "description": z.optional(z.string()),
-"type": z.enum(["BODY_PART", "RECOVERY_STAGE", "HEALTH_CONDITION", "DIFFICULTY_LEVEL", "EXERCISE_TYPE"])
+"type": z.enum(["BODY_PART", "HEALTH_CONDITION", "EXERCISE_TYPE", "EXERCISE_EQUIPMENTS", "OTHERS"])
     })

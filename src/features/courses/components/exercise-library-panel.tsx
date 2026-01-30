@@ -366,11 +366,11 @@ function FilterButton({ title, groups, selectedValues, onChange }: FilterButtonP
 // Helper function
 function getCategoryTypeLabel(type: string): string {
   const labels: Record<string, string> = {
-    BODY_PART: 'Vị trí cơ thể',
-    RECOVERY_STAGE: 'Giai đoạn phục hồi',
+    BODY_PART: 'Bộ phận cơ thể',
     HEALTH_CONDITION: 'Tình trạng sức khỏe',
-    DIFFICULTY_LEVEL: 'Độ khó',
     EXERCISE_TYPE: 'Loại bài tập',
+    EXERCISE_EQUIPMENTS: 'Dụng cụ tập luyện',
+    OTHERS: 'Khác',
   }
   return labels[type] || type
 }
