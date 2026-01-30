@@ -1,7 +1,8 @@
 import { z } from 'zod'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { showSubmittedData } from '@/lib/show-submitted-data'
+import { useQueryClient } from '@tanstack/react-query'
+import { toast } from 'sonner'
 import { Button } from '@/components/ui/button'
 import {
   Form,
@@ -15,7 +16,7 @@ import {
 import { Input } from '@/components/ui/input'
 import { Textarea } from '@/components/ui/textarea'
 import { Badge } from '@/components/ui/badge'
-import type { StaffResponse } from '@/api'
+import { useUpdateStaff, type StaffResponse } from '@/api'
 
 const doctorProfileFormSchema = z.object({
   fullName: z
@@ -43,16 +44,46 @@ type DoctorProfileFormProps = {
 }
 
 export function DoctorProfileForm({ doctor, isLoading }: DoctorProfileFormProps) {
+  const queryClient = useQueryClient()
+
   const form = useForm<DoctorProfileFormValues>({
     resolver: zodResolver(doctorProfileFormSchema),
     defaultValues: {
       fullName: doctor.fullName || '',
       email: doctor.email || '',
       specialization: doctor.specialization || '',
-      bio: '',
+      bio: doctor.description || '',
     },
     mode: 'onChange',
   })
+
+  const updateMutation = useUpdateStaff({
+    mutation: {
+      onSuccess: () => {
+        queryClient.invalidateQueries({ queryKey: [{ url: '/api/admin/staff' }] })
+        queryClient.invalidateQueries({ queryKey: [{ url: `/api/admin/staff/${doctor.id}` }] })
+        toast.success('Đã cập nhật thông tin bác sĩ')
+      },
+      onError: (error) => {
+        toast.error(error.message || 'Không thể cập nhật thông tin bác sĩ')
+      },
+    },
+  })
+
+  const onSubmit = (values: DoctorProfileFormValues) => {
+    if (!doctor.id) return
+
+    updateMutation.mutate({
+      id: doctor.id,
+      data: {
+        staffType: 'DOCTOR',
+        email: values.email,
+        fullName: values.fullName,
+        ...(values.specialization && { specialization: values.specialization }),
+        ...(values.bio && { description: values.bio }),
+      },
+    })
+  }
 
   if (isLoading) {
     return (
@@ -65,7 +96,7 @@ export function DoctorProfileForm({ doctor, isLoading }: DoctorProfileFormProps)
   return (
     <Form {...form}>
       <form
-        onSubmit={form.handleSubmit((data) => showSubmittedData(data))}
+        onSubmit={form.handleSubmit(onSubmit)}
         className='space-y-8'
       >
         <FormField
@@ -170,7 +201,9 @@ export function DoctorProfileForm({ doctor, isLoading }: DoctorProfileFormProps)
           )}
         </div>
 
-        <Button type='submit'>Cập nhật thông tin</Button>
+        <Button type='submit' disabled={updateMutation.isPending}>
+          {updateMutation.isPending ? 'Đang lưu...' : 'Cập nhật thông tin'}
+        </Button>
       </form>
     </Form>
   )

@@ -1,1 +1,8 @@
-{"type":"object","properties":{"phoneNumber":{"type":"string","pattern":"^\\+?[1-9]\\d{1,14}$"}},"required":["phoneNumber"],"x-readme-ref-name":"SendOtpRequest"}
+{
+  "type": "object",
+  "properties": {
+    "phoneNumber": { "type": "string", "pattern": "^\\+?[1-9]\\d{1,14}$" }
+  },
+  "required": ["phoneNumber"],
+  "x-readme-ref-name": "SendOtpRequest"
+}

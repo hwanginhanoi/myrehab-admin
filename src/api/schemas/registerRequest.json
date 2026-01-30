@@ -1,1 +1,20 @@
-{"type":"object","properties":{"phoneNumber":{"type":"string","pattern":"^\\+?[1-9]\\d{1,14}$"},"otp":{"type":"string","maxLength":6,"minLength":6,"pattern":"^\\d{6}$"},"pin":{"type":"string","maxLength":6,"minLength":6,"pattern":"^\\d{6}$"}},"required":["otp","phoneNumber","pin"],"x-readme-ref-name":"RegisterRequest"}
+{
+  "type": "object",
+  "properties": {
+    "fullName": { "type": "string" },
+    "gender": { "type": "string", "pattern": "^(Male|Female|Other)$" },
+    "dateOfBirth": { "type": "string", "format": "date" },
+    "verificationToken": {
+      "type": "string",
+      "pattern": "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$"
+    },
+    "pin": {
+      "type": "string",
+      "maxLength": 6,
+      "minLength": 6,
+      "pattern": "^\\d{6}$"
+    }
+  },
+  "required": ["dateOfBirth", "fullName", "gender", "pin", "verificationToken"],
+  "x-readme-ref-name": "RegisterRequest"
+}

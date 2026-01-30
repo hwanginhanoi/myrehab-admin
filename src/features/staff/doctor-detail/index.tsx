@@ -2,7 +2,7 @@ import { useMemo } from 'react'
 import { getRouteApi, Outlet } from '@tanstack/react-router'
 import { Button } from '@/components/ui/button'
 import { Separator } from '@/components/ui/separator'
-import { ChevronLeft, UserCog, Users, UserRound } from 'lucide-react'
+import { ChevronLeft, Shield, UserCog, Users, UserRound } from 'lucide-react'
 import { useGetStaffById, useGetTrainersByDoctor } from '@/api'
 import { DoctorDetailProvider, useDoctorDetail } from './components/doctor-detail-provider'
 import { DoctorSidebarNav } from './components/doctor-sidebar-nav'
@@ -83,6 +83,11 @@ function DoctorDetailContent() {
       title: 'Bệnh nhân',
       href: `/staff/doctors/${doctorId}/patients`,
       icon: <UserRound size={18} />,
+    },
+    {
+      title: 'Quản lý quyền',
+      href: `/staff/doctors/${doctorId}/permissions`,
+      icon: <Shield size={18} />,
     },
   ]
 
