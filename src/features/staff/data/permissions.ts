@@ -140,8 +140,6 @@ export const DOCTOR_PERMISSION_CATEGORIES: PermissionCategory[] = [
     description: 'Quyền quản lý file và tài liệu',
     permissions: [
       { id: ALL_PERMISSIONS.FILES_UPLOAD, label: 'Tải lên file' },
-      { id: ALL_PERMISSIONS.FILES_DOWNLOAD, label: 'Tải xuống file' },
-      { id: ALL_PERMISSIONS.FILES_DELETE, label: 'Xóa file' },
     ],
   },
   {
