@@ -1,0 +1,10 @@
+{
+  "type": "object",
+  "properties": {
+    "exerciseId": { "type": "integer", "format": "int64" },
+    "orderInDay": { "type": "integer", "format": "int32" },
+    "customRepetitions": { "type": "integer", "format": "int32" }
+  },
+  "required": ["exerciseId", "orderInDay"],
+  "x-readme-ref-name": "DayExerciseDto"
+}

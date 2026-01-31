@@ -10,10 +10,10 @@ const categoriesSearchSchema = z.object({
   type: z
     .enum([
       CategoryType.BODY_PART,
-      CategoryType.RECOVERY_STAGE,
       CategoryType.HEALTH_CONDITION,
-      CategoryType.DIFFICULTY_LEVEL,
       CategoryType.EXERCISE_TYPE,
+      CategoryType.EXERCISE_EQUIPMENTS,
+      CategoryType.OTHERS,
     ])
     .optional()
     .catch(undefined),

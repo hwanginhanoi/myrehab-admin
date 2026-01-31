@@ -74,10 +74,11 @@ export function ExerciseFormComponent({ exercise, mode }: ExerciseFormComponentP
   // Group categories by type
   const categoryGroups = useMemo(() => {
     const categories = categoriesResponse?.content || []
-    const groupsMap = new Map<string, typeof categories>()
+    type Category = (typeof categories)[number]
+    const groupsMap = new Map<string, Category[]>()
 
     categories.forEach((category) => {
-      const type = category.type
+      const type = category.type as string | undefined
       if (type && !groupsMap.has(type)) {
         groupsMap.set(type, [])
       }
@@ -90,10 +91,10 @@ export function ExerciseFormComponent({ exercise, mode }: ExerciseFormComponentP
     return Array.from(groupsMap.entries()).map(([type, cats]) => ({
       label: getCategoryTypeLabel(type),
       options: cats
-        .filter((cat) => cat.name && cat.id !== undefined)
+        .filter((cat) => cat.name !== undefined && cat.id !== undefined)
         .map((cat) => ({
-          label: cat.name!,
-          value: String(cat.id!),
+          label: String(cat.name),
+          value: String(cat.id),
         })),
     }))
   }, [categoriesResponse])
@@ -423,11 +424,11 @@ export function ExerciseFormComponent({ exercise, mode }: ExerciseFormComponentP
 // Helper function to get Vietnamese labels for category types
 function getCategoryTypeLabel(type: string): string {
   const labels: Record<string, string> = {
-    BODY_PART: 'Vị trí cơ thể',
-    RECOVERY_STAGE: 'Giai đoạn phục hồi',
+    BODY_PART: 'Bộ phận cơ thể',
     HEALTH_CONDITION: 'Tình trạng sức khỏe',
-    DIFFICULTY_LEVEL: 'Độ khó',
     EXERCISE_TYPE: 'Loại bài tập',
+    EXERCISE_EQUIPMENTS: 'Dụng cụ tập luyện',
+    OTHERS: 'Khác',
   }
   return labels[type] || type
 }

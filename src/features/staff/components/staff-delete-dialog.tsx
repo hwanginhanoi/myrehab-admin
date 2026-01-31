@@ -8,8 +8,7 @@ import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { ConfirmDialog } from '@/components/confirm-dialog'
 import { toast } from 'sonner'
-import type { StaffResponse } from '@/api'
-import { useDisableStaff } from '@/api'
+import { useDisableStaff, type StaffResponse } from '@/api'
 import { getStaffTypeLabel } from '../data/staff-roles'
 
 type StaffDeleteDialogProps = {

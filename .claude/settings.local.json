@@ -18,7 +18,13 @@
       "Bash(dir /b \"C:\\\\Users\\\\Hwang\\\\Desktop\\\\Dev\\\\myrehab-admin\\\\src\\\\api\\\\hooks\\\\Staff ManagementHooks\")",
       "Bash(find:*)",
       "Bash(tree:*)",
-      "Bash(grep:*)"
+      "Bash(grep:*)",
+      "Bash(xargs:*)",
+      "WebSearch",
+      "WebFetch(domain:www.figma.com)",
+      "mcp__Framelink_Figma_MCP__get_figma_data",
+      "Bash(npm run build:check:*)",
+      "Bash(npx eslint:*)"
     ]
   }
 }

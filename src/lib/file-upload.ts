@@ -8,7 +8,6 @@ export type FileCategory =
   | 'course-video'
   | 'profile-image'
   | 'news-image'
-  | 'banner-image'
 
 export interface PresignedUploadUrlRequest {
   fileName: string

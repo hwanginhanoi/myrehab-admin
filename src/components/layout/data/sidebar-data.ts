@@ -18,93 +18,49 @@ import {
   Users,
   MessagesSquare,
   ShieldCheck,
+  AudioWaveform,
+  Command,
+  GalleryVerticalEnd,
   FolderTree,
   Layers,
   Dumbbell,
   Newspaper,
   ClipboardList,
-  Image,
 } from 'lucide-react'
-import { Logo } from '@/assets/logo'
 import { type SidebarData } from '../types'
 
 export const sidebarData: SidebarData = {
   user: {
-    name: 'Admin',
-    email: 'admin@myrehab.com',
+    name: 'satnaing',
+    email: 'satnaingdev@gmail.com',
     avatar: '/avatars/shadcn.jpg',
   },
   teams: [
     {
-      name: 'MyRehab Admin',
-      logo: Logo,
-      plan: 'Quản trị hệ thống',
+      name: 'Shadcn Admin',
+      logo: Command,
+      plan: 'Vite + ShadcnUI',
+    },
+    {
+      name: 'Acme Inc',
+      logo: GalleryVerticalEnd,
+      plan: 'Enterprise',
+    },
+    {
+      name: 'Acme Corp.',
+      logo: AudioWaveform,
+      plan: 'Startup',
     },
   ],
   navGroups: [
     {
-      title: 'Quản trị hệ thống',
+      title: 'General',
       items: [
         {
-          title: 'Trang chủ',
+          title: 'Dashboard',
           url: '/',
           icon: LayoutDashboard,
         },
-        {
-          title: 'Tin tức',
-          url: '/news',
-          icon: Newspaper,
-        },
-        {
-          title: 'Banner',
-          url: '/banners',
-          icon: Image,
-        },
-        {
-          title: 'Kho bài tập',
-          url: '/exercise-groups',
-          icon: Layers,
-        },
-      ],
-    },
-    {
-      title: 'Quản trị nội dung',
-      items: [
-        {
-          title: 'Danh mục bài tập',
-          url: '/exercise-categories',
-          icon: FolderTree,
-        },
-        {
-          title: 'Bài tập',
-          url: '/exercises',
-          icon: Dumbbell,
-        },
-        {
-          title: 'Phiếu khám',
-          url: '/rehabilitation-forms',
-          icon: ClipboardList,
-        },
-      ]
-    },
-    {
-      title: 'Quản trị người dùng',
-      items: [
-        {
-          title: 'Staff',
-          url: '/staff',
-          icon: UserCog,
-        },
-        {
-          title: 'Users',
-          url: '/users',
-          icon: Users,
-        },
-      ]
-    },
-    {
-      title: 'Hệ thống',
-      items: [
         {
           title: 'Tasks',
           url: '/tasks',
@@ -120,6 +76,41 @@ export const sidebarData: SidebarData = {
           url: '/chats',
           badge: '3',
           icon: MessagesSquare,
+        },
+        {
+          title: 'Users',
+          url: '/users',
+          icon: Users,
+        },
+        {
+          title: 'Staff',
+          url: '/staff',
+          icon: UserCog,
+        },
+        {
+          title: 'Exercise Categories',
+          url: '/exercise-categories',
+          icon: FolderTree,
+        },
+        {
+          title: 'Exercise Groups',
+          url: '/exercise-groups',
+          icon: Layers,
+        },
+        {
+          title: 'Exercises',
+          url: '/exercises',
+          icon: Dumbbell,
+        },
+        {
+          title: 'News',
+          url: '/news',
+          icon: Newspaper,
+        },
+        {
+          title: 'Phiếu khám',
+          url: '/rehabilitation-forms',
+          icon: ClipboardList,
         },
       ],
     },
