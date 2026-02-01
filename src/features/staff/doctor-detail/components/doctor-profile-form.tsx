@@ -41,9 +41,10 @@ type DoctorProfileFormValues = z.infer<typeof doctorProfileFormSchema>
 type DoctorProfileFormProps = {
   doctor: StaffResponse
   isLoading: boolean
+  readOnly?: boolean
 }
 
-export function DoctorProfileForm({ doctor, isLoading }: DoctorProfileFormProps) {
+export function DoctorProfileForm({ doctor, isLoading, readOnly }: DoctorProfileFormProps) {
   const queryClient = useQueryClient()
 
   const form = useForm<DoctorProfileFormValues>({
@@ -106,7 +107,7 @@ export function DoctorProfileForm({ doctor, isLoading }: DoctorProfileFormProps)
             <FormItem>
               <FormLabel>Họ và tên</FormLabel>
               <FormControl>
-                <Input placeholder='Nguyễn Văn A' {...field} />
+                <Input placeholder='Nguyễn Văn A' disabled={readOnly} {...field} />
               </FormControl>
               <FormDescription>
                 Tên đầy đủ của bác sĩ sẽ hiển thị trên hệ thống.
@@ -123,7 +124,7 @@ export function DoctorProfileForm({ doctor, isLoading }: DoctorProfileFormProps)
             <FormItem>
               <FormLabel>Email</FormLabel>
               <FormControl>
-                <Input type='email' placeholder='doctor@example.com' {...field} />
+                <Input type='email' placeholder='doctor@example.com' disabled {...field} />
               </FormControl>
               <FormDescription>
                 Địa chỉ email để liên hệ và đăng nhập hệ thống.
@@ -140,7 +141,7 @@ export function DoctorProfileForm({ doctor, isLoading }: DoctorProfileFormProps)
             <FormItem>
               <FormLabel>Chuyên môn</FormLabel>
               <FormControl>
-                <Input placeholder='Chuyên khoa phục hồi chức năng' {...field} />
+                <Input placeholder='Chuyên khoa phục hồi chức năng' disabled={readOnly} {...field} />
               </FormControl>
               <FormDescription>
                 Lĩnh vực chuyên môn hoặc chuyên khoa của bác sĩ.
@@ -161,6 +162,7 @@ export function DoctorProfileForm({ doctor, isLoading }: DoctorProfileFormProps)
                   placeholder='Giới thiệu ngắn về bác sĩ...'
                   className='resize-none'
                   rows={4}
+                  disabled={readOnly}
                   {...field}
                 />
               </FormControl>
@@ -201,9 +203,11 @@ export function DoctorProfileForm({ doctor, isLoading }: DoctorProfileFormProps)
           )}
         </div>
 
-        <Button type='submit' disabled={updateMutation.isPending}>
-          {updateMutation.isPending ? 'Đang lưu...' : 'Cập nhật thông tin'}
-        </Button>
+        {!readOnly && (
+          <Button type='submit' disabled={updateMutation.isPending}>
+            {updateMutation.isPending ? 'Đang lưu...' : 'Cập nhật thông tin'}
+          </Button>
+        )}
       </form>
     </Form>
   )

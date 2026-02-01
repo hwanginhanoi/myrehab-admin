@@ -54,6 +54,7 @@ export const sidebarData: SidebarData = {
           title: 'Tin tức',
           url: '/news',
           icon: Newspaper,
+          requiredPermission: 'news:view',
         },
         {
           title: 'Banner',
@@ -64,6 +65,7 @@ export const sidebarData: SidebarData = {
           title: 'Kho bài tập',
           url: '/exercise-groups',
           icon: Layers,
+          requiredPermission: 'exercise_groups:view',
         },
       ],
     },
@@ -74,16 +76,25 @@ export const sidebarData: SidebarData = {
           title: 'Danh mục bài tập',
           url: '/exercise-categories',
           icon: FolderTree,
+          requiredPermission: 'categories:view',
         },
         {
           title: 'Bài tập',
           url: '/exercises',
           icon: Dumbbell,
+          requiredPermission: 'exercises:view',
+        },
+        {
+          title: 'Gói bài tập',
+          url: '/exercise-packages',
+          icon: Package,
+          requiredPermission: 'packages:view',
         },
         {
           title: 'Phiếu khám',
           url: '/rehabilitation-forms',
           icon: ClipboardList,
+          requiredPermission: 'rehab_forms:view',
         },
       ]
     },
@@ -94,11 +105,13 @@ export const sidebarData: SidebarData = {
           title: 'Staff',
           url: '/staff',
           icon: UserCog,
+          requiredPermission: 'staff:view',
         },
         {
           title: 'Users',
           url: '/users',
           icon: Users,
+          requiredPermission: 'users:view',
         },
       ]
     },

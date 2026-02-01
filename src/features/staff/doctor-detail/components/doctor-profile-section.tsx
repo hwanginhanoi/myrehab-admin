@@ -5,15 +5,16 @@ import type { StaffResponse } from '@/api'
 type DoctorProfileSectionProps = {
   doctor: StaffResponse
   isLoading: boolean
+  readOnly?: boolean
 }
 
-export function DoctorProfileSection({ doctor, isLoading }: DoctorProfileSectionProps) {
+export function DoctorProfileSection({ doctor, isLoading, readOnly }: DoctorProfileSectionProps) {
   return (
     <DoctorContentSection
       title='Thông tin cá nhân'
-      desc='Quản lý thông tin cá nhân và chuyên môn của bác sĩ.'
+      desc={readOnly ? 'Xem thông tin cá nhân và chuyên môn của bác sĩ.' : 'Quản lý thông tin cá nhân và chuyên môn của bác sĩ.'}
     >
-      <DoctorProfileForm doctor={doctor} isLoading={isLoading} />
+      <DoctorProfileForm doctor={doctor} isLoading={isLoading} readOnly={readOnly} />
     </DoctorContentSection>
   )
 }

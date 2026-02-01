@@ -13,31 +13,17 @@ export function StaffDialogs() {
       />
 
       {currentRow && (
-        <>
-          <StaffActionDialog
-            key={`staff-edit-${currentRow.id}`}
-            open={open === 'edit'}
-            onOpenChange={() => {
-              setOpen(null)
-              setTimeout(() => {
-                setCurrentRow(null)
-              }, 500)
-            }}
-            currentRow={currentRow}
-          />
-
-          <StaffDeleteDialog
-            key={`staff-delete-${currentRow.id}`}
-            open={open === 'delete'}
-            onOpenChange={() => {
-              setOpen(null)
-              setTimeout(() => {
-                setCurrentRow(null)
-              }, 500)
-            }}
-            currentRow={currentRow}
-          />
-        </>
+        <StaffDeleteDialog
+          key={`staff-delete-${currentRow.id}`}
+          open={open === 'delete'}
+          onOpenChange={() => {
+            setOpen(null)
+            setTimeout(() => {
+              setCurrentRow(null)
+            }, 500)
+          }}
+          currentRow={currentRow}
+        />
       )}
     </>
   )

@@ -6,20 +6,22 @@ type DoctorTrainerSectionProps = {
   doctorId: number
   search: Record<string, unknown>
   navigate: NavigateFn
+  readOnly?: boolean
 }
 
 export function DoctorTrainerSection({
   doctorId,
   search,
   navigate,
+  readOnly,
 }: DoctorTrainerSectionProps) {
   return (
     <DoctorContentSection
       title='Quản lý Huấn luyện viên'
-      desc='Xem và quản lý các huấn luyện viên được gán cho bác sĩ này.'
+      desc={readOnly ? 'Xem các huấn luyện viên được gán cho bác sĩ này.' : 'Xem và quản lý các huấn luyện viên được gán cho bác sĩ này.'}
       fullWidth
     >
-      <TrainerListCard doctorId={doctorId} search={search} navigate={navigate} />
+      <TrainerListCard doctorId={doctorId} search={search} navigate={navigate} readOnly={readOnly} />
     </DoctorContentSection>
   )
 }

@@ -4,18 +4,20 @@ import { DoctorPermissionForm } from './doctor-permission-form'
 
 type DoctorPermissionSectionProps = {
   doctor: StaffResponse
+  readOnly?: boolean
 }
 
 export function DoctorPermissionSection({
   doctor,
+  readOnly,
 }: DoctorPermissionSectionProps) {
   return (
     <DoctorContentSection
       title='Quản lý Quyền'
-      desc='Quản lý quyền truy cập và thao tác của bác sĩ trong hệ thống.'
+      desc={readOnly ? 'Xem quyền truy cập và thao tác của bác sĩ trong hệ thống.' : 'Quản lý quyền truy cập và thao tác của bác sĩ trong hệ thống.'}
       fullWidth
     >
-      <DoctorPermissionForm doctor={doctor} />
+      <DoctorPermissionForm doctor={doctor} readOnly={readOnly} />
     </DoctorContentSection>
   )
 }

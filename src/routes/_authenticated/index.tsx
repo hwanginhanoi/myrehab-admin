@@ -13,6 +13,11 @@ export const Route = createFileRoute('/_authenticated/')({
     if (!isAdmin) {
       throw redirect({
         to: '/exercises',
+        search: {
+          categoryIds: [],
+          groupIds: [],
+        },
+
       })
     }
   },

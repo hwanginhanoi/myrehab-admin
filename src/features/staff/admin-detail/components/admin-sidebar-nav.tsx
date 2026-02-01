@@ -11,9 +11,10 @@ type NavItem = {
 type AdminSidebarNavProps = {
   items: NavItem[]
   adminId: string
+  mode?: 'view' | 'edit'
 }
 
-export function AdminSidebarNav({ items, adminId }: AdminSidebarNavProps) {
+export function AdminSidebarNav({ items, adminId, mode }: AdminSidebarNavProps) {
   const { pathname } = useLocation()
 
   return (
@@ -26,6 +27,7 @@ export function AdminSidebarNav({ items, adminId }: AdminSidebarNavProps) {
           <Link
             key={item.href}
             to={item.href}
+            search={{ mode: mode ?? 'view' }}
             className={cn(
               buttonVariants({ variant: 'ghost' }),
               isActive

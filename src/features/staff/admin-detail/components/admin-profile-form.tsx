@@ -41,9 +41,10 @@ type AdminProfileFormValues = z.infer<typeof adminProfileFormSchema>
 type AdminProfileFormProps = {
   admin: StaffResponse
   isLoading: boolean
+  readOnly?: boolean
 }
 
-export function AdminProfileForm({ admin, isLoading }: AdminProfileFormProps) {
+export function AdminProfileForm({ admin, isLoading, readOnly }: AdminProfileFormProps) {
   const queryClient = useQueryClient()
 
   const form = useForm<AdminProfileFormValues>({
@@ -106,7 +107,7 @@ export function AdminProfileForm({ admin, isLoading }: AdminProfileFormProps) {
             <FormItem>
               <FormLabel>Họ và tên</FormLabel>
               <FormControl>
-                <Input placeholder='Nguyễn Văn A' {...field} />
+                <Input placeholder='Nguyễn Văn A' disabled={readOnly} {...field} />
               </FormControl>
               <FormDescription>
                 Tên đầy đủ của quản trị viên sẽ hiển thị trên hệ thống.
@@ -140,7 +141,7 @@ export function AdminProfileForm({ admin, isLoading }: AdminProfileFormProps) {
             <FormItem>
               <FormLabel>Số điện thoại</FormLabel>
               <FormControl>
-                <Input placeholder='0912345678' {...field} />
+                <Input placeholder='0912345678' disabled={readOnly} {...field} />
               </FormControl>
               <FormDescription>
                 Số điện thoại liên hệ của quản trị viên.
@@ -161,6 +162,7 @@ export function AdminProfileForm({ admin, isLoading }: AdminProfileFormProps) {
                   placeholder='Mô tả ngắn về quản trị viên...'
                   className='resize-none'
                   rows={4}
+                  disabled={readOnly}
                   {...field}
                 />
               </FormControl>
@@ -213,9 +215,11 @@ export function AdminProfileForm({ admin, isLoading }: AdminProfileFormProps) {
           )}
         </div>
 
-        <Button type='submit' disabled={updateMutation.isPending}>
-          {updateMutation.isPending ? 'Đang lưu...' : 'Cập nhật thông tin'}
-        </Button>
+        {!readOnly && (
+          <Button type='submit' disabled={updateMutation.isPending}>
+            {updateMutation.isPending ? 'Đang lưu...' : 'Cập nhật thông tin'}
+          </Button>
+        )}
       </form>
     </Form>
   )

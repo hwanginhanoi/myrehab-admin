@@ -41,9 +41,10 @@ type TrainerProfileFormValues = z.infer<typeof trainerProfileFormSchema>
 type TrainerProfileFormProps = {
   trainer: StaffResponse
   isLoading: boolean
+  readOnly?: boolean
 }
 
-export function TrainerProfileForm({ trainer, isLoading }: TrainerProfileFormProps) {
+export function TrainerProfileForm({ trainer, isLoading, readOnly }: TrainerProfileFormProps) {
   const queryClient = useQueryClient()
 
   const form = useForm<TrainerProfileFormValues>({
@@ -106,7 +107,7 @@ export function TrainerProfileForm({ trainer, isLoading }: TrainerProfileFormPro
             <FormItem>
               <FormLabel>Họ và tên</FormLabel>
               <FormControl>
-                <Input placeholder='Nguyễn Văn A' {...field} />
+                <Input placeholder='Nguyễn Văn A' disabled={readOnly} {...field} />
               </FormControl>
               <FormDescription>
                 Tên đầy đủ của huấn luyện viên sẽ hiển thị trên hệ thống.
@@ -140,7 +141,7 @@ export function TrainerProfileForm({ trainer, isLoading }: TrainerProfileFormPro
             <FormItem>
               <FormLabel>Số điện thoại</FormLabel>
               <FormControl>
-                <Input placeholder='0912345678' {...field} />
+                <Input placeholder='0912345678' disabled={readOnly} {...field} />
               </FormControl>
               <FormDescription>
                 Số điện thoại liên hệ của huấn luyện viên.
@@ -161,6 +162,7 @@ export function TrainerProfileForm({ trainer, isLoading }: TrainerProfileFormPro
                   placeholder='Mô tả ngắn về huấn luyện viên...'
                   className='resize-none'
                   rows={4}
+                  disabled={readOnly}
                   {...field}
                 />
               </FormControl>
@@ -201,9 +203,11 @@ export function TrainerProfileForm({ trainer, isLoading }: TrainerProfileFormPro
           )}
         </div>
 
-        <Button type='submit' disabled={updateMutation.isPending}>
-          {updateMutation.isPending ? 'Đang lưu...' : 'Cập nhật thông tin'}
-        </Button>
+        {!readOnly && (
+          <Button type='submit' disabled={updateMutation.isPending}>
+            {updateMutation.isPending ? 'Đang lưu...' : 'Cập nhật thông tin'}
+          </Button>
+        )}
       </form>
     </Form>
   )

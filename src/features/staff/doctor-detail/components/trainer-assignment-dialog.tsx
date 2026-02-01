@@ -103,7 +103,7 @@ export function TrainerAssignmentDialog({
 
   return (
     <Dialog open={open} onOpenChange={handleClose}>
-      <DialogContent className='sm:max-w-lg'>
+      <DialogContent className='sm:max-w-lg max-h-[85vh] flex flex-col'>
         <DialogHeader>
           <DialogTitle>Gán huấn luyện viên</DialogTitle>
           <DialogDescription>
@@ -111,7 +111,7 @@ export function TrainerAssignmentDialog({
           </DialogDescription>
         </DialogHeader>
 
-        <div className='py-4'>
+        <div className='py-4 overflow-y-auto flex-1 min-h-0'>
           {isLoading ? (
             <div className='flex items-center justify-center h-64'>
               <Loader2 className='mr-2 h-4 w-4 animate-spin' />

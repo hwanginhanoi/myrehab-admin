@@ -62,6 +62,7 @@ export function PatientAssignmentDialog({
     const query = searchQuery.toLowerCase()
     return availablePatients.filter(
       (patient) =>
+        patient.fullName?.toLowerCase().includes(query) ||
         patient.phoneNumber?.toLowerCase().includes(query) ||
         patient.email?.toLowerCase().includes(query) ||
         String(patient.id).includes(query)
@@ -73,7 +74,7 @@ export function PatientAssignmentDialog({
     mutation: {
       onSuccess: () => {
         queryClient.invalidateQueries({
-          queryKey: [{ url: `/api/admin/doctors/${doctorId}/patients` }],
+          queryKey: [{ url: '/api/admin/doctors/:doctorId/patients', params: { doctorId } }],
         })
         toast.success('Đã gán bệnh nhân thành công')
         handleClose()
@@ -104,7 +105,7 @@ export function PatientAssignmentDialog({
 
   return (
     <Dialog open={open} onOpenChange={handleClose}>
-      <DialogContent className='sm:max-w-lg'>
+      <DialogContent className='sm:max-w-lg max-h-[85vh] flex flex-col'>
         <DialogHeader>
           <DialogTitle>Gán bệnh nhân</DialogTitle>
           <DialogDescription>
@@ -112,7 +113,7 @@ export function PatientAssignmentDialog({
           </DialogDescription>
         </DialogHeader>
 
-        <div className='py-4 space-y-4'>
+        <div className='py-4 space-y-4 overflow-y-auto flex-1 min-h-0'>
           {isLoading ? (
             <div className='flex items-center justify-center h-64'>
               <Loader2 className='mr-2 h-4 w-4 animate-spin' />
@@ -130,7 +131,7 @@ export function PatientAssignmentDialog({
             <>
               <Command className='border rounded-lg'>
                 <CommandInput
-                  placeholder='Tìm kiếm theo số điện thoại, email hoặc ID...'
+                  placeholder='Tìm kiếm theo tên, số điện thoại, email hoặc ID...'
                   value={searchQuery}
                   onValueChange={setSearchQuery}
                 />
@@ -150,11 +151,11 @@ export function PatientAssignmentDialog({
                       >
                         <div className='flex-1 min-w-0'>
                           <p className='font-medium text-sm truncate'>
-                            {patient.phoneNumber || patient.email || `Bệnh nhân #${patient.id}`}
+                            {patient.fullName || `Bệnh nhân #${patient.id}`}
                           </p>
                           <p className='text-xs text-muted-foreground truncate'>
-                            ID: {patient.id}
-                            {patient.email && ` • ${patient.email}`}
+                            {patient.phoneNumber && `${patient.phoneNumber} • `}
+                            {patient.email || `ID: ${patient.id}`}
                           </p>
                         </div>
                         {selectedPatient?.id === patient.id && (
@@ -173,9 +174,12 @@ export function PatientAssignmentDialog({
                   <div className='p-3 bg-muted rounded-lg'>
                     <p className='text-sm font-medium'>Bệnh nhân được chọn:</p>
                     <p className='text-sm'>
-                      {selectedPatient.phoneNumber || selectedPatient.email || `Bệnh nhân #${selectedPatient.id}`}
+                      {selectedPatient.fullName || `Bệnh nhân #${selectedPatient.id}`}
                     </p>
-                    <p className='text-xs text-muted-foreground'>ID: {selectedPatient.id}</p>
+                    <p className='text-xs text-muted-foreground'>
+                      {selectedPatient.phoneNumber && `${selectedPatient.phoneNumber} • `}
+                      {selectedPatient.email || `ID: ${selectedPatient.id}`}
+                    </p>
                   </div>
 
                   <div className='space-y-2'>

@@ -23,9 +23,10 @@ type FormValues = z.infer<typeof formSchema>
 
 type StaffPermissionFormProps = {
   staff: StaffResponse
+  readOnly?: boolean
 }
 
-export function StaffPermissionForm({ staff }: StaffPermissionFormProps) {
+export function StaffPermissionForm({ staff, readOnly }: StaffPermissionFormProps) {
   const queryClient = useQueryClient()
   const permissionCategories = getPermissionCategoriesByStaffType(staff.staffType || '')
 
@@ -171,6 +172,7 @@ export function StaffPermissionForm({ staff }: StaffPermissionFormProps) {
                   <Switch
                     checked={isFullySelected}
                     onCheckedChange={() => toggleCategory(category.id)}
+                    disabled={readOnly}
                     aria-label={`Bật tất cả ${category.title}`}
                   />
                 </div>
@@ -204,6 +206,7 @@ export function StaffPermissionForm({ staff }: StaffPermissionFormProps) {
                                   <Switch
                                     id={permission.id}
                                     checked={isChecked}
+                                    disabled={readOnly}
                                     onCheckedChange={(checked) => {
                                       const newValue = checked
                                         ? [...field.value, permission.id]
@@ -235,22 +238,24 @@ export function StaffPermissionForm({ staff }: StaffPermissionFormProps) {
             </span>{' '}
             quyền
           </p>
-          <div className='flex gap-2'>
-            <Button
-              type='button'
-              variant='outline'
-              onClick={() => form.reset()}
-              disabled={!isDirty || updateMutation.isPending}
-            >
-              Hủy
-            </Button>
-            <Button
-              type='submit'
-              disabled={!isDirty || updateMutation.isPending}
-            >
-              {updateMutation.isPending ? 'Đang lưu...' : 'Lưu thay đổi'}
-            </Button>
-          </div>
+          {!readOnly && (
+            <div className='flex gap-2'>
+              <Button
+                type='button'
+                variant='outline'
+                onClick={() => form.reset()}
+                disabled={!isDirty || updateMutation.isPending}
+              >
+                Hủy
+              </Button>
+              <Button
+                type='submit'
+                disabled={!isDirty || updateMutation.isPending}
+              >
+                {updateMutation.isPending ? 'Đang lưu...' : 'Lưu thay đổi'}
+              </Button>
+            </div>
+          )}
         </div>
       </form>
     </Form>

@@ -3,6 +3,7 @@ import { getCookie, setCookie, removeCookie } from '@/lib/cookies'
 
 const ACCESS_TOKEN = 'myrehab_access_token'
 const USER_TYPE = 'myrehab_user_type'
+const AUTH_USER = 'myrehab_auth_user'
 
 export type UserType = 'SUPER_ADMIN' | 'ADMIN' | 'DOCTOR' | 'TRAINER' | string
 
@@ -32,11 +33,20 @@ export const useAuthStore = create<AuthState>()((set) => {
   const initToken = cookieState ? JSON.parse(cookieState) : ''
   const userTypeState = getCookie(USER_TYPE)
   const initUserType = userTypeState ? JSON.parse(userTypeState) : null
+  const userState = getCookie(AUTH_USER)
+  const initUser: AuthUser | null = userState ? JSON.parse(userState) : null
   return {
     auth: {
-      user: null,
+      user: initUser,
       setUser: (user) =>
-        set((state) => ({ ...state, auth: { ...state.auth, user } })),
+        set((state) => {
+          if (user) {
+            setCookie(AUTH_USER, JSON.stringify(user))
+          } else {
+            removeCookie(AUTH_USER)
+          }
+          return { ...state, auth: { ...state.auth, user } }
+        }),
       accessToken: initToken,
       setAccessToken: (accessToken) =>
         set((state) => {
@@ -62,6 +72,7 @@ export const useAuthStore = create<AuthState>()((set) => {
         set((state) => {
           removeCookie(ACCESS_TOKEN)
           removeCookie(USER_TYPE)
+          removeCookie(AUTH_USER)
           return {
             ...state,
             auth: { ...state.auth, user: null, accessToken: '', userType: null },
