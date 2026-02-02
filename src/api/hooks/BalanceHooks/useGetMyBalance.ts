@@ -4,7 +4,7 @@
  */
 
 import fetch from "@/lib/api-client";
-import type { GetMySubscriptionsQueryResponse } from "../../types/subscriptionControllerController/GetMySubscriptions.ts";
+import type { GetMyBalanceQueryResponse } from "../../types/balanceController/GetMyBalance.ts";
 import type { RequestConfig, ResponseErrorConfig } from "@/lib/api-client";
 import type {
   QueryKey,
@@ -14,63 +14,61 @@ import type {
 } from "@tanstack/react-query";
 import { queryOptions, useQuery } from "@tanstack/react-query";
 
-export const getMySubscriptionsQueryKey = () =>
-  [{ url: "/api/subscriptions/my-subscriptions" }] as const;
+export const getMyBalanceQueryKey = () =>
+  [{ url: "/api/balance/my-balance" }] as const;
 
-export type GetMySubscriptionsQueryKey = ReturnType<
-  typeof getMySubscriptionsQueryKey
->;
+export type GetMyBalanceQueryKey = ReturnType<typeof getMyBalanceQueryKey>;
 
 /**
- * {@link /api/subscriptions/my-subscriptions}
+ * @description Retrieve the current balance for the authenticated user
+ * @summary Get my balance
+ * {@link /api/balance/my-balance}
  */
-export async function getMySubscriptions(
+export async function getMyBalance(
   config: Partial<RequestConfig> & { client?: typeof fetch } = {},
 ) {
   const { client: request = fetch, ...requestConfig } = config;
 
   const res = await request<
-    GetMySubscriptionsQueryResponse,
+    GetMyBalanceQueryResponse,
     ResponseErrorConfig<Error>,
     unknown
-  >({
-    method: "GET",
-    url: `/api/subscriptions/my-subscriptions`,
-    ...requestConfig,
-  });
+  >({ method: "GET", url: `/api/balance/my-balance`, ...requestConfig });
   return res.data;
 }
 
-export function getMySubscriptionsQueryOptions(
+export function getMyBalanceQueryOptions(
   config: Partial<RequestConfig> & { client?: typeof fetch } = {},
 ) {
-  const queryKey = getMySubscriptionsQueryKey();
+  const queryKey = getMyBalanceQueryKey();
   return queryOptions<
-    GetMySubscriptionsQueryResponse,
+    GetMyBalanceQueryResponse,
     ResponseErrorConfig<Error>,
-    GetMySubscriptionsQueryResponse,
+    GetMyBalanceQueryResponse,
     typeof queryKey
   >({
     queryKey,
     queryFn: async ({ signal }) => {
       config.signal = signal;
-      return getMySubscriptions(config);
+      return getMyBalance(config);
     },
   });
 }
 
 /**
- * {@link /api/subscriptions/my-subscriptions}
+ * @description Retrieve the current balance for the authenticated user
+ * @summary Get my balance
+ * {@link /api/balance/my-balance}
  */
-export function useGetMySubscriptions<
-  TData = GetMySubscriptionsQueryResponse,
-  TQueryData = GetMySubscriptionsQueryResponse,
-  TQueryKey extends QueryKey = GetMySubscriptionsQueryKey,
+export function useGetMyBalance<
+  TData = GetMyBalanceQueryResponse,
+  TQueryData = GetMyBalanceQueryResponse,
+  TQueryKey extends QueryKey = GetMyBalanceQueryKey,
 >(
   options: {
     query?: Partial<
       QueryObserverOptions<
-        GetMySubscriptionsQueryResponse,
+        GetMyBalanceQueryResponse,
         ResponseErrorConfig<Error>,
         TData,
         TQueryData,
@@ -82,11 +80,11 @@ export function useGetMySubscriptions<
 ) {
   const { query: queryConfig = {}, client: config = {} } = options ?? {};
   const { client: queryClient, ...queryOptions } = queryConfig;
-  const queryKey = queryOptions?.queryKey ?? getMySubscriptionsQueryKey();
+  const queryKey = queryOptions?.queryKey ?? getMyBalanceQueryKey();
 
   const query = useQuery(
     {
-      ...getMySubscriptionsQueryOptions(config),
+      ...getMyBalanceQueryOptions(config),
       queryKey,
       ...queryOptions,
     } as unknown as QueryObserverOptions,

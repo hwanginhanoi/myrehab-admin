@@ -7,7 +7,7 @@ import fetch from "@/lib/api-client";
 import type {
   PurchaseCourseMutationRequest,
   PurchaseCourseMutationResponse,
-} from "../../types/subscriptionControllerController/PurchaseCourse.ts";
+} from "../../types/subscriptionsController/PurchaseCourse.ts";
 import type { RequestConfig, ResponseErrorConfig } from "@/lib/api-client";
 import type {
   UseMutationOptions,
@@ -24,6 +24,8 @@ export type PurchaseCourseMutationKey = ReturnType<
 >;
 
 /**
+ * @description Purchase a subscription for an assigned course (monthly or yearly)
+ * @summary Purchase course subscription
  * {@link /api/subscriptions/course/purchase}
  */
 export async function purchaseCourse(
@@ -69,6 +71,8 @@ export function purchaseCourseMutationOptions(
 }
 
 /**
+ * @description Purchase a subscription for an assigned course (monthly or yearly)
+ * @summary Purchase course subscription
  * {@link /api/subscriptions/course/purchase}
  */
 export function usePurchaseCourse<TContext>(

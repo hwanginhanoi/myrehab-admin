@@ -23,7 +23,7 @@ export const updateFormMutationKey = () =>
 export type UpdateFormMutationKey = ReturnType<typeof updateFormMutationKey>;
 
 /**
- * @description Update an existing rehabilitation examination form (Admin and Doctor only)
+ * @description Update an existing rehabilitation examination form. Requires rehab_forms:update permission.
  * @summary Update rehabilitation examination form
  * {@link /api/rehabilitation-examination-forms/:id}
  */
@@ -71,7 +71,7 @@ export function updateFormMutationOptions(
 }
 
 /**
- * @description Update an existing rehabilitation examination form (Admin and Doctor only)
+ * @description Update an existing rehabilitation examination form. Requires rehab_forms:update permission.
  * @summary Update rehabilitation examination form
  * {@link /api/rehabilitation-examination-forms/:id}
  */

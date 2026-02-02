@@ -21,7 +21,7 @@ export const deleteFileMutationKey = () => [{ url: "/api/files" }] as const;
 export type DeleteFileMutationKey = ReturnType<typeof deleteFileMutationKey>;
 
 /**
- * @description Delete a file from MinIO storage. Requires SUPER_ADMIN, ADMIN or DOCTOR role.
+ * @description Delete a file from MinIO storage. Requires files:delete permission.
  * @summary Delete a file
  * {@link /api/files}
  */
@@ -68,7 +68,7 @@ export function deleteFileMutationOptions(
 }
 
 /**
- * @description Delete a file from MinIO storage. Requires SUPER_ADMIN, ADMIN or DOCTOR role.
+ * @description Delete a file from MinIO storage. Requires files:delete permission.
  * @summary Delete a file
  * {@link /api/files}
  */

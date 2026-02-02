@@ -7,6 +7,7 @@
     "phoneNumber": { "type": "string" },
     "staffType": { "type": "string" },
     "specialization": { "type": "string" },
+    "description": { "type": "string" },
     "doctorId": { "type": "integer", "format": "int64" },
     "permissions": { "type": "array", "items": { "type": "string" } },
     "enabled": { "type": "boolean" },

@@ -7,7 +7,7 @@ import fetch from "@/lib/api-client";
 import type {
   PurchasePackageMutationRequest,
   PurchasePackageMutationResponse,
-} from "../../types/subscriptionControllerController/PurchasePackage.ts";
+} from "../../types/subscriptionsController/PurchasePackage.ts";
 import type { RequestConfig, ResponseErrorConfig } from "@/lib/api-client";
 import type {
   UseMutationOptions,
@@ -24,6 +24,8 @@ export type PurchasePackageMutationKey = ReturnType<
 >;
 
 /**
+ * @description Purchase a subscription for an exercise package (monthly or yearly)
+ * @summary Purchase package subscription
  * {@link /api/subscriptions/package/purchase}
  */
 export async function purchasePackage(
@@ -69,6 +71,8 @@ export function purchasePackageMutationOptions(
 }
 
 /**
+ * @description Purchase a subscription for an exercise package (monthly or yearly)
+ * @summary Purchase package subscription
  * {@link /api/subscriptions/package/purchase}
  */
 export function usePurchasePackage<TContext>(

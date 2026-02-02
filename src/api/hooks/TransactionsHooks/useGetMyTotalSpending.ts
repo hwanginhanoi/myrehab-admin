@@ -4,7 +4,7 @@
  */
 
 import fetch from "@/lib/api-client";
-import type { GetPendingPurchasesQueryResponse } from "../../types/subscriptionControllerController/GetPendingPurchases.ts";
+import type { GetMyTotalSpendingQueryResponse } from "../../types/transactionsController/GetMyTotalSpending.ts";
 import type { RequestConfig, ResponseErrorConfig } from "@/lib/api-client";
 import type {
   QueryKey,
@@ -14,63 +14,63 @@ import type {
 } from "@tanstack/react-query";
 import { queryOptions, useQuery } from "@tanstack/react-query";
 
-export const getPendingPurchasesQueryKey = () =>
-  [{ url: "/api/subscriptions/pending-purchases" }] as const;
+export const getMyTotalSpendingQueryKey = () =>
+  [{ url: "/api/transactions/my-spending" }] as const;
 
-export type GetPendingPurchasesQueryKey = ReturnType<
-  typeof getPendingPurchasesQueryKey
+export type GetMyTotalSpendingQueryKey = ReturnType<
+  typeof getMyTotalSpendingQueryKey
 >;
 
 /**
- * {@link /api/subscriptions/pending-purchases}
+ * @description Retrieve the total spending amount for the authenticated user
+ * @summary Get my total spending
+ * {@link /api/transactions/my-spending}
  */
-export async function getPendingPurchases(
+export async function getMyTotalSpending(
   config: Partial<RequestConfig> & { client?: typeof fetch } = {},
 ) {
   const { client: request = fetch, ...requestConfig } = config;
 
   const res = await request<
-    GetPendingPurchasesQueryResponse,
+    GetMyTotalSpendingQueryResponse,
     ResponseErrorConfig<Error>,
     unknown
-  >({
-    method: "GET",
-    url: `/api/subscriptions/pending-purchases`,
-    ...requestConfig,
-  });
+  >({ method: "GET", url: `/api/transactions/my-spending`, ...requestConfig });
   return res.data;
 }
 
-export function getPendingPurchasesQueryOptions(
+export function getMyTotalSpendingQueryOptions(
   config: Partial<RequestConfig> & { client?: typeof fetch } = {},
 ) {
-  const queryKey = getPendingPurchasesQueryKey();
+  const queryKey = getMyTotalSpendingQueryKey();
   return queryOptions<
-    GetPendingPurchasesQueryResponse,
+    GetMyTotalSpendingQueryResponse,
     ResponseErrorConfig<Error>,
-    GetPendingPurchasesQueryResponse,
+    GetMyTotalSpendingQueryResponse,
     typeof queryKey
   >({
     queryKey,
     queryFn: async ({ signal }) => {
       config.signal = signal;
-      return getPendingPurchases(config);
+      return getMyTotalSpending(config);
     },
   });
 }
 
 /**
- * {@link /api/subscriptions/pending-purchases}
+ * @description Retrieve the total spending amount for the authenticated user
+ * @summary Get my total spending
+ * {@link /api/transactions/my-spending}
  */
-export function useGetPendingPurchases<
-  TData = GetPendingPurchasesQueryResponse,
-  TQueryData = GetPendingPurchasesQueryResponse,
-  TQueryKey extends QueryKey = GetPendingPurchasesQueryKey,
+export function useGetMyTotalSpending<
+  TData = GetMyTotalSpendingQueryResponse,
+  TQueryData = GetMyTotalSpendingQueryResponse,
+  TQueryKey extends QueryKey = GetMyTotalSpendingQueryKey,
 >(
   options: {
     query?: Partial<
       QueryObserverOptions<
-        GetPendingPurchasesQueryResponse,
+        GetMyTotalSpendingQueryResponse,
         ResponseErrorConfig<Error>,
         TData,
         TQueryData,
@@ -82,11 +82,11 @@ export function useGetPendingPurchases<
 ) {
   const { query: queryConfig = {}, client: config = {} } = options ?? {};
   const { client: queryClient, ...queryOptions } = queryConfig;
-  const queryKey = queryOptions?.queryKey ?? getPendingPurchasesQueryKey();
+  const queryKey = queryOptions?.queryKey ?? getMyTotalSpendingQueryKey();
 
   const query = useQuery(
     {
-      ...getPendingPurchasesQueryOptions(config),
+      ...getMyTotalSpendingQueryOptions(config),
       queryKey,
       ...queryOptions,
     } as unknown as QueryObserverOptions,

@@ -4,7 +4,7 @@
  */
 
 import fetch from "@/lib/api-client";
-import type { GetMySubscriptionsQueryResponse } from "../../types/subscriptionControllerController/GetMySubscriptions.ts";
+import type { GetPendingPurchasesQueryResponse } from "../../types/subscriptionsController/GetPendingPurchases.ts";
 import type { RequestConfig, ResponseErrorConfig } from "@/lib/api-client";
 import type {
   QueryKey,
@@ -14,62 +14,66 @@ import type {
 } from "@tanstack/react-query";
 import { queryOptions, useSuspenseQuery } from "@tanstack/react-query";
 
-export const getMySubscriptionsSuspenseQueryKey = () =>
-  [{ url: "/api/subscriptions/my-subscriptions" }] as const;
+export const getPendingPurchasesSuspenseQueryKey = () =>
+  [{ url: "/api/subscriptions/pending-purchases" }] as const;
 
-export type GetMySubscriptionsSuspenseQueryKey = ReturnType<
-  typeof getMySubscriptionsSuspenseQueryKey
+export type GetPendingPurchasesSuspenseQueryKey = ReturnType<
+  typeof getPendingPurchasesSuspenseQueryKey
 >;
 
 /**
- * {@link /api/subscriptions/my-subscriptions}
+ * @description Retrieve all courses assigned by doctors that are pending purchase
+ * @summary Get pending purchases
+ * {@link /api/subscriptions/pending-purchases}
  */
-export async function getMySubscriptionsSuspense(
+export async function getPendingPurchasesSuspense(
   config: Partial<RequestConfig> & { client?: typeof fetch } = {},
 ) {
   const { client: request = fetch, ...requestConfig } = config;
 
   const res = await request<
-    GetMySubscriptionsQueryResponse,
+    GetPendingPurchasesQueryResponse,
     ResponseErrorConfig<Error>,
     unknown
   >({
     method: "GET",
-    url: `/api/subscriptions/my-subscriptions`,
+    url: `/api/subscriptions/pending-purchases`,
     ...requestConfig,
   });
   return res.data;
 }
 
-export function getMySubscriptionsSuspenseQueryOptions(
+export function getPendingPurchasesSuspenseQueryOptions(
   config: Partial<RequestConfig> & { client?: typeof fetch } = {},
 ) {
-  const queryKey = getMySubscriptionsSuspenseQueryKey();
+  const queryKey = getPendingPurchasesSuspenseQueryKey();
   return queryOptions<
-    GetMySubscriptionsQueryResponse,
+    GetPendingPurchasesQueryResponse,
     ResponseErrorConfig<Error>,
-    GetMySubscriptionsQueryResponse,
+    GetPendingPurchasesQueryResponse,
     typeof queryKey
   >({
     queryKey,
     queryFn: async ({ signal }) => {
       config.signal = signal;
-      return getMySubscriptionsSuspense(config);
+      return getPendingPurchasesSuspense(config);
     },
   });
 }
 
 /**
- * {@link /api/subscriptions/my-subscriptions}
+ * @description Retrieve all courses assigned by doctors that are pending purchase
+ * @summary Get pending purchases
+ * {@link /api/subscriptions/pending-purchases}
  */
-export function useGetMySubscriptionsSuspense<
-  TData = GetMySubscriptionsQueryResponse,
-  TQueryKey extends QueryKey = GetMySubscriptionsSuspenseQueryKey,
+export function useGetPendingPurchasesSuspense<
+  TData = GetPendingPurchasesQueryResponse,
+  TQueryKey extends QueryKey = GetPendingPurchasesSuspenseQueryKey,
 >(
   options: {
     query?: Partial<
       UseSuspenseQueryOptions<
-        GetMySubscriptionsQueryResponse,
+        GetPendingPurchasesQueryResponse,
         ResponseErrorConfig<Error>,
         TData,
         TQueryKey
@@ -81,11 +85,11 @@ export function useGetMySubscriptionsSuspense<
   const { query: queryConfig = {}, client: config = {} } = options ?? {};
   const { client: queryClient, ...queryOptions } = queryConfig;
   const queryKey =
-    queryOptions?.queryKey ?? getMySubscriptionsSuspenseQueryKey();
+    queryOptions?.queryKey ?? getPendingPurchasesSuspenseQueryKey();
 
   const query = useSuspenseQuery(
     {
-      ...getMySubscriptionsSuspenseQueryOptions(config),
+      ...getPendingPurchasesSuspenseQueryOptions(config),
       queryKey,
       ...queryOptions,
     } as unknown as UseSuspenseQueryOptions,

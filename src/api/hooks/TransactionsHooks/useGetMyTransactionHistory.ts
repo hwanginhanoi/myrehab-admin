@@ -7,17 +7,17 @@ import fetch from "@/lib/api-client";
 import type {
   GetMyTransactionHistoryQueryResponse,
   GetMyTransactionHistoryQueryParams,
-} from "../../types/transactionControllerController/GetMyTransactionHistory.ts";
+} from "../../types/transactionsController/GetMyTransactionHistory.ts";
 import type { RequestConfig, ResponseErrorConfig } from "@/lib/api-client";
 import type {
   QueryKey,
   QueryClient,
-  UseSuspenseQueryOptions,
-  UseSuspenseQueryResult,
+  QueryObserverOptions,
+  UseQueryResult,
 } from "@tanstack/react-query";
-import { queryOptions, useSuspenseQuery } from "@tanstack/react-query";
+import { queryOptions, useQuery } from "@tanstack/react-query";
 
-export const getMyTransactionHistorySuspenseQueryKey = (
+export const getMyTransactionHistoryQueryKey = (
   params?: GetMyTransactionHistoryQueryParams,
 ) =>
   [
@@ -25,14 +25,16 @@ export const getMyTransactionHistorySuspenseQueryKey = (
     ...(params ? [params] : []),
   ] as const;
 
-export type GetMyTransactionHistorySuspenseQueryKey = ReturnType<
-  typeof getMyTransactionHistorySuspenseQueryKey
+export type GetMyTransactionHistoryQueryKey = ReturnType<
+  typeof getMyTransactionHistoryQueryKey
 >;
 
 /**
+ * @description Retrieve paginated transaction history for the authenticated user
+ * @summary Get my transaction history
  * {@link /api/transactions/my-history}
  */
-export async function getMyTransactionHistorySuspense(
+export async function getMyTransactionHistory(
   params?: GetMyTransactionHistoryQueryParams,
   config: Partial<RequestConfig> & { client?: typeof fetch } = {},
 ) {
@@ -51,11 +53,11 @@ export async function getMyTransactionHistorySuspense(
   return res.data;
 }
 
-export function getMyTransactionHistorySuspenseQueryOptions(
+export function getMyTransactionHistoryQueryOptions(
   params?: GetMyTransactionHistoryQueryParams,
   config: Partial<RequestConfig> & { client?: typeof fetch } = {},
 ) {
-  const queryKey = getMyTransactionHistorySuspenseQueryKey(params);
+  const queryKey = getMyTransactionHistoryQueryKey(params);
   return queryOptions<
     GetMyTransactionHistoryQueryResponse,
     ResponseErrorConfig<Error>,
@@ -65,25 +67,29 @@ export function getMyTransactionHistorySuspenseQueryOptions(
     queryKey,
     queryFn: async ({ signal }) => {
       config.signal = signal;
-      return getMyTransactionHistorySuspense(params, config);
+      return getMyTransactionHistory(params, config);
     },
   });
 }
 
 /**
+ * @description Retrieve paginated transaction history for the authenticated user
+ * @summary Get my transaction history
  * {@link /api/transactions/my-history}
  */
-export function useGetMyTransactionHistorySuspense<
+export function useGetMyTransactionHistory<
   TData = GetMyTransactionHistoryQueryResponse,
-  TQueryKey extends QueryKey = GetMyTransactionHistorySuspenseQueryKey,
+  TQueryData = GetMyTransactionHistoryQueryResponse,
+  TQueryKey extends QueryKey = GetMyTransactionHistoryQueryKey,
 >(
   params?: GetMyTransactionHistoryQueryParams,
   options: {
     query?: Partial<
-      UseSuspenseQueryOptions<
+      QueryObserverOptions<
         GetMyTransactionHistoryQueryResponse,
         ResponseErrorConfig<Error>,
         TData,
+        TQueryData,
         TQueryKey
       >
     > & { client?: QueryClient };
@@ -93,16 +99,16 @@ export function useGetMyTransactionHistorySuspense<
   const { query: queryConfig = {}, client: config = {} } = options ?? {};
   const { client: queryClient, ...queryOptions } = queryConfig;
   const queryKey =
-    queryOptions?.queryKey ?? getMyTransactionHistorySuspenseQueryKey(params);
+    queryOptions?.queryKey ?? getMyTransactionHistoryQueryKey(params);
 
-  const query = useSuspenseQuery(
+  const query = useQuery(
     {
-      ...getMyTransactionHistorySuspenseQueryOptions(params, config),
+      ...getMyTransactionHistoryQueryOptions(params, config),
       queryKey,
       ...queryOptions,
-    } as unknown as UseSuspenseQueryOptions,
+    } as unknown as QueryObserverOptions,
     queryClient,
-  ) as UseSuspenseQueryResult<TData, ResponseErrorConfig<Error>> & {
+  ) as UseQueryResult<TData, ResponseErrorConfig<Error>> & {
     queryKey: TQueryKey;
   };
 

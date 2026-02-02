@@ -21,7 +21,7 @@ export const createNewsMutationKey = () => [{ url: "/api/news" }] as const;
 export type CreateNewsMutationKey = ReturnType<typeof createNewsMutationKey>;
 
 /**
- * @description Create a new news article (Admin only)
+ * @description Create a new news article. Requires news:create permission.
  * @summary Create new news article
  * {@link /api/news}
  */
@@ -63,7 +63,7 @@ export function createNewsMutationOptions(
 }
 
 /**
- * @description Create a new news article (Admin only)
+ * @description Create a new news article. Requires news:create permission.
  * @summary Create new news article
  * {@link /api/news}
  */

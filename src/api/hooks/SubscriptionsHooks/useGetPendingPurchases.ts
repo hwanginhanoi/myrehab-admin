@@ -4,7 +4,7 @@
  */
 
 import fetch from "@/lib/api-client";
-import type { GetMyBalanceQueryResponse } from "../../types/balanceControllerController/GetMyBalance.ts";
+import type { GetPendingPurchasesQueryResponse } from "../../types/subscriptionsController/GetPendingPurchases.ts";
 import type { RequestConfig, ResponseErrorConfig } from "@/lib/api-client";
 import type {
   QueryKey,
@@ -14,57 +14,67 @@ import type {
 } from "@tanstack/react-query";
 import { queryOptions, useQuery } from "@tanstack/react-query";
 
-export const getMyBalanceQueryKey = () =>
-  [{ url: "/api/balance/my-balance" }] as const;
+export const getPendingPurchasesQueryKey = () =>
+  [{ url: "/api/subscriptions/pending-purchases" }] as const;
 
-export type GetMyBalanceQueryKey = ReturnType<typeof getMyBalanceQueryKey>;
+export type GetPendingPurchasesQueryKey = ReturnType<
+  typeof getPendingPurchasesQueryKey
+>;
 
 /**
- * {@link /api/balance/my-balance}
+ * @description Retrieve all courses assigned by doctors that are pending purchase
+ * @summary Get pending purchases
+ * {@link /api/subscriptions/pending-purchases}
  */
-export async function getMyBalance(
+export async function getPendingPurchases(
   config: Partial<RequestConfig> & { client?: typeof fetch } = {},
 ) {
   const { client: request = fetch, ...requestConfig } = config;
 
   const res = await request<
-    GetMyBalanceQueryResponse,
+    GetPendingPurchasesQueryResponse,
     ResponseErrorConfig<Error>,
     unknown
-  >({ method: "GET", url: `/api/balance/my-balance`, ...requestConfig });
+  >({
+    method: "GET",
+    url: `/api/subscriptions/pending-purchases`,
+    ...requestConfig,
+  });
   return res.data;
 }
 
-export function getMyBalanceQueryOptions(
+export function getPendingPurchasesQueryOptions(
   config: Partial<RequestConfig> & { client?: typeof fetch } = {},
 ) {
-  const queryKey = getMyBalanceQueryKey();
+  const queryKey = getPendingPurchasesQueryKey();
   return queryOptions<
-    GetMyBalanceQueryResponse,
+    GetPendingPurchasesQueryResponse,
     ResponseErrorConfig<Error>,
-    GetMyBalanceQueryResponse,
+    GetPendingPurchasesQueryResponse,
     typeof queryKey
   >({
     queryKey,
     queryFn: async ({ signal }) => {
       config.signal = signal;
-      return getMyBalance(config);
+      return getPendingPurchases(config);
     },
   });
 }
 
 /**
- * {@link /api/balance/my-balance}
+ * @description Retrieve all courses assigned by doctors that are pending purchase
+ * @summary Get pending purchases
+ * {@link /api/subscriptions/pending-purchases}
  */
-export function useGetMyBalance<
-  TData = GetMyBalanceQueryResponse,
-  TQueryData = GetMyBalanceQueryResponse,
-  TQueryKey extends QueryKey = GetMyBalanceQueryKey,
+export function useGetPendingPurchases<
+  TData = GetPendingPurchasesQueryResponse,
+  TQueryData = GetPendingPurchasesQueryResponse,
+  TQueryKey extends QueryKey = GetPendingPurchasesQueryKey,
 >(
   options: {
     query?: Partial<
       QueryObserverOptions<
-        GetMyBalanceQueryResponse,
+        GetPendingPurchasesQueryResponse,
         ResponseErrorConfig<Error>,
         TData,
         TQueryData,
@@ -76,11 +86,11 @@ export function useGetMyBalance<
 ) {
   const { query: queryConfig = {}, client: config = {} } = options ?? {};
   const { client: queryClient, ...queryOptions } = queryConfig;
-  const queryKey = queryOptions?.queryKey ?? getMyBalanceQueryKey();
+  const queryKey = queryOptions?.queryKey ?? getPendingPurchasesQueryKey();
 
   const query = useQuery(
     {
-      ...getMyBalanceQueryOptions(config),
+      ...getPendingPurchasesQueryOptions(config),
       queryKey,
       ...queryOptions,
     } as unknown as QueryObserverOptions,

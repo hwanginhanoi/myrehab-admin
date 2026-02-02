@@ -4,7 +4,7 @@
  */
 
 import fetch from "@/lib/api-client";
-import type { GetPendingPurchasesQueryResponse } from "../../types/subscriptionControllerController/GetPendingPurchases.ts";
+import type { GetMyBalanceQueryResponse } from "../../types/balanceController/GetMyBalance.ts";
 import type { RequestConfig, ResponseErrorConfig } from "@/lib/api-client";
 import type {
   QueryKey,
@@ -14,62 +14,62 @@ import type {
 } from "@tanstack/react-query";
 import { queryOptions, useSuspenseQuery } from "@tanstack/react-query";
 
-export const getPendingPurchasesSuspenseQueryKey = () =>
-  [{ url: "/api/subscriptions/pending-purchases" }] as const;
+export const getMyBalanceSuspenseQueryKey = () =>
+  [{ url: "/api/balance/my-balance" }] as const;
 
-export type GetPendingPurchasesSuspenseQueryKey = ReturnType<
-  typeof getPendingPurchasesSuspenseQueryKey
+export type GetMyBalanceSuspenseQueryKey = ReturnType<
+  typeof getMyBalanceSuspenseQueryKey
 >;
 
 /**
- * {@link /api/subscriptions/pending-purchases}
+ * @description Retrieve the current balance for the authenticated user
+ * @summary Get my balance
+ * {@link /api/balance/my-balance}
  */
-export async function getPendingPurchasesSuspense(
+export async function getMyBalanceSuspense(
   config: Partial<RequestConfig> & { client?: typeof fetch } = {},
 ) {
   const { client: request = fetch, ...requestConfig } = config;
 
   const res = await request<
-    GetPendingPurchasesQueryResponse,
+    GetMyBalanceQueryResponse,
     ResponseErrorConfig<Error>,
     unknown
-  >({
-    method: "GET",
-    url: `/api/subscriptions/pending-purchases`,
-    ...requestConfig,
-  });
+  >({ method: "GET", url: `/api/balance/my-balance`, ...requestConfig });
   return res.data;
 }
 
-export function getPendingPurchasesSuspenseQueryOptions(
+export function getMyBalanceSuspenseQueryOptions(
   config: Partial<RequestConfig> & { client?: typeof fetch } = {},
 ) {
-  const queryKey = getPendingPurchasesSuspenseQueryKey();
+  const queryKey = getMyBalanceSuspenseQueryKey();
   return queryOptions<
-    GetPendingPurchasesQueryResponse,
+    GetMyBalanceQueryResponse,
     ResponseErrorConfig<Error>,
-    GetPendingPurchasesQueryResponse,
+    GetMyBalanceQueryResponse,
     typeof queryKey
   >({
     queryKey,
     queryFn: async ({ signal }) => {
       config.signal = signal;
-      return getPendingPurchasesSuspense(config);
+      return getMyBalanceSuspense(config);
     },
   });
 }
 
 /**
- * {@link /api/subscriptions/pending-purchases}
+ * @description Retrieve the current balance for the authenticated user
+ * @summary Get my balance
+ * {@link /api/balance/my-balance}
  */
-export function useGetPendingPurchasesSuspense<
-  TData = GetPendingPurchasesQueryResponse,
-  TQueryKey extends QueryKey = GetPendingPurchasesSuspenseQueryKey,
+export function useGetMyBalanceSuspense<
+  TData = GetMyBalanceQueryResponse,
+  TQueryKey extends QueryKey = GetMyBalanceSuspenseQueryKey,
 >(
   options: {
     query?: Partial<
       UseSuspenseQueryOptions<
-        GetPendingPurchasesQueryResponse,
+        GetMyBalanceQueryResponse,
         ResponseErrorConfig<Error>,
         TData,
         TQueryKey
@@ -80,12 +80,11 @@ export function useGetPendingPurchasesSuspense<
 ) {
   const { query: queryConfig = {}, client: config = {} } = options ?? {};
   const { client: queryClient, ...queryOptions } = queryConfig;
-  const queryKey =
-    queryOptions?.queryKey ?? getPendingPurchasesSuspenseQueryKey();
+  const queryKey = queryOptions?.queryKey ?? getMyBalanceSuspenseQueryKey();
 
   const query = useSuspenseQuery(
     {
-      ...getPendingPurchasesSuspenseQueryOptions(config),
+      ...getMyBalanceSuspenseQueryOptions(config),
       queryKey,
       ...queryOptions,
     } as unknown as UseSuspenseQueryOptions,

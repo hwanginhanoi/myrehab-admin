@@ -25,7 +25,7 @@ export type UpdateExerciseMutationKey = ReturnType<
 >;
 
 /**
- * @description Update an existing exercise. Requires Admin role.
+ * @description Update an existing exercise. Requires exercises:update permission.
  * @summary Update exercise
  * {@link /api/exercises/:id}
  */
@@ -73,7 +73,7 @@ export function updateExerciseMutationOptions(
 }
 
 /**
- * @description Update an existing exercise. Requires Admin role.
+ * @description Update an existing exercise. Requires exercises:update permission.
  * @summary Update exercise
  * {@link /api/exercises/:id}
  */

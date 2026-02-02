@@ -22,7 +22,7 @@ export const createFormMutationKey = () =>
 export type CreateFormMutationKey = ReturnType<typeof createFormMutationKey>;
 
 /**
- * @description Create a new rehabilitation examination form (Admin and Doctor only)
+ * @description Create a new rehabilitation examination form. Requires rehab_forms:create permission.
  * @summary Create new rehabilitation examination form
  * {@link /api/rehabilitation-examination-forms}
  */
@@ -69,7 +69,7 @@ export function createFormMutationOptions(
 }
 
 /**
- * @description Create a new rehabilitation examination form (Admin and Doctor only)
+ * @description Create a new rehabilitation examination form. Requires rehab_forms:create permission.
  * @summary Create new rehabilitation examination form
  * {@link /api/rehabilitation-examination-forms}
  */

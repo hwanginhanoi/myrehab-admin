@@ -4,27 +4,29 @@
  */
 
 import fetch from "@/lib/api-client";
-import type { GetMyTotalSpendingQueryResponse } from "../../types/transactionControllerController/GetMyTotalSpending.ts";
+import type { GetMyTotalSpendingQueryResponse } from "../../types/transactionsController/GetMyTotalSpending.ts";
 import type { RequestConfig, ResponseErrorConfig } from "@/lib/api-client";
 import type {
   QueryKey,
   QueryClient,
-  QueryObserverOptions,
-  UseQueryResult,
+  UseSuspenseQueryOptions,
+  UseSuspenseQueryResult,
 } from "@tanstack/react-query";
-import { queryOptions, useQuery } from "@tanstack/react-query";
+import { queryOptions, useSuspenseQuery } from "@tanstack/react-query";
 
-export const getMyTotalSpendingQueryKey = () =>
+export const getMyTotalSpendingSuspenseQueryKey = () =>
   [{ url: "/api/transactions/my-spending" }] as const;
 
-export type GetMyTotalSpendingQueryKey = ReturnType<
-  typeof getMyTotalSpendingQueryKey
+export type GetMyTotalSpendingSuspenseQueryKey = ReturnType<
+  typeof getMyTotalSpendingSuspenseQueryKey
 >;
 
 /**
+ * @description Retrieve the total spending amount for the authenticated user
+ * @summary Get my total spending
  * {@link /api/transactions/my-spending}
  */
-export async function getMyTotalSpending(
+export async function getMyTotalSpendingSuspense(
   config: Partial<RequestConfig> & { client?: typeof fetch } = {},
 ) {
   const { client: request = fetch, ...requestConfig } = config;
@@ -37,10 +39,10 @@ export async function getMyTotalSpending(
   return res.data;
 }
 
-export function getMyTotalSpendingQueryOptions(
+export function getMyTotalSpendingSuspenseQueryOptions(
   config: Partial<RequestConfig> & { client?: typeof fetch } = {},
 ) {
-  const queryKey = getMyTotalSpendingQueryKey();
+  const queryKey = getMyTotalSpendingSuspenseQueryKey();
   return queryOptions<
     GetMyTotalSpendingQueryResponse,
     ResponseErrorConfig<Error>,
@@ -50,26 +52,26 @@ export function getMyTotalSpendingQueryOptions(
     queryKey,
     queryFn: async ({ signal }) => {
       config.signal = signal;
-      return getMyTotalSpending(config);
+      return getMyTotalSpendingSuspense(config);
     },
   });
 }
 
 /**
+ * @description Retrieve the total spending amount for the authenticated user
+ * @summary Get my total spending
  * {@link /api/transactions/my-spending}
  */
-export function useGetMyTotalSpending<
+export function useGetMyTotalSpendingSuspense<
   TData = GetMyTotalSpendingQueryResponse,
-  TQueryData = GetMyTotalSpendingQueryResponse,
-  TQueryKey extends QueryKey = GetMyTotalSpendingQueryKey,
+  TQueryKey extends QueryKey = GetMyTotalSpendingSuspenseQueryKey,
 >(
   options: {
     query?: Partial<
-      QueryObserverOptions<
+      UseSuspenseQueryOptions<
         GetMyTotalSpendingQueryResponse,
         ResponseErrorConfig<Error>,
         TData,
-        TQueryData,
         TQueryKey
       >
     > & { client?: QueryClient };
@@ -78,16 +80,17 @@ export function useGetMyTotalSpending<
 ) {
   const { query: queryConfig = {}, client: config = {} } = options ?? {};
   const { client: queryClient, ...queryOptions } = queryConfig;
-  const queryKey = queryOptions?.queryKey ?? getMyTotalSpendingQueryKey();
+  const queryKey =
+    queryOptions?.queryKey ?? getMyTotalSpendingSuspenseQueryKey();
 
-  const query = useQuery(
+  const query = useSuspenseQuery(
     {
-      ...getMyTotalSpendingQueryOptions(config),
+      ...getMyTotalSpendingSuspenseQueryOptions(config),
       queryKey,
       ...queryOptions,
-    } as unknown as QueryObserverOptions,
+    } as unknown as UseSuspenseQueryOptions,
     queryClient,
-  ) as UseQueryResult<TData, ResponseErrorConfig<Error>> & {
+  ) as UseSuspenseQueryResult<TData, ResponseErrorConfig<Error>> & {
     queryKey: TQueryKey;
   };
 

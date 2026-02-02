@@ -4,10 +4,7 @@
  */
 
 import fetch from "@/lib/api-client";
-import type {
-  GetMyTransactionHistoryQueryResponse,
-  GetMyTransactionHistoryQueryParams,
-} from "../../types/transactionControllerController/GetMyTransactionHistory.ts";
+import type { GetMySubscriptionsQueryResponse } from "../../types/subscriptionsController/GetMySubscriptions.ts";
 import type { RequestConfig, ResponseErrorConfig } from "@/lib/api-client";
 import type {
   QueryKey,
@@ -17,72 +14,67 @@ import type {
 } from "@tanstack/react-query";
 import { queryOptions, useQuery } from "@tanstack/react-query";
 
-export const getMyTransactionHistoryQueryKey = (
-  params?: GetMyTransactionHistoryQueryParams,
-) =>
-  [
-    { url: "/api/transactions/my-history" },
-    ...(params ? [params] : []),
-  ] as const;
+export const getMySubscriptionsQueryKey = () =>
+  [{ url: "/api/subscriptions/my-subscriptions" }] as const;
 
-export type GetMyTransactionHistoryQueryKey = ReturnType<
-  typeof getMyTransactionHistoryQueryKey
+export type GetMySubscriptionsQueryKey = ReturnType<
+  typeof getMySubscriptionsQueryKey
 >;
 
 /**
- * {@link /api/transactions/my-history}
+ * @description Retrieve all active subscriptions for the authenticated user
+ * @summary Get my active subscriptions
+ * {@link /api/subscriptions/my-subscriptions}
  */
-export async function getMyTransactionHistory(
-  params?: GetMyTransactionHistoryQueryParams,
+export async function getMySubscriptions(
   config: Partial<RequestConfig> & { client?: typeof fetch } = {},
 ) {
   const { client: request = fetch, ...requestConfig } = config;
 
   const res = await request<
-    GetMyTransactionHistoryQueryResponse,
+    GetMySubscriptionsQueryResponse,
     ResponseErrorConfig<Error>,
     unknown
   >({
     method: "GET",
-    url: `/api/transactions/my-history`,
-    params,
+    url: `/api/subscriptions/my-subscriptions`,
     ...requestConfig,
   });
   return res.data;
 }
 
-export function getMyTransactionHistoryQueryOptions(
-  params?: GetMyTransactionHistoryQueryParams,
+export function getMySubscriptionsQueryOptions(
   config: Partial<RequestConfig> & { client?: typeof fetch } = {},
 ) {
-  const queryKey = getMyTransactionHistoryQueryKey(params);
+  const queryKey = getMySubscriptionsQueryKey();
   return queryOptions<
-    GetMyTransactionHistoryQueryResponse,
+    GetMySubscriptionsQueryResponse,
     ResponseErrorConfig<Error>,
-    GetMyTransactionHistoryQueryResponse,
+    GetMySubscriptionsQueryResponse,
     typeof queryKey
   >({
     queryKey,
     queryFn: async ({ signal }) => {
       config.signal = signal;
-      return getMyTransactionHistory(params, config);
+      return getMySubscriptions(config);
     },
   });
 }
 
 /**
- * {@link /api/transactions/my-history}
+ * @description Retrieve all active subscriptions for the authenticated user
+ * @summary Get my active subscriptions
+ * {@link /api/subscriptions/my-subscriptions}
  */
-export function useGetMyTransactionHistory<
-  TData = GetMyTransactionHistoryQueryResponse,
-  TQueryData = GetMyTransactionHistoryQueryResponse,
-  TQueryKey extends QueryKey = GetMyTransactionHistoryQueryKey,
+export function useGetMySubscriptions<
+  TData = GetMySubscriptionsQueryResponse,
+  TQueryData = GetMySubscriptionsQueryResponse,
+  TQueryKey extends QueryKey = GetMySubscriptionsQueryKey,
 >(
-  params?: GetMyTransactionHistoryQueryParams,
   options: {
     query?: Partial<
       QueryObserverOptions<
-        GetMyTransactionHistoryQueryResponse,
+        GetMySubscriptionsQueryResponse,
         ResponseErrorConfig<Error>,
         TData,
         TQueryData,
@@ -94,12 +86,11 @@ export function useGetMyTransactionHistory<
 ) {
   const { query: queryConfig = {}, client: config = {} } = options ?? {};
   const { client: queryClient, ...queryOptions } = queryConfig;
-  const queryKey =
-    queryOptions?.queryKey ?? getMyTransactionHistoryQueryKey(params);
+  const queryKey = queryOptions?.queryKey ?? getMySubscriptionsQueryKey();
 
   const query = useQuery(
     {
-      ...getMyTransactionHistoryQueryOptions(params, config),
+      ...getMySubscriptionsQueryOptions(config),
       queryKey,
       ...queryOptions,
     } as unknown as QueryObserverOptions,

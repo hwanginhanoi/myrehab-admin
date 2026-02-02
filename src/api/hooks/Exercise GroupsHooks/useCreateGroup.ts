@@ -22,7 +22,7 @@ export const createGroupMutationKey = () =>
 export type CreateGroupMutationKey = ReturnType<typeof createGroupMutationKey>;
 
 /**
- * @description Create a new exercise group with name and description. Requires Admin role.
+ * @description Create a new exercise group with name and description. Requires exercise_groups:create permission.
  * @summary Create exercise group
  * {@link /api/exercise-groups}
  */
@@ -69,7 +69,7 @@ export function createGroupMutationOptions(
 }
 
 /**
- * @description Create a new exercise group with name and description. Requires Admin role.
+ * @description Create a new exercise group with name and description. Requires exercise_groups:create permission.
  * @summary Create exercise group
  * {@link /api/exercise-groups}
  */

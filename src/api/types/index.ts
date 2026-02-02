@@ -66,12 +66,12 @@ export type {
   AddBalanceMutationRequest,
   AddBalanceMutationResponse,
   AddBalanceMutation,
-} from "./balanceControllerController/AddBalance.ts";
+} from "./balanceController/AddBalance.ts";
 export type {
   GetMyBalance200,
   GetMyBalanceQueryResponse,
   GetMyBalanceQuery,
-} from "./balanceControllerController/GetMyBalance.ts";
+} from "./balanceController/GetMyBalance.ts";
 export type { BalanceResponse } from "./BalanceResponse.ts";
 export type {
   CategoryResponseTypeEnumKey,
@@ -466,6 +466,13 @@ export type {
   GetAllStaffQuery,
 } from "./staffManagementController/GetAllStaff.ts";
 export type {
+  GetAvailableTrainersForDoctorPathParams,
+  GetAvailableTrainersForDoctorQueryParams,
+  GetAvailableTrainersForDoctor200,
+  GetAvailableTrainersForDoctorQueryResponse,
+  GetAvailableTrainersForDoctorQuery,
+} from "./staffManagementController/GetAvailableTrainersForDoctor.ts";
+export type {
   GetExerciseGroupsByDoctorPathParams,
   GetExerciseGroupsByDoctor200,
   GetExerciseGroupsByDoctorQueryResponse,
@@ -506,46 +513,54 @@ export type {
 export type { StaffResponse } from "./StaffResponse.ts";
 export type { StartCourseRequest } from "./StartCourseRequest.ts";
 export type {
+  SubscriptionResponseSubscriptionTypeEnumKey,
+  SubscriptionResponse,
+} from "./SubscriptionResponse.ts";
+export type {
   GetMySubscriptions200,
   GetMySubscriptionsQueryResponse,
   GetMySubscriptionsQuery,
-} from "./subscriptionControllerController/GetMySubscriptions.ts";
+} from "./subscriptionsController/GetMySubscriptions.ts";
 export type {
   GetPendingPurchases200,
   GetPendingPurchasesQueryResponse,
   GetPendingPurchasesQuery,
-} from "./subscriptionControllerController/GetPendingPurchases.ts";
+} from "./subscriptionsController/GetPendingPurchases.ts";
 export type {
   PurchaseCourse200,
   PurchaseCourseMutationRequest,
   PurchaseCourseMutationResponse,
   PurchaseCourseMutation,
-} from "./subscriptionControllerController/PurchaseCourse.ts";
+} from "./subscriptionsController/PurchaseCourse.ts";
 export type {
   PurchasePackage200,
   PurchasePackageMutationRequest,
   PurchasePackageMutationResponse,
   PurchasePackageMutation,
-} from "./subscriptionControllerController/PurchasePackage.ts";
-export type {
-  SubscriptionResponseSubscriptionTypeEnumKey,
-  SubscriptionResponse,
-} from "./SubscriptionResponse.ts";
+} from "./subscriptionsController/PurchasePackage.ts";
 export type {
   GetMyTotalSpending200,
   GetMyTotalSpendingQueryResponse,
   GetMyTotalSpendingQuery,
-} from "./transactionControllerController/GetMyTotalSpending.ts";
+} from "./transactionsController/GetMyTotalSpending.ts";
 export type {
   GetMyTransactionHistoryQueryParams,
   GetMyTransactionHistory200,
   GetMyTransactionHistoryQueryResponse,
   GetMyTransactionHistoryQuery,
-} from "./transactionControllerController/GetMyTransactionHistory.ts";
+} from "./transactionsController/GetMyTransactionHistory.ts";
+export type {
+  UpdateAdminRequestStaffTypeEnumKey,
+  UpdateAdminRequest,
+} from "./UpdateAdminRequest.ts";
 export type {
   UpdateCategoryRequestTypeEnumKey,
   UpdateCategoryRequest,
 } from "./UpdateCategoryRequest.ts";
+export type {
+  UpdateDoctorRequestStaffTypeEnumKey,
+  UpdateDoctorRequest,
+} from "./UpdateDoctorRequest.ts";
 export type { UpdateExercisePackageRequest } from "./UpdateExercisePackageRequest.ts";
 export type { UpdateExerciseRequest } from "./UpdateExerciseRequest.ts";
 export type { UpdateGroupRequest } from "./UpdateGroupRequest.ts";
@@ -555,6 +570,14 @@ export type {
 } from "./UpdateNewsRequest.ts";
 export type { UpdateRehabilitationExaminationFormRequest } from "./UpdateRehabilitationExaminationFormRequest.ts";
 export type { UpdateStaffRequest } from "./UpdateStaffRequest.ts";
+export type {
+  UpdateSuperAdminRequestStaffTypeEnumKey,
+  UpdateSuperAdminRequest,
+} from "./UpdateSuperAdminRequest.ts";
+export type {
+  UpdateTrainerRequestStaffTypeEnumKey,
+  UpdateTrainerRequest,
+} from "./UpdateTrainerRequest.ts";
 export type { UserAuthResponse } from "./UserAuthResponse.ts";
 export type { UserCourseAssignmentResponse } from "./UserCourseAssignmentResponse.ts";
 export type {
@@ -582,5 +605,9 @@ export { purchaseCourseRequestSubscriptionTypeEnum } from "./PurchaseCourseReque
 export { purchasePackageRequestSubscriptionTypeEnum } from "./PurchasePackageRequest.ts";
 export { getAllStaffQueryParamsStaffTypeEnum } from "./staffManagementController/GetAllStaff.ts";
 export { subscriptionResponseSubscriptionTypeEnum } from "./SubscriptionResponse.ts";
+export { updateAdminRequestStaffTypeEnum } from "./UpdateAdminRequest.ts";
 export { updateCategoryRequestTypeEnum } from "./UpdateCategoryRequest.ts";
+export { updateDoctorRequestStaffTypeEnum } from "./UpdateDoctorRequest.ts";
 export { updateNewsRequestStatusEnum } from "./UpdateNewsRequest.ts";
+export { updateSuperAdminRequestStaffTypeEnum } from "./UpdateSuperAdminRequest.ts";
+export { updateTrainerRequestStaffTypeEnum } from "./UpdateTrainerRequest.ts";

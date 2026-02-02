@@ -7,7 +7,7 @@ import fetch from "@/lib/api-client";
 import type {
   AddBalanceMutationRequest,
   AddBalanceMutationResponse,
-} from "../../types/balanceControllerController/AddBalance.ts";
+} from "../../types/balanceController/AddBalance.ts";
 import type { RequestConfig, ResponseErrorConfig } from "@/lib/api-client";
 import type {
   UseMutationOptions,
@@ -22,6 +22,8 @@ export const addBalanceMutationKey = () =>
 export type AddBalanceMutationKey = ReturnType<typeof addBalanceMutationKey>;
 
 /**
+ * @description Admin operation to add balance to a specific user's account
+ * @summary Add balance to user account
  * {@link /api/balance/admin/add}
  */
 export async function addBalance(
@@ -67,6 +69,8 @@ export function addBalanceMutationOptions(
 }
 
 /**
+ * @description Admin operation to add balance to a specific user's account
+ * @summary Add balance to user account
  * {@link /api/balance/admin/add}
  */
 export function useAddBalance<TContext>(
