@@ -5,15 +5,16 @@ import type { StaffResponse } from '@/api'
 type TrainerProfileSectionProps = {
   trainer: StaffResponse
   isLoading: boolean
+  readOnly?: boolean
 }
 
-export function TrainerProfileSection({ trainer, isLoading }: TrainerProfileSectionProps) {
+export function TrainerProfileSection({ trainer, isLoading, readOnly }: TrainerProfileSectionProps) {
   return (
     <TrainerContentSection
       title='Thông tin cá nhân'
-      desc='Quản lý thông tin cá nhân của huấn luyện viên.'
+      desc={readOnly ? 'Xem thông tin cá nhân của huấn luyện viên.' : 'Quản lý thông tin cá nhân của huấn luyện viên.'}
     >
-      <TrainerProfileForm trainer={trainer} isLoading={isLoading} />
+      <TrainerProfileForm trainer={trainer} isLoading={isLoading} readOnly={readOnly} />
     </TrainerContentSection>
   )
 }

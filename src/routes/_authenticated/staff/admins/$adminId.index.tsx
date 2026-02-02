@@ -4,13 +4,14 @@ import { AdminProfileSection } from '@/features/staff/admin-detail/components/ad
 
 function AdminProfileRoute() {
   const { adminId } = Route.useParams()
+  const { mode } = Route.useSearch()
   const { data: admin, isLoading } = useGetStaffById(Number(adminId))
 
   if (!admin) {
     return null
   }
 
-  return <AdminProfileSection admin={admin} isLoading={isLoading} />
+  return <AdminProfileSection admin={admin} isLoading={isLoading} readOnly={mode === 'view'} />
 }
 
 export const Route = createFileRoute('/_authenticated/staff/admins/$adminId/')({

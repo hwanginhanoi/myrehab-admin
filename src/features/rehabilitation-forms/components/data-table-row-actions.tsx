@@ -11,6 +11,7 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
 import type { RehabilitationExaminationFormResponse } from '@/api'
+import { usePermissions } from '@/hooks/use-permissions'
 
 interface DataTableRowActionsProps<TData> {
   row: Row<TData>
@@ -21,6 +22,8 @@ export function DataTableRowActions<TData>({
 }: DataTableRowActionsProps<TData>) {
   const form = row.original as RehabilitationExaminationFormResponse
   const navigate = useNavigate()
+  const { hasPermission } = usePermissions()
+  const canUpdate = hasPermission('rehab_forms:update')
 
   return (
     <DropdownMenu>
@@ -46,19 +49,20 @@ export function DataTableRowActions<TData>({
           <Eye className='me-2 h-4 w-4' />
           Xem
         </DropdownMenuItem>
-        <DropdownMenuItem
-          onClick={() =>
-            navigate({
-              to: '/rehabilitation-forms/$id',
-              params: { id: String(form.id) },
-              search: { mode: 'edit' },
-            })
-          }
-        >
-          <Pencil className='me-2 h-4 w-4' />
-          Chỉnh sửa
-        </DropdownMenuItem>
-        <DropdownMenuSeparator />
+        {canUpdate && (
+          <DropdownMenuItem
+            onClick={() =>
+              navigate({
+                to: '/rehabilitation-forms/$id',
+                params: { id: String(form.id) },
+                search: { mode: 'edit' },
+              })
+            }
+          >
+            <Pencil className='me-2 h-4 w-4' />
+            Chỉnh sửa
+          </DropdownMenuItem>
+        )}
       </DropdownMenuContent>
     </DropdownMenu>
   )

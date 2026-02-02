@@ -11,9 +11,10 @@ type NavItem = {
 type TrainerSidebarNavProps = {
   items: NavItem[]
   trainerId: string
+  mode?: 'view' | 'edit'
 }
 
-export function TrainerSidebarNav({ items, trainerId }: TrainerSidebarNavProps) {
+export function TrainerSidebarNav({ items, trainerId, mode }: TrainerSidebarNavProps) {
   const { pathname } = useLocation()
 
   return (
@@ -26,6 +27,7 @@ export function TrainerSidebarNav({ items, trainerId }: TrainerSidebarNavProps) 
           <Link
             key={item.href}
             to={item.href}
+            search={{ mode: mode ?? 'view' }}
             className={cn(
               buttonVariants({ variant: 'ghost' }),
               isActive

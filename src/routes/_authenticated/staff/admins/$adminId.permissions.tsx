@@ -1,9 +1,12 @@
-import { createFileRoute } from '@tanstack/react-router'
+import { createFileRoute, getRouteApi } from '@tanstack/react-router'
 import { useGetStaffById } from '@/api'
 import { AdminPermissionSection } from '@/features/staff/admin-detail/components/admin-permission-section'
 
+const parentRoute = getRouteApi('/_authenticated/staff/admins/$adminId')
+
 function AdminPermissionsRoute() {
   const { adminId } = Route.useParams()
+  const { mode } = parentRoute.useSearch()
 
   const { data: admin, isLoading, error } = useGetStaffById(Number(adminId))
 
@@ -23,7 +26,7 @@ function AdminPermissionsRoute() {
     )
   }
 
-  return <AdminPermissionSection admin={admin} />
+  return <AdminPermissionSection admin={admin} readOnly={mode === 'view'} />
 }
 
 export const Route = createFileRoute(

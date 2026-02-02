@@ -5,15 +5,16 @@ import type { StaffResponse } from '@/api'
 type AdminProfileSectionProps = {
   admin: StaffResponse
   isLoading: boolean
+  readOnly?: boolean
 }
 
-export function AdminProfileSection({ admin, isLoading }: AdminProfileSectionProps) {
+export function AdminProfileSection({ admin, isLoading, readOnly }: AdminProfileSectionProps) {
   return (
     <AdminContentSection
       title='Thông tin cá nhân'
-      desc='Quản lý thông tin cá nhân của quản trị viên.'
+      desc={readOnly ? 'Xem thông tin cá nhân của quản trị viên.' : 'Quản lý thông tin cá nhân của quản trị viên.'}
     >
-      <AdminProfileForm admin={admin} isLoading={isLoading} />
+      <AdminProfileForm admin={admin} isLoading={isLoading} readOnly={readOnly} />
     </AdminContentSection>
   )
 }

@@ -140,8 +140,6 @@ export const DOCTOR_PERMISSION_CATEGORIES: PermissionCategory[] = [
     description: 'Quyền quản lý file và tài liệu',
     permissions: [
       { id: ALL_PERMISSIONS.FILES_UPLOAD, label: 'Tải lên file' },
-      { id: ALL_PERMISSIONS.FILES_DOWNLOAD, label: 'Tải xuống file' },
-      { id: ALL_PERMISSIONS.FILES_DELETE, label: 'Xóa file' },
     ],
   },
   {
@@ -174,8 +172,6 @@ export const TRAINER_PERMISSION_CATEGORIES: PermissionCategory[] = [
     description: 'Quyền quản lý bài tập',
     permissions: [
       { id: ALL_PERMISSIONS.EXERCISES_VIEW, label: 'Xem danh sách bài tập' },
-      { id: ALL_PERMISSIONS.EXERCISES_CREATE, label: 'Tạo bài tập' },
-      { id: ALL_PERMISSIONS.EXERCISES_UPDATE, label: 'Cập nhật bài tập' },
     ],
   },
   {
@@ -388,6 +384,17 @@ export const ADMIN_PERMISSION_CATEGORIES: PermissionCategory[] = [
     ],
   },
 ]
+
+// Permissions that are always enabled and cannot be deactivated per staff type
+export const REQUIRED_PERMISSIONS: Record<string, string[]> = {
+  DOCTOR: [ALL_PERMISSIONS.EXERCISES_VIEW],
+  TRAINER: [ALL_PERMISSIONS.EXERCISES_VIEW],
+}
+
+// Helper to get required (locked) permissions by staff type
+export function getRequiredPermissionsByStaffType(staffType: string): string[] {
+  return REQUIRED_PERMISSIONS[staffType] || []
+}
 
 // Helper to get permission categories by staff type
 export function getPermissionCategoriesByStaffType(staffType: string): PermissionCategory[] {

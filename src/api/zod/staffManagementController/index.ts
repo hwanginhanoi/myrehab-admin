@@ -29,6 +29,12 @@ export {
   getAllStaffQueryResponseSchema,
 } from "./getAllStaffSchema.ts";
 export {
+  getAvailableTrainersForDoctorPathParamsSchema,
+  getAvailableTrainersForDoctorQueryParamsSchema,
+  getAvailableTrainersForDoctor200Schema,
+  getAvailableTrainersForDoctorQueryResponseSchema,
+} from "./getAvailableTrainersForDoctorSchema.ts";
+export {
   getExerciseGroupsByDoctorPathParamsSchema,
   getExerciseGroupsByDoctor200Schema,
   getExerciseGroupsByDoctorQueryResponseSchema,

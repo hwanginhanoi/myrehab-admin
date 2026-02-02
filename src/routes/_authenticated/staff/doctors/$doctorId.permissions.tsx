@@ -1,9 +1,12 @@
-import { createFileRoute } from '@tanstack/react-router'
+import { createFileRoute, getRouteApi } from '@tanstack/react-router'
 import { useGetStaffById } from '@/api'
 import { DoctorPermissionSection } from '@/features/staff/doctor-detail/components/doctor-permission-section'
 
+const parentRoute = getRouteApi('/_authenticated/staff/doctors/$doctorId')
+
 function DoctorPermissionsRoute() {
   const { doctorId } = Route.useParams()
+  const { mode } = parentRoute.useSearch()
 
   const { data: doctor, isLoading, error } = useGetStaffById(Number(doctorId))
 
@@ -23,7 +26,7 @@ function DoctorPermissionsRoute() {
     )
   }
 
-  return <DoctorPermissionSection doctor={doctor} />
+  return <DoctorPermissionSection doctor={doctor} readOnly={mode === 'view'} />
 }
 
 export const Route = createFileRoute(

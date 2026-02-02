@@ -1,4 +1,4 @@
-import { createFileRoute } from '@tanstack/react-router'
+import { createFileRoute, type SearchSchemaInput } from '@tanstack/react-router'
 import { ConfigDrawer } from '@/components/config-drawer'
 import { Header } from '@/components/layout/header'
 import { Main } from '@/components/layout/main'
@@ -27,5 +27,8 @@ function TrainerDetailRoute() {
 }
 
 export const Route = createFileRoute('/_authenticated/staff/trainers/$trainerId')({
+  validateSearch: (search: Record<string, unknown> & SearchSchemaInput) => ({
+    mode: (search.mode as 'view' | 'edit') || 'view',
+  }),
   component: TrainerDetailRoute,
 })

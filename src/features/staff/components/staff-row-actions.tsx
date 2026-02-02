@@ -14,6 +14,7 @@ import {
 } from '@/components/ui/dropdown-menu'
 import { toast } from 'sonner'
 import { useEnableStaff, useDisableStaff, type StaffResponse } from '@/api'
+import { usePermissions } from '@/hooks/use-permissions'
 import { useStaff } from './staff-provider'
 
 type StaffRowActionsProps = {
@@ -26,6 +27,9 @@ export function StaffRowActions({ row }: StaffRowActionsProps) {
   const { setOpen, setCurrentRow } = useStaff()
   const queryClient = useQueryClient()
   const navigate = route.useNavigate()
+  const { hasPermission } = usePermissions()
+  const canUpdate = hasPermission('staff:update')
+  const canDelete = hasPermission('staff:delete')
 
   const enableStaffMutation = useEnableStaff({
     mutation: {
@@ -74,17 +78,6 @@ export function StaffRowActions({ row }: StaffRowActionsProps) {
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align='end' className='w-[180px]'>
-        <DropdownMenuItem
-          onClick={() => {
-            setCurrentRow(row.original)
-            setOpen('edit')
-          }}
-        >
-          Chỉnh sửa
-          <DropdownMenuShortcut>
-            <UserPen size={16} />
-          </DropdownMenuShortcut>
-        </DropdownMenuItem>
         {row.original.staffType === 'DOCTOR' && (
           <>
             <DropdownMenuItem
@@ -92,6 +85,7 @@ export function StaffRowActions({ row }: StaffRowActionsProps) {
                 navigate({
                   to: '/staff/doctors/$doctorId',
                   params: { doctorId: String(row.original.id) },
+                  search: { mode: 'view' },
                 })
               }}
             >
@@ -100,6 +94,22 @@ export function StaffRowActions({ row }: StaffRowActionsProps) {
                 <Eye size={16} />
               </DropdownMenuShortcut>
             </DropdownMenuItem>
+            {canUpdate && (
+              <DropdownMenuItem
+                onClick={() => {
+                  navigate({
+                    to: '/staff/doctors/$doctorId',
+                    params: { doctorId: String(row.original.id) },
+                    search: { mode: 'edit' },
+                  })
+                }}
+              >
+                Chỉnh sửa
+                <DropdownMenuShortcut>
+                  <UserPen size={16} />
+                </DropdownMenuShortcut>
+              </DropdownMenuItem>
+            )}
             <DropdownMenuSeparator />
           </>
         )}
@@ -110,6 +120,7 @@ export function StaffRowActions({ row }: StaffRowActionsProps) {
                 navigate({
                   to: '/staff/trainers/$trainerId',
                   params: { trainerId: String(row.original.id) },
+                  search: { mode: 'view' },
                 })
               }}
             >
@@ -118,6 +129,22 @@ export function StaffRowActions({ row }: StaffRowActionsProps) {
                 <Eye size={16} />
               </DropdownMenuShortcut>
             </DropdownMenuItem>
+            {canUpdate && (
+              <DropdownMenuItem
+                onClick={() => {
+                  navigate({
+                    to: '/staff/trainers/$trainerId',
+                    params: { trainerId: String(row.original.id) },
+                    search: { mode: 'edit' },
+                  })
+                }}
+              >
+                Chỉnh sửa
+                <DropdownMenuShortcut>
+                  <UserPen size={16} />
+                </DropdownMenuShortcut>
+              </DropdownMenuItem>
+            )}
             <DropdownMenuSeparator />
           </>
         )}
@@ -128,6 +155,7 @@ export function StaffRowActions({ row }: StaffRowActionsProps) {
                 navigate({
                   to: '/staff/admins/$adminId',
                   params: { adminId: String(row.original.id) },
+                  search: { mode: 'view' },
                 })
               }}
             >
@@ -136,32 +164,54 @@ export function StaffRowActions({ row }: StaffRowActionsProps) {
                 <Eye size={16} />
               </DropdownMenuShortcut>
             </DropdownMenuItem>
+            {canUpdate && (
+              <DropdownMenuItem
+                onClick={() => {
+                  navigate({
+                    to: '/staff/admins/$adminId',
+                    params: { adminId: String(row.original.id) },
+                    search: { mode: 'edit' },
+                  })
+                }}
+              >
+                Chỉnh sửa
+                <DropdownMenuShortcut>
+                  <UserPen size={16} />
+                </DropdownMenuShortcut>
+              </DropdownMenuItem>
+            )}
             <DropdownMenuSeparator />
           </>
         )}
-        <DropdownMenuItem onClick={handleToggleStatus}>
-          {row.original.enabled ? 'Vô hiệu hóa' : 'Kích hoạt'}
-          <DropdownMenuShortcut>
-            {row.original.enabled ? (
-              <UserX size={16} />
-            ) : (
-              <UserCheck size={16} />
-            )}
-          </DropdownMenuShortcut>
-        </DropdownMenuItem>
-        <DropdownMenuSeparator />
-        <DropdownMenuItem
-          onClick={() => {
-            setCurrentRow(row.original)
-            setOpen('delete')
-          }}
-          className='text-red-500!'
-        >
-          Xóa
-          <DropdownMenuShortcut>
-            <Trash2 size={16} />
-          </DropdownMenuShortcut>
-        </DropdownMenuItem>
+        {canUpdate && (
+          <DropdownMenuItem onClick={handleToggleStatus}>
+            {row.original.enabled ? 'Vô hiệu hóa' : 'Kích hoạt'}
+            <DropdownMenuShortcut>
+              {row.original.enabled ? (
+                <UserX size={16} />
+              ) : (
+                <UserCheck size={16} />
+              )}
+            </DropdownMenuShortcut>
+          </DropdownMenuItem>
+        )}
+        {canDelete && (
+          <>
+            <DropdownMenuSeparator />
+            <DropdownMenuItem
+              onClick={() => {
+                setCurrentRow(row.original)
+                setOpen('delete')
+              }}
+              className='text-red-500!'
+            >
+              Xóa
+              <DropdownMenuShortcut>
+                <Trash2 size={16} />
+              </DropdownMenuShortcut>
+            </DropdownMenuItem>
+          </>
+        )}
       </DropdownMenuContent>
     </DropdownMenu>
   )

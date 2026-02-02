@@ -9,12 +9,14 @@ type TrainerListCardProps = {
   doctorId: number
   search: Record<string, unknown>
   navigate: NavigateFn
+  readOnly?: boolean
 }
 
 export function TrainerListCard({
   doctorId,
   search,
   navigate,
+  readOnly,
 }: TrainerListCardProps) {
   const { setOpen } = useDoctorDetail()
 
@@ -42,14 +44,16 @@ export function TrainerListCard({
             {isLoading ? 'Đang tải...' : `${totalCount} huấn luyện viên`}
           </p>
         </div>
-        <Button
-          onClick={() => setOpen('assign')}
-          size='sm'
-          disabled={isLoading}
-        >
-          <UserPlus className='mr-2 h-4 w-4' />
-          Gán huấn luyện viên
-        </Button>
+        {!readOnly && (
+          <Button
+            onClick={() => setOpen('assign')}
+            size='sm'
+            disabled={isLoading}
+          >
+            <UserPlus className='mr-2 h-4 w-4' />
+            Gán huấn luyện viên
+          </Button>
+        )}
       </div>
 
       {isLoading ? (

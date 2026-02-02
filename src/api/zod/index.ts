@@ -55,11 +55,11 @@ export {
   addBalance200Schema,
   addBalanceMutationRequestSchema,
   addBalanceMutationResponseSchema,
-} from "./balanceControllerController/addBalanceSchema.ts";
+} from "./balanceController/addBalanceSchema.ts";
 export {
   getMyBalance200Schema,
   getMyBalanceQueryResponseSchema,
-} from "./balanceControllerController/getMyBalanceSchema.ts";
+} from "./balanceController/getMyBalanceSchema.ts";
 export { balanceResponseSchema } from "./balanceResponseSchema.ts";
 export { categoryResponseSchema } from "./categoryResponseSchema.ts";
 export { checkPhoneRequestSchema } from "./checkPhoneRequestSchema.ts";
@@ -378,6 +378,12 @@ export {
   getAllStaffQueryResponseSchema,
 } from "./staffManagementController/getAllStaffSchema.ts";
 export {
+  getAvailableTrainersForDoctorPathParamsSchema,
+  getAvailableTrainersForDoctorQueryParamsSchema,
+  getAvailableTrainersForDoctor200Schema,
+  getAvailableTrainersForDoctorQueryResponseSchema,
+} from "./staffManagementController/getAvailableTrainersForDoctorSchema.ts";
+export {
   getExerciseGroupsByDoctorPathParamsSchema,
   getExerciseGroupsByDoctor200Schema,
   getExerciseGroupsByDoctorQueryResponseSchema,
@@ -411,41 +417,45 @@ export {
 } from "./staffManagementController/updateStaffSchema.ts";
 export { staffResponseSchema } from "./staffResponseSchema.ts";
 export { startCourseRequestSchema } from "./startCourseRequestSchema.ts";
+export { subscriptionResponseSchema } from "./subscriptionResponseSchema.ts";
 export {
   getMySubscriptions200Schema,
   getMySubscriptionsQueryResponseSchema,
-} from "./subscriptionControllerController/getMySubscriptionsSchema.ts";
+} from "./subscriptionsController/getMySubscriptionsSchema.ts";
 export {
   getPendingPurchases200Schema,
   getPendingPurchasesQueryResponseSchema,
-} from "./subscriptionControllerController/getPendingPurchasesSchema.ts";
+} from "./subscriptionsController/getPendingPurchasesSchema.ts";
 export {
   purchaseCourse200Schema,
   purchaseCourseMutationRequestSchema,
   purchaseCourseMutationResponseSchema,
-} from "./subscriptionControllerController/purchaseCourseSchema.ts";
+} from "./subscriptionsController/purchaseCourseSchema.ts";
 export {
   purchasePackage200Schema,
   purchasePackageMutationRequestSchema,
   purchasePackageMutationResponseSchema,
-} from "./subscriptionControllerController/purchasePackageSchema.ts";
-export { subscriptionResponseSchema } from "./subscriptionResponseSchema.ts";
+} from "./subscriptionsController/purchasePackageSchema.ts";
 export {
   getMyTotalSpending200Schema,
   getMyTotalSpendingQueryResponseSchema,
-} from "./transactionControllerController/getMyTotalSpendingSchema.ts";
+} from "./transactionsController/getMyTotalSpendingSchema.ts";
 export {
   getMyTransactionHistoryQueryParamsSchema,
   getMyTransactionHistory200Schema,
   getMyTransactionHistoryQueryResponseSchema,
-} from "./transactionControllerController/getMyTransactionHistorySchema.ts";
+} from "./transactionsController/getMyTransactionHistorySchema.ts";
+export { updateAdminRequestSchema } from "./updateAdminRequestSchema.ts";
 export { updateCategoryRequestSchema } from "./updateCategoryRequestSchema.ts";
+export { updateDoctorRequestSchema } from "./updateDoctorRequestSchema.ts";
 export { updateExercisePackageRequestSchema } from "./updateExercisePackageRequestSchema.ts";
 export { updateExerciseRequestSchema } from "./updateExerciseRequestSchema.ts";
 export { updateGroupRequestSchema } from "./updateGroupRequestSchema.ts";
 export { updateNewsRequestSchema } from "./updateNewsRequestSchema.ts";
 export { updateRehabilitationExaminationFormRequestSchema } from "./updateRehabilitationExaminationFormRequestSchema.ts";
 export { updateStaffRequestSchema } from "./updateStaffRequestSchema.ts";
+export { updateSuperAdminRequestSchema } from "./updateSuperAdminRequestSchema.ts";
+export { updateTrainerRequestSchema } from "./updateTrainerRequestSchema.ts";
 export { userAuthResponseSchema } from "./userAuthResponseSchema.ts";
 export { userCourseAssignmentResponseSchema } from "./userCourseAssignmentResponseSchema.ts";
 export {

@@ -18,9 +18,10 @@ type DoctorSidebarNavProps = React.HTMLAttributes<HTMLElement> & {
     icon: JSX.Element
   }[]
   doctorId: string
+  mode?: 'view' | 'edit'
 }
 
-export function DoctorSidebarNav({ className, items, doctorId, ...props }: DoctorSidebarNavProps) {
+export function DoctorSidebarNav({ className, items, doctorId, mode, ...props }: DoctorSidebarNavProps) {
   const { pathname } = useLocation()
   const navigate = useNavigate()
   const baseRoute = `/staff/doctors/${doctorId}`
@@ -28,7 +29,7 @@ export function DoctorSidebarNav({ className, items, doctorId, ...props }: Docto
 
   const handleSelect = (e: string) => {
     setVal(e)
-    navigate({ to: e })
+    navigate({ to: e, search: { mode: mode ?? 'view' } })
   }
 
   return (
@@ -67,6 +68,7 @@ export function DoctorSidebarNav({ className, items, doctorId, ...props }: Docto
             <Link
               key={item.href}
               to={item.href}
+              search={{ mode: mode ?? 'view' }}
               className={cn(
                 buttonVariants({ variant: 'ghost' }),
                 pathname === item.href

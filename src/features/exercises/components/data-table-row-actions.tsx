@@ -12,6 +12,7 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
 import type { ExerciseResponse } from '@/api'
+import { usePermissions } from '@/hooks/use-permissions'
 
 type DataTableRowActionsProps = {
   row: Row<ExerciseResponse>
@@ -19,6 +20,9 @@ type DataTableRowActionsProps = {
 
 export function DataTableRowActions({ row }: DataTableRowActionsProps) {
   const navigate = useNavigate()
+  const { hasPermission } = usePermissions()
+  const canUpdate = hasPermission('exercises:update')
+
   return (
     <>
       <DropdownMenu modal={false}>
@@ -46,21 +50,25 @@ export function DataTableRowActions({ row }: DataTableRowActionsProps) {
               <Eye size={16} />
             </DropdownMenuShortcut>
           </DropdownMenuItem>
-          <DropdownMenuSeparator />
-          <DropdownMenuItem
-            onClick={() => {
-              navigate({
-                to: '/exercises/$id',
-                params: { id: String(row.original.id) },
-                search: { mode: 'edit' },
-              })
-            }}
-          >
-            Chỉnh sửa
-            <DropdownMenuShortcut>
-              <Pencil size={16} />
-            </DropdownMenuShortcut>
-          </DropdownMenuItem>
+          {canUpdate && (
+            <>
+              <DropdownMenuSeparator />
+              <DropdownMenuItem
+                onClick={() => {
+                  navigate({
+                    to: '/exercises/$id',
+                    params: { id: String(row.original.id) },
+                    search: { mode: 'edit' },
+                  })
+                }}
+              >
+                Chỉnh sửa
+                <DropdownMenuShortcut>
+                  <Pencil size={16} />
+                </DropdownMenuShortcut>
+              </DropdownMenuItem>
+            </>
+          )}
         </DropdownMenuContent>
       </DropdownMenu>
     </>

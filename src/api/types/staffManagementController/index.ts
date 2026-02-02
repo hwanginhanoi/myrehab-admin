@@ -36,6 +36,13 @@ export type {
   GetAllStaffQuery,
 } from "./GetAllStaff.ts";
 export type {
+  GetAvailableTrainersForDoctorPathParams,
+  GetAvailableTrainersForDoctorQueryParams,
+  GetAvailableTrainersForDoctor200,
+  GetAvailableTrainersForDoctorQueryResponse,
+  GetAvailableTrainersForDoctorQuery,
+} from "./GetAvailableTrainersForDoctor.ts";
+export type {
   GetExerciseGroupsByDoctorPathParams,
   GetExerciseGroupsByDoctor200,
   GetExerciseGroupsByDoctorQueryResponse,

@@ -3,8 +3,9 @@ import { StaffPermissionForm } from '../../components/staff-permission-form'
 
 type DoctorPermissionFormProps = {
   doctor: StaffResponse
+  readOnly?: boolean
 }
 
-export function DoctorPermissionForm({ doctor }: DoctorPermissionFormProps) {
-  return <StaffPermissionForm staff={doctor} />
+export function DoctorPermissionForm({ doctor, readOnly }: DoctorPermissionFormProps) {
+  return <StaffPermissionForm staff={doctor} readOnly={readOnly} />
 }

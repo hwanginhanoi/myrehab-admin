@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect } from 'react'
+import { useCallback, useEffect } from 'react'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
@@ -12,7 +12,7 @@ import { Form, FormControl, FormField, FormItem } from '@/components/ui/form'
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible'
 import { ChevronDown } from 'lucide-react'
 import { useUpdateStaff, type StaffResponse } from '@/api'
-import { getPermissionCategoriesByStaffType } from '../data/permissions'
+import { getPermissionCategoriesByStaffType, getRequiredPermissionsByStaffType } from '../data/permissions'
 import { cn } from '@/lib/utils'
 
 const formSchema = z.object({
@@ -23,25 +23,34 @@ type FormValues = z.infer<typeof formSchema>
 
 type StaffPermissionFormProps = {
   staff: StaffResponse
+  readOnly?: boolean
 }
 
-export function StaffPermissionForm({ staff }: StaffPermissionFormProps) {
+export function StaffPermissionForm({ staff, readOnly }: StaffPermissionFormProps) {
   const queryClient = useQueryClient()
   const permissionCategories = getPermissionCategoriesByStaffType(staff.staffType || '')
+  const requiredPermissions = getRequiredPermissionsByStaffType(staff.staffType || '')
+
+  // Merge required permissions into the given list
+  const ensureRequiredPermissions = useCallback((permissions: string[]) => {
+    const set = new Set(permissions)
+    for (const p of requiredPermissions) set.add(p)
+    return Array.from(set)
+  }, [requiredPermissions])
 
   const form = useForm<FormValues>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      permissions: staff.permissions || [],
+      permissions: ensureRequiredPermissions(staff.permissions || []),
     },
   })
 
   // Reset form when staff changes
   useEffect(() => {
     form.reset({
-      permissions: staff.permissions || [],
+      permissions: ensureRequiredPermissions(staff.permissions || []),
     })
-  }, [staff.permissions, form])
+  }, [staff.permissions, form, ensureRequiredPermissions])
 
   const updateMutation = useUpdateStaff({
     mutation: {
@@ -102,7 +111,7 @@ export function StaffPermissionForm({ staff }: StaffPermissionFormProps) {
 
     if (isFullySelected) {
       const newPermissions = selectedPermissions.filter(
-        (p) => !categoryPermissionIds.includes(p)
+        (p) => !categoryPermissionIds.includes(p) || requiredPermissions.includes(p)
       )
       form.setValue('permissions', newPermissions, { shouldDirty: true })
     } else {
@@ -171,6 +180,7 @@ export function StaffPermissionForm({ staff }: StaffPermissionFormProps) {
                   <Switch
                     checked={isFullySelected}
                     onCheckedChange={() => toggleCategory(category.id)}
+                    disabled={readOnly}
                     aria-label={`Bật tất cả ${category.title}`}
                   />
                 </div>
@@ -178,47 +188,55 @@ export function StaffPermissionForm({ staff }: StaffPermissionFormProps) {
                 <CollapsibleContent>
                   <div className='border-t bg-muted/30 px-4 py-4'>
                     <div className='space-y-2'>
-                      {category.permissions.map((permission) => (
-                        <FormField
-                          key={permission.id}
-                          control={form.control}
-                          name='permissions'
-                          render={({ field }) => {
-                            const isChecked = field.value.includes(permission.id)
-                            return (
-                              <FormItem
-                                className={cn(
-                                  'flex items-center justify-between rounded-md px-3 py-3 transition-colors',
-                                  isChecked
-                                    ? 'bg-primary/5'
-                                    : 'hover:bg-muted/50'
-                                )}
-                              >
-                                <label
-                                  htmlFor={permission.id}
-                                  className='text-sm cursor-pointer flex-1'
+                      {category.permissions.map((permission) => {
+                        const isRequired = requiredPermissions.includes(permission.id)
+                        return (
+                          <FormField
+                            key={permission.id}
+                            control={form.control}
+                            name='permissions'
+                            render={({ field }) => {
+                              const isChecked = field.value.includes(permission.id)
+                              return (
+                                <FormItem
+                                  className={cn(
+                                    'flex items-center justify-between rounded-md px-3 py-3 transition-colors',
+                                    isChecked
+                                      ? 'bg-primary/5'
+                                      : 'hover:bg-muted/50'
+                                  )}
                                 >
-                                  {permission.label}
-                                </label>
-                                <FormControl>
-                                  <Switch
-                                    id={permission.id}
-                                    checked={isChecked}
-                                    onCheckedChange={(checked) => {
-                                      const newValue = checked
-                                        ? [...field.value, permission.id]
-                                        : field.value.filter(
-                                            (v) => v !== permission.id
-                                          )
-                                      field.onChange(newValue)
-                                    }}
-                                  />
-                                </FormControl>
-                              </FormItem>
-                            )
-                          }}
-                        />
-                      ))}
+                                  <label
+                                    htmlFor={permission.id}
+                                    className='text-sm cursor-pointer flex-1'
+                                  >
+                                    {permission.label}
+                                    {isRequired && (
+                                      <span className='ml-2 text-xs text-muted-foreground'>(Bắt buộc)</span>
+                                    )}
+                                  </label>
+                                  <FormControl>
+                                    <Switch
+                                      id={permission.id}
+                                      checked={isRequired || isChecked}
+                                      disabled={readOnly || isRequired}
+                                      onCheckedChange={(checked) => {
+                                        if (isRequired) return
+                                        const newValue = checked
+                                          ? [...field.value, permission.id]
+                                          : field.value.filter(
+                                              (v) => v !== permission.id
+                                            )
+                                        field.onChange(newValue)
+                                      }}
+                                    />
+                                  </FormControl>
+                                </FormItem>
+                              )
+                            }}
+                          />
+                        )
+                      })}
                     </div>
                   </div>
                 </CollapsibleContent>
@@ -235,22 +253,24 @@ export function StaffPermissionForm({ staff }: StaffPermissionFormProps) {
             </span>{' '}
             quyền
           </p>
-          <div className='flex gap-2'>
-            <Button
-              type='button'
-              variant='outline'
-              onClick={() => form.reset()}
-              disabled={!isDirty || updateMutation.isPending}
-            >
-              Hủy
-            </Button>
-            <Button
-              type='submit'
-              disabled={!isDirty || updateMutation.isPending}
-            >
-              {updateMutation.isPending ? 'Đang lưu...' : 'Lưu thay đổi'}
-            </Button>
-          </div>
+          {!readOnly && (
+            <div className='flex gap-2'>
+              <Button
+                type='button'
+                variant='outline'
+                onClick={() => form.reset()}
+                disabled={!isDirty || updateMutation.isPending}
+              >
+                Hủy
+              </Button>
+              <Button
+                type='submit'
+                disabled={!isDirty || updateMutation.isPending}
+              >
+                {updateMutation.isPending ? 'Đang lưu...' : 'Lưu thay đổi'}
+              </Button>
+            </div>
+          )}
         </div>
       </form>
     </Form>

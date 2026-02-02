@@ -1,9 +1,14 @@
 import { Plus } from 'lucide-react'
 import { useNavigate } from '@tanstack/react-router'
 import { Button } from '@/components/ui/button'
+import { usePermissions } from '@/hooks/use-permissions'
 
 export function ExercisesPrimaryButtons() {
   const navigate = useNavigate()
+  const { hasPermission } = usePermissions()
+
+  if (!hasPermission('exercises:create')) return null
+
   return (
     <div className='flex gap-2'>
       <Button

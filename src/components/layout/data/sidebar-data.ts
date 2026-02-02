@@ -18,49 +18,106 @@ import {
   Users,
   MessagesSquare,
   ShieldCheck,
-  AudioWaveform,
-  Command,
-  GalleryVerticalEnd,
   FolderTree,
   Layers,
   Dumbbell,
   Newspaper,
   ClipboardList,
+  Image,
 } from 'lucide-react'
+import { Logo } from '@/assets/logo'
 import { type SidebarData } from '../types'
 
 export const sidebarData: SidebarData = {
   user: {
-    name: 'satnaing',
-    email: 'satnaingdev@gmail.com',
+    name: 'Admin',
+    email: 'admin@myrehab.com',
     avatar: '/avatars/shadcn.jpg',
   },
   teams: [
     {
-      name: 'Shadcn Admin',
-      logo: Command,
-      plan: 'Vite + ShadcnUI',
-    },
-    {
-      name: 'Acme Inc',
-      logo: GalleryVerticalEnd,
-      plan: 'Enterprise',
-    },
-    {
-      name: 'Acme Corp.',
-      logo: AudioWaveform,
-      plan: 'Startup',
+      name: 'MyRehab Admin',
+      logo: Logo,
+      plan: 'Quản trị hệ thống',
     },
   ],
   navGroups: [
     {
-      title: 'General',
+      title: 'Quản trị hệ thống',
       items: [
         {
-          title: 'Dashboard',
+          title: 'Trang chủ',
           url: '/',
           icon: LayoutDashboard,
         },
+        {
+          title: 'Tin tức',
+          url: '/news',
+          icon: Newspaper,
+          requiredPermission: 'news:view',
+        },
+        {
+          title: 'Banner',
+          url: '/banners',
+          icon: Image,
+        },
+        {
+          title: 'Kho bài tập',
+          url: '/exercise-groups',
+          icon: Layers,
+          requiredPermission: 'exercise_groups:view',
+        },
+      ],
+    },
+    {
+      title: 'Quản trị nội dung',
+      items: [
+        {
+          title: 'Danh mục bài tập',
+          url: '/exercise-categories',
+          icon: FolderTree,
+          requiredPermission: 'categories:view',
+        },
+        {
+          title: 'Bài tập',
+          url: '/exercises',
+          icon: Dumbbell,
+          requiredPermission: 'exercises:view',
+        },
+        {
+          title: 'Gói bài tập',
+          url: '/exercise-packages',
+          icon: Package,
+          requiredPermission: 'packages:view',
+        },
+        {
+          title: 'Phiếu khám',
+          url: '/rehabilitation-forms',
+          icon: ClipboardList,
+          requiredPermission: 'rehab_forms:view',
+        },
+      ]
+    },
+    {
+      title: 'Quản trị người dùng',
+      items: [
+        {
+          title: 'Staff',
+          url: '/staff',
+          icon: UserCog,
+          requiredPermission: 'staff:view',
+        },
+        {
+          title: 'Users',
+          url: '/users',
+          icon: Users,
+          requiredPermission: 'users:view',
+        },
+      ]
+    },
+    {
+      title: 'Hệ thống',
+      items: [
         {
           title: 'Tasks',
           url: '/tasks',
@@ -76,41 +133,6 @@ export const sidebarData: SidebarData = {
           url: '/chats',
           badge: '3',
           icon: MessagesSquare,
-        },
-        {
-          title: 'Users',
-          url: '/users',
-          icon: Users,
-        },
-        {
-          title: 'Staff',
-          url: '/staff',
-          icon: UserCog,
-        },
-        {
-          title: 'Exercise Categories',
-          url: '/exercise-categories',
-          icon: FolderTree,
-        },
-        {
-          title: 'Exercise Groups',
-          url: '/exercise-groups',
-          icon: Layers,
-        },
-        {
-          title: 'Exercises',
-          url: '/exercises',
-          icon: Dumbbell,
-        },
-        {
-          title: 'News',
-          url: '/news',
-          icon: Newspaper,
-        },
-        {
-          title: 'Phiếu khám',
-          url: '/rehabilitation-forms',
-          icon: ClipboardList,
         },
       ],
     },

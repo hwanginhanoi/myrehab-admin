@@ -1,9 +1,14 @@
 import { MailPlus, UserPlus } from 'lucide-react'
 import { Button } from '@/components/ui/button'
+import { usePermissions } from '@/hooks/use-permissions'
 import { useUsers } from './users-provider'
 
 export function UsersPrimaryButtons() {
   const { setOpen } = useUsers()
+  const { hasPermission } = usePermissions()
+
+  if (!hasPermission('users:create')) return null
+
   return (
     <div className='flex gap-2'>
       <Button
