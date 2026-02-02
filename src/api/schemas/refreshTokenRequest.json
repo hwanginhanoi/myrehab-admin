@@ -1,6 +1,1 @@
-{
-  "type": "object",
-  "properties": { "refreshToken": { "type": "string" } },
-  "required": ["refreshToken"],
-  "x-readme-ref-name": "RefreshTokenRequest"
-}
+{"type":"object","properties":{"refreshToken":{"type":"string"}},"required":["refreshToken"],"x-readme-ref-name":"RefreshTokenRequest"}
