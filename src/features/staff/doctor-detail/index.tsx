@@ -1,9 +1,8 @@
-import { useMemo } from 'react'
 import { getRouteApi, Outlet } from '@tanstack/react-router'
 import { Button } from '@/components/ui/button'
 import { Separator } from '@/components/ui/separator'
 import { ChevronLeft, Shield, UserCog, Users, UserRound } from 'lucide-react'
-import { useGetStaffById, useGetTrainersByDoctor } from '@/api'
+import { useGetStaffById } from '@/api'
 import { DoctorDetailProvider, useDoctorDetail } from './components/doctor-detail-provider'
 import { DoctorSidebarNav } from './components/doctor-sidebar-nav'
 import { TrainerAssignmentDialog } from './components/trainer-assignment-dialog'
@@ -20,13 +19,6 @@ function DoctorDetailContent() {
 
   // Fetch doctor data
   const { data: doctor, isLoading, error } = useGetStaffById(Number(doctorId))
-
-  // Fetch trainers to get assigned IDs
-  const { data: trainers } = useGetTrainersByDoctor(Number(doctorId))
-
-  const assignedTrainerIds = useMemo(() => {
-    return trainers?.map((t) => t.id).filter((id): id is number => id !== undefined) || []
-  }, [trainers])
 
   // Handle error states
   if (error) {
@@ -139,7 +131,6 @@ function DoctorDetailContent() {
         doctorId={Number(doctorId)}
         open={open === 'assign'}
         onOpenChange={(isOpen) => setOpen(isOpen ? 'assign' : null)}
-        assignedTrainerIds={assignedTrainerIds}
       />
 
       <TrainerRemovalDialog
