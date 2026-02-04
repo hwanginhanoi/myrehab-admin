@@ -18,6 +18,9 @@ import { TeamSwitcher } from './team-switcher'
 // Groups that require admin access (SUPER_ADMIN or ADMIN only)
 const ADMIN_ONLY_GROUPS = ['Quản trị hệ thống']
 
+// Groups that require doctor access (DOCTOR only)
+const DOCTOR_ONLY_GROUPS = ['Quản trị của tôi']
+
 export function AppSidebar() {
   const { collapsible, variant } = useLayout()
   const { auth } = useAuthStore()
@@ -27,12 +30,17 @@ export function AppSidebar() {
   const filteredNavGroups = useMemo(() => {
     const userType = auth.userType
     const isAdmin = userType === 'SUPER_ADMIN' || userType === 'ADMIN'
+    const isDoctor = userType === 'DOCTOR'
 
     return sidebarData.navGroups
       .filter((group) => {
         // If group is admin-only, only show for SUPER_ADMIN or ADMIN
         if (ADMIN_ONLY_GROUPS.includes(group.title)) {
           return isAdmin
+        }
+        // If group is doctor-only, only show for DOCTOR
+        if (DOCTOR_ONLY_GROUPS.includes(group.title)) {
+          return isDoctor
         }
         return true
       })

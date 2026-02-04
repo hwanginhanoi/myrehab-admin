@@ -27,6 +27,8 @@ import { Route as AuthenticatedStaffIndexRouteImport } from './routes/_authentic
 import { Route as AuthenticatedSettingsIndexRouteImport } from './routes/_authenticated/settings/index'
 import { Route as AuthenticatedRehabilitationFormsIndexRouteImport } from './routes/_authenticated/rehabilitation-forms/index'
 import { Route as AuthenticatedNewsIndexRouteImport } from './routes/_authenticated/news/index'
+import { Route as AuthenticatedMyTrainersIndexRouteImport } from './routes/_authenticated/my-trainers/index'
+import { Route as AuthenticatedMyPatientsIndexRouteImport } from './routes/_authenticated/my-patients/index'
 import { Route as AuthenticatedHelpCenterIndexRouteImport } from './routes/_authenticated/help-center/index'
 import { Route as AuthenticatedExercisesIndexRouteImport } from './routes/_authenticated/exercises/index'
 import { Route as AuthenticatedExercisePackagesIndexRouteImport } from './routes/_authenticated/exercise-packages/index'
@@ -152,6 +154,18 @@ const AuthenticatedNewsIndexRoute = AuthenticatedNewsIndexRouteImport.update({
   path: '/news/',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
+const AuthenticatedMyTrainersIndexRoute =
+  AuthenticatedMyTrainersIndexRouteImport.update({
+    id: '/my-trainers/',
+    path: '/my-trainers/',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedMyPatientsIndexRoute =
+  AuthenticatedMyPatientsIndexRouteImport.update({
+    id: '/my-patients/',
+    path: '/my-patients/',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
 const AuthenticatedHelpCenterIndexRoute =
   AuthenticatedHelpCenterIndexRouteImport.update({
     id: '/help-center/',
@@ -374,6 +388,8 @@ export interface FileRoutesByFullPath {
   '/exercise-packages': typeof AuthenticatedExercisePackagesIndexRoute
   '/exercises': typeof AuthenticatedExercisesIndexRoute
   '/help-center': typeof AuthenticatedHelpCenterIndexRoute
+  '/my-patients': typeof AuthenticatedMyPatientsIndexRoute
+  '/my-trainers': typeof AuthenticatedMyTrainersIndexRoute
   '/news': typeof AuthenticatedNewsIndexRoute
   '/rehabilitation-forms': typeof AuthenticatedRehabilitationFormsIndexRoute
   '/settings/': typeof AuthenticatedSettingsIndexRoute
@@ -424,6 +440,8 @@ export interface FileRoutesByTo {
   '/exercise-packages': typeof AuthenticatedExercisePackagesIndexRoute
   '/exercises': typeof AuthenticatedExercisesIndexRoute
   '/help-center': typeof AuthenticatedHelpCenterIndexRoute
+  '/my-patients': typeof AuthenticatedMyPatientsIndexRoute
+  '/my-trainers': typeof AuthenticatedMyTrainersIndexRoute
   '/news': typeof AuthenticatedNewsIndexRoute
   '/rehabilitation-forms': typeof AuthenticatedRehabilitationFormsIndexRoute
   '/settings': typeof AuthenticatedSettingsIndexRoute
@@ -474,6 +492,8 @@ export interface FileRoutesById {
   '/_authenticated/exercise-packages/': typeof AuthenticatedExercisePackagesIndexRoute
   '/_authenticated/exercises/': typeof AuthenticatedExercisesIndexRoute
   '/_authenticated/help-center/': typeof AuthenticatedHelpCenterIndexRoute
+  '/_authenticated/my-patients/': typeof AuthenticatedMyPatientsIndexRoute
+  '/_authenticated/my-trainers/': typeof AuthenticatedMyTrainersIndexRoute
   '/_authenticated/news/': typeof AuthenticatedNewsIndexRoute
   '/_authenticated/rehabilitation-forms/': typeof AuthenticatedRehabilitationFormsIndexRoute
   '/_authenticated/settings/': typeof AuthenticatedSettingsIndexRoute
@@ -527,6 +547,8 @@ export interface FileRouteTypes {
     | '/exercise-packages'
     | '/exercises'
     | '/help-center'
+    | '/my-patients'
+    | '/my-trainers'
     | '/news'
     | '/rehabilitation-forms'
     | '/settings/'
@@ -577,6 +599,8 @@ export interface FileRouteTypes {
     | '/exercise-packages'
     | '/exercises'
     | '/help-center'
+    | '/my-patients'
+    | '/my-trainers'
     | '/news'
     | '/rehabilitation-forms'
     | '/settings'
@@ -626,6 +650,8 @@ export interface FileRouteTypes {
     | '/_authenticated/exercise-packages/'
     | '/_authenticated/exercises/'
     | '/_authenticated/help-center/'
+    | '/_authenticated/my-patients/'
+    | '/_authenticated/my-trainers/'
     | '/_authenticated/news/'
     | '/_authenticated/rehabilitation-forms/'
     | '/_authenticated/settings/'
@@ -784,6 +810,20 @@ declare module '@tanstack/react-router' {
       path: '/news'
       fullPath: '/news'
       preLoaderRoute: typeof AuthenticatedNewsIndexRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/my-trainers/': {
+      id: '/_authenticated/my-trainers/'
+      path: '/my-trainers'
+      fullPath: '/my-trainers'
+      preLoaderRoute: typeof AuthenticatedMyTrainersIndexRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/my-patients/': {
+      id: '/_authenticated/my-patients/'
+      path: '/my-patients'
+      fullPath: '/my-patients'
+      preLoaderRoute: typeof AuthenticatedMyPatientsIndexRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
     '/_authenticated/help-center/': {
@@ -1116,6 +1156,8 @@ interface AuthenticatedRouteRouteChildren {
   AuthenticatedExercisePackagesIndexRoute: typeof AuthenticatedExercisePackagesIndexRoute
   AuthenticatedExercisesIndexRoute: typeof AuthenticatedExercisesIndexRoute
   AuthenticatedHelpCenterIndexRoute: typeof AuthenticatedHelpCenterIndexRoute
+  AuthenticatedMyPatientsIndexRoute: typeof AuthenticatedMyPatientsIndexRoute
+  AuthenticatedMyTrainersIndexRoute: typeof AuthenticatedMyTrainersIndexRoute
   AuthenticatedNewsIndexRoute: typeof AuthenticatedNewsIndexRoute
   AuthenticatedRehabilitationFormsIndexRoute: typeof AuthenticatedRehabilitationFormsIndexRoute
   AuthenticatedStaffIndexRoute: typeof AuthenticatedStaffIndexRoute
@@ -1150,6 +1192,8 @@ const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
     AuthenticatedExercisePackagesIndexRoute,
   AuthenticatedExercisesIndexRoute: AuthenticatedExercisesIndexRoute,
   AuthenticatedHelpCenterIndexRoute: AuthenticatedHelpCenterIndexRoute,
+  AuthenticatedMyPatientsIndexRoute: AuthenticatedMyPatientsIndexRoute,
+  AuthenticatedMyTrainersIndexRoute: AuthenticatedMyTrainersIndexRoute,
   AuthenticatedNewsIndexRoute: AuthenticatedNewsIndexRoute,
   AuthenticatedRehabilitationFormsIndexRoute:
     AuthenticatedRehabilitationFormsIndexRoute,

@@ -8,7 +8,8 @@ import { pagedModelSchema } from "../pagedModelSchema.ts";
 import { z } from "zod/v4";
 
 export const getMyTrainersQueryParamsSchema = z.object({
-    get "pageable"(){
+    "query": z.optional(z.string().describe("Search by fullName or email (case-insensitive)")),
+get "pageable"(){
                 return pageableSchema
               }
     })

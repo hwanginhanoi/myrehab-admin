@@ -7,4 +7,5 @@ export type { Register200, RegisterMutationRequest, RegisterMutationResponse, Re
 export type { RequestPinReset200, RequestPinResetMutationRequest, RequestPinResetMutationResponse, RequestPinResetMutation } from "./RequestPinReset.ts";
 export type { ResetPin200, ResetPinMutationRequest, ResetPinMutationResponse, ResetPinMutation } from "./ResetPin.ts";
 export type { SendRegistrationOtp200, SendRegistrationOtpMutationRequest, SendRegistrationOtpMutationResponse, SendRegistrationOtpMutation } from "./SendRegistrationOtp.ts";
+export type { VerifyPinResetOtp200, VerifyPinResetOtpMutationRequest, VerifyPinResetOtpMutationResponse, VerifyPinResetOtpMutation } from "./VerifyPinResetOtp.ts";
 export type { VerifyRegistrationOtp200, VerifyRegistrationOtpMutationRequest, VerifyRegistrationOtpMutationResponse, VerifyRegistrationOtpMutation } from "./VerifyRegistrationOtp.ts";
