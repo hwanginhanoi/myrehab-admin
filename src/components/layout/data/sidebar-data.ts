@@ -118,13 +118,13 @@ export const sidebarData: SidebarData = {
       title: 'Quản trị người dùng',
       items: [
         {
-          title: 'Staff',
+          title: 'Quản trị nhân viên',
           url: '/staff',
           icon: UserCog,
           requiredPermission: 'staff:view',
         },
         {
-          title: 'Users',
+          title: 'Quản trị người dùng',
           url: '/users',
           icon: Users,
           requiredPermission: 'users:view',

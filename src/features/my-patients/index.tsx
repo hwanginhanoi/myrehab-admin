@@ -2,7 +2,7 @@ import { useMemo } from 'react'
 import { getRouteApi } from '@tanstack/react-router'
 import { Header } from '@/components/layout/header'
 import { Main } from '@/components/layout/main'
-import { useGetMyAssignedPatients, type DoctorPatientResponse, type GetMyAssignedPatientsQueryParams } from '@/api'
+import { useGetMyPatients, type DoctorPatientResponse, type GetMyPatientsQueryParams } from '@/api'
 import { MyPatientsProvider, useMyPatients } from './components/my-patients-provider'
 import { MyPatientsTable } from './components/my-patients-table'
 import { PatientPreviewDialog } from './components/patient-preview-dialog'
@@ -18,7 +18,7 @@ function MyPatientsContent() {
   const pageSize = search.pageSize ?? 10
   const query = search.query?.trim()
 
-  const queryParams = useMemo<GetMyAssignedPatientsQueryParams>(
+  const queryParams = useMemo<GetMyPatientsQueryParams>(
     () => ({
       pageable: {
         page,
@@ -29,7 +29,7 @@ function MyPatientsContent() {
     [page, pageSize, query]
   )
 
-  const { data, isLoading } = useGetMyAssignedPatients(queryParams, {
+  const { data, isLoading } = useGetMyPatients(queryParams, {
     query: {
       placeholderData: (previousData) => previousData,
     },

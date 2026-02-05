@@ -113,8 +113,6 @@ export type { GetMyTransactionHistoryQueryKey } from "./hooks/TransactionsHooks/
 export type { GetMyTransactionHistorySuspenseQueryKey } from "./hooks/TransactionsHooks/useGetMyTransactionHistorySuspense.ts";
 export type { GetAllUsersQueryKey } from "./hooks/UserManagementHooks/useGetAllUsers.ts";
 export type { GetAllUsersSuspenseQueryKey } from "./hooks/UserManagementHooks/useGetAllUsersSuspense.ts";
-export type { GetMyAssignedPatientsQueryKey } from "./hooks/UserManagementHooks/useGetMyAssignedPatients.ts";
-export type { GetMyAssignedPatientsSuspenseQueryKey } from "./hooks/UserManagementHooks/useGetMyAssignedPatientsSuspense.ts";
 export type { GetUserByIdQueryKey } from "./hooks/UserManagementHooks/useGetUserById.ts";
 export type { GetUserByIdSuspenseQueryKey } from "./hooks/UserManagementHooks/useGetUserByIdSuspense.ts";
 export type { AddBalanceRequest } from "./types/AddBalanceRequest.ts";
@@ -264,7 +262,6 @@ export type { UpdateTrainerRequestStaffTypeEnumKey, UpdateTrainerRequest } from 
 export type { UserAuthResponse } from "./types/UserAuthResponse.ts";
 export type { UserCourseAssignmentResponse } from "./types/UserCourseAssignmentResponse.ts";
 export type { GetAllUsers200, GetAllUsersQueryResponse, GetAllUsersQuery } from "./types/userManagementController/GetAllUsers.ts";
-export type { GetMyAssignedPatientsQueryParams, GetMyAssignedPatients200, GetMyAssignedPatientsQueryResponse, GetMyAssignedPatientsQuery } from "./types/userManagementController/GetMyAssignedPatients.ts";
 export type { GetUserByIdPathParams, GetUserById200, GetUserByIdQueryResponse, GetUserByIdQuery } from "./types/userManagementController/GetUserById.ts";
 export type { UserResponse } from "./types/UserResponse.ts";
 export type { VerifyPinResetOtpRequest } from "./types/VerifyPinResetOtpRequest.ts";
@@ -730,14 +727,6 @@ export { getAllUsersSuspenseQueryKey } from "./hooks/UserManagementHooks/useGetA
 export { getAllUsersSuspense } from "./hooks/UserManagementHooks/useGetAllUsersSuspense.ts";
 export { getAllUsersSuspenseQueryOptions } from "./hooks/UserManagementHooks/useGetAllUsersSuspense.ts";
 export { useGetAllUsersSuspense } from "./hooks/UserManagementHooks/useGetAllUsersSuspense.ts";
-export { getMyAssignedPatientsQueryKey } from "./hooks/UserManagementHooks/useGetMyAssignedPatients.ts";
-export { getMyAssignedPatients } from "./hooks/UserManagementHooks/useGetMyAssignedPatients.ts";
-export { getMyAssignedPatientsQueryOptions } from "./hooks/UserManagementHooks/useGetMyAssignedPatients.ts";
-export { useGetMyAssignedPatients } from "./hooks/UserManagementHooks/useGetMyAssignedPatients.ts";
-export { getMyAssignedPatientsSuspenseQueryKey } from "./hooks/UserManagementHooks/useGetMyAssignedPatientsSuspense.ts";
-export { getMyAssignedPatientsSuspense } from "./hooks/UserManagementHooks/useGetMyAssignedPatientsSuspense.ts";
-export { getMyAssignedPatientsSuspenseQueryOptions } from "./hooks/UserManagementHooks/useGetMyAssignedPatientsSuspense.ts";
-export { useGetMyAssignedPatientsSuspense } from "./hooks/UserManagementHooks/useGetMyAssignedPatientsSuspense.ts";
 export { getUserByIdQueryKey } from "./hooks/UserManagementHooks/useGetUserById.ts";
 export { getUserById } from "./hooks/UserManagementHooks/useGetUserById.ts";
 export { getUserByIdQueryOptions } from "./hooks/UserManagementHooks/useGetUserById.ts";
@@ -910,7 +899,6 @@ export { updateTrainerRequestSchema } from "./zod/updateTrainerRequestSchema.ts"
 export { userAuthResponseSchema } from "./zod/userAuthResponseSchema.ts";
 export { userCourseAssignmentResponseSchema } from "./zod/userCourseAssignmentResponseSchema.ts";
 export { getAllUsers200Schema, getAllUsersQueryResponseSchema } from "./zod/userManagementController/getAllUsersSchema.ts";
-export { getMyAssignedPatientsQueryParamsSchema, getMyAssignedPatients200Schema, getMyAssignedPatientsQueryResponseSchema } from "./zod/userManagementController/getMyAssignedPatientsSchema.ts";
 export { getUserByIdPathParamsSchema, getUserById200Schema, getUserByIdQueryResponseSchema } from "./zod/userManagementController/getUserByIdSchema.ts";
 export { userResponseSchema } from "./zod/userResponseSchema.ts";
 export { verifyPinResetOtpRequestSchema } from "./zod/verifyPinResetOtpRequestSchema.ts";

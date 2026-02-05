@@ -113,8 +113,6 @@ export type { GetMyTransactionHistoryQueryKey } from "./TransactionsHooks/useGet
 export type { GetMyTransactionHistorySuspenseQueryKey } from "./TransactionsHooks/useGetMyTransactionHistorySuspense.ts";
 export type { GetAllUsersQueryKey } from "./UserManagementHooks/useGetAllUsers.ts";
 export type { GetAllUsersSuspenseQueryKey } from "./UserManagementHooks/useGetAllUsersSuspense.ts";
-export type { GetMyAssignedPatientsQueryKey } from "./UserManagementHooks/useGetMyAssignedPatients.ts";
-export type { GetMyAssignedPatientsSuspenseQueryKey } from "./UserManagementHooks/useGetMyAssignedPatientsSuspense.ts";
 export type { GetUserByIdQueryKey } from "./UserManagementHooks/useGetUserById.ts";
 export type { GetUserByIdSuspenseQueryKey } from "./UserManagementHooks/useGetUserByIdSuspense.ts";
 export { checkPhoneMutationKey } from "./AuthenticationHooks/useCheckPhone.ts";
@@ -577,14 +575,6 @@ export { getAllUsersSuspenseQueryKey } from "./UserManagementHooks/useGetAllUser
 export { getAllUsersSuspense } from "./UserManagementHooks/useGetAllUsersSuspense.ts";
 export { getAllUsersSuspenseQueryOptions } from "./UserManagementHooks/useGetAllUsersSuspense.ts";
 export { useGetAllUsersSuspense } from "./UserManagementHooks/useGetAllUsersSuspense.ts";
-export { getMyAssignedPatientsQueryKey } from "./UserManagementHooks/useGetMyAssignedPatients.ts";
-export { getMyAssignedPatients } from "./UserManagementHooks/useGetMyAssignedPatients.ts";
-export { getMyAssignedPatientsQueryOptions } from "./UserManagementHooks/useGetMyAssignedPatients.ts";
-export { useGetMyAssignedPatients } from "./UserManagementHooks/useGetMyAssignedPatients.ts";
-export { getMyAssignedPatientsSuspenseQueryKey } from "./UserManagementHooks/useGetMyAssignedPatientsSuspense.ts";
-export { getMyAssignedPatientsSuspense } from "./UserManagementHooks/useGetMyAssignedPatientsSuspense.ts";
-export { getMyAssignedPatientsSuspenseQueryOptions } from "./UserManagementHooks/useGetMyAssignedPatientsSuspense.ts";
-export { useGetMyAssignedPatientsSuspense } from "./UserManagementHooks/useGetMyAssignedPatientsSuspense.ts";
 export { getUserByIdQueryKey } from "./UserManagementHooks/useGetUserById.ts";
 export { getUserById } from "./UserManagementHooks/useGetUserById.ts";
 export { getUserByIdQueryOptions } from "./UserManagementHooks/useGetUserById.ts";

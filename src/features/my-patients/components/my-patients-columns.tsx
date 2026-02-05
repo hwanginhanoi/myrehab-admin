@@ -1,44 +1,62 @@
 import { type ColumnDef } from '@tanstack/react-table'
 import { format } from 'date-fns'
-import { type DoctorPatientResponse } from '@/api'
+import { type UserResponse } from '@/api'
 import { DataTableColumnHeader } from '@/components/data-table'
 import { MyPatientsTableRowActions } from './my-patients-table-row-actions'
 
-export const myPatientsColumns: ColumnDef<DoctorPatientResponse>[] = [
+export const myPatientsColumns: ColumnDef<UserResponse>[] = [
   {
-    accessorKey: 'userPhoneNumber',
+    accessorKey: 'fullName',
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title='Số điện thoại' />
+      <DataTableColumnHeader column={column} title='Họ và tên' />
     ),
     cell: ({ row }) => (
-      <div className='font-medium'>{row.getValue('userPhoneNumber') || '-'}</div>
+      <div className='font-medium'>{row.getValue('fullName') || '-'}</div>
     ),
     enableHiding: false,
   },
   {
-    accessorKey: 'assignedAt',
+    accessorKey: 'gender',
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title='Ngày gán' />
+      <DataTableColumnHeader column={column} title='Giới tính' />
     ),
     cell: ({ row }) => {
-      const assignedAt = row.getValue('assignedAt') as string | undefined
+      const gender = row.getValue('gender') as string | undefined
+      const displayGender = gender === 'MALE' ? 'Nam' : gender === 'FEMALE' ? 'Nữ' : gender || '-'
+      return <div>{displayGender}</div>
+    },
+  },
+  {
+    accessorKey: 'dateOfBirth',
+    header: ({ column }) => (
+      <DataTableColumnHeader column={column} title='Ngày sinh' />
+    ),
+    cell: ({ row }) => {
+      const dateOfBirth = row.getValue('dateOfBirth') as string | undefined
       return (
         <div>
-          {assignedAt ? format(new Date(assignedAt), 'dd/MM/yyyy HH:mm') : '-'}
+          {dateOfBirth ? format(new Date(dateOfBirth), 'dd/MM/yyyy') : '-'}
         </div>
       )
     },
   },
   {
-    accessorKey: 'notes',
+    accessorKey: 'phoneNumber',
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title='Ghi chú' />
+      <DataTableColumnHeader column={column} title='Số điện thoại' />
+    ),
+    cell: ({ row }) => <div>{row.getValue('phoneNumber') || '-'}</div>,
+  },
+  {
+    accessorKey: 'assignedAt',
+    header: ({ column }) => (
+      <DataTableColumnHeader column={column} title='Ngày gắn' />
     ),
     cell: ({ row }) => {
-      const notes = row.getValue('notes') as string | undefined
+      const dateOfBirth = row.getValue('assignedAt') as string | undefined
       return (
-        <div className='max-w-[300px] truncate' title={notes}>
-          {notes || '-'}
+        <div>
+          {dateOfBirth ? format(new Date(dateOfBirth), 'dd/MM/yyyy') : '-'}
         </div>
       )
     },
