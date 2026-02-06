@@ -6,7 +6,6 @@ export type { EnableStaffPathParams, EnableStaff200, EnableStaffMutationResponse
 export type { GetAllStaffQueryParamsStaffTypeEnumKey, GetAllStaffQueryParams, GetAllStaff200, GetAllStaffQueryResponse, GetAllStaffQuery } from "./GetAllStaff.ts";
 export type { GetAvailableTrainersForDoctorPathParams, GetAvailableTrainersForDoctorQueryParams, GetAvailableTrainersForDoctor200, GetAvailableTrainersForDoctorQueryResponse, GetAvailableTrainersForDoctorQuery } from "./GetAvailableTrainersForDoctor.ts";
 export type { GetExerciseGroupsByDoctorPathParams, GetExerciseGroupsByDoctor200, GetExerciseGroupsByDoctorQueryResponse, GetExerciseGroupsByDoctorQuery } from "./GetExerciseGroupsByDoctor.ts";
-export type { GetMyTrainers1QueryParams, GetMyTrainers1200, GetMyTrainers1QueryResponse, GetMyTrainers1Query } from "./GetMyTrainers1.ts";
 export type { GetStaffByIdPathParams, GetStaffById200, GetStaffByIdQueryResponse, GetStaffByIdQuery } from "./GetStaffById.ts";
 export type { GetTrainersByDoctorPathParams, GetTrainersByDoctorQueryParams, GetTrainersByDoctor200, GetTrainersByDoctorQueryResponse, GetTrainersByDoctorQuery } from "./GetTrainersByDoctor.ts";
 export type { RemoveExerciseGroupFromDoctorPathParams, RemoveExerciseGroupFromDoctor200, RemoveExerciseGroupFromDoctorMutationResponse, RemoveExerciseGroupFromDoctorMutation } from "./RemoveExerciseGroupFromDoctor.ts";

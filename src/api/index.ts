@@ -92,8 +92,6 @@ export type { GetAvailableTrainersForDoctorQueryKey } from "./hooks/Staff Manage
 export type { GetAvailableTrainersForDoctorSuspenseQueryKey } from "./hooks/Staff ManagementHooks/useGetAvailableTrainersForDoctorSuspense.ts";
 export type { GetExerciseGroupsByDoctorQueryKey } from "./hooks/Staff ManagementHooks/useGetExerciseGroupsByDoctor.ts";
 export type { GetExerciseGroupsByDoctorSuspenseQueryKey } from "./hooks/Staff ManagementHooks/useGetExerciseGroupsByDoctorSuspense.ts";
-export type { GetMyTrainers1QueryKey } from "./hooks/Staff ManagementHooks/useGetMyTrainers1.ts";
-export type { GetMyTrainers1SuspenseQueryKey } from "./hooks/Staff ManagementHooks/useGetMyTrainers1Suspense.ts";
 export type { GetStaffByIdQueryKey } from "./hooks/Staff ManagementHooks/useGetStaffById.ts";
 export type { GetStaffByIdSuspenseQueryKey } from "./hooks/Staff ManagementHooks/useGetStaffByIdSuspense.ts";
 export type { GetTrainersByDoctorQueryKey } from "./hooks/Staff ManagementHooks/useGetTrainersByDoctor.ts";
@@ -233,7 +231,6 @@ export type { EnableStaffPathParams, EnableStaff200, EnableStaffMutationResponse
 export type { GetAllStaffQueryParamsStaffTypeEnumKey, GetAllStaffQueryParams, GetAllStaff200, GetAllStaffQueryResponse, GetAllStaffQuery } from "./types/staffManagementController/GetAllStaff.ts";
 export type { GetAvailableTrainersForDoctorPathParams, GetAvailableTrainersForDoctorQueryParams, GetAvailableTrainersForDoctor200, GetAvailableTrainersForDoctorQueryResponse, GetAvailableTrainersForDoctorQuery } from "./types/staffManagementController/GetAvailableTrainersForDoctor.ts";
 export type { GetExerciseGroupsByDoctorPathParams, GetExerciseGroupsByDoctor200, GetExerciseGroupsByDoctorQueryResponse, GetExerciseGroupsByDoctorQuery } from "./types/staffManagementController/GetExerciseGroupsByDoctor.ts";
-export type { GetMyTrainers1QueryParams, GetMyTrainers1200, GetMyTrainers1QueryResponse, GetMyTrainers1Query } from "./types/staffManagementController/GetMyTrainers1.ts";
 export type { GetStaffByIdPathParams, GetStaffById200, GetStaffByIdQueryResponse, GetStaffByIdQuery } from "./types/staffManagementController/GetStaffById.ts";
 export type { GetTrainersByDoctorPathParams, GetTrainersByDoctorQueryParams, GetTrainersByDoctor200, GetTrainersByDoctorQueryResponse, GetTrainersByDoctorQuery } from "./types/staffManagementController/GetTrainersByDoctor.ts";
 export type { RemoveExerciseGroupFromDoctorPathParams, RemoveExerciseGroupFromDoctor200, RemoveExerciseGroupFromDoctorMutationResponse, RemoveExerciseGroupFromDoctorMutation } from "./types/staffManagementController/RemoveExerciseGroupFromDoctor.ts";
@@ -643,14 +640,6 @@ export { getExerciseGroupsByDoctorSuspenseQueryKey } from "./hooks/Staff Managem
 export { getExerciseGroupsByDoctorSuspense } from "./hooks/Staff ManagementHooks/useGetExerciseGroupsByDoctorSuspense.ts";
 export { getExerciseGroupsByDoctorSuspenseQueryOptions } from "./hooks/Staff ManagementHooks/useGetExerciseGroupsByDoctorSuspense.ts";
 export { useGetExerciseGroupsByDoctorSuspense } from "./hooks/Staff ManagementHooks/useGetExerciseGroupsByDoctorSuspense.ts";
-export { getMyTrainers1QueryKey } from "./hooks/Staff ManagementHooks/useGetMyTrainers1.ts";
-export { getMyTrainers1 } from "./hooks/Staff ManagementHooks/useGetMyTrainers1.ts";
-export { getMyTrainers1QueryOptions } from "./hooks/Staff ManagementHooks/useGetMyTrainers1.ts";
-export { useGetMyTrainers1 } from "./hooks/Staff ManagementHooks/useGetMyTrainers1.ts";
-export { getMyTrainers1SuspenseQueryKey } from "./hooks/Staff ManagementHooks/useGetMyTrainers1Suspense.ts";
-export { getMyTrainers1Suspense } from "./hooks/Staff ManagementHooks/useGetMyTrainers1Suspense.ts";
-export { getMyTrainers1SuspenseQueryOptions } from "./hooks/Staff ManagementHooks/useGetMyTrainers1Suspense.ts";
-export { useGetMyTrainers1Suspense } from "./hooks/Staff ManagementHooks/useGetMyTrainers1Suspense.ts";
 export { getStaffByIdQueryKey } from "./hooks/Staff ManagementHooks/useGetStaffById.ts";
 export { getStaffById } from "./hooks/Staff ManagementHooks/useGetStaffById.ts";
 export { getStaffByIdQueryOptions } from "./hooks/Staff ManagementHooks/useGetStaffById.ts";
@@ -870,7 +859,6 @@ export { enableStaffPathParamsSchema, enableStaff200Schema, enableStaffMutationR
 export { getAllStaffQueryParamsSchema, getAllStaff200Schema, getAllStaffQueryResponseSchema } from "./zod/staffManagementController/getAllStaffSchema.ts";
 export { getAvailableTrainersForDoctorPathParamsSchema, getAvailableTrainersForDoctorQueryParamsSchema, getAvailableTrainersForDoctor200Schema, getAvailableTrainersForDoctorQueryResponseSchema } from "./zod/staffManagementController/getAvailableTrainersForDoctorSchema.ts";
 export { getExerciseGroupsByDoctorPathParamsSchema, getExerciseGroupsByDoctor200Schema, getExerciseGroupsByDoctorQueryResponseSchema } from "./zod/staffManagementController/getExerciseGroupsByDoctorSchema.ts";
-export { getMyTrainers1QueryParamsSchema, getMyTrainers1200Schema, getMyTrainers1QueryResponseSchema } from "./zod/staffManagementController/getMyTrainers1Schema.ts";
 export { getStaffByIdPathParamsSchema, getStaffById200Schema, getStaffByIdQueryResponseSchema } from "./zod/staffManagementController/getStaffByIdSchema.ts";
 export { getTrainersByDoctorPathParamsSchema, getTrainersByDoctorQueryParamsSchema, getTrainersByDoctor200Schema, getTrainersByDoctorQueryResponseSchema } from "./zod/staffManagementController/getTrainersByDoctorSchema.ts";
 export { removeExerciseGroupFromDoctorPathParamsSchema, removeExerciseGroupFromDoctor200Schema, removeExerciseGroupFromDoctorMutationResponseSchema } from "./zod/staffManagementController/removeExerciseGroupFromDoctorSchema.ts";

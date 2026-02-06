@@ -92,8 +92,6 @@ export type { GetAvailableTrainersForDoctorQueryKey } from "./Staff ManagementHo
 export type { GetAvailableTrainersForDoctorSuspenseQueryKey } from "./Staff ManagementHooks/useGetAvailableTrainersForDoctorSuspense.ts";
 export type { GetExerciseGroupsByDoctorQueryKey } from "./Staff ManagementHooks/useGetExerciseGroupsByDoctor.ts";
 export type { GetExerciseGroupsByDoctorSuspenseQueryKey } from "./Staff ManagementHooks/useGetExerciseGroupsByDoctorSuspense.ts";
-export type { GetMyTrainers1QueryKey } from "./Staff ManagementHooks/useGetMyTrainers1.ts";
-export type { GetMyTrainers1SuspenseQueryKey } from "./Staff ManagementHooks/useGetMyTrainers1Suspense.ts";
 export type { GetStaffByIdQueryKey } from "./Staff ManagementHooks/useGetStaffById.ts";
 export type { GetStaffByIdSuspenseQueryKey } from "./Staff ManagementHooks/useGetStaffByIdSuspense.ts";
 export type { GetTrainersByDoctorQueryKey } from "./Staff ManagementHooks/useGetTrainersByDoctor.ts";
@@ -491,14 +489,6 @@ export { getExerciseGroupsByDoctorSuspenseQueryKey } from "./Staff ManagementHoo
 export { getExerciseGroupsByDoctorSuspense } from "./Staff ManagementHooks/useGetExerciseGroupsByDoctorSuspense.ts";
 export { getExerciseGroupsByDoctorSuspenseQueryOptions } from "./Staff ManagementHooks/useGetExerciseGroupsByDoctorSuspense.ts";
 export { useGetExerciseGroupsByDoctorSuspense } from "./Staff ManagementHooks/useGetExerciseGroupsByDoctorSuspense.ts";
-export { getMyTrainers1QueryKey } from "./Staff ManagementHooks/useGetMyTrainers1.ts";
-export { getMyTrainers1 } from "./Staff ManagementHooks/useGetMyTrainers1.ts";
-export { getMyTrainers1QueryOptions } from "./Staff ManagementHooks/useGetMyTrainers1.ts";
-export { useGetMyTrainers1 } from "./Staff ManagementHooks/useGetMyTrainers1.ts";
-export { getMyTrainers1SuspenseQueryKey } from "./Staff ManagementHooks/useGetMyTrainers1Suspense.ts";
-export { getMyTrainers1Suspense } from "./Staff ManagementHooks/useGetMyTrainers1Suspense.ts";
-export { getMyTrainers1SuspenseQueryOptions } from "./Staff ManagementHooks/useGetMyTrainers1Suspense.ts";
-export { useGetMyTrainers1Suspense } from "./Staff ManagementHooks/useGetMyTrainers1Suspense.ts";
 export { getStaffByIdQueryKey } from "./Staff ManagementHooks/useGetStaffById.ts";
 export { getStaffById } from "./Staff ManagementHooks/useGetStaffById.ts";
 export { getStaffByIdQueryOptions } from "./Staff ManagementHooks/useGetStaffById.ts";

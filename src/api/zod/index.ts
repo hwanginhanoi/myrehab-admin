@@ -116,7 +116,6 @@ export { enableStaffPathParamsSchema, enableStaff200Schema, enableStaffMutationR
 export { getAllStaffQueryParamsSchema, getAllStaff200Schema, getAllStaffQueryResponseSchema } from "./staffManagementController/getAllStaffSchema.ts";
 export { getAvailableTrainersForDoctorPathParamsSchema, getAvailableTrainersForDoctorQueryParamsSchema, getAvailableTrainersForDoctor200Schema, getAvailableTrainersForDoctorQueryResponseSchema } from "./staffManagementController/getAvailableTrainersForDoctorSchema.ts";
 export { getExerciseGroupsByDoctorPathParamsSchema, getExerciseGroupsByDoctor200Schema, getExerciseGroupsByDoctorQueryResponseSchema } from "./staffManagementController/getExerciseGroupsByDoctorSchema.ts";
-export { getMyTrainers1QueryParamsSchema, getMyTrainers1200Schema, getMyTrainers1QueryResponseSchema } from "./staffManagementController/getMyTrainers1Schema.ts";
 export { getStaffByIdPathParamsSchema, getStaffById200Schema, getStaffByIdQueryResponseSchema } from "./staffManagementController/getStaffByIdSchema.ts";
 export { getTrainersByDoctorPathParamsSchema, getTrainersByDoctorQueryParamsSchema, getTrainersByDoctor200Schema, getTrainersByDoctorQueryResponseSchema } from "./staffManagementController/getTrainersByDoctorSchema.ts";
 export { removeExerciseGroupFromDoctorPathParamsSchema, removeExerciseGroupFromDoctor200Schema, removeExerciseGroupFromDoctorMutationResponseSchema } from "./staffManagementController/removeExerciseGroupFromDoctorSchema.ts";

@@ -33,7 +33,7 @@ export function TrainerRemovalDialog({
     mutation: {
       onSuccess: () => {
         queryClient.invalidateQueries({
-          queryKey: [{ url: `/api/admin/doctors/${doctorId}/trainers` }],
+          queryKey: [{ url: '/api/admin/staff/doctors/:doctorId/trainers', params: { doctorId } }],
         })
         toast.success('Đã xóa huấn luyện viên khỏi bác sĩ')
         onOpenChange(false)

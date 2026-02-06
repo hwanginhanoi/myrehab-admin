@@ -9,8 +9,6 @@ export type { GetAvailableTrainersForDoctorQueryKey } from "./useGetAvailableTra
 export type { GetAvailableTrainersForDoctorSuspenseQueryKey } from "./useGetAvailableTrainersForDoctorSuspense.ts";
 export type { GetExerciseGroupsByDoctorQueryKey } from "./useGetExerciseGroupsByDoctor.ts";
 export type { GetExerciseGroupsByDoctorSuspenseQueryKey } from "./useGetExerciseGroupsByDoctorSuspense.ts";
-export type { GetMyTrainers1QueryKey } from "./useGetMyTrainers1.ts";
-export type { GetMyTrainers1SuspenseQueryKey } from "./useGetMyTrainers1Suspense.ts";
 export type { GetStaffByIdQueryKey } from "./useGetStaffById.ts";
 export type { GetStaffByIdSuspenseQueryKey } from "./useGetStaffByIdSuspense.ts";
 export type { GetTrainersByDoctorQueryKey } from "./useGetTrainersByDoctor.ts";
@@ -62,14 +60,6 @@ export { getExerciseGroupsByDoctorSuspenseQueryKey } from "./useGetExerciseGroup
 export { getExerciseGroupsByDoctorSuspense } from "./useGetExerciseGroupsByDoctorSuspense.ts";
 export { getExerciseGroupsByDoctorSuspenseQueryOptions } from "./useGetExerciseGroupsByDoctorSuspense.ts";
 export { useGetExerciseGroupsByDoctorSuspense } from "./useGetExerciseGroupsByDoctorSuspense.ts";
-export { getMyTrainers1QueryKey } from "./useGetMyTrainers1.ts";
-export { getMyTrainers1 } from "./useGetMyTrainers1.ts";
-export { getMyTrainers1QueryOptions } from "./useGetMyTrainers1.ts";
-export { useGetMyTrainers1 } from "./useGetMyTrainers1.ts";
-export { getMyTrainers1SuspenseQueryKey } from "./useGetMyTrainers1Suspense.ts";
-export { getMyTrainers1Suspense } from "./useGetMyTrainers1Suspense.ts";
-export { getMyTrainers1SuspenseQueryOptions } from "./useGetMyTrainers1Suspense.ts";
-export { useGetMyTrainers1Suspense } from "./useGetMyTrainers1Suspense.ts";
 export { getStaffByIdQueryKey } from "./useGetStaffById.ts";
 export { getStaffById } from "./useGetStaffById.ts";
 export { getStaffByIdQueryOptions } from "./useGetStaffById.ts";
