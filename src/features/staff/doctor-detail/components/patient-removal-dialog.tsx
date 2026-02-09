@@ -33,7 +33,7 @@ export function PatientRemovalDialog({
     mutation: {
       onSuccess: () => {
         queryClient.invalidateQueries({
-          queryKey: [{ url: `/api/admin/doctors/${doctorId}/patients` }],
+          queryKey: [{ url: '/api/admin/doctors/:doctorId/patients', params: { doctorId } }],
         })
         toast.success('Đã xóa bệnh nhân khỏi bác sĩ')
         onOpenChange(false)

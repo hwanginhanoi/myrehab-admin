@@ -6,7 +6,6 @@
 import { z } from "zod/v4";
 
 export const resetPinRequestSchema = z.object({
-    "phoneNumber": z.string().regex(/^\+?[1-9]\d{1,14}$/),
-"otp": z.string().regex(/^\d{6}$/),
+    "verificationToken": z.string().regex(/^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$/),
 "newPin": z.string().regex(/^\d{6}$/)
     })

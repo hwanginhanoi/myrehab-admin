@@ -16,6 +16,11 @@ export type GetTrainersByDoctorPathParams = {
 
 export type GetTrainersByDoctorQueryParams = {
     /**
+     * @description Search by fullName or email (case-insensitive)
+     * @type string | undefined
+    */
+    query?: string;
+    /**
      * @type object
     */
     pageable: Pageable;

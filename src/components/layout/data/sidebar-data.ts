@@ -16,6 +16,7 @@ import {
   UserCog,
   UserX,
   Users,
+  UserRound,
   MessagesSquare,
   ShieldCheck,
   FolderTree,
@@ -42,6 +43,21 @@ export const sidebarData: SidebarData = {
     },
   ],
   navGroups: [
+    {
+      title: 'Quản trị của tôi',
+      items: [
+        {
+          title: 'Kỹ thuật viên của tôi',
+          url: '/my-trainers',
+          icon: Users,
+        },
+        {
+          title: 'Bệnh nhân của tôi',
+          url: '/my-patients',
+          icon: UserRound,
+        },
+      ],
+    },
     {
       title: 'Quản trị hệ thống',
       items: [
@@ -102,13 +118,13 @@ export const sidebarData: SidebarData = {
       title: 'Quản trị người dùng',
       items: [
         {
-          title: 'Staff',
+          title: 'Quản trị nhân viên',
           url: '/staff',
           icon: UserCog,
           requiredPermission: 'staff:view',
         },
         {
-          title: 'Users',
+          title: 'Quản trị người dùng',
           url: '/users',
           icon: Users,
           requiredPermission: 'users:view',

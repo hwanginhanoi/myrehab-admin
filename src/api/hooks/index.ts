@@ -7,6 +7,7 @@ export type { RegisterMutationKey } from "./AuthenticationHooks/useRegister.ts";
 export type { RequestPinResetMutationKey } from "./AuthenticationHooks/useRequestPinReset.ts";
 export type { ResetPinMutationKey } from "./AuthenticationHooks/useResetPin.ts";
 export type { SendRegistrationOtpMutationKey } from "./AuthenticationHooks/useSendRegistrationOtp.ts";
+export type { VerifyPinResetOtpMutationKey } from "./AuthenticationHooks/useVerifyPinResetOtp.ts";
 export type { VerifyRegistrationOtpMutationKey } from "./AuthenticationHooks/useVerifyRegistrationOtp.ts";
 export type { AddBalanceMutationKey } from "./BalanceHooks/useAddBalance.ts";
 export type { GetMyBalanceQueryKey } from "./BalanceHooks/useGetMyBalance.ts";
@@ -148,6 +149,10 @@ export { sendRegistrationOtpMutationKey } from "./AuthenticationHooks/useSendReg
 export { sendRegistrationOtp } from "./AuthenticationHooks/useSendRegistrationOtp.ts";
 export { sendRegistrationOtpMutationOptions } from "./AuthenticationHooks/useSendRegistrationOtp.ts";
 export { useSendRegistrationOtp } from "./AuthenticationHooks/useSendRegistrationOtp.ts";
+export { verifyPinResetOtpMutationKey } from "./AuthenticationHooks/useVerifyPinResetOtp.ts";
+export { verifyPinResetOtp } from "./AuthenticationHooks/useVerifyPinResetOtp.ts";
+export { verifyPinResetOtpMutationOptions } from "./AuthenticationHooks/useVerifyPinResetOtp.ts";
+export { useVerifyPinResetOtp } from "./AuthenticationHooks/useVerifyPinResetOtp.ts";
 export { verifyRegistrationOtpMutationKey } from "./AuthenticationHooks/useVerifyRegistrationOtp.ts";
 export { verifyRegistrationOtp } from "./AuthenticationHooks/useVerifyRegistrationOtp.ts";
 export { verifyRegistrationOtpMutationOptions } from "./AuthenticationHooks/useVerifyRegistrationOtp.ts";

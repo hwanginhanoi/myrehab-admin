@@ -8,6 +8,11 @@ import type { PagedModel } from "../PagedModel.ts";
 
 export type GetMyTrainersQueryParams = {
     /**
+     * @description Search by fullName or email (case-insensitive)
+     * @type string | undefined
+    */
+    query?: string;
+    /**
      * @type object
     */
     pageable: Pageable;

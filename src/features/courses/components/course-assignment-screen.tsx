@@ -9,8 +9,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { toast } from 'sonner'
-import { useAssignCourseToPatient } from '@/api'
-import type { UserResponse } from '@/api'
+import { useAssignCourseToPatient, type UserResponse } from '@/api'
 import { CourseCustomizationSection } from './course-customization-section'
 
 // Types
@@ -379,35 +378,12 @@ export function CourseAssignmentScreen({ preSelectedPatientId }: CourseAssignmen
 
     if (!state.selectedPatient) return
 
-    // Generate course summary with exercises
-    const courseSummary = Array.from(state.customizedDays.entries())
-      .map(([dayNum, day]) => {
-        const exercises = day.exercises
-          .map((ex) => {
-            let line = `- ${ex.exerciseTitle}`
-            if (ex.customRepetitions) line += ` (${ex.customRepetitions} lần lặp)`
-            if (ex.customSets) line += ` (${ex.customSets} set)`
-            return line
-          })
-          .join('\n')
-        return `Ngày ${dayNum}:\n${exercises}`
-      })
-      .join('\n\n')
-
-    const finalNotes = `Khóa học: ${state.courseName}\n${state.courseDescription ? `Mô tả: ${state.courseDescription}\n` : ''}Số ngày: ${state.customizedDays.size}\n\n${state.notes ? `Ghi chú:\n${state.notes}\n\n` : ''}Chi tiết bài tập:\n${courseSummary}`
 
     // Note: Since there's no pre-existing course, we need to handle this differently
     // For now, we'll just save in notes. In the future, create a new API endpoint for creating courses from scratch
     toast.info('Chức năng đang được phát triển. Hiện tại chỉ lưu thông tin vào ghi chú.')
 
-    // TODO: Replace with proper API call when backend supports creating courses from scratch
-    console.log('Course data:', {
-      patientId: state.selectedPatient.id,
-      courseName: state.courseName,
-      numberOfDays: state.numberOfDays,
-      days: state.customizedDays,
-      notes: state.notes,
-    })
+    // TODO: Replace with proper API call when backend supports creating courses from scratc
   }
 
   const handleCancel = () => {
@@ -470,7 +446,7 @@ export function CourseAssignmentScreen({ preSelectedPatientId }: CourseAssignmen
                   <>
                     Tạo khóa học cho bệnh nhân ID:{' '}
                     <span className='font-medium text-foreground'>
-                      #{state.selectedPatient.id}
+                      #{state.selectedPatient.fullName}
                     </span>
                   </>
                 ) : (

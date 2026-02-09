@@ -62,7 +62,7 @@ export function TrainerAssignmentDialog({
     mutation: {
       onSuccess: () => {
         queryClient.invalidateQueries({
-          queryKey: [{ url: `/api/admin/doctors/${doctorId}/trainers` }],
+          queryKey: [{ url: '/api/admin/staff/doctors/:doctorId/trainers', params: { doctorId } }],
         });
         toast.success("Đã gán huấn luyện viên thành công");
         handleClose();

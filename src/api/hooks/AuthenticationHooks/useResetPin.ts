@@ -14,7 +14,7 @@ export const resetPinMutationKey = () => [{ url: '/api/auth/user/reset-pin' }] a
 export type ResetPinMutationKey = ReturnType<typeof resetPinMutationKey>
 
 /**
- * @description Reset PIN with OTP verification. All refresh tokens will be revoked for security.
+ * @description Reset PIN with verification token. All refresh tokens will be revoked for security.
  * @summary Reset user PIN
  * {@link /api/auth/user/reset-pin}
  */
@@ -38,7 +38,7 @@ export function resetPinMutationOptions(config: Partial<RequestConfig<ResetPinMu
 }
 
 /**
- * @description Reset PIN with OTP verification. All refresh tokens will be revoked for security.
+ * @description Reset PIN with verification token. All refresh tokens will be revoked for security.
  * @summary Reset user PIN
  * {@link /api/auth/user/reset-pin}
  */
