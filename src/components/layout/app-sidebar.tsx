@@ -47,6 +47,9 @@ export function AppSidebar() {
       .map((group) => ({
         ...group,
         items: group.items.filter((item) => {
+          if (item.allowedRoles) {
+            return userType ? item.allowedRoles.includes(userType) : false
+          }
           if (item.requiredPermission) {
             return hasPermission(item.requiredPermission)
           }

@@ -121,13 +121,13 @@ export const sidebarData: SidebarData = {
           title: 'Quản trị nhân viên',
           url: '/staff',
           icon: UserCog,
-          requiredPermission: 'staff:view',
+          allowedRoles: ['ADMIN', 'SUPER_ADMIN'],
         },
         {
           title: 'Quản trị người dùng',
           url: '/users',
           icon: Users,
-          requiredPermission: 'users:view',
+          allowedRoles: ['ADMIN', 'SUPER_ADMIN'],
         },
       ]
     },

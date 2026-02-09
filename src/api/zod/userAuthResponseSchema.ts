@@ -11,5 +11,6 @@ export const userAuthResponseSchema = z.object({
 "tokenType": z.optional(z.string()),
 "expiresIn": z.optional(z.int()),
 "userId": z.optional(z.int()),
-"phoneNumber": z.optional(z.string())
+"phoneNumber": z.optional(z.string()),
+"fullName": z.optional(z.string())
     })
