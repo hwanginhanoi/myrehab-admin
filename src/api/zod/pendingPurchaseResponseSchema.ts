@@ -14,6 +14,6 @@ export const pendingPurchaseResponseSchema = z.object({
 "assignedByDoctorName": z.optional(z.string()),
 "assignedAt": z.optional(z.string().datetime()),
 "notes": z.optional(z.string()),
-"monthlyPrice": z.optional(z.number()),
-"yearlyPrice": z.optional(z.number())
+"monthlyPrice": z.optional(z.int()),
+"yearlyPrice": z.optional(z.int())
     })

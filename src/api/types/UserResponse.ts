@@ -18,7 +18,7 @@ export type UserResponse = {
     */
     gender?: string;
     /**
-     * @type string | undefined, date
+     * @type string | undefined
     */
     dateOfBirth?: string;
     /**

@@ -10,7 +10,7 @@ export type AddBalanceRequest = {
     */
     userId: number;
     /**
-     * @type number
+     * @type integer, int64
     */
     amount: number;
     /**

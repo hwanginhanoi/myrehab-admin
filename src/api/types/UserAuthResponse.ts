@@ -29,4 +29,8 @@ export type UserAuthResponse = {
      * @type string | undefined
     */
     phoneNumber?: string;
+    /**
+     * @type string | undefined
+    */
+    fullName?: string;
 };

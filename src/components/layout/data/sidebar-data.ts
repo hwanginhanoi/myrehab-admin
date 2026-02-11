@@ -25,6 +25,7 @@ import {
   Newspaper,
   ClipboardList,
   Image,
+  Receipt,
 } from 'lucide-react'
 import { Logo } from '@/assets/logo'
 import { type SidebarData } from '../types'
@@ -44,6 +45,21 @@ export const sidebarData: SidebarData = {
   ],
   navGroups: [
     {
+      title: 'Tổng quan',
+      items: [
+        {
+          title: 'Trang chủ',
+          url: '/',
+          icon: LayoutDashboard,
+        },
+        {
+          title: 'Quản trị giao dịch',
+          url: '/transactions',
+          icon: Receipt,
+        },
+      ],
+    },
+    {
       title: 'Quản trị của tôi',
       items: [
         {
@@ -61,11 +77,6 @@ export const sidebarData: SidebarData = {
     {
       title: 'Quản trị hệ thống',
       items: [
-        {
-          title: 'Trang chủ',
-          url: '/',
-          icon: LayoutDashboard,
-        },
         {
           title: 'Tin tức',
           url: '/news',

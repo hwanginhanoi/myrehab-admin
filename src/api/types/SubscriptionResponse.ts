@@ -33,7 +33,7 @@ export type SubscriptionResponse = {
     */
     subscriptionType?: SubscriptionResponseSubscriptionTypeEnumKey;
     /**
-     * @type number | undefined
+     * @type integer | undefined, int64
     */
     pricePaid?: number;
     /**

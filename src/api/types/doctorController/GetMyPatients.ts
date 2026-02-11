@@ -8,11 +8,6 @@ import type { PagedModel } from "../PagedModel.ts";
 
 export type GetMyPatientsQueryParams = {
     /**
-     * @description Search by fullName or phoneNumber (case-insensitive)
-     * @type string | undefined
-    */
-    query?: string;
-    /**
      * @type object
     */
     pageable: Pageable;
