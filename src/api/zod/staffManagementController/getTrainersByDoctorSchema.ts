@@ -12,7 +12,8 @@ export const getTrainersByDoctorPathParamsSchema = z.object({
     })
 
 export const getTrainersByDoctorQueryParamsSchema = z.object({
-    get "pageable"(){
+    "query": z.optional(z.string().describe("Search by fullName or email (case-insensitive)")),
+get "pageable"(){
                 return pageableSchema
               }
     })

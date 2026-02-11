@@ -1,11 +1,12 @@
 import { type ColumnDef } from '@tanstack/react-table'
 import { format } from 'date-fns'
-import { Badge } from '@/components/ui/badge'
 import { DataTableColumnHeader } from '@/components/server-data-table'
+import { LongText } from '@/components/long-text'
 
 export type TransactionRecord = {
   id: number
   userName: string
+  phoneNumber: string
   transactionType: string
   amount: number
   balanceBefore: number
@@ -13,12 +14,6 @@ export type TransactionRecord = {
   description: string
   subscriptionId: number | null
   createdAt: string
-}
-
-const transactionTypeLabels: Record<string, { label: string; variant: 'default' | 'secondary' | 'destructive' | 'outline' }> = {
-  DEPOSIT: { label: 'Nạp tiền', variant: 'default' },
-  PURCHASE: { label: 'Mua hàng', variant: 'destructive' },
-  REFUND: { label: 'Hoàn tiền', variant: 'secondary' },
 }
 
 const formatVND = (value: number) =>
@@ -40,18 +35,13 @@ export const transactionsColumns: ColumnDef<TransactionRecord>[] = [
     enableHiding: false,
   },
   {
-    accessorKey: 'transactionType',
+    accessorKey: 'phoneNumber',
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title='Loại giao dịch' />
+      <DataTableColumnHeader column={column} title='Số điện thoại' />
     ),
-    cell: ({ row }) => {
-      const type = row.getValue('transactionType') as string
-      const config = transactionTypeLabels[type] || {
-        label: type,
-        variant: 'outline' as const,
-      }
-      return <Badge variant={config.variant}>{config.label}</Badge>
-    },
+    cell: ({ row }) => (
+      <div>{row.getValue('phoneNumber') || '-'}</div>
+    ),
     enableSorting: false,
   },
   {
@@ -87,9 +77,9 @@ export const transactionsColumns: ColumnDef<TransactionRecord>[] = [
       <DataTableColumnHeader column={column} title='Mô tả' />
     ),
     cell: ({ row }) => (
-      <div className='max-w-[300px] truncate'>
+      <LongText className='max-w-[300px]'>
         {row.getValue('description') || '-'}
-      </div>
+      </LongText>
     ),
     enableSorting: false,
   },

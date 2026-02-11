@@ -61,9 +61,12 @@ export type { GetAllGroupsQueryParams, GetAllGroups200, GetAllGroupsQueryRespons
 export type { GetGroupByIdPathParams, GetGroupById200, GetGroupByIdQueryResponse, GetGroupByIdQuery } from "./exerciseGroupsController/GetGroupById.ts";
 export type { UpdateGroupPathParams, UpdateGroup200, UpdateGroupMutationRequest, UpdateGroupMutationResponse, UpdateGroupMutation } from "./exerciseGroupsController/UpdateGroup.ts";
 export type { ExercisePackageResponse } from "./ExercisePackageResponse.ts";
+export type { BrowsePackagesQueryParams, BrowsePackages200, BrowsePackagesQueryResponse, BrowsePackagesQuery } from "./exercisePackagesController/BrowsePackages.ts";
+export type { CheckPackageAccessPathParams, CheckPackageAccess200, CheckPackageAccessQueryResponse, CheckPackageAccessQuery } from "./exercisePackagesController/CheckPackageAccess.ts";
 export type { CreateExercisePackage200, CreateExercisePackageMutationRequest, CreateExercisePackageMutationResponse, CreateExercisePackageMutation } from "./exercisePackagesController/CreateExercisePackage.ts";
 export type { GetAllExercisePackagesQueryParams, GetAllExercisePackages200, GetAllExercisePackagesQueryResponse, GetAllExercisePackagesQuery } from "./exercisePackagesController/GetAllExercisePackages.ts";
 export type { GetExercisePackageByIdPathParams, GetExercisePackageById200, GetExercisePackageByIdQueryResponse, GetExercisePackageByIdQuery } from "./exercisePackagesController/GetExercisePackageById.ts";
+export type { GetMyPackages200, GetMyPackagesQueryResponse, GetMyPackagesQuery } from "./exercisePackagesController/GetMyPackages.ts";
 export type { UpdateExercisePackagePathParams, UpdateExercisePackage200, UpdateExercisePackageMutationRequest, UpdateExercisePackageMutationResponse, UpdateExercisePackageMutation } from "./exercisePackagesController/UpdateExercisePackage.ts";
 export type { ExerciseResponse } from "./ExerciseResponse.ts";
 export type { CreateExercise200, CreateExerciseMutationRequest, CreateExerciseMutationResponse, CreateExerciseMutation } from "./exercisesController/CreateExercise.ts";
@@ -148,7 +151,7 @@ export type { UpdateSuperAdminRequestStaffTypeEnumKey, UpdateSuperAdminRequest }
 export type { UpdateTrainerRequestStaffTypeEnumKey, UpdateTrainerRequest } from "./UpdateTrainerRequest.ts";
 export type { UserAuthResponse } from "./UserAuthResponse.ts";
 export type { UserCourseAssignmentResponse } from "./UserCourseAssignmentResponse.ts";
-export type { GetAllUsers200, GetAllUsersQueryResponse, GetAllUsersQuery } from "./userManagementController/GetAllUsers.ts";
+export type { GetAllUsersQueryParams, GetAllUsers200, GetAllUsersQueryResponse, GetAllUsersQuery } from "./userManagementController/GetAllUsers.ts";
 export type { GetUserByIdPathParams, GetUserById200, GetUserByIdQueryResponse, GetUserByIdQuery } from "./userManagementController/GetUserById.ts";
 export type { UserResponse } from "./UserResponse.ts";
 export type { VerifyPinResetOtpRequest } from "./VerifyPinResetOtpRequest.ts";

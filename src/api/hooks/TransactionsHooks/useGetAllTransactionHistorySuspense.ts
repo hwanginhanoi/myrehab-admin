@@ -14,7 +14,7 @@ export const getAllTransactionHistorySuspenseQueryKey = (params: GetAllTransacti
 export type GetAllTransactionHistorySuspenseQueryKey = ReturnType<typeof getAllTransactionHistorySuspenseQueryKey>
 
 /**
- * @description Retrieve paginated transaction history across all users with optional filters
+ * @description Retrieve paginated transaction history across all users with optional filters. Search by user name or phone number (case-insensitive, partial match).
  * @summary Get all transaction history
  * {@link /api/transactions/history}
  */
@@ -38,7 +38,7 @@ export function getAllTransactionHistorySuspenseQueryOptions(params: GetAllTrans
 }
 
 /**
- * @description Retrieve paginated transaction history across all users with optional filters
+ * @description Retrieve paginated transaction history across all users with optional filters. Search by user name or phone number (case-insensitive, partial match).
  * @summary Get all transaction history
  * {@link /api/transactions/history}
  */

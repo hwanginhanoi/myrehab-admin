@@ -10,7 +10,13 @@ import type { DateRange } from 'react-day-picker'
 
 type TransactionsTableToolbarProps = {
   table: Table<TransactionRecord>
-  search: Record<string, unknown>
+  search: {
+    page?: number
+    pageSize?: number
+    query?: string
+    startDate?: string
+    endDate?: string
+  }
   navigate: NavigateFn
 }
 
@@ -28,9 +34,9 @@ export function TransactionsTableToolbar({
     search.startDate || search.endDate
       ? {
           from: search.startDate
-            ? new Date(search.startDate as string)
+            ? new Date(search.startDate)
             : undefined,
-          to: search.endDate ? new Date(search.endDate as string) : undefined,
+          to: search.endDate ? new Date(search.endDate) : undefined,
         }
       : undefined
 
@@ -58,7 +64,7 @@ export function TransactionsTableToolbar({
       search: (prev) => ({
         ...prev,
         page: undefined,
-        userName: undefined,
+        query: undefined,
         startDate: undefined,
         endDate: undefined,
       }),
@@ -69,14 +75,14 @@ export function TransactionsTableToolbar({
     <div className='flex items-center justify-between'>
       <div className='flex flex-1 flex-col-reverse items-start gap-y-2 sm:flex-row sm:items-center sm:space-x-2'>
         <Input
-          placeholder='Tìm kiếm theo tên người dùng...'
+          placeholder='Tìm kiếm theo tên hoặc số điện thoại...'
           value={
-            (table.getColumn('userName_filter')?.getFilterValue() as string) ??
+            (table.getColumn('query_filter')?.getFilterValue() as string) ??
             ''
           }
           onChange={(event) =>
             table
-              .getColumn('userName_filter')
+              .getColumn('query_filter')
               ?.setFilterValue(event.target.value)
           }
           className='h-8 w-[150px] lg:w-[300px]'

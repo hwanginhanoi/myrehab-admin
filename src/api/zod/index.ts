@@ -61,9 +61,12 @@ export { getAllGroupsQueryParamsSchema, getAllGroups200Schema, getAllGroupsQuery
 export { getGroupByIdPathParamsSchema, getGroupById200Schema, getGroupByIdQueryResponseSchema } from "./exerciseGroupsController/getGroupByIdSchema.ts";
 export { updateGroupPathParamsSchema, updateGroup200Schema, updateGroupMutationRequestSchema, updateGroupMutationResponseSchema } from "./exerciseGroupsController/updateGroupSchema.ts";
 export { exercisePackageResponseSchema } from "./exercisePackageResponseSchema.ts";
+export { browsePackagesQueryParamsSchema, browsePackages200Schema, browsePackagesQueryResponseSchema } from "./exercisePackagesController/browsePackagesSchema.ts";
+export { checkPackageAccessPathParamsSchema, checkPackageAccess200Schema, checkPackageAccessQueryResponseSchema } from "./exercisePackagesController/checkPackageAccessSchema.ts";
 export { createExercisePackage200Schema, createExercisePackageMutationRequestSchema, createExercisePackageMutationResponseSchema } from "./exercisePackagesController/createExercisePackageSchema.ts";
 export { getAllExercisePackagesQueryParamsSchema, getAllExercisePackages200Schema, getAllExercisePackagesQueryResponseSchema } from "./exercisePackagesController/getAllExercisePackagesSchema.ts";
 export { getExercisePackageByIdPathParamsSchema, getExercisePackageById200Schema, getExercisePackageByIdQueryResponseSchema } from "./exercisePackagesController/getExercisePackageByIdSchema.ts";
+export { getMyPackages200Schema, getMyPackagesQueryResponseSchema } from "./exercisePackagesController/getMyPackagesSchema.ts";
 export { updateExercisePackagePathParamsSchema, updateExercisePackage200Schema, updateExercisePackageMutationRequestSchema, updateExercisePackageMutationResponseSchema } from "./exercisePackagesController/updateExercisePackageSchema.ts";
 export { exerciseResponseSchema } from "./exerciseResponseSchema.ts";
 export { createExercise200Schema, createExerciseMutationRequestSchema, createExerciseMutationResponseSchema } from "./exercisesController/createExerciseSchema.ts";
@@ -148,7 +151,7 @@ export { updateSuperAdminRequestSchema } from "./updateSuperAdminRequestSchema.t
 export { updateTrainerRequestSchema } from "./updateTrainerRequestSchema.ts";
 export { userAuthResponseSchema } from "./userAuthResponseSchema.ts";
 export { userCourseAssignmentResponseSchema } from "./userCourseAssignmentResponseSchema.ts";
-export { getAllUsers200Schema, getAllUsersQueryResponseSchema } from "./userManagementController/getAllUsersSchema.ts";
+export { getAllUsersQueryParamsSchema, getAllUsers200Schema, getAllUsersQueryResponseSchema } from "./userManagementController/getAllUsersSchema.ts";
 export { getUserByIdPathParamsSchema, getUserById200Schema, getUserByIdQueryResponseSchema } from "./userManagementController/getUserByIdSchema.ts";
 export { userResponseSchema } from "./userResponseSchema.ts";
 export { verifyPinResetOtpRequestSchema } from "./verifyPinResetOtpRequestSchema.ts";

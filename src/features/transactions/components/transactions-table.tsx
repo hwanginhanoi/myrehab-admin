@@ -25,7 +25,13 @@ import { TransactionsTableToolbar } from './transactions-table-toolbar'
 
 type TransactionsTableProps = {
   data: Record<string, unknown>[]
-  search: Record<string, unknown>
+  search: {
+    page?: number
+    pageSize?: number
+    query?: string
+    startDate?: string
+    endDate?: string
+  }
   navigate: NavigateFn
   pageCount: number
 }
@@ -37,7 +43,7 @@ export function TransactionsTable({
   pageCount,
 }: TransactionsTableProps) {
   const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({
-    userName_filter: false,
+    query_filter: false,
   })
   const [sorting, setSorting] = useState<SortingState>([])
 
@@ -53,14 +59,14 @@ export function TransactionsTable({
     pagination: { defaultPage: 1, defaultPageSize: 10 },
     globalFilter: { enabled: false },
     columnFilters: [
-      { columnId: 'userName_filter', searchKey: 'userName', type: 'string' },
+      { columnId: 'query_filter', searchKey: 'query', type: 'string' },
     ],
   })
 
   const columns = useMemo(
     () => [
       {
-        id: 'userName_filter',
+        id: 'query_filter',
         header: () => null,
         cell: () => null,
         enableSorting: false,

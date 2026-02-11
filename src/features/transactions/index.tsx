@@ -20,7 +20,7 @@ export function Transactions() {
 
   const page = search.page || 1
   const pageSize = search.pageSize || 10
-  const userName = search.userName?.trim()
+  const query = search.query?.trim()
   const startDate = search.startDate
   const endDate = search.endDate
 
@@ -30,11 +30,11 @@ export function Transactions() {
         page: page - 1,
         size: pageSize,
       },
-      ...(userName && { userName }),
+      ...(query && { query }),
       ...(startDate && { startDate: `${startDate}T00:00:00` }),
       ...(endDate && { endDate: `${endDate}T23:59:59` }),
     }),
-    [page, pageSize, userName, startDate, endDate]
+    [page, pageSize, query, startDate, endDate]
   )
 
   const { data: response, isLoading } = useGetAllTransactionHistory(

@@ -8,10 +8,10 @@ import type { PagedModel } from "../PagedModel.ts";
 
 export type GetAllTransactionHistoryQueryParams = {
     /**
-     * @description Filter by user name (partial match)
+     * @description Search by user name or phone number (case-insensitive, partial match)
      * @type string | undefined
     */
-    userName?: string;
+    query?: string;
     /**
      * @description Filter by start date (ISO date-time)
      * @type string | undefined, date-time

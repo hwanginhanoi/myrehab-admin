@@ -7,8 +7,8 @@ import { pageableSchema } from "../pageableSchema.ts";
 import { pagedModelSchema } from "../pagedModelSchema.ts";
 import { z } from "zod/v4";
 
-export const getMyPatientsQueryParamsSchema = z.object({
-    "query": z.optional(z.string().describe("Search by fullName or phoneNumber (case-insensitive)")),
+export const browsePackagesQueryParamsSchema = z.object({
+    "query": z.optional(z.string().describe("Search query for title (case-insensitive)")),
 get "pageable"(){
                 return pageableSchema
               }
@@ -17,6 +17,6 @@ get "pageable"(){
 /**
  * @description OK
  */
-export const getMyPatients200Schema = z.lazy(() => pagedModelSchema)
+export const browsePackages200Schema = z.lazy(() => pagedModelSchema)
 
-export const getMyPatientsQueryResponseSchema = z.lazy(() => getMyPatients200Schema)
+export const browsePackagesQueryResponseSchema = z.lazy(() => browsePackages200Schema)

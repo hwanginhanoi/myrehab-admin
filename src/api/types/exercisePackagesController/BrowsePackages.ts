@@ -6,9 +6,9 @@
 import type { Pageable } from "../Pageable.ts";
 import type { PagedModel } from "../PagedModel.ts";
 
-export type GetMyTrainersQueryParams = {
+export type BrowsePackagesQueryParams = {
     /**
-     * @description Search by fullName or email (case-insensitive)
+     * @description Search query for title (case-insensitive)
      * @type string | undefined
     */
     query?: string;
@@ -21,12 +21,12 @@ export type GetMyTrainersQueryParams = {
 /**
  * @description OK
 */
-export type GetMyTrainers200 = PagedModel;
+export type BrowsePackages200 = PagedModel;
 
-export type GetMyTrainersQueryResponse = GetMyTrainers200;
+export type BrowsePackagesQueryResponse = BrowsePackages200;
 
-export type GetMyTrainersQuery = {
-    Response: GetMyTrainers200;
-    QueryParams: GetMyTrainersQueryParams;
+export type BrowsePackagesQuery = {
+    Response: BrowsePackages200;
+    QueryParams: BrowsePackagesQueryParams;
     Errors: any;
 };
