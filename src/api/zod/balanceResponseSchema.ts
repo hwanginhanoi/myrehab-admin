@@ -6,5 +6,5 @@
 import { z } from "zod/v4";
 
 export const balanceResponseSchema = z.object({
-    "balance": z.optional(z.number())
+    "balance": z.optional(z.int())
     })

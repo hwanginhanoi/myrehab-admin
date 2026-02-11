@@ -38,11 +38,11 @@ export type PendingPurchaseResponse = {
     */
     notes?: string;
     /**
-     * @type number | undefined
+     * @type integer | undefined, int64
     */
     monthlyPrice?: number;
     /**
-     * @type number | undefined
+     * @type integer | undefined, int64
     */
     yearlyPrice?: number;
 };

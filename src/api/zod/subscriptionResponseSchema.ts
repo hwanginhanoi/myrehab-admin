@@ -11,7 +11,7 @@ export const subscriptionResponseSchema = z.object({
 "contentId": z.optional(z.int()),
 "contentTitle": z.optional(z.string()),
 "subscriptionType": z.optional(z.enum(["MONTHLY", "YEARLY"])),
-"pricePaid": z.optional(z.number()),
+"pricePaid": z.optional(z.int()),
 "purchasedAt": z.optional(z.string().datetime()),
 "expiresAt": z.optional(z.string().datetime()),
 "isActive": z.optional(z.boolean()),
