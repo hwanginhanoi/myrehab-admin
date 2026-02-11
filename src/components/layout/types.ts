@@ -17,6 +17,7 @@ type BaseNavItem = {
   badge?: string
   icon?: React.ElementType
   requiredPermission?: string
+  allowedRoles?: string[]
 }
 
 type NavLink = BaseNavItem & {

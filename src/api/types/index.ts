@@ -143,7 +143,7 @@ export type { UpdateSuperAdminRequestStaffTypeEnumKey, UpdateSuperAdminRequest }
 export type { UpdateTrainerRequestStaffTypeEnumKey, UpdateTrainerRequest } from "./UpdateTrainerRequest.ts";
 export type { UserAuthResponse } from "./UserAuthResponse.ts";
 export type { UserCourseAssignmentResponse } from "./UserCourseAssignmentResponse.ts";
-export type { GetAllUsers200, GetAllUsersQueryResponse, GetAllUsersQuery } from "./userManagementController/GetAllUsers.ts";
+export type { GetAllUsersQueryParams, GetAllUsers200, GetAllUsersQueryResponse, GetAllUsersQuery } from "./userManagementController/GetAllUsers.ts";
 export type { GetUserByIdPathParams, GetUserById200, GetUserByIdQueryResponse, GetUserByIdQuery } from "./userManagementController/GetUserById.ts";
 export type { UserResponse } from "./UserResponse.ts";
 export type { VerifyPinResetOtpRequest } from "./VerifyPinResetOtpRequest.ts";

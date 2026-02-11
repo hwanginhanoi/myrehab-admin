@@ -53,7 +53,7 @@ export function PatientAssignmentDialog({
   const availablePatients = useMemo(() => {
     const users = (allUsers as UserResponse[]) || []
     const assignedIds = new Set(assignedPatientIds)
-    return users.filter((user) => !assignedIds.has(user.id))
+    return users.filter((user) => user.id !== undefined && !assignedIds.has(user.id))
   }, [allUsers, assignedPatientIds])
 
   // Filter by search query

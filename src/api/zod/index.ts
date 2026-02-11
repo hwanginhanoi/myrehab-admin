@@ -143,7 +143,7 @@ export { updateSuperAdminRequestSchema } from "./updateSuperAdminRequestSchema.t
 export { updateTrainerRequestSchema } from "./updateTrainerRequestSchema.ts";
 export { userAuthResponseSchema } from "./userAuthResponseSchema.ts";
 export { userCourseAssignmentResponseSchema } from "./userCourseAssignmentResponseSchema.ts";
-export { getAllUsers200Schema, getAllUsersQueryResponseSchema } from "./userManagementController/getAllUsersSchema.ts";
+export { getAllUsersQueryParamsSchema, getAllUsers200Schema, getAllUsersQueryResponseSchema } from "./userManagementController/getAllUsersSchema.ts";
 export { getUserByIdPathParamsSchema, getUserById200Schema, getUserByIdQueryResponseSchema } from "./userManagementController/getUserByIdSchema.ts";
 export { userResponseSchema } from "./userResponseSchema.ts";
 export { verifyPinResetOtpRequestSchema } from "./verifyPinResetOtpRequestSchema.ts";
