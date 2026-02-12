@@ -1,1 +1,1 @@
-{"type":"object","properties":{"balance":{"type":"number"}},"x-readme-ref-name":"BalanceResponse"}
+{"type":"object","properties":{"balance":{"type":"integer","format":"int64"}},"x-readme-ref-name":"BalanceResponse"}

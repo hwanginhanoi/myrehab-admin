@@ -6,5 +6,5 @@
 import { z } from "zod/v4";
 
 export const spendingSummaryResponseSchema = z.object({
-    "totalSpending": z.optional(z.number())
+    "totalSpending": z.optional(z.int())
     })
