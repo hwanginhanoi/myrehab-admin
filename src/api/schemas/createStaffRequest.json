@@ -1,1 +1,44 @@
-{"type":"object","description":"Create request for staff - contains only Staff entity fields","properties":{"email":{"type":"string","description":"Staff email address","example":"doctor@myrehab.com"},"password":{"type":"string","description":"Staff password (min 8 characters)","example":"SecurePassword123!","maxLength":2147483647,"minLength":8},"fullName":{"type":"string","description":"Staff full name","example":"Dr. John Smith"},"phoneNumber":{"type":"string","description":"Staff phone number","example":"+81-90-1234-5678"},"staffType":{"type":"string","description":"Type of staff to create","enum":["DOCTOR","TRAINER","ADMIN","SUPER_ADMIN"]},"description":{"type":"string","description":"Staff description or bio"},"permissions":{"type":"array","description":"List of permission codes assigned to this staff member","items":{"type":"string"}}},"required":["email","fullName","password","staffType"],"x-readme-ref-name":"CreateStaffRequest"}
+{
+  "type": "object",
+  "description": "Create request for staff - contains only Staff entity fields",
+  "properties": {
+    "email": {
+      "type": "string",
+      "description": "Staff email address",
+      "example": "doctor@myrehab.com"
+    },
+    "password": {
+      "type": "string",
+      "description": "Staff password (min 8 characters)",
+      "example": "SecurePassword123!",
+      "maxLength": 2147483647,
+      "minLength": 8
+    },
+    "fullName": {
+      "type": "string",
+      "description": "Staff full name",
+      "example": "Dr. John Smith"
+    },
+    "phoneNumber": {
+      "type": "string",
+      "description": "Staff phone number",
+      "example": "+81-90-1234-5678"
+    },
+    "staffType": {
+      "type": "string",
+      "description": "Type of staff to create",
+      "enum": ["DOCTOR", "TRAINER", "ADMIN", "SUPER_ADMIN"]
+    },
+    "description": {
+      "type": "string",
+      "description": "Staff description or bio"
+    },
+    "permissions": {
+      "type": "array",
+      "description": "List of permission codes assigned to this staff member",
+      "items": { "type": "string" }
+    }
+  },
+  "required": ["email", "fullName", "password", "staffType"],
+  "x-readme-ref-name": "CreateStaffRequest"
+}

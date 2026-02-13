@@ -1,0 +1,17 @@
+{
+  "type": "object",
+  "properties": {
+    "id": { "type": "integer", "format": "int64" },
+    "courseDayId": { "type": "integer", "format": "int64" },
+    "dayNumber": { "type": "integer", "format": "int32" },
+    "completionPercentage": { "type": "integer", "format": "int32" },
+    "effortPercentage": { "type": "integer", "format": "int32" },
+    "hasPain": { "type": "boolean" },
+    "painDetails": { "type": "string" },
+    "hardestExercise": { "type": "string" },
+    "hardestExerciseReason": { "type": "string" },
+    "generalNotes": { "type": "string" },
+    "createdAt": { "type": "string", "format": "date-time" }
+  },
+  "x-readme-ref-name": "FeedbackResponse"
+}

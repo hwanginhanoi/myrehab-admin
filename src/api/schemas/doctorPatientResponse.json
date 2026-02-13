@@ -1,1 +1,14 @@
-{"type":"object","properties":{"id":{"type":"integer","format":"int64"},"doctorId":{"type":"integer","format":"int64"},"doctorName":{"type":"string"},"userId":{"type":"integer","format":"int64"},"userPhoneNumber":{"type":"string"},"assignedAt":{"type":"string","format":"date-time"},"assignedByAdminId":{"type":"integer","format":"int64"},"notes":{"type":"string"}},"x-readme-ref-name":"DoctorPatientResponse"}
+{
+  "type": "object",
+  "properties": {
+    "id": { "type": "integer", "format": "int64" },
+    "doctorId": { "type": "integer", "format": "int64" },
+    "doctorName": { "type": "string" },
+    "userId": { "type": "integer", "format": "int64" },
+    "userPhoneNumber": { "type": "string" },
+    "assignedAt": { "type": "string", "format": "date-time" },
+    "assignedByAdminId": { "type": "integer", "format": "int64" },
+    "notes": { "type": "string" }
+  },
+  "x-readme-ref-name": "DoctorPatientResponse"
+}
