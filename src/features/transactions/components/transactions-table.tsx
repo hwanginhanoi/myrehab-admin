@@ -17,26 +17,33 @@ import {
   TableRow,
 } from '@/components/ui/table'
 import { DataTablePagination } from '@/components/server-data-table'
-import { type UserResponse } from '@/api'
-import { usersColumns } from './users-columns'
-import { UsersTableToolbar } from './users-table-toolbar'
+import {
+  transactionsColumns,
+  type TransactionRecord,
+} from './transactions-columns'
+import { TransactionsTableToolbar } from './transactions-table-toolbar'
 
-type UsersTableProps = {
-  data: UserResponse[]
-  search: Record<string, unknown>
+type TransactionsTableProps = {
+  data: Record<string, unknown>[]
+  search: {
+    page?: number
+    pageSize?: number
+    query?: string
+    startDate?: string
+    endDate?: string
+  }
   navigate: NavigateFn
   pageCount: number
 }
 
-export function UsersTable({
+export function TransactionsTable({
   data,
   search,
   navigate,
   pageCount,
-}: UsersTableProps) {
+}: TransactionsTableProps) {
   const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({
-    query: false,
-    gender: false,
+    query_filter: false,
   })
   const [sorting, setSorting] = useState<SortingState>([])
 
@@ -52,23 +59,25 @@ export function UsersTable({
     pagination: { defaultPage: 1, defaultPageSize: 10 },
     globalFilter: { enabled: false },
     columnFilters: [
-      { columnId: 'query', searchKey: 'query', type: 'string' },
-      { columnId: 'gender', searchKey: 'gender', type: 'string' },
+      { columnId: 'query_filter', searchKey: 'query', type: 'string' },
     ],
   })
 
-  const columns = useMemo(() => [
-    {
-      id: 'query',
-      header: () => null,
-      cell: () => null,
-      enableSorting: false,
-    },
-    ...usersColumns,
-  ], [])
+  const columns = useMemo(
+    () => [
+      {
+        id: 'query_filter',
+        header: () => null,
+        cell: () => null,
+        enableSorting: false,
+      },
+      ...transactionsColumns,
+    ],
+    []
+  )
 
   const table = useReactTable({
-    data,
+    data: data as TransactionRecord[],
     columns,
     pageCount,
     state: {
@@ -97,7 +106,7 @@ export function UsersTable({
         'flex flex-1 flex-col gap-4'
       )}
     >
-      <UsersTableToolbar table={table} />
+      <TransactionsTableToolbar table={table} search={search} navigate={navigate} />
       <div className='overflow-hidden rounded-md border'>
         <Table>
           <TableHeader>

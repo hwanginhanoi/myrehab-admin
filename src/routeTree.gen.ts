@@ -22,6 +22,7 @@ import { Route as authLoginRouteImport } from './routes/(auth)/login'
 import { Route as authForgotPasswordRouteImport } from './routes/(auth)/forgot-password'
 import { Route as AuthenticatedSettingsRouteRouteImport } from './routes/_authenticated/settings/route'
 import { Route as AuthenticatedUsersIndexRouteImport } from './routes/_authenticated/users/index'
+import { Route as AuthenticatedTransactionsIndexRouteImport } from './routes/_authenticated/transactions/index'
 import { Route as AuthenticatedTasksIndexRouteImport } from './routes/_authenticated/tasks/index'
 import { Route as AuthenticatedStaffIndexRouteImport } from './routes/_authenticated/staff/index'
 import { Route as AuthenticatedSettingsIndexRouteImport } from './routes/_authenticated/settings/index'
@@ -127,6 +128,12 @@ const AuthenticatedUsersIndexRoute = AuthenticatedUsersIndexRouteImport.update({
   path: '/users/',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
+const AuthenticatedTransactionsIndexRoute =
+  AuthenticatedTransactionsIndexRouteImport.update({
+    id: '/transactions/',
+    path: '/transactions/',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
 const AuthenticatedTasksIndexRoute = AuthenticatedTasksIndexRouteImport.update({
   id: '/tasks/',
   path: '/tasks/',
@@ -395,6 +402,7 @@ export interface FileRoutesByFullPath {
   '/settings/': typeof AuthenticatedSettingsIndexRoute
   '/staff': typeof AuthenticatedStaffIndexRoute
   '/tasks': typeof AuthenticatedTasksIndexRoute
+  '/transactions': typeof AuthenticatedTransactionsIndexRoute
   '/users': typeof AuthenticatedUsersIndexRoute
   '/staff/admins/$adminId': typeof AuthenticatedStaffAdminsAdminIdRouteRouteWithChildren
   '/staff/doctors/$doctorId': typeof AuthenticatedStaffDoctorsDoctorIdRouteRouteWithChildren
@@ -447,6 +455,7 @@ export interface FileRoutesByTo {
   '/settings': typeof AuthenticatedSettingsIndexRoute
   '/staff': typeof AuthenticatedStaffIndexRoute
   '/tasks': typeof AuthenticatedTasksIndexRoute
+  '/transactions': typeof AuthenticatedTransactionsIndexRoute
   '/users': typeof AuthenticatedUsersIndexRoute
   '/staff/admins/$adminId/permissions': typeof AuthenticatedStaffAdminsAdminIdPermissionsRoute
   '/staff/doctors/$doctorId/patients': typeof AuthenticatedStaffDoctorsDoctorIdPatientsRoute
@@ -499,6 +508,7 @@ export interface FileRoutesById {
   '/_authenticated/settings/': typeof AuthenticatedSettingsIndexRoute
   '/_authenticated/staff/': typeof AuthenticatedStaffIndexRoute
   '/_authenticated/tasks/': typeof AuthenticatedTasksIndexRoute
+  '/_authenticated/transactions/': typeof AuthenticatedTransactionsIndexRoute
   '/_authenticated/users/': typeof AuthenticatedUsersIndexRoute
   '/_authenticated/staff/admins/$adminId': typeof AuthenticatedStaffAdminsAdminIdRouteRouteWithChildren
   '/_authenticated/staff/doctors/$doctorId': typeof AuthenticatedStaffDoctorsDoctorIdRouteRouteWithChildren
@@ -554,6 +564,7 @@ export interface FileRouteTypes {
     | '/settings/'
     | '/staff'
     | '/tasks'
+    | '/transactions'
     | '/users'
     | '/staff/admins/$adminId'
     | '/staff/doctors/$doctorId'
@@ -606,6 +617,7 @@ export interface FileRouteTypes {
     | '/settings'
     | '/staff'
     | '/tasks'
+    | '/transactions'
     | '/users'
     | '/staff/admins/$adminId/permissions'
     | '/staff/doctors/$doctorId/patients'
@@ -657,6 +669,7 @@ export interface FileRouteTypes {
     | '/_authenticated/settings/'
     | '/_authenticated/staff/'
     | '/_authenticated/tasks/'
+    | '/_authenticated/transactions/'
     | '/_authenticated/users/'
     | '/_authenticated/staff/admins/$adminId'
     | '/_authenticated/staff/doctors/$doctorId'
@@ -775,6 +788,13 @@ declare module '@tanstack/react-router' {
       path: '/users'
       fullPath: '/users'
       preLoaderRoute: typeof AuthenticatedUsersIndexRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/transactions/': {
+      id: '/_authenticated/transactions/'
+      path: '/transactions'
+      fullPath: '/transactions'
+      preLoaderRoute: typeof AuthenticatedTransactionsIndexRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
     '/_authenticated/tasks/': {
@@ -1162,6 +1182,7 @@ interface AuthenticatedRouteRouteChildren {
   AuthenticatedRehabilitationFormsIndexRoute: typeof AuthenticatedRehabilitationFormsIndexRoute
   AuthenticatedStaffIndexRoute: typeof AuthenticatedStaffIndexRoute
   AuthenticatedTasksIndexRoute: typeof AuthenticatedTasksIndexRoute
+  AuthenticatedTransactionsIndexRoute: typeof AuthenticatedTransactionsIndexRoute
   AuthenticatedUsersIndexRoute: typeof AuthenticatedUsersIndexRoute
   AuthenticatedStaffAdminsAdminIdRouteRoute: typeof AuthenticatedStaffAdminsAdminIdRouteRouteWithChildren
   AuthenticatedStaffDoctorsDoctorIdRouteRoute: typeof AuthenticatedStaffDoctorsDoctorIdRouteRouteWithChildren
@@ -1199,6 +1220,7 @@ const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
     AuthenticatedRehabilitationFormsIndexRoute,
   AuthenticatedStaffIndexRoute: AuthenticatedStaffIndexRoute,
   AuthenticatedTasksIndexRoute: AuthenticatedTasksIndexRoute,
+  AuthenticatedTransactionsIndexRoute: AuthenticatedTransactionsIndexRoute,
   AuthenticatedUsersIndexRoute: AuthenticatedUsersIndexRoute,
   AuthenticatedStaffAdminsAdminIdRouteRoute:
     AuthenticatedStaffAdminsAdminIdRouteRouteWithChildren,

@@ -15,6 +15,9 @@ import { NavGroup } from './nav-group'
 import { NavUser } from './nav-user'
 import { TeamSwitcher } from './team-switcher'
 
+// Groups that require SUPER_ADMIN only
+const SUPER_ADMIN_ONLY_GROUPS = ['Tổng quan']
+
 // Groups that require admin access (SUPER_ADMIN or ADMIN only)
 const ADMIN_ONLY_GROUPS = ['Quản trị hệ thống']
 
@@ -34,6 +37,10 @@ export function AppSidebar() {
 
     return sidebarData.navGroups
       .filter((group) => {
+        // If group is super-admin-only, only show for SUPER_ADMIN
+        if (SUPER_ADMIN_ONLY_GROUPS.includes(group.title)) {
+          return userType === 'SUPER_ADMIN'
+        }
         // If group is admin-only, only show for SUPER_ADMIN or ADMIN
         if (ADMIN_ONLY_GROUPS.includes(group.title)) {
           return isAdmin
@@ -47,6 +54,9 @@ export function AppSidebar() {
       .map((group) => ({
         ...group,
         items: group.items.filter((item) => {
+          if (item.allowedRoles) {
+            return userType ? item.allowedRoles.includes(userType) : false
+          }
           if (item.requiredPermission) {
             return hasPermission(item.requiredPermission)
           }
