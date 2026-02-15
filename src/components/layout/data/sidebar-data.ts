@@ -26,6 +26,9 @@ import {
   ClipboardList,
   Image,
   Receipt,
+  CalendarCheck,
+  CalendarDays,
+  Clock,
 } from 'lucide-react'
 import { Logo } from '@/assets/logo'
 import { type SidebarData } from '../types'
@@ -57,6 +60,11 @@ export const sidebarData: SidebarData = {
           url: '/transactions',
           icon: Receipt,
         },
+        {
+          title: 'Lịch hẹn',
+          url: '/appointments',
+          icon: CalendarCheck,
+        },
       ],
     },
     {
@@ -71,6 +79,11 @@ export const sidebarData: SidebarData = {
           title: 'Bệnh nhân của tôi',
           url: '/my-patients',
           icon: UserRound,
+        },
+        {
+          title: 'Lịch hẹn của tôi',
+          url: '/my-appointments',
+          icon: CalendarDays,
         },
       ],
     },
@@ -145,6 +158,11 @@ export const sidebarData: SidebarData = {
     {
       title: 'Hệ thống',
       items: [
+        {
+          title: 'Lịch phòng khám',
+          url: '/clinic-schedule',
+          icon: Clock,
+        },
         {
           title: 'Tasks',
           url: '/tasks',

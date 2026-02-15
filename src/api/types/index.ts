@@ -1,5 +1,117 @@
 export type { AddBalanceRequest } from "./AddBalanceRequest.ts";
+export type {
+  AppointmentResponseStatusEnumKey,
+  AppointmentResponse,
+} from "./AppointmentResponse.ts";
+export type {
+  AssignDoctorPathParams,
+  AssignDoctor200,
+  AssignDoctorMutationRequest,
+  AssignDoctorMutationResponse,
+  AssignDoctorMutation,
+} from "./appointmentsController/AssignDoctor.ts";
+export type {
+  CancelAppointmentPathParams,
+  CancelAppointment200,
+  CancelAppointmentMutationRequest,
+  CancelAppointmentMutationResponse,
+  CancelAppointmentMutation,
+} from "./appointmentsController/CancelAppointment.ts";
+export type {
+  ConfirmAppointmentPathParams,
+  ConfirmAppointment200,
+  ConfirmAppointmentMutationRequest,
+  ConfirmAppointmentMutationResponse,
+  ConfirmAppointmentMutation,
+} from "./appointmentsController/ConfirmAppointment.ts";
+export type {
+  ConfirmCompletionPathParams,
+  ConfirmCompletion200,
+  ConfirmCompletionMutationResponse,
+  ConfirmCompletionMutation,
+} from "./appointmentsController/ConfirmCompletion.ts";
+export type {
+  CreateAppointment200,
+  CreateAppointmentMutationRequest,
+  CreateAppointmentMutationResponse,
+  CreateAppointmentMutation,
+} from "./appointmentsController/CreateAppointment.ts";
+export type {
+  DisputeAppointmentPathParams,
+  DisputeAppointment200,
+  DisputeAppointmentMutationRequest,
+  DisputeAppointmentMutationResponse,
+  DisputeAppointmentMutation,
+} from "./appointmentsController/DisputeAppointment.ts";
+export type {
+  GetAllAppointmentsQueryParams,
+  GetAllAppointments200,
+  GetAllAppointmentsQueryResponse,
+  GetAllAppointmentsQuery,
+} from "./appointmentsController/GetAllAppointments.ts";
+export type {
+  GetAppointmentByIdPathParams,
+  GetAppointmentById200,
+  GetAppointmentByIdQueryResponse,
+  GetAppointmentByIdQuery,
+} from "./appointmentsController/GetAppointmentById.ts";
+export type {
+  GetAvailableSlotsQueryParams,
+  GetAvailableSlots200,
+  GetAvailableSlotsQueryResponse,
+  GetAvailableSlotsQuery,
+} from "./appointmentsController/GetAvailableSlots.ts";
+export type {
+  GetClinicSchedule200,
+  GetClinicScheduleQueryResponse,
+  GetClinicScheduleQuery,
+} from "./appointmentsController/GetClinicSchedule.ts";
+export type {
+  GetDisputedAppointmentsQueryParams,
+  GetDisputedAppointments200,
+  GetDisputedAppointmentsQueryResponse,
+  GetDisputedAppointmentsQuery,
+} from "./appointmentsController/GetDisputedAppointments.ts";
+export type {
+  GetDoctorAppointmentsQueryParams,
+  GetDoctorAppointments200,
+  GetDoctorAppointmentsQueryResponse,
+  GetDoctorAppointmentsQuery,
+} from "./appointmentsController/GetDoctorAppointments.ts";
+export type {
+  GetMyAppointmentsQueryParams,
+  GetMyAppointments200,
+  GetMyAppointmentsQueryResponse,
+  GetMyAppointmentsQuery,
+} from "./appointmentsController/GetMyAppointments.ts";
+export type {
+  MarkCompletePathParams,
+  MarkComplete200,
+  MarkCompleteMutationResponse,
+  MarkCompleteMutation,
+} from "./appointmentsController/MarkComplete.ts";
+export type {
+  RejectAppointmentPathParams,
+  RejectAppointment200,
+  RejectAppointmentMutationRequest,
+  RejectAppointmentMutationResponse,
+  RejectAppointmentMutation,
+} from "./appointmentsController/RejectAppointment.ts";
+export type {
+  ResolveDisputePathParams,
+  ResolveDispute200,
+  ResolveDisputeMutationRequest,
+  ResolveDisputeMutationResponse,
+  ResolveDisputeMutation,
+} from "./appointmentsController/ResolveDispute.ts";
+export type {
+  UpdateClinicSchedule200,
+  UpdateClinicScheduleMutationRequest,
+  UpdateClinicScheduleMutationResponse,
+  UpdateClinicScheduleMutation,
+} from "./appointmentsController/UpdateClinicSchedule.ts";
 export type { AssignCourseToPatientRequest } from "./AssignCourseToPatientRequest.ts";
+export type { AssignDoctorRequest } from "./AssignDoctorRequest.ts";
 export type { AssignPatientToDoctorRequest } from "./AssignPatientToDoctorRequest.ts";
 export type {
   CheckPhone200,
@@ -67,6 +179,7 @@ export type {
   VerifyRegistrationOtpMutationResponse,
   VerifyRegistrationOtpMutation,
 } from "./authenticationController/VerifyRegistrationOtp.ts";
+export type { AvailableSlotResponse } from "./AvailableSlotResponse.ts";
 export type {
   AddBalance200,
   AddBalanceMutationRequest,
@@ -79,12 +192,18 @@ export type {
   GetMyBalanceQuery,
 } from "./balanceController/GetMyBalance.ts";
 export type { BalanceResponse } from "./BalanceResponse.ts";
+export type { CancelAppointmentRequest } from "./CancelAppointmentRequest.ts";
 export type {
   CategoryResponseTypeEnumKey,
   CategoryResponse,
 } from "./CategoryResponse.ts";
 export type { CheckPhoneRequest } from "./CheckPhoneRequest.ts";
 export type { CheckPhoneResponse } from "./CheckPhoneResponse.ts";
+export type {
+  ClinicScheduleResponseDayOfWeekEnumKey,
+  ClinicScheduleResponse,
+} from "./ClinicScheduleResponse.ts";
+export type { ConfirmAppointmentRequest } from "./ConfirmAppointmentRequest.ts";
 export type {
   CourseAssignmentRequestResponseStatusEnumKey,
   CourseAssignmentRequestResponse,
@@ -185,6 +304,7 @@ export type {
   GetCourseStructureQuery,
 } from "./coursesController/GetCourseStructure.ts";
 export type { CourseWithDaysResponse } from "./CourseWithDaysResponse.ts";
+export type { CreateAppointmentRequest } from "./CreateAppointmentRequest.ts";
 export type {
   CreateCategoryRequestTypeEnumKey,
   CreateCategoryRequest,
@@ -207,6 +327,7 @@ export type { DayContentResponse } from "./DayContentResponse.ts";
 export type { DayExerciseDto } from "./DayExerciseDto.ts";
 export type { DayExerciseItemResponse } from "./DayExerciseItemResponse.ts";
 export type { DeleteFileRequest } from "./DeleteFileRequest.ts";
+export type { DisputeAppointmentRequest } from "./DisputeAppointmentRequest.ts";
 export type {
   ApproveCourseRequestPathParams,
   ApproveCourseRequest200,
@@ -422,6 +543,7 @@ export type {
 export type { GenerateDownloadUrlRequest } from "./GenerateDownloadUrlRequest.ts";
 export type { GenerateUploadUrlRequest } from "./GenerateUploadUrlRequest.ts";
 export type { GroupResponse } from "./GroupResponse.ts";
+export type { LocalTime } from "./LocalTime.ts";
 export type { LoginWithPasswordRequest } from "./LoginWithPasswordRequest.ts";
 export type { LoginWithPinRequest } from "./LoginWithPinRequest.ts";
 export type { MyAssignedCourseResponse } from "./MyAssignedCourseResponse.ts";
@@ -536,7 +658,12 @@ export type {
   UpdateFormMutation,
 } from "./rehabilitationExaminationFormManagementController/UpdateForm.ts";
 export type { RehabilitationExaminationFormResponse } from "./RehabilitationExaminationFormResponse.ts";
+export type { RejectAppointmentRequest } from "./RejectAppointmentRequest.ts";
 export type { ResetPinRequest } from "./ResetPinRequest.ts";
+export type {
+  ResolveDisputeRequestResolutionEnumKey,
+  ResolveDisputeRequest,
+} from "./ResolveDisputeRequest.ts";
 export type { ReviewCourseRequestRequest } from "./ReviewCourseRequestRequest.ts";
 export type { SendOtpRequest } from "./SendOtpRequest.ts";
 export type { SepayWebhookPayload } from "./SepayWebhookPayload.ts";
@@ -715,6 +842,10 @@ export type {
   UpdateCategoryRequest,
 } from "./UpdateCategoryRequest.ts";
 export type {
+  UpdateClinicScheduleRequestDayOfWeekEnumKey,
+  UpdateClinicScheduleRequest,
+} from "./UpdateClinicScheduleRequest.ts";
+export type {
   UpdateDoctorRequestStaffTypeEnumKey,
   UpdateDoctorRequest,
 } from "./UpdateDoctorRequest.ts";
@@ -754,7 +885,9 @@ export type { VerifyPinResetOtpRequest } from "./VerifyPinResetOtpRequest.ts";
 export type { VerifyRegistrationOtpRequest } from "./VerifyRegistrationOtpRequest.ts";
 export type { VerifyRegistrationOtpResponse } from "./VerifyRegistrationOtpResponse.ts";
 export type { WebhookResponse } from "./WebhookResponse.ts";
+export { appointmentResponseStatusEnum } from "./AppointmentResponse.ts";
 export { categoryResponseTypeEnum } from "./CategoryResponse.ts";
+export { clinicScheduleResponseDayOfWeekEnum } from "./ClinicScheduleResponse.ts";
 export { courseAssignmentRequestResponseStatusEnum } from "./CourseAssignmentRequestResponse.ts";
 export { courseProgressHistoryResponseArchivalReasonEnum } from "./CourseProgressHistoryResponse.ts";
 export { createCategoryRequestTypeEnum } from "./CreateCategoryRequest.ts";
@@ -766,12 +899,14 @@ export { getAllNewsQueryParamsStatusEnum } from "./newsController/GetAllNews.ts"
 export { newsResponseStatusEnum } from "./NewsResponse.ts";
 export { purchaseCourseRequestSubscriptionTypeEnum } from "./PurchaseCourseRequest.ts";
 export { purchasePackageRequestSubscriptionTypeEnum } from "./PurchasePackageRequest.ts";
+export { resolveDisputeRequestResolutionEnum } from "./ResolveDisputeRequest.ts";
 export { getAllStaffQueryParamsStaffTypeEnum } from "./staffManagementController/GetAllStaff.ts";
 export { subscriptionInfoSubscriptionTypeEnum } from "./SubscriptionInfo.ts";
 export { subscriptionResponseSubscriptionTypeEnum } from "./SubscriptionResponse.ts";
 export { getMyCourseRequestsQueryParamsStatusEnum } from "./trainerController/GetMyCourseRequests.ts";
 export { updateAdminRequestStaffTypeEnum } from "./UpdateAdminRequest.ts";
 export { updateCategoryRequestTypeEnum } from "./UpdateCategoryRequest.ts";
+export { updateClinicScheduleRequestDayOfWeekEnum } from "./UpdateClinicScheduleRequest.ts";
 export { updateDoctorRequestStaffTypeEnum } from "./UpdateDoctorRequest.ts";
 export { updateNewsRequestStatusEnum } from "./UpdateNewsRequest.ts";
 export { updateSuperAdminRequestStaffTypeEnum } from "./UpdateSuperAdminRequest.ts";

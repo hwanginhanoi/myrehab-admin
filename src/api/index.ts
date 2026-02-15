@@ -1,3 +1,27 @@
+export type { AssignDoctorMutationKey } from "./hooks/AppointmentsHooks/useAssignDoctor.ts";
+export type { CancelAppointmentMutationKey } from "./hooks/AppointmentsHooks/useCancelAppointment.ts";
+export type { ConfirmAppointmentMutationKey } from "./hooks/AppointmentsHooks/useConfirmAppointment.ts";
+export type { ConfirmCompletionMutationKey } from "./hooks/AppointmentsHooks/useConfirmCompletion.ts";
+export type { CreateAppointmentMutationKey } from "./hooks/AppointmentsHooks/useCreateAppointment.ts";
+export type { DisputeAppointmentMutationKey } from "./hooks/AppointmentsHooks/useDisputeAppointment.ts";
+export type { GetAllAppointmentsQueryKey } from "./hooks/AppointmentsHooks/useGetAllAppointments.ts";
+export type { GetAllAppointmentsSuspenseQueryKey } from "./hooks/AppointmentsHooks/useGetAllAppointmentsSuspense.ts";
+export type { GetAppointmentByIdQueryKey } from "./hooks/AppointmentsHooks/useGetAppointmentById.ts";
+export type { GetAppointmentByIdSuspenseQueryKey } from "./hooks/AppointmentsHooks/useGetAppointmentByIdSuspense.ts";
+export type { GetAvailableSlotsQueryKey } from "./hooks/AppointmentsHooks/useGetAvailableSlots.ts";
+export type { GetAvailableSlotsSuspenseQueryKey } from "./hooks/AppointmentsHooks/useGetAvailableSlotsSuspense.ts";
+export type { GetClinicScheduleQueryKey } from "./hooks/AppointmentsHooks/useGetClinicSchedule.ts";
+export type { GetClinicScheduleSuspenseQueryKey } from "./hooks/AppointmentsHooks/useGetClinicScheduleSuspense.ts";
+export type { GetDisputedAppointmentsQueryKey } from "./hooks/AppointmentsHooks/useGetDisputedAppointments.ts";
+export type { GetDisputedAppointmentsSuspenseQueryKey } from "./hooks/AppointmentsHooks/useGetDisputedAppointmentsSuspense.ts";
+export type { GetDoctorAppointmentsQueryKey } from "./hooks/AppointmentsHooks/useGetDoctorAppointments.ts";
+export type { GetDoctorAppointmentsSuspenseQueryKey } from "./hooks/AppointmentsHooks/useGetDoctorAppointmentsSuspense.ts";
+export type { GetMyAppointmentsQueryKey } from "./hooks/AppointmentsHooks/useGetMyAppointments.ts";
+export type { GetMyAppointmentsSuspenseQueryKey } from "./hooks/AppointmentsHooks/useGetMyAppointmentsSuspense.ts";
+export type { MarkCompleteMutationKey } from "./hooks/AppointmentsHooks/useMarkComplete.ts";
+export type { RejectAppointmentMutationKey } from "./hooks/AppointmentsHooks/useRejectAppointment.ts";
+export type { ResolveDisputeMutationKey } from "./hooks/AppointmentsHooks/useResolveDispute.ts";
+export type { UpdateClinicScheduleMutationKey } from "./hooks/AppointmentsHooks/useUpdateClinicSchedule.ts";
 export type { CheckPhoneMutationKey } from "./hooks/AuthenticationHooks/useCheckPhone.ts";
 export type { LoginWithPasswordMutationKey } from "./hooks/AuthenticationHooks/useLoginWithPassword.ts";
 export type { LoginWithPinMutationKey } from "./hooks/AuthenticationHooks/useLoginWithPin.ts";
@@ -148,7 +172,119 @@ export type { GetAllUsersSuspenseQueryKey } from "./hooks/User ManagementHooks/u
 export type { GetUserByIdQueryKey } from "./hooks/User ManagementHooks/useGetUserById.ts";
 export type { GetUserByIdSuspenseQueryKey } from "./hooks/User ManagementHooks/useGetUserByIdSuspense.ts";
 export type { AddBalanceRequest } from "./types/AddBalanceRequest.ts";
+export type {
+  AppointmentResponseStatusEnumKey,
+  AppointmentResponse,
+} from "./types/AppointmentResponse.ts";
+export type {
+  AssignDoctorPathParams,
+  AssignDoctor200,
+  AssignDoctorMutationRequest,
+  AssignDoctorMutationResponse,
+  AssignDoctorMutation,
+} from "./types/appointmentsController/AssignDoctor.ts";
+export type {
+  CancelAppointmentPathParams,
+  CancelAppointment200,
+  CancelAppointmentMutationRequest,
+  CancelAppointmentMutationResponse,
+  CancelAppointmentMutation,
+} from "./types/appointmentsController/CancelAppointment.ts";
+export type {
+  ConfirmAppointmentPathParams,
+  ConfirmAppointment200,
+  ConfirmAppointmentMutationRequest,
+  ConfirmAppointmentMutationResponse,
+  ConfirmAppointmentMutation,
+} from "./types/appointmentsController/ConfirmAppointment.ts";
+export type {
+  ConfirmCompletionPathParams,
+  ConfirmCompletion200,
+  ConfirmCompletionMutationResponse,
+  ConfirmCompletionMutation,
+} from "./types/appointmentsController/ConfirmCompletion.ts";
+export type {
+  CreateAppointment200,
+  CreateAppointmentMutationRequest,
+  CreateAppointmentMutationResponse,
+  CreateAppointmentMutation,
+} from "./types/appointmentsController/CreateAppointment.ts";
+export type {
+  DisputeAppointmentPathParams,
+  DisputeAppointment200,
+  DisputeAppointmentMutationRequest,
+  DisputeAppointmentMutationResponse,
+  DisputeAppointmentMutation,
+} from "./types/appointmentsController/DisputeAppointment.ts";
+export type {
+  GetAllAppointmentsQueryParams,
+  GetAllAppointments200,
+  GetAllAppointmentsQueryResponse,
+  GetAllAppointmentsQuery,
+} from "./types/appointmentsController/GetAllAppointments.ts";
+export type {
+  GetAppointmentByIdPathParams,
+  GetAppointmentById200,
+  GetAppointmentByIdQueryResponse,
+  GetAppointmentByIdQuery,
+} from "./types/appointmentsController/GetAppointmentById.ts";
+export type {
+  GetAvailableSlotsQueryParams,
+  GetAvailableSlots200,
+  GetAvailableSlotsQueryResponse,
+  GetAvailableSlotsQuery,
+} from "./types/appointmentsController/GetAvailableSlots.ts";
+export type {
+  GetClinicSchedule200,
+  GetClinicScheduleQueryResponse,
+  GetClinicScheduleQuery,
+} from "./types/appointmentsController/GetClinicSchedule.ts";
+export type {
+  GetDisputedAppointmentsQueryParams,
+  GetDisputedAppointments200,
+  GetDisputedAppointmentsQueryResponse,
+  GetDisputedAppointmentsQuery,
+} from "./types/appointmentsController/GetDisputedAppointments.ts";
+export type {
+  GetDoctorAppointmentsQueryParams,
+  GetDoctorAppointments200,
+  GetDoctorAppointmentsQueryResponse,
+  GetDoctorAppointmentsQuery,
+} from "./types/appointmentsController/GetDoctorAppointments.ts";
+export type {
+  GetMyAppointmentsQueryParams,
+  GetMyAppointments200,
+  GetMyAppointmentsQueryResponse,
+  GetMyAppointmentsQuery,
+} from "./types/appointmentsController/GetMyAppointments.ts";
+export type {
+  MarkCompletePathParams,
+  MarkComplete200,
+  MarkCompleteMutationResponse,
+  MarkCompleteMutation,
+} from "./types/appointmentsController/MarkComplete.ts";
+export type {
+  RejectAppointmentPathParams,
+  RejectAppointment200,
+  RejectAppointmentMutationRequest,
+  RejectAppointmentMutationResponse,
+  RejectAppointmentMutation,
+} from "./types/appointmentsController/RejectAppointment.ts";
+export type {
+  ResolveDisputePathParams,
+  ResolveDispute200,
+  ResolveDisputeMutationRequest,
+  ResolveDisputeMutationResponse,
+  ResolveDisputeMutation,
+} from "./types/appointmentsController/ResolveDispute.ts";
+export type {
+  UpdateClinicSchedule200,
+  UpdateClinicScheduleMutationRequest,
+  UpdateClinicScheduleMutationResponse,
+  UpdateClinicScheduleMutation,
+} from "./types/appointmentsController/UpdateClinicSchedule.ts";
 export type { AssignCourseToPatientRequest } from "./types/AssignCourseToPatientRequest.ts";
+export type { AssignDoctorRequest } from "./types/AssignDoctorRequest.ts";
 export type { AssignPatientToDoctorRequest } from "./types/AssignPatientToDoctorRequest.ts";
 export type {
   CheckPhone200,
@@ -216,6 +352,7 @@ export type {
   VerifyRegistrationOtpMutationResponse,
   VerifyRegistrationOtpMutation,
 } from "./types/authenticationController/VerifyRegistrationOtp.ts";
+export type { AvailableSlotResponse } from "./types/AvailableSlotResponse.ts";
 export type {
   AddBalance200,
   AddBalanceMutationRequest,
@@ -228,12 +365,18 @@ export type {
   GetMyBalanceQuery,
 } from "./types/balanceController/GetMyBalance.ts";
 export type { BalanceResponse } from "./types/BalanceResponse.ts";
+export type { CancelAppointmentRequest } from "./types/CancelAppointmentRequest.ts";
 export type {
   CategoryResponseTypeEnumKey,
   CategoryResponse,
 } from "./types/CategoryResponse.ts";
 export type { CheckPhoneRequest } from "./types/CheckPhoneRequest.ts";
 export type { CheckPhoneResponse } from "./types/CheckPhoneResponse.ts";
+export type {
+  ClinicScheduleResponseDayOfWeekEnumKey,
+  ClinicScheduleResponse,
+} from "./types/ClinicScheduleResponse.ts";
+export type { ConfirmAppointmentRequest } from "./types/ConfirmAppointmentRequest.ts";
 export type {
   CourseAssignmentRequestResponseStatusEnumKey,
   CourseAssignmentRequestResponse,
@@ -334,6 +477,7 @@ export type {
   GetCourseStructureQuery,
 } from "./types/coursesController/GetCourseStructure.ts";
 export type { CourseWithDaysResponse } from "./types/CourseWithDaysResponse.ts";
+export type { CreateAppointmentRequest } from "./types/CreateAppointmentRequest.ts";
 export type {
   CreateCategoryRequestTypeEnumKey,
   CreateCategoryRequest,
@@ -356,6 +500,7 @@ export type { DayContentResponse } from "./types/DayContentResponse.ts";
 export type { DayExerciseDto } from "./types/DayExerciseDto.ts";
 export type { DayExerciseItemResponse } from "./types/DayExerciseItemResponse.ts";
 export type { DeleteFileRequest } from "./types/DeleteFileRequest.ts";
+export type { DisputeAppointmentRequest } from "./types/DisputeAppointmentRequest.ts";
 export type {
   ApproveCourseRequestPathParams,
   ApproveCourseRequest200,
@@ -571,6 +716,7 @@ export type {
 export type { GenerateDownloadUrlRequest } from "./types/GenerateDownloadUrlRequest.ts";
 export type { GenerateUploadUrlRequest } from "./types/GenerateUploadUrlRequest.ts";
 export type { GroupResponse } from "./types/GroupResponse.ts";
+export type { LocalTime } from "./types/LocalTime.ts";
 export type { LoginWithPasswordRequest } from "./types/LoginWithPasswordRequest.ts";
 export type { LoginWithPinRequest } from "./types/LoginWithPinRequest.ts";
 export type { MyAssignedCourseResponse } from "./types/MyAssignedCourseResponse.ts";
@@ -685,7 +831,12 @@ export type {
   UpdateFormMutation,
 } from "./types/rehabilitationExaminationFormManagementController/UpdateForm.ts";
 export type { RehabilitationExaminationFormResponse } from "./types/RehabilitationExaminationFormResponse.ts";
+export type { RejectAppointmentRequest } from "./types/RejectAppointmentRequest.ts";
 export type { ResetPinRequest } from "./types/ResetPinRequest.ts";
+export type {
+  ResolveDisputeRequestResolutionEnumKey,
+  ResolveDisputeRequest,
+} from "./types/ResolveDisputeRequest.ts";
 export type { ReviewCourseRequestRequest } from "./types/ReviewCourseRequestRequest.ts";
 export type { SendOtpRequest } from "./types/SendOtpRequest.ts";
 export type { SepayWebhookPayload } from "./types/SepayWebhookPayload.ts";
@@ -864,6 +1015,10 @@ export type {
   UpdateCategoryRequest,
 } from "./types/UpdateCategoryRequest.ts";
 export type {
+  UpdateClinicScheduleRequestDayOfWeekEnumKey,
+  UpdateClinicScheduleRequest,
+} from "./types/UpdateClinicScheduleRequest.ts";
+export type {
   UpdateDoctorRequestStaffTypeEnumKey,
   UpdateDoctorRequest,
 } from "./types/UpdateDoctorRequest.ts";
@@ -903,6 +1058,102 @@ export type { VerifyPinResetOtpRequest } from "./types/VerifyPinResetOtpRequest.
 export type { VerifyRegistrationOtpRequest } from "./types/VerifyRegistrationOtpRequest.ts";
 export type { VerifyRegistrationOtpResponse } from "./types/VerifyRegistrationOtpResponse.ts";
 export type { WebhookResponse } from "./types/WebhookResponse.ts";
+export { assignDoctorMutationKey } from "./hooks/AppointmentsHooks/useAssignDoctor.ts";
+export { assignDoctor } from "./hooks/AppointmentsHooks/useAssignDoctor.ts";
+export { assignDoctorMutationOptions } from "./hooks/AppointmentsHooks/useAssignDoctor.ts";
+export { useAssignDoctor } from "./hooks/AppointmentsHooks/useAssignDoctor.ts";
+export { cancelAppointmentMutationKey } from "./hooks/AppointmentsHooks/useCancelAppointment.ts";
+export { cancelAppointment } from "./hooks/AppointmentsHooks/useCancelAppointment.ts";
+export { cancelAppointmentMutationOptions } from "./hooks/AppointmentsHooks/useCancelAppointment.ts";
+export { useCancelAppointment } from "./hooks/AppointmentsHooks/useCancelAppointment.ts";
+export { confirmAppointmentMutationKey } from "./hooks/AppointmentsHooks/useConfirmAppointment.ts";
+export { confirmAppointment } from "./hooks/AppointmentsHooks/useConfirmAppointment.ts";
+export { confirmAppointmentMutationOptions } from "./hooks/AppointmentsHooks/useConfirmAppointment.ts";
+export { useConfirmAppointment } from "./hooks/AppointmentsHooks/useConfirmAppointment.ts";
+export { confirmCompletionMutationKey } from "./hooks/AppointmentsHooks/useConfirmCompletion.ts";
+export { confirmCompletion } from "./hooks/AppointmentsHooks/useConfirmCompletion.ts";
+export { confirmCompletionMutationOptions } from "./hooks/AppointmentsHooks/useConfirmCompletion.ts";
+export { useConfirmCompletion } from "./hooks/AppointmentsHooks/useConfirmCompletion.ts";
+export { createAppointmentMutationKey } from "./hooks/AppointmentsHooks/useCreateAppointment.ts";
+export { createAppointment } from "./hooks/AppointmentsHooks/useCreateAppointment.ts";
+export { createAppointmentMutationOptions } from "./hooks/AppointmentsHooks/useCreateAppointment.ts";
+export { useCreateAppointment } from "./hooks/AppointmentsHooks/useCreateAppointment.ts";
+export { disputeAppointmentMutationKey } from "./hooks/AppointmentsHooks/useDisputeAppointment.ts";
+export { disputeAppointment } from "./hooks/AppointmentsHooks/useDisputeAppointment.ts";
+export { disputeAppointmentMutationOptions } from "./hooks/AppointmentsHooks/useDisputeAppointment.ts";
+export { useDisputeAppointment } from "./hooks/AppointmentsHooks/useDisputeAppointment.ts";
+export { getAllAppointmentsQueryKey } from "./hooks/AppointmentsHooks/useGetAllAppointments.ts";
+export { getAllAppointments } from "./hooks/AppointmentsHooks/useGetAllAppointments.ts";
+export { getAllAppointmentsQueryOptions } from "./hooks/AppointmentsHooks/useGetAllAppointments.ts";
+export { useGetAllAppointments } from "./hooks/AppointmentsHooks/useGetAllAppointments.ts";
+export { getAllAppointmentsSuspenseQueryKey } from "./hooks/AppointmentsHooks/useGetAllAppointmentsSuspense.ts";
+export { getAllAppointmentsSuspense } from "./hooks/AppointmentsHooks/useGetAllAppointmentsSuspense.ts";
+export { getAllAppointmentsSuspenseQueryOptions } from "./hooks/AppointmentsHooks/useGetAllAppointmentsSuspense.ts";
+export { useGetAllAppointmentsSuspense } from "./hooks/AppointmentsHooks/useGetAllAppointmentsSuspense.ts";
+export { getAppointmentByIdQueryKey } from "./hooks/AppointmentsHooks/useGetAppointmentById.ts";
+export { getAppointmentById } from "./hooks/AppointmentsHooks/useGetAppointmentById.ts";
+export { getAppointmentByIdQueryOptions } from "./hooks/AppointmentsHooks/useGetAppointmentById.ts";
+export { useGetAppointmentById } from "./hooks/AppointmentsHooks/useGetAppointmentById.ts";
+export { getAppointmentByIdSuspenseQueryKey } from "./hooks/AppointmentsHooks/useGetAppointmentByIdSuspense.ts";
+export { getAppointmentByIdSuspense } from "./hooks/AppointmentsHooks/useGetAppointmentByIdSuspense.ts";
+export { getAppointmentByIdSuspenseQueryOptions } from "./hooks/AppointmentsHooks/useGetAppointmentByIdSuspense.ts";
+export { useGetAppointmentByIdSuspense } from "./hooks/AppointmentsHooks/useGetAppointmentByIdSuspense.ts";
+export { getAvailableSlotsQueryKey } from "./hooks/AppointmentsHooks/useGetAvailableSlots.ts";
+export { getAvailableSlots } from "./hooks/AppointmentsHooks/useGetAvailableSlots.ts";
+export { getAvailableSlotsQueryOptions } from "./hooks/AppointmentsHooks/useGetAvailableSlots.ts";
+export { useGetAvailableSlots } from "./hooks/AppointmentsHooks/useGetAvailableSlots.ts";
+export { getAvailableSlotsSuspenseQueryKey } from "./hooks/AppointmentsHooks/useGetAvailableSlotsSuspense.ts";
+export { getAvailableSlotsSuspense } from "./hooks/AppointmentsHooks/useGetAvailableSlotsSuspense.ts";
+export { getAvailableSlotsSuspenseQueryOptions } from "./hooks/AppointmentsHooks/useGetAvailableSlotsSuspense.ts";
+export { useGetAvailableSlotsSuspense } from "./hooks/AppointmentsHooks/useGetAvailableSlotsSuspense.ts";
+export { getClinicScheduleQueryKey } from "./hooks/AppointmentsHooks/useGetClinicSchedule.ts";
+export { getClinicSchedule } from "./hooks/AppointmentsHooks/useGetClinicSchedule.ts";
+export { getClinicScheduleQueryOptions } from "./hooks/AppointmentsHooks/useGetClinicSchedule.ts";
+export { useGetClinicSchedule } from "./hooks/AppointmentsHooks/useGetClinicSchedule.ts";
+export { getClinicScheduleSuspenseQueryKey } from "./hooks/AppointmentsHooks/useGetClinicScheduleSuspense.ts";
+export { getClinicScheduleSuspense } from "./hooks/AppointmentsHooks/useGetClinicScheduleSuspense.ts";
+export { getClinicScheduleSuspenseQueryOptions } from "./hooks/AppointmentsHooks/useGetClinicScheduleSuspense.ts";
+export { useGetClinicScheduleSuspense } from "./hooks/AppointmentsHooks/useGetClinicScheduleSuspense.ts";
+export { getDisputedAppointmentsQueryKey } from "./hooks/AppointmentsHooks/useGetDisputedAppointments.ts";
+export { getDisputedAppointments } from "./hooks/AppointmentsHooks/useGetDisputedAppointments.ts";
+export { getDisputedAppointmentsQueryOptions } from "./hooks/AppointmentsHooks/useGetDisputedAppointments.ts";
+export { useGetDisputedAppointments } from "./hooks/AppointmentsHooks/useGetDisputedAppointments.ts";
+export { getDisputedAppointmentsSuspenseQueryKey } from "./hooks/AppointmentsHooks/useGetDisputedAppointmentsSuspense.ts";
+export { getDisputedAppointmentsSuspense } from "./hooks/AppointmentsHooks/useGetDisputedAppointmentsSuspense.ts";
+export { getDisputedAppointmentsSuspenseQueryOptions } from "./hooks/AppointmentsHooks/useGetDisputedAppointmentsSuspense.ts";
+export { useGetDisputedAppointmentsSuspense } from "./hooks/AppointmentsHooks/useGetDisputedAppointmentsSuspense.ts";
+export { getDoctorAppointmentsQueryKey } from "./hooks/AppointmentsHooks/useGetDoctorAppointments.ts";
+export { getDoctorAppointments } from "./hooks/AppointmentsHooks/useGetDoctorAppointments.ts";
+export { getDoctorAppointmentsQueryOptions } from "./hooks/AppointmentsHooks/useGetDoctorAppointments.ts";
+export { useGetDoctorAppointments } from "./hooks/AppointmentsHooks/useGetDoctorAppointments.ts";
+export { getDoctorAppointmentsSuspenseQueryKey } from "./hooks/AppointmentsHooks/useGetDoctorAppointmentsSuspense.ts";
+export { getDoctorAppointmentsSuspense } from "./hooks/AppointmentsHooks/useGetDoctorAppointmentsSuspense.ts";
+export { getDoctorAppointmentsSuspenseQueryOptions } from "./hooks/AppointmentsHooks/useGetDoctorAppointmentsSuspense.ts";
+export { useGetDoctorAppointmentsSuspense } from "./hooks/AppointmentsHooks/useGetDoctorAppointmentsSuspense.ts";
+export { getMyAppointmentsQueryKey } from "./hooks/AppointmentsHooks/useGetMyAppointments.ts";
+export { getMyAppointments } from "./hooks/AppointmentsHooks/useGetMyAppointments.ts";
+export { getMyAppointmentsQueryOptions } from "./hooks/AppointmentsHooks/useGetMyAppointments.ts";
+export { useGetMyAppointments } from "./hooks/AppointmentsHooks/useGetMyAppointments.ts";
+export { getMyAppointmentsSuspenseQueryKey } from "./hooks/AppointmentsHooks/useGetMyAppointmentsSuspense.ts";
+export { getMyAppointmentsSuspense } from "./hooks/AppointmentsHooks/useGetMyAppointmentsSuspense.ts";
+export { getMyAppointmentsSuspenseQueryOptions } from "./hooks/AppointmentsHooks/useGetMyAppointmentsSuspense.ts";
+export { useGetMyAppointmentsSuspense } from "./hooks/AppointmentsHooks/useGetMyAppointmentsSuspense.ts";
+export { markCompleteMutationKey } from "./hooks/AppointmentsHooks/useMarkComplete.ts";
+export { markComplete } from "./hooks/AppointmentsHooks/useMarkComplete.ts";
+export { markCompleteMutationOptions } from "./hooks/AppointmentsHooks/useMarkComplete.ts";
+export { useMarkComplete } from "./hooks/AppointmentsHooks/useMarkComplete.ts";
+export { rejectAppointmentMutationKey } from "./hooks/AppointmentsHooks/useRejectAppointment.ts";
+export { rejectAppointment } from "./hooks/AppointmentsHooks/useRejectAppointment.ts";
+export { rejectAppointmentMutationOptions } from "./hooks/AppointmentsHooks/useRejectAppointment.ts";
+export { useRejectAppointment } from "./hooks/AppointmentsHooks/useRejectAppointment.ts";
+export { resolveDisputeMutationKey } from "./hooks/AppointmentsHooks/useResolveDispute.ts";
+export { resolveDispute } from "./hooks/AppointmentsHooks/useResolveDispute.ts";
+export { resolveDisputeMutationOptions } from "./hooks/AppointmentsHooks/useResolveDispute.ts";
+export { useResolveDispute } from "./hooks/AppointmentsHooks/useResolveDispute.ts";
+export { updateClinicScheduleMutationKey } from "./hooks/AppointmentsHooks/useUpdateClinicSchedule.ts";
+export { updateClinicSchedule } from "./hooks/AppointmentsHooks/useUpdateClinicSchedule.ts";
+export { updateClinicScheduleMutationOptions } from "./hooks/AppointmentsHooks/useUpdateClinicSchedule.ts";
+export { useUpdateClinicSchedule } from "./hooks/AppointmentsHooks/useUpdateClinicSchedule.ts";
 export { checkPhoneMutationKey } from "./hooks/AuthenticationHooks/useCheckPhone.ts";
 export { checkPhone } from "./hooks/AuthenticationHooks/useCheckPhone.ts";
 export { checkPhoneMutationOptions } from "./hooks/AuthenticationHooks/useCheckPhone.ts";
@@ -1499,7 +1750,9 @@ export { getUserByIdSuspenseQueryKey } from "./hooks/User ManagementHooks/useGet
 export { getUserByIdSuspense } from "./hooks/User ManagementHooks/useGetUserByIdSuspense.ts";
 export { getUserByIdSuspenseQueryOptions } from "./hooks/User ManagementHooks/useGetUserByIdSuspense.ts";
 export { useGetUserByIdSuspense } from "./hooks/User ManagementHooks/useGetUserByIdSuspense.ts";
+export { appointmentResponseStatusEnum } from "./types/AppointmentResponse.ts";
 export { categoryResponseTypeEnum } from "./types/CategoryResponse.ts";
+export { clinicScheduleResponseDayOfWeekEnum } from "./types/ClinicScheduleResponse.ts";
 export { courseAssignmentRequestResponseStatusEnum } from "./types/CourseAssignmentRequestResponse.ts";
 export { courseProgressHistoryResponseArchivalReasonEnum } from "./types/CourseProgressHistoryResponse.ts";
 export { createCategoryRequestTypeEnum } from "./types/CreateCategoryRequest.ts";
@@ -1511,18 +1764,112 @@ export { getAllNewsQueryParamsStatusEnum } from "./types/newsController/GetAllNe
 export { newsResponseStatusEnum } from "./types/NewsResponse.ts";
 export { purchaseCourseRequestSubscriptionTypeEnum } from "./types/PurchaseCourseRequest.ts";
 export { purchasePackageRequestSubscriptionTypeEnum } from "./types/PurchasePackageRequest.ts";
+export { resolveDisputeRequestResolutionEnum } from "./types/ResolveDisputeRequest.ts";
 export { getAllStaffQueryParamsStaffTypeEnum } from "./types/staffManagementController/GetAllStaff.ts";
 export { subscriptionInfoSubscriptionTypeEnum } from "./types/SubscriptionInfo.ts";
 export { subscriptionResponseSubscriptionTypeEnum } from "./types/SubscriptionResponse.ts";
 export { getMyCourseRequestsQueryParamsStatusEnum } from "./types/trainerController/GetMyCourseRequests.ts";
 export { updateAdminRequestStaffTypeEnum } from "./types/UpdateAdminRequest.ts";
 export { updateCategoryRequestTypeEnum } from "./types/UpdateCategoryRequest.ts";
+export { updateClinicScheduleRequestDayOfWeekEnum } from "./types/UpdateClinicScheduleRequest.ts";
 export { updateDoctorRequestStaffTypeEnum } from "./types/UpdateDoctorRequest.ts";
 export { updateNewsRequestStatusEnum } from "./types/UpdateNewsRequest.ts";
 export { updateSuperAdminRequestStaffTypeEnum } from "./types/UpdateSuperAdminRequest.ts";
 export { updateTrainerRequestStaffTypeEnum } from "./types/UpdateTrainerRequest.ts";
 export { addBalanceRequestSchema } from "./zod/addBalanceRequestSchema.ts";
+export { appointmentResponseSchema } from "./zod/appointmentResponseSchema.ts";
+export {
+  assignDoctorPathParamsSchema,
+  assignDoctor200Schema,
+  assignDoctorMutationRequestSchema,
+  assignDoctorMutationResponseSchema,
+} from "./zod/appointmentsController/assignDoctorSchema.ts";
+export {
+  cancelAppointmentPathParamsSchema,
+  cancelAppointment200Schema,
+  cancelAppointmentMutationRequestSchema,
+  cancelAppointmentMutationResponseSchema,
+} from "./zod/appointmentsController/cancelAppointmentSchema.ts";
+export {
+  confirmAppointmentPathParamsSchema,
+  confirmAppointment200Schema,
+  confirmAppointmentMutationRequestSchema,
+  confirmAppointmentMutationResponseSchema,
+} from "./zod/appointmentsController/confirmAppointmentSchema.ts";
+export {
+  confirmCompletionPathParamsSchema,
+  confirmCompletion200Schema,
+  confirmCompletionMutationResponseSchema,
+} from "./zod/appointmentsController/confirmCompletionSchema.ts";
+export {
+  createAppointment200Schema,
+  createAppointmentMutationRequestSchema,
+  createAppointmentMutationResponseSchema,
+} from "./zod/appointmentsController/createAppointmentSchema.ts";
+export {
+  disputeAppointmentPathParamsSchema,
+  disputeAppointment200Schema,
+  disputeAppointmentMutationRequestSchema,
+  disputeAppointmentMutationResponseSchema,
+} from "./zod/appointmentsController/disputeAppointmentSchema.ts";
+export {
+  getAllAppointmentsQueryParamsSchema,
+  getAllAppointments200Schema,
+  getAllAppointmentsQueryResponseSchema,
+} from "./zod/appointmentsController/getAllAppointmentsSchema.ts";
+export {
+  getAppointmentByIdPathParamsSchema,
+  getAppointmentById200Schema,
+  getAppointmentByIdQueryResponseSchema,
+} from "./zod/appointmentsController/getAppointmentByIdSchema.ts";
+export {
+  getAvailableSlotsQueryParamsSchema,
+  getAvailableSlots200Schema,
+  getAvailableSlotsQueryResponseSchema,
+} from "./zod/appointmentsController/getAvailableSlotsSchema.ts";
+export {
+  getClinicSchedule200Schema,
+  getClinicScheduleQueryResponseSchema,
+} from "./zod/appointmentsController/getClinicScheduleSchema.ts";
+export {
+  getDisputedAppointmentsQueryParamsSchema,
+  getDisputedAppointments200Schema,
+  getDisputedAppointmentsQueryResponseSchema,
+} from "./zod/appointmentsController/getDisputedAppointmentsSchema.ts";
+export {
+  getDoctorAppointmentsQueryParamsSchema,
+  getDoctorAppointments200Schema,
+  getDoctorAppointmentsQueryResponseSchema,
+} from "./zod/appointmentsController/getDoctorAppointmentsSchema.ts";
+export {
+  getMyAppointmentsQueryParamsSchema,
+  getMyAppointments200Schema,
+  getMyAppointmentsQueryResponseSchema,
+} from "./zod/appointmentsController/getMyAppointmentsSchema.ts";
+export {
+  markCompletePathParamsSchema,
+  markComplete200Schema,
+  markCompleteMutationResponseSchema,
+} from "./zod/appointmentsController/markCompleteSchema.ts";
+export {
+  rejectAppointmentPathParamsSchema,
+  rejectAppointment200Schema,
+  rejectAppointmentMutationRequestSchema,
+  rejectAppointmentMutationResponseSchema,
+} from "./zod/appointmentsController/rejectAppointmentSchema.ts";
+export {
+  resolveDisputePathParamsSchema,
+  resolveDispute200Schema,
+  resolveDisputeMutationRequestSchema,
+  resolveDisputeMutationResponseSchema,
+} from "./zod/appointmentsController/resolveDisputeSchema.ts";
+export {
+  updateClinicSchedule200Schema,
+  updateClinicScheduleMutationRequestSchema,
+  updateClinicScheduleMutationResponseSchema,
+} from "./zod/appointmentsController/updateClinicScheduleSchema.ts";
 export { assignCourseToPatientRequestSchema } from "./zod/assignCourseToPatientRequestSchema.ts";
+export { assignDoctorRequestSchema } from "./zod/assignDoctorRequestSchema.ts";
 export { assignPatientToDoctorRequestSchema } from "./zod/assignPatientToDoctorRequestSchema.ts";
 export {
   checkPhone200Schema,
@@ -1579,6 +1926,7 @@ export {
   verifyRegistrationOtpMutationRequestSchema,
   verifyRegistrationOtpMutationResponseSchema,
 } from "./zod/authenticationController/verifyRegistrationOtpSchema.ts";
+export { availableSlotResponseSchema } from "./zod/availableSlotResponseSchema.ts";
 export {
   addBalance200Schema,
   addBalanceMutationRequestSchema,
@@ -1589,9 +1937,12 @@ export {
   getMyBalanceQueryResponseSchema,
 } from "./zod/balanceController/getMyBalanceSchema.ts";
 export { balanceResponseSchema } from "./zod/balanceResponseSchema.ts";
+export { cancelAppointmentRequestSchema } from "./zod/cancelAppointmentRequestSchema.ts";
 export { categoryResponseSchema } from "./zod/categoryResponseSchema.ts";
 export { checkPhoneRequestSchema } from "./zod/checkPhoneRequestSchema.ts";
 export { checkPhoneResponseSchema } from "./zod/checkPhoneResponseSchema.ts";
+export { clinicScheduleResponseSchema } from "./zod/clinicScheduleResponseSchema.ts";
+export { confirmAppointmentRequestSchema } from "./zod/confirmAppointmentRequestSchema.ts";
 export { courseAssignmentRequestResponseSchema } from "./zod/courseAssignmentRequestResponseSchema.ts";
 export { courseDayDtoSchema } from "./zod/courseDayDtoSchema.ts";
 export {
@@ -1672,6 +2023,7 @@ export {
   getCourseStructureQueryResponseSchema,
 } from "./zod/coursesController/getCourseStructureSchema.ts";
 export { courseWithDaysResponseSchema } from "./zod/courseWithDaysResponseSchema.ts";
+export { createAppointmentRequestSchema } from "./zod/createAppointmentRequestSchema.ts";
 export { createCategoryRequestSchema } from "./zod/createCategoryRequestSchema.ts";
 export { createCourseRequestRequestSchema } from "./zod/createCourseRequestRequestSchema.ts";
 export { createCustomCourseRequestSchema } from "./zod/createCustomCourseRequestSchema.ts";
@@ -1685,6 +2037,7 @@ export { dayContentResponseSchema } from "./zod/dayContentResponseSchema.ts";
 export { dayExerciseDtoSchema } from "./zod/dayExerciseDtoSchema.ts";
 export { dayExerciseItemResponseSchema } from "./zod/dayExerciseItemResponseSchema.ts";
 export { deleteFileRequestSchema } from "./zod/deleteFileRequestSchema.ts";
+export { disputeAppointmentRequestSchema } from "./zod/disputeAppointmentRequestSchema.ts";
 export {
   approveCourseRequestPathParamsSchema,
   approveCourseRequest200Schema,
@@ -1866,6 +2219,7 @@ export {
 export { generateDownloadUrlRequestSchema } from "./zod/generateDownloadUrlRequestSchema.ts";
 export { generateUploadUrlRequestSchema } from "./zod/generateUploadUrlRequestSchema.ts";
 export { groupResponseSchema } from "./zod/groupResponseSchema.ts";
+export { localTimeSchema } from "./zod/localTimeSchema.ts";
 export { loginWithPasswordRequestSchema } from "./zod/loginWithPasswordRequestSchema.ts";
 export { loginWithPinRequestSchema } from "./zod/loginWithPinRequestSchema.ts";
 export { myAssignedCourseResponseSchema } from "./zod/myAssignedCourseResponseSchema.ts";
@@ -1956,7 +2310,9 @@ export {
   updateFormMutationResponseSchema,
 } from "./zod/rehabilitationExaminationFormManagementController/updateFormSchema.ts";
 export { rehabilitationExaminationFormResponseSchema } from "./zod/rehabilitationExaminationFormResponseSchema.ts";
+export { rejectAppointmentRequestSchema } from "./zod/rejectAppointmentRequestSchema.ts";
 export { resetPinRequestSchema } from "./zod/resetPinRequestSchema.ts";
+export { resolveDisputeRequestSchema } from "./zod/resolveDisputeRequestSchema.ts";
 export { reviewCourseRequestRequestSchema } from "./zod/reviewCourseRequestRequestSchema.ts";
 export { sendOtpRequestSchema } from "./zod/sendOtpRequestSchema.ts";
 export { sepayWebhookPayloadSchema } from "./zod/sepayWebhookPayloadSchema.ts";
@@ -2095,6 +2451,7 @@ export {
 } from "./zod/transactionsController/getMyTransactionHistorySchema.ts";
 export { updateAdminRequestSchema } from "./zod/updateAdminRequestSchema.ts";
 export { updateCategoryRequestSchema } from "./zod/updateCategoryRequestSchema.ts";
+export { updateClinicScheduleRequestSchema } from "./zod/updateClinicScheduleRequestSchema.ts";
 export { updateDoctorRequestSchema } from "./zod/updateDoctorRequestSchema.ts";
 export { updateExercisePackageRequestSchema } from "./zod/updateExercisePackageRequestSchema.ts";
 export { updateExerciseRequestSchema } from "./zod/updateExerciseRequestSchema.ts";

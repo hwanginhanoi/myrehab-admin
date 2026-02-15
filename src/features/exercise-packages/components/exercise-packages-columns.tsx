@@ -38,7 +38,7 @@ export const exercisePackagesColumns: ColumnDef<ExercisePackageResponse>[] = [
       <DataTableColumnHeader column={column} title='Số bài tập' />
     ),
     cell: ({ row }) => (
-      <div>{row.original.exercises?.length || 0}</div>
+      <div>{row.original.exerciseCount || 0}</div>
     ),
     enableSorting: false,
   },

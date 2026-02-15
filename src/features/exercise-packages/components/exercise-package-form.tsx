@@ -17,7 +17,7 @@ import {
 import { Input } from '@/components/ui/input'
 import { Textarea } from '@/components/ui/textarea'
 import {
-  type ExercisePackageResponse,
+  type ExercisePackageDetailResponse,
   type ExerciseResponse,
   useCreateExercisePackage,
   useUpdateExercisePackage,
@@ -37,7 +37,7 @@ const formSchema = z.object({
 type ExercisePackageForm = z.infer<typeof formSchema>
 
 type ExercisePackageFormComponentProps = {
-  exercisePackage?: ExercisePackageResponse
+  exercisePackage?: ExercisePackageDetailResponse
   mode: 'create' | 'edit' | 'view'
 }
 
