@@ -70,7 +70,7 @@ export function CourseCustomizationSection({
       exerciseTitle: exercise.title || '',
       exerciseDescription: exercise.description,
       exerciseImageUrl: exercise.imageUrl,
-      orderInDay: 0,
+      orderInDay: 1, // Will be recalculated by reducer when added to day
       customRepetitions: undefined,
       customSets: undefined,
     }
@@ -160,6 +160,16 @@ export function CourseCustomizationSection({
       }
 
       if (targetDay !== null) {
+        const day = customizedDays.get(targetDay)
+        if (day) {
+          // Check if exercise already exists in this day
+          const exists = day.exercises.some((ex) => ex.exerciseId === exercise.id)
+          if (exists) {
+            toast.warning('Bài tập này đã có trong ngày này')
+            return
+          }
+        }
+
         const customExercise = convertToCustomExercise(exercise)
         dispatch({
           type: 'ADD_EXERCISE_TO_DAY',
@@ -168,6 +178,7 @@ export function CourseCustomizationSection({
             exercise: customExercise,
           },
         })
+        toast.success('Đã thêm bài tập vào ngày ' + targetDay)
       }
       return
     }

@@ -153,6 +153,7 @@ export { userAuthResponseSchema } from "./userAuthResponseSchema.ts";
 export { userCourseAssignmentResponseSchema } from "./userCourseAssignmentResponseSchema.ts";
 export { getAllUsersQueryParamsSchema, getAllUsers200Schema, getAllUsersQueryResponseSchema } from "./userManagementController/getAllUsersSchema.ts";
 export { getUserByIdPathParamsSchema, getUserById200Schema, getUserByIdQueryResponseSchema } from "./userManagementController/getUserByIdSchema.ts";
+export { searchUsersByNameQueryParamsSchema, searchUsersByName200Schema, searchUsersByNameQueryResponseSchema } from "./userManagementController/searchUsersByNameSchema.ts";
 export { userResponseSchema } from "./userResponseSchema.ts";
 export { verifyPinResetOtpRequestSchema } from "./verifyPinResetOtpRequestSchema.ts";
 export { verifyRegistrationOtpRequestSchema } from "./verifyRegistrationOtpRequestSchema.ts";

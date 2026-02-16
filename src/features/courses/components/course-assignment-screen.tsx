@@ -9,7 +9,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { toast } from 'sonner'
-import { useAssignCourseToPatient, type UserResponse } from '@/api'
+import { useCreateAndAssignCustomCourse, type UserResponse } from '@/api'
 import { CourseCustomizationSection } from './course-customization-section'
 
 // Types
@@ -149,12 +149,12 @@ function assignmentReducer(state: AssignmentState, action: AssignmentAction): As
       // Check if exercise already exists in this day
       const exists = day.exercises.some((ex) => ex.exerciseId === exercise.exerciseId)
       if (exists) {
-        toast.warning('Bài tập này đã có trong ngày này')
+        // Don't show toast here - will be handled by the component
         return state
       }
 
-      // Add exercise with correct orderInDay
-      const newExercise = { ...exercise, orderInDay: day.exercises.length }
+      // Add exercise with correct orderInDay (1-based index)
+      const newExercise = { ...exercise, orderInDay: day.exercises.length + 1 }
       day.exercises = [...day.exercises, newExercise]
       newDays.set(dayNumber, { ...day })
 
@@ -174,28 +174,28 @@ function assignmentReducer(state: AssignmentState, action: AssignmentAction): As
       const exerciseIndex = sourceDay.exercises.findIndex((ex) => ex.id === exerciseId)
       if (exerciseIndex === -1) return state
 
-      const [exercise] = sourceDay.exercises.splice(exerciseIndex, 1)
-
-      // Check if exercise already exists in target day
+      // Check if exercise already exists in target day BEFORE removing from source
       if (fromDay !== toDay) {
-        const exists = targetDay.exercises.some((ex) => ex.exerciseId === exercise.exerciseId)
+        const exists = targetDay.exercises.some((ex) => ex.exerciseId === sourceDay.exercises[exerciseIndex].exerciseId)
         if (exists) {
-          // Restore to source
-          sourceDay.exercises.splice(exerciseIndex, 0, exercise)
+          // Don't remove from source, just show warning
           toast.warning('Bài tập này đã có trong ngày đích')
           return state
         }
       }
 
+      // Now remove from source (after validation)
+      const [exercise] = sourceDay.exercises.splice(exerciseIndex, 1)
+
       // Add to target at specific index
       targetDay.exercises.splice(newIndex, 0, exercise)
 
-      // Recalculate orderInDay for both days
+      // Recalculate orderInDay for both days (1-based index)
       sourceDay.exercises.forEach((ex, idx) => {
-        ex.orderInDay = idx
+        ex.orderInDay = idx + 1
       })
       targetDay.exercises.forEach((ex, idx) => {
-        ex.orderInDay = idx
+        ex.orderInDay = idx + 1
       })
 
       newDays.set(fromDay, { ...sourceDay })
@@ -212,9 +212,9 @@ function assignmentReducer(state: AssignmentState, action: AssignmentAction): As
       if (!day) return state
 
       day.exercises = day.exercises.filter((ex) => ex.id !== exerciseId)
-      // Recalculate orderInDay
+      // Recalculate orderInDay (1-based index)
       day.exercises.forEach((ex, idx) => {
-        ex.orderInDay = idx
+        ex.orderInDay = idx + 1
       })
 
       newDays.set(dayNumber, { ...day })
@@ -244,8 +244,8 @@ function assignmentReducer(state: AssignmentState, action: AssignmentAction): As
 
       if (!day) return state
 
-      // Update exercises with new order
-      const reorderedExercises = exercises.map((ex, idx) => ({ ...ex, orderInDay: idx }))
+      // Update exercises with new order (1-based index)
+      const reorderedExercises = exercises.map((ex, idx) => ({ ...ex, orderInDay: idx + 1 }))
       newDays.set(dayNumber, { ...day, exercises: reorderedExercises })
 
       return { ...state, customizedDays: newDays }
@@ -317,17 +317,17 @@ export function CourseAssignmentScreen({ preSelectedPatientId }: CourseAssignmen
   }, [preSelectedPatientId, state.selectedPatient])
 
   // Mutation
-  const assignMutation = useAssignCourseToPatient({
+  const assignMutation = useCreateAndAssignCustomCourse({
     mutation: {
       onSuccess: () => {
         queryClient.invalidateQueries({
           queryKey: [{ url: '/api/doctors/patients' }],
         })
-        toast.success('Đã gán khóa học thành công')
+        toast.success('Đã tạo và gán khóa học thành công')
         navigate({ to: '/staff' as never })
       },
       onError: (error) => {
-        toast.error('Gán khóa học thất bại: ' + error.message)
+        toast.error('Tạo khóa học thất bại: ' + error.message)
       },
     },
   })
@@ -376,14 +376,35 @@ export function CourseAssignmentScreen({ preSelectedPatientId }: CourseAssignmen
       return
     }
 
-    if (!state.selectedPatient) return
+    if (!state.selectedPatient?.id) {
+      toast.error('Không tìm thấy bệnh nhân')
+      return
+    }
 
+    // Transform customizedDays Map into the expected API format
+    const courseDays = Array.from(state.customizedDays.entries())
+      .sort(([a], [b]) => a - b) // Sort by day number
+      .map(([_, day]) => ({
+        dayNumber: day.dayNumber,
+        description: day.description,
+        exercises: day.exercises.map((ex) => ({
+          exerciseId: ex.exerciseId,
+          orderInDay: ex.orderInDay,
+          customRepetitions: ex.customRepetitions,
+        })),
+      }))
 
-    // Note: Since there's no pre-existing course, we need to handle this differently
-    // For now, we'll just save in notes. In the future, create a new API endpoint for creating courses from scratch
-    toast.info('Chức năng đang được phát triển. Hiện tại chỉ lưu thông tin vào ghi chú.')
-
-    // TODO: Replace with proper API call when backend supports creating courses from scratc
+    // Call the API to create and assign the custom course
+    assignMutation.mutate({
+      userId: state.selectedPatient.id,
+      data: {
+        title: state.courseName,
+        description: state.courseDescription,
+        durationDays: state.customizedDays.size,
+        notes: state.notes || undefined,
+        courseDays,
+      },
+    })
   }
 
   const handleCancel = () => {

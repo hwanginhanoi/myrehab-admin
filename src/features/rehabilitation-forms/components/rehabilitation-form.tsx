@@ -5,6 +5,7 @@ import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useQueryClient } from '@tanstack/react-query'
 import { useNavigate } from '@tanstack/react-router'
+import { useState, useEffect, useRef } from 'react'
 import { Button } from '@/components/ui/button'
 import {
   Form,
@@ -22,17 +23,13 @@ import {
   type UserResponse,
   useCreateForm,
   useUpdateForm,
-  useGetAllUsers,
+  useSearchUsersByName,
 } from '@/api'
 import { toast } from 'sonner'
 import { Separator } from '@/components/ui/separator'
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from '@/components/ui/select'
+import { ScrollArea } from '@/components/ui/scroll-area'
+import { Badge } from '@/components/ui/badge'
+import { Loader2, Search, X } from 'lucide-react'
 
 const formSchema = z.object({
   userId: z.number().min(1, 'User ID là bắt buộc'),
@@ -82,11 +79,44 @@ export function RehabilitationFormComponent({ form: existingForm, mode }: Rehabi
   const isView = mode === 'view'
   const isEdit = mode === 'edit'
 
-  // Fetch all users for the dropdown
-  const { data: usersData } = useGetAllUsers({
-    pageable: { page: 0, size: 1000 },
-  })
-  const users = (usersData?.content as UserResponse[]) || []
+  // Search state for patient selection
+  const [searchQuery, setSearchQuery] = useState('')
+  const [debouncedQuery, setDebouncedQuery] = useState('')
+  const [selectedUser, setSelectedUser] = useState<UserResponse | null>(null)
+  const [showSearchResults, setShowSearchResults] = useState(false)
+  const searchContainerRef = useRef<HTMLDivElement>(null)
+
+  // Debounce search query (300ms delay)
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setDebouncedQuery(searchQuery)
+    }, 300)
+    return () => clearTimeout(timer)
+  }, [searchQuery])
+
+  // Close search results when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (searchContainerRef.current && !searchContainerRef.current.contains(event.target as Node)) {
+        setShowSearchResults(false)
+      }
+    }
+
+    document.addEventListener('mousedown', handleClickOutside)
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside)
+    }
+  }, [])
+
+  // Fetch patients using the new search API
+  const { data: searchResults = [], isLoading: isSearching } = useSearchUsersByName(
+    { query: debouncedQuery || undefined },
+    {
+      query: {
+        enabled: debouncedQuery.length > 0 && !isView && !isEdit, // Only fetch in create mode when user types
+      },
+    }
+  )
 
   const form = useForm<RehabilitationFormType>({
     resolver: zodResolver(formSchema),
@@ -262,32 +292,41 @@ export function RehabilitationFormComponent({ form: existingForm, mode }: Rehabi
   }
 
   // Handle user selection - auto-fill userId, patientName, dateOfBirth, gender, phoneNumber, and age
-  const handleUserSelect = (userId: string) => {
-    const selectedUser = users.find(u => u.id === Number(userId))
-    if (selectedUser) {
-      form.setValue('userId', selectedUser.id || 0)
-      form.setValue('patientName', selectedUser.fullName || '')
+  const handleUserSelect = (user: UserResponse) => {
+    setSelectedUser(user)
+    setShowSearchResults(false)
+    setSearchQuery('')
+    setDebouncedQuery('')
 
-      // Auto-fill date of birth (convert to YYYY-MM-DD format for date input)
-      if (selectedUser.dateOfBirth) {
-        // Extract only the date part (YYYY-MM-DD) from the date string
-        const dateOnly = selectedUser.dateOfBirth.split('T')[0]
-        form.setValue('dateOfBirth', dateOnly)
-        // Auto-calculate and fill age
-        const age = calculateAge(selectedUser.dateOfBirth)
-        form.setValue('age', age)
-      }
+    form.setValue('userId', user.id || 0)
+    form.setValue('patientName', user.fullName || '')
 
-      // Auto-fill gender
-      if (selectedUser.gender) {
-        form.setValue('gender', selectedUser.gender)
-      }
-
-      // Auto-fill phone number
-      if (selectedUser.phoneNumber) {
-        form.setValue('phoneNumber', selectedUser.phoneNumber)
-      }
+    // Auto-fill date of birth (convert to YYYY-MM-DD format for date input)
+    if (user.dateOfBirth) {
+      // Extract only the date part (YYYY-MM-DD) from the date string
+      const dateOnly = user.dateOfBirth.split('T')[0]
+      form.setValue('dateOfBirth', dateOnly)
+      // Auto-calculate and fill age
+      const age = calculateAge(user.dateOfBirth)
+      form.setValue('age', age)
     }
+
+    // Auto-fill gender
+    if (user.gender) {
+      form.setValue('gender', user.gender)
+    }
+
+    // Auto-fill phone number
+    if (user.phoneNumber) {
+      form.setValue('phoneNumber', user.phoneNumber)
+    }
+  }
+
+  // Clear selected user
+  const handleClearSelection = () => {
+    setSelectedUser(null)
+    setSearchQuery('')
+    setDebouncedQuery('')
   }
 
   return (
@@ -304,25 +343,103 @@ export function RehabilitationFormComponent({ form: existingForm, mode }: Rehabi
             <h3 className='text-lg font-semibold'>Thông tin bệnh nhân</h3>
             <Separator />
             <div className='grid grid-cols-1 md:grid-cols-2 gap-6'>
-              {/* User Selection Dropdown - only show in create mode */}
+              {/* User Search - only show in create mode */}
               {!isEdit && !isView && (
                 <FormItem className='md:col-span-2'>
                   <FormLabel>Chọn bệnh nhân</FormLabel>
-                  <Select
-                    onValueChange={handleUserSelect}
-                    disabled={isView}
-                  >
-                    <SelectTrigger>
-                      <SelectValue placeholder='Chọn bệnh nhân từ danh sách' />
-                    </SelectTrigger>
-                    <SelectContent>
-                      {users.map((user) => (
-                        <SelectItem key={user.id} value={String(user.id)}>
-                          {user.fullName}
-                        </SelectItem>
-                      ))}
-                    </SelectContent>
-                  </Select>
+                  <div className='space-y-2'>
+                    {/* Display selected user or show search input */}
+                    {selectedUser ? (
+                      <div className='flex items-center justify-between p-3 bg-muted rounded-lg'>
+                        <div className='flex-1 min-w-0'>
+                          <p className='font-medium text-sm truncate'>
+                            {selectedUser.fullName || `Bệnh nhân #${selectedUser.id}`}
+                          </p>
+                          <p className='text-xs text-muted-foreground truncate'>
+                            {selectedUser.phoneNumber && `${selectedUser.phoneNumber} • `}
+                            {selectedUser.email || `ID: ${selectedUser.id}`}
+                          </p>
+                        </div>
+                        <Button
+                          type='button'
+                          variant='ghost'
+                          size='sm'
+                          onClick={handleClearSelection}
+                          className='shrink-0'
+                        >
+                          <X className='h-4 w-4' />
+                        </Button>
+                      </div>
+                    ) : (
+                      <div className='relative' ref={searchContainerRef}>
+                        <div className='relative'>
+                          <Search className='absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground' />
+                          <input
+                            type='text'
+                            placeholder='Tìm kiếm bệnh nhân theo tên, số điện thoại hoặc email...'
+                            value={searchQuery}
+                            onChange={(e) => {
+                              setSearchQuery(e.target.value)
+                              setShowSearchResults(true)
+                            }}
+                            onFocus={() => setShowSearchResults(true)}
+                            className='w-full h-10 pl-9 pr-3 bg-background border rounded-md text-sm outline-none focus:ring-2 focus:ring-ring transition-all'
+                          />
+                        </div>
+
+                        {/* Search results dropdown */}
+                        {showSearchResults && searchQuery && (
+                          <div className='absolute z-50 w-full mt-1 border rounded-md bg-popover shadow-md'>
+                            {isSearching && (
+                              <div className='flex items-center justify-center py-8'>
+                                <Loader2 className='mr-2 h-4 w-4 animate-spin' />
+                                <p className='text-sm text-muted-foreground'>Đang tìm kiếm...</p>
+                              </div>
+                            )}
+
+                            {!isSearching && searchResults.length === 0 && (
+                              <div className='flex items-center justify-center py-8'>
+                                <p className='text-sm text-muted-foreground'>
+                                  Không tìm thấy bệnh nhân
+                                </p>
+                              </div>
+                            )}
+
+                            {!isSearching && searchResults.length > 0 && (
+                              <>
+                                <div className='px-3 py-2 border-b bg-muted/30'>
+                                  <p className='text-xs text-muted-foreground'>
+                                    Hiển thị tối đa 5 kết quả
+                                  </p>
+                                </div>
+                                <ScrollArea className='max-h-[280px]'>
+                                  <div className='p-2 space-y-1'>
+                                    {searchResults.map((user) => (
+                                      <div
+                                        key={user.id}
+                                        onClick={() => handleUserSelect(user)}
+                                        className='flex items-center justify-between p-3 rounded-md cursor-pointer hover:bg-accent transition-colors'
+                                      >
+                                        <div className='flex-1 min-w-0'>
+                                          <p className='font-medium text-sm truncate'>
+                                            {user.fullName || `Bệnh nhân #${user.id}`}
+                                          </p>
+                                          <p className='text-xs text-muted-foreground truncate'>
+                                            {user.phoneNumber && `${user.phoneNumber} • `}
+                                            {user.email || `ID: ${user.id}`}
+                                          </p>
+                                        </div>
+                                      </div>
+                                    ))}
+                                  </div>
+                                </ScrollArea>
+                              </>
+                            )}
+                          </div>
+                        )}
+                      </div>
+                    )}
+                  </div>
                 </FormItem>
               )}
 
