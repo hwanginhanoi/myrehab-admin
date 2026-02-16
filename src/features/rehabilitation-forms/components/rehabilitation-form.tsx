@@ -17,6 +17,7 @@ import {
 } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
 import { Textarea } from '@/components/ui/textarea'
+import { DatePicker } from '@/components/date-picker'
 import {
   type RehabilitationExaminationFormResponse,
   type CreateRehabilitationExaminationFormRequest,
@@ -28,13 +29,13 @@ import {
 import { toast } from 'sonner'
 import { Separator } from '@/components/ui/separator'
 import { ScrollArea } from '@/components/ui/scroll-area'
-import { Badge } from '@/components/ui/badge'
 import { Loader2, Search, X } from 'lucide-react'
+import { format } from 'date-fns'
 
 const formSchema = z.object({
   userId: z.number().min(1, 'User ID là bắt buộc'),
   patientName: z.string().min(1, 'Tên bệnh nhân là bắt buộc'),
-  dateOfBirth: z.string().min(1, 'Ngày sinh là bắt buộc'),
+  dateOfBirth: z.date({ required_error: 'Ngày sinh là bắt buộc' }),
   age: z.number().min(0, 'Tuổi phải lớn hơn hoặc bằng 0'),
   gender: z.string().optional(),
   ethnicity: z.string().optional(),
@@ -42,7 +43,7 @@ const formSchema = z.object({
   address: z.string().optional(),
   contactPerson: z.string().optional(),
   phoneNumber: z.string().optional(),
-  examinationDate: z.string().min(1, 'Ngày khám là bắt buộc'),
+  examinationDate: z.date({ required_error: 'Ngày khám là bắt buộc' }),
   chiefComplain: z.string().optional(),
   historyOfPresentIllness: z.string().optional(),
   pastMedicalHistory: z.string().optional(),
@@ -124,7 +125,7 @@ export function RehabilitationFormComponent({ form: existingForm, mode }: Rehabi
       ? {
           userId: existingForm.userId || 1,
           patientName: existingForm.patientName || '',
-          dateOfBirth: existingForm.dateOfBirth || '',
+          dateOfBirth: existingForm.dateOfBirth ? new Date(existingForm.dateOfBirth) : undefined,
           age: existingForm.age || 0,
           gender: existingForm.gender || '',
           ethnicity: existingForm.ethnicity || '',
@@ -132,7 +133,7 @@ export function RehabilitationFormComponent({ form: existingForm, mode }: Rehabi
           address: existingForm.address || '',
           contactPerson: existingForm.contactPerson || '',
           phoneNumber: existingForm.phoneNumber || '',
-          examinationDate: existingForm.examinationDate || '',
+          examinationDate: existingForm.examinationDate ? new Date(existingForm.examinationDate) : undefined,
           chiefComplain: existingForm.chiefComplain || '',
           historyOfPresentIllness: existingForm.historyOfPresentIllness || '',
           pastMedicalHistory: existingForm.pastMedicalHistory || '',
@@ -158,7 +159,7 @@ export function RehabilitationFormComponent({ form: existingForm, mode }: Rehabi
       : {
           userId: 1,
           patientName: '',
-          dateOfBirth: '',
+          dateOfBirth: undefined,
           age: 0,
           gender: '',
           ethnicity: '',
@@ -166,7 +167,7 @@ export function RehabilitationFormComponent({ form: existingForm, mode }: Rehabi
           address: '',
           contactPerson: '',
           phoneNumber: '',
-          examinationDate: '',
+          examinationDate: undefined,
           chiefComplain: '',
           historyOfPresentIllness: '',
           pastMedicalHistory: '',
@@ -221,7 +222,7 @@ export function RehabilitationFormComponent({ form: existingForm, mode }: Rehabi
     const payload: CreateRehabilitationExaminationFormRequest = {
       userId: values.userId,
       patientName: values.patientName,
-      dateOfBirth: values.dateOfBirth,
+      dateOfBirth: format(values.dateOfBirth, 'yyyy-MM-dd'),
       age: values.age,
       gender: values.gender,
       ethnicity: values.ethnicity,
@@ -229,7 +230,7 @@ export function RehabilitationFormComponent({ form: existingForm, mode }: Rehabi
       address: values.address,
       contactPerson: values.contactPerson,
       phoneNumber: values.phoneNumber,
-      examinationDate: values.examinationDate,
+      examinationDate: format(values.examinationDate, 'yyyy-MM-dd'),
       chiefComplain: values.chiefComplain,
       historyOfPresentIllness: values.historyOfPresentIllness,
       pastMedicalHistory: values.pastMedicalHistory,
@@ -301,11 +302,10 @@ export function RehabilitationFormComponent({ form: existingForm, mode }: Rehabi
     form.setValue('userId', user.id || 0)
     form.setValue('patientName', user.fullName || '')
 
-    // Auto-fill date of birth (convert to YYYY-MM-DD format for date input)
+    // Auto-fill date of birth
     if (user.dateOfBirth) {
-      // Extract only the date part (YYYY-MM-DD) from the date string
-      const dateOnly = user.dateOfBirth.split('T')[0]
-      form.setValue('dateOfBirth', dateOnly)
+      const birthDate = new Date(user.dateOfBirth)
+      form.setValue('dateOfBirth', birthDate)
       // Auto-calculate and fill age
       const age = calculateAge(user.dateOfBirth)
       form.setValue('age', age)
@@ -465,13 +465,13 @@ export function RehabilitationFormComponent({ form: existingForm, mode }: Rehabi
                 control={form.control}
                 name='dateOfBirth'
                 render={({ field }) => (
-                  <FormItem>
+                  <FormItem className='flex flex-col'>
                     <FormLabel>Ngày sinh *</FormLabel>
                     <FormControl>
-                      <Input
-                        type='date'
-                        disabled={isView}
-                        {...field}
+                      <DatePicker
+                        selected={field.value}
+                        onSelect={field.onChange}
+                        placeholder='Chọn ngày sinh'
                       />
                     </FormControl>
                     <FormMessage />
@@ -612,13 +612,13 @@ export function RehabilitationFormComponent({ form: existingForm, mode }: Rehabi
                 control={form.control}
                 name='examinationDate'
                 render={({ field }) => (
-                  <FormItem>
+                  <FormItem className='flex flex-col'>
                     <FormLabel>Ngày khám *</FormLabel>
                     <FormControl>
-                      <Input
-                        type='date'
-                        disabled={isView}
-                        {...field}
+                      <DatePicker
+                        selected={field.value}
+                        onSelect={field.onChange}
+                        placeholder='Chọn ngày khám'
                       />
                     </FormControl>
                     <FormMessage />

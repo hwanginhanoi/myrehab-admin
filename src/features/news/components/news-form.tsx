@@ -299,26 +299,28 @@ export function NewsFormComponent({ news, mode }: NewsFormComponentProps) {
             )}
           />
 
-          <FormField
-            control={form.control}
-            name='thumbnailUrl'
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Ảnh đại diện</FormLabel>
-                <FormControl>
-                  <FileUpload
-                    ref={imageUploadRef}
-                    category='news-image'
-                    value={field.value}
-                    onChange={field.onChange}
-                    disabled={isView}
-                    label={undefined}
-                  />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
+          <div className='grid grid-cols-1 md:grid-cols-2 gap-6'>
+            <FormField
+              control={form.control}
+              name='thumbnailUrl'
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Ảnh đại diện</FormLabel>
+                  <FormControl>
+                    <FileUpload
+                      ref={imageUploadRef}
+                      category='news-image'
+                      value={field.value}
+                      onChange={field.onChange}
+                      disabled={isView}
+                      label={undefined}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+          </div>
 
           <div className='grid grid-cols-1 md:grid-cols-2 gap-6'>
             <FormField
