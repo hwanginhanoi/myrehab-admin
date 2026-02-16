@@ -35,7 +35,9 @@ import { format } from 'date-fns'
 const formSchema = z.object({
   userId: z.number().min(1, 'User ID là bắt buộc'),
   patientName: z.string().min(1, 'Tên bệnh nhân là bắt buộc'),
-  dateOfBirth: z.date({ required_error: 'Ngày sinh là bắt buộc' }),
+  dateOfBirth: z.date().refine((date) => date !== undefined, {
+    message: 'Ngày sinh là bắt buộc',
+  }),
   age: z.number().min(0, 'Tuổi phải lớn hơn hoặc bằng 0'),
   gender: z.string().optional(),
   ethnicity: z.string().optional(),
@@ -43,7 +45,9 @@ const formSchema = z.object({
   address: z.string().optional(),
   contactPerson: z.string().optional(),
   phoneNumber: z.string().optional(),
-  examinationDate: z.date({ required_error: 'Ngày khám là bắt buộc' }),
+  examinationDate: z.date().refine((date) => date !== undefined, {
+    message: 'Ngày khám là bắt buộc',
+  }),
   chiefComplain: z.string().optional(),
   historyOfPresentIllness: z.string().optional(),
   pastMedicalHistory: z.string().optional(),
