@@ -1,9 +1,9 @@
 import { type Table } from '@tanstack/react-table'
 import { DataTableViewOptions } from '@/components/server-data-table'
-import { type TrainerResponse } from '@/api'
+import { type StaffResponse } from '@/api'
 
 type TrainersTableToolbarProps = {
-  table: Table<TrainerResponse>
+  table: Table<StaffResponse>
 }
 
 export function TrainersTableToolbar({ table }: TrainersTableToolbarProps) {

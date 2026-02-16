@@ -18,7 +18,6 @@ import {
   useGetMyPatients,
   type UserResponse,
 } from '@/api'
-import type { DayWithExercises } from './course-assignment-screen'
 
 type CourseSelectorSectionProps = {
   selectedPatient: UserResponse | null
@@ -42,7 +41,7 @@ export function CourseSelectorSection({
   preSelectedPatientId,
 }: CourseSelectorSectionProps) {
   const [patientSearchQuery, setPatientSearchQuery] = useState('')
-  const [page, setPage] = useState(0)
+  const [page] = useState(0)
   const pageSize = 1000 // Large page size to get all patients for now
 
   // Fetch my patients (patients assigned to the current doctor)
@@ -50,7 +49,10 @@ export function CourseSelectorSection({
     pageable: { page, size: pageSize },
   })
 
-  const allPatients = (patientsResponse?.content as UserResponse[]) || []
+  const allPatients = useMemo(
+    () => (patientsResponse?.content as UserResponse[]) || [],
+    [patientsResponse?.content]
+  )
 
   // Pre-select patient if provided
   useEffect(() => {

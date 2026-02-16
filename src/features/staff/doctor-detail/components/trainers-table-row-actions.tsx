@@ -1,7 +1,7 @@
 import { DotsHorizontalIcon } from '@radix-ui/react-icons'
 import { type Row } from '@tanstack/react-table'
 import { Trash2 } from 'lucide-react'
-import { type TrainerResponse } from '@/api'
+import { type StaffResponse } from '@/api'
 import { Button } from '@/components/ui/button'
 import {
   DropdownMenu,
@@ -13,7 +13,7 @@ import {
 import { useDoctorDetail } from './doctor-detail-provider'
 
 type TrainersTableRowActionsProps = {
-  row: Row<TrainerResponse>
+  row: Row<StaffResponse>
 }
 
 export function TrainersTableRowActions({ row }: TrainersTableRowActionsProps) {

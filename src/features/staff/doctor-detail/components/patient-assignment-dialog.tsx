@@ -43,11 +43,16 @@ export function PatientAssignmentDialog({
   const queryClient = useQueryClient()
 
   // Fetch all users (patients)
-  const { data: allUsers, isLoading } = useGetAllUsers({
-    query: {
-      enabled: open, // Only fetch when dialog is open
+  const { data: allUsers, isLoading } = useGetAllUsers(
+    {
+      pageable: { page: 0, size: 1000 },
     },
-  })
+    {
+      query: {
+        enabled: open, // Only fetch when dialog is open
+      },
+    }
+  )
 
   // Filter out already assigned patients
   const availablePatients = useMemo(() => {
@@ -73,7 +78,7 @@ export function PatientAssignmentDialog({
   const assignMutation = useAssignPatientToDoctor({
     mutation: {
       onSuccess: () => {
-        queryClient.invalidateQueries({
+        void queryClient.invalidateQueries({
           queryKey: [{ url: '/api/admin/doctors/:doctorId/patients', params: { doctorId } }],
         })
         toast.success('Đã gán bệnh nhân thành công')

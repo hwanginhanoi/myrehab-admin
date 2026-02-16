@@ -1,14 +1,14 @@
 import React, { useState } from 'react'
 import useDialogState from '@/hooks/use-dialog-state'
-import { type TrainerResponse, type DoctorPatientResponse } from '@/api'
+import { type StaffResponse, type DoctorPatientResponse } from '@/api'
 
 type DialogType = 'assign' | 'remove' | 'assignPatient' | 'removePatient'
 
 type DoctorDetailContextType = {
   open: DialogType | null
   setOpen: (str: DialogType | null) => void
-  currentTrainer: TrainerResponse | null
-  setCurrentTrainer: React.Dispatch<React.SetStateAction<TrainerResponse | null>>
+  currentTrainer: StaffResponse | null
+  setCurrentTrainer: React.Dispatch<React.SetStateAction<StaffResponse | null>>
   currentPatient: DoctorPatientResponse | null
   setCurrentPatient: React.Dispatch<React.SetStateAction<DoctorPatientResponse | null>>
 }
@@ -17,7 +17,7 @@ const DoctorDetailContext = React.createContext<DoctorDetailContextType | null>(
 
 export function DoctorDetailProvider({ children }: { children: React.ReactNode }) {
   const [open, setOpen] = useDialogState<DialogType>(null)
-  const [currentTrainer, setCurrentTrainer] = useState<TrainerResponse | null>(null)
+  const [currentTrainer, setCurrentTrainer] = useState<StaffResponse | null>(null)
   const [currentPatient, setCurrentPatient] = useState<DoctorPatientResponse | null>(null)
 
   return (

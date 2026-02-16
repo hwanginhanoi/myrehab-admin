@@ -1,10 +1,10 @@
 import { type ColumnDef } from '@tanstack/react-table'
 import { format } from 'date-fns'
-import { type TrainerResponse } from '@/api'
+import { type StaffResponse } from '@/api'
 import { DataTableColumnHeader } from '@/components/data-table'
 import { TrainersTableRowActions } from './trainers-table-row-actions'
 
-export const trainersColumns: ColumnDef<TrainerResponse>[] = [
+export const trainersColumns: ColumnDef<StaffResponse>[] = [
   {
     accessorKey: 'fullName',
     header: ({ column }) => (

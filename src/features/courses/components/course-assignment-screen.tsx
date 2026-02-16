@@ -324,7 +324,7 @@ export function CourseAssignmentScreen({ preSelectedPatientId }: CourseAssignmen
           queryKey: [{ url: '/api/doctors/patients' }],
         })
         toast.success('Đã gán khóa học thành công')
-        navigate({ to: '/staff' as any })
+        navigate({ to: '/staff' as never })
       },
       onError: (error) => {
         toast.error('Gán khóa học thất bại: ' + error.message)
@@ -387,7 +387,7 @@ export function CourseAssignmentScreen({ preSelectedPatientId }: CourseAssignmen
   }
 
   const handleCancel = () => {
-    navigate({ to: '/staff' as any })
+    navigate({ to: '/staff' as never })
   }
 
   return (

@@ -113,7 +113,7 @@ export function TrainerAssignmentDialog({
                   setSearchQuery(e.target.value);
                   if (selectedTrainer) setSelectedTrainer(null);
                 }}
-                className="w-full h-10 pl-9 pr-3 bg-muted/50 border rounded-md text-sm outline-none focus:ring-2 focus:ring-ring focus:border-ring transition-all"
+                className="w-full h-10 pl-9 pr-3 bg-muted/50 border rounded-md text-sm outline-none focus:ring-0 focus:border-input transition-all"
               />
             </div>
           </div>

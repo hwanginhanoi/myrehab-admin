@@ -17,7 +17,6 @@ import { sortableKeyboardCoordinates, arrayMove } from '@dnd-kit/sortable'
 import { Plus } from 'lucide-react'
 import { ScrollArea } from '@/components/ui/scroll-area'
 import { Button } from '@/components/ui/button'
-import { Badge } from '@/components/ui/badge'
 import { toast } from 'sonner'
 import { DayContainer } from './day-container'
 import { ExerciseLibraryPanel } from './exercise-library-panel'
@@ -25,18 +24,28 @@ import { ExerciseCustomizationDialog } from './exercise-customization-dialog'
 import type { ExerciseResponse } from '@/api'
 import type { DayWithExercises, CustomExercise } from './course-assignment-screen'
 
+type CourseAction =
+  | { type: 'MOVE_EXERCISE'; payload: { exerciseId: string; fromDay: number; toDay: number; newIndex: number } }
+  | { type: 'ADD_EXERCISE_TO_DAY'; payload: { dayNumber: number; exercise: CustomExercise } }
+  | { type: 'REORDER_EXERCISES'; payload: { dayNumber: number; exercises: CustomExercise[] } }
+  | { type: 'UPDATE_EXERCISE'; payload: { dayNumber: number; exerciseId: string; updates: Partial<CustomExercise> } }
+  | { type: 'REMOVE_EXERCISE'; payload: { dayNumber: number; exerciseId: string } }
+  | { type: 'DELETE_DAY'; payload: number }
+  | { type: 'DUPLICATE_DAY'; payload: number }
+  | { type: 'ADD_DAY' }
+
 type CourseCustomizationSectionProps = {
   courseName: string
   customizedDays: Map<number, DayWithExercises>
-  dispatch: React.Dispatch<any>
+  dispatch: React.Dispatch<CourseAction>
 }
 
 export function CourseCustomizationSection({
-  courseName,
+  courseName: _courseName,
   customizedDays,
   dispatch,
 }: CourseCustomizationSectionProps) {
-  const [activeId, setActiveId] = useState<string | null>(null)
+  const [, setActiveId] = useState<string | null>(null)
   const [activeExercise, setActiveExercise] = useState<ExerciseResponse | null>(null)
   const [editingExercise, setEditingExercise] = useState<CustomExercise | null>(null)
   const [dialogOpen, setDialogOpen] = useState(false)

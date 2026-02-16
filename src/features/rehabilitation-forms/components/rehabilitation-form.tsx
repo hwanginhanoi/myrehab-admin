@@ -19,6 +19,7 @@ import { Textarea } from '@/components/ui/textarea'
 import {
   type RehabilitationExaminationFormResponse,
   type CreateRehabilitationExaminationFormRequest,
+  type UserResponse,
   useCreateForm,
   useUpdateForm,
   useGetAllUsers,
@@ -82,8 +83,10 @@ export function RehabilitationFormComponent({ form: existingForm, mode }: Rehabi
   const isEdit = mode === 'edit'
 
   // Fetch all users for the dropdown
-  const { data: usersData } = useGetAllUsers()
-  const users = usersData || []
+  const { data: usersData } = useGetAllUsers({
+    pageable: { page: 0, size: 1000 },
+  })
+  const users = (usersData?.content as UserResponse[]) || []
 
   const form = useForm<RehabilitationFormType>({
     resolver: zodResolver(formSchema),
@@ -162,8 +165,8 @@ export function RehabilitationFormComponent({ form: existingForm, mode }: Rehabi
     mutation: {
       onSuccess: () => {
         toast.success('Tạo phiếu khám thành công')
-        queryClient.invalidateQueries({ queryKey: [{ url: '/api/rehabilitation-examination-forms' }] })
-        navigate({ to: '/rehabilitation-forms' })
+        void queryClient.invalidateQueries({ queryKey: [{ url: '/api/rehabilitation-examination-forms' }] })
+        void navigate({ to: '/rehabilitation-forms' })
       },
       onError: (error) => {
         toast.error('Tạo phiếu khám thất bại: ' + error.message)
@@ -175,8 +178,8 @@ export function RehabilitationFormComponent({ form: existingForm, mode }: Rehabi
     mutation: {
       onSuccess: () => {
         toast.success('Cập nhật phiếu khám thành công')
-        queryClient.invalidateQueries({ queryKey: [{ url: '/api/rehabilitation-examination-forms' }] })
-        navigate({ to: '/rehabilitation-forms' })
+        void queryClient.invalidateQueries({ queryKey: [{ url: '/api/rehabilitation-examination-forms' }] })
+        void navigate({ to: '/rehabilitation-forms' })
       },
       onError: (error) => {
         toast.error('Cập nhật phiếu khám thất bại: ' + error.message)

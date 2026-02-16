@@ -11,11 +11,11 @@ import {
 } from '@/components/ui/alert-dialog'
 import { Loader2 } from 'lucide-react'
 import { toast } from 'sonner'
-import { useRemoveTrainerFromDoctor, type TrainerResponse } from '@/api'
+import { useRemoveTrainerFromDoctor, type StaffResponse } from '@/api'
 
 type TrainerRemovalDialogProps = {
   doctorId: number
-  trainer: TrainerResponse | null
+  trainer: StaffResponse | null
   open: boolean
   onOpenChange: (open: boolean) => void
 }

@@ -1,4 +1,4 @@
-import { useEffect, useState, useMemo } from 'react'
+import { useEffect, useState } from 'react'
 import {
   type SortingState,
   type VisibilityState,
@@ -17,12 +17,12 @@ import {
   TableRow,
 } from '@/components/ui/table'
 import { DataTablePagination } from '@/components/server-data-table'
-import { type TrainerResponse } from '@/api'
+import { type StaffResponse } from '@/api'
 import { trainersColumns } from './trainers-columns'
 import { TrainersTableToolbar } from './trainers-table-toolbar'
 
 type TrainersTableProps = {
-  data: TrainerResponse[]
+  data: StaffResponse[]
   search: Record<string, unknown>
   navigate: NavigateFn
   pageCount: number

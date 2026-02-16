@@ -21,6 +21,8 @@ import { GroupedMultiSelect } from '@/components/grouped-multi-select'
 import { FileUpload, type FileUploadRef } from '@/components/file-upload'
 import {
   type ExerciseResponse,
+  type CategoryResponse,
+  type GroupResponse,
   useCreateExercise,
   useUpdateExercise,
   useGetAllCategories,
@@ -73,9 +75,8 @@ export function ExerciseFormComponent({ exercise, mode }: ExerciseFormComponentP
 
   // Group categories by type
   const categoryGroups = useMemo(() => {
-    const categories = categoriesResponse?.content || []
-    type Category = (typeof categories)[number]
-    const groupsMap = new Map<string, Category[]>()
+    const categories = (categoriesResponse?.content as CategoryResponse[]) || []
+    const groupsMap = new Map<string, CategoryResponse[]>()
 
     categories.forEach((category) => {
       const type = category.type as string | undefined
@@ -101,7 +102,7 @@ export function ExerciseFormComponent({ exercise, mode }: ExerciseFormComponentP
 
   // Wrap groups in a single group for consistent styling
   const groupOptions = useMemo(() => {
-    const groups = groupsResponse?.content || []
+    const groups = (groupsResponse?.content as GroupResponse[]) || []
     return [{
       label: 'Kho bài tập',
       options: groups.map((group) => ({
@@ -222,9 +223,8 @@ export function ExerciseFormComponent({ exercise, mode }: ExerciseFormComponentP
           data: payload,
         })
       }
-    } catch (error) {
+    } catch {
       toast.error('Có lỗi xảy ra khi tải lên file')
-      console.error('Upload error:', error)
     }
   }
 
@@ -248,7 +248,11 @@ export function ExerciseFormComponent({ exercise, mode }: ExerciseFormComponentP
       </div>
 
       <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)} className='space-y-6'>
+        <form
+          // eslint-disable-next-line react-hooks/refs
+          onSubmit={form.handleSubmit(onSubmit)}
+          className='space-y-6'
+        >
           <div className='grid grid-cols-1 md:grid-cols-2 gap-6'>
             <FormField
               control={form.control}
