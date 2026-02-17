@@ -17,6 +17,9 @@ import {
 import { sidebarData } from './layout/data/sidebar-data'
 import { ScrollArea } from './ui/scroll-area'
 
+// Groups that require SUPER_ADMIN only
+const SUPER_ADMIN_ONLY_GROUPS = ['Tổng quan']
+
 // Groups that require admin access (SUPER_ADMIN or ADMIN only)
 const ADMIN_ONLY_GROUPS = ['Quản trị hệ thống']
 
@@ -46,6 +49,10 @@ export function CommandMenu() {
 
     return sidebarData.navGroups
       .filter((group) => {
+        // If group is super-admin-only, only show for SUPER_ADMIN
+        if (SUPER_ADMIN_ONLY_GROUPS.includes(group.title)) {
+          return userType === 'SUPER_ADMIN'
+        }
         // If group is admin-only, only show for SUPER_ADMIN or ADMIN
         if (ADMIN_ONLY_GROUPS.includes(group.title)) {
           return isAdmin
