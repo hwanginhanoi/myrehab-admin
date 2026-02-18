@@ -1,1 +1,6 @@
-{"allOf":[{"$ref":"#/components/schemas/UpdateStaffRequest"}],"description":"Update request for Trainer staff","required":["email","fullName","staffType"],"x-readme-ref-name":"UpdateTrainerRequest"}
+{
+  "allOf": [{ "$ref": "#/components/schemas/UpdateStaffRequest" }],
+  "description": "Update request for Trainer staff",
+  "required": ["email", "fullName", "staffType"],
+  "x-readme-ref-name": "UpdateTrainerRequest"
+}

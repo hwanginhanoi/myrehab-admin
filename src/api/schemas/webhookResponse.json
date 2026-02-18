@@ -1,1 +1,8 @@
-{"type":"object","properties":{"success":{"type":"boolean"},"message":{"type":"string"}},"x-readme-ref-name":"WebhookResponse"}
+{
+  "type": "object",
+  "properties": {
+    "success": { "type": "boolean" },
+    "message": { "type": "string" }
+  },
+  "x-readme-ref-name": "WebhookResponse"
+}

@@ -1,0 +1,5 @@
+{
+  "type": "object",
+  "properties": { "notes": { "type": "string" } },
+  "x-readme-ref-name": "ConfirmAppointmentRequest"
+}

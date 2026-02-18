@@ -1,0 +1,62 @@
+{
+  "type": "object",
+  "properties": {
+    "id": { "type": "integer", "format": "int64" },
+    "userId": { "type": "integer", "format": "int64" },
+    "userName": { "type": "string" },
+    "doctorId": { "type": "integer", "format": "int64" },
+    "doctorName": { "type": "string" },
+    "appointmentDate": { "type": "string", "format": "date" },
+    "startTime": {
+      "type": "object",
+      "properties": {
+        "hour": { "type": "integer", "format": "int32" },
+        "minute": { "type": "integer", "format": "int32" },
+        "second": { "type": "integer", "format": "int32" },
+        "nano": { "type": "integer", "format": "int32" }
+      },
+      "x-readme-ref-name": "LocalTime"
+    },
+    "endTime": {
+      "type": "object",
+      "properties": {
+        "hour": { "type": "integer", "format": "int32" },
+        "minute": { "type": "integer", "format": "int32" },
+        "second": { "type": "integer", "format": "int32" },
+        "nano": { "type": "integer", "format": "int32" }
+      },
+      "x-readme-ref-name": "LocalTime"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "PENDING_CONFIRMATION",
+        "CONFIRMED",
+        "DOCTOR_COMPLETED",
+        "COMPLETED",
+        "CANCELLED",
+        "REJECTED",
+        "DISPUTED",
+        "REFUNDED"
+      ]
+    },
+    "fee": { "type": "integer", "format": "int64" },
+    "patientNotes": { "type": "string" },
+    "doctorNotes": { "type": "string" },
+    "adminNotes": { "type": "string" },
+    "rejectionReason": { "type": "string" },
+    "cancellationReason": { "type": "string" },
+    "confirmedByStaffName": { "type": "string" },
+    "confirmedAt": { "type": "string", "format": "date-time" },
+    "doctorCompletedAt": { "type": "string", "format": "date-time" },
+    "patientConfirmedAt": { "type": "string", "format": "date-time" },
+    "disputedAt": { "type": "string", "format": "date-time" },
+    "disputeNotes": { "type": "string" },
+    "resolvedByAdminName": { "type": "string" },
+    "disputeResolutionNotes": { "type": "string" },
+    "resolvedAt": { "type": "string", "format": "date-time" },
+    "createdAt": { "type": "string", "format": "date-time" },
+    "updatedAt": { "type": "string", "format": "date-time" }
+  },
+  "x-readme-ref-name": "AppointmentResponse"
+}

@@ -1,0 +1,28 @@
+{
+  "type": "object",
+  "properties": {
+    "completionPercentage": {
+      "type": "integer",
+      "format": "int32",
+      "maximum": 100,
+      "minimum": 0
+    },
+    "effortPercentage": {
+      "type": "integer",
+      "format": "int32",
+      "maximum": 100,
+      "minimum": 0
+    },
+    "hasPain": { "type": "boolean" },
+    "painDetails": { "type": "string", "maxLength": 2000, "minLength": 0 },
+    "hardestExercise": { "type": "string", "maxLength": 500, "minLength": 0 },
+    "hardestExerciseReason": {
+      "type": "string",
+      "maxLength": 2000,
+      "minLength": 0
+    },
+    "generalNotes": { "type": "string", "maxLength": 2000, "minLength": 0 }
+  },
+  "required": ["completionPercentage", "effortPercentage", "hasPain"],
+  "x-readme-ref-name": "SubmitFeedbackRequest"
+}

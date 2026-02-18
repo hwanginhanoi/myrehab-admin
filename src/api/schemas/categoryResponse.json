@@ -1,1 +1,21 @@
-{"type":"object","properties":{"id":{"type":"integer","format":"int64"},"name":{"type":"string"},"description":{"type":"string"},"type":{"type":"string","enum":["BODY_PART","HEALTH_CONDITION","EXERCISE_TYPE","EXERCISE_EQUIPMENTS","OTHERS"]},"createdAt":{"type":"string","format":"date-time"},"updatedAt":{"type":"string","format":"date-time"}},"x-readme-ref-name":"CategoryResponse"}
+{
+  "type": "object",
+  "properties": {
+    "id": { "type": "integer", "format": "int64" },
+    "name": { "type": "string" },
+    "description": { "type": "string" },
+    "type": {
+      "type": "string",
+      "enum": [
+        "BODY_PART",
+        "HEALTH_CONDITION",
+        "EXERCISE_TYPE",
+        "EXERCISE_EQUIPMENTS",
+        "OTHERS"
+      ]
+    },
+    "createdAt": { "type": "string", "format": "date-time" },
+    "updatedAt": { "type": "string", "format": "date-time" }
+  },
+  "x-readme-ref-name": "CategoryResponse"
+}

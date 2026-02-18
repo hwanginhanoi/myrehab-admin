@@ -1,0 +1,10 @@
+{
+  "type": "object",
+  "properties": {
+    "exerciseId": { "type": "integer", "format": "int64" },
+    "repetitions": { "type": "integer", "format": "int32" },
+    "sets": { "type": "integer", "format": "int32" }
+  },
+  "required": ["exerciseId", "repetitions", "sets"],
+  "x-readme-ref-name": "ExerciseItemRequest"
+}

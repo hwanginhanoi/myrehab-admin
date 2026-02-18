@@ -1,7 +1,7 @@
 import { getRouteApi, Outlet } from '@tanstack/react-router'
 import { Button } from '@/components/ui/button'
 import { Separator } from '@/components/ui/separator'
-import { ChevronLeft, Shield, UserCog, Users, UserRound } from 'lucide-react'
+import { ChevronLeft, Folders, Shield, UserCog, Users, UserRound } from 'lucide-react'
 import { useGetStaffById } from '@/api'
 import { DoctorDetailProvider, useDoctorDetail } from './components/doctor-detail-provider'
 import { DoctorSidebarNav } from './components/doctor-sidebar-nav'
@@ -9,13 +9,14 @@ import { TrainerAssignmentDialog } from './components/trainer-assignment-dialog'
 import { TrainerRemovalDialog } from './components/trainer-removal-dialog'
 import { PatientAssignmentDialog } from './components/patient-assignment-dialog'
 import { PatientRemovalDialog } from './components/patient-removal-dialog'
+import { ExerciseGroupRemovalDialog } from './components/exercise-group-removal-dialog'
 
 const route = getRouteApi('/_authenticated/staff/doctors/$doctorId')
 
 function DoctorDetailContent() {
   const { doctorId } = route.useParams()
   const navigate = route.useNavigate()
-  const { open, setOpen, currentTrainer, currentPatient } = useDoctorDetail()
+  const { open, setOpen, currentTrainer, currentPatient, currentExerciseGroup } = useDoctorDetail()
 
   // Fetch doctor data
   const { data: doctor, isLoading, error } = useGetStaffById(Number(doctorId))
@@ -75,6 +76,11 @@ function DoctorDetailContent() {
       title: 'Bệnh nhân',
       href: `/staff/doctors/${doctorId}/patients`,
       icon: <UserRound size={18} />,
+    },
+    {
+      title: 'Nhóm bài tập',
+      href: `/staff/doctors/${doctorId}/exercise-groups`,
+      icon: <Folders size={18} />,
     },
     {
       title: 'Quản lý quyền',
@@ -152,6 +158,13 @@ function DoctorDetailContent() {
         patient={currentPatient}
         open={open === 'removePatient'}
         onOpenChange={(isOpen) => setOpen(isOpen ? 'removePatient' : null)}
+      />
+
+      <ExerciseGroupRemovalDialog
+        doctorId={Number(doctorId)}
+        group={currentExerciseGroup}
+        open={open === 'removeExerciseGroup'}
+        onOpenChange={(isOpen) => setOpen(isOpen ? 'removeExerciseGroup' : null)}
       />
     </>
   )
