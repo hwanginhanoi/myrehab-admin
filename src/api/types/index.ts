@@ -1,4 +1,5 @@
 export type { AddBalanceRequest } from "./AddBalanceRequest.ts";
+export type { AppointmentDataPointResponse } from "./AppointmentDataPointResponse.ts";
 export type {
   AppointmentResponseStatusEnumKey,
   AppointmentResponse,
@@ -110,6 +111,7 @@ export type {
   UpdateClinicScheduleMutationResponse,
   UpdateClinicScheduleMutation,
 } from "./appointmentsController/UpdateClinicSchedule.ts";
+export type { AppointmentStatsResponse } from "./AppointmentStatsResponse.ts";
 export type { AssignCourseToPatientRequest } from "./AssignCourseToPatientRequest.ts";
 export type { AssignDoctorRequest } from "./AssignDoctorRequest.ts";
 export type { AssignPatientToDoctorRequest } from "./AssignPatientToDoctorRequest.ts";
@@ -303,6 +305,7 @@ export type {
   GetCourseStructureQueryResponse,
   GetCourseStructureQuery,
 } from "./coursesController/GetCourseStructure.ts";
+export type { CourseStatsResponse } from "./CourseStatsResponse.ts";
 export type { CourseWithDaysResponse } from "./CourseWithDaysResponse.ts";
 export type { CreateAppointmentRequest } from "./CreateAppointmentRequest.ts";
 export type {
@@ -394,6 +397,7 @@ export type {
   RevokeCourseAssignmentMutation,
 } from "./doctorController/RevokeCourseAssignment.ts";
 export type { DoctorPatientResponse } from "./DoctorPatientResponse.ts";
+export type { DoctorStatsResponse } from "./DoctorStatsResponse.ts";
 export type {
   CreateCategory200,
   CreateCategoryMutationRequest,
@@ -546,6 +550,7 @@ export type { GroupResponse } from "./GroupResponse.ts";
 export type { LocalTime } from "./LocalTime.ts";
 export type { LoginWithPasswordRequest } from "./LoginWithPasswordRequest.ts";
 export type { LoginWithPinRequest } from "./LoginWithPinRequest.ts";
+export type { LowEffortPatientResponse } from "./LowEffortPatientResponse.ts";
 export type { MyAssignedCourseResponse } from "./MyAssignedCourseResponse.ts";
 export type {
   CreateNews200,
@@ -578,9 +583,11 @@ export type {
   NewsResponse,
 } from "./NewsResponse.ts";
 export type { OtpResponse } from "./OtpResponse.ts";
+export type { OverviewResponse } from "./OverviewResponse.ts";
 export type { Pageable } from "./Pageable.ts";
 export type { PagedModel } from "./PagedModel.ts";
 export type { PageMetadata } from "./PageMetadata.ts";
+export type { PainReportResponse } from "./PainReportResponse.ts";
 export type {
   AssignPatientToDoctorPathParams,
   AssignPatientToDoctor200,
@@ -625,6 +632,8 @@ export type {
 export type { QrCodeResponse } from "./QrCodeResponse.ts";
 export type { RefreshTokenRequest } from "./RefreshTokenRequest.ts";
 export type { RegisterRequest } from "./RegisterRequest.ts";
+export type { RegistrationDataPointResponse } from "./RegistrationDataPointResponse.ts";
+export type { RegistrationResponse } from "./RegistrationResponse.ts";
 export type {
   CreateForm200,
   CreateFormMutationRequest,
@@ -659,11 +668,64 @@ export type {
 } from "./rehabilitationExaminationFormManagementController/UpdateForm.ts";
 export type { RehabilitationExaminationFormResponse } from "./RehabilitationExaminationFormResponse.ts";
 export type { RejectAppointmentRequest } from "./RejectAppointmentRequest.ts";
+export type {
+  GetAppointmentStatsQueryParams,
+  GetAppointmentStats200,
+  GetAppointmentStatsQueryResponse,
+  GetAppointmentStatsQuery,
+} from "./reportsController/GetAppointmentStats.ts";
+export type {
+  GetCourseStats200,
+  GetCourseStatsQueryResponse,
+  GetCourseStatsQuery,
+} from "./reportsController/GetCourseStats.ts";
+export type {
+  GetDoctorStats200,
+  GetDoctorStatsQueryResponse,
+  GetDoctorStatsQuery,
+} from "./reportsController/GetDoctorStats.ts";
+export type {
+  GetLowEffortPatientsQueryParams,
+  GetLowEffortPatients200,
+  GetLowEffortPatientsQueryResponse,
+  GetLowEffortPatientsQuery,
+} from "./reportsController/GetLowEffortPatients.ts";
+export type {
+  GetOverview200,
+  GetOverviewQueryResponse,
+  GetOverviewQuery,
+} from "./reportsController/GetOverview.ts";
+export type {
+  GetPainReportsQueryParams,
+  GetPainReports200,
+  GetPainReportsQueryResponse,
+  GetPainReportsQuery,
+} from "./reportsController/GetPainReports.ts";
+export type {
+  GetRegistrationsQueryParams,
+  GetRegistrations200,
+  GetRegistrationsQueryResponse,
+  GetRegistrationsQuery,
+} from "./reportsController/GetRegistrations.ts";
+export type {
+  GetRevenueQueryParams,
+  GetRevenue200,
+  GetRevenueQueryResponse,
+  GetRevenueQuery,
+} from "./reportsController/GetRevenue.ts";
+export type {
+  GetTopSpendersQueryParams,
+  GetTopSpenders200,
+  GetTopSpendersQueryResponse,
+  GetTopSpendersQuery,
+} from "./reportsController/GetTopSpenders.ts";
 export type { ResetPinRequest } from "./ResetPinRequest.ts";
 export type {
   ResolveDisputeRequestResolutionEnumKey,
   ResolveDisputeRequest,
 } from "./ResolveDisputeRequest.ts";
+export type { RevenueDataPointResponse } from "./RevenueDataPointResponse.ts";
+export type { RevenueResponse } from "./RevenueResponse.ts";
 export type { ReviewCourseRequestRequest } from "./ReviewCourseRequestRequest.ts";
 export type { SendOtpRequest } from "./SendOtpRequest.ts";
 export type { SepayWebhookPayload } from "./SepayWebhookPayload.ts";
@@ -784,6 +846,7 @@ export type {
   PurchasePackageMutationResponse,
   PurchasePackageMutation,
 } from "./subscriptionsController/PurchasePackage.ts";
+export type { TopSpenderResponse } from "./TopSpenderResponse.ts";
 export type {
   CreateCourseRequest200,
   CreateCourseRequestMutationRequest,

@@ -129,6 +129,24 @@ export type { GetFormByIdSuspenseQueryKey } from "./hooks/Rehabilitation Examina
 export type { GetFormsByUserIdQueryKey } from "./hooks/Rehabilitation Examination Form ManagementHooks/useGetFormsByUserId.ts";
 export type { GetFormsByUserIdSuspenseQueryKey } from "./hooks/Rehabilitation Examination Form ManagementHooks/useGetFormsByUserIdSuspense.ts";
 export type { UpdateFormMutationKey } from "./hooks/Rehabilitation Examination Form ManagementHooks/useUpdateForm.ts";
+export type { GetAppointmentStatsQueryKey } from "./hooks/ReportsHooks/useGetAppointmentStats.ts";
+export type { GetAppointmentStatsSuspenseQueryKey } from "./hooks/ReportsHooks/useGetAppointmentStatsSuspense.ts";
+export type { GetCourseStatsQueryKey } from "./hooks/ReportsHooks/useGetCourseStats.ts";
+export type { GetCourseStatsSuspenseQueryKey } from "./hooks/ReportsHooks/useGetCourseStatsSuspense.ts";
+export type { GetDoctorStatsQueryKey } from "./hooks/ReportsHooks/useGetDoctorStats.ts";
+export type { GetDoctorStatsSuspenseQueryKey } from "./hooks/ReportsHooks/useGetDoctorStatsSuspense.ts";
+export type { GetLowEffortPatientsQueryKey } from "./hooks/ReportsHooks/useGetLowEffortPatients.ts";
+export type { GetLowEffortPatientsSuspenseQueryKey } from "./hooks/ReportsHooks/useGetLowEffortPatientsSuspense.ts";
+export type { GetOverviewQueryKey } from "./hooks/ReportsHooks/useGetOverview.ts";
+export type { GetOverviewSuspenseQueryKey } from "./hooks/ReportsHooks/useGetOverviewSuspense.ts";
+export type { GetPainReportsQueryKey } from "./hooks/ReportsHooks/useGetPainReports.ts";
+export type { GetPainReportsSuspenseQueryKey } from "./hooks/ReportsHooks/useGetPainReportsSuspense.ts";
+export type { GetRegistrationsQueryKey } from "./hooks/ReportsHooks/useGetRegistrations.ts";
+export type { GetRegistrationsSuspenseQueryKey } from "./hooks/ReportsHooks/useGetRegistrationsSuspense.ts";
+export type { GetRevenueQueryKey } from "./hooks/ReportsHooks/useGetRevenue.ts";
+export type { GetRevenueSuspenseQueryKey } from "./hooks/ReportsHooks/useGetRevenueSuspense.ts";
+export type { GetTopSpendersQueryKey } from "./hooks/ReportsHooks/useGetTopSpenders.ts";
+export type { GetTopSpendersSuspenseQueryKey } from "./hooks/ReportsHooks/useGetTopSpendersSuspense.ts";
 export type { AssignExerciseGroupToDoctorMutationKey } from "./hooks/Staff ManagementHooks/useAssignExerciseGroupToDoctor.ts";
 export type { AssignTrainerToDoctorMutationKey } from "./hooks/Staff ManagementHooks/useAssignTrainerToDoctor.ts";
 export type { CreateStaffMutationKey } from "./hooks/Staff ManagementHooks/useCreateStaff.ts";
@@ -174,6 +192,7 @@ export type { GetUserByIdSuspenseQueryKey } from "./hooks/User ManagementHooks/u
 export type { SearchUsersByNameQueryKey } from "./hooks/User ManagementHooks/useSearchUsersByName.ts";
 export type { SearchUsersByNameSuspenseQueryKey } from "./hooks/User ManagementHooks/useSearchUsersByNameSuspense.ts";
 export type { AddBalanceRequest } from "./types/AddBalanceRequest.ts";
+export type { AppointmentDataPointResponse } from "./types/AppointmentDataPointResponse.ts";
 export type {
   AppointmentResponseStatusEnumKey,
   AppointmentResponse,
@@ -285,6 +304,7 @@ export type {
   UpdateClinicScheduleMutationResponse,
   UpdateClinicScheduleMutation,
 } from "./types/appointmentsController/UpdateClinicSchedule.ts";
+export type { AppointmentStatsResponse } from "./types/AppointmentStatsResponse.ts";
 export type { AssignCourseToPatientRequest } from "./types/AssignCourseToPatientRequest.ts";
 export type { AssignDoctorRequest } from "./types/AssignDoctorRequest.ts";
 export type { AssignPatientToDoctorRequest } from "./types/AssignPatientToDoctorRequest.ts";
@@ -478,6 +498,7 @@ export type {
   GetCourseStructureQueryResponse,
   GetCourseStructureQuery,
 } from "./types/coursesController/GetCourseStructure.ts";
+export type { CourseStatsResponse } from "./types/CourseStatsResponse.ts";
 export type { CourseWithDaysResponse } from "./types/CourseWithDaysResponse.ts";
 export type { CreateAppointmentRequest } from "./types/CreateAppointmentRequest.ts";
 export type {
@@ -569,6 +590,7 @@ export type {
   RevokeCourseAssignmentMutation,
 } from "./types/doctorController/RevokeCourseAssignment.ts";
 export type { DoctorPatientResponse } from "./types/DoctorPatientResponse.ts";
+export type { DoctorStatsResponse } from "./types/DoctorStatsResponse.ts";
 export type {
   CreateCategory200,
   CreateCategoryMutationRequest,
@@ -721,6 +743,7 @@ export type { GroupResponse } from "./types/GroupResponse.ts";
 export type { LocalTime } from "./types/LocalTime.ts";
 export type { LoginWithPasswordRequest } from "./types/LoginWithPasswordRequest.ts";
 export type { LoginWithPinRequest } from "./types/LoginWithPinRequest.ts";
+export type { LowEffortPatientResponse } from "./types/LowEffortPatientResponse.ts";
 export type { MyAssignedCourseResponse } from "./types/MyAssignedCourseResponse.ts";
 export type {
   CreateNews200,
@@ -753,9 +776,11 @@ export type {
   NewsResponse,
 } from "./types/NewsResponse.ts";
 export type { OtpResponse } from "./types/OtpResponse.ts";
+export type { OverviewResponse } from "./types/OverviewResponse.ts";
 export type { Pageable } from "./types/Pageable.ts";
 export type { PagedModel } from "./types/PagedModel.ts";
 export type { PageMetadata } from "./types/PageMetadata.ts";
+export type { PainReportResponse } from "./types/PainReportResponse.ts";
 export type {
   AssignPatientToDoctorPathParams,
   AssignPatientToDoctor200,
@@ -800,6 +825,8 @@ export type {
 export type { QrCodeResponse } from "./types/QrCodeResponse.ts";
 export type { RefreshTokenRequest } from "./types/RefreshTokenRequest.ts";
 export type { RegisterRequest } from "./types/RegisterRequest.ts";
+export type { RegistrationDataPointResponse } from "./types/RegistrationDataPointResponse.ts";
+export type { RegistrationResponse } from "./types/RegistrationResponse.ts";
 export type {
   CreateForm200,
   CreateFormMutationRequest,
@@ -834,11 +861,64 @@ export type {
 } from "./types/rehabilitationExaminationFormManagementController/UpdateForm.ts";
 export type { RehabilitationExaminationFormResponse } from "./types/RehabilitationExaminationFormResponse.ts";
 export type { RejectAppointmentRequest } from "./types/RejectAppointmentRequest.ts";
+export type {
+  GetAppointmentStatsQueryParams,
+  GetAppointmentStats200,
+  GetAppointmentStatsQueryResponse,
+  GetAppointmentStatsQuery,
+} from "./types/reportsController/GetAppointmentStats.ts";
+export type {
+  GetCourseStats200,
+  GetCourseStatsQueryResponse,
+  GetCourseStatsQuery,
+} from "./types/reportsController/GetCourseStats.ts";
+export type {
+  GetDoctorStats200,
+  GetDoctorStatsQueryResponse,
+  GetDoctorStatsQuery,
+} from "./types/reportsController/GetDoctorStats.ts";
+export type {
+  GetLowEffortPatientsQueryParams,
+  GetLowEffortPatients200,
+  GetLowEffortPatientsQueryResponse,
+  GetLowEffortPatientsQuery,
+} from "./types/reportsController/GetLowEffortPatients.ts";
+export type {
+  GetOverview200,
+  GetOverviewQueryResponse,
+  GetOverviewQuery,
+} from "./types/reportsController/GetOverview.ts";
+export type {
+  GetPainReportsQueryParams,
+  GetPainReports200,
+  GetPainReportsQueryResponse,
+  GetPainReportsQuery,
+} from "./types/reportsController/GetPainReports.ts";
+export type {
+  GetRegistrationsQueryParams,
+  GetRegistrations200,
+  GetRegistrationsQueryResponse,
+  GetRegistrationsQuery,
+} from "./types/reportsController/GetRegistrations.ts";
+export type {
+  GetRevenueQueryParams,
+  GetRevenue200,
+  GetRevenueQueryResponse,
+  GetRevenueQuery,
+} from "./types/reportsController/GetRevenue.ts";
+export type {
+  GetTopSpendersQueryParams,
+  GetTopSpenders200,
+  GetTopSpendersQueryResponse,
+  GetTopSpendersQuery,
+} from "./types/reportsController/GetTopSpenders.ts";
 export type { ResetPinRequest } from "./types/ResetPinRequest.ts";
 export type {
   ResolveDisputeRequestResolutionEnumKey,
   ResolveDisputeRequest,
 } from "./types/ResolveDisputeRequest.ts";
+export type { RevenueDataPointResponse } from "./types/RevenueDataPointResponse.ts";
+export type { RevenueResponse } from "./types/RevenueResponse.ts";
 export type { ReviewCourseRequestRequest } from "./types/ReviewCourseRequestRequest.ts";
 export type { SendOtpRequest } from "./types/SendOtpRequest.ts";
 export type { SepayWebhookPayload } from "./types/SepayWebhookPayload.ts";
@@ -959,6 +1039,7 @@ export type {
   PurchasePackageMutationResponse,
   PurchasePackageMutation,
 } from "./types/subscriptionsController/PurchasePackage.ts";
+export type { TopSpenderResponse } from "./types/TopSpenderResponse.ts";
 export type {
   CreateCourseRequest200,
   CreateCourseRequestMutationRequest,
@@ -1590,6 +1671,78 @@ export { updateFormMutationKey } from "./hooks/Rehabilitation Examination Form M
 export { updateForm } from "./hooks/Rehabilitation Examination Form ManagementHooks/useUpdateForm.ts";
 export { updateFormMutationOptions } from "./hooks/Rehabilitation Examination Form ManagementHooks/useUpdateForm.ts";
 export { useUpdateForm } from "./hooks/Rehabilitation Examination Form ManagementHooks/useUpdateForm.ts";
+export { getAppointmentStatsQueryKey } from "./hooks/ReportsHooks/useGetAppointmentStats.ts";
+export { getAppointmentStats } from "./hooks/ReportsHooks/useGetAppointmentStats.ts";
+export { getAppointmentStatsQueryOptions } from "./hooks/ReportsHooks/useGetAppointmentStats.ts";
+export { useGetAppointmentStats } from "./hooks/ReportsHooks/useGetAppointmentStats.ts";
+export { getAppointmentStatsSuspenseQueryKey } from "./hooks/ReportsHooks/useGetAppointmentStatsSuspense.ts";
+export { getAppointmentStatsSuspense } from "./hooks/ReportsHooks/useGetAppointmentStatsSuspense.ts";
+export { getAppointmentStatsSuspenseQueryOptions } from "./hooks/ReportsHooks/useGetAppointmentStatsSuspense.ts";
+export { useGetAppointmentStatsSuspense } from "./hooks/ReportsHooks/useGetAppointmentStatsSuspense.ts";
+export { getCourseStatsQueryKey } from "./hooks/ReportsHooks/useGetCourseStats.ts";
+export { getCourseStats } from "./hooks/ReportsHooks/useGetCourseStats.ts";
+export { getCourseStatsQueryOptions } from "./hooks/ReportsHooks/useGetCourseStats.ts";
+export { useGetCourseStats } from "./hooks/ReportsHooks/useGetCourseStats.ts";
+export { getCourseStatsSuspenseQueryKey } from "./hooks/ReportsHooks/useGetCourseStatsSuspense.ts";
+export { getCourseStatsSuspense } from "./hooks/ReportsHooks/useGetCourseStatsSuspense.ts";
+export { getCourseStatsSuspenseQueryOptions } from "./hooks/ReportsHooks/useGetCourseStatsSuspense.ts";
+export { useGetCourseStatsSuspense } from "./hooks/ReportsHooks/useGetCourseStatsSuspense.ts";
+export { getDoctorStatsQueryKey } from "./hooks/ReportsHooks/useGetDoctorStats.ts";
+export { getDoctorStats } from "./hooks/ReportsHooks/useGetDoctorStats.ts";
+export { getDoctorStatsQueryOptions } from "./hooks/ReportsHooks/useGetDoctorStats.ts";
+export { useGetDoctorStats } from "./hooks/ReportsHooks/useGetDoctorStats.ts";
+export { getDoctorStatsSuspenseQueryKey } from "./hooks/ReportsHooks/useGetDoctorStatsSuspense.ts";
+export { getDoctorStatsSuspense } from "./hooks/ReportsHooks/useGetDoctorStatsSuspense.ts";
+export { getDoctorStatsSuspenseQueryOptions } from "./hooks/ReportsHooks/useGetDoctorStatsSuspense.ts";
+export { useGetDoctorStatsSuspense } from "./hooks/ReportsHooks/useGetDoctorStatsSuspense.ts";
+export { getLowEffortPatientsQueryKey } from "./hooks/ReportsHooks/useGetLowEffortPatients.ts";
+export { getLowEffortPatients } from "./hooks/ReportsHooks/useGetLowEffortPatients.ts";
+export { getLowEffortPatientsQueryOptions } from "./hooks/ReportsHooks/useGetLowEffortPatients.ts";
+export { useGetLowEffortPatients } from "./hooks/ReportsHooks/useGetLowEffortPatients.ts";
+export { getLowEffortPatientsSuspenseQueryKey } from "./hooks/ReportsHooks/useGetLowEffortPatientsSuspense.ts";
+export { getLowEffortPatientsSuspense } from "./hooks/ReportsHooks/useGetLowEffortPatientsSuspense.ts";
+export { getLowEffortPatientsSuspenseQueryOptions } from "./hooks/ReportsHooks/useGetLowEffortPatientsSuspense.ts";
+export { useGetLowEffortPatientsSuspense } from "./hooks/ReportsHooks/useGetLowEffortPatientsSuspense.ts";
+export { getOverviewQueryKey } from "./hooks/ReportsHooks/useGetOverview.ts";
+export { getOverview } from "./hooks/ReportsHooks/useGetOverview.ts";
+export { getOverviewQueryOptions } from "./hooks/ReportsHooks/useGetOverview.ts";
+export { useGetOverview } from "./hooks/ReportsHooks/useGetOverview.ts";
+export { getOverviewSuspenseQueryKey } from "./hooks/ReportsHooks/useGetOverviewSuspense.ts";
+export { getOverviewSuspense } from "./hooks/ReportsHooks/useGetOverviewSuspense.ts";
+export { getOverviewSuspenseQueryOptions } from "./hooks/ReportsHooks/useGetOverviewSuspense.ts";
+export { useGetOverviewSuspense } from "./hooks/ReportsHooks/useGetOverviewSuspense.ts";
+export { getPainReportsQueryKey } from "./hooks/ReportsHooks/useGetPainReports.ts";
+export { getPainReports } from "./hooks/ReportsHooks/useGetPainReports.ts";
+export { getPainReportsQueryOptions } from "./hooks/ReportsHooks/useGetPainReports.ts";
+export { useGetPainReports } from "./hooks/ReportsHooks/useGetPainReports.ts";
+export { getPainReportsSuspenseQueryKey } from "./hooks/ReportsHooks/useGetPainReportsSuspense.ts";
+export { getPainReportsSuspense } from "./hooks/ReportsHooks/useGetPainReportsSuspense.ts";
+export { getPainReportsSuspenseQueryOptions } from "./hooks/ReportsHooks/useGetPainReportsSuspense.ts";
+export { useGetPainReportsSuspense } from "./hooks/ReportsHooks/useGetPainReportsSuspense.ts";
+export { getRegistrationsQueryKey } from "./hooks/ReportsHooks/useGetRegistrations.ts";
+export { getRegistrations } from "./hooks/ReportsHooks/useGetRegistrations.ts";
+export { getRegistrationsQueryOptions } from "./hooks/ReportsHooks/useGetRegistrations.ts";
+export { useGetRegistrations } from "./hooks/ReportsHooks/useGetRegistrations.ts";
+export { getRegistrationsSuspenseQueryKey } from "./hooks/ReportsHooks/useGetRegistrationsSuspense.ts";
+export { getRegistrationsSuspense } from "./hooks/ReportsHooks/useGetRegistrationsSuspense.ts";
+export { getRegistrationsSuspenseQueryOptions } from "./hooks/ReportsHooks/useGetRegistrationsSuspense.ts";
+export { useGetRegistrationsSuspense } from "./hooks/ReportsHooks/useGetRegistrationsSuspense.ts";
+export { getRevenueQueryKey } from "./hooks/ReportsHooks/useGetRevenue.ts";
+export { getRevenue } from "./hooks/ReportsHooks/useGetRevenue.ts";
+export { getRevenueQueryOptions } from "./hooks/ReportsHooks/useGetRevenue.ts";
+export { useGetRevenue } from "./hooks/ReportsHooks/useGetRevenue.ts";
+export { getRevenueSuspenseQueryKey } from "./hooks/ReportsHooks/useGetRevenueSuspense.ts";
+export { getRevenueSuspense } from "./hooks/ReportsHooks/useGetRevenueSuspense.ts";
+export { getRevenueSuspenseQueryOptions } from "./hooks/ReportsHooks/useGetRevenueSuspense.ts";
+export { useGetRevenueSuspense } from "./hooks/ReportsHooks/useGetRevenueSuspense.ts";
+export { getTopSpendersQueryKey } from "./hooks/ReportsHooks/useGetTopSpenders.ts";
+export { getTopSpenders } from "./hooks/ReportsHooks/useGetTopSpenders.ts";
+export { getTopSpendersQueryOptions } from "./hooks/ReportsHooks/useGetTopSpenders.ts";
+export { useGetTopSpenders } from "./hooks/ReportsHooks/useGetTopSpenders.ts";
+export { getTopSpendersSuspenseQueryKey } from "./hooks/ReportsHooks/useGetTopSpendersSuspense.ts";
+export { getTopSpendersSuspense } from "./hooks/ReportsHooks/useGetTopSpendersSuspense.ts";
+export { getTopSpendersSuspenseQueryOptions } from "./hooks/ReportsHooks/useGetTopSpendersSuspense.ts";
+export { useGetTopSpendersSuspense } from "./hooks/ReportsHooks/useGetTopSpendersSuspense.ts";
 export { assignExerciseGroupToDoctorMutationKey } from "./hooks/Staff ManagementHooks/useAssignExerciseGroupToDoctor.ts";
 export { assignExerciseGroupToDoctor } from "./hooks/Staff ManagementHooks/useAssignExerciseGroupToDoctor.ts";
 export { assignExerciseGroupToDoctorMutationOptions } from "./hooks/Staff ManagementHooks/useAssignExerciseGroupToDoctor.ts";
@@ -1793,6 +1946,7 @@ export { updateNewsRequestStatusEnum } from "./types/UpdateNewsRequest.ts";
 export { updateSuperAdminRequestStaffTypeEnum } from "./types/UpdateSuperAdminRequest.ts";
 export { updateTrainerRequestStaffTypeEnum } from "./types/UpdateTrainerRequest.ts";
 export { addBalanceRequestSchema } from "./zod/addBalanceRequestSchema.ts";
+export { appointmentDataPointResponseSchema } from "./zod/appointmentDataPointResponseSchema.ts";
 export { appointmentResponseSchema } from "./zod/appointmentResponseSchema.ts";
 export {
   assignDoctorPathParamsSchema,
@@ -1884,6 +2038,7 @@ export {
   updateClinicScheduleMutationRequestSchema,
   updateClinicScheduleMutationResponseSchema,
 } from "./zod/appointmentsController/updateClinicScheduleSchema.ts";
+export { appointmentStatsResponseSchema } from "./zod/appointmentStatsResponseSchema.ts";
 export { assignCourseToPatientRequestSchema } from "./zod/assignCourseToPatientRequestSchema.ts";
 export { assignDoctorRequestSchema } from "./zod/assignDoctorRequestSchema.ts";
 export { assignPatientToDoctorRequestSchema } from "./zod/assignPatientToDoctorRequestSchema.ts";
@@ -2038,6 +2193,7 @@ export {
   getCourseStructure200Schema,
   getCourseStructureQueryResponseSchema,
 } from "./zod/coursesController/getCourseStructureSchema.ts";
+export { courseStatsResponseSchema } from "./zod/courseStatsResponseSchema.ts";
 export { courseWithDaysResponseSchema } from "./zod/courseWithDaysResponseSchema.ts";
 export { createAppointmentRequestSchema } from "./zod/createAppointmentRequestSchema.ts";
 export { createCategoryRequestSchema } from "./zod/createCategoryRequestSchema.ts";
@@ -2109,6 +2265,7 @@ export {
   revokeCourseAssignmentMutationResponseSchema,
 } from "./zod/doctorController/revokeCourseAssignmentSchema.ts";
 export { doctorPatientResponseSchema } from "./zod/doctorPatientResponseSchema.ts";
+export { doctorStatsResponseSchema } from "./zod/doctorStatsResponseSchema.ts";
 export {
   createCategory200Schema,
   createCategoryMutationRequestSchema,
@@ -2238,6 +2395,7 @@ export { groupResponseSchema } from "./zod/groupResponseSchema.ts";
 export { localTimeSchema } from "./zod/localTimeSchema.ts";
 export { loginWithPasswordRequestSchema } from "./zod/loginWithPasswordRequestSchema.ts";
 export { loginWithPinRequestSchema } from "./zod/loginWithPinRequestSchema.ts";
+export { lowEffortPatientResponseSchema } from "./zod/lowEffortPatientResponseSchema.ts";
 export { myAssignedCourseResponseSchema } from "./zod/myAssignedCourseResponseSchema.ts";
 export {
   createNews200Schema,
@@ -2262,9 +2420,11 @@ export {
 } from "./zod/newsController/updateNewsSchema.ts";
 export { newsResponseSchema } from "./zod/newsResponseSchema.ts";
 export { otpResponseSchema } from "./zod/otpResponseSchema.ts";
+export { overviewResponseSchema } from "./zod/overviewResponseSchema.ts";
 export { pageableSchema } from "./zod/pageableSchema.ts";
 export { pagedModelSchema } from "./zod/pagedModelSchema.ts";
 export { pageMetadataSchema } from "./zod/pageMetadataSchema.ts";
+export { painReportResponseSchema } from "./zod/painReportResponseSchema.ts";
 export {
   assignPatientToDoctorPathParamsSchema,
   assignPatientToDoctor200Schema,
@@ -2298,6 +2458,8 @@ export { purchasePackageRequestSchema } from "./zod/purchasePackageRequestSchema
 export { qrCodeResponseSchema } from "./zod/qrCodeResponseSchema.ts";
 export { refreshTokenRequestSchema } from "./zod/refreshTokenRequestSchema.ts";
 export { registerRequestSchema } from "./zod/registerRequestSchema.ts";
+export { registrationDataPointResponseSchema } from "./zod/registrationDataPointResponseSchema.ts";
+export { registrationResponseSchema } from "./zod/registrationResponseSchema.ts";
 export {
   createForm200Schema,
   createFormMutationRequestSchema,
@@ -2327,8 +2489,52 @@ export {
 } from "./zod/rehabilitationExaminationFormManagementController/updateFormSchema.ts";
 export { rehabilitationExaminationFormResponseSchema } from "./zod/rehabilitationExaminationFormResponseSchema.ts";
 export { rejectAppointmentRequestSchema } from "./zod/rejectAppointmentRequestSchema.ts";
+export {
+  getAppointmentStatsQueryParamsSchema,
+  getAppointmentStats200Schema,
+  getAppointmentStatsQueryResponseSchema,
+} from "./zod/reportsController/getAppointmentStatsSchema.ts";
+export {
+  getCourseStats200Schema,
+  getCourseStatsQueryResponseSchema,
+} from "./zod/reportsController/getCourseStatsSchema.ts";
+export {
+  getDoctorStats200Schema,
+  getDoctorStatsQueryResponseSchema,
+} from "./zod/reportsController/getDoctorStatsSchema.ts";
+export {
+  getLowEffortPatientsQueryParamsSchema,
+  getLowEffortPatients200Schema,
+  getLowEffortPatientsQueryResponseSchema,
+} from "./zod/reportsController/getLowEffortPatientsSchema.ts";
+export {
+  getOverview200Schema,
+  getOverviewQueryResponseSchema,
+} from "./zod/reportsController/getOverviewSchema.ts";
+export {
+  getPainReportsQueryParamsSchema,
+  getPainReports200Schema,
+  getPainReportsQueryResponseSchema,
+} from "./zod/reportsController/getPainReportsSchema.ts";
+export {
+  getRegistrationsQueryParamsSchema,
+  getRegistrations200Schema,
+  getRegistrationsQueryResponseSchema,
+} from "./zod/reportsController/getRegistrationsSchema.ts";
+export {
+  getRevenueQueryParamsSchema,
+  getRevenue200Schema,
+  getRevenueQueryResponseSchema,
+} from "./zod/reportsController/getRevenueSchema.ts";
+export {
+  getTopSpendersQueryParamsSchema,
+  getTopSpenders200Schema,
+  getTopSpendersQueryResponseSchema,
+} from "./zod/reportsController/getTopSpendersSchema.ts";
 export { resetPinRequestSchema } from "./zod/resetPinRequestSchema.ts";
 export { resolveDisputeRequestSchema } from "./zod/resolveDisputeRequestSchema.ts";
+export { revenueDataPointResponseSchema } from "./zod/revenueDataPointResponseSchema.ts";
+export { revenueResponseSchema } from "./zod/revenueResponseSchema.ts";
 export { reviewCourseRequestRequestSchema } from "./zod/reviewCourseRequestRequestSchema.ts";
 export { sendOtpRequestSchema } from "./zod/sendOtpRequestSchema.ts";
 export { sepayWebhookPayloadSchema } from "./zod/sepayWebhookPayloadSchema.ts";
@@ -2425,6 +2631,7 @@ export {
   purchasePackageMutationRequestSchema,
   purchasePackageMutationResponseSchema,
 } from "./zod/subscriptionsController/purchasePackageSchema.ts";
+export { topSpenderResponseSchema } from "./zod/topSpenderResponseSchema.ts";
 export {
   createCourseRequest200Schema,
   createCourseRequestMutationRequestSchema,
