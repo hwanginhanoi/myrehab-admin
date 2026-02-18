@@ -4,8 +4,7 @@ import { Main } from '@/components/layout/main'
 import { ProfileDropdown } from '@/components/profile-dropdown'
 import { Search } from '@/components/search'
 import { ThemeSwitch } from '@/components/theme-switch'
-import { useGetClinicSchedule } from '@/api'
-import type { ClinicScheduleResponse } from '@/api'
+import { useGetClinicSchedule, type ClinicScheduleResponse } from '@/api'
 import { ClinicScheduleTable } from './components/clinic-schedule-table'
 
 export function ClinicSchedule() {

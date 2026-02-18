@@ -8,8 +8,7 @@ import { ProfileDropdown } from '@/components/profile-dropdown'
 import { Search } from '@/components/search'
 import { ThemeSwitch } from '@/components/theme-switch'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
-import { useGetAllAppointments } from '@/api'
-import type { AppointmentResponse } from '@/api'
+import { useGetAllAppointments, type AppointmentResponse } from '@/api'
 import { AppointmentsTable } from './components/appointments-table'
 
 const route = getRouteApi('/_authenticated/appointments/')
@@ -21,17 +20,7 @@ export function Appointments() {
   const page = (search.page as number) || 1
   const pageSize = (search.pageSize as number) || 10
 
-  const queryParams = useMemo(() => {
-    const params: any = {
-      pageable: {
-        page: page - 1,
-        size: pageSize,
-      },
-    }
-    return params
-  }, [page, pageSize])
-
-  const { data: response, isLoading } = useGetAllAppointments(queryParams as any, {
+  const { data: response, isLoading } = useGetAllAppointments({ pageable: { page: page - 1, size: pageSize } }, {
     query: {
       placeholderData: (previousData) => previousData,
     },

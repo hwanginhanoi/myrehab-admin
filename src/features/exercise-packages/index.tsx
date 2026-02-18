@@ -24,7 +24,7 @@ export function ExercisePackages() {
 
   // Build query params - include filters if present
   const queryParams = useMemo(() => {
-    const params: any = {
+    const params: { pageable: { page: number; size: number }; query?: string } = {
       pageable: {
         page: page - 1, // Convert to 0-indexed for API
         size: pageSize,
@@ -40,7 +40,7 @@ export function ExercisePackages() {
   }, [page, pageSize, title])
 
   // Fetch exercise packages with server-side filtering and pagination
-  const { data: response, isLoading } = useGetAllExercisePackages(queryParams as any, {
+  const { data: response, isLoading } = useGetAllExercisePackages(queryParams, {
     query: {
       placeholderData: (previousData) => previousData,
     },

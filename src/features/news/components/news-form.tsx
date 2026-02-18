@@ -59,29 +59,24 @@ const processAndUploadImages = async (htmlContent: string): Promise<string> => {
     // Check if image is base64
     if (src && src.startsWith('data:image')) {
       const uploadPromise = (async () => {
-        try {
-          // Convert base64 to file
-          const file = base64ToFile(src, `news-image-${Date.now()}-${imageIndex}.png`)
-          imageIndex++
+        // Convert base64 to file
+        const file = base64ToFile(src, `news-image-${Date.now()}-${imageIndex}.png`)
+        imageIndex++
 
-          // Upload to MinIO
-          const { presignedUrl, objectKey } = await requestPresignedUploadUrl({
-            fileName: file.name,
-            contentType: file.type,
-            category: 'news-image',
-          })
+        // Upload to MinIO
+        const { presignedUrl, objectKey } = await requestPresignedUploadUrl({
+          fileName: file.name,
+          contentType: file.type,
+          category: 'news-image',
+        })
 
-          await uploadFileToMinIO(presignedUrl, file, file.type)
+        await uploadFileToMinIO(presignedUrl, file, file.type)
 
-          // Get public URL
-          const publicUrl = getPublicImageUrl(objectKey)
+        // Get public URL
+        const publicUrl = getPublicImageUrl(objectKey)
 
-          // Replace base64 with public URL
-          img.setAttribute('src', publicUrl)
-        } catch (error) {
-          console.error('Failed to upload image:', error)
-          throw error
-        }
+        // Replace base64 with public URL
+        img.setAttribute('src', publicUrl)
       })()
 
       uploadPromises.push(uploadPromise)
@@ -188,8 +183,7 @@ export function NewsFormComponent({ news, mode }: NewsFormComponentProps) {
         try {
           setUploadingContentImages(true)
           processedContent = await processAndUploadImages(values.content)
-        } catch (error) {
-          console.error('Error uploading content images:', error)
+        } catch {
           toast.error('Không thể tải lên ảnh trong nội dung')
           return
         } finally {
@@ -216,8 +210,7 @@ export function NewsFormComponent({ news, mode }: NewsFormComponentProps) {
           data: payload,
         })
       }
-    } catch (error) {
-      console.error('Error submitting form:', error)
+    } catch {
       toast.error('Có lỗi xảy ra khi lưu tin tức')
     }
   }

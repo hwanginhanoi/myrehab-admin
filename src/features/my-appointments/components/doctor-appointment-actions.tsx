@@ -2,8 +2,7 @@ import { useState } from 'react'
 import { useQueryClient } from '@tanstack/react-query'
 import { toast } from 'sonner'
 import { Button } from '@/components/ui/button'
-import type { AppointmentResponse } from '@/api'
-import { useConfirmAppointment, useRejectAppointment, useMarkComplete } from '@/api'
+import { useConfirmAppointment, useMarkComplete, type AppointmentResponse } from '@/api'
 import { RejectDialog } from '@/features/appointment-detail/components/reject-dialog'
 
 type DoctorAppointmentActionsProps = {

@@ -1,6 +1,6 @@
 import { useEffect } from 'react'
 import { z } from 'zod'
-import { useForm } from 'react-hook-form'
+import { useForm, type Resolver } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useQueryClient } from '@tanstack/react-query'
 import { toast } from 'sonner'
@@ -23,8 +23,7 @@ import {
 } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
 import { Switch } from '@/components/ui/switch'
-import type { ClinicScheduleResponse } from '@/api'
-import { useUpdateClinicSchedule } from '@/api'
+import { useUpdateClinicSchedule, type ClinicScheduleResponse } from '@/api'
 import { formatLocalTime, parseTimeString, dayOfWeekLabels } from '@/lib/appointment-utils'
 
 const formSchema = z.object({
@@ -50,7 +49,7 @@ export function EditScheduleDialog({
   const queryClient = useQueryClient()
 
   const form = useForm<FormValues>({
-    resolver: zodResolver(formSchema),
+    resolver: zodResolver(formSchema) as Resolver<FormValues>,
     defaultValues: {
       isOpen: true,
       openingTime: '08:00',

@@ -130,7 +130,7 @@ export function ExercisePackageFormComponent({
           data: payload,
         })
       }
-    } catch (error) {
+    } catch {
       toast.error('Có lỗi xảy ra khi tải lên file')
     }
   }
@@ -155,7 +155,7 @@ export function ExercisePackageFormComponent({
       </div>
 
       <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)} className='space-y-6'>
+        <form onSubmit={(e) => { void form.handleSubmit(onSubmit)(e) }} className='space-y-6'>
           <FormField
             control={form.control}
             name='title'

@@ -1,5 +1,5 @@
 import { z } from 'zod'
-import { useForm } from 'react-hook-form'
+import { useForm, type Resolver } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useQueryClient } from '@tanstack/react-query'
 import { toast } from 'sonner'
@@ -32,7 +32,7 @@ import { useResolveDispute } from '@/api'
 
 const formSchema = z.object({
   resolution: z.enum(['APPROVE_DOCTOR', 'REFUND_PATIENT'], {
-    required_error: 'Vui lòng chọn cách giải quyết',
+    message: 'Vui lòng chọn cách giải quyết',
   }),
   resolutionNotes: z.string().optional(),
 })
@@ -53,9 +53,8 @@ export function DisputeResolutionDialog({
   const queryClient = useQueryClient()
 
   const form = useForm<FormValues>({
-    resolver: zodResolver(formSchema),
+    resolver: zodResolver(formSchema) as Resolver<FormValues>,
     defaultValues: {
-      resolution: undefined,
       resolutionNotes: '',
     },
   })

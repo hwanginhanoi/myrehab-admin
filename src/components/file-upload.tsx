@@ -78,9 +78,6 @@ export const FileUpload = forwardRef<FileUploadRef, FileUploadProps>(
 
           setUploadStatus('Hoàn thành!')
           return objectKey
-        } catch (error) {
-          console.error('Upload error:', error)
-          throw error
         } finally {
           setUploading(false)
           setProgress(0)
@@ -172,8 +169,7 @@ export const FileUpload = forwardRef<FileUploadRef, FileUploadProps>(
               })
               setBackendPreviewUrl(response.presignedUrl)
             }
-          } catch (error) {
-            console.error('Failed to fetch preview URL:', error)
+          } catch {
             setPreviewError('Không thể tải xem trước')
           } finally {
             setPreviewLoading(false)

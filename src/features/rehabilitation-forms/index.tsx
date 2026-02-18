@@ -24,9 +24,11 @@ export function RehabilitationForms() {
 
   // Build query params for getAllForms
   const queryParams = useMemo(() => {
-    const params: any = {
-      page: page - 1, // Convert to 0-indexed for API
-      size: pageSize,
+    const params: { pageable: { page: number; size: number }; patientName?: string } = {
+      pageable: {
+        page: page - 1, // Convert to 0-indexed for API
+        size: pageSize,
+      },
     }
 
     if (patientNameSearch && patientNameSearch.trim()) {
@@ -37,7 +39,7 @@ export function RehabilitationForms() {
   }, [page, pageSize, patientNameSearch])
 
   // Fetch forms with server-side filtering and pagination
-  const { data: response, isLoading } = useGetAllForms(queryParams as any)
+  const { data: response, isLoading } = useGetAllForms(queryParams)
 
   const forms = response?.content || []
   const totalPages = response?.page?.totalPages || 0

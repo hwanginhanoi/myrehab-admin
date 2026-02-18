@@ -1,5 +1,4 @@
-import { useNavigate } from '@tanstack/react-router'
-import { getRouteApi } from '@tanstack/react-router'
+import { useNavigate, getRouteApi } from '@tanstack/react-router'
 import { ArrowLeft } from 'lucide-react'
 import { ConfigDrawer } from '@/components/config-drawer'
 import { Header } from '@/components/layout/header'

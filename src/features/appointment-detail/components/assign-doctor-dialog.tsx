@@ -1,5 +1,5 @@
 import { z } from 'zod'
-import { useForm } from 'react-hook-form'
+import { useForm, type Resolver } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useQueryClient } from '@tanstack/react-query'
 import { toast } from 'sonner'
@@ -45,7 +45,7 @@ export function AssignDoctorDialog({
   const queryClient = useQueryClient()
 
   const form = useForm<FormValues>({
-    resolver: zodResolver(formSchema),
+    resolver: zodResolver(formSchema) as Resolver<FormValues>,
     defaultValues: {
       doctorId: 0,
       adminNotes: '',

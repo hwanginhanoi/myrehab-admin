@@ -7,8 +7,7 @@ import { Main } from '@/components/layout/main'
 import { ProfileDropdown } from '@/components/profile-dropdown'
 import { Search } from '@/components/search'
 import { ThemeSwitch } from '@/components/theme-switch'
-import { useGetDoctorAppointments } from '@/api'
-import type { AppointmentResponse } from '@/api'
+import { useGetDoctorAppointments, type AppointmentResponse } from '@/api'
 import { DateNavigation } from './components/date-navigation'
 import { DailyScheduleView } from './components/daily-schedule-view'
 
@@ -21,7 +20,7 @@ export function MyAppointments() {
   const selectedDate = (search.date as string) || format(new Date(), 'yyyy-MM-dd')
 
   const { data: response, isLoading } = useGetDoctorAppointments(
-    { pageable: { page: 0, size: 100 } } as any,
+    { pageable: { page: 0, size: 100 } },
     {
       query: {
         placeholderData: (previousData) => previousData,

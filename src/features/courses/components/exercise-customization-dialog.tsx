@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import {
   Dialog,
   DialogContent,
@@ -27,15 +27,15 @@ export function ExerciseCustomizationDialog({
   onOpenChange,
   onSave,
 }: ExerciseCustomizationDialogProps) {
-  const [customRepetitions, setCustomRepetitions] = useState<number | undefined>(undefined)
-  const [customSets, setCustomSets] = useState<number | undefined>(undefined)
+  const [customRepetitions, setCustomRepetitions] = useState<number | undefined>(exercise?.customRepetitions)
+  const [customSets, setCustomSets] = useState<number | undefined>(exercise?.customSets)
+  const [prevExercise, setPrevExercise] = useState(exercise)
 
-  useEffect(() => {
-    if (exercise) {
-      setCustomRepetitions(exercise.customRepetitions)
-      setCustomSets(exercise.customSets)
-    }
-  }, [exercise])
+  if (prevExercise !== exercise) {
+    setPrevExercise(exercise)
+    setCustomRepetitions(exercise?.customRepetitions)
+    setCustomSets(exercise?.customSets)
+  }
 
   const handleSave = () => {
     onSave({

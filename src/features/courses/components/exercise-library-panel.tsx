@@ -23,7 +23,7 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from '@/components/ui/popover'
-import { useGetAllExercises, useGetAllCategories, useGetAllGroups, type ExerciseResponse } from '@/api'
+import { useGetAllExercises, useGetAllCategories, useGetAllGroups, type ExerciseResponse, type CategoryResponse, type GroupResponse } from '@/api'
 import { cn } from '@/lib/utils'
 
 type ExerciseLibraryPanelProps = {
@@ -53,10 +53,10 @@ export function ExerciseLibraryPanel({ onAddExercise }: ExerciseLibraryPanelProp
 
   // Group categories by type
   const categoryGroups = useMemo(() => {
-    const categories = categoriesResponse?.content || []
-    const groupsMap = new Map<string, any[]>()
+    const categories = (categoriesResponse?.content || []) as CategoryResponse[]
+    const groupsMap = new Map<string, CategoryResponse[]>()
 
-    categories.forEach((category: any) => {
+    categories.forEach((category: CategoryResponse) => {
       const type = category.type
       if (type && !groupsMap.has(type)) {
         groupsMap.set(type, [])
@@ -69,8 +69,8 @@ export function ExerciseLibraryPanel({ onAddExercise }: ExerciseLibraryPanelProp
     return Array.from(groupsMap.entries()).map(([type, cats]) => ({
       label: getCategoryTypeLabel(type),
       options: cats
-        .filter((cat: any) => cat.name && cat.id !== undefined)
-        .map((cat: any) => ({
+        .filter((cat: CategoryResponse) => cat.name && cat.id !== undefined)
+        .map((cat: CategoryResponse) => ({
           label: cat.name!,
           value: String(cat.id!),
         })),
@@ -78,11 +78,11 @@ export function ExerciseLibraryPanel({ onAddExercise }: ExerciseLibraryPanelProp
   }, [categoriesResponse])
 
   const groupOptions = useMemo(() => {
-    const groups = groupsResponse?.content || []
+    const groups = (groupsResponse?.content || []) as GroupResponse[]
     return [
       {
         label: 'Kho bài tập',
-        options: groups.map((group: any) => ({
+        options: groups.map((group: GroupResponse) => ({
           label: group.name || '',
           value: String(group.id),
         })),
@@ -97,7 +97,7 @@ export function ExerciseLibraryPanel({ onAddExercise }: ExerciseLibraryPanelProp
       query: searchQuery || undefined,
       categoryIds: selectedCategoryIds.length > 0 ? selectedCategoryIds.map(Number) : undefined,
       groupIds: selectedGroupIds.length > 0 ? selectedGroupIds.map(Number) : undefined,
-    } as any,
+    },
     {
       query: {
         placeholderData: (previousData) => previousData,
