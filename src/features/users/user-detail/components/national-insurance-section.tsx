@@ -1,28 +1,20 @@
 import { format } from 'date-fns'
-import { Clock, CreditCard, MapPin, Shield } from 'lucide-react'
+import { Shield } from 'lucide-react'
 import { type NationalHealthInsuranceResponse } from '@/api'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
-import { Separator } from '@/components/ui/separator'
 import { Skeleton } from '@/components/ui/skeleton'
 
-function InfoRow({
-  icon,
+function DescriptionRow({
   label,
-  value,
+  children,
 }: {
-  icon: React.ReactNode
   label: string
-  value: React.ReactNode
+  children: React.ReactNode
 }) {
   return (
-    <div className='flex items-start gap-3'>
-      <div className='mt-0.5 flex size-8 shrink-0 items-center justify-center rounded-md bg-muted text-muted-foreground'>
-        {icon}
-      </div>
-      <div className='min-w-0 flex-1'>
-        <p className='text-xs text-muted-foreground'>{label}</p>
-        <p className='truncate text-sm font-medium'>{value}</p>
-      </div>
+    <div className='py-3 sm:grid sm:grid-cols-3 sm:gap-4'>
+      <dt className='text-sm font-medium text-muted-foreground'>{label}</dt>
+      <dd className='mt-1 text-sm sm:col-span-2 sm:mt-0'>{children}</dd>
     </div>
   )
 }
@@ -32,14 +24,15 @@ function LoadingSkeleton() {
     <div className='flex flex-1 flex-col gap-4 overflow-y-auto pb-12'>
       <Card>
         <CardHeader>
-          <Skeleton className='h-5 w-36' />
+          <Skeleton className='h-5 w-40' />
         </CardHeader>
-        <CardContent className='space-y-4'>
-          <Skeleton className='h-10 w-full' />
-          <Skeleton className='h-10 w-full' />
-          <Separator />
-          <Skeleton className='h-4 w-48' />
-          <Skeleton className='h-4 w-48' />
+        <CardContent className='pt-0'>
+          {Array.from({ length: 4 }).map((_, i) => (
+            <div key={i} className='flex items-center justify-between py-3 border-b last:border-0'>
+              <Skeleton className='h-4 w-28' />
+              <Skeleton className='h-4 w-36' />
+            </div>
+          ))}
         </CardContent>
       </Card>
     </div>
@@ -50,12 +43,10 @@ function EmptyState() {
   return (
     <div className='flex flex-1 flex-col gap-4 overflow-y-auto pb-12'>
       <Card>
-        <CardContent className='flex flex-col items-center justify-center py-16 text-center'>
-          <div className='mb-4 flex size-16 items-center justify-center rounded-full bg-muted'>
-            <Shield size={28} className='text-muted-foreground' />
-          </div>
-          <h3 className='mb-1 text-base font-semibold'>Chưa có thông tin bảo hiểm y tế</h3>
-          <p className='text-sm text-muted-foreground'>
+        <CardContent className='flex flex-col items-center justify-center gap-2 py-16 text-center'>
+          <Shield className='h-10 w-10 text-muted-foreground/40' />
+          <p className='text-sm font-medium'>Chưa có thông tin bảo hiểm y tế</p>
+          <p className='text-xs text-muted-foreground'>
             Người dùng chưa cập nhật thông tin bảo hiểm y tế bắt buộc.
           </p>
         </CardContent>
@@ -76,51 +67,33 @@ export function NationalInsuranceSection({ data, isLoading }: NationalInsuranceS
   return (
     <div className='flex flex-1 flex-col gap-4 overflow-y-auto pb-12'>
       <Card>
-        <CardHeader className='pb-2'>
+        <CardHeader className='pb-0'>
           <div className='flex items-center gap-2'>
-            <div className='flex size-8 items-center justify-center rounded-md bg-blue-500/10 text-blue-600 dark:text-blue-400'>
-              <Shield size={16} />
-            </div>
-            <CardTitle className='text-base'>Bảo hiểm y tế bắt buộc</CardTitle>
+            <Shield className='h-4 w-4 text-blue-500' />
+            <CardTitle className='text-xs font-semibold uppercase tracking-widest text-muted-foreground'>
+              Bảo hiểm y tế bắt buộc
+            </CardTitle>
           </div>
         </CardHeader>
-        <Separator className='mx-6 mb-2 w-auto' />
-        <CardContent className='space-y-4 pt-4'>
-          <InfoRow
-            icon={<CreditCard size={15} />}
-            label='Số bảo hiểm'
-            value={data.insuranceNumber || 'Chưa cập nhật'}
-          />
-          <InfoRow
-            icon={<MapPin size={15} />}
-            label='Nơi đăng ký khám chữa bệnh'
-            value={data.placeOfRegistration || 'Chưa cập nhật'}
-          />
-          <Separator />
-          <div className='grid gap-2 sm:grid-cols-2'>
-            <div className='flex items-center gap-2 text-xs text-muted-foreground'>
-              <Clock size={12} />
-              <span>
-                Ngày tạo:{' '}
-                <span className='font-medium text-foreground'>
-                  {data.createdAt
-                    ? format(new Date(data.createdAt), 'dd/MM/yyyy HH:mm')
-                    : '—'}
-                </span>
-              </span>
-            </div>
-            <div className='flex items-center gap-2 text-xs text-muted-foreground'>
-              <Clock size={12} />
-              <span>
-                Cập nhật:{' '}
-                <span className='font-medium text-foreground'>
-                  {data.updatedAt
-                    ? format(new Date(data.updatedAt), 'dd/MM/yyyy HH:mm')
-                    : '—'}
-                </span>
-              </span>
-            </div>
-          </div>
+        <CardContent className='pt-0'>
+          <dl className='divide-y'>
+            <DescriptionRow label='Số bảo hiểm'>
+              <span className='font-mono'>{data.insuranceNumber || '—'}</span>
+            </DescriptionRow>
+            <DescriptionRow label='Nơi đăng ký'>
+              {data.placeOfRegistration || '—'}
+            </DescriptionRow>
+            <DescriptionRow label='Ngày tạo'>
+              {data.createdAt
+                ? format(new Date(data.createdAt), 'dd/MM/yyyy HH:mm')
+                : '—'}
+            </DescriptionRow>
+            <DescriptionRow label='Cập nhật lần cuối'>
+              {data.updatedAt
+                ? format(new Date(data.updatedAt), 'dd/MM/yyyy HH:mm')
+                : '—'}
+            </DescriptionRow>
+          </dl>
         </CardContent>
       </Card>
     </div>
