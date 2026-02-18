@@ -26,6 +26,7 @@ import { Route as AuthenticatedTransactionsIndexRouteImport } from './routes/_au
 import { Route as AuthenticatedTasksIndexRouteImport } from './routes/_authenticated/tasks/index'
 import { Route as AuthenticatedStaffIndexRouteImport } from './routes/_authenticated/staff/index'
 import { Route as AuthenticatedSettingsIndexRouteImport } from './routes/_authenticated/settings/index'
+import { Route as AuthenticatedReportingIndexRouteImport } from './routes/_authenticated/reporting/index'
 import { Route as AuthenticatedRehabilitationFormsIndexRouteImport } from './routes/_authenticated/rehabilitation-forms/index'
 import { Route as AuthenticatedNewsIndexRouteImport } from './routes/_authenticated/news/index'
 import { Route as AuthenticatedMyTrainersIndexRouteImport } from './routes/_authenticated/my-trainers/index'
@@ -154,6 +155,12 @@ const AuthenticatedSettingsIndexRoute =
     id: '/',
     path: '/',
     getParentRoute: () => AuthenticatedSettingsRouteRoute,
+  } as any)
+const AuthenticatedReportingIndexRoute =
+  AuthenticatedReportingIndexRouteImport.update({
+    id: '/reporting/',
+    path: '/reporting/',
+    getParentRoute: () => AuthenticatedRouteRoute,
   } as any)
 const AuthenticatedRehabilitationFormsIndexRoute =
   AuthenticatedRehabilitationFormsIndexRouteImport.update({
@@ -438,6 +445,7 @@ export interface FileRoutesByFullPath {
   '/my-trainers': typeof AuthenticatedMyTrainersIndexRoute
   '/news': typeof AuthenticatedNewsIndexRoute
   '/rehabilitation-forms': typeof AuthenticatedRehabilitationFormsIndexRoute
+  '/reporting': typeof AuthenticatedReportingIndexRoute
   '/settings/': typeof AuthenticatedSettingsIndexRoute
   '/staff': typeof AuthenticatedStaffIndexRoute
   '/tasks': typeof AuthenticatedTasksIndexRoute
@@ -496,6 +504,7 @@ export interface FileRoutesByTo {
   '/my-trainers': typeof AuthenticatedMyTrainersIndexRoute
   '/news': typeof AuthenticatedNewsIndexRoute
   '/rehabilitation-forms': typeof AuthenticatedRehabilitationFormsIndexRoute
+  '/reporting': typeof AuthenticatedReportingIndexRoute
   '/settings': typeof AuthenticatedSettingsIndexRoute
   '/staff': typeof AuthenticatedStaffIndexRoute
   '/tasks': typeof AuthenticatedTasksIndexRoute
@@ -554,6 +563,7 @@ export interface FileRoutesById {
   '/_authenticated/my-trainers/': typeof AuthenticatedMyTrainersIndexRoute
   '/_authenticated/news/': typeof AuthenticatedNewsIndexRoute
   '/_authenticated/rehabilitation-forms/': typeof AuthenticatedRehabilitationFormsIndexRoute
+  '/_authenticated/reporting/': typeof AuthenticatedReportingIndexRoute
   '/_authenticated/settings/': typeof AuthenticatedSettingsIndexRoute
   '/_authenticated/staff/': typeof AuthenticatedStaffIndexRoute
   '/_authenticated/tasks/': typeof AuthenticatedTasksIndexRoute
@@ -615,6 +625,7 @@ export interface FileRouteTypes {
     | '/my-trainers'
     | '/news'
     | '/rehabilitation-forms'
+    | '/reporting'
     | '/settings/'
     | '/staff'
     | '/tasks'
@@ -673,6 +684,7 @@ export interface FileRouteTypes {
     | '/my-trainers'
     | '/news'
     | '/rehabilitation-forms'
+    | '/reporting'
     | '/settings'
     | '/staff'
     | '/tasks'
@@ -730,6 +742,7 @@ export interface FileRouteTypes {
     | '/_authenticated/my-trainers/'
     | '/_authenticated/news/'
     | '/_authenticated/rehabilitation-forms/'
+    | '/_authenticated/reporting/'
     | '/_authenticated/settings/'
     | '/_authenticated/staff/'
     | '/_authenticated/tasks/'
@@ -882,6 +895,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/settings/'
       preLoaderRoute: typeof AuthenticatedSettingsIndexRouteImport
       parentRoute: typeof AuthenticatedSettingsRouteRoute
+    }
+    '/_authenticated/reporting/': {
+      id: '/_authenticated/reporting/'
+      path: '/reporting'
+      fullPath: '/reporting'
+      preLoaderRoute: typeof AuthenticatedReportingIndexRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
     }
     '/_authenticated/rehabilitation-forms/': {
       id: '/_authenticated/rehabilitation-forms/'
@@ -1287,6 +1307,7 @@ interface AuthenticatedRouteRouteChildren {
   AuthenticatedMyTrainersIndexRoute: typeof AuthenticatedMyTrainersIndexRoute
   AuthenticatedNewsIndexRoute: typeof AuthenticatedNewsIndexRoute
   AuthenticatedRehabilitationFormsIndexRoute: typeof AuthenticatedRehabilitationFormsIndexRoute
+  AuthenticatedReportingIndexRoute: typeof AuthenticatedReportingIndexRoute
   AuthenticatedStaffIndexRoute: typeof AuthenticatedStaffIndexRoute
   AuthenticatedTasksIndexRoute: typeof AuthenticatedTasksIndexRoute
   AuthenticatedTransactionsIndexRoute: typeof AuthenticatedTransactionsIndexRoute
@@ -1329,6 +1350,7 @@ const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedNewsIndexRoute: AuthenticatedNewsIndexRoute,
   AuthenticatedRehabilitationFormsIndexRoute:
     AuthenticatedRehabilitationFormsIndexRoute,
+  AuthenticatedReportingIndexRoute: AuthenticatedReportingIndexRoute,
   AuthenticatedStaffIndexRoute: AuthenticatedStaffIndexRoute,
   AuthenticatedTasksIndexRoute: AuthenticatedTasksIndexRoute,
   AuthenticatedTransactionsIndexRoute: AuthenticatedTransactionsIndexRoute,
