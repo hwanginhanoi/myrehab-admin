@@ -26,6 +26,8 @@ import { Textarea } from '@/components/ui/textarea'
 import { MultiSelect } from '@/components/multi-select'
 import {
   type ExerciseResponse,
+  type CategoryResponse,
+  type GroupResponse,
   useCreateExercise,
   useUpdateExercise,
   useGetAllCategories,
@@ -72,8 +74,8 @@ export function ExercisesActionDialog({
     pageable: { page: 0, size: 1000 },
   })
 
-  const categories = categoriesResponse?.content || []
-  const groups = groupsResponse?.content || []
+  const categories = (categoriesResponse?.content as CategoryResponse[]) || []
+  const groups = (groupsResponse?.content as GroupResponse[]) || []
 
   const categoryOptions = categories.map((cat) => ({
     label: cat.name || '',
@@ -116,7 +118,7 @@ export function ExercisesActionDialog({
         toast.success('Tạo bài tập thành công')
         form.reset()
         onOpenChange(false)
-        queryClient.invalidateQueries({ queryKey: [{ url: '/api/exercises' }] })
+        void queryClient.invalidateQueries({ queryKey: [{ url: '/api/exercises' }] })
       },
       onError: (error) => {
         toast.error('Tạo bài tập thất bại: ' + error.message)
@@ -130,7 +132,7 @@ export function ExercisesActionDialog({
         toast.success('Cập nhật bài tập thành công')
         form.reset()
         onOpenChange(false)
-        queryClient.invalidateQueries({ queryKey: [{ url: '/api/exercises' }] })
+        void queryClient.invalidateQueries({ queryKey: [{ url: '/api/exercises' }] })
       },
       onError: (error) => {
         toast.error('Cập nhật bài tập thất bại: ' + error.message)

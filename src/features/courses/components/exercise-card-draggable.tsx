@@ -2,15 +2,9 @@
 
 import { useSortable } from '@dnd-kit/sortable'
 import { CSS } from '@dnd-kit/utilities'
-import { GripVertical, MoreVertical, Pencil, Trash2 } from 'lucide-react'
+import { GripVertical, Trash2 } from 'lucide-react'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu'
 import { cn } from '@/lib/utils'
 import type { CustomExercise } from './course-assignment-screen'
 
@@ -26,7 +20,6 @@ export function ExerciseCardDraggable({
   exercise,
   index,
   dayNumber,
-  onEdit,
   onRemove,
 }: ExerciseCardDraggableProps) {
   const {

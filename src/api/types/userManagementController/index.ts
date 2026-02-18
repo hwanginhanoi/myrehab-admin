@@ -10,3 +10,9 @@ export type {
   GetUserByIdQueryResponse,
   GetUserByIdQuery,
 } from "./GetUserById.ts";
+export type {
+  SearchUsersByNameQueryParams,
+  SearchUsersByName200,
+  SearchUsersByNameQueryResponse,
+  SearchUsersByNameQuery,
+} from "./SearchUsersByName.ts";

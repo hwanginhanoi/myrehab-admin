@@ -695,6 +695,11 @@ export {
   getUserById200Schema,
   getUserByIdQueryResponseSchema,
 } from "./userManagementController/getUserByIdSchema.ts";
+export {
+  searchUsersByNameQueryParamsSchema,
+  searchUsersByName200Schema,
+  searchUsersByNameQueryResponseSchema,
+} from "./userManagementController/searchUsersByNameSchema.ts";
 export { userResponseSchema } from "./userResponseSchema.ts";
 export { verifyPinResetOtpRequestSchema } from "./verifyPinResetOtpRequestSchema.ts";
 export { verifyRegistrationOtpRequestSchema } from "./verifyRegistrationOtpRequestSchema.ts";

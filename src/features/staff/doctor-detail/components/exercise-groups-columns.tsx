@@ -1,26 +1,30 @@
 import { type ColumnDef } from '@tanstack/react-table'
 import { format } from 'date-fns'
-import { type StaffResponse } from '@/api'
+import { type GroupResponse } from '@/api'
 import { DataTableColumnHeader } from '@/components/data-table'
-import { TrainersTableRowActions } from './trainers-table-row-actions'
+import { ExerciseGroupsTableRowActions } from './exercise-groups-table-row-actions'
 
-export const trainersColumns: ColumnDef<StaffResponse>[] = [
+export const exerciseGroupsColumns: ColumnDef<GroupResponse>[] = [
   {
-    accessorKey: 'fullName',
+    accessorKey: 'name',
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title='Họ và tên' />
+      <DataTableColumnHeader column={column} title='Tên nhóm' />
     ),
     cell: ({ row }) => (
-      <div className='font-medium'>{row.getValue('fullName') || '-'}</div>
+      <div className='font-medium'>{row.getValue('name') || '-'}</div>
     ),
     enableHiding: false,
   },
   {
-    accessorKey: 'email',
+    accessorKey: 'description',
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title='Email' />
+      <DataTableColumnHeader column={column} title='Mô tả' />
     ),
-    cell: ({ row }) => <div>{row.getValue('email') || '-'}</div>,
+    cell: ({ row }) => (
+      <div className='text-muted-foreground truncate max-w-[300px]'>
+        {row.getValue('description') || '-'}
+      </div>
+    ),
   },
   {
     accessorKey: 'createdAt',
@@ -39,7 +43,7 @@ export const trainersColumns: ColumnDef<StaffResponse>[] = [
   {
     id: 'actions',
     header: () => <div className='text-right'>Thao tác</div>,
-    cell: TrainersTableRowActions,
+    cell: ExerciseGroupsTableRowActions,
     enableSorting: false,
     enableHiding: false,
     meta: {

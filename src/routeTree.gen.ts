@@ -65,6 +65,7 @@ import { Route as AuthenticatedStaffTrainersTrainerIdPermissionsRouteImport } fr
 import { Route as AuthenticatedStaffDoctorsDoctorIdTrainersRouteImport } from './routes/_authenticated/staff/doctors/$doctorId.trainers'
 import { Route as AuthenticatedStaffDoctorsDoctorIdPermissionsRouteImport } from './routes/_authenticated/staff/doctors/$doctorId.permissions'
 import { Route as AuthenticatedStaffDoctorsDoctorIdPatientsRouteImport } from './routes/_authenticated/staff/doctors/$doctorId.patients'
+import { Route as AuthenticatedStaffDoctorsDoctorIdExerciseGroupsRouteImport } from './routes/_authenticated/staff/doctors/$doctorId.exercise-groups'
 import { Route as AuthenticatedStaffAdminsAdminIdPermissionsRouteImport } from './routes/_authenticated/staff/admins/$adminId.permissions'
 
 const AuthenticatedRouteRoute = AuthenticatedRouteRouteImport.update({
@@ -383,6 +384,12 @@ const AuthenticatedStaffDoctorsDoctorIdPatientsRoute =
     path: '/patients',
     getParentRoute: () => AuthenticatedStaffDoctorsDoctorIdRouteRoute,
   } as any)
+const AuthenticatedStaffDoctorsDoctorIdExerciseGroupsRoute =
+  AuthenticatedStaffDoctorsDoctorIdExerciseGroupsRouteImport.update({
+    id: '/exercise-groups',
+    path: '/exercise-groups',
+    getParentRoute: () => AuthenticatedStaffDoctorsDoctorIdRouteRoute,
+  } as any)
 const AuthenticatedStaffAdminsAdminIdPermissionsRoute =
   AuthenticatedStaffAdminsAdminIdPermissionsRouteImport.update({
     id: '/permissions',
@@ -440,6 +447,7 @@ export interface FileRoutesByFullPath {
   '/staff/doctors/$doctorId': typeof AuthenticatedStaffDoctorsDoctorIdRouteRouteWithChildren
   '/staff/trainers/$trainerId': typeof AuthenticatedStaffTrainersTrainerIdRouteRouteWithChildren
   '/staff/admins/$adminId/permissions': typeof AuthenticatedStaffAdminsAdminIdPermissionsRoute
+  '/staff/doctors/$doctorId/exercise-groups': typeof AuthenticatedStaffDoctorsDoctorIdExerciseGroupsRoute
   '/staff/doctors/$doctorId/patients': typeof AuthenticatedStaffDoctorsDoctorIdPatientsRoute
   '/staff/doctors/$doctorId/permissions': typeof AuthenticatedStaffDoctorsDoctorIdPermissionsRoute
   '/staff/doctors/$doctorId/trainers': typeof AuthenticatedStaffDoctorsDoctorIdTrainersRoute
@@ -494,6 +502,7 @@ export interface FileRoutesByTo {
   '/transactions': typeof AuthenticatedTransactionsIndexRoute
   '/users': typeof AuthenticatedUsersIndexRoute
   '/staff/admins/$adminId/permissions': typeof AuthenticatedStaffAdminsAdminIdPermissionsRoute
+  '/staff/doctors/$doctorId/exercise-groups': typeof AuthenticatedStaffDoctorsDoctorIdExerciseGroupsRoute
   '/staff/doctors/$doctorId/patients': typeof AuthenticatedStaffDoctorsDoctorIdPatientsRoute
   '/staff/doctors/$doctorId/permissions': typeof AuthenticatedStaffDoctorsDoctorIdPermissionsRoute
   '/staff/doctors/$doctorId/trainers': typeof AuthenticatedStaffDoctorsDoctorIdTrainersRoute
@@ -554,6 +563,7 @@ export interface FileRoutesById {
   '/_authenticated/staff/doctors/$doctorId': typeof AuthenticatedStaffDoctorsDoctorIdRouteRouteWithChildren
   '/_authenticated/staff/trainers/$trainerId': typeof AuthenticatedStaffTrainersTrainerIdRouteRouteWithChildren
   '/_authenticated/staff/admins/$adminId/permissions': typeof AuthenticatedStaffAdminsAdminIdPermissionsRoute
+  '/_authenticated/staff/doctors/$doctorId/exercise-groups': typeof AuthenticatedStaffDoctorsDoctorIdExerciseGroupsRoute
   '/_authenticated/staff/doctors/$doctorId/patients': typeof AuthenticatedStaffDoctorsDoctorIdPatientsRoute
   '/_authenticated/staff/doctors/$doctorId/permissions': typeof AuthenticatedStaffDoctorsDoctorIdPermissionsRoute
   '/_authenticated/staff/doctors/$doctorId/trainers': typeof AuthenticatedStaffDoctorsDoctorIdTrainersRoute
@@ -614,6 +624,7 @@ export interface FileRouteTypes {
     | '/staff/doctors/$doctorId'
     | '/staff/trainers/$trainerId'
     | '/staff/admins/$adminId/permissions'
+    | '/staff/doctors/$doctorId/exercise-groups'
     | '/staff/doctors/$doctorId/patients'
     | '/staff/doctors/$doctorId/permissions'
     | '/staff/doctors/$doctorId/trainers'
@@ -668,6 +679,7 @@ export interface FileRouteTypes {
     | '/transactions'
     | '/users'
     | '/staff/admins/$adminId/permissions'
+    | '/staff/doctors/$doctorId/exercise-groups'
     | '/staff/doctors/$doctorId/patients'
     | '/staff/doctors/$doctorId/permissions'
     | '/staff/doctors/$doctorId/trainers'
@@ -727,6 +739,7 @@ export interface FileRouteTypes {
     | '/_authenticated/staff/doctors/$doctorId'
     | '/_authenticated/staff/trainers/$trainerId'
     | '/_authenticated/staff/admins/$adminId/permissions'
+    | '/_authenticated/staff/doctors/$doctorId/exercise-groups'
     | '/_authenticated/staff/doctors/$doctorId/patients'
     | '/_authenticated/staff/doctors/$doctorId/permissions'
     | '/_authenticated/staff/doctors/$doctorId/trainers'
@@ -1143,6 +1156,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedStaffDoctorsDoctorIdPatientsRouteImport
       parentRoute: typeof AuthenticatedStaffDoctorsDoctorIdRouteRoute
     }
+    '/_authenticated/staff/doctors/$doctorId/exercise-groups': {
+      id: '/_authenticated/staff/doctors/$doctorId/exercise-groups'
+      path: '/exercise-groups'
+      fullPath: '/staff/doctors/$doctorId/exercise-groups'
+      preLoaderRoute: typeof AuthenticatedStaffDoctorsDoctorIdExerciseGroupsRouteImport
+      parentRoute: typeof AuthenticatedStaffDoctorsDoctorIdRouteRoute
+    }
     '/_authenticated/staff/admins/$adminId/permissions': {
       id: '/_authenticated/staff/admins/$adminId/permissions'
       path: '/permissions'
@@ -1195,6 +1215,7 @@ const AuthenticatedStaffAdminsAdminIdRouteRouteWithChildren =
   )
 
 interface AuthenticatedStaffDoctorsDoctorIdRouteRouteChildren {
+  AuthenticatedStaffDoctorsDoctorIdExerciseGroupsRoute: typeof AuthenticatedStaffDoctorsDoctorIdExerciseGroupsRoute
   AuthenticatedStaffDoctorsDoctorIdPatientsRoute: typeof AuthenticatedStaffDoctorsDoctorIdPatientsRoute
   AuthenticatedStaffDoctorsDoctorIdPermissionsRoute: typeof AuthenticatedStaffDoctorsDoctorIdPermissionsRoute
   AuthenticatedStaffDoctorsDoctorIdTrainersRoute: typeof AuthenticatedStaffDoctorsDoctorIdTrainersRoute
@@ -1203,6 +1224,8 @@ interface AuthenticatedStaffDoctorsDoctorIdRouteRouteChildren {
 
 const AuthenticatedStaffDoctorsDoctorIdRouteRouteChildren: AuthenticatedStaffDoctorsDoctorIdRouteRouteChildren =
   {
+    AuthenticatedStaffDoctorsDoctorIdExerciseGroupsRoute:
+      AuthenticatedStaffDoctorsDoctorIdExerciseGroupsRoute,
     AuthenticatedStaffDoctorsDoctorIdPatientsRoute:
       AuthenticatedStaffDoctorsDoctorIdPatientsRoute,
     AuthenticatedStaffDoctorsDoctorIdPermissionsRoute:

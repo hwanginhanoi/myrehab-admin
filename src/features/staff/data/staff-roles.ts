@@ -5,12 +5,12 @@ export const staffRoles = [
   { label: 'Huấn luyện viên', value: 'TRAINER', icon: Dumbbell },
   { label: 'Quản trị viên', value: 'ADMIN', icon: UserCog },
   { label: 'Quản trị viên cấp cao', value: 'SUPER_ADMIN', icon: Shield },
-] as const
+]
 
 export const staffStatuses = [
   { label: 'Hoạt động', value: 'active' },
   { label: 'Vô hiệu hóa', value: 'inactive' },
-] as const
+]
 
 export const statusColors = new Map<'active' | 'inactive', string>([
   ['active', 'bg-teal-100/30 text-teal-900 dark:text-teal-200 border-teal-200'],

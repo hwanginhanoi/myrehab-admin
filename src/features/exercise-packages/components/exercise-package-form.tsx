@@ -1,5 +1,6 @@
 'use client'
 
+import { useRef } from 'react'
 import { z } from 'zod'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
@@ -16,6 +17,7 @@ import {
 } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
 import { Textarea } from '@/components/ui/textarea'
+import { FileUpload, type FileUploadRef } from '@/components/file-upload'
 import {
   type ExercisePackageDetailResponse,
   type ExerciseResponse,
@@ -49,6 +51,8 @@ export function ExercisePackageFormComponent({
   const queryClient = useQueryClient()
   const isView = mode === 'view'
   const isEdit = mode === 'edit'
+
+  const imageUploadRef = useRef<FileUploadRef>(null)
 
   const form = useForm<ExercisePackageForm>({
     resolver: zodResolver(formSchema),
@@ -93,24 +97,41 @@ export function ExercisePackageFormComponent({
     },
   })
 
-  const onSubmit = (values: ExercisePackageForm) => {
-    // Transform exercises array to exerciseIds array
-    const payload = {
-      title: values.title,
-      description: values.description,
-      imageUrl: values.imageUrl,
-      exerciseIds: values.exercises.map((ex) => ex.id!),
-    }
+  const onSubmit = async (values: ExercisePackageForm) => {
+    try {
+      // Upload image if new file selected
+      let imageUrl = values.imageUrl
 
-    if (isEdit && exercisePackage?.id) {
-      updateMutation.mutate({
-        id: exercisePackage.id,
-        data: payload,
-      })
-    } else {
-      createMutation.mutate({
-        data: payload,
-      })
+      if (imageUploadRef.current?.hasFile()) {
+        const uploadedImageKey = await imageUploadRef.current.upload()
+        if (uploadedImageKey) {
+          imageUrl = uploadedImageKey
+        } else {
+          toast.error('Không thể tải lên ảnh')
+          return
+        }
+      }
+
+      // Transform exercises array to exerciseIds array
+      const payload = {
+        title: values.title,
+        description: values.description,
+        imageUrl: imageUrl || undefined,
+        exerciseIds: values.exercises.map((ex) => ex.id!),
+      }
+
+      if (isEdit && exercisePackage?.id) {
+        updateMutation.mutate({
+          id: exercisePackage.id,
+          data: payload,
+        })
+      } else {
+        createMutation.mutate({
+          data: payload,
+        })
+      }
+    } catch (error) {
+      toast.error('Có lỗi xảy ra khi tải lên file')
     }
   }
 
@@ -135,36 +156,39 @@ export function ExercisePackageFormComponent({
 
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className='space-y-6'>
-          <div className='grid grid-cols-1 md:grid-cols-2 gap-6'>
-            <FormField
-              control={form.control}
-              name='title'
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Tên gói bài tập</FormLabel>
-                  <FormControl>
-                    <Input
-                      placeholder='Nhập tên gói bài tập'
-                      disabled={isView}
-                      {...field}
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
+          <FormField
+            control={form.control}
+            name='title'
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Tên gói bài tập</FormLabel>
+                <FormControl>
+                  <Input
+                    placeholder='Nhập tên gói bài tập'
+                    disabled={isView}
+                    {...field}
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
 
+          <div className='grid grid-cols-1 md:grid-cols-2 gap-6'>
             <FormField
               control={form.control}
               name='imageUrl'
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Link ảnh (tùy chọn)</FormLabel>
+                  <FormLabel>Ảnh gói bài tập</FormLabel>
                   <FormControl>
-                    <Input
-                      placeholder='https://example.com/image.jpg'
+                    <FileUpload
+                      ref={imageUploadRef}
+                      category='exercise-package-image'
+                      value={field.value}
+                      onChange={field.onChange}
                       disabled={isView}
-                      {...field}
+                      label={undefined}
                     />
                   </FormControl>
                   <FormMessage />

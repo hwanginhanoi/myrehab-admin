@@ -1,7 +1,7 @@
 import { Button } from '@/components/ui/button'
 import { UserPlus, Loader2 } from 'lucide-react'
 import { type NavigateFn } from '@/hooks/use-table-url-state'
-import { useGetTrainersByDoctor, type TrainerResponse } from '@/api'
+import { useGetTrainersByDoctor, type StaffResponse } from '@/api'
 import { useDoctorDetail } from './doctor-detail-provider'
 import { TrainersTable } from './trainers-table'
 
@@ -32,7 +32,7 @@ export function TrainerListCard({
     { pageable: { page: page - 1, size: pageSize } }
   )
 
-  const trainers = (data?.content as TrainerResponse[]) || []
+  const trainers = (data?.content as StaffResponse[]) || []
   const pageCount = data?.page?.totalPages || 0
   const totalCount = data?.page?.totalElements || 0
 

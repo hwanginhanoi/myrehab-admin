@@ -1,13 +1,11 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import {
-  type SortingState,
   type VisibilityState,
   flexRender,
   getCoreRowModel,
   useReactTable,
 } from '@tanstack/react-table'
 import { cn } from '@/lib/utils'
-import { type NavigateFn, useTableUrlState } from '@/hooks/use-table-url-state'
 import {
   Table,
   TableBody,
@@ -16,69 +14,26 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table'
-import { DataTablePagination } from '@/components/server-data-table'
-import { type StaffResponse } from '@/api'
-import { trainersColumns } from './trainers-columns'
-import { TrainersTableToolbar } from './trainers-table-toolbar'
+import { type GroupResponse } from '@/api'
+import { exerciseGroupsColumns } from './exercise-groups-columns'
 
-type TrainersTableProps = {
-  data: StaffResponse[]
-  search: Record<string, unknown>
-  navigate: NavigateFn
-  pageCount: number
+type ExerciseGroupsTableProps = {
+  data: GroupResponse[]
 }
 
-export function TrainersTable({
-  data,
-  search,
-  navigate,
-  pageCount,
-}: TrainersTableProps) {
-  // Local UI-only states
+export function ExerciseGroupsTable({ data }: ExerciseGroupsTableProps) {
   const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({})
-  const [sorting, setSorting] = useState<SortingState>([])
-
-  // Synced with URL states
-  const {
-    pagination,
-    onPaginationChange,
-    ensurePageInRange,
-  } = useTableUrlState({
-    search,
-    navigate,
-    pagination: { defaultPage: 1, defaultPageSize: 10 },
-    globalFilter: { enabled: false },
-    columnFilters: [],
-  })
 
   const table = useReactTable({
     data,
-    columns: trainersColumns,
-    pageCount,
-    state: {
-      sorting,
-      pagination,
-      columnVisibility,
-    },
-    manualPagination: true,
-    onPaginationChange,
-    onSortingChange: setSorting,
+    columns: exerciseGroupsColumns,
+    state: { columnVisibility },
     onColumnVisibilityChange: setColumnVisibility,
     getCoreRowModel: getCoreRowModel(),
   })
 
-  useEffect(() => {
-    ensurePageInRange(pageCount)
-  }, [pageCount, ensurePageInRange])
-
   return (
-    <div
-      className={cn(
-        'max-sm:has-[div[role="toolbar"]]:mb-16',
-        'flex flex-1 flex-col gap-4'
-      )}
-    >
-      <TrainersTableToolbar table={table} />
+    <div className={cn('flex flex-1 flex-col gap-4')}>
       <div className='overflow-hidden rounded-md border'>
         <Table>
           <TableHeader>
@@ -122,10 +77,7 @@ export function TrainersTable({
                         cell.column.columnDef.meta?.tdClassName
                       )}
                     >
-                      {flexRender(
-                        cell.column.columnDef.cell,
-                        cell.getContext()
-                      )}
+                      {flexRender(cell.column.columnDef.cell, cell.getContext())}
                     </TableCell>
                   ))}
                 </TableRow>
@@ -133,7 +85,7 @@ export function TrainersTable({
             ) : (
               <TableRow>
                 <TableCell
-                  colSpan={trainersColumns.length}
+                  colSpan={exerciseGroupsColumns.length}
                   className='h-24 text-center'
                 >
                   Không có dữ liệu.
@@ -143,7 +95,6 @@ export function TrainersTable({
           </TableBody>
         </Table>
       </div>
-      <DataTablePagination table={table} className='mt-auto' />
     </div>
   )
 }

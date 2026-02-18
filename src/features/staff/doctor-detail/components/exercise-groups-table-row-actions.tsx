@@ -1,7 +1,7 @@
 import { DotsHorizontalIcon } from '@radix-ui/react-icons'
 import { type Row } from '@tanstack/react-table'
 import { Trash2 } from 'lucide-react'
-import { type StaffResponse } from '@/api'
+import { type GroupResponse } from '@/api'
 import { Button } from '@/components/ui/button'
 import {
   DropdownMenu,
@@ -12,12 +12,12 @@ import {
 } from '@/components/ui/dropdown-menu'
 import { useDoctorDetail } from './doctor-detail-provider'
 
-type TrainersTableRowActionsProps = {
-  row: Row<StaffResponse>
+type ExerciseGroupsTableRowActionsProps = {
+  row: Row<GroupResponse>
 }
 
-export function TrainersTableRowActions({ row }: TrainersTableRowActionsProps) {
-  const { setOpen, setCurrentTrainer } = useDoctorDetail()
+export function ExerciseGroupsTableRowActions({ row }: ExerciseGroupsTableRowActionsProps) {
+  const { setOpen, setCurrentExerciseGroup } = useDoctorDetail()
 
   return (
     <div className='flex justify-end'>
@@ -34,8 +34,8 @@ export function TrainersTableRowActions({ row }: TrainersTableRowActionsProps) {
         <DropdownMenuContent align='end' className='w-[160px]'>
           <DropdownMenuItem
             onClick={() => {
-              setCurrentTrainer(row.original)
-              setOpen('remove')
+              setCurrentExerciseGroup(row.original)
+              setOpen('removeExerciseGroup')
             }}
             className='text-red-500!'
           >

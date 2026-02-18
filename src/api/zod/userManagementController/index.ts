@@ -8,3 +8,8 @@ export {
   getUserById200Schema,
   getUserByIdQueryResponseSchema,
 } from "./getUserByIdSchema.ts";
+export {
+  searchUsersByNameQueryParamsSchema,
+  searchUsersByName200Schema,
+  searchUsersByNameQueryResponseSchema,
+} from "./searchUsersByNameSchema.ts";

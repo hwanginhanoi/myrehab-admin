@@ -880,6 +880,12 @@ export type {
   GetUserByIdQueryResponse,
   GetUserByIdQuery,
 } from "./userManagementController/GetUserById.ts";
+export type {
+  SearchUsersByNameQueryParams,
+  SearchUsersByName200,
+  SearchUsersByNameQueryResponse,
+  SearchUsersByNameQuery,
+} from "./userManagementController/SearchUsersByName.ts";
 export type { UserResponse } from "./UserResponse.ts";
 export type { VerifyPinResetOtpRequest } from "./VerifyPinResetOtpRequest.ts";
 export type { VerifyRegistrationOtpRequest } from "./VerifyRegistrationOtpRequest.ts";

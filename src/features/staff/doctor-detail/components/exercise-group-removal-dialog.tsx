@@ -11,58 +11,58 @@ import {
 } from '@/components/ui/alert-dialog'
 import { Loader2 } from 'lucide-react'
 import { toast } from 'sonner'
-import { useRemoveTrainerFromDoctor, type StaffResponse } from '@/api'
+import {
+  useRemoveExerciseGroupFromDoctor,
+  getExerciseGroupsByDoctorQueryKey,
+  type GroupResponse,
+} from '@/api'
 
-type TrainerRemovalDialogProps = {
+type ExerciseGroupRemovalDialogProps = {
   doctorId: number
-  trainer: StaffResponse | null
+  group: GroupResponse | null
   open: boolean
   onOpenChange: (open: boolean) => void
 }
 
-export function TrainerRemovalDialog({
+export function ExerciseGroupRemovalDialog({
   doctorId,
-  trainer,
+  group,
   open,
   onOpenChange,
-}: TrainerRemovalDialogProps) {
+}: ExerciseGroupRemovalDialogProps) {
   const queryClient = useQueryClient()
 
-  // Removal mutation
-  const removeMutation = useRemoveTrainerFromDoctor({
+  const removeMutation = useRemoveExerciseGroupFromDoctor({
     mutation: {
       onSuccess: () => {
         queryClient.invalidateQueries({
-          queryKey: [{ url: '/api/admin/staff/doctors/:doctorId/trainers', params: { doctorId } }],
+          queryKey: getExerciseGroupsByDoctorQueryKey(doctorId),
         })
-        toast.success('Đã xóa huấn luyện viên khỏi bác sĩ')
+        toast.success('Đã xóa nhóm bài tập khỏi bác sĩ')
         onOpenChange(false)
       },
       onError: (error) => {
-        toast.error(error.message || 'Không thể xóa huấn luyện viên')
+        toast.error(error.message || 'Không thể xóa nhóm bài tập')
       },
     },
   })
 
   const handleRemove = () => {
-    if (!trainer?.id) return
-    removeMutation.mutate({
-      doctorId,
-      trainerId: trainer.id,
-    })
+    if (!group?.id) return
+    removeMutation.mutate({ doctorId, groupId: group.id })
   }
 
   return (
     <AlertDialog open={open} onOpenChange={onOpenChange}>
       <AlertDialogContent>
         <AlertDialogHeader>
-          <AlertDialogTitle>Xác nhận xóa huấn luyện viên</AlertDialogTitle>
+          <AlertDialogTitle>Xác nhận xóa nhóm bài tập</AlertDialogTitle>
           <AlertDialogDescription>
-            Bạn có chắc chắn muốn xóa{' '}
+            Bạn có chắc chắn muốn xóa nhóm bài tập{' '}
             <span className='font-semibold text-foreground'>
-              {trainer?.fullName || 'huấn luyện viên này'}
+              {group?.name || 'này'}
             </span>{' '}
-            khỏi bác sĩ này? Huấn luyện viên sẽ không còn được liên kết với bác sĩ này nữa.
+            khỏi bác sĩ này? Nhóm bài tập sẽ không còn được liên kết với bác sĩ này nữa.
           </AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>

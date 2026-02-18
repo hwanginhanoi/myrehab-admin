@@ -3,7 +3,6 @@
 import { SortableContext, verticalListSortingStrategy } from '@dnd-kit/sortable'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
-import { Badge } from '@/components/ui/badge'
 import { GripVertical, Copy, Trash2 } from 'lucide-react'
 import { ExerciseCardDraggable } from './exercise-card-draggable'
 import { EmptyDayPlaceholder } from './empty-day-placeholder'

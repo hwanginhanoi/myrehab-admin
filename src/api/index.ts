@@ -171,6 +171,8 @@ export type { GetAllUsersQueryKey } from "./hooks/User ManagementHooks/useGetAll
 export type { GetAllUsersSuspenseQueryKey } from "./hooks/User ManagementHooks/useGetAllUsersSuspense.ts";
 export type { GetUserByIdQueryKey } from "./hooks/User ManagementHooks/useGetUserById.ts";
 export type { GetUserByIdSuspenseQueryKey } from "./hooks/User ManagementHooks/useGetUserByIdSuspense.ts";
+export type { SearchUsersByNameQueryKey } from "./hooks/User ManagementHooks/useSearchUsersByName.ts";
+export type { SearchUsersByNameSuspenseQueryKey } from "./hooks/User ManagementHooks/useSearchUsersByNameSuspense.ts";
 export type { AddBalanceRequest } from "./types/AddBalanceRequest.ts";
 export type {
   AppointmentResponseStatusEnumKey,
@@ -1053,6 +1055,12 @@ export type {
   GetUserByIdQueryResponse,
   GetUserByIdQuery,
 } from "./types/userManagementController/GetUserById.ts";
+export type {
+  SearchUsersByNameQueryParams,
+  SearchUsersByName200,
+  SearchUsersByNameQueryResponse,
+  SearchUsersByNameQuery,
+} from "./types/userManagementController/SearchUsersByName.ts";
 export type { UserResponse } from "./types/UserResponse.ts";
 export type { VerifyPinResetOtpRequest } from "./types/VerifyPinResetOtpRequest.ts";
 export type { VerifyRegistrationOtpRequest } from "./types/VerifyRegistrationOtpRequest.ts";
@@ -1750,6 +1758,14 @@ export { getUserByIdSuspenseQueryKey } from "./hooks/User ManagementHooks/useGet
 export { getUserByIdSuspense } from "./hooks/User ManagementHooks/useGetUserByIdSuspense.ts";
 export { getUserByIdSuspenseQueryOptions } from "./hooks/User ManagementHooks/useGetUserByIdSuspense.ts";
 export { useGetUserByIdSuspense } from "./hooks/User ManagementHooks/useGetUserByIdSuspense.ts";
+export { searchUsersByNameQueryKey } from "./hooks/User ManagementHooks/useSearchUsersByName.ts";
+export { searchUsersByName } from "./hooks/User ManagementHooks/useSearchUsersByName.ts";
+export { searchUsersByNameQueryOptions } from "./hooks/User ManagementHooks/useSearchUsersByName.ts";
+export { useSearchUsersByName } from "./hooks/User ManagementHooks/useSearchUsersByName.ts";
+export { searchUsersByNameSuspenseQueryKey } from "./hooks/User ManagementHooks/useSearchUsersByNameSuspense.ts";
+export { searchUsersByNameSuspense } from "./hooks/User ManagementHooks/useSearchUsersByNameSuspense.ts";
+export { searchUsersByNameSuspenseQueryOptions } from "./hooks/User ManagementHooks/useSearchUsersByNameSuspense.ts";
+export { useSearchUsersByNameSuspense } from "./hooks/User ManagementHooks/useSearchUsersByNameSuspense.ts";
 export { appointmentResponseStatusEnum } from "./types/AppointmentResponse.ts";
 export { categoryResponseTypeEnum } from "./types/CategoryResponse.ts";
 export { clinicScheduleResponseDayOfWeekEnum } from "./types/ClinicScheduleResponse.ts";
@@ -2473,6 +2489,11 @@ export {
   getUserById200Schema,
   getUserByIdQueryResponseSchema,
 } from "./zod/userManagementController/getUserByIdSchema.ts";
+export {
+  searchUsersByNameQueryParamsSchema,
+  searchUsersByName200Schema,
+  searchUsersByNameQueryResponseSchema,
+} from "./zod/userManagementController/searchUsersByNameSchema.ts";
 export { userResponseSchema } from "./zod/userResponseSchema.ts";
 export { verifyPinResetOtpRequestSchema } from "./zod/verifyPinResetOtpRequestSchema.ts";
 export { verifyRegistrationOtpRequestSchema } from "./zod/verifyRegistrationOtpRequestSchema.ts";

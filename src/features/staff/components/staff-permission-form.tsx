@@ -1,6 +1,6 @@
 'use client'
 
-import { useCallback, useEffect } from 'react'
+import { useCallback, useEffect, useMemo } from 'react'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
@@ -28,8 +28,14 @@ type StaffPermissionFormProps = {
 
 export function StaffPermissionForm({ staff, readOnly }: StaffPermissionFormProps) {
   const queryClient = useQueryClient()
-  const permissionCategories = getPermissionCategoriesByStaffType(staff.staffType || '')
-  const requiredPermissions = getRequiredPermissionsByStaffType(staff.staffType || '')
+  const permissionCategories = useMemo(
+    () => getPermissionCategoriesByStaffType(staff.staffType || ''),
+    [staff.staffType]
+  )
+  const requiredPermissions = useMemo(
+    () => getRequiredPermissionsByStaffType(staff.staffType || ''),
+    [staff.staffType]
+  )
 
   // Merge required permissions into the given list
   const ensureRequiredPermissions = useCallback((permissions: string[]) => {
@@ -45,12 +51,14 @@ export function StaffPermissionForm({ staff, readOnly }: StaffPermissionFormProp
     },
   })
 
+  const { reset } = form
+
   // Reset form when staff changes
   useEffect(() => {
-    form.reset({
+    reset({
       permissions: ensureRequiredPermissions(staff.permissions || []),
     })
-  }, [staff.permissions, form, ensureRequiredPermissions])
+  }, [staff.permissions, ensureRequiredPermissions, reset])
 
   const updateMutation = useUpdateStaff({
     mutation: {

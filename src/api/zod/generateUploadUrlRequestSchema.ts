@@ -11,6 +11,6 @@ export const generateUploadUrlRequestSchema = z.object({
   category: z
     .string()
     .regex(
-      /^(exercise-image|exercise-video|course-image|course-video|profile-image|news-image)$/,
+      /^(exercise-image|exercise-video|course-image|course-video|profile-image|news-image|exercise-package-image)$/,
     ),
 });

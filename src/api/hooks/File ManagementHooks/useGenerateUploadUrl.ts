@@ -24,7 +24,7 @@ export type GenerateUploadUrlMutationKey = ReturnType<
 >;
 
 /**
- * @description Generate a temporary URL that allows direct upload to MinIO. The client should use PUT request to upload the file to the returned URL. Valid categories: exercise-image, exercise-video, course-image, course-video, profile-image, news-image
+ * @description Generate a temporary URL that allows direct upload to MinIO. The client should use PUT request to upload the file to the returned URL. Valid categories: exercise-image, exercise-video, exercise-package-image, course-image, course-video, profile-image, news-image
  * @summary Generate presigned URL for file upload
  * {@link /api/files/presigned-upload-url}
  */
@@ -71,7 +71,7 @@ export function generateUploadUrlMutationOptions(
 }
 
 /**
- * @description Generate a temporary URL that allows direct upload to MinIO. The client should use PUT request to upload the file to the returned URL. Valid categories: exercise-image, exercise-video, course-image, course-video, profile-image, news-image
+ * @description Generate a temporary URL that allows direct upload to MinIO. The client should use PUT request to upload the file to the returned URL. Valid categories: exercise-image, exercise-video, exercise-package-image, course-image, course-video, profile-image, news-image
  * @summary Generate presigned URL for file upload
  * {@link /api/files/presigned-upload-url}
  */

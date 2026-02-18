@@ -171,6 +171,8 @@ export type { GetAllUsersQueryKey } from "./User ManagementHooks/useGetAllUsers.
 export type { GetAllUsersSuspenseQueryKey } from "./User ManagementHooks/useGetAllUsersSuspense.ts";
 export type { GetUserByIdQueryKey } from "./User ManagementHooks/useGetUserById.ts";
 export type { GetUserByIdSuspenseQueryKey } from "./User ManagementHooks/useGetUserByIdSuspense.ts";
+export type { SearchUsersByNameQueryKey } from "./User ManagementHooks/useSearchUsersByName.ts";
+export type { SearchUsersByNameSuspenseQueryKey } from "./User ManagementHooks/useSearchUsersByNameSuspense.ts";
 export { assignDoctorMutationKey } from "./AppointmentsHooks/useAssignDoctor.ts";
 export { assignDoctor } from "./AppointmentsHooks/useAssignDoctor.ts";
 export { assignDoctorMutationOptions } from "./AppointmentsHooks/useAssignDoctor.ts";
@@ -863,3 +865,11 @@ export { getUserByIdSuspenseQueryKey } from "./User ManagementHooks/useGetUserBy
 export { getUserByIdSuspense } from "./User ManagementHooks/useGetUserByIdSuspense.ts";
 export { getUserByIdSuspenseQueryOptions } from "./User ManagementHooks/useGetUserByIdSuspense.ts";
 export { useGetUserByIdSuspense } from "./User ManagementHooks/useGetUserByIdSuspense.ts";
+export { searchUsersByNameQueryKey } from "./User ManagementHooks/useSearchUsersByName.ts";
+export { searchUsersByName } from "./User ManagementHooks/useSearchUsersByName.ts";
+export { searchUsersByNameQueryOptions } from "./User ManagementHooks/useSearchUsersByName.ts";
+export { useSearchUsersByName } from "./User ManagementHooks/useSearchUsersByName.ts";
+export { searchUsersByNameSuspenseQueryKey } from "./User ManagementHooks/useSearchUsersByNameSuspense.ts";
+export { searchUsersByNameSuspense } from "./User ManagementHooks/useSearchUsersByNameSuspense.ts";
+export { searchUsersByNameSuspenseQueryOptions } from "./User ManagementHooks/useSearchUsersByNameSuspense.ts";
+export { useSearchUsersByNameSuspense } from "./User ManagementHooks/useSearchUsersByNameSuspense.ts";

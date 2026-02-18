@@ -8,8 +8,12 @@ import { pagedModelSchema } from "../pagedModelSchema.ts";
 import { z } from "zod/v4";
 
 export const getAllTransactionHistoryQueryParamsSchema = z.object({
-  userName: z.optional(
-    z.string().describe("Filter by user name (partial match)"),
+  query: z.optional(
+    z
+      .string()
+      .describe(
+        "Search by user name or phone number (case-insensitive, partial match)",
+      ),
   ),
   startDate: z.optional(
     z.string().datetime().describe("Filter by start date (ISO date-time)"),
