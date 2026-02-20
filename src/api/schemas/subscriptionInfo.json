@@ -1,14 +1,1 @@
-{
-  "type": "object",
-  "properties": {
-    "hasSubscription": { "type": "boolean" },
-    "subscriptionId": { "type": "integer", "format": "int64" },
-    "subscriptionType": { "type": "string", "enum": ["MONTHLY", "YEARLY"] },
-    "pricePaid": { "type": "integer", "format": "int64" },
-    "purchasedAt": { "type": "string", "format": "date-time" },
-    "expiresAt": { "type": "string", "format": "date-time" },
-    "isActive": { "type": "boolean" },
-    "isExpired": { "type": "boolean" }
-  },
-  "x-readme-ref-name": "SubscriptionInfo"
-}
+{"type":"object","properties":{"hasSubscription":{"type":"boolean"},"subscriptionId":{"type":"integer","format":"int64"},"subscriptionType":{"type":"string","enum":["MONTHLY","YEARLY"]},"pricePaid":{"type":"integer","format":"int64"},"purchasedAt":{"type":"string","format":"date-time"},"expiresAt":{"type":"string","format":"date-time"},"isActive":{"type":"boolean"},"isExpired":{"type":"boolean"}},"x-readme-ref-name":"SubscriptionInfo"}

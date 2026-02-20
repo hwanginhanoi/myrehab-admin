@@ -1,11 +1,1 @@
-{
-  "type": "object",
-  "properties": {
-    "dayExerciseId": { "type": "integer", "format": "int64" },
-    "isCompleted": { "type": "boolean" },
-    "dayUnlocked": { "type": "boolean" },
-    "nextDayNumber": { "type": "integer", "format": "int32" },
-    "message": { "type": "string" }
-  },
-  "x-readme-ref-name": "ExerciseCompletionResponse"
-}
+{"type":"object","properties":{"dayExerciseId":{"type":"integer","format":"int64"},"isCompleted":{"type":"boolean"},"dayUnlocked":{"type":"boolean"},"nextDayNumber":{"type":"integer","format":"int32"},"message":{"type":"string"}},"x-readme-ref-name":"ExerciseCompletionResponse"}

@@ -36,6 +36,7 @@ import { Route as AuthenticatedExercisesIndexRouteImport } from './routes/_authe
 import { Route as AuthenticatedExercisePackagesIndexRouteImport } from './routes/_authenticated/exercise-packages/index'
 import { Route as AuthenticatedExerciseGroupsIndexRouteImport } from './routes/_authenticated/exercise-groups/index'
 import { Route as AuthenticatedExerciseCategoriesIndexRouteImport } from './routes/_authenticated/exercise-categories/index'
+import { Route as AuthenticatedCourseAssignmentsIndexRouteImport } from './routes/_authenticated/course-assignments/index'
 import { Route as AuthenticatedClinicScheduleIndexRouteImport } from './routes/_authenticated/clinic-schedule/index'
 import { Route as AuthenticatedChatsIndexRouteImport } from './routes/_authenticated/chats/index'
 import { Route as AuthenticatedAppsIndexRouteImport } from './routes/_authenticated/apps/index'
@@ -212,6 +213,12 @@ const AuthenticatedExerciseCategoriesIndexRoute =
   AuthenticatedExerciseCategoriesIndexRouteImport.update({
     id: '/exercise-categories/',
     path: '/exercise-categories/',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedCourseAssignmentsIndexRoute =
+  AuthenticatedCourseAssignmentsIndexRouteImport.update({
+    id: '/course-assignments/',
+    path: '/course-assignments/',
     getParentRoute: () => AuthenticatedRouteRoute,
   } as any)
 const AuthenticatedClinicScheduleIndexRoute =
@@ -428,6 +435,7 @@ export interface FileRoutesByFullPath {
   '/apps': typeof AuthenticatedAppsIndexRoute
   '/chats': typeof AuthenticatedChatsIndexRoute
   '/clinic-schedule': typeof AuthenticatedClinicScheduleIndexRoute
+  '/course-assignments': typeof AuthenticatedCourseAssignmentsIndexRoute
   '/exercise-categories': typeof AuthenticatedExerciseCategoriesIndexRoute
   '/exercise-groups': typeof AuthenticatedExerciseGroupsIndexRoute
   '/exercise-packages': typeof AuthenticatedExercisePackagesIndexRoute
@@ -486,6 +494,7 @@ export interface FileRoutesByTo {
   '/apps': typeof AuthenticatedAppsIndexRoute
   '/chats': typeof AuthenticatedChatsIndexRoute
   '/clinic-schedule': typeof AuthenticatedClinicScheduleIndexRoute
+  '/course-assignments': typeof AuthenticatedCourseAssignmentsIndexRoute
   '/exercise-categories': typeof AuthenticatedExerciseCategoriesIndexRoute
   '/exercise-groups': typeof AuthenticatedExerciseGroupsIndexRoute
   '/exercise-packages': typeof AuthenticatedExercisePackagesIndexRoute
@@ -544,6 +553,7 @@ export interface FileRoutesById {
   '/_authenticated/apps/': typeof AuthenticatedAppsIndexRoute
   '/_authenticated/chats/': typeof AuthenticatedChatsIndexRoute
   '/_authenticated/clinic-schedule/': typeof AuthenticatedClinicScheduleIndexRoute
+  '/_authenticated/course-assignments/': typeof AuthenticatedCourseAssignmentsIndexRoute
   '/_authenticated/exercise-categories/': typeof AuthenticatedExerciseCategoriesIndexRoute
   '/_authenticated/exercise-groups/': typeof AuthenticatedExerciseGroupsIndexRoute
   '/_authenticated/exercise-packages/': typeof AuthenticatedExercisePackagesIndexRoute
@@ -605,6 +615,7 @@ export interface FileRouteTypes {
     | '/apps'
     | '/chats'
     | '/clinic-schedule'
+    | '/course-assignments'
     | '/exercise-categories'
     | '/exercise-groups'
     | '/exercise-packages'
@@ -663,6 +674,7 @@ export interface FileRouteTypes {
     | '/apps'
     | '/chats'
     | '/clinic-schedule'
+    | '/course-assignments'
     | '/exercise-categories'
     | '/exercise-groups'
     | '/exercise-packages'
@@ -720,6 +732,7 @@ export interface FileRouteTypes {
     | '/_authenticated/apps/'
     | '/_authenticated/chats/'
     | '/_authenticated/clinic-schedule/'
+    | '/_authenticated/course-assignments/'
     | '/_authenticated/exercise-categories/'
     | '/_authenticated/exercise-groups/'
     | '/_authenticated/exercise-packages/'
@@ -951,6 +964,13 @@ declare module '@tanstack/react-router' {
       path: '/exercise-categories'
       fullPath: '/exercise-categories'
       preLoaderRoute: typeof AuthenticatedExerciseCategoriesIndexRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/course-assignments/': {
+      id: '/_authenticated/course-assignments/'
+      path: '/course-assignments'
+      fullPath: '/course-assignments'
+      preLoaderRoute: typeof AuthenticatedCourseAssignmentsIndexRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
     '/_authenticated/clinic-schedule/': {
@@ -1277,6 +1297,7 @@ interface AuthenticatedRouteRouteChildren {
   AuthenticatedAppsIndexRoute: typeof AuthenticatedAppsIndexRoute
   AuthenticatedChatsIndexRoute: typeof AuthenticatedChatsIndexRoute
   AuthenticatedClinicScheduleIndexRoute: typeof AuthenticatedClinicScheduleIndexRoute
+  AuthenticatedCourseAssignmentsIndexRoute: typeof AuthenticatedCourseAssignmentsIndexRoute
   AuthenticatedExerciseCategoriesIndexRoute: typeof AuthenticatedExerciseCategoriesIndexRoute
   AuthenticatedExerciseGroupsIndexRoute: typeof AuthenticatedExerciseGroupsIndexRoute
   AuthenticatedExercisePackagesIndexRoute: typeof AuthenticatedExercisePackagesIndexRoute
@@ -1316,6 +1337,8 @@ const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedAppsIndexRoute: AuthenticatedAppsIndexRoute,
   AuthenticatedChatsIndexRoute: AuthenticatedChatsIndexRoute,
   AuthenticatedClinicScheduleIndexRoute: AuthenticatedClinicScheduleIndexRoute,
+  AuthenticatedCourseAssignmentsIndexRoute:
+    AuthenticatedCourseAssignmentsIndexRoute,
   AuthenticatedExerciseCategoriesIndexRoute:
     AuthenticatedExerciseCategoriesIndexRoute,
   AuthenticatedExerciseGroupsIndexRoute: AuthenticatedExerciseGroupsIndexRoute,
