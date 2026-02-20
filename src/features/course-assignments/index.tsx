@@ -49,7 +49,7 @@ export function CourseAssignments() {
   )
 
   // Fetch course assignments with server-side filtering and pagination
-  const { data: response, isLoading, error } = useListCourseAssignments(queryParams, {
+  const { data: response, isLoading } = useListCourseAssignments(queryParams, {
     query: {
       placeholderData: (previousData) => previousData,
     },
