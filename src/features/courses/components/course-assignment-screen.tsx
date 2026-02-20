@@ -535,7 +535,7 @@ export function CourseAssignmentScreen({ preSelectedPatientId, preSelectedDoctor
               </CardDescription>
             </CardHeader>
             <CardContent className='space-y-4'>
-              {isAdmin && (
+              {showDoctorSelector && (
                 <div className='space-y-2'>
                   <Label htmlFor='assigningDoctor'>Bác sĩ phân công *</Label>
                   <Select

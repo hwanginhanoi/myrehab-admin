@@ -8,12 +8,6 @@ import { CourseAssignmentsRowActions } from './course-assignments-row-actions'
 
 export const courseAssignmentsColumns: ColumnDef<CourseAssignmentDetail>[] = [
   {
-    accessorKey: 'id',
-    header: ({ column }) => <DataTableColumnHeader column={column} title='ID' />,
-    cell: ({ row }) => <div className='w-10'>#{row.getValue('id')}</div>,
-    enableHiding: false,
-  },
-  {
     id: 'patient',
     header: ({ column }) => <DataTableColumnHeader column={column} title='Bệnh nhân' />,
     cell: ({ row }) => (
