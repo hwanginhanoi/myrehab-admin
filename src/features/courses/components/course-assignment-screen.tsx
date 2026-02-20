@@ -1,6 +1,6 @@
 'use client'
 
-import { useReducer, useCallback, useEffect } from 'react'
+import { useReducer, useCallback, useEffect, useMemo } from 'react'
 import { useNavigate } from '@tanstack/react-router'
 import { useQueryClient } from '@tanstack/react-query'
 import { ArrowLeft, ArrowRight, Check } from 'lucide-react'
@@ -8,8 +8,16 @@ import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select'
 import { toast } from 'sonner'
-import { useCreateAndAssignCustomCourse, type UserResponse } from '@/api'
+import { useCreateAndAssignCustomCourse, useGetAllStaff, type UserResponse, type StaffResponse } from '@/api'
+import { useAuthStore } from '@/stores/auth-store'
 import { CourseCustomizationSection } from './course-customization-section'
 
 // Types
@@ -36,6 +44,7 @@ type AssignmentState = {
   courseDescription: string
   customizedDays: Map<number, DayWithExercises>
   notes: string
+  assigningDoctorId: number | null
   currentStep: 1 | 2 | 3
   daysInitialized: boolean
 }
@@ -44,6 +53,7 @@ type AssignmentAction =
   | { type: 'SELECT_PATIENT'; payload: UserResponse }
   | { type: 'SET_COURSE_NAME'; payload: string }
   | { type: 'SET_COURSE_DESCRIPTION'; payload: string }
+  | { type: 'SET_ASSIGNING_DOCTOR_ID'; payload: number | null }
   | { type: 'INITIALIZE_DAYS' }
   | { type: 'ADD_DAY' }
   | { type: 'DELETE_DAY'; payload: number }
@@ -75,6 +85,9 @@ function assignmentReducer(state: AssignmentState, action: AssignmentAction): As
 
     case 'SET_COURSE_DESCRIPTION':
       return { ...state, courseDescription: action.payload }
+
+    case 'SET_ASSIGNING_DOCTOR_ID':
+      return { ...state, assigningDoctorId: action.payload }
 
     case 'INITIALIZE_DAYS': {
       // Initialize with 1 day
@@ -290,6 +303,7 @@ const initialState: AssignmentState = {
   courseDescription: '',
   customizedDays: new Map(),
   notes: '',
+  assigningDoctorId: null,
   currentStep: 1,
   daysInitialized: false,
 }
@@ -297,14 +311,41 @@ const initialState: AssignmentState = {
 // Main Component
 type CourseAssignmentScreenProps = {
   preSelectedPatientId?: number
+  preSelectedDoctorId?: number
 }
 
-export function CourseAssignmentScreen({ preSelectedPatientId }: CourseAssignmentScreenProps) {
+export function CourseAssignmentScreen({ preSelectedPatientId, preSelectedDoctorId }: CourseAssignmentScreenProps) {
   const [state, dispatch] = useReducer(assignmentReducer, initialState)
   const navigate = useNavigate()
   const queryClient = useQueryClient()
+  const { auth } = useAuthStore()
+  const isAdmin = auth.userType === 'SUPER_ADMIN' || auth.userType === 'ADMIN'
 
-  // Set patient ID on mount
+  // If doctorId is provided, we don't need to show the selector
+  const showDoctorSelector = isAdmin && !preSelectedDoctorId
+
+  // Fetch doctors for admin users
+  const { data: staffData } = useGetAllStaff(
+    {
+      pageable: { page: 0, size: 100 },
+      staffType: 'DOCTOR' as const,
+    },
+    {
+      query: {
+        enabled: isAdmin,
+      },
+    }
+  )
+
+  const doctorOptions = useMemo(() => {
+    if (!staffData?.content) return []
+    return (staffData.content as StaffResponse[]).map((staff) => ({
+      id: staff.id,
+      name: staff.fullName || staff.email || 'Unknown',
+    }))
+  }, [staffData])
+
+  // Set patient ID and doctor ID on mount
   useEffect(() => {
     if (preSelectedPatientId && !state.selectedPatient) {
       // Create a minimal patient object with just the ID
@@ -315,6 +356,16 @@ export function CourseAssignmentScreen({ preSelectedPatientId }: CourseAssignmen
       })
     }
   }, [preSelectedPatientId, state.selectedPatient])
+
+  // Auto-set doctor ID if provided
+  useEffect(() => {
+    if (preSelectedDoctorId && !state.assigningDoctorId) {
+      dispatch({
+        type: 'SET_ASSIGNING_DOCTOR_ID',
+        payload: preSelectedDoctorId,
+      })
+    }
+  }, [preSelectedDoctorId, state.assigningDoctorId])
 
   // Mutation
   const assignMutation = useCreateAndAssignCustomCourse({
@@ -327,7 +378,13 @@ export function CourseAssignmentScreen({ preSelectedPatientId }: CourseAssignmen
         navigate({ to: '/staff' as never })
       },
       onError: (error) => {
-        toast.error('Tạo khóa học thất bại: ' + error.message)
+        // Check for specific error about staff members
+        const errorMessage = error.message || ''
+        if (errorMessage.includes('Cannot assign courses to staff members')) {
+          toast.error('Không thể gán khóa học cho nhân viên. Vui lòng chọn một bệnh nhân (không phải DOCTOR, TRAINER, ADMIN).')
+        } else {
+          toast.error('Tạo khóa học thất bại: ' + errorMessage)
+        }
       },
     },
   })
@@ -337,6 +394,7 @@ export function CourseAssignmentScreen({ preSelectedPatientId }: CourseAssignmen
     if (state.currentStep === 1) {
       if (!state.selectedPatient) return 'Không tìm thấy bệnh nhân'
       if (!state.courseName.trim()) return 'Vui lòng nhập tên khóa học'
+      if (showDoctorSelector && !state.assigningDoctorId) return 'Vui lòng chọn bác sĩ phân công'
     }
 
     if (state.currentStep === 2) {
@@ -353,7 +411,7 @@ export function CourseAssignmentScreen({ preSelectedPatientId }: CourseAssignmen
     }
 
     return null
-  }, [state])
+  }, [state, showDoctorSelector])
 
   // Handlers
   const handleNext = () => {
@@ -402,6 +460,7 @@ export function CourseAssignmentScreen({ preSelectedPatientId }: CourseAssignmen
         description: state.courseDescription,
         durationDays: state.customizedDays.size,
         notes: state.notes || undefined,
+        assigningDoctorId: state.assigningDoctorId || undefined,
         courseDays,
       },
     })
@@ -476,6 +535,35 @@ export function CourseAssignmentScreen({ preSelectedPatientId }: CourseAssignmen
               </CardDescription>
             </CardHeader>
             <CardContent className='space-y-4'>
+              {isAdmin && (
+                <div className='space-y-2'>
+                  <Label htmlFor='assigningDoctor'>Bác sĩ phân công *</Label>
+                  <Select
+                    value={state.assigningDoctorId?.toString() || ''}
+                    onValueChange={(value) =>
+                      dispatch({
+                        type: 'SET_ASSIGNING_DOCTOR_ID',
+                        payload: value ? Number(value) : null,
+                      })
+                    }
+                  >
+                    <SelectTrigger id='assigningDoctor'>
+                      <SelectValue placeholder='Chọn bác sĩ...' />
+                    </SelectTrigger>
+                    <SelectContent>
+                      {doctorOptions.map((doctor) => (
+                        <SelectItem key={doctor.id} value={doctor.id!.toString()}>
+                          {doctor.name}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                  <p className='text-sm text-muted-foreground'>
+                    Chọn bác sĩ sẽ được ghi nhận là người phân công khóa học này
+                  </p>
+                </div>
+              )}
+
               <div className='space-y-2'>
                 <Label htmlFor='courseName'>Tên khóa học *</Label>
                 <Input

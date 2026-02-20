@@ -1,6 +1,1 @@
-{
-  "type": "object",
-  "properties": { "rejectionReason": { "type": "string" } },
-  "required": ["rejectionReason"],
-  "x-readme-ref-name": "RejectAppointmentRequest"
-}
+{"type":"object","properties":{"rejectionReason":{"type":"string"}},"required":["rejectionReason"],"x-readme-ref-name":"RejectAppointmentRequest"}

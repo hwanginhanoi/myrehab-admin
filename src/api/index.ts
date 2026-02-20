@@ -36,6 +36,8 @@ export type { VerifyRegistrationOtpMutationKey } from "./hooks/AuthenticationHoo
 export type { AddBalanceMutationKey } from "./hooks/BalanceHooks/useAddBalance.ts";
 export type { GetMyBalanceQueryKey } from "./hooks/BalanceHooks/useGetMyBalance.ts";
 export type { GetMyBalanceSuspenseQueryKey } from "./hooks/BalanceHooks/useGetMyBalanceSuspense.ts";
+export type { ListCourseAssignmentsQueryKey } from "./hooks/Course AssignmentsHooks/useListCourseAssignments.ts";
+export type { ListCourseAssignmentsSuspenseQueryKey } from "./hooks/Course AssignmentsHooks/useListCourseAssignmentsSuspense.ts";
 export type { CheckFeedbackExistsQueryKey } from "./hooks/Course Day FeedbackHooks/useCheckFeedbackExists.ts";
 export type { CheckFeedbackExistsSuspenseQueryKey } from "./hooks/Course Day FeedbackHooks/useCheckFeedbackExistsSuspense.ts";
 export type { GetMyFeedbackQueryKey } from "./hooks/Course Day FeedbackHooks/useGetMyFeedback.ts";
@@ -174,547 +176,129 @@ export type { GetUserByIdSuspenseQueryKey } from "./hooks/User ManagementHooks/u
 export type { SearchUsersByNameQueryKey } from "./hooks/User ManagementHooks/useSearchUsersByName.ts";
 export type { SearchUsersByNameSuspenseQueryKey } from "./hooks/User ManagementHooks/useSearchUsersByNameSuspense.ts";
 export type { AddBalanceRequest } from "./types/AddBalanceRequest.ts";
-export type {
-  AppointmentResponseStatusEnumKey,
-  AppointmentResponse,
-} from "./types/AppointmentResponse.ts";
-export type {
-  AssignDoctorPathParams,
-  AssignDoctor200,
-  AssignDoctorMutationRequest,
-  AssignDoctorMutationResponse,
-  AssignDoctorMutation,
-} from "./types/appointmentsController/AssignDoctor.ts";
-export type {
-  CancelAppointmentPathParams,
-  CancelAppointment200,
-  CancelAppointmentMutationRequest,
-  CancelAppointmentMutationResponse,
-  CancelAppointmentMutation,
-} from "./types/appointmentsController/CancelAppointment.ts";
-export type {
-  ConfirmAppointmentPathParams,
-  ConfirmAppointment200,
-  ConfirmAppointmentMutationRequest,
-  ConfirmAppointmentMutationResponse,
-  ConfirmAppointmentMutation,
-} from "./types/appointmentsController/ConfirmAppointment.ts";
-export type {
-  ConfirmCompletionPathParams,
-  ConfirmCompletion200,
-  ConfirmCompletionMutationResponse,
-  ConfirmCompletionMutation,
-} from "./types/appointmentsController/ConfirmCompletion.ts";
-export type {
-  CreateAppointment200,
-  CreateAppointmentMutationRequest,
-  CreateAppointmentMutationResponse,
-  CreateAppointmentMutation,
-} from "./types/appointmentsController/CreateAppointment.ts";
-export type {
-  DisputeAppointmentPathParams,
-  DisputeAppointment200,
-  DisputeAppointmentMutationRequest,
-  DisputeAppointmentMutationResponse,
-  DisputeAppointmentMutation,
-} from "./types/appointmentsController/DisputeAppointment.ts";
-export type {
-  GetAllAppointmentsQueryParams,
-  GetAllAppointments200,
-  GetAllAppointmentsQueryResponse,
-  GetAllAppointmentsQuery,
-} from "./types/appointmentsController/GetAllAppointments.ts";
-export type {
-  GetAppointmentByIdPathParams,
-  GetAppointmentById200,
-  GetAppointmentByIdQueryResponse,
-  GetAppointmentByIdQuery,
-} from "./types/appointmentsController/GetAppointmentById.ts";
-export type {
-  GetAvailableSlotsQueryParams,
-  GetAvailableSlots200,
-  GetAvailableSlotsQueryResponse,
-  GetAvailableSlotsQuery,
-} from "./types/appointmentsController/GetAvailableSlots.ts";
-export type {
-  GetClinicSchedule200,
-  GetClinicScheduleQueryResponse,
-  GetClinicScheduleQuery,
-} from "./types/appointmentsController/GetClinicSchedule.ts";
-export type {
-  GetDisputedAppointmentsQueryParams,
-  GetDisputedAppointments200,
-  GetDisputedAppointmentsQueryResponse,
-  GetDisputedAppointmentsQuery,
-} from "./types/appointmentsController/GetDisputedAppointments.ts";
-export type {
-  GetDoctorAppointmentsQueryParams,
-  GetDoctorAppointments200,
-  GetDoctorAppointmentsQueryResponse,
-  GetDoctorAppointmentsQuery,
-} from "./types/appointmentsController/GetDoctorAppointments.ts";
-export type {
-  GetMyAppointmentsQueryParams,
-  GetMyAppointments200,
-  GetMyAppointmentsQueryResponse,
-  GetMyAppointmentsQuery,
-} from "./types/appointmentsController/GetMyAppointments.ts";
-export type {
-  MarkCompletePathParams,
-  MarkComplete200,
-  MarkCompleteMutationResponse,
-  MarkCompleteMutation,
-} from "./types/appointmentsController/MarkComplete.ts";
-export type {
-  RejectAppointmentPathParams,
-  RejectAppointment200,
-  RejectAppointmentMutationRequest,
-  RejectAppointmentMutationResponse,
-  RejectAppointmentMutation,
-} from "./types/appointmentsController/RejectAppointment.ts";
-export type {
-  ResolveDisputePathParams,
-  ResolveDispute200,
-  ResolveDisputeMutationRequest,
-  ResolveDisputeMutationResponse,
-  ResolveDisputeMutation,
-} from "./types/appointmentsController/ResolveDispute.ts";
-export type {
-  UpdateClinicSchedule200,
-  UpdateClinicScheduleMutationRequest,
-  UpdateClinicScheduleMutationResponse,
-  UpdateClinicScheduleMutation,
-} from "./types/appointmentsController/UpdateClinicSchedule.ts";
+export type { AppointmentResponseStatusEnumKey, AppointmentResponse } from "./types/AppointmentResponse.ts";
+export type { AssignDoctorPathParams, AssignDoctor200, AssignDoctorMutationRequest, AssignDoctorMutationResponse, AssignDoctorMutation } from "./types/appointmentsController/AssignDoctor.ts";
+export type { CancelAppointmentPathParams, CancelAppointment200, CancelAppointmentMutationRequest, CancelAppointmentMutationResponse, CancelAppointmentMutation } from "./types/appointmentsController/CancelAppointment.ts";
+export type { ConfirmAppointmentPathParams, ConfirmAppointment200, ConfirmAppointmentMutationRequest, ConfirmAppointmentMutationResponse, ConfirmAppointmentMutation } from "./types/appointmentsController/ConfirmAppointment.ts";
+export type { ConfirmCompletionPathParams, ConfirmCompletion200, ConfirmCompletionMutationResponse, ConfirmCompletionMutation } from "./types/appointmentsController/ConfirmCompletion.ts";
+export type { CreateAppointment200, CreateAppointmentMutationRequest, CreateAppointmentMutationResponse, CreateAppointmentMutation } from "./types/appointmentsController/CreateAppointment.ts";
+export type { DisputeAppointmentPathParams, DisputeAppointment200, DisputeAppointmentMutationRequest, DisputeAppointmentMutationResponse, DisputeAppointmentMutation } from "./types/appointmentsController/DisputeAppointment.ts";
+export type { GetAllAppointmentsQueryParams, GetAllAppointments200, GetAllAppointmentsQueryResponse, GetAllAppointmentsQuery } from "./types/appointmentsController/GetAllAppointments.ts";
+export type { GetAppointmentByIdPathParams, GetAppointmentById200, GetAppointmentByIdQueryResponse, GetAppointmentByIdQuery } from "./types/appointmentsController/GetAppointmentById.ts";
+export type { GetAvailableSlotsQueryParams, GetAvailableSlots200, GetAvailableSlotsQueryResponse, GetAvailableSlotsQuery } from "./types/appointmentsController/GetAvailableSlots.ts";
+export type { GetClinicSchedule200, GetClinicScheduleQueryResponse, GetClinicScheduleQuery } from "./types/appointmentsController/GetClinicSchedule.ts";
+export type { GetDisputedAppointmentsQueryParams, GetDisputedAppointments200, GetDisputedAppointmentsQueryResponse, GetDisputedAppointmentsQuery } from "./types/appointmentsController/GetDisputedAppointments.ts";
+export type { GetDoctorAppointmentsQueryParams, GetDoctorAppointments200, GetDoctorAppointmentsQueryResponse, GetDoctorAppointmentsQuery } from "./types/appointmentsController/GetDoctorAppointments.ts";
+export type { GetMyAppointmentsQueryParams, GetMyAppointments200, GetMyAppointmentsQueryResponse, GetMyAppointmentsQuery } from "./types/appointmentsController/GetMyAppointments.ts";
+export type { MarkCompletePathParams, MarkComplete200, MarkCompleteMutationResponse, MarkCompleteMutation } from "./types/appointmentsController/MarkComplete.ts";
+export type { RejectAppointmentPathParams, RejectAppointment200, RejectAppointmentMutationRequest, RejectAppointmentMutationResponse, RejectAppointmentMutation } from "./types/appointmentsController/RejectAppointment.ts";
+export type { ResolveDisputePathParams, ResolveDispute200, ResolveDisputeMutationRequest, ResolveDisputeMutationResponse, ResolveDisputeMutation } from "./types/appointmentsController/ResolveDispute.ts";
+export type { UpdateClinicSchedule200, UpdateClinicScheduleMutationRequest, UpdateClinicScheduleMutationResponse, UpdateClinicScheduleMutation } from "./types/appointmentsController/UpdateClinicSchedule.ts";
 export type { AssignCourseToPatientRequest } from "./types/AssignCourseToPatientRequest.ts";
 export type { AssignDoctorRequest } from "./types/AssignDoctorRequest.ts";
 export type { AssignPatientToDoctorRequest } from "./types/AssignPatientToDoctorRequest.ts";
-export type {
-  CheckPhone200,
-  CheckPhoneMutationRequest,
-  CheckPhoneMutationResponse,
-  CheckPhoneMutation,
-} from "./types/authenticationController/CheckPhone.ts";
-export type {
-  LoginWithPassword200,
-  LoginWithPasswordMutationRequest,
-  LoginWithPasswordMutationResponse,
-  LoginWithPasswordMutation,
-} from "./types/authenticationController/LoginWithPassword.ts";
-export type {
-  LoginWithPin200,
-  LoginWithPinMutationRequest,
-  LoginWithPinMutationResponse,
-  LoginWithPinMutation,
-} from "./types/authenticationController/LoginWithPin.ts";
-export type {
-  Logout200,
-  LogoutMutationRequest,
-  LogoutMutationResponse,
-  LogoutMutation,
-} from "./types/authenticationController/Logout.ts";
-export type {
-  RefreshToken200,
-  RefreshTokenMutationRequest,
-  RefreshTokenMutationResponse,
-  RefreshTokenMutation,
-} from "./types/authenticationController/RefreshToken.ts";
-export type {
-  Register200,
-  RegisterMutationRequest,
-  RegisterMutationResponse,
-  RegisterMutation,
-} from "./types/authenticationController/Register.ts";
-export type {
-  RequestPinReset200,
-  RequestPinResetMutationRequest,
-  RequestPinResetMutationResponse,
-  RequestPinResetMutation,
-} from "./types/authenticationController/RequestPinReset.ts";
-export type {
-  ResetPin200,
-  ResetPinMutationRequest,
-  ResetPinMutationResponse,
-  ResetPinMutation,
-} from "./types/authenticationController/ResetPin.ts";
-export type {
-  SendRegistrationOtp200,
-  SendRegistrationOtpMutationRequest,
-  SendRegistrationOtpMutationResponse,
-  SendRegistrationOtpMutation,
-} from "./types/authenticationController/SendRegistrationOtp.ts";
-export type {
-  VerifyPinResetOtp200,
-  VerifyPinResetOtpMutationRequest,
-  VerifyPinResetOtpMutationResponse,
-  VerifyPinResetOtpMutation,
-} from "./types/authenticationController/VerifyPinResetOtp.ts";
-export type {
-  VerifyRegistrationOtp200,
-  VerifyRegistrationOtpMutationRequest,
-  VerifyRegistrationOtpMutationResponse,
-  VerifyRegistrationOtpMutation,
-} from "./types/authenticationController/VerifyRegistrationOtp.ts";
+export type { CheckPhone200, CheckPhoneMutationRequest, CheckPhoneMutationResponse, CheckPhoneMutation } from "./types/authenticationController/CheckPhone.ts";
+export type { LoginWithPassword200, LoginWithPasswordMutationRequest, LoginWithPasswordMutationResponse, LoginWithPasswordMutation } from "./types/authenticationController/LoginWithPassword.ts";
+export type { LoginWithPin200, LoginWithPinMutationRequest, LoginWithPinMutationResponse, LoginWithPinMutation } from "./types/authenticationController/LoginWithPin.ts";
+export type { Logout200, LogoutMutationRequest, LogoutMutationResponse, LogoutMutation } from "./types/authenticationController/Logout.ts";
+export type { RefreshToken200, RefreshTokenMutationRequest, RefreshTokenMutationResponse, RefreshTokenMutation } from "./types/authenticationController/RefreshToken.ts";
+export type { Register200, RegisterMutationRequest, RegisterMutationResponse, RegisterMutation } from "./types/authenticationController/Register.ts";
+export type { RequestPinReset200, RequestPinResetMutationRequest, RequestPinResetMutationResponse, RequestPinResetMutation } from "./types/authenticationController/RequestPinReset.ts";
+export type { ResetPin200, ResetPinMutationRequest, ResetPinMutationResponse, ResetPinMutation } from "./types/authenticationController/ResetPin.ts";
+export type { SendRegistrationOtp200, SendRegistrationOtpMutationRequest, SendRegistrationOtpMutationResponse, SendRegistrationOtpMutation } from "./types/authenticationController/SendRegistrationOtp.ts";
+export type { VerifyPinResetOtp200, VerifyPinResetOtpMutationRequest, VerifyPinResetOtpMutationResponse, VerifyPinResetOtpMutation } from "./types/authenticationController/VerifyPinResetOtp.ts";
+export type { VerifyRegistrationOtp200, VerifyRegistrationOtpMutationRequest, VerifyRegistrationOtpMutationResponse, VerifyRegistrationOtpMutation } from "./types/authenticationController/VerifyRegistrationOtp.ts";
 export type { AvailableSlotResponse } from "./types/AvailableSlotResponse.ts";
-export type {
-  AddBalance200,
-  AddBalanceMutationRequest,
-  AddBalanceMutationResponse,
-  AddBalanceMutation,
-} from "./types/balanceController/AddBalance.ts";
-export type {
-  GetMyBalance200,
-  GetMyBalanceQueryResponse,
-  GetMyBalanceQuery,
-} from "./types/balanceController/GetMyBalance.ts";
+export type { AddBalance200, AddBalanceMutationRequest, AddBalanceMutationResponse, AddBalanceMutation } from "./types/balanceController/AddBalance.ts";
+export type { GetMyBalance200, GetMyBalanceQueryResponse, GetMyBalanceQuery } from "./types/balanceController/GetMyBalance.ts";
 export type { BalanceResponse } from "./types/BalanceResponse.ts";
 export type { CancelAppointmentRequest } from "./types/CancelAppointmentRequest.ts";
-export type {
-  CategoryResponseTypeEnumKey,
-  CategoryResponse,
-} from "./types/CategoryResponse.ts";
+export type { CategoryResponseTypeEnumKey, CategoryResponse } from "./types/CategoryResponse.ts";
 export type { CheckPhoneRequest } from "./types/CheckPhoneRequest.ts";
 export type { CheckPhoneResponse } from "./types/CheckPhoneResponse.ts";
-export type {
-  ClinicScheduleResponseDayOfWeekEnumKey,
-  ClinicScheduleResponse,
-} from "./types/ClinicScheduleResponse.ts";
+export type { ClinicScheduleResponseDayOfWeekEnumKey, ClinicScheduleResponse } from "./types/ClinicScheduleResponse.ts";
 export type { ConfirmAppointmentRequest } from "./types/ConfirmAppointmentRequest.ts";
-export type {
-  CourseAssignmentRequestResponseStatusEnumKey,
-  CourseAssignmentRequestResponse,
-} from "./types/CourseAssignmentRequestResponse.ts";
+export type { CourseAssignmentRequestResponseStatusEnumKey, CourseAssignmentRequestResponse } from "./types/CourseAssignmentRequestResponse.ts";
+export type { ListCourseAssignmentsQueryParamsPurchaseStatusEnumKey, ListCourseAssignmentsQueryParams, ListCourseAssignments200, ListCourseAssignmentsQueryResponse, ListCourseAssignmentsQuery } from "./types/courseAssignmentsController/ListCourseAssignments.ts";
 export type { CourseDayDto } from "./types/CourseDayDto.ts";
-export type {
-  CheckFeedbackExistsPathParams,
-  CheckFeedbackExists200,
-  CheckFeedbackExists404,
-  CheckFeedbackExistsQueryResponse,
-  CheckFeedbackExistsQuery,
-} from "./types/courseDayFeedbackController/CheckFeedbackExists.ts";
-export type {
-  GetMyFeedback200,
-  GetMyFeedback404,
-  GetMyFeedbackQueryResponse,
-  GetMyFeedbackQuery,
-} from "./types/courseDayFeedbackController/GetMyFeedback.ts";
-export type {
-  SubmitFeedbackPathParams,
-  SubmitFeedback201,
-  SubmitFeedback400,
-  SubmitFeedback404,
-  SubmitFeedback409,
-  SubmitFeedbackMutationRequest,
-  SubmitFeedbackMutationResponse,
-  SubmitFeedbackMutation,
-} from "./types/courseDayFeedbackController/SubmitFeedback.ts";
+export type { CheckFeedbackExistsPathParams, CheckFeedbackExists200, CheckFeedbackExists404, CheckFeedbackExistsQueryResponse, CheckFeedbackExistsQuery } from "./types/courseDayFeedbackController/CheckFeedbackExists.ts";
+export type { GetMyFeedback200, GetMyFeedback404, GetMyFeedbackQueryResponse, GetMyFeedbackQuery } from "./types/courseDayFeedbackController/GetMyFeedback.ts";
+export type { SubmitFeedbackPathParams, SubmitFeedback201, SubmitFeedback400, SubmitFeedback404, SubmitFeedback409, SubmitFeedbackMutationRequest, SubmitFeedbackMutationResponse, SubmitFeedbackMutation } from "./types/courseDayFeedbackController/SubmitFeedback.ts";
 export type { CourseDayRequest } from "./types/CourseDayRequest.ts";
 export type { CourseDaySummaryDto } from "./types/CourseDaySummaryDto.ts";
 export type { CourseDetailsRequest } from "./types/CourseDetailsRequest.ts";
 export type { CourseMetadataDto } from "./types/CourseMetadataDto.ts";
-export type {
-  CompleteCoursePathParams,
-  CompleteCourse200,
-  CompleteCourseMutationResponse,
-  CompleteCourseMutation,
-} from "./types/courseProgressController/CompleteCourse.ts";
-export type {
-  CompleteExercisePathParams,
-  CompleteExercise200,
-  CompleteExerciseMutationResponse,
-  CompleteExerciseMutation,
-} from "./types/courseProgressController/CompleteExercise.ts";
-export type {
-  GetCompletedCourses200,
-  GetCompletedCoursesQueryResponse,
-  GetCompletedCoursesQuery,
-} from "./types/courseProgressController/GetCompletedCourses.ts";
-export type {
-  GetCourseProgressHistoryPathParams,
-  GetCourseProgressHistory200,
-  GetCourseProgressHistoryQueryResponse,
-  GetCourseProgressHistoryQuery,
-} from "./types/courseProgressController/GetCourseProgressHistory.ts";
-export type {
-  GetCurrentProgress200,
-  GetCurrentProgressQueryResponse,
-  GetCurrentProgressQuery,
-} from "./types/courseProgressController/GetCurrentProgress.ts";
-export type {
-  GetDayContentPathParams,
-  GetDayContent200,
-  GetDayContentQueryResponse,
-  GetDayContentQuery,
-} from "./types/courseProgressController/GetDayContent.ts";
-export type {
-  GetMyAssignedCourses1200,
-  GetMyAssignedCourses1QueryResponse,
-  GetMyAssignedCourses1Query,
-} from "./types/courseProgressController/GetMyAssignedCourses1.ts";
-export type {
-  GetProgressHistory200,
-  GetProgressHistoryQueryResponse,
-  GetProgressHistoryQuery,
-} from "./types/courseProgressController/GetProgressHistory.ts";
-export type {
-  StartCourse200,
-  StartCourseMutationRequest,
-  StartCourseMutationResponse,
-  StartCourseMutation,
-} from "./types/courseProgressController/StartCourse.ts";
-export type {
-  CourseProgressHistoryResponseArchivalReasonEnumKey,
-  CourseProgressHistoryResponse,
-} from "./types/CourseProgressHistoryResponse.ts";
+export type { CompleteCoursePathParams, CompleteCourse200, CompleteCourseMutationResponse, CompleteCourseMutation } from "./types/courseProgressController/CompleteCourse.ts";
+export type { CompleteExercisePathParams, CompleteExercise200, CompleteExerciseMutationResponse, CompleteExerciseMutation } from "./types/courseProgressController/CompleteExercise.ts";
+export type { GetCompletedCourses200, GetCompletedCoursesQueryResponse, GetCompletedCoursesQuery } from "./types/courseProgressController/GetCompletedCourses.ts";
+export type { GetCourseProgressHistoryPathParams, GetCourseProgressHistory200, GetCourseProgressHistoryQueryResponse, GetCourseProgressHistoryQuery } from "./types/courseProgressController/GetCourseProgressHistory.ts";
+export type { GetCurrentProgress200, GetCurrentProgressQueryResponse, GetCurrentProgressQuery } from "./types/courseProgressController/GetCurrentProgress.ts";
+export type { GetDayContentPathParams, GetDayContent200, GetDayContentQueryResponse, GetDayContentQuery } from "./types/courseProgressController/GetDayContent.ts";
+export type { GetMyAssignedCourses1200, GetMyAssignedCourses1QueryResponse, GetMyAssignedCourses1Query } from "./types/courseProgressController/GetMyAssignedCourses1.ts";
+export type { GetProgressHistory200, GetProgressHistoryQueryResponse, GetProgressHistoryQuery } from "./types/courseProgressController/GetProgressHistory.ts";
+export type { StartCourse200, StartCourseMutationRequest, StartCourseMutationResponse, StartCourseMutation } from "./types/courseProgressController/StartCourse.ts";
+export type { CourseProgressHistoryResponseArchivalReasonEnumKey, CourseProgressHistoryResponse } from "./types/CourseProgressHistoryResponse.ts";
 export type { CourseProgressResponse } from "./types/CourseProgressResponse.ts";
-export type {
-  GetAllCoursesQueryParams,
-  GetAllCourses200,
-  GetAllCoursesQueryResponse,
-  GetAllCoursesQuery,
-} from "./types/coursesController/GetAllCourses.ts";
-export type {
-  GetCourseStructurePathParams,
-  GetCourseStructure200,
-  GetCourseStructureQueryResponse,
-  GetCourseStructureQuery,
-} from "./types/coursesController/GetCourseStructure.ts";
+export type { GetAllCoursesQueryParams, GetAllCourses200, GetAllCoursesQueryResponse, GetAllCoursesQuery } from "./types/coursesController/GetAllCourses.ts";
+export type { GetCourseStructurePathParams, GetCourseStructure200, GetCourseStructureQueryResponse, GetCourseStructureQuery } from "./types/coursesController/GetCourseStructure.ts";
 export type { CourseWithDaysResponse } from "./types/CourseWithDaysResponse.ts";
 export type { CreateAppointmentRequest } from "./types/CreateAppointmentRequest.ts";
-export type {
-  CreateCategoryRequestTypeEnumKey,
-  CreateCategoryRequest,
-} from "./types/CreateCategoryRequest.ts";
+export type { CreateCategoryRequestTypeEnumKey, CreateCategoryRequest } from "./types/CreateCategoryRequest.ts";
 export type { CreateCourseRequestRequest } from "./types/CreateCourseRequestRequest.ts";
 export type { CreateCustomCourseRequest } from "./types/CreateCustomCourseRequest.ts";
 export type { CreateExercisePackageRequest } from "./types/CreateExercisePackageRequest.ts";
 export type { CreateExerciseRequest } from "./types/CreateExerciseRequest.ts";
 export type { CreateGroupRequest } from "./types/CreateGroupRequest.ts";
-export type {
-  CreateNewsRequestStatusEnumKey,
-  CreateNewsRequest,
-} from "./types/CreateNewsRequest.ts";
+export type { CreateNewsRequestStatusEnumKey, CreateNewsRequest } from "./types/CreateNewsRequest.ts";
 export type { CreateRehabilitationExaminationFormRequest } from "./types/CreateRehabilitationExaminationFormRequest.ts";
-export type {
-  CreateStaffRequestStaffTypeEnumKey,
-  CreateStaffRequest,
-} from "./types/CreateStaffRequest.ts";
+export type { CreateStaffRequestStaffTypeEnumKey, CreateStaffRequest } from "./types/CreateStaffRequest.ts";
 export type { DayContentResponse } from "./types/DayContentResponse.ts";
 export type { DayExerciseDto } from "./types/DayExerciseDto.ts";
 export type { DayExerciseItemResponse } from "./types/DayExerciseItemResponse.ts";
 export type { DeleteFileRequest } from "./types/DeleteFileRequest.ts";
 export type { DisputeAppointmentRequest } from "./types/DisputeAppointmentRequest.ts";
-export type {
-  ApproveCourseRequestPathParams,
-  ApproveCourseRequest200,
-  ApproveCourseRequestMutationRequest,
-  ApproveCourseRequestMutationResponse,
-  ApproveCourseRequestMutation,
-} from "./types/doctorController/ApproveCourseRequest.ts";
-export type {
-  AssignCourseToPatientPathParams,
-  AssignCourseToPatient200,
-  AssignCourseToPatientMutationRequest,
-  AssignCourseToPatientMutationResponse,
-  AssignCourseToPatientMutation,
-} from "./types/doctorController/AssignCourseToPatient.ts";
-export type {
-  CreateAndAssignCustomCoursePathParams,
-  CreateAndAssignCustomCourse200,
-  CreateAndAssignCustomCourseMutationRequest,
-  CreateAndAssignCustomCourseMutationResponse,
-  CreateAndAssignCustomCourseMutation,
-} from "./types/doctorController/CreateAndAssignCustomCourse.ts";
-export type {
-  GetCourseRequestsQueryParamsStatusEnumKey,
-  GetCourseRequestsQueryParams,
-  GetCourseRequests200,
-  GetCourseRequestsQueryResponse,
-  GetCourseRequestsQuery,
-} from "./types/doctorController/GetCourseRequests.ts";
-export type {
-  GetMyAssignedCoursesQueryParams,
-  GetMyAssignedCourses200,
-  GetMyAssignedCoursesQueryResponse,
-  GetMyAssignedCoursesQuery,
-} from "./types/doctorController/GetMyAssignedCourses.ts";
-export type {
-  GetMyPatientsQueryParams,
-  GetMyPatients200,
-  GetMyPatientsQueryResponse,
-  GetMyPatientsQuery,
-} from "./types/doctorController/GetMyPatients.ts";
-export type {
-  GetMyTrainersQueryParams,
-  GetMyTrainers200,
-  GetMyTrainersQueryResponse,
-  GetMyTrainersQuery,
-} from "./types/doctorController/GetMyTrainers.ts";
-export type {
-  GetPatientCoursesPathParams,
-  GetPatientCourses200,
-  GetPatientCoursesQueryResponse,
-  GetPatientCoursesQuery,
-} from "./types/doctorController/GetPatientCourses.ts";
-export type {
-  RejectCourseRequestPathParams,
-  RejectCourseRequest200,
-  RejectCourseRequestMutationRequest,
-  RejectCourseRequestMutationResponse,
-  RejectCourseRequestMutation,
-} from "./types/doctorController/RejectCourseRequest.ts";
-export type {
-  RevokeCourseAssignmentPathParams,
-  RevokeCourseAssignment200,
-  RevokeCourseAssignmentMutationResponse,
-  RevokeCourseAssignmentMutation,
-} from "./types/doctorController/RevokeCourseAssignment.ts";
+export type { ApproveCourseRequestPathParams, ApproveCourseRequest200, ApproveCourseRequestMutationRequest, ApproveCourseRequestMutationResponse, ApproveCourseRequestMutation } from "./types/doctorController/ApproveCourseRequest.ts";
+export type { AssignCourseToPatientPathParams, AssignCourseToPatient200, AssignCourseToPatientMutationRequest, AssignCourseToPatientMutationResponse, AssignCourseToPatientMutation } from "./types/doctorController/AssignCourseToPatient.ts";
+export type { CreateAndAssignCustomCoursePathParams, CreateAndAssignCustomCourse200, CreateAndAssignCustomCourseMutationRequest, CreateAndAssignCustomCourseMutationResponse, CreateAndAssignCustomCourseMutation } from "./types/doctorController/CreateAndAssignCustomCourse.ts";
+export type { GetCourseRequestsQueryParamsStatusEnumKey, GetCourseRequestsQueryParams, GetCourseRequests200, GetCourseRequestsQueryResponse, GetCourseRequestsQuery } from "./types/doctorController/GetCourseRequests.ts";
+export type { GetMyAssignedCoursesQueryParams, GetMyAssignedCourses200, GetMyAssignedCoursesQueryResponse, GetMyAssignedCoursesQuery } from "./types/doctorController/GetMyAssignedCourses.ts";
+export type { GetMyPatientsQueryParams, GetMyPatients200, GetMyPatientsQueryResponse, GetMyPatientsQuery } from "./types/doctorController/GetMyPatients.ts";
+export type { GetMyTrainersQueryParams, GetMyTrainers200, GetMyTrainersQueryResponse, GetMyTrainersQuery } from "./types/doctorController/GetMyTrainers.ts";
+export type { GetPatientCoursesPathParams, GetPatientCourses200, GetPatientCoursesQueryResponse, GetPatientCoursesQuery } from "./types/doctorController/GetPatientCourses.ts";
+export type { RejectCourseRequestPathParams, RejectCourseRequest200, RejectCourseRequestMutationRequest, RejectCourseRequestMutationResponse, RejectCourseRequestMutation } from "./types/doctorController/RejectCourseRequest.ts";
+export type { RevokeCourseAssignmentPathParams, RevokeCourseAssignment200, RevokeCourseAssignmentMutationResponse, RevokeCourseAssignmentMutation } from "./types/doctorController/RevokeCourseAssignment.ts";
 export type { DoctorPatientResponse } from "./types/DoctorPatientResponse.ts";
-export type {
-  CreateCategory200,
-  CreateCategoryMutationRequest,
-  CreateCategoryMutationResponse,
-  CreateCategoryMutation,
-} from "./types/exerciseCategoriesController/CreateCategory.ts";
-export type {
-  GetAllCategoriesQueryParamsTypeEnumKey,
-  GetAllCategoriesQueryParams,
-  GetAllCategories200,
-  GetAllCategoriesQueryResponse,
-  GetAllCategoriesQuery,
-} from "./types/exerciseCategoriesController/GetAllCategories.ts";
-export type {
-  GetCategoryByIdPathParams,
-  GetCategoryById200,
-  GetCategoryByIdQueryResponse,
-  GetCategoryByIdQuery,
-} from "./types/exerciseCategoriesController/GetCategoryById.ts";
-export type {
-  UpdateCategoryPathParams,
-  UpdateCategory200,
-  UpdateCategoryMutationRequest,
-  UpdateCategoryMutationResponse,
-  UpdateCategoryMutation,
-} from "./types/exerciseCategoriesController/UpdateCategory.ts";
+export type { CreateCategory200, CreateCategoryMutationRequest, CreateCategoryMutationResponse, CreateCategoryMutation } from "./types/exerciseCategoriesController/CreateCategory.ts";
+export type { GetAllCategoriesQueryParamsTypeEnumKey, GetAllCategoriesQueryParams, GetAllCategories200, GetAllCategoriesQueryResponse, GetAllCategoriesQuery } from "./types/exerciseCategoriesController/GetAllCategories.ts";
+export type { GetCategoryByIdPathParams, GetCategoryById200, GetCategoryByIdQueryResponse, GetCategoryByIdQuery } from "./types/exerciseCategoriesController/GetCategoryById.ts";
+export type { UpdateCategoryPathParams, UpdateCategory200, UpdateCategoryMutationRequest, UpdateCategoryMutationResponse, UpdateCategoryMutation } from "./types/exerciseCategoriesController/UpdateCategory.ts";
 export type { ExerciseCompletionResponse } from "./types/ExerciseCompletionResponse.ts";
-export type {
-  CreateGroup200,
-  CreateGroupMutationRequest,
-  CreateGroupMutationResponse,
-  CreateGroupMutation,
-} from "./types/exerciseGroupsController/CreateGroup.ts";
-export type {
-  GetAllGroupsQueryParams,
-  GetAllGroups200,
-  GetAllGroupsQueryResponse,
-  GetAllGroupsQuery,
-} from "./types/exerciseGroupsController/GetAllGroups.ts";
-export type {
-  GetGroupByIdPathParams,
-  GetGroupById200,
-  GetGroupByIdQueryResponse,
-  GetGroupByIdQuery,
-} from "./types/exerciseGroupsController/GetGroupById.ts";
-export type {
-  UpdateGroupPathParams,
-  UpdateGroup200,
-  UpdateGroupMutationRequest,
-  UpdateGroupMutationResponse,
-  UpdateGroupMutation,
-} from "./types/exerciseGroupsController/UpdateGroup.ts";
+export type { CreateGroup200, CreateGroupMutationRequest, CreateGroupMutationResponse, CreateGroupMutation } from "./types/exerciseGroupsController/CreateGroup.ts";
+export type { GetAllGroupsQueryParams, GetAllGroups200, GetAllGroupsQueryResponse, GetAllGroupsQuery } from "./types/exerciseGroupsController/GetAllGroups.ts";
+export type { GetGroupByIdPathParams, GetGroupById200, GetGroupByIdQueryResponse, GetGroupByIdQuery } from "./types/exerciseGroupsController/GetGroupById.ts";
+export type { UpdateGroupPathParams, UpdateGroup200, UpdateGroupMutationRequest, UpdateGroupMutationResponse, UpdateGroupMutation } from "./types/exerciseGroupsController/UpdateGroup.ts";
 export type { ExerciseItemRequest } from "./types/ExerciseItemRequest.ts";
 export type { ExercisePackageDetailResponse } from "./types/ExercisePackageDetailResponse.ts";
 export type { ExercisePackageResponse } from "./types/ExercisePackageResponse.ts";
-export type {
-  CreateExercisePackage200,
-  CreateExercisePackageMutationRequest,
-  CreateExercisePackageMutationResponse,
-  CreateExercisePackageMutation,
-} from "./types/exercisePackagesController/CreateExercisePackage.ts";
-export type {
-  GetAllExercisePackagesQueryParams,
-  GetAllExercisePackages200,
-  GetAllExercisePackagesQueryResponse,
-  GetAllExercisePackagesQuery,
-} from "./types/exercisePackagesController/GetAllExercisePackages.ts";
-export type {
-  GetAvailablePackagesQueryParams,
-  GetAvailablePackages200,
-  GetAvailablePackagesQueryResponse,
-  GetAvailablePackagesQuery,
-} from "./types/exercisePackagesController/GetAvailablePackages.ts";
-export type {
-  GetCurrentUserPackageByIdPathParams,
-  GetCurrentUserPackageById200,
-  GetCurrentUserPackageByIdQueryResponse,
-  GetCurrentUserPackageByIdQuery,
-} from "./types/exercisePackagesController/GetCurrentUserPackageById.ts";
-export type {
-  GetCurrentUserPackagesQueryParams,
-  GetCurrentUserPackages200,
-  GetCurrentUserPackagesQueryResponse,
-  GetCurrentUserPackagesQuery,
-} from "./types/exercisePackagesController/GetCurrentUserPackages.ts";
-export type {
-  GetExercisePackageByIdPathParams,
-  GetExercisePackageById200,
-  GetExercisePackageByIdQueryResponse,
-  GetExercisePackageByIdQuery,
-} from "./types/exercisePackagesController/GetExercisePackageById.ts";
-export type {
-  UpdateExercisePackagePathParams,
-  UpdateExercisePackage200,
-  UpdateExercisePackageMutationRequest,
-  UpdateExercisePackageMutationResponse,
-  UpdateExercisePackageMutation,
-} from "./types/exercisePackagesController/UpdateExercisePackage.ts";
+export type { CreateExercisePackage200, CreateExercisePackageMutationRequest, CreateExercisePackageMutationResponse, CreateExercisePackageMutation } from "./types/exercisePackagesController/CreateExercisePackage.ts";
+export type { GetAllExercisePackagesQueryParams, GetAllExercisePackages200, GetAllExercisePackagesQueryResponse, GetAllExercisePackagesQuery } from "./types/exercisePackagesController/GetAllExercisePackages.ts";
+export type { GetAvailablePackagesQueryParams, GetAvailablePackages200, GetAvailablePackagesQueryResponse, GetAvailablePackagesQuery } from "./types/exercisePackagesController/GetAvailablePackages.ts";
+export type { GetCurrentUserPackageByIdPathParams, GetCurrentUserPackageById200, GetCurrentUserPackageByIdQueryResponse, GetCurrentUserPackageByIdQuery } from "./types/exercisePackagesController/GetCurrentUserPackageById.ts";
+export type { GetCurrentUserPackagesQueryParams, GetCurrentUserPackages200, GetCurrentUserPackagesQueryResponse, GetCurrentUserPackagesQuery } from "./types/exercisePackagesController/GetCurrentUserPackages.ts";
+export type { GetExercisePackageByIdPathParams, GetExercisePackageById200, GetExercisePackageByIdQueryResponse, GetExercisePackageByIdQuery } from "./types/exercisePackagesController/GetExercisePackageById.ts";
+export type { UpdateExercisePackagePathParams, UpdateExercisePackage200, UpdateExercisePackageMutationRequest, UpdateExercisePackageMutationResponse, UpdateExercisePackageMutation } from "./types/exercisePackagesController/UpdateExercisePackage.ts";
 export type { ExercisePackageWithSubscriptionResponse } from "./types/ExercisePackageWithSubscriptionResponse.ts";
 export type { ExerciseResponse } from "./types/ExerciseResponse.ts";
-export type {
-  CreateExercise200,
-  CreateExerciseMutationRequest,
-  CreateExerciseMutationResponse,
-  CreateExerciseMutation,
-} from "./types/exercisesController/CreateExercise.ts";
-export type {
-  GetAllExercisesQueryParams,
-  GetAllExercises200,
-  GetAllExercisesQueryResponse,
-  GetAllExercisesQuery,
-} from "./types/exercisesController/GetAllExercises.ts";
-export type {
-  GetExerciseByIdPathParams,
-  GetExerciseById200,
-  GetExerciseByIdQueryResponse,
-  GetExerciseByIdQuery,
-} from "./types/exercisesController/GetExerciseById.ts";
-export type {
-  UpdateExercisePathParams,
-  UpdateExercise200,
-  UpdateExerciseMutationRequest,
-  UpdateExerciseMutationResponse,
-  UpdateExerciseMutation,
-} from "./types/exercisesController/UpdateExercise.ts";
+export type { CreateExercise200, CreateExerciseMutationRequest, CreateExerciseMutationResponse, CreateExerciseMutation } from "./types/exercisesController/CreateExercise.ts";
+export type { GetAllExercisesQueryParams, GetAllExercises200, GetAllExercisesQueryResponse, GetAllExercisesQuery } from "./types/exercisesController/GetAllExercises.ts";
+export type { GetExerciseByIdPathParams, GetExerciseById200, GetExerciseByIdQueryResponse, GetExerciseByIdQuery } from "./types/exercisesController/GetExerciseById.ts";
+export type { UpdateExercisePathParams, UpdateExercise200, UpdateExerciseMutationRequest, UpdateExerciseMutationResponse, UpdateExerciseMutation } from "./types/exercisesController/UpdateExercise.ts";
 export type { FeedbackExistsResponse } from "./types/FeedbackExistsResponse.ts";
 export type { FeedbackResponse } from "./types/FeedbackResponse.ts";
 export type { FileDeleteResponse } from "./types/FileDeleteResponse.ts";
-export type {
-  DeleteFile200,
-  DeleteFileMutationRequest,
-  DeleteFileMutationResponse,
-  DeleteFileMutation,
-} from "./types/fileManagementController/DeleteFile.ts";
-export type {
-  GenerateDownloadUrl200,
-  GenerateDownloadUrlMutationRequest,
-  GenerateDownloadUrlMutationResponse,
-  GenerateDownloadUrlMutation,
-} from "./types/fileManagementController/GenerateDownloadUrl.ts";
-export type {
-  GenerateUploadUrl200,
-  GenerateUploadUrlMutationRequest,
-  GenerateUploadUrlMutationResponse,
-  GenerateUploadUrlMutation,
-} from "./types/fileManagementController/GenerateUploadUrl.ts";
+export type { DeleteFile200, DeleteFileMutationRequest, DeleteFileMutationResponse, DeleteFileMutation } from "./types/fileManagementController/DeleteFile.ts";
+export type { GenerateDownloadUrl200, GenerateDownloadUrlMutationRequest, GenerateDownloadUrlMutationResponse, GenerateDownloadUrlMutation } from "./types/fileManagementController/GenerateDownloadUrl.ts";
+export type { GenerateUploadUrl200, GenerateUploadUrlMutationRequest, GenerateUploadUrlMutationResponse, GenerateUploadUrlMutation } from "./types/fileManagementController/GenerateUploadUrl.ts";
 export type { GenerateDownloadUrlRequest } from "./types/GenerateDownloadUrlRequest.ts";
 export type { GenerateUploadUrlRequest } from "./types/GenerateUploadUrlRequest.ts";
 export type { GroupResponse } from "./types/GroupResponse.ts";
@@ -722,345 +306,88 @@ export type { LocalTime } from "./types/LocalTime.ts";
 export type { LoginWithPasswordRequest } from "./types/LoginWithPasswordRequest.ts";
 export type { LoginWithPinRequest } from "./types/LoginWithPinRequest.ts";
 export type { MyAssignedCourseResponse } from "./types/MyAssignedCourseResponse.ts";
-export type {
-  CreateNews200,
-  CreateNewsMutationRequest,
-  CreateNewsMutationResponse,
-  CreateNewsMutation,
-} from "./types/newsController/CreateNews.ts";
-export type {
-  GetAllNewsQueryParamsStatusEnumKey,
-  GetAllNewsQueryParams,
-  GetAllNews200,
-  GetAllNewsQueryResponse,
-  GetAllNewsQuery,
-} from "./types/newsController/GetAllNews.ts";
-export type {
-  GetNewsByIdPathParams,
-  GetNewsById200,
-  GetNewsByIdQueryResponse,
-  GetNewsByIdQuery,
-} from "./types/newsController/GetNewsById.ts";
-export type {
-  UpdateNewsPathParams,
-  UpdateNews200,
-  UpdateNewsMutationRequest,
-  UpdateNewsMutationResponse,
-  UpdateNewsMutation,
-} from "./types/newsController/UpdateNews.ts";
-export type {
-  NewsResponseStatusEnumKey,
-  NewsResponse,
-} from "./types/NewsResponse.ts";
+export type { CreateNews200, CreateNewsMutationRequest, CreateNewsMutationResponse, CreateNewsMutation } from "./types/newsController/CreateNews.ts";
+export type { GetAllNewsQueryParamsStatusEnumKey, GetAllNewsQueryParams, GetAllNews200, GetAllNewsQueryResponse, GetAllNewsQuery } from "./types/newsController/GetAllNews.ts";
+export type { GetNewsByIdPathParams, GetNewsById200, GetNewsByIdQueryResponse, GetNewsByIdQuery } from "./types/newsController/GetNewsById.ts";
+export type { UpdateNewsPathParams, UpdateNews200, UpdateNewsMutationRequest, UpdateNewsMutationResponse, UpdateNewsMutation } from "./types/newsController/UpdateNews.ts";
+export type { NewsResponseStatusEnumKey, NewsResponse } from "./types/NewsResponse.ts";
 export type { OtpResponse } from "./types/OtpResponse.ts";
 export type { Pageable } from "./types/Pageable.ts";
 export type { PagedModel } from "./types/PagedModel.ts";
 export type { PageMetadata } from "./types/PageMetadata.ts";
-export type {
-  AssignPatientToDoctorPathParams,
-  AssignPatientToDoctor200,
-  AssignPatientToDoctorMutationRequest,
-  AssignPatientToDoctorMutationResponse,
-  AssignPatientToDoctorMutation,
-} from "./types/patientManagementController/AssignPatientToDoctor.ts";
-export type {
-  GetDoctorPatientsPathParams,
-  GetDoctorPatientsQueryParams,
-  GetDoctorPatients200,
-  GetDoctorPatientsQueryResponse,
-  GetDoctorPatientsQuery,
-} from "./types/patientManagementController/GetDoctorPatients.ts";
-export type {
-  RemovePatientFromDoctorPathParams,
-  RemovePatientFromDoctor200,
-  RemovePatientFromDoctorMutationResponse,
-  RemovePatientFromDoctorMutation,
-} from "./types/patientManagementController/RemovePatientFromDoctor.ts";
-export type {
-  GetMyQrCode200,
-  GetMyQrCodeQueryResponse,
-  GetMyQrCodeQuery,
-} from "./types/paymentController/GetMyQrCode.ts";
-export type {
-  HandleWebhook200,
-  HandleWebhookMutationRequest,
-  HandleWebhookMutationResponse,
-  HandleWebhookMutation,
-} from "./types/paymentController/HandleWebhook.ts";
+export type { AssignPatientToDoctorPathParams, AssignPatientToDoctor200, AssignPatientToDoctorMutationRequest, AssignPatientToDoctorMutationResponse, AssignPatientToDoctorMutation } from "./types/patientManagementController/AssignPatientToDoctor.ts";
+export type { GetDoctorPatientsPathParams, GetDoctorPatientsQueryParams, GetDoctorPatients200, GetDoctorPatientsQueryResponse, GetDoctorPatientsQuery } from "./types/patientManagementController/GetDoctorPatients.ts";
+export type { RemovePatientFromDoctorPathParams, RemovePatientFromDoctor200, RemovePatientFromDoctorMutationResponse, RemovePatientFromDoctorMutation } from "./types/patientManagementController/RemovePatientFromDoctor.ts";
+export type { GetMyQrCode200, GetMyQrCodeQueryResponse, GetMyQrCodeQuery } from "./types/paymentController/GetMyQrCode.ts";
+export type { HandleWebhook200, HandleWebhookMutationRequest, HandleWebhookMutationResponse, HandleWebhookMutation } from "./types/paymentController/HandleWebhook.ts";
 export type { PendingPurchaseResponse } from "./types/PendingPurchaseResponse.ts";
 export type { PresignedUrlResponse } from "./types/PresignedUrlResponse.ts";
-export type {
-  PurchaseCourseRequestSubscriptionTypeEnumKey,
-  PurchaseCourseRequest,
-} from "./types/PurchaseCourseRequest.ts";
-export type {
-  PurchasePackageRequestSubscriptionTypeEnumKey,
-  PurchasePackageRequest,
-} from "./types/PurchasePackageRequest.ts";
+export type { PurchaseCourseRequestSubscriptionTypeEnumKey, PurchaseCourseRequest } from "./types/PurchaseCourseRequest.ts";
+export type { PurchasePackageRequestSubscriptionTypeEnumKey, PurchasePackageRequest } from "./types/PurchasePackageRequest.ts";
 export type { QrCodeResponse } from "./types/QrCodeResponse.ts";
 export type { RefreshTokenRequest } from "./types/RefreshTokenRequest.ts";
 export type { RegisterRequest } from "./types/RegisterRequest.ts";
-export type {
-  CreateForm200,
-  CreateFormMutationRequest,
-  CreateFormMutationResponse,
-  CreateFormMutation,
-} from "./types/rehabilitationExaminationFormManagementController/CreateForm.ts";
-export type {
-  GetAllFormsQueryParams,
-  GetAllForms200,
-  GetAllFormsQueryResponse,
-  GetAllFormsQuery,
-} from "./types/rehabilitationExaminationFormManagementController/GetAllForms.ts";
-export type {
-  GetFormByIdPathParams,
-  GetFormById200,
-  GetFormByIdQueryResponse,
-  GetFormByIdQuery,
-} from "./types/rehabilitationExaminationFormManagementController/GetFormById.ts";
-export type {
-  GetFormsByUserIdPathParams,
-  GetFormsByUserIdQueryParams,
-  GetFormsByUserId200,
-  GetFormsByUserIdQueryResponse,
-  GetFormsByUserIdQuery,
-} from "./types/rehabilitationExaminationFormManagementController/GetFormsByUserId.ts";
-export type {
-  UpdateFormPathParams,
-  UpdateForm200,
-  UpdateFormMutationRequest,
-  UpdateFormMutationResponse,
-  UpdateFormMutation,
-} from "./types/rehabilitationExaminationFormManagementController/UpdateForm.ts";
+export type { CreateForm200, CreateFormMutationRequest, CreateFormMutationResponse, CreateFormMutation } from "./types/rehabilitationExaminationFormManagementController/CreateForm.ts";
+export type { GetAllFormsQueryParams, GetAllForms200, GetAllFormsQueryResponse, GetAllFormsQuery } from "./types/rehabilitationExaminationFormManagementController/GetAllForms.ts";
+export type { GetFormByIdPathParams, GetFormById200, GetFormByIdQueryResponse, GetFormByIdQuery } from "./types/rehabilitationExaminationFormManagementController/GetFormById.ts";
+export type { GetFormsByUserIdPathParams, GetFormsByUserIdQueryParams, GetFormsByUserId200, GetFormsByUserIdQueryResponse, GetFormsByUserIdQuery } from "./types/rehabilitationExaminationFormManagementController/GetFormsByUserId.ts";
+export type { UpdateFormPathParams, UpdateForm200, UpdateFormMutationRequest, UpdateFormMutationResponse, UpdateFormMutation } from "./types/rehabilitationExaminationFormManagementController/UpdateForm.ts";
 export type { RehabilitationExaminationFormResponse } from "./types/RehabilitationExaminationFormResponse.ts";
 export type { RejectAppointmentRequest } from "./types/RejectAppointmentRequest.ts";
 export type { ResetPinRequest } from "./types/ResetPinRequest.ts";
-export type {
-  ResolveDisputeRequestResolutionEnumKey,
-  ResolveDisputeRequest,
-} from "./types/ResolveDisputeRequest.ts";
+export type { ResolveDisputeRequestResolutionEnumKey, ResolveDisputeRequest } from "./types/ResolveDisputeRequest.ts";
 export type { ReviewCourseRequestRequest } from "./types/ReviewCourseRequestRequest.ts";
 export type { SendOtpRequest } from "./types/SendOtpRequest.ts";
 export type { SepayWebhookPayload } from "./types/SepayWebhookPayload.ts";
 export type { SpendingSummaryResponse } from "./types/SpendingSummaryResponse.ts";
 export type { StaffAuthResponse } from "./types/StaffAuthResponse.ts";
-export type {
-  AssignExerciseGroupToDoctorPathParams,
-  AssignExerciseGroupToDoctor200,
-  AssignExerciseGroupToDoctorMutationResponse,
-  AssignExerciseGroupToDoctorMutation,
-} from "./types/staffManagementController/AssignExerciseGroupToDoctor.ts";
-export type {
-  AssignTrainerToDoctorPathParams,
-  AssignTrainerToDoctor200,
-  AssignTrainerToDoctorMutationResponse,
-  AssignTrainerToDoctorMutation,
-} from "./types/staffManagementController/AssignTrainerToDoctor.ts";
-export type {
-  CreateStaff200,
-  CreateStaffMutationRequest,
-  CreateStaffMutationResponse,
-  CreateStaffMutation,
-} from "./types/staffManagementController/CreateStaff.ts";
-export type {
-  DisableStaffPathParams,
-  DisableStaff200,
-  DisableStaffMutationResponse,
-  DisableStaffMutation,
-} from "./types/staffManagementController/DisableStaff.ts";
-export type {
-  EnableStaffPathParams,
-  EnableStaff200,
-  EnableStaffMutationResponse,
-  EnableStaffMutation,
-} from "./types/staffManagementController/EnableStaff.ts";
-export type {
-  GetAllStaffQueryParamsStaffTypeEnumKey,
-  GetAllStaffQueryParams,
-  GetAllStaff200,
-  GetAllStaffQueryResponse,
-  GetAllStaffQuery,
-} from "./types/staffManagementController/GetAllStaff.ts";
-export type {
-  GetAvailableTrainersForDoctorPathParams,
-  GetAvailableTrainersForDoctorQueryParams,
-  GetAvailableTrainersForDoctor200,
-  GetAvailableTrainersForDoctorQueryResponse,
-  GetAvailableTrainersForDoctorQuery,
-} from "./types/staffManagementController/GetAvailableTrainersForDoctor.ts";
-export type {
-  GetExerciseGroupsByDoctorPathParams,
-  GetExerciseGroupsByDoctor200,
-  GetExerciseGroupsByDoctorQueryResponse,
-  GetExerciseGroupsByDoctorQuery,
-} from "./types/staffManagementController/GetExerciseGroupsByDoctor.ts";
-export type {
-  GetStaffByIdPathParams,
-  GetStaffById200,
-  GetStaffByIdQueryResponse,
-  GetStaffByIdQuery,
-} from "./types/staffManagementController/GetStaffById.ts";
-export type {
-  GetTrainersByDoctorPathParams,
-  GetTrainersByDoctorQueryParams,
-  GetTrainersByDoctor200,
-  GetTrainersByDoctorQueryResponse,
-  GetTrainersByDoctorQuery,
-} from "./types/staffManagementController/GetTrainersByDoctor.ts";
-export type {
-  RemoveExerciseGroupFromDoctorPathParams,
-  RemoveExerciseGroupFromDoctor200,
-  RemoveExerciseGroupFromDoctorMutationResponse,
-  RemoveExerciseGroupFromDoctorMutation,
-} from "./types/staffManagementController/RemoveExerciseGroupFromDoctor.ts";
-export type {
-  RemoveTrainerFromDoctorPathParams,
-  RemoveTrainerFromDoctor200,
-  RemoveTrainerFromDoctorMutationResponse,
-  RemoveTrainerFromDoctorMutation,
-} from "./types/staffManagementController/RemoveTrainerFromDoctor.ts";
-export type {
-  UpdateStaffPathParams,
-  UpdateStaff200,
-  UpdateStaffMutationRequest,
-  UpdateStaffMutationResponse,
-  UpdateStaffMutation,
-} from "./types/staffManagementController/UpdateStaff.ts";
+export type { AssignExerciseGroupToDoctorPathParams, AssignExerciseGroupToDoctor200, AssignExerciseGroupToDoctorMutationResponse, AssignExerciseGroupToDoctorMutation } from "./types/staffManagementController/AssignExerciseGroupToDoctor.ts";
+export type { AssignTrainerToDoctorPathParams, AssignTrainerToDoctor200, AssignTrainerToDoctorMutationResponse, AssignTrainerToDoctorMutation } from "./types/staffManagementController/AssignTrainerToDoctor.ts";
+export type { CreateStaff200, CreateStaffMutationRequest, CreateStaffMutationResponse, CreateStaffMutation } from "./types/staffManagementController/CreateStaff.ts";
+export type { DisableStaffPathParams, DisableStaff200, DisableStaffMutationResponse, DisableStaffMutation } from "./types/staffManagementController/DisableStaff.ts";
+export type { EnableStaffPathParams, EnableStaff200, EnableStaffMutationResponse, EnableStaffMutation } from "./types/staffManagementController/EnableStaff.ts";
+export type { GetAllStaffQueryParamsStaffTypeEnumKey, GetAllStaffQueryParams, GetAllStaff200, GetAllStaffQueryResponse, GetAllStaffQuery } from "./types/staffManagementController/GetAllStaff.ts";
+export type { GetAvailableTrainersForDoctorPathParams, GetAvailableTrainersForDoctorQueryParams, GetAvailableTrainersForDoctor200, GetAvailableTrainersForDoctorQueryResponse, GetAvailableTrainersForDoctorQuery } from "./types/staffManagementController/GetAvailableTrainersForDoctor.ts";
+export type { GetExerciseGroupsByDoctorPathParams, GetExerciseGroupsByDoctor200, GetExerciseGroupsByDoctorQueryResponse, GetExerciseGroupsByDoctorQuery } from "./types/staffManagementController/GetExerciseGroupsByDoctor.ts";
+export type { GetStaffByIdPathParams, GetStaffById200, GetStaffByIdQueryResponse, GetStaffByIdQuery } from "./types/staffManagementController/GetStaffById.ts";
+export type { GetTrainersByDoctorPathParams, GetTrainersByDoctorQueryParams, GetTrainersByDoctor200, GetTrainersByDoctorQueryResponse, GetTrainersByDoctorQuery } from "./types/staffManagementController/GetTrainersByDoctor.ts";
+export type { RemoveExerciseGroupFromDoctorPathParams, RemoveExerciseGroupFromDoctor200, RemoveExerciseGroupFromDoctorMutationResponse, RemoveExerciseGroupFromDoctorMutation } from "./types/staffManagementController/RemoveExerciseGroupFromDoctor.ts";
+export type { RemoveTrainerFromDoctorPathParams, RemoveTrainerFromDoctor200, RemoveTrainerFromDoctorMutationResponse, RemoveTrainerFromDoctorMutation } from "./types/staffManagementController/RemoveTrainerFromDoctor.ts";
+export type { UpdateStaffPathParams, UpdateStaff200, UpdateStaffMutationRequest, UpdateStaffMutationResponse, UpdateStaffMutation } from "./types/staffManagementController/UpdateStaff.ts";
 export type { StaffResponse } from "./types/StaffResponse.ts";
 export type { StartCourseRequest } from "./types/StartCourseRequest.ts";
 export type { SubmitFeedbackRequest } from "./types/SubmitFeedbackRequest.ts";
-export type {
-  SubscriptionInfoSubscriptionTypeEnumKey,
-  SubscriptionInfo,
-} from "./types/SubscriptionInfo.ts";
-export type {
-  SubscriptionResponseSubscriptionTypeEnumKey,
-  SubscriptionResponse,
-} from "./types/SubscriptionResponse.ts";
-export type {
-  GetMySubscriptions200,
-  GetMySubscriptionsQueryResponse,
-  GetMySubscriptionsQuery,
-} from "./types/subscriptionsController/GetMySubscriptions.ts";
-export type {
-  GetPendingPurchases200,
-  GetPendingPurchasesQueryResponse,
-  GetPendingPurchasesQuery,
-} from "./types/subscriptionsController/GetPendingPurchases.ts";
-export type {
-  PurchaseCourse200,
-  PurchaseCourseMutationRequest,
-  PurchaseCourseMutationResponse,
-  PurchaseCourseMutation,
-} from "./types/subscriptionsController/PurchaseCourse.ts";
-export type {
-  PurchasePackage200,
-  PurchasePackageMutationRequest,
-  PurchasePackageMutationResponse,
-  PurchasePackageMutation,
-} from "./types/subscriptionsController/PurchasePackage.ts";
-export type {
-  CreateCourseRequest200,
-  CreateCourseRequestMutationRequest,
-  CreateCourseRequestMutationResponse,
-  CreateCourseRequestMutation,
-} from "./types/trainerController/CreateCourseRequest.ts";
-export type {
-  GetCourseRequestByIdPathParams,
-  GetCourseRequestById200,
-  GetCourseRequestByIdQueryResponse,
-  GetCourseRequestByIdQuery,
-} from "./types/trainerController/GetCourseRequestById.ts";
-export type {
-  GetDoctorPatients1QueryParams,
-  GetDoctorPatients1200,
-  GetDoctorPatients1QueryResponse,
-  GetDoctorPatients1Query,
-} from "./types/trainerController/GetDoctorPatients1.ts";
-export type {
-  GetMyCourseRequestsQueryParamsStatusEnumKey,
-  GetMyCourseRequestsQueryParams,
-  GetMyCourseRequests200,
-  GetMyCourseRequestsQueryResponse,
-  GetMyCourseRequestsQuery,
-} from "./types/trainerController/GetMyCourseRequests.ts";
-export type {
-  UpdateCourseRequestPathParams,
-  UpdateCourseRequest200,
-  UpdateCourseRequestMutationRequest,
-  UpdateCourseRequestMutationResponse,
-  UpdateCourseRequestMutation,
-} from "./types/trainerController/UpdateCourseRequest.ts";
-export type {
-  GetAllTransactionHistoryQueryParams,
-  GetAllTransactionHistory200,
-  GetAllTransactionHistoryQueryResponse,
-  GetAllTransactionHistoryQuery,
-} from "./types/transactionsController/GetAllTransactionHistory.ts";
-export type {
-  GetMyTotalSpending200,
-  GetMyTotalSpendingQueryResponse,
-  GetMyTotalSpendingQuery,
-} from "./types/transactionsController/GetMyTotalSpending.ts";
-export type {
-  GetMyTransactionHistoryQueryParams,
-  GetMyTransactionHistory200,
-  GetMyTransactionHistoryQueryResponse,
-  GetMyTransactionHistoryQuery,
-} from "./types/transactionsController/GetMyTransactionHistory.ts";
-export type {
-  UpdateAdminRequestStaffTypeEnumKey,
-  UpdateAdminRequest,
-} from "./types/UpdateAdminRequest.ts";
-export type {
-  UpdateCategoryRequestTypeEnumKey,
-  UpdateCategoryRequest,
-} from "./types/UpdateCategoryRequest.ts";
-export type {
-  UpdateClinicScheduleRequestDayOfWeekEnumKey,
-  UpdateClinicScheduleRequest,
-} from "./types/UpdateClinicScheduleRequest.ts";
-export type {
-  UpdateDoctorRequestStaffTypeEnumKey,
-  UpdateDoctorRequest,
-} from "./types/UpdateDoctorRequest.ts";
+export type { SubscriptionInfoSubscriptionTypeEnumKey, SubscriptionInfo } from "./types/SubscriptionInfo.ts";
+export type { SubscriptionResponseSubscriptionTypeEnumKey, SubscriptionResponse } from "./types/SubscriptionResponse.ts";
+export type { GetMySubscriptions200, GetMySubscriptionsQueryResponse, GetMySubscriptionsQuery } from "./types/subscriptionsController/GetMySubscriptions.ts";
+export type { GetPendingPurchases200, GetPendingPurchasesQueryResponse, GetPendingPurchasesQuery } from "./types/subscriptionsController/GetPendingPurchases.ts";
+export type { PurchaseCourse200, PurchaseCourseMutationRequest, PurchaseCourseMutationResponse, PurchaseCourseMutation } from "./types/subscriptionsController/PurchaseCourse.ts";
+export type { PurchasePackage200, PurchasePackageMutationRequest, PurchasePackageMutationResponse, PurchasePackageMutation } from "./types/subscriptionsController/PurchasePackage.ts";
+export type { CreateCourseRequest200, CreateCourseRequestMutationRequest, CreateCourseRequestMutationResponse, CreateCourseRequestMutation } from "./types/trainerController/CreateCourseRequest.ts";
+export type { GetCourseRequestByIdPathParams, GetCourseRequestById200, GetCourseRequestByIdQueryResponse, GetCourseRequestByIdQuery } from "./types/trainerController/GetCourseRequestById.ts";
+export type { GetDoctorPatients1QueryParams, GetDoctorPatients1200, GetDoctorPatients1QueryResponse, GetDoctorPatients1Query } from "./types/trainerController/GetDoctorPatients1.ts";
+export type { GetMyCourseRequestsQueryParamsStatusEnumKey, GetMyCourseRequestsQueryParams, GetMyCourseRequests200, GetMyCourseRequestsQueryResponse, GetMyCourseRequestsQuery } from "./types/trainerController/GetMyCourseRequests.ts";
+export type { UpdateCourseRequestPathParams, UpdateCourseRequest200, UpdateCourseRequestMutationRequest, UpdateCourseRequestMutationResponse, UpdateCourseRequestMutation } from "./types/trainerController/UpdateCourseRequest.ts";
+export type { GetAllTransactionHistoryQueryParams, GetAllTransactionHistory200, GetAllTransactionHistoryQueryResponse, GetAllTransactionHistoryQuery } from "./types/transactionsController/GetAllTransactionHistory.ts";
+export type { GetMyTotalSpending200, GetMyTotalSpendingQueryResponse, GetMyTotalSpendingQuery } from "./types/transactionsController/GetMyTotalSpending.ts";
+export type { GetMyTransactionHistoryQueryParams, GetMyTransactionHistory200, GetMyTransactionHistoryQueryResponse, GetMyTransactionHistoryQuery } from "./types/transactionsController/GetMyTransactionHistory.ts";
+export type { UpdateAdminRequestStaffTypeEnumKey, UpdateAdminRequest } from "./types/UpdateAdminRequest.ts";
+export type { UpdateCategoryRequestTypeEnumKey, UpdateCategoryRequest } from "./types/UpdateCategoryRequest.ts";
+export type { UpdateClinicScheduleRequestDayOfWeekEnumKey, UpdateClinicScheduleRequest } from "./types/UpdateClinicScheduleRequest.ts";
+export type { UpdateDoctorRequestStaffTypeEnumKey, UpdateDoctorRequest } from "./types/UpdateDoctorRequest.ts";
 export type { UpdateExercisePackageRequest } from "./types/UpdateExercisePackageRequest.ts";
 export type { UpdateExerciseRequest } from "./types/UpdateExerciseRequest.ts";
 export type { UpdateGroupRequest } from "./types/UpdateGroupRequest.ts";
-export type {
-  UpdateNewsRequestStatusEnumKey,
-  UpdateNewsRequest,
-} from "./types/UpdateNewsRequest.ts";
+export type { UpdateNewsRequestStatusEnumKey, UpdateNewsRequest } from "./types/UpdateNewsRequest.ts";
 export type { UpdateRehabilitationExaminationFormRequest } from "./types/UpdateRehabilitationExaminationFormRequest.ts";
 export type { UpdateStaffRequest } from "./types/UpdateStaffRequest.ts";
-export type {
-  UpdateSuperAdminRequestStaffTypeEnumKey,
-  UpdateSuperAdminRequest,
-} from "./types/UpdateSuperAdminRequest.ts";
-export type {
-  UpdateTrainerRequestStaffTypeEnumKey,
-  UpdateTrainerRequest,
-} from "./types/UpdateTrainerRequest.ts";
+export type { UpdateSuperAdminRequestStaffTypeEnumKey, UpdateSuperAdminRequest } from "./types/UpdateSuperAdminRequest.ts";
+export type { UpdateTrainerRequestStaffTypeEnumKey, UpdateTrainerRequest } from "./types/UpdateTrainerRequest.ts";
 export type { UserAuthResponse } from "./types/UserAuthResponse.ts";
 export type { UserCourseAssignmentResponse } from "./types/UserCourseAssignmentResponse.ts";
-export type {
-  GetAllUsersQueryParams,
-  GetAllUsers200,
-  GetAllUsersQueryResponse,
-  GetAllUsersQuery,
-} from "./types/userManagementController/GetAllUsers.ts";
-export type {
-  GetUserByIdPathParams,
-  GetUserById200,
-  GetUserByIdQueryResponse,
-  GetUserByIdQuery,
-} from "./types/userManagementController/GetUserById.ts";
-export type {
-  SearchUsersByNameQueryParams,
-  SearchUsersByName200,
-  SearchUsersByNameQueryResponse,
-  SearchUsersByNameQuery,
-} from "./types/userManagementController/SearchUsersByName.ts";
+export type { GetAllUsersQueryParams, GetAllUsers200, GetAllUsersQueryResponse, GetAllUsersQuery } from "./types/userManagementController/GetAllUsers.ts";
+export type { GetUserByIdPathParams, GetUserById200, GetUserByIdQueryResponse, GetUserByIdQuery } from "./types/userManagementController/GetUserById.ts";
+export type { SearchUsersByNameQueryParams, SearchUsersByName200, SearchUsersByNameQueryResponse, SearchUsersByNameQuery } from "./types/userManagementController/SearchUsersByName.ts";
 export type { UserResponse } from "./types/UserResponse.ts";
 export type { VerifyPinResetOtpRequest } from "./types/VerifyPinResetOtpRequest.ts";
 export type { VerifyRegistrationOtpRequest } from "./types/VerifyRegistrationOtpRequest.ts";
@@ -1218,6 +545,14 @@ export { getMyBalanceSuspenseQueryKey } from "./hooks/BalanceHooks/useGetMyBalan
 export { getMyBalanceSuspense } from "./hooks/BalanceHooks/useGetMyBalanceSuspense.ts";
 export { getMyBalanceSuspenseQueryOptions } from "./hooks/BalanceHooks/useGetMyBalanceSuspense.ts";
 export { useGetMyBalanceSuspense } from "./hooks/BalanceHooks/useGetMyBalanceSuspense.ts";
+export { listCourseAssignmentsQueryKey } from "./hooks/Course AssignmentsHooks/useListCourseAssignments.ts";
+export { listCourseAssignments } from "./hooks/Course AssignmentsHooks/useListCourseAssignments.ts";
+export { listCourseAssignmentsQueryOptions } from "./hooks/Course AssignmentsHooks/useListCourseAssignments.ts";
+export { useListCourseAssignments } from "./hooks/Course AssignmentsHooks/useListCourseAssignments.ts";
+export { listCourseAssignmentsSuspenseQueryKey } from "./hooks/Course AssignmentsHooks/useListCourseAssignmentsSuspense.ts";
+export { listCourseAssignmentsSuspense } from "./hooks/Course AssignmentsHooks/useListCourseAssignmentsSuspense.ts";
+export { listCourseAssignmentsSuspenseQueryOptions } from "./hooks/Course AssignmentsHooks/useListCourseAssignmentsSuspense.ts";
+export { useListCourseAssignmentsSuspense } from "./hooks/Course AssignmentsHooks/useListCourseAssignmentsSuspense.ts";
 export { checkFeedbackExistsQueryKey } from "./hooks/Course Day FeedbackHooks/useCheckFeedbackExists.ts";
 export { checkFeedbackExists } from "./hooks/Course Day FeedbackHooks/useCheckFeedbackExists.ts";
 export { checkFeedbackExistsQueryOptions } from "./hooks/Course Day FeedbackHooks/useCheckFeedbackExists.ts";
@@ -1770,6 +1105,7 @@ export { appointmentResponseStatusEnum } from "./types/AppointmentResponse.ts";
 export { categoryResponseTypeEnum } from "./types/CategoryResponse.ts";
 export { clinicScheduleResponseDayOfWeekEnum } from "./types/ClinicScheduleResponse.ts";
 export { courseAssignmentRequestResponseStatusEnum } from "./types/CourseAssignmentRequestResponse.ts";
+export { listCourseAssignmentsQueryParamsPurchaseStatusEnum } from "./types/courseAssignmentsController/ListCourseAssignments.ts";
 export { courseProgressHistoryResponseArchivalReasonEnum } from "./types/CourseProgressHistoryResponse.ts";
 export { createCategoryRequestTypeEnum } from "./types/CreateCategoryRequest.ts";
 export { createNewsRequestStatusEnum } from "./types/CreateNewsRequest.ts";
@@ -1794,164 +1130,40 @@ export { updateSuperAdminRequestStaffTypeEnum } from "./types/UpdateSuperAdminRe
 export { updateTrainerRequestStaffTypeEnum } from "./types/UpdateTrainerRequest.ts";
 export { addBalanceRequestSchema } from "./zod/addBalanceRequestSchema.ts";
 export { appointmentResponseSchema } from "./zod/appointmentResponseSchema.ts";
-export {
-  assignDoctorPathParamsSchema,
-  assignDoctor200Schema,
-  assignDoctorMutationRequestSchema,
-  assignDoctorMutationResponseSchema,
-} from "./zod/appointmentsController/assignDoctorSchema.ts";
-export {
-  cancelAppointmentPathParamsSchema,
-  cancelAppointment200Schema,
-  cancelAppointmentMutationRequestSchema,
-  cancelAppointmentMutationResponseSchema,
-} from "./zod/appointmentsController/cancelAppointmentSchema.ts";
-export {
-  confirmAppointmentPathParamsSchema,
-  confirmAppointment200Schema,
-  confirmAppointmentMutationRequestSchema,
-  confirmAppointmentMutationResponseSchema,
-} from "./zod/appointmentsController/confirmAppointmentSchema.ts";
-export {
-  confirmCompletionPathParamsSchema,
-  confirmCompletion200Schema,
-  confirmCompletionMutationResponseSchema,
-} from "./zod/appointmentsController/confirmCompletionSchema.ts";
-export {
-  createAppointment200Schema,
-  createAppointmentMutationRequestSchema,
-  createAppointmentMutationResponseSchema,
-} from "./zod/appointmentsController/createAppointmentSchema.ts";
-export {
-  disputeAppointmentPathParamsSchema,
-  disputeAppointment200Schema,
-  disputeAppointmentMutationRequestSchema,
-  disputeAppointmentMutationResponseSchema,
-} from "./zod/appointmentsController/disputeAppointmentSchema.ts";
-export {
-  getAllAppointmentsQueryParamsSchema,
-  getAllAppointments200Schema,
-  getAllAppointmentsQueryResponseSchema,
-} from "./zod/appointmentsController/getAllAppointmentsSchema.ts";
-export {
-  getAppointmentByIdPathParamsSchema,
-  getAppointmentById200Schema,
-  getAppointmentByIdQueryResponseSchema,
-} from "./zod/appointmentsController/getAppointmentByIdSchema.ts";
-export {
-  getAvailableSlotsQueryParamsSchema,
-  getAvailableSlots200Schema,
-  getAvailableSlotsQueryResponseSchema,
-} from "./zod/appointmentsController/getAvailableSlotsSchema.ts";
-export {
-  getClinicSchedule200Schema,
-  getClinicScheduleQueryResponseSchema,
-} from "./zod/appointmentsController/getClinicScheduleSchema.ts";
-export {
-  getDisputedAppointmentsQueryParamsSchema,
-  getDisputedAppointments200Schema,
-  getDisputedAppointmentsQueryResponseSchema,
-} from "./zod/appointmentsController/getDisputedAppointmentsSchema.ts";
-export {
-  getDoctorAppointmentsQueryParamsSchema,
-  getDoctorAppointments200Schema,
-  getDoctorAppointmentsQueryResponseSchema,
-} from "./zod/appointmentsController/getDoctorAppointmentsSchema.ts";
-export {
-  getMyAppointmentsQueryParamsSchema,
-  getMyAppointments200Schema,
-  getMyAppointmentsQueryResponseSchema,
-} from "./zod/appointmentsController/getMyAppointmentsSchema.ts";
-export {
-  markCompletePathParamsSchema,
-  markComplete200Schema,
-  markCompleteMutationResponseSchema,
-} from "./zod/appointmentsController/markCompleteSchema.ts";
-export {
-  rejectAppointmentPathParamsSchema,
-  rejectAppointment200Schema,
-  rejectAppointmentMutationRequestSchema,
-  rejectAppointmentMutationResponseSchema,
-} from "./zod/appointmentsController/rejectAppointmentSchema.ts";
-export {
-  resolveDisputePathParamsSchema,
-  resolveDispute200Schema,
-  resolveDisputeMutationRequestSchema,
-  resolveDisputeMutationResponseSchema,
-} from "./zod/appointmentsController/resolveDisputeSchema.ts";
-export {
-  updateClinicSchedule200Schema,
-  updateClinicScheduleMutationRequestSchema,
-  updateClinicScheduleMutationResponseSchema,
-} from "./zod/appointmentsController/updateClinicScheduleSchema.ts";
+export { assignDoctorPathParamsSchema, assignDoctor200Schema, assignDoctorMutationRequestSchema, assignDoctorMutationResponseSchema } from "./zod/appointmentsController/assignDoctorSchema.ts";
+export { cancelAppointmentPathParamsSchema, cancelAppointment200Schema, cancelAppointmentMutationRequestSchema, cancelAppointmentMutationResponseSchema } from "./zod/appointmentsController/cancelAppointmentSchema.ts";
+export { confirmAppointmentPathParamsSchema, confirmAppointment200Schema, confirmAppointmentMutationRequestSchema, confirmAppointmentMutationResponseSchema } from "./zod/appointmentsController/confirmAppointmentSchema.ts";
+export { confirmCompletionPathParamsSchema, confirmCompletion200Schema, confirmCompletionMutationResponseSchema } from "./zod/appointmentsController/confirmCompletionSchema.ts";
+export { createAppointment200Schema, createAppointmentMutationRequestSchema, createAppointmentMutationResponseSchema } from "./zod/appointmentsController/createAppointmentSchema.ts";
+export { disputeAppointmentPathParamsSchema, disputeAppointment200Schema, disputeAppointmentMutationRequestSchema, disputeAppointmentMutationResponseSchema } from "./zod/appointmentsController/disputeAppointmentSchema.ts";
+export { getAllAppointmentsQueryParamsSchema, getAllAppointments200Schema, getAllAppointmentsQueryResponseSchema } from "./zod/appointmentsController/getAllAppointmentsSchema.ts";
+export { getAppointmentByIdPathParamsSchema, getAppointmentById200Schema, getAppointmentByIdQueryResponseSchema } from "./zod/appointmentsController/getAppointmentByIdSchema.ts";
+export { getAvailableSlotsQueryParamsSchema, getAvailableSlots200Schema, getAvailableSlotsQueryResponseSchema } from "./zod/appointmentsController/getAvailableSlotsSchema.ts";
+export { getClinicSchedule200Schema, getClinicScheduleQueryResponseSchema } from "./zod/appointmentsController/getClinicScheduleSchema.ts";
+export { getDisputedAppointmentsQueryParamsSchema, getDisputedAppointments200Schema, getDisputedAppointmentsQueryResponseSchema } from "./zod/appointmentsController/getDisputedAppointmentsSchema.ts";
+export { getDoctorAppointmentsQueryParamsSchema, getDoctorAppointments200Schema, getDoctorAppointmentsQueryResponseSchema } from "./zod/appointmentsController/getDoctorAppointmentsSchema.ts";
+export { getMyAppointmentsQueryParamsSchema, getMyAppointments200Schema, getMyAppointmentsQueryResponseSchema } from "./zod/appointmentsController/getMyAppointmentsSchema.ts";
+export { markCompletePathParamsSchema, markComplete200Schema, markCompleteMutationResponseSchema } from "./zod/appointmentsController/markCompleteSchema.ts";
+export { rejectAppointmentPathParamsSchema, rejectAppointment200Schema, rejectAppointmentMutationRequestSchema, rejectAppointmentMutationResponseSchema } from "./zod/appointmentsController/rejectAppointmentSchema.ts";
+export { resolveDisputePathParamsSchema, resolveDispute200Schema, resolveDisputeMutationRequestSchema, resolveDisputeMutationResponseSchema } from "./zod/appointmentsController/resolveDisputeSchema.ts";
+export { updateClinicSchedule200Schema, updateClinicScheduleMutationRequestSchema, updateClinicScheduleMutationResponseSchema } from "./zod/appointmentsController/updateClinicScheduleSchema.ts";
 export { assignCourseToPatientRequestSchema } from "./zod/assignCourseToPatientRequestSchema.ts";
 export { assignDoctorRequestSchema } from "./zod/assignDoctorRequestSchema.ts";
 export { assignPatientToDoctorRequestSchema } from "./zod/assignPatientToDoctorRequestSchema.ts";
-export {
-  checkPhone200Schema,
-  checkPhoneMutationRequestSchema,
-  checkPhoneMutationResponseSchema,
-} from "./zod/authenticationController/checkPhoneSchema.ts";
-export {
-  loginWithPassword200Schema,
-  loginWithPasswordMutationRequestSchema,
-  loginWithPasswordMutationResponseSchema,
-} from "./zod/authenticationController/loginWithPasswordSchema.ts";
-export {
-  loginWithPin200Schema,
-  loginWithPinMutationRequestSchema,
-  loginWithPinMutationResponseSchema,
-} from "./zod/authenticationController/loginWithPinSchema.ts";
-export {
-  logout200Schema,
-  logoutMutationRequestSchema,
-  logoutMutationResponseSchema,
-} from "./zod/authenticationController/logoutSchema.ts";
-export {
-  refreshToken200Schema,
-  refreshTokenMutationRequestSchema,
-  refreshTokenMutationResponseSchema,
-} from "./zod/authenticationController/refreshTokenSchema.ts";
-export {
-  register200Schema,
-  registerMutationRequestSchema,
-  registerMutationResponseSchema,
-} from "./zod/authenticationController/registerSchema.ts";
-export {
-  requestPinReset200Schema,
-  requestPinResetMutationRequestSchema,
-  requestPinResetMutationResponseSchema,
-} from "./zod/authenticationController/requestPinResetSchema.ts";
-export {
-  resetPin200Schema,
-  resetPinMutationRequestSchema,
-  resetPinMutationResponseSchema,
-} from "./zod/authenticationController/resetPinSchema.ts";
-export {
-  sendRegistrationOtp200Schema,
-  sendRegistrationOtpMutationRequestSchema,
-  sendRegistrationOtpMutationResponseSchema,
-} from "./zod/authenticationController/sendRegistrationOtpSchema.ts";
-export {
-  verifyPinResetOtp200Schema,
-  verifyPinResetOtpMutationRequestSchema,
-  verifyPinResetOtpMutationResponseSchema,
-} from "./zod/authenticationController/verifyPinResetOtpSchema.ts";
-export {
-  verifyRegistrationOtp200Schema,
-  verifyRegistrationOtpMutationRequestSchema,
-  verifyRegistrationOtpMutationResponseSchema,
-} from "./zod/authenticationController/verifyRegistrationOtpSchema.ts";
+export { checkPhone200Schema, checkPhoneMutationRequestSchema, checkPhoneMutationResponseSchema } from "./zod/authenticationController/checkPhoneSchema.ts";
+export { loginWithPassword200Schema, loginWithPasswordMutationRequestSchema, loginWithPasswordMutationResponseSchema } from "./zod/authenticationController/loginWithPasswordSchema.ts";
+export { loginWithPin200Schema, loginWithPinMutationRequestSchema, loginWithPinMutationResponseSchema } from "./zod/authenticationController/loginWithPinSchema.ts";
+export { logout200Schema, logoutMutationRequestSchema, logoutMutationResponseSchema } from "./zod/authenticationController/logoutSchema.ts";
+export { refreshToken200Schema, refreshTokenMutationRequestSchema, refreshTokenMutationResponseSchema } from "./zod/authenticationController/refreshTokenSchema.ts";
+export { register200Schema, registerMutationRequestSchema, registerMutationResponseSchema } from "./zod/authenticationController/registerSchema.ts";
+export { requestPinReset200Schema, requestPinResetMutationRequestSchema, requestPinResetMutationResponseSchema } from "./zod/authenticationController/requestPinResetSchema.ts";
+export { resetPin200Schema, resetPinMutationRequestSchema, resetPinMutationResponseSchema } from "./zod/authenticationController/resetPinSchema.ts";
+export { sendRegistrationOtp200Schema, sendRegistrationOtpMutationRequestSchema, sendRegistrationOtpMutationResponseSchema } from "./zod/authenticationController/sendRegistrationOtpSchema.ts";
+export { verifyPinResetOtp200Schema, verifyPinResetOtpMutationRequestSchema, verifyPinResetOtpMutationResponseSchema } from "./zod/authenticationController/verifyPinResetOtpSchema.ts";
+export { verifyRegistrationOtp200Schema, verifyRegistrationOtpMutationRequestSchema, verifyRegistrationOtpMutationResponseSchema } from "./zod/authenticationController/verifyRegistrationOtpSchema.ts";
 export { availableSlotResponseSchema } from "./zod/availableSlotResponseSchema.ts";
-export {
-  addBalance200Schema,
-  addBalanceMutationRequestSchema,
-  addBalanceMutationResponseSchema,
-} from "./zod/balanceController/addBalanceSchema.ts";
-export {
-  getMyBalance200Schema,
-  getMyBalanceQueryResponseSchema,
-} from "./zod/balanceController/getMyBalanceSchema.ts";
+export { addBalance200Schema, addBalanceMutationRequestSchema, addBalanceMutationResponseSchema } from "./zod/balanceController/addBalanceSchema.ts";
+export { getMyBalance200Schema, getMyBalanceQueryResponseSchema } from "./zod/balanceController/getMyBalanceSchema.ts";
 export { balanceResponseSchema } from "./zod/balanceResponseSchema.ts";
 export { cancelAppointmentRequestSchema } from "./zod/cancelAppointmentRequestSchema.ts";
 export { categoryResponseSchema } from "./zod/categoryResponseSchema.ts";
@@ -1960,84 +1172,28 @@ export { checkPhoneResponseSchema } from "./zod/checkPhoneResponseSchema.ts";
 export { clinicScheduleResponseSchema } from "./zod/clinicScheduleResponseSchema.ts";
 export { confirmAppointmentRequestSchema } from "./zod/confirmAppointmentRequestSchema.ts";
 export { courseAssignmentRequestResponseSchema } from "./zod/courseAssignmentRequestResponseSchema.ts";
+export { listCourseAssignmentsQueryParamsSchema, listCourseAssignments200Schema, listCourseAssignmentsQueryResponseSchema } from "./zod/courseAssignmentsController/listCourseAssignmentsSchema.ts";
 export { courseDayDtoSchema } from "./zod/courseDayDtoSchema.ts";
-export {
-  checkFeedbackExistsPathParamsSchema,
-  checkFeedbackExists200Schema,
-  checkFeedbackExists404Schema,
-  checkFeedbackExistsQueryResponseSchema,
-} from "./zod/courseDayFeedbackController/checkFeedbackExistsSchema.ts";
-export {
-  getMyFeedback200Schema,
-  getMyFeedback404Schema,
-  getMyFeedbackQueryResponseSchema,
-} from "./zod/courseDayFeedbackController/getMyFeedbackSchema.ts";
-export {
-  submitFeedbackPathParamsSchema,
-  submitFeedback201Schema,
-  submitFeedback400Schema,
-  submitFeedback404Schema,
-  submitFeedback409Schema,
-  submitFeedbackMutationRequestSchema,
-  submitFeedbackMutationResponseSchema,
-} from "./zod/courseDayFeedbackController/submitFeedbackSchema.ts";
+export { checkFeedbackExistsPathParamsSchema, checkFeedbackExists200Schema, checkFeedbackExists404Schema, checkFeedbackExistsQueryResponseSchema } from "./zod/courseDayFeedbackController/checkFeedbackExistsSchema.ts";
+export { getMyFeedback200Schema, getMyFeedback404Schema, getMyFeedbackQueryResponseSchema } from "./zod/courseDayFeedbackController/getMyFeedbackSchema.ts";
+export { submitFeedbackPathParamsSchema, submitFeedback201Schema, submitFeedback400Schema, submitFeedback404Schema, submitFeedback409Schema, submitFeedbackMutationRequestSchema, submitFeedbackMutationResponseSchema } from "./zod/courseDayFeedbackController/submitFeedbackSchema.ts";
 export { courseDayRequestSchema } from "./zod/courseDayRequestSchema.ts";
 export { courseDaySummaryDtoSchema } from "./zod/courseDaySummaryDtoSchema.ts";
 export { courseDetailsRequestSchema } from "./zod/courseDetailsRequestSchema.ts";
 export { courseMetadataDtoSchema } from "./zod/courseMetadataDtoSchema.ts";
-export {
-  completeCoursePathParamsSchema,
-  completeCourse200Schema,
-  completeCourseMutationResponseSchema,
-} from "./zod/courseProgressController/completeCourseSchema.ts";
-export {
-  completeExercisePathParamsSchema,
-  completeExercise200Schema,
-  completeExerciseMutationResponseSchema,
-} from "./zod/courseProgressController/completeExerciseSchema.ts";
-export {
-  getCompletedCourses200Schema,
-  getCompletedCoursesQueryResponseSchema,
-} from "./zod/courseProgressController/getCompletedCoursesSchema.ts";
-export {
-  getCourseProgressHistoryPathParamsSchema,
-  getCourseProgressHistory200Schema,
-  getCourseProgressHistoryQueryResponseSchema,
-} from "./zod/courseProgressController/getCourseProgressHistorySchema.ts";
-export {
-  getCurrentProgress200Schema,
-  getCurrentProgressQueryResponseSchema,
-} from "./zod/courseProgressController/getCurrentProgressSchema.ts";
-export {
-  getDayContentPathParamsSchema,
-  getDayContent200Schema,
-  getDayContentQueryResponseSchema,
-} from "./zod/courseProgressController/getDayContentSchema.ts";
-export {
-  getMyAssignedCourses1200Schema,
-  getMyAssignedCourses1QueryResponseSchema,
-} from "./zod/courseProgressController/getMyAssignedCourses1Schema.ts";
-export {
-  getProgressHistory200Schema,
-  getProgressHistoryQueryResponseSchema,
-} from "./zod/courseProgressController/getProgressHistorySchema.ts";
-export {
-  startCourse200Schema,
-  startCourseMutationRequestSchema,
-  startCourseMutationResponseSchema,
-} from "./zod/courseProgressController/startCourseSchema.ts";
+export { completeCoursePathParamsSchema, completeCourse200Schema, completeCourseMutationResponseSchema } from "./zod/courseProgressController/completeCourseSchema.ts";
+export { completeExercisePathParamsSchema, completeExercise200Schema, completeExerciseMutationResponseSchema } from "./zod/courseProgressController/completeExerciseSchema.ts";
+export { getCompletedCourses200Schema, getCompletedCoursesQueryResponseSchema } from "./zod/courseProgressController/getCompletedCoursesSchema.ts";
+export { getCourseProgressHistoryPathParamsSchema, getCourseProgressHistory200Schema, getCourseProgressHistoryQueryResponseSchema } from "./zod/courseProgressController/getCourseProgressHistorySchema.ts";
+export { getCurrentProgress200Schema, getCurrentProgressQueryResponseSchema } from "./zod/courseProgressController/getCurrentProgressSchema.ts";
+export { getDayContentPathParamsSchema, getDayContent200Schema, getDayContentQueryResponseSchema } from "./zod/courseProgressController/getDayContentSchema.ts";
+export { getMyAssignedCourses1200Schema, getMyAssignedCourses1QueryResponseSchema } from "./zod/courseProgressController/getMyAssignedCourses1Schema.ts";
+export { getProgressHistory200Schema, getProgressHistoryQueryResponseSchema } from "./zod/courseProgressController/getProgressHistorySchema.ts";
+export { startCourse200Schema, startCourseMutationRequestSchema, startCourseMutationResponseSchema } from "./zod/courseProgressController/startCourseSchema.ts";
 export { courseProgressHistoryResponseSchema } from "./zod/courseProgressHistoryResponseSchema.ts";
 export { courseProgressResponseSchema } from "./zod/courseProgressResponseSchema.ts";
-export {
-  getAllCoursesQueryParamsSchema,
-  getAllCourses200Schema,
-  getAllCoursesQueryResponseSchema,
-} from "./zod/coursesController/getAllCoursesSchema.ts";
-export {
-  getCourseStructurePathParamsSchema,
-  getCourseStructure200Schema,
-  getCourseStructureQueryResponseSchema,
-} from "./zod/coursesController/getCourseStructureSchema.ts";
+export { getAllCoursesQueryParamsSchema, getAllCourses200Schema, getAllCoursesQueryResponseSchema } from "./zod/coursesController/getAllCoursesSchema.ts";
+export { getCourseStructurePathParamsSchema, getCourseStructure200Schema, getCourseStructureQueryResponseSchema } from "./zod/coursesController/getCourseStructureSchema.ts";
 export { courseWithDaysResponseSchema } from "./zod/courseWithDaysResponseSchema.ts";
 export { createAppointmentRequestSchema } from "./zod/createAppointmentRequestSchema.ts";
 export { createCategoryRequestSchema } from "./zod/createCategoryRequestSchema.ts";
@@ -2054,184 +1210,48 @@ export { dayExerciseDtoSchema } from "./zod/dayExerciseDtoSchema.ts";
 export { dayExerciseItemResponseSchema } from "./zod/dayExerciseItemResponseSchema.ts";
 export { deleteFileRequestSchema } from "./zod/deleteFileRequestSchema.ts";
 export { disputeAppointmentRequestSchema } from "./zod/disputeAppointmentRequestSchema.ts";
-export {
-  approveCourseRequestPathParamsSchema,
-  approveCourseRequest200Schema,
-  approveCourseRequestMutationRequestSchema,
-  approveCourseRequestMutationResponseSchema,
-} from "./zod/doctorController/approveCourseRequestSchema.ts";
-export {
-  assignCourseToPatientPathParamsSchema,
-  assignCourseToPatient200Schema,
-  assignCourseToPatientMutationRequestSchema,
-  assignCourseToPatientMutationResponseSchema,
-} from "./zod/doctorController/assignCourseToPatientSchema.ts";
-export {
-  createAndAssignCustomCoursePathParamsSchema,
-  createAndAssignCustomCourse200Schema,
-  createAndAssignCustomCourseMutationRequestSchema,
-  createAndAssignCustomCourseMutationResponseSchema,
-} from "./zod/doctorController/createAndAssignCustomCourseSchema.ts";
-export {
-  getCourseRequestsQueryParamsSchema,
-  getCourseRequests200Schema,
-  getCourseRequestsQueryResponseSchema,
-} from "./zod/doctorController/getCourseRequestsSchema.ts";
-export {
-  getMyAssignedCoursesQueryParamsSchema,
-  getMyAssignedCourses200Schema,
-  getMyAssignedCoursesQueryResponseSchema,
-} from "./zod/doctorController/getMyAssignedCoursesSchema.ts";
-export {
-  getMyPatientsQueryParamsSchema,
-  getMyPatients200Schema,
-  getMyPatientsQueryResponseSchema,
-} from "./zod/doctorController/getMyPatientsSchema.ts";
-export {
-  getMyTrainersQueryParamsSchema,
-  getMyTrainers200Schema,
-  getMyTrainersQueryResponseSchema,
-} from "./zod/doctorController/getMyTrainersSchema.ts";
-export {
-  getPatientCoursesPathParamsSchema,
-  getPatientCourses200Schema,
-  getPatientCoursesQueryResponseSchema,
-} from "./zod/doctorController/getPatientCoursesSchema.ts";
-export {
-  rejectCourseRequestPathParamsSchema,
-  rejectCourseRequest200Schema,
-  rejectCourseRequestMutationRequestSchema,
-  rejectCourseRequestMutationResponseSchema,
-} from "./zod/doctorController/rejectCourseRequestSchema.ts";
-export {
-  revokeCourseAssignmentPathParamsSchema,
-  revokeCourseAssignment200Schema,
-  revokeCourseAssignmentMutationResponseSchema,
-} from "./zod/doctorController/revokeCourseAssignmentSchema.ts";
+export { approveCourseRequestPathParamsSchema, approveCourseRequest200Schema, approveCourseRequestMutationRequestSchema, approveCourseRequestMutationResponseSchema } from "./zod/doctorController/approveCourseRequestSchema.ts";
+export { assignCourseToPatientPathParamsSchema, assignCourseToPatient200Schema, assignCourseToPatientMutationRequestSchema, assignCourseToPatientMutationResponseSchema } from "./zod/doctorController/assignCourseToPatientSchema.ts";
+export { createAndAssignCustomCoursePathParamsSchema, createAndAssignCustomCourse200Schema, createAndAssignCustomCourseMutationRequestSchema, createAndAssignCustomCourseMutationResponseSchema } from "./zod/doctorController/createAndAssignCustomCourseSchema.ts";
+export { getCourseRequestsQueryParamsSchema, getCourseRequests200Schema, getCourseRequestsQueryResponseSchema } from "./zod/doctorController/getCourseRequestsSchema.ts";
+export { getMyAssignedCoursesQueryParamsSchema, getMyAssignedCourses200Schema, getMyAssignedCoursesQueryResponseSchema } from "./zod/doctorController/getMyAssignedCoursesSchema.ts";
+export { getMyPatientsQueryParamsSchema, getMyPatients200Schema, getMyPatientsQueryResponseSchema } from "./zod/doctorController/getMyPatientsSchema.ts";
+export { getMyTrainersQueryParamsSchema, getMyTrainers200Schema, getMyTrainersQueryResponseSchema } from "./zod/doctorController/getMyTrainersSchema.ts";
+export { getPatientCoursesPathParamsSchema, getPatientCourses200Schema, getPatientCoursesQueryResponseSchema } from "./zod/doctorController/getPatientCoursesSchema.ts";
+export { rejectCourseRequestPathParamsSchema, rejectCourseRequest200Schema, rejectCourseRequestMutationRequestSchema, rejectCourseRequestMutationResponseSchema } from "./zod/doctorController/rejectCourseRequestSchema.ts";
+export { revokeCourseAssignmentPathParamsSchema, revokeCourseAssignment200Schema, revokeCourseAssignmentMutationResponseSchema } from "./zod/doctorController/revokeCourseAssignmentSchema.ts";
 export { doctorPatientResponseSchema } from "./zod/doctorPatientResponseSchema.ts";
-export {
-  createCategory200Schema,
-  createCategoryMutationRequestSchema,
-  createCategoryMutationResponseSchema,
-} from "./zod/exerciseCategoriesController/createCategorySchema.ts";
-export {
-  getAllCategoriesQueryParamsSchema,
-  getAllCategories200Schema,
-  getAllCategoriesQueryResponseSchema,
-} from "./zod/exerciseCategoriesController/getAllCategoriesSchema.ts";
-export {
-  getCategoryByIdPathParamsSchema,
-  getCategoryById200Schema,
-  getCategoryByIdQueryResponseSchema,
-} from "./zod/exerciseCategoriesController/getCategoryByIdSchema.ts";
-export {
-  updateCategoryPathParamsSchema,
-  updateCategory200Schema,
-  updateCategoryMutationRequestSchema,
-  updateCategoryMutationResponseSchema,
-} from "./zod/exerciseCategoriesController/updateCategorySchema.ts";
+export { createCategory200Schema, createCategoryMutationRequestSchema, createCategoryMutationResponseSchema } from "./zod/exerciseCategoriesController/createCategorySchema.ts";
+export { getAllCategoriesQueryParamsSchema, getAllCategories200Schema, getAllCategoriesQueryResponseSchema } from "./zod/exerciseCategoriesController/getAllCategoriesSchema.ts";
+export { getCategoryByIdPathParamsSchema, getCategoryById200Schema, getCategoryByIdQueryResponseSchema } from "./zod/exerciseCategoriesController/getCategoryByIdSchema.ts";
+export { updateCategoryPathParamsSchema, updateCategory200Schema, updateCategoryMutationRequestSchema, updateCategoryMutationResponseSchema } from "./zod/exerciseCategoriesController/updateCategorySchema.ts";
 export { exerciseCompletionResponseSchema } from "./zod/exerciseCompletionResponseSchema.ts";
-export {
-  createGroup200Schema,
-  createGroupMutationRequestSchema,
-  createGroupMutationResponseSchema,
-} from "./zod/exerciseGroupsController/createGroupSchema.ts";
-export {
-  getAllGroupsQueryParamsSchema,
-  getAllGroups200Schema,
-  getAllGroupsQueryResponseSchema,
-} from "./zod/exerciseGroupsController/getAllGroupsSchema.ts";
-export {
-  getGroupByIdPathParamsSchema,
-  getGroupById200Schema,
-  getGroupByIdQueryResponseSchema,
-} from "./zod/exerciseGroupsController/getGroupByIdSchema.ts";
-export {
-  updateGroupPathParamsSchema,
-  updateGroup200Schema,
-  updateGroupMutationRequestSchema,
-  updateGroupMutationResponseSchema,
-} from "./zod/exerciseGroupsController/updateGroupSchema.ts";
+export { createGroup200Schema, createGroupMutationRequestSchema, createGroupMutationResponseSchema } from "./zod/exerciseGroupsController/createGroupSchema.ts";
+export { getAllGroupsQueryParamsSchema, getAllGroups200Schema, getAllGroupsQueryResponseSchema } from "./zod/exerciseGroupsController/getAllGroupsSchema.ts";
+export { getGroupByIdPathParamsSchema, getGroupById200Schema, getGroupByIdQueryResponseSchema } from "./zod/exerciseGroupsController/getGroupByIdSchema.ts";
+export { updateGroupPathParamsSchema, updateGroup200Schema, updateGroupMutationRequestSchema, updateGroupMutationResponseSchema } from "./zod/exerciseGroupsController/updateGroupSchema.ts";
 export { exerciseItemRequestSchema } from "./zod/exerciseItemRequestSchema.ts";
 export { exercisePackageDetailResponseSchema } from "./zod/exercisePackageDetailResponseSchema.ts";
 export { exercisePackageResponseSchema } from "./zod/exercisePackageResponseSchema.ts";
-export {
-  createExercisePackage200Schema,
-  createExercisePackageMutationRequestSchema,
-  createExercisePackageMutationResponseSchema,
-} from "./zod/exercisePackagesController/createExercisePackageSchema.ts";
-export {
-  getAllExercisePackagesQueryParamsSchema,
-  getAllExercisePackages200Schema,
-  getAllExercisePackagesQueryResponseSchema,
-} from "./zod/exercisePackagesController/getAllExercisePackagesSchema.ts";
-export {
-  getAvailablePackagesQueryParamsSchema,
-  getAvailablePackages200Schema,
-  getAvailablePackagesQueryResponseSchema,
-} from "./zod/exercisePackagesController/getAvailablePackagesSchema.ts";
-export {
-  getCurrentUserPackageByIdPathParamsSchema,
-  getCurrentUserPackageById200Schema,
-  getCurrentUserPackageByIdQueryResponseSchema,
-} from "./zod/exercisePackagesController/getCurrentUserPackageByIdSchema.ts";
-export {
-  getCurrentUserPackagesQueryParamsSchema,
-  getCurrentUserPackages200Schema,
-  getCurrentUserPackagesQueryResponseSchema,
-} from "./zod/exercisePackagesController/getCurrentUserPackagesSchema.ts";
-export {
-  getExercisePackageByIdPathParamsSchema,
-  getExercisePackageById200Schema,
-  getExercisePackageByIdQueryResponseSchema,
-} from "./zod/exercisePackagesController/getExercisePackageByIdSchema.ts";
-export {
-  updateExercisePackagePathParamsSchema,
-  updateExercisePackage200Schema,
-  updateExercisePackageMutationRequestSchema,
-  updateExercisePackageMutationResponseSchema,
-} from "./zod/exercisePackagesController/updateExercisePackageSchema.ts";
+export { createExercisePackage200Schema, createExercisePackageMutationRequestSchema, createExercisePackageMutationResponseSchema } from "./zod/exercisePackagesController/createExercisePackageSchema.ts";
+export { getAllExercisePackagesQueryParamsSchema, getAllExercisePackages200Schema, getAllExercisePackagesQueryResponseSchema } from "./zod/exercisePackagesController/getAllExercisePackagesSchema.ts";
+export { getAvailablePackagesQueryParamsSchema, getAvailablePackages200Schema, getAvailablePackagesQueryResponseSchema } from "./zod/exercisePackagesController/getAvailablePackagesSchema.ts";
+export { getCurrentUserPackageByIdPathParamsSchema, getCurrentUserPackageById200Schema, getCurrentUserPackageByIdQueryResponseSchema } from "./zod/exercisePackagesController/getCurrentUserPackageByIdSchema.ts";
+export { getCurrentUserPackagesQueryParamsSchema, getCurrentUserPackages200Schema, getCurrentUserPackagesQueryResponseSchema } from "./zod/exercisePackagesController/getCurrentUserPackagesSchema.ts";
+export { getExercisePackageByIdPathParamsSchema, getExercisePackageById200Schema, getExercisePackageByIdQueryResponseSchema } from "./zod/exercisePackagesController/getExercisePackageByIdSchema.ts";
+export { updateExercisePackagePathParamsSchema, updateExercisePackage200Schema, updateExercisePackageMutationRequestSchema, updateExercisePackageMutationResponseSchema } from "./zod/exercisePackagesController/updateExercisePackageSchema.ts";
 export { exercisePackageWithSubscriptionResponseSchema } from "./zod/exercisePackageWithSubscriptionResponseSchema.ts";
 export { exerciseResponseSchema } from "./zod/exerciseResponseSchema.ts";
-export {
-  createExercise200Schema,
-  createExerciseMutationRequestSchema,
-  createExerciseMutationResponseSchema,
-} from "./zod/exercisesController/createExerciseSchema.ts";
-export {
-  getAllExercisesQueryParamsSchema,
-  getAllExercises200Schema,
-  getAllExercisesQueryResponseSchema,
-} from "./zod/exercisesController/getAllExercisesSchema.ts";
-export {
-  getExerciseByIdPathParamsSchema,
-  getExerciseById200Schema,
-  getExerciseByIdQueryResponseSchema,
-} from "./zod/exercisesController/getExerciseByIdSchema.ts";
-export {
-  updateExercisePathParamsSchema,
-  updateExercise200Schema,
-  updateExerciseMutationRequestSchema,
-  updateExerciseMutationResponseSchema,
-} from "./zod/exercisesController/updateExerciseSchema.ts";
+export { createExercise200Schema, createExerciseMutationRequestSchema, createExerciseMutationResponseSchema } from "./zod/exercisesController/createExerciseSchema.ts";
+export { getAllExercisesQueryParamsSchema, getAllExercises200Schema, getAllExercisesQueryResponseSchema } from "./zod/exercisesController/getAllExercisesSchema.ts";
+export { getExerciseByIdPathParamsSchema, getExerciseById200Schema, getExerciseByIdQueryResponseSchema } from "./zod/exercisesController/getExerciseByIdSchema.ts";
+export { updateExercisePathParamsSchema, updateExercise200Schema, updateExerciseMutationRequestSchema, updateExerciseMutationResponseSchema } from "./zod/exercisesController/updateExerciseSchema.ts";
 export { feedbackExistsResponseSchema } from "./zod/feedbackExistsResponseSchema.ts";
 export { feedbackResponseSchema } from "./zod/feedbackResponseSchema.ts";
 export { fileDeleteResponseSchema } from "./zod/fileDeleteResponseSchema.ts";
-export {
-  deleteFile200Schema,
-  deleteFileMutationRequestSchema,
-  deleteFileMutationResponseSchema,
-} from "./zod/fileManagementController/deleteFileSchema.ts";
-export {
-  generateDownloadUrl200Schema,
-  generateDownloadUrlMutationRequestSchema,
-  generateDownloadUrlMutationResponseSchema,
-} from "./zod/fileManagementController/generateDownloadUrlSchema.ts";
-export {
-  generateUploadUrl200Schema,
-  generateUploadUrlMutationRequestSchema,
-  generateUploadUrlMutationResponseSchema,
-} from "./zod/fileManagementController/generateUploadUrlSchema.ts";
+export { deleteFile200Schema, deleteFileMutationRequestSchema, deleteFileMutationResponseSchema } from "./zod/fileManagementController/deleteFileSchema.ts";
+export { generateDownloadUrl200Schema, generateDownloadUrlMutationRequestSchema, generateDownloadUrlMutationResponseSchema } from "./zod/fileManagementController/generateDownloadUrlSchema.ts";
+export { generateUploadUrl200Schema, generateUploadUrlMutationRequestSchema, generateUploadUrlMutationResponseSchema } from "./zod/fileManagementController/generateUploadUrlSchema.ts";
 export { generateDownloadUrlRequestSchema } from "./zod/generateDownloadUrlRequestSchema.ts";
 export { generateUploadUrlRequestSchema } from "./zod/generateUploadUrlRequestSchema.ts";
 export { groupResponseSchema } from "./zod/groupResponseSchema.ts";
@@ -2239,58 +1259,20 @@ export { localTimeSchema } from "./zod/localTimeSchema.ts";
 export { loginWithPasswordRequestSchema } from "./zod/loginWithPasswordRequestSchema.ts";
 export { loginWithPinRequestSchema } from "./zod/loginWithPinRequestSchema.ts";
 export { myAssignedCourseResponseSchema } from "./zod/myAssignedCourseResponseSchema.ts";
-export {
-  createNews200Schema,
-  createNewsMutationRequestSchema,
-  createNewsMutationResponseSchema,
-} from "./zod/newsController/createNewsSchema.ts";
-export {
-  getAllNewsQueryParamsSchema,
-  getAllNews200Schema,
-  getAllNewsQueryResponseSchema,
-} from "./zod/newsController/getAllNewsSchema.ts";
-export {
-  getNewsByIdPathParamsSchema,
-  getNewsById200Schema,
-  getNewsByIdQueryResponseSchema,
-} from "./zod/newsController/getNewsByIdSchema.ts";
-export {
-  updateNewsPathParamsSchema,
-  updateNews200Schema,
-  updateNewsMutationRequestSchema,
-  updateNewsMutationResponseSchema,
-} from "./zod/newsController/updateNewsSchema.ts";
+export { createNews200Schema, createNewsMutationRequestSchema, createNewsMutationResponseSchema } from "./zod/newsController/createNewsSchema.ts";
+export { getAllNewsQueryParamsSchema, getAllNews200Schema, getAllNewsQueryResponseSchema } from "./zod/newsController/getAllNewsSchema.ts";
+export { getNewsByIdPathParamsSchema, getNewsById200Schema, getNewsByIdQueryResponseSchema } from "./zod/newsController/getNewsByIdSchema.ts";
+export { updateNewsPathParamsSchema, updateNews200Schema, updateNewsMutationRequestSchema, updateNewsMutationResponseSchema } from "./zod/newsController/updateNewsSchema.ts";
 export { newsResponseSchema } from "./zod/newsResponseSchema.ts";
 export { otpResponseSchema } from "./zod/otpResponseSchema.ts";
 export { pageableSchema } from "./zod/pageableSchema.ts";
 export { pagedModelSchema } from "./zod/pagedModelSchema.ts";
 export { pageMetadataSchema } from "./zod/pageMetadataSchema.ts";
-export {
-  assignPatientToDoctorPathParamsSchema,
-  assignPatientToDoctor200Schema,
-  assignPatientToDoctorMutationRequestSchema,
-  assignPatientToDoctorMutationResponseSchema,
-} from "./zod/patientManagementController/assignPatientToDoctorSchema.ts";
-export {
-  getDoctorPatientsPathParamsSchema,
-  getDoctorPatientsQueryParamsSchema,
-  getDoctorPatients200Schema,
-  getDoctorPatientsQueryResponseSchema,
-} from "./zod/patientManagementController/getDoctorPatientsSchema.ts";
-export {
-  removePatientFromDoctorPathParamsSchema,
-  removePatientFromDoctor200Schema,
-  removePatientFromDoctorMutationResponseSchema,
-} from "./zod/patientManagementController/removePatientFromDoctorSchema.ts";
-export {
-  getMyQrCode200Schema,
-  getMyQrCodeQueryResponseSchema,
-} from "./zod/paymentController/getMyQrCodeSchema.ts";
-export {
-  handleWebhook200Schema,
-  handleWebhookMutationRequestSchema,
-  handleWebhookMutationResponseSchema,
-} from "./zod/paymentController/handleWebhookSchema.ts";
+export { assignPatientToDoctorPathParamsSchema, assignPatientToDoctor200Schema, assignPatientToDoctorMutationRequestSchema, assignPatientToDoctorMutationResponseSchema } from "./zod/patientManagementController/assignPatientToDoctorSchema.ts";
+export { getDoctorPatientsPathParamsSchema, getDoctorPatientsQueryParamsSchema, getDoctorPatients200Schema, getDoctorPatientsQueryResponseSchema } from "./zod/patientManagementController/getDoctorPatientsSchema.ts";
+export { removePatientFromDoctorPathParamsSchema, removePatientFromDoctor200Schema, removePatientFromDoctorMutationResponseSchema } from "./zod/patientManagementController/removePatientFromDoctorSchema.ts";
+export { getMyQrCode200Schema, getMyQrCodeQueryResponseSchema } from "./zod/paymentController/getMyQrCodeSchema.ts";
+export { handleWebhook200Schema, handleWebhookMutationRequestSchema, handleWebhookMutationResponseSchema } from "./zod/paymentController/handleWebhookSchema.ts";
 export { pendingPurchaseResponseSchema } from "./zod/pendingPurchaseResponseSchema.ts";
 export { presignedUrlResponseSchema } from "./zod/presignedUrlResponseSchema.ts";
 export { purchaseCourseRequestSchema } from "./zod/purchaseCourseRequestSchema.ts";
@@ -2298,33 +1280,11 @@ export { purchasePackageRequestSchema } from "./zod/purchasePackageRequestSchema
 export { qrCodeResponseSchema } from "./zod/qrCodeResponseSchema.ts";
 export { refreshTokenRequestSchema } from "./zod/refreshTokenRequestSchema.ts";
 export { registerRequestSchema } from "./zod/registerRequestSchema.ts";
-export {
-  createForm200Schema,
-  createFormMutationRequestSchema,
-  createFormMutationResponseSchema,
-} from "./zod/rehabilitationExaminationFormManagementController/createFormSchema.ts";
-export {
-  getAllFormsQueryParamsSchema,
-  getAllForms200Schema,
-  getAllFormsQueryResponseSchema,
-} from "./zod/rehabilitationExaminationFormManagementController/getAllFormsSchema.ts";
-export {
-  getFormByIdPathParamsSchema,
-  getFormById200Schema,
-  getFormByIdQueryResponseSchema,
-} from "./zod/rehabilitationExaminationFormManagementController/getFormByIdSchema.ts";
-export {
-  getFormsByUserIdPathParamsSchema,
-  getFormsByUserIdQueryParamsSchema,
-  getFormsByUserId200Schema,
-  getFormsByUserIdQueryResponseSchema,
-} from "./zod/rehabilitationExaminationFormManagementController/getFormsByUserIdSchema.ts";
-export {
-  updateFormPathParamsSchema,
-  updateForm200Schema,
-  updateFormMutationRequestSchema,
-  updateFormMutationResponseSchema,
-} from "./zod/rehabilitationExaminationFormManagementController/updateFormSchema.ts";
+export { createForm200Schema, createFormMutationRequestSchema, createFormMutationResponseSchema } from "./zod/rehabilitationExaminationFormManagementController/createFormSchema.ts";
+export { getAllFormsQueryParamsSchema, getAllForms200Schema, getAllFormsQueryResponseSchema } from "./zod/rehabilitationExaminationFormManagementController/getAllFormsSchema.ts";
+export { getFormByIdPathParamsSchema, getFormById200Schema, getFormByIdQueryResponseSchema } from "./zod/rehabilitationExaminationFormManagementController/getFormByIdSchema.ts";
+export { getFormsByUserIdPathParamsSchema, getFormsByUserIdQueryParamsSchema, getFormsByUserId200Schema, getFormsByUserIdQueryResponseSchema } from "./zod/rehabilitationExaminationFormManagementController/getFormsByUserIdSchema.ts";
+export { updateFormPathParamsSchema, updateForm200Schema, updateFormMutationRequestSchema, updateFormMutationResponseSchema } from "./zod/rehabilitationExaminationFormManagementController/updateFormSchema.ts";
 export { rehabilitationExaminationFormResponseSchema } from "./zod/rehabilitationExaminationFormResponseSchema.ts";
 export { rejectAppointmentRequestSchema } from "./zod/rejectAppointmentRequestSchema.ts";
 export { resetPinRequestSchema } from "./zod/resetPinRequestSchema.ts";
@@ -2334,137 +1294,36 @@ export { sendOtpRequestSchema } from "./zod/sendOtpRequestSchema.ts";
 export { sepayWebhookPayloadSchema } from "./zod/sepayWebhookPayloadSchema.ts";
 export { spendingSummaryResponseSchema } from "./zod/spendingSummaryResponseSchema.ts";
 export { staffAuthResponseSchema } from "./zod/staffAuthResponseSchema.ts";
-export {
-  assignExerciseGroupToDoctorPathParamsSchema,
-  assignExerciseGroupToDoctor200Schema,
-  assignExerciseGroupToDoctorMutationResponseSchema,
-} from "./zod/staffManagementController/assignExerciseGroupToDoctorSchema.ts";
-export {
-  assignTrainerToDoctorPathParamsSchema,
-  assignTrainerToDoctor200Schema,
-  assignTrainerToDoctorMutationResponseSchema,
-} from "./zod/staffManagementController/assignTrainerToDoctorSchema.ts";
-export {
-  createStaff200Schema,
-  createStaffMutationRequestSchema,
-  createStaffMutationResponseSchema,
-} from "./zod/staffManagementController/createStaffSchema.ts";
-export {
-  disableStaffPathParamsSchema,
-  disableStaff200Schema,
-  disableStaffMutationResponseSchema,
-} from "./zod/staffManagementController/disableStaffSchema.ts";
-export {
-  enableStaffPathParamsSchema,
-  enableStaff200Schema,
-  enableStaffMutationResponseSchema,
-} from "./zod/staffManagementController/enableStaffSchema.ts";
-export {
-  getAllStaffQueryParamsSchema,
-  getAllStaff200Schema,
-  getAllStaffQueryResponseSchema,
-} from "./zod/staffManagementController/getAllStaffSchema.ts";
-export {
-  getAvailableTrainersForDoctorPathParamsSchema,
-  getAvailableTrainersForDoctorQueryParamsSchema,
-  getAvailableTrainersForDoctor200Schema,
-  getAvailableTrainersForDoctorQueryResponseSchema,
-} from "./zod/staffManagementController/getAvailableTrainersForDoctorSchema.ts";
-export {
-  getExerciseGroupsByDoctorPathParamsSchema,
-  getExerciseGroupsByDoctor200Schema,
-  getExerciseGroupsByDoctorQueryResponseSchema,
-} from "./zod/staffManagementController/getExerciseGroupsByDoctorSchema.ts";
-export {
-  getStaffByIdPathParamsSchema,
-  getStaffById200Schema,
-  getStaffByIdQueryResponseSchema,
-} from "./zod/staffManagementController/getStaffByIdSchema.ts";
-export {
-  getTrainersByDoctorPathParamsSchema,
-  getTrainersByDoctorQueryParamsSchema,
-  getTrainersByDoctor200Schema,
-  getTrainersByDoctorQueryResponseSchema,
-} from "./zod/staffManagementController/getTrainersByDoctorSchema.ts";
-export {
-  removeExerciseGroupFromDoctorPathParamsSchema,
-  removeExerciseGroupFromDoctor200Schema,
-  removeExerciseGroupFromDoctorMutationResponseSchema,
-} from "./zod/staffManagementController/removeExerciseGroupFromDoctorSchema.ts";
-export {
-  removeTrainerFromDoctorPathParamsSchema,
-  removeTrainerFromDoctor200Schema,
-  removeTrainerFromDoctorMutationResponseSchema,
-} from "./zod/staffManagementController/removeTrainerFromDoctorSchema.ts";
-export {
-  updateStaffPathParamsSchema,
-  updateStaff200Schema,
-  updateStaffMutationRequestSchema,
-  updateStaffMutationResponseSchema,
-} from "./zod/staffManagementController/updateStaffSchema.ts";
+export { assignExerciseGroupToDoctorPathParamsSchema, assignExerciseGroupToDoctor200Schema, assignExerciseGroupToDoctorMutationResponseSchema } from "./zod/staffManagementController/assignExerciseGroupToDoctorSchema.ts";
+export { assignTrainerToDoctorPathParamsSchema, assignTrainerToDoctor200Schema, assignTrainerToDoctorMutationResponseSchema } from "./zod/staffManagementController/assignTrainerToDoctorSchema.ts";
+export { createStaff200Schema, createStaffMutationRequestSchema, createStaffMutationResponseSchema } from "./zod/staffManagementController/createStaffSchema.ts";
+export { disableStaffPathParamsSchema, disableStaff200Schema, disableStaffMutationResponseSchema } from "./zod/staffManagementController/disableStaffSchema.ts";
+export { enableStaffPathParamsSchema, enableStaff200Schema, enableStaffMutationResponseSchema } from "./zod/staffManagementController/enableStaffSchema.ts";
+export { getAllStaffQueryParamsSchema, getAllStaff200Schema, getAllStaffQueryResponseSchema } from "./zod/staffManagementController/getAllStaffSchema.ts";
+export { getAvailableTrainersForDoctorPathParamsSchema, getAvailableTrainersForDoctorQueryParamsSchema, getAvailableTrainersForDoctor200Schema, getAvailableTrainersForDoctorQueryResponseSchema } from "./zod/staffManagementController/getAvailableTrainersForDoctorSchema.ts";
+export { getExerciseGroupsByDoctorPathParamsSchema, getExerciseGroupsByDoctor200Schema, getExerciseGroupsByDoctorQueryResponseSchema } from "./zod/staffManagementController/getExerciseGroupsByDoctorSchema.ts";
+export { getStaffByIdPathParamsSchema, getStaffById200Schema, getStaffByIdQueryResponseSchema } from "./zod/staffManagementController/getStaffByIdSchema.ts";
+export { getTrainersByDoctorPathParamsSchema, getTrainersByDoctorQueryParamsSchema, getTrainersByDoctor200Schema, getTrainersByDoctorQueryResponseSchema } from "./zod/staffManagementController/getTrainersByDoctorSchema.ts";
+export { removeExerciseGroupFromDoctorPathParamsSchema, removeExerciseGroupFromDoctor200Schema, removeExerciseGroupFromDoctorMutationResponseSchema } from "./zod/staffManagementController/removeExerciseGroupFromDoctorSchema.ts";
+export { removeTrainerFromDoctorPathParamsSchema, removeTrainerFromDoctor200Schema, removeTrainerFromDoctorMutationResponseSchema } from "./zod/staffManagementController/removeTrainerFromDoctorSchema.ts";
+export { updateStaffPathParamsSchema, updateStaff200Schema, updateStaffMutationRequestSchema, updateStaffMutationResponseSchema } from "./zod/staffManagementController/updateStaffSchema.ts";
 export { staffResponseSchema } from "./zod/staffResponseSchema.ts";
 export { startCourseRequestSchema } from "./zod/startCourseRequestSchema.ts";
 export { submitFeedbackRequestSchema } from "./zod/submitFeedbackRequestSchema.ts";
 export { subscriptionInfoSchema } from "./zod/subscriptionInfoSchema.ts";
 export { subscriptionResponseSchema } from "./zod/subscriptionResponseSchema.ts";
-export {
-  getMySubscriptions200Schema,
-  getMySubscriptionsQueryResponseSchema,
-} from "./zod/subscriptionsController/getMySubscriptionsSchema.ts";
-export {
-  getPendingPurchases200Schema,
-  getPendingPurchasesQueryResponseSchema,
-} from "./zod/subscriptionsController/getPendingPurchasesSchema.ts";
-export {
-  purchaseCourse200Schema,
-  purchaseCourseMutationRequestSchema,
-  purchaseCourseMutationResponseSchema,
-} from "./zod/subscriptionsController/purchaseCourseSchema.ts";
-export {
-  purchasePackage200Schema,
-  purchasePackageMutationRequestSchema,
-  purchasePackageMutationResponseSchema,
-} from "./zod/subscriptionsController/purchasePackageSchema.ts";
-export {
-  createCourseRequest200Schema,
-  createCourseRequestMutationRequestSchema,
-  createCourseRequestMutationResponseSchema,
-} from "./zod/trainerController/createCourseRequestSchema.ts";
-export {
-  getCourseRequestByIdPathParamsSchema,
-  getCourseRequestById200Schema,
-  getCourseRequestByIdQueryResponseSchema,
-} from "./zod/trainerController/getCourseRequestByIdSchema.ts";
-export {
-  getDoctorPatients1QueryParamsSchema,
-  getDoctorPatients1200Schema,
-  getDoctorPatients1QueryResponseSchema,
-} from "./zod/trainerController/getDoctorPatients1Schema.ts";
-export {
-  getMyCourseRequestsQueryParamsSchema,
-  getMyCourseRequests200Schema,
-  getMyCourseRequestsQueryResponseSchema,
-} from "./zod/trainerController/getMyCourseRequestsSchema.ts";
-export {
-  updateCourseRequestPathParamsSchema,
-  updateCourseRequest200Schema,
-  updateCourseRequestMutationRequestSchema,
-  updateCourseRequestMutationResponseSchema,
-} from "./zod/trainerController/updateCourseRequestSchema.ts";
-export {
-  getAllTransactionHistoryQueryParamsSchema,
-  getAllTransactionHistory200Schema,
-  getAllTransactionHistoryQueryResponseSchema,
-} from "./zod/transactionsController/getAllTransactionHistorySchema.ts";
-export {
-  getMyTotalSpending200Schema,
-  getMyTotalSpendingQueryResponseSchema,
-} from "./zod/transactionsController/getMyTotalSpendingSchema.ts";
-export {
-  getMyTransactionHistoryQueryParamsSchema,
-  getMyTransactionHistory200Schema,
-  getMyTransactionHistoryQueryResponseSchema,
-} from "./zod/transactionsController/getMyTransactionHistorySchema.ts";
+export { getMySubscriptions200Schema, getMySubscriptionsQueryResponseSchema } from "./zod/subscriptionsController/getMySubscriptionsSchema.ts";
+export { getPendingPurchases200Schema, getPendingPurchasesQueryResponseSchema } from "./zod/subscriptionsController/getPendingPurchasesSchema.ts";
+export { purchaseCourse200Schema, purchaseCourseMutationRequestSchema, purchaseCourseMutationResponseSchema } from "./zod/subscriptionsController/purchaseCourseSchema.ts";
+export { purchasePackage200Schema, purchasePackageMutationRequestSchema, purchasePackageMutationResponseSchema } from "./zod/subscriptionsController/purchasePackageSchema.ts";
+export { createCourseRequest200Schema, createCourseRequestMutationRequestSchema, createCourseRequestMutationResponseSchema } from "./zod/trainerController/createCourseRequestSchema.ts";
+export { getCourseRequestByIdPathParamsSchema, getCourseRequestById200Schema, getCourseRequestByIdQueryResponseSchema } from "./zod/trainerController/getCourseRequestByIdSchema.ts";
+export { getDoctorPatients1QueryParamsSchema, getDoctorPatients1200Schema, getDoctorPatients1QueryResponseSchema } from "./zod/trainerController/getDoctorPatients1Schema.ts";
+export { getMyCourseRequestsQueryParamsSchema, getMyCourseRequests200Schema, getMyCourseRequestsQueryResponseSchema } from "./zod/trainerController/getMyCourseRequestsSchema.ts";
+export { updateCourseRequestPathParamsSchema, updateCourseRequest200Schema, updateCourseRequestMutationRequestSchema, updateCourseRequestMutationResponseSchema } from "./zod/trainerController/updateCourseRequestSchema.ts";
+export { getAllTransactionHistoryQueryParamsSchema, getAllTransactionHistory200Schema, getAllTransactionHistoryQueryResponseSchema } from "./zod/transactionsController/getAllTransactionHistorySchema.ts";
+export { getMyTotalSpending200Schema, getMyTotalSpendingQueryResponseSchema } from "./zod/transactionsController/getMyTotalSpendingSchema.ts";
+export { getMyTransactionHistoryQueryParamsSchema, getMyTransactionHistory200Schema, getMyTransactionHistoryQueryResponseSchema } from "./zod/transactionsController/getMyTransactionHistorySchema.ts";
 export { updateAdminRequestSchema } from "./zod/updateAdminRequestSchema.ts";
 export { updateCategoryRequestSchema } from "./zod/updateCategoryRequestSchema.ts";
 export { updateClinicScheduleRequestSchema } from "./zod/updateClinicScheduleRequestSchema.ts";
@@ -2479,21 +1338,9 @@ export { updateSuperAdminRequestSchema } from "./zod/updateSuperAdminRequestSche
 export { updateTrainerRequestSchema } from "./zod/updateTrainerRequestSchema.ts";
 export { userAuthResponseSchema } from "./zod/userAuthResponseSchema.ts";
 export { userCourseAssignmentResponseSchema } from "./zod/userCourseAssignmentResponseSchema.ts";
-export {
-  getAllUsersQueryParamsSchema,
-  getAllUsers200Schema,
-  getAllUsersQueryResponseSchema,
-} from "./zod/userManagementController/getAllUsersSchema.ts";
-export {
-  getUserByIdPathParamsSchema,
-  getUserById200Schema,
-  getUserByIdQueryResponseSchema,
-} from "./zod/userManagementController/getUserByIdSchema.ts";
-export {
-  searchUsersByNameQueryParamsSchema,
-  searchUsersByName200Schema,
-  searchUsersByNameQueryResponseSchema,
-} from "./zod/userManagementController/searchUsersByNameSchema.ts";
+export { getAllUsersQueryParamsSchema, getAllUsers200Schema, getAllUsersQueryResponseSchema } from "./zod/userManagementController/getAllUsersSchema.ts";
+export { getUserByIdPathParamsSchema, getUserById200Schema, getUserByIdQueryResponseSchema } from "./zod/userManagementController/getUserByIdSchema.ts";
+export { searchUsersByNameQueryParamsSchema, searchUsersByName200Schema, searchUsersByNameQueryResponseSchema } from "./zod/userManagementController/searchUsersByNameSchema.ts";
 export { userResponseSchema } from "./zod/userResponseSchema.ts";
 export { verifyPinResetOtpRequestSchema } from "./zod/verifyPinResetOtpRequestSchema.ts";
 export { verifyRegistrationOtpRequestSchema } from "./zod/verifyRegistrationOtpRequestSchema.ts";

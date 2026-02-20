@@ -36,6 +36,8 @@ export type { VerifyRegistrationOtpMutationKey } from "./AuthenticationHooks/use
 export type { AddBalanceMutationKey } from "./BalanceHooks/useAddBalance.ts";
 export type { GetMyBalanceQueryKey } from "./BalanceHooks/useGetMyBalance.ts";
 export type { GetMyBalanceSuspenseQueryKey } from "./BalanceHooks/useGetMyBalanceSuspense.ts";
+export type { ListCourseAssignmentsQueryKey } from "./Course AssignmentsHooks/useListCourseAssignments.ts";
+export type { ListCourseAssignmentsSuspenseQueryKey } from "./Course AssignmentsHooks/useListCourseAssignmentsSuspense.ts";
 export type { CheckFeedbackExistsQueryKey } from "./Course Day FeedbackHooks/useCheckFeedbackExists.ts";
 export type { CheckFeedbackExistsSuspenseQueryKey } from "./Course Day FeedbackHooks/useCheckFeedbackExistsSuspense.ts";
 export type { GetMyFeedbackQueryKey } from "./Course Day FeedbackHooks/useGetMyFeedback.ts";
@@ -325,6 +327,14 @@ export { getMyBalanceSuspenseQueryKey } from "./BalanceHooks/useGetMyBalanceSusp
 export { getMyBalanceSuspense } from "./BalanceHooks/useGetMyBalanceSuspense.ts";
 export { getMyBalanceSuspenseQueryOptions } from "./BalanceHooks/useGetMyBalanceSuspense.ts";
 export { useGetMyBalanceSuspense } from "./BalanceHooks/useGetMyBalanceSuspense.ts";
+export { listCourseAssignmentsQueryKey } from "./Course AssignmentsHooks/useListCourseAssignments.ts";
+export { listCourseAssignments } from "./Course AssignmentsHooks/useListCourseAssignments.ts";
+export { listCourseAssignmentsQueryOptions } from "./Course AssignmentsHooks/useListCourseAssignments.ts";
+export { useListCourseAssignments } from "./Course AssignmentsHooks/useListCourseAssignments.ts";
+export { listCourseAssignmentsSuspenseQueryKey } from "./Course AssignmentsHooks/useListCourseAssignmentsSuspense.ts";
+export { listCourseAssignmentsSuspense } from "./Course AssignmentsHooks/useListCourseAssignmentsSuspense.ts";
+export { listCourseAssignmentsSuspenseQueryOptions } from "./Course AssignmentsHooks/useListCourseAssignmentsSuspense.ts";
+export { useListCourseAssignmentsSuspense } from "./Course AssignmentsHooks/useListCourseAssignmentsSuspense.ts";
 export { checkFeedbackExistsQueryKey } from "./Course Day FeedbackHooks/useCheckFeedbackExists.ts";
 export { checkFeedbackExists } from "./Course Day FeedbackHooks/useCheckFeedbackExists.ts";
 export { checkFeedbackExistsQueryOptions } from "./Course Day FeedbackHooks/useCheckFeedbackExists.ts";

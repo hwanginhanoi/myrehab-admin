@@ -29,6 +29,7 @@ import {
   CalendarCheck,
   CalendarDays,
   Clock,
+  BookCheck,
 } from 'lucide-react'
 import { Logo } from '@/assets/logo'
 import { type SidebarData } from '../types'
@@ -112,6 +113,11 @@ export const sidebarData: SidebarData = {
     {
       title: 'Quản trị nội dung',
       items: [
+        {
+          title: 'Phân công khóa tập',
+          url: '/course-assignments',
+          icon: BookCheck,
+        },
         {
           title: 'Danh mục bài tập',
           url: '/exercise-categories',
