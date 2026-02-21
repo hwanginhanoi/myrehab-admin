@@ -1,1 +1,41 @@
-{"type":"object","properties":{"id":{"type":"integer","format":"int64"},"dayOfWeek":{"type":"string","enum":["MONDAY","TUESDAY","WEDNESDAY","THURSDAY","FRIDAY","SATURDAY","SUNDAY"]},"isOpen":{"type":"boolean"},"openingTime":{"type":"object","properties":{"hour":{"type":"integer","format":"int32"},"minute":{"type":"integer","format":"int32"},"second":{"type":"integer","format":"int32"},"nano":{"type":"integer","format":"int32"}},"x-readme-ref-name":"LocalTime"},"closingTime":{"type":"object","properties":{"hour":{"type":"integer","format":"int32"},"minute":{"type":"integer","format":"int32"},"second":{"type":"integer","format":"int32"},"nano":{"type":"integer","format":"int32"}},"x-readme-ref-name":"LocalTime"},"slotDurationMinutes":{"type":"integer","format":"int32"}},"x-readme-ref-name":"ClinicScheduleResponse"}
+{
+  "type": "object",
+  "properties": {
+    "id": { "type": "integer", "format": "int64" },
+    "dayOfWeek": {
+      "type": "string",
+      "enum": [
+        "MONDAY",
+        "TUESDAY",
+        "WEDNESDAY",
+        "THURSDAY",
+        "FRIDAY",
+        "SATURDAY",
+        "SUNDAY"
+      ]
+    },
+    "isOpen": { "type": "boolean" },
+    "openingTime": {
+      "type": "object",
+      "properties": {
+        "hour": { "type": "integer", "format": "int32" },
+        "minute": { "type": "integer", "format": "int32" },
+        "second": { "type": "integer", "format": "int32" },
+        "nano": { "type": "integer", "format": "int32" }
+      },
+      "x-readme-ref-name": "LocalTime"
+    },
+    "closingTime": {
+      "type": "object",
+      "properties": {
+        "hour": { "type": "integer", "format": "int32" },
+        "minute": { "type": "integer", "format": "int32" },
+        "second": { "type": "integer", "format": "int32" },
+        "nano": { "type": "integer", "format": "int32" }
+      },
+      "x-readme-ref-name": "LocalTime"
+    },
+    "slotDurationMinutes": { "type": "integer", "format": "int32" }
+  },
+  "x-readme-ref-name": "ClinicScheduleResponse"
+}

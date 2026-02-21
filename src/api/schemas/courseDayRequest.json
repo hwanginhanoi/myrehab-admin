@@ -1,1 +1,23 @@
-{"type":"object","properties":{"dayNumber":{"type":"integer","format":"int32"},"exercises":{"type":"array","items":{"type":"object","properties":{"exerciseId":{"type":"integer","format":"int64"},"repetitions":{"type":"integer","format":"int32"},"sets":{"type":"integer","format":"int32"}},"required":["exerciseId","repetitions","sets"],"x-readme-ref-name":"ExerciseItemRequest"},"maxItems":2147483647,"minItems":1}},"required":["dayNumber","exercises"],"x-readme-ref-name":"CourseDayRequest"}
+{
+  "type": "object",
+  "properties": {
+    "dayNumber": { "type": "integer", "format": "int32" },
+    "exercises": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "exerciseId": { "type": "integer", "format": "int64" },
+          "repetitions": { "type": "integer", "format": "int32" },
+          "sets": { "type": "integer", "format": "int32" }
+        },
+        "required": ["exerciseId", "repetitions", "sets"],
+        "x-readme-ref-name": "ExerciseItemRequest"
+      },
+      "maxItems": 2147483647,
+      "minItems": 1
+    }
+  },
+  "required": ["dayNumber", "exercises"],
+  "x-readme-ref-name": "CourseDayRequest"
+}

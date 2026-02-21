@@ -1,1 +1,17 @@
-{"type":"object","properties":{"verificationToken":{"type":"string","pattern":"^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$"},"newPin":{"type":"string","maxLength":6,"minLength":6,"pattern":"^\\d{6}$"}},"required":["newPin","verificationToken"],"x-readme-ref-name":"ResetPinRequest"}
+{
+  "type": "object",
+  "properties": {
+    "verificationToken": {
+      "type": "string",
+      "pattern": "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$"
+    },
+    "newPin": {
+      "type": "string",
+      "maxLength": 6,
+      "minLength": 6,
+      "pattern": "^\\d{6}$"
+    }
+  },
+  "required": ["newPin", "verificationToken"],
+  "x-readme-ref-name": "ResetPinRequest"
+}

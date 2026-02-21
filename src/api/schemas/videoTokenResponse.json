@@ -1,0 +1,11 @@
+{
+  "type": "object",
+  "properties": {
+    "channelName": { "type": "string" },
+    "token": { "type": "string" },
+    "uid": { "type": "integer", "format": "int32" },
+    "appId": { "type": "string" },
+    "expiresAt": { "type": "string", "format": "date-time" }
+  },
+  "x-readme-ref-name": "VideoTokenResponse"
+}

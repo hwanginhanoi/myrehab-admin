@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { useNavigate } from '@tanstack/react-router'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { useConfirmCompletion, type AppointmentResponse } from '@/api'
@@ -18,6 +19,7 @@ export function AppointmentActions({ appointment }: AppointmentActionsProps) {
   const actions = getAvailableActions(appointment.status)
   const [openDialog, setOpenDialog] = useState<string | null>(null)
   const queryClient = useQueryClient()
+  const navigate = useNavigate()
 
   const confirmCompletion = useConfirmCompletion({
     mutation: {
@@ -40,6 +42,7 @@ export function AppointmentActions({ appointment }: AppointmentActionsProps) {
     reject: 'Từ chối',
     confirm_completion: 'Xác nhận hoàn thành',
     resolve_dispute: 'Giải quyết tranh chấp',
+    join_video_call: 'Tham gia cuộc gọi video',
   }
 
   return (
@@ -56,6 +59,11 @@ export function AppointmentActions({ appointment }: AppointmentActionsProps) {
               onClick={() => {
                 if (action === 'confirm_completion') {
                   confirmCompletion.mutate({ id: appointment.id! })
+                } else if (action === 'join_video_call') {
+                  navigate({
+                    to: '/appointments/$id/video-call',
+                    params: { id: String(appointment.id) },
+                  })
                 } else {
                   setOpenDialog(action)
                 }

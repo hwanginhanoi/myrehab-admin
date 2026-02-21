@@ -18,6 +18,8 @@ export type { GetDoctorAppointmentsQueryKey } from "./useGetDoctorAppointments.t
 export type { GetDoctorAppointmentsSuspenseQueryKey } from "./useGetDoctorAppointmentsSuspense.ts";
 export type { GetMyAppointmentsQueryKey } from "./useGetMyAppointments.ts";
 export type { GetMyAppointmentsSuspenseQueryKey } from "./useGetMyAppointmentsSuspense.ts";
+export type { GetVideoTokenQueryKey } from "./useGetVideoToken.ts";
+export type { GetVideoTokenSuspenseQueryKey } from "./useGetVideoTokenSuspense.ts";
 export type { MarkCompleteMutationKey } from "./useMarkComplete.ts";
 export type { RejectAppointmentMutationKey } from "./useRejectAppointment.ts";
 export type { ResolveDisputeMutationKey } from "./useResolveDispute.ts";
@@ -102,6 +104,14 @@ export { getMyAppointmentsSuspenseQueryKey } from "./useGetMyAppointmentsSuspens
 export { getMyAppointmentsSuspense } from "./useGetMyAppointmentsSuspense.ts";
 export { getMyAppointmentsSuspenseQueryOptions } from "./useGetMyAppointmentsSuspense.ts";
 export { useGetMyAppointmentsSuspense } from "./useGetMyAppointmentsSuspense.ts";
+export { getVideoTokenQueryKey } from "./useGetVideoToken.ts";
+export { getVideoToken } from "./useGetVideoToken.ts";
+export { getVideoTokenQueryOptions } from "./useGetVideoToken.ts";
+export { useGetVideoToken } from "./useGetVideoToken.ts";
+export { getVideoTokenSuspenseQueryKey } from "./useGetVideoTokenSuspense.ts";
+export { getVideoTokenSuspense } from "./useGetVideoTokenSuspense.ts";
+export { getVideoTokenSuspenseQueryOptions } from "./useGetVideoTokenSuspense.ts";
+export { useGetVideoTokenSuspense } from "./useGetVideoTokenSuspense.ts";
 export { markCompleteMutationKey } from "./useMarkComplete.ts";
 export { markComplete } from "./useMarkComplete.ts";
 export { markCompleteMutationOptions } from "./useMarkComplete.ts";

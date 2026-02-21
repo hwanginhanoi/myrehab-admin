@@ -1,1 +1,7 @@
-{"type":"object","properties":{"doctorNotes":{"type":"string","maxLength":1000,"minLength":0}},"x-readme-ref-name":"ReviewCourseRequestRequest"}
+{
+  "type": "object",
+  "properties": {
+    "doctorNotes": { "type": "string", "maxLength": 1000, "minLength": 0 }
+  },
+  "x-readme-ref-name": "ReviewCourseRequestRequest"
+}

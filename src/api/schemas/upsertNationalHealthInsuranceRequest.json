@@ -1,1 +1,8 @@
-{"type":"object","properties":{"insuranceNumber":{"type":"string"},"placeOfRegistration":{"type":"string"}},"x-readme-ref-name":"UpsertNationalHealthInsuranceRequest"}
+{
+  "type": "object",
+  "properties": {
+    "insuranceNumber": { "type": "string" },
+    "placeOfRegistration": { "type": "string" }
+  },
+  "x-readme-ref-name": "UpsertNationalHealthInsuranceRequest"
+}

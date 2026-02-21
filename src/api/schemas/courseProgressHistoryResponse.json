@@ -1,1 +1,24 @@
-{"type":"object","properties":{"id":{"type":"integer","format":"int64"},"courseId":{"type":"integer","format":"int64"},"courseTitle":{"type":"string"},"currentDayNumber":{"type":"integer","format":"int32"},"totalDays":{"type":"integer","format":"int32"},"isCompleted":{"type":"boolean"},"isActive":{"type":"boolean"},"startedAt":{"type":"string","format":"date-time"},"completedAt":{"type":"string","format":"date-time"},"archivedAt":{"type":"string","format":"date-time"},"archivalReason":{"type":"string","enum":["COMPLETED","RESTARTED","SUBSCRIPTION_EXPIRED","REVOKED"]},"progressPercentage":{"type":"number","format":"double"},"attemptNumber":{"type":"integer","format":"int32"},"createdAt":{"type":"string","format":"date-time"},"updatedAt":{"type":"string","format":"date-time"}},"x-readme-ref-name":"CourseProgressHistoryResponse"}
+{
+  "type": "object",
+  "properties": {
+    "id": { "type": "integer", "format": "int64" },
+    "courseId": { "type": "integer", "format": "int64" },
+    "courseTitle": { "type": "string" },
+    "currentDayNumber": { "type": "integer", "format": "int32" },
+    "totalDays": { "type": "integer", "format": "int32" },
+    "isCompleted": { "type": "boolean" },
+    "isActive": { "type": "boolean" },
+    "startedAt": { "type": "string", "format": "date-time" },
+    "completedAt": { "type": "string", "format": "date-time" },
+    "archivedAt": { "type": "string", "format": "date-time" },
+    "archivalReason": {
+      "type": "string",
+      "enum": ["COMPLETED", "RESTARTED", "SUBSCRIPTION_EXPIRED", "REVOKED"]
+    },
+    "progressPercentage": { "type": "number", "format": "double" },
+    "attemptNumber": { "type": "integer", "format": "int32" },
+    "createdAt": { "type": "string", "format": "date-time" },
+    "updatedAt": { "type": "string", "format": "date-time" }
+  },
+  "x-readme-ref-name": "CourseProgressHistoryResponse"
+}

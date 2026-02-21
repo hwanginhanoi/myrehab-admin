@@ -1,1 +1,29 @@
-{"type":"object","properties":{"id":{"type":"integer","format":"int64"},"title":{"type":"string"},"description":{"type":"string"},"imageUrl":{"type":"string"},"exerciseCount":{"type":"integer","format":"int32"},"subscription":{"type":"object","properties":{"hasSubscription":{"type":"boolean"},"subscriptionId":{"type":"integer","format":"int64"},"subscriptionType":{"type":"string","enum":["MONTHLY","YEARLY"]},"pricePaid":{"type":"integer","format":"int64"},"purchasedAt":{"type":"string","format":"date-time"},"expiresAt":{"type":"string","format":"date-time"},"isActive":{"type":"boolean"},"isExpired":{"type":"boolean"}},"x-readme-ref-name":"SubscriptionInfo"},"monthlyPrice":{"type":"integer","format":"int64"},"yearlyPrice":{"type":"integer","format":"int64"},"createdAt":{"type":"string","format":"date-time"},"updatedAt":{"type":"string","format":"date-time"}},"x-readme-ref-name":"ExercisePackageWithSubscriptionResponse"}
+{
+  "type": "object",
+  "properties": {
+    "id": { "type": "integer", "format": "int64" },
+    "title": { "type": "string" },
+    "description": { "type": "string" },
+    "imageUrl": { "type": "string" },
+    "exerciseCount": { "type": "integer", "format": "int32" },
+    "subscription": {
+      "type": "object",
+      "properties": {
+        "hasSubscription": { "type": "boolean" },
+        "subscriptionId": { "type": "integer", "format": "int64" },
+        "subscriptionType": { "type": "string", "enum": ["MONTHLY", "YEARLY"] },
+        "pricePaid": { "type": "integer", "format": "int64" },
+        "purchasedAt": { "type": "string", "format": "date-time" },
+        "expiresAt": { "type": "string", "format": "date-time" },
+        "isActive": { "type": "boolean" },
+        "isExpired": { "type": "boolean" }
+      },
+      "x-readme-ref-name": "SubscriptionInfo"
+    },
+    "monthlyPrice": { "type": "integer", "format": "int64" },
+    "yearlyPrice": { "type": "integer", "format": "int64" },
+    "createdAt": { "type": "string", "format": "date-time" },
+    "updatedAt": { "type": "string", "format": "date-time" }
+  },
+  "x-readme-ref-name": "ExercisePackageWithSubscriptionResponse"
+}

@@ -18,6 +18,8 @@ export type { GetDoctorAppointmentsQueryKey } from "./AppointmentsHooks/useGetDo
 export type { GetDoctorAppointmentsSuspenseQueryKey } from "./AppointmentsHooks/useGetDoctorAppointmentsSuspense.ts";
 export type { GetMyAppointmentsQueryKey } from "./AppointmentsHooks/useGetMyAppointments.ts";
 export type { GetMyAppointmentsSuspenseQueryKey } from "./AppointmentsHooks/useGetMyAppointmentsSuspense.ts";
+export type { GetVideoTokenQueryKey } from "./AppointmentsHooks/useGetVideoToken.ts";
+export type { GetVideoTokenSuspenseQueryKey } from "./AppointmentsHooks/useGetVideoTokenSuspense.ts";
 export type { MarkCompleteMutationKey } from "./AppointmentsHooks/useMarkComplete.ts";
 export type { RejectAppointmentMutationKey } from "./AppointmentsHooks/useRejectAppointment.ts";
 export type { ResolveDisputeMutationKey } from "./AppointmentsHooks/useResolveDispute.ts";
@@ -262,6 +264,14 @@ export { getMyAppointmentsSuspenseQueryKey } from "./AppointmentsHooks/useGetMyA
 export { getMyAppointmentsSuspense } from "./AppointmentsHooks/useGetMyAppointmentsSuspense.ts";
 export { getMyAppointmentsSuspenseQueryOptions } from "./AppointmentsHooks/useGetMyAppointmentsSuspense.ts";
 export { useGetMyAppointmentsSuspense } from "./AppointmentsHooks/useGetMyAppointmentsSuspense.ts";
+export { getVideoTokenQueryKey } from "./AppointmentsHooks/useGetVideoToken.ts";
+export { getVideoToken } from "./AppointmentsHooks/useGetVideoToken.ts";
+export { getVideoTokenQueryOptions } from "./AppointmentsHooks/useGetVideoToken.ts";
+export { useGetVideoToken } from "./AppointmentsHooks/useGetVideoToken.ts";
+export { getVideoTokenSuspenseQueryKey } from "./AppointmentsHooks/useGetVideoTokenSuspense.ts";
+export { getVideoTokenSuspense } from "./AppointmentsHooks/useGetVideoTokenSuspense.ts";
+export { getVideoTokenSuspenseQueryOptions } from "./AppointmentsHooks/useGetVideoTokenSuspense.ts";
+export { useGetVideoTokenSuspense } from "./AppointmentsHooks/useGetVideoTokenSuspense.ts";
 export { markCompleteMutationKey } from "./AppointmentsHooks/useMarkComplete.ts";
 export { markComplete } from "./AppointmentsHooks/useMarkComplete.ts";
 export { markCompleteMutationOptions } from "./AppointmentsHooks/useMarkComplete.ts";
