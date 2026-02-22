@@ -8,6 +8,7 @@ import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
+import { Skeleton } from '@/components/ui/skeleton'
 import {
   Select,
   SelectContent,
@@ -16,7 +17,7 @@ import {
   SelectValue,
 } from '@/components/ui/select'
 import { toast } from 'sonner'
-import { useCreateAndAssignCustomCourse, useGetAllStaff, type UserResponse, type StaffResponse } from '@/api'
+import { useCreateAndAssignCustomCourse, useGetAllStaff, useGetUserById, type UserResponse, type StaffResponse } from '@/api'
 import { useAuthStore } from '@/stores/auth-store'
 import { CourseCustomizationSection } from './course-customization-section'
 
@@ -324,6 +325,11 @@ export function CourseAssignmentScreen({ preSelectedPatientId, preSelectedDoctor
   // If doctorId is provided, we don't need to show the selector
   const showDoctorSelector = isAdmin && !preSelectedDoctorId
 
+  // Fetch patient details for display
+  const { data: patientData } = useGetUserById(preSelectedPatientId!, {
+    query: { enabled: !!preSelectedPatientId },
+  })
+
   // Fetch doctors for admin users
   const { data: staffData } = useGetAllStaff(
     {
@@ -524,9 +530,9 @@ export function CourseAssignmentScreen({ preSelectedPatientId, preSelectedDoctor
               <CardDescription>
                 {state.selectedPatient ? (
                   <>
-                    Tạo khóa học cho bệnh nhân ID:{' '}
+                    Tạo khóa học cho bệnh nhân:{' '}
                     <span className='font-medium text-foreground'>
-                      #{state.selectedPatient.fullName}
+                      {patientData?.fullName ?? `#${state.selectedPatient.id}`}
                     </span>
                   </>
                 ) : (
@@ -666,6 +672,8 @@ function AssignmentReview({
   notes,
   onNotesChange,
 }: AssignmentReviewProps) {
+  const { data: fullPatient, isLoading: patientLoading } = useGetUserById(patient.id!)
+
   const totalExercises = Array.from(customizedDays.values()).reduce(
     (sum, day) => sum + day.exercises.length,
     0
@@ -680,16 +688,36 @@ function AssignmentReview({
         <CardContent>
           <div className='space-y-2'>
             <div className='flex justify-between'>
-              <span className='text-muted-foreground'>ID:</span>
-              <span className='font-medium'>{patient.id}</span>
+              <span className='text-muted-foreground'>Họ và tên:</span>
+              {patientLoading ? (
+                <Skeleton className='h-4 w-32' />
+              ) : (
+                <span className='font-medium'>{fullPatient?.fullName || 'N/A'}</span>
+              )}
             </div>
             <div className='flex justify-between'>
               <span className='text-muted-foreground'>Số điện thoại:</span>
-              <span className='font-medium'>{patient.phoneNumber || 'N/A'}</span>
+              {patientLoading ? (
+                <Skeleton className='h-4 w-32' />
+              ) : (
+                <span className='font-medium'>{fullPatient?.phoneNumber || 'N/A'}</span>
+              )}
             </div>
             <div className='flex justify-between'>
-              <span className='text-muted-foreground'>Email:</span>
-              <span className='font-medium'>{patient.email || 'N/A'}</span>
+              <span className='text-muted-foreground'>Giới tính:</span>
+              {patientLoading ? (
+                <Skeleton className='h-4 w-20' />
+              ) : (
+                <span className='font-medium'>{fullPatient?.gender || 'N/A'}</span>
+              )}
+            </div>
+            <div className='flex justify-between'>
+              <span className='text-muted-foreground'>Ngày sinh:</span>
+              {patientLoading ? (
+                <Skeleton className='h-4 w-28' />
+              ) : (
+                <span className='font-medium'>{fullPatient?.dateOfBirth || 'N/A'}</span>
+              )}
             </div>
           </div>
         </CardContent>
