@@ -1,14 +1,1 @@
-{
-  "type": "object",
-  "properties": {
-    "phoneNumber": { "type": "string", "pattern": "^\\+?[1-9]\\d{1,14}$" },
-    "otp": {
-      "type": "string",
-      "maxLength": 6,
-      "minLength": 6,
-      "pattern": "^\\d{6}$"
-    }
-  },
-  "required": ["otp", "phoneNumber"],
-  "x-readme-ref-name": "VerifyPinResetOtpRequest"
-}
+{"type":"object","properties":{"phoneNumber":{"type":"string","pattern":"^\\+?[1-9]\\d{1,14}$"},"otp":{"type":"string","maxLength":6,"minLength":6,"pattern":"^\\d{6}$"}},"required":["otp","phoneNumber"],"x-readme-ref-name":"VerifyPinResetOtpRequest"}

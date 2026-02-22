@@ -1,6 +1,1 @@
-{
-  "type": "object",
-  "properties": { "disputeNotes": { "type": "string" } },
-  "required": ["disputeNotes"],
-  "x-readme-ref-name": "DisputeAppointmentRequest"
-}
+{"type":"object","properties":{"disputeNotes":{"type":"string"}},"required":["disputeNotes"],"x-readme-ref-name":"DisputeAppointmentRequest"}

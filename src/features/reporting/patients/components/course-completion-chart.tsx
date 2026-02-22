@@ -10,24 +10,26 @@ import {
 } from 'recharts'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Skeleton } from '@/components/ui/skeleton'
-import { useGetCourseStats } from '@/api'
+import type { CourseStatsResponse } from '@/api'
 import { formatPercent } from '../../lib/formatters'
 
-export function CourseCompletionChart() {
-	const { data, isLoading } = useGetCourseStats()
+interface CourseCompletionChartProps {
+	courses: CourseStatsResponse[]
+	isLoading: boolean
+}
 
-	const chartData =
-		data?.map((c) => ({
-			name:
-				(c.courseTitle ?? 'Không tên').length > 25
-					? `${(c.courseTitle ?? '').slice(0, 25)}…`
-					: c.courseTitle ?? 'Không tên',
-			fullName: c.courseTitle ?? 'Không tên',
-			'Hoàn thành': c.completed ?? 0,
-			'Đang học': c.inProgress ?? 0,
-			'Bỏ dở': c.dropped ?? 0,
-			completionRate: c.completionRate ?? 0,
-		})) ?? []
+export function CourseCompletionChart({ courses, isLoading }: CourseCompletionChartProps) {
+	const chartData = courses.map((c) => ({
+		name:
+			(c.courseTitle ?? 'Không tên').length > 25
+				? `${(c.courseTitle ?? '').slice(0, 25)}…`
+				: c.courseTitle ?? 'Không tên',
+		fullName: c.courseTitle ?? 'Không tên',
+		'Hoàn thành': c.completed ?? 0,
+		'Đang học': c.inProgress ?? 0,
+		'Bỏ dở': c.dropped ?? 0,
+		completionRate: c.completionRate ?? 0,
+	}))
 
 	return (
 		<Card>
@@ -49,13 +51,21 @@ export function CourseCompletionChart() {
 								className='stroke-border'
 								horizontal={false}
 							/>
-							<XAxis type='number' fontSize={12} />
+							<XAxis
+								type='number'
+								fontSize={12}
+								tickLine={false}
+								axisLine={false}
+								stroke='#888888'
+							/>
 							<YAxis
 								dataKey='name'
 								type='category'
 								width={180}
 								fontSize={12}
 								tickLine={false}
+								axisLine={false}
+								stroke='#888888'
 							/>
 							<Tooltip
 								contentStyle={{
@@ -83,7 +93,6 @@ export function CourseCompletionChart() {
 								dataKey='Hoàn thành'
 								stackId='a'
 								fill='var(--chart-1)'
-								radius={[0, 0, 0, 0]}
 							/>
 							<Bar
 								dataKey='Đang học'
