@@ -3,7 +3,7 @@
 * Do not edit manually.
 */
 
-import type { ExercisePackageWithSubscriptionResponse } from "../ExercisePackageWithSubscriptionResponse.ts";
+import type { ExercisePackageDetailWithSubscriptionResponse } from "../ExercisePackageDetailWithSubscriptionResponse.ts";
 
 export type GetCurrentUserPackageByIdPathParams = {
     /**
@@ -16,7 +16,7 @@ export type GetCurrentUserPackageByIdPathParams = {
 /**
  * @description OK
 */
-export type GetCurrentUserPackageById200 = ExercisePackageWithSubscriptionResponse;
+export type GetCurrentUserPackageById200 = ExercisePackageDetailWithSubscriptionResponse;
 
 export type GetCurrentUserPackageByIdQueryResponse = GetCurrentUserPackageById200;
 

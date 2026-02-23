@@ -3,12 +3,19 @@
 * Do not edit manually.
 */
 
-import { courseProgressHistoryResponseSchema } from "../courseProgressHistoryResponseSchema.ts";
+import { pageableSchema } from "../pageableSchema.ts";
+import { pagedModelSchema } from "../pagedModelSchema.ts";
 import { z } from "zod/v4";
+
+export const getCompletedCoursesQueryParamsSchema = z.object({
+    get "pageable"(){
+                return pageableSchema
+              }
+    })
 
 /**
  * @description OK
  */
-export const getCompletedCourses200Schema = z.array(z.lazy(() => courseProgressHistoryResponseSchema))
+export const getCompletedCourses200Schema = z.lazy(() => pagedModelSchema)
 
 export const getCompletedCoursesQueryResponseSchema = z.lazy(() => getCompletedCourses200Schema)

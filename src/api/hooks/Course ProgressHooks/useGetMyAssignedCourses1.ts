@@ -4,12 +4,12 @@
 */
 
 import fetch from "@/lib/api-client";
-import type { GetMyAssignedCourses1QueryResponse } from "../../types/courseProgressController/GetMyAssignedCourses1.ts";
+import type { GetMyAssignedCourses1QueryResponse, GetMyAssignedCourses1QueryParams } from "../../types/courseProgressController/GetMyAssignedCourses1.ts";
 import type { RequestConfig, ResponseErrorConfig } from "@/lib/api-client";
 import type { QueryKey, QueryClient, QueryObserverOptions, UseQueryResult } from "@tanstack/react-query";
 import { queryOptions, useQuery } from "@tanstack/react-query";
 
-export const getMyAssignedCourses1QueryKey = () => [{ url: '/api/course-progress/my-courses' }] as const
+export const getMyAssignedCourses1QueryKey = (params: GetMyAssignedCourses1QueryParams) => [{ url: '/api/course-progress/my-courses' }, ...(params ? [params] : [])] as const
 
 export type GetMyAssignedCourses1QueryKey = ReturnType<typeof getMyAssignedCourses1QueryKey>
 
@@ -18,21 +18,21 @@ export type GetMyAssignedCourses1QueryKey = ReturnType<typeof getMyAssignedCours
  * @summary Get my assigned courses
  * {@link /api/course-progress/my-courses}
  */
-export async function getMyAssignedCourses1(config: Partial<RequestConfig> & { client?: typeof fetch } = {}) {
+export async function getMyAssignedCourses1(params: GetMyAssignedCourses1QueryParams, config: Partial<RequestConfig> & { client?: typeof fetch } = {}) {
   const { client: request = fetch, ...requestConfig } = config  
   
-  const res = await request<GetMyAssignedCourses1QueryResponse, ResponseErrorConfig<Error>, unknown>({ method : "GET", url : `/api/course-progress/my-courses`, ... requestConfig })  
+  const res = await request<GetMyAssignedCourses1QueryResponse, ResponseErrorConfig<Error>, unknown>({ method : "GET", url : `/api/course-progress/my-courses`, params, ... requestConfig })  
   return res.data
 }
 
-export function getMyAssignedCourses1QueryOptions(config: Partial<RequestConfig> & { client?: typeof fetch } = {}) {
-  const queryKey = getMyAssignedCourses1QueryKey()
+export function getMyAssignedCourses1QueryOptions(params: GetMyAssignedCourses1QueryParams, config: Partial<RequestConfig> & { client?: typeof fetch } = {}) {
+  const queryKey = getMyAssignedCourses1QueryKey(params)
   return queryOptions<GetMyAssignedCourses1QueryResponse, ResponseErrorConfig<Error>, GetMyAssignedCourses1QueryResponse, typeof queryKey>({
- 
+   enabled: !!(params),
    queryKey,
    queryFn: async ({ signal }) => {
       config.signal = signal
-      return getMyAssignedCourses1(config)
+      return getMyAssignedCourses1(params, config)
    },
   })
 }
@@ -42,7 +42,7 @@ export function getMyAssignedCourses1QueryOptions(config: Partial<RequestConfig>
  * @summary Get my assigned courses
  * {@link /api/course-progress/my-courses}
  */
-export function useGetMyAssignedCourses1<TData = GetMyAssignedCourses1QueryResponse, TQueryData = GetMyAssignedCourses1QueryResponse, TQueryKey extends QueryKey = GetMyAssignedCourses1QueryKey>(options: 
+export function useGetMyAssignedCourses1<TData = GetMyAssignedCourses1QueryResponse, TQueryData = GetMyAssignedCourses1QueryResponse, TQueryKey extends QueryKey = GetMyAssignedCourses1QueryKey>(params: GetMyAssignedCourses1QueryParams, options: 
 {
   query?: Partial<QueryObserverOptions<GetMyAssignedCourses1QueryResponse, ResponseErrorConfig<Error>, TData, TQueryData, TQueryKey>> & { client?: QueryClient },
   client?: Partial<RequestConfig> & { client?: typeof fetch }
@@ -50,10 +50,10 @@ export function useGetMyAssignedCourses1<TData = GetMyAssignedCourses1QueryRespo
  = {}) {
   const { query: queryConfig = {}, client: config = {} } = options ?? {}
   const { client: queryClient, ...queryOptions } = queryConfig
-  const queryKey = queryOptions?.queryKey ?? getMyAssignedCourses1QueryKey()
+  const queryKey = queryOptions?.queryKey ?? getMyAssignedCourses1QueryKey(params)
 
   const query = useQuery({
-   ...getMyAssignedCourses1QueryOptions(config),
+   ...getMyAssignedCourses1QueryOptions(params, config),
    queryKey,
    ...queryOptions
   } as unknown as QueryObserverOptions, queryClient) as UseQueryResult<TData, ResponseErrorConfig<Error>> & { queryKey: TQueryKey }

@@ -3,16 +3,25 @@
 * Do not edit manually.
 */
 
-import type { MyAssignedCourseResponse } from "../MyAssignedCourseResponse.ts";
+import type { Pageable } from "../Pageable.ts";
+import type { PagedModel } from "../PagedModel.ts";
+
+export type GetMyAssignedCourses1QueryParams = {
+    /**
+     * @type object
+    */
+    pageable: Pageable;
+};
 
 /**
  * @description OK
 */
-export type GetMyAssignedCourses1200 = MyAssignedCourseResponse[];
+export type GetMyAssignedCourses1200 = PagedModel;
 
 export type GetMyAssignedCourses1QueryResponse = GetMyAssignedCourses1200;
 
 export type GetMyAssignedCourses1Query = {
     Response: GetMyAssignedCourses1200;
+    QueryParams: GetMyAssignedCourses1QueryParams;
     Errors: any;
 };

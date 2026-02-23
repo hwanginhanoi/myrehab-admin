@@ -3,12 +3,19 @@
 * Do not edit manually.
 */
 
-import { myAssignedCourseResponseSchema } from "../myAssignedCourseResponseSchema.ts";
+import { pageableSchema } from "../pageableSchema.ts";
+import { pagedModelSchema } from "../pagedModelSchema.ts";
 import { z } from "zod/v4";
+
+export const getMyAssignedCourses1QueryParamsSchema = z.object({
+    get "pageable"(){
+                return pageableSchema
+              }
+    })
 
 /**
  * @description OK
  */
-export const getMyAssignedCourses1200Schema = z.array(z.lazy(() => myAssignedCourseResponseSchema))
+export const getMyAssignedCourses1200Schema = z.lazy(() => pagedModelSchema)
 
 export const getMyAssignedCourses1QueryResponseSchema = z.lazy(() => getMyAssignedCourses1200Schema)

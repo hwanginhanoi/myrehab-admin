@@ -3,7 +3,8 @@
 * Do not edit manually.
 */
 
-import type { UserCourseAssignmentResponse } from "../UserCourseAssignmentResponse.ts";
+import type { Pageable } from "../Pageable.ts";
+import type { PagedModel } from "../PagedModel.ts";
 
 export type GetPatientCoursesPathParams = {
     /**
@@ -13,15 +14,23 @@ export type GetPatientCoursesPathParams = {
     userId: number;
 };
 
+export type GetPatientCoursesQueryParams = {
+    /**
+     * @type object
+    */
+    pageable: Pageable;
+};
+
 /**
  * @description OK
 */
-export type GetPatientCourses200 = UserCourseAssignmentResponse[];
+export type GetPatientCourses200 = PagedModel;
 
 export type GetPatientCoursesQueryResponse = GetPatientCourses200;
 
 export type GetPatientCoursesQuery = {
     Response: GetPatientCourses200;
     PathParams: GetPatientCoursesPathParams;
+    QueryParams: GetPatientCoursesQueryParams;
     Errors: any;
 };

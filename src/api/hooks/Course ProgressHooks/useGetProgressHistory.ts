@@ -4,12 +4,12 @@
 */
 
 import fetch from "@/lib/api-client";
-import type { GetProgressHistoryQueryResponse } from "../../types/courseProgressController/GetProgressHistory.ts";
+import type { GetProgressHistoryQueryResponse, GetProgressHistoryQueryParams } from "../../types/courseProgressController/GetProgressHistory.ts";
 import type { RequestConfig, ResponseErrorConfig } from "@/lib/api-client";
 import type { QueryKey, QueryClient, QueryObserverOptions, UseQueryResult } from "@tanstack/react-query";
 import { queryOptions, useQuery } from "@tanstack/react-query";
 
-export const getProgressHistoryQueryKey = () => [{ url: '/api/course-progress/history' }] as const
+export const getProgressHistoryQueryKey = (params: GetProgressHistoryQueryParams) => [{ url: '/api/course-progress/history' }, ...(params ? [params] : [])] as const
 
 export type GetProgressHistoryQueryKey = ReturnType<typeof getProgressHistoryQueryKey>
 
@@ -18,21 +18,21 @@ export type GetProgressHistoryQueryKey = ReturnType<typeof getProgressHistoryQue
  * @summary Get my complete progress history
  * {@link /api/course-progress/history}
  */
-export async function getProgressHistory(config: Partial<RequestConfig> & { client?: typeof fetch } = {}) {
+export async function getProgressHistory(params: GetProgressHistoryQueryParams, config: Partial<RequestConfig> & { client?: typeof fetch } = {}) {
   const { client: request = fetch, ...requestConfig } = config  
   
-  const res = await request<GetProgressHistoryQueryResponse, ResponseErrorConfig<Error>, unknown>({ method : "GET", url : `/api/course-progress/history`, ... requestConfig })  
+  const res = await request<GetProgressHistoryQueryResponse, ResponseErrorConfig<Error>, unknown>({ method : "GET", url : `/api/course-progress/history`, params, ... requestConfig })  
   return res.data
 }
 
-export function getProgressHistoryQueryOptions(config: Partial<RequestConfig> & { client?: typeof fetch } = {}) {
-  const queryKey = getProgressHistoryQueryKey()
+export function getProgressHistoryQueryOptions(params: GetProgressHistoryQueryParams, config: Partial<RequestConfig> & { client?: typeof fetch } = {}) {
+  const queryKey = getProgressHistoryQueryKey(params)
   return queryOptions<GetProgressHistoryQueryResponse, ResponseErrorConfig<Error>, GetProgressHistoryQueryResponse, typeof queryKey>({
- 
+   enabled: !!(params),
    queryKey,
    queryFn: async ({ signal }) => {
       config.signal = signal
-      return getProgressHistory(config)
+      return getProgressHistory(params, config)
    },
   })
 }
@@ -42,7 +42,7 @@ export function getProgressHistoryQueryOptions(config: Partial<RequestConfig> & 
  * @summary Get my complete progress history
  * {@link /api/course-progress/history}
  */
-export function useGetProgressHistory<TData = GetProgressHistoryQueryResponse, TQueryData = GetProgressHistoryQueryResponse, TQueryKey extends QueryKey = GetProgressHistoryQueryKey>(options: 
+export function useGetProgressHistory<TData = GetProgressHistoryQueryResponse, TQueryData = GetProgressHistoryQueryResponse, TQueryKey extends QueryKey = GetProgressHistoryQueryKey>(params: GetProgressHistoryQueryParams, options: 
 {
   query?: Partial<QueryObserverOptions<GetProgressHistoryQueryResponse, ResponseErrorConfig<Error>, TData, TQueryData, TQueryKey>> & { client?: QueryClient },
   client?: Partial<RequestConfig> & { client?: typeof fetch }
@@ -50,10 +50,10 @@ export function useGetProgressHistory<TData = GetProgressHistoryQueryResponse, T
  = {}) {
   const { query: queryConfig = {}, client: config = {} } = options ?? {}
   const { client: queryClient, ...queryOptions } = queryConfig
-  const queryKey = queryOptions?.queryKey ?? getProgressHistoryQueryKey()
+  const queryKey = queryOptions?.queryKey ?? getProgressHistoryQueryKey(params)
 
   const query = useQuery({
-   ...getProgressHistoryQueryOptions(config),
+   ...getProgressHistoryQueryOptions(params, config),
    queryKey,
    ...queryOptions
   } as unknown as QueryObserverOptions, queryClient) as UseQueryResult<TData, ResponseErrorConfig<Error>> & { queryKey: TQueryKey }

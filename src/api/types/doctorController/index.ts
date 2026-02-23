@@ -5,7 +5,7 @@ export type { GetCourseRequestsQueryParamsStatusEnumKey, GetCourseRequestsQueryP
 export type { GetMyAssignedCoursesQueryParams, GetMyAssignedCourses200, GetMyAssignedCoursesQueryResponse, GetMyAssignedCoursesQuery } from "./GetMyAssignedCourses.ts";
 export type { GetMyPatientsQueryParams, GetMyPatients200, GetMyPatientsQueryResponse, GetMyPatientsQuery } from "./GetMyPatients.ts";
 export type { GetMyTrainersQueryParams, GetMyTrainers200, GetMyTrainersQueryResponse, GetMyTrainersQuery } from "./GetMyTrainers.ts";
-export type { GetPatientCoursesPathParams, GetPatientCourses200, GetPatientCoursesQueryResponse, GetPatientCoursesQuery } from "./GetPatientCourses.ts";
+export type { GetPatientCoursesPathParams, GetPatientCoursesQueryParams, GetPatientCourses200, GetPatientCoursesQueryResponse, GetPatientCoursesQuery } from "./GetPatientCourses.ts";
 export type { RejectCourseRequestPathParams, RejectCourseRequest200, RejectCourseRequestMutationRequest, RejectCourseRequestMutationResponse, RejectCourseRequestMutation } from "./RejectCourseRequest.ts";
 export type { RevokeCourseAssignmentPathParams, RevokeCourseAssignment200, RevokeCourseAssignmentMutationResponse, RevokeCourseAssignmentMutation } from "./RevokeCourseAssignment.ts";
 export { getCourseRequestsQueryParamsStatusEnum } from "./GetCourseRequests.ts";

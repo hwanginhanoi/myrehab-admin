@@ -4,12 +4,12 @@
 */
 
 import fetch from "@/lib/api-client";
-import type { GetCompletedCoursesQueryResponse } from "../../types/courseProgressController/GetCompletedCourses.ts";
+import type { GetCompletedCoursesQueryResponse, GetCompletedCoursesQueryParams } from "../../types/courseProgressController/GetCompletedCourses.ts";
 import type { RequestConfig, ResponseErrorConfig } from "@/lib/api-client";
 import type { QueryKey, QueryClient, QueryObserverOptions, UseQueryResult } from "@tanstack/react-query";
 import { queryOptions, useQuery } from "@tanstack/react-query";
 
-export const getCompletedCoursesQueryKey = () => [{ url: '/api/course-progress/completed' }] as const
+export const getCompletedCoursesQueryKey = (params: GetCompletedCoursesQueryParams) => [{ url: '/api/course-progress/completed' }, ...(params ? [params] : [])] as const
 
 export type GetCompletedCoursesQueryKey = ReturnType<typeof getCompletedCoursesQueryKey>
 
@@ -18,21 +18,21 @@ export type GetCompletedCoursesQueryKey = ReturnType<typeof getCompletedCoursesQ
  * @summary Get my completed courses
  * {@link /api/course-progress/completed}
  */
-export async function getCompletedCourses(config: Partial<RequestConfig> & { client?: typeof fetch } = {}) {
+export async function getCompletedCourses(params: GetCompletedCoursesQueryParams, config: Partial<RequestConfig> & { client?: typeof fetch } = {}) {
   const { client: request = fetch, ...requestConfig } = config  
   
-  const res = await request<GetCompletedCoursesQueryResponse, ResponseErrorConfig<Error>, unknown>({ method : "GET", url : `/api/course-progress/completed`, ... requestConfig })  
+  const res = await request<GetCompletedCoursesQueryResponse, ResponseErrorConfig<Error>, unknown>({ method : "GET", url : `/api/course-progress/completed`, params, ... requestConfig })  
   return res.data
 }
 
-export function getCompletedCoursesQueryOptions(config: Partial<RequestConfig> & { client?: typeof fetch } = {}) {
-  const queryKey = getCompletedCoursesQueryKey()
+export function getCompletedCoursesQueryOptions(params: GetCompletedCoursesQueryParams, config: Partial<RequestConfig> & { client?: typeof fetch } = {}) {
+  const queryKey = getCompletedCoursesQueryKey(params)
   return queryOptions<GetCompletedCoursesQueryResponse, ResponseErrorConfig<Error>, GetCompletedCoursesQueryResponse, typeof queryKey>({
- 
+   enabled: !!(params),
    queryKey,
    queryFn: async ({ signal }) => {
       config.signal = signal
-      return getCompletedCourses(config)
+      return getCompletedCourses(params, config)
    },
   })
 }
@@ -42,7 +42,7 @@ export function getCompletedCoursesQueryOptions(config: Partial<RequestConfig> &
  * @summary Get my completed courses
  * {@link /api/course-progress/completed}
  */
-export function useGetCompletedCourses<TData = GetCompletedCoursesQueryResponse, TQueryData = GetCompletedCoursesQueryResponse, TQueryKey extends QueryKey = GetCompletedCoursesQueryKey>(options: 
+export function useGetCompletedCourses<TData = GetCompletedCoursesQueryResponse, TQueryData = GetCompletedCoursesQueryResponse, TQueryKey extends QueryKey = GetCompletedCoursesQueryKey>(params: GetCompletedCoursesQueryParams, options: 
 {
   query?: Partial<QueryObserverOptions<GetCompletedCoursesQueryResponse, ResponseErrorConfig<Error>, TData, TQueryData, TQueryKey>> & { client?: QueryClient },
   client?: Partial<RequestConfig> & { client?: typeof fetch }
@@ -50,10 +50,10 @@ export function useGetCompletedCourses<TData = GetCompletedCoursesQueryResponse,
  = {}) {
   const { query: queryConfig = {}, client: config = {} } = options ?? {}
   const { client: queryClient, ...queryOptions } = queryConfig
-  const queryKey = queryOptions?.queryKey ?? getCompletedCoursesQueryKey()
+  const queryKey = queryOptions?.queryKey ?? getCompletedCoursesQueryKey(params)
 
   const query = useQuery({
-   ...getCompletedCoursesQueryOptions(config),
+   ...getCompletedCoursesQueryOptions(params, config),
    queryKey,
    ...queryOptions
   } as unknown as QueryObserverOptions, queryClient) as UseQueryResult<TData, ResponseErrorConfig<Error>> & { queryKey: TQueryKey }
