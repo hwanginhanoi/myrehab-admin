@@ -24,10 +24,6 @@ export type ExerciseResponse = {
     */
     imageUrl?: string;
     /**
-     * @type string | undefined
-    */
-    videoUrl?: string;
-    /**
      * @type integer | undefined, int32
     */
     durationMinutes?: number;

@@ -3,15 +3,19 @@
 * Do not edit manually.
 */
 
+import { exerciseResponseSchema } from "./exerciseResponseSchema.ts";
 import { subscriptionInfoSchema } from "./subscriptionInfoSchema.ts";
 import { z } from "zod/v4";
 
-export const exercisePackageWithSubscriptionResponseSchema = z.object({
+export const exercisePackageDetailWithSubscriptionResponseSchema = z.object({
     "id": z.optional(z.int()),
 "title": z.optional(z.string()),
 "description": z.optional(z.string()),
 "imageUrl": z.optional(z.string()),
 "exerciseCount": z.optional(z.int()),
+get "exercises"(){
+                return z.array(exerciseResponseSchema).optional()
+              },
 get "subscription"(){
                 return subscriptionInfoSchema.optional()
               },

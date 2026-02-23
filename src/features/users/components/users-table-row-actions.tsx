@@ -1,5 +1,6 @@
 import { DotsHorizontalIcon } from '@radix-ui/react-icons'
 import { type Row } from '@tanstack/react-table'
+import { useNavigate } from '@tanstack/react-router'
 import { Eye } from 'lucide-react'
 import { type UserResponse } from '@/api'
 import { Button } from '@/components/ui/button'
@@ -10,14 +11,13 @@ import {
   DropdownMenuShortcut,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
-import { useUsers } from './users-provider'
 
 type UsersTableRowActionsProps = {
   row: Row<UserResponse>
 }
 
 export function UsersTableRowActions({ row }: UsersTableRowActionsProps) {
-  const { setOpen, setCurrentUser } = useUsers()
+  const navigate = useNavigate()
 
   return (
     <div className='flex justify-end'>
@@ -34,8 +34,7 @@ export function UsersTableRowActions({ row }: UsersTableRowActionsProps) {
         <DropdownMenuContent align='end' className='w-[180px]'>
           <DropdownMenuItem
             onClick={() => {
-              setCurrentUser(row.original)
-              setOpen('preview')
+              navigate({ to: '/users/$id', params: { id: String(row.original.id) } })
             }}
           >
             Xem thông tin

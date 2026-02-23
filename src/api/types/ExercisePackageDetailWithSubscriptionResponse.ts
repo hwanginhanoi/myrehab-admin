@@ -3,9 +3,10 @@
 * Do not edit manually.
 */
 
+import type { ExerciseResponse } from "./ExerciseResponse.ts";
 import type { SubscriptionInfo } from "./SubscriptionInfo.ts";
 
-export type ExercisePackageWithSubscriptionResponse = {
+export type ExercisePackageDetailWithSubscriptionResponse = {
     /**
      * @type integer | undefined, int64
     */
@@ -26,6 +27,10 @@ export type ExercisePackageWithSubscriptionResponse = {
      * @type integer | undefined, int32
     */
     exerciseCount?: number;
+    /**
+     * @type array | undefined
+    */
+    exercises?: ExerciseResponse[];
     /**
      * @type object | undefined
     */

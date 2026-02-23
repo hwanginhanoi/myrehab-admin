@@ -4,12 +4,12 @@
 */
 
 import fetch from "@/lib/api-client";
-import type { GetMyAssignedCourses1QueryResponse } from "../../types/courseProgressController/GetMyAssignedCourses1.ts";
+import type { GetMyAssignedCourses1QueryResponse, GetMyAssignedCourses1QueryParams } from "../../types/courseProgressController/GetMyAssignedCourses1.ts";
 import type { RequestConfig, ResponseErrorConfig } from "@/lib/api-client";
 import type { QueryKey, QueryClient, UseSuspenseQueryOptions, UseSuspenseQueryResult } from "@tanstack/react-query";
 import { queryOptions, useSuspenseQuery } from "@tanstack/react-query";
 
-export const getMyAssignedCourses1SuspenseQueryKey = () => [{ url: '/api/course-progress/my-courses' }] as const
+export const getMyAssignedCourses1SuspenseQueryKey = (params: GetMyAssignedCourses1QueryParams) => [{ url: '/api/course-progress/my-courses' }, ...(params ? [params] : [])] as const
 
 export type GetMyAssignedCourses1SuspenseQueryKey = ReturnType<typeof getMyAssignedCourses1SuspenseQueryKey>
 
@@ -18,21 +18,21 @@ export type GetMyAssignedCourses1SuspenseQueryKey = ReturnType<typeof getMyAssig
  * @summary Get my assigned courses
  * {@link /api/course-progress/my-courses}
  */
-export async function getMyAssignedCourses1Suspense(config: Partial<RequestConfig> & { client?: typeof fetch } = {}) {
+export async function getMyAssignedCourses1Suspense(params: GetMyAssignedCourses1QueryParams, config: Partial<RequestConfig> & { client?: typeof fetch } = {}) {
   const { client: request = fetch, ...requestConfig } = config  
   
-  const res = await request<GetMyAssignedCourses1QueryResponse, ResponseErrorConfig<Error>, unknown>({ method : "GET", url : `/api/course-progress/my-courses`, ... requestConfig })  
+  const res = await request<GetMyAssignedCourses1QueryResponse, ResponseErrorConfig<Error>, unknown>({ method : "GET", url : `/api/course-progress/my-courses`, params, ... requestConfig })  
   return res.data
 }
 
-export function getMyAssignedCourses1SuspenseQueryOptions(config: Partial<RequestConfig> & { client?: typeof fetch } = {}) {
-  const queryKey = getMyAssignedCourses1SuspenseQueryKey()
+export function getMyAssignedCourses1SuspenseQueryOptions(params: GetMyAssignedCourses1QueryParams, config: Partial<RequestConfig> & { client?: typeof fetch } = {}) {
+  const queryKey = getMyAssignedCourses1SuspenseQueryKey(params)
   return queryOptions<GetMyAssignedCourses1QueryResponse, ResponseErrorConfig<Error>, GetMyAssignedCourses1QueryResponse, typeof queryKey>({
- 
+   enabled: !!(params),
    queryKey,
    queryFn: async ({ signal }) => {
       config.signal = signal
-      return getMyAssignedCourses1Suspense(config)
+      return getMyAssignedCourses1Suspense(params, config)
    },
   })
 }
@@ -42,7 +42,7 @@ export function getMyAssignedCourses1SuspenseQueryOptions(config: Partial<Reques
  * @summary Get my assigned courses
  * {@link /api/course-progress/my-courses}
  */
-export function useGetMyAssignedCourses1Suspense<TData = GetMyAssignedCourses1QueryResponse, TQueryKey extends QueryKey = GetMyAssignedCourses1SuspenseQueryKey>(options: 
+export function useGetMyAssignedCourses1Suspense<TData = GetMyAssignedCourses1QueryResponse, TQueryKey extends QueryKey = GetMyAssignedCourses1SuspenseQueryKey>(params: GetMyAssignedCourses1QueryParams, options: 
 {
   query?: Partial<UseSuspenseQueryOptions<GetMyAssignedCourses1QueryResponse, ResponseErrorConfig<Error>, TData, TQueryKey>> & { client?: QueryClient },
   client?: Partial<RequestConfig> & { client?: typeof fetch }
@@ -50,10 +50,10 @@ export function useGetMyAssignedCourses1Suspense<TData = GetMyAssignedCourses1Qu
  = {}) {
   const { query: queryConfig = {}, client: config = {} } = options ?? {}
   const { client: queryClient, ...queryOptions } = queryConfig
-  const queryKey = queryOptions?.queryKey ?? getMyAssignedCourses1SuspenseQueryKey()
+  const queryKey = queryOptions?.queryKey ?? getMyAssignedCourses1SuspenseQueryKey(params)
 
   const query = useSuspenseQuery({
-   ...getMyAssignedCourses1SuspenseQueryOptions(config),
+   ...getMyAssignedCourses1SuspenseQueryOptions(params, config),
    queryKey,
    ...queryOptions
   } as unknown as UseSuspenseQueryOptions, queryClient) as UseSuspenseQueryResult<TData, ResponseErrorConfig<Error>> & { queryKey: TQueryKey }

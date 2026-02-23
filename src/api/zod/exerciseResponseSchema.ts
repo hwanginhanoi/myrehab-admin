@@ -12,7 +12,6 @@ export const exerciseResponseSchema = z.object({
 "title": z.optional(z.string()),
 "description": z.optional(z.string()),
 "imageUrl": z.optional(z.string()),
-"videoUrl": z.optional(z.string()),
 "durationMinutes": z.optional(z.int()),
 get "categories"(){
                 return z.array(categoryResponseSchema).optional()
