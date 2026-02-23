@@ -9,7 +9,6 @@ import { ThemeSwitch } from '@/components/theme-switch'
 import { useGetAllUsers, type GetAllUsersQueryParams } from '@/api'
 import { UsersProvider } from './components/users-provider'
 import { UsersTable } from './components/users-table'
-import { UsersDialogs } from './components/users-dialogs'
 
 const route = getRouteApi('/_authenticated/users/')
 
@@ -78,7 +77,6 @@ function UsersContent() {
         )}
       </Main>
 
-      <UsersDialogs />
     </>
   )
 }
