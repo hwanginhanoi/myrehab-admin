@@ -1,1 +1,16 @@
-{"type":"object","properties":{"userCourseId":{"type":"integer","format":"int64"},"courseId":{"type":"integer","format":"int64"},"courseTitle":{"type":"string"},"courseDescription":{"type":"string"},"durationDays":{"type":"integer","format":"int32"},"assignedByDoctorName":{"type":"string"},"assignedAt":{"type":"string","format":"date-time"},"notes":{"type":"string"},"monthlyPrice":{"type":"integer","format":"int64"},"yearlyPrice":{"type":"integer","format":"int64"}},"x-readme-ref-name":"PendingPurchaseResponse"}
+{
+  "type": "object",
+  "properties": {
+    "userCourseId": { "type": "integer", "format": "int64" },
+    "courseId": { "type": "integer", "format": "int64" },
+    "courseTitle": { "type": "string" },
+    "courseDescription": { "type": "string" },
+    "durationDays": { "type": "integer", "format": "int32" },
+    "assignedByDoctorName": { "type": "string" },
+    "assignedAt": { "type": "string", "format": "date-time" },
+    "notes": { "type": "string" },
+    "monthlyPrice": { "type": "integer", "format": "int64" },
+    "yearlyPrice": { "type": "integer", "format": "int64" }
+  },
+  "x-readme-ref-name": "PendingPurchaseResponse"
+}

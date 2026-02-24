@@ -1,3 +1,17 @@
-export { assignPatientToDoctorPathParamsSchema, assignPatientToDoctor200Schema, assignPatientToDoctorMutationRequestSchema, assignPatientToDoctorMutationResponseSchema } from "./assignPatientToDoctorSchema.ts";
-export { getDoctorPatientsPathParamsSchema, getDoctorPatientsQueryParamsSchema, getDoctorPatients200Schema, getDoctorPatientsQueryResponseSchema } from "./getDoctorPatientsSchema.ts";
-export { removePatientFromDoctorPathParamsSchema, removePatientFromDoctor200Schema, removePatientFromDoctorMutationResponseSchema } from "./removePatientFromDoctorSchema.ts";
+export {
+  assignPatientToDoctorPathParamsSchema,
+  assignPatientToDoctor200Schema,
+  assignPatientToDoctorMutationRequestSchema,
+  assignPatientToDoctorMutationResponseSchema,
+} from "./assignPatientToDoctorSchema.ts";
+export {
+  getDoctorPatientsPathParamsSchema,
+  getDoctorPatientsQueryParamsSchema,
+  getDoctorPatients200Schema,
+  getDoctorPatientsQueryResponseSchema,
+} from "./getDoctorPatientsSchema.ts";
+export {
+  removePatientFromDoctorPathParamsSchema,
+  removePatientFromDoctor200Schema,
+  removePatientFromDoctorMutationResponseSchema,
+} from "./removePatientFromDoctorSchema.ts";

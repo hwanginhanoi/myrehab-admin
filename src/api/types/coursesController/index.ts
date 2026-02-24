@@ -1,2 +1,12 @@
-export type { GetAllCoursesQueryParams, GetAllCourses200, GetAllCoursesQueryResponse, GetAllCoursesQuery } from "./GetAllCourses.ts";
-export type { GetCourseStructurePathParams, GetCourseStructure200, GetCourseStructureQueryResponse, GetCourseStructureQuery } from "./GetCourseStructure.ts";
+export type {
+  GetAllCoursesQueryParams,
+  GetAllCourses200,
+  GetAllCoursesQueryResponse,
+  GetAllCoursesQuery,
+} from "./GetAllCourses.ts";
+export type {
+  GetCourseStructurePathParams,
+  GetCourseStructure200,
+  GetCourseStructureQueryResponse,
+  GetCourseStructureQuery,
+} from "./GetCourseStructure.ts";

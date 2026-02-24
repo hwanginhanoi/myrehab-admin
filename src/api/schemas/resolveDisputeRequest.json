@@ -1,1 +1,12 @@
-{"type":"object","properties":{"resolution":{"type":"string","enum":["APPROVE_DOCTOR","REFUND_PATIENT"]},"resolutionNotes":{"type":"string"}},"required":["resolution"],"x-readme-ref-name":"ResolveDisputeRequest"}
+{
+  "type": "object",
+  "properties": {
+    "resolution": {
+      "type": "string",
+      "enum": ["APPROVE_DOCTOR", "REFUND_PATIENT"]
+    },
+    "resolutionNotes": { "type": "string" }
+  },
+  "required": ["resolution"],
+  "x-readme-ref-name": "ResolveDisputeRequest"
+}
