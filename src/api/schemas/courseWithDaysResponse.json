@@ -1,1 +1,26 @@
-{"type":"object","properties":{"id":{"type":"integer","format":"int64"},"userId":{"type":"integer","format":"int64"},"title":{"type":"string"},"description":{"type":"string"},"durationDays":{"type":"integer","format":"int32"},"isActive":{"type":"boolean"},"days":{"type":"array","items":{"type":"object","properties":{"dayNumber":{"type":"integer","format":"int32"},"description":{"type":"string"},"exerciseCount":{"type":"integer","format":"int32"}},"x-readme-ref-name":"CourseDaySummaryDto"}},"createdAt":{"type":"string","format":"date-time"},"updatedAt":{"type":"string","format":"date-time"}},"x-readme-ref-name":"CourseWithDaysResponse"}
+{
+  "type": "object",
+  "properties": {
+    "id": { "type": "integer", "format": "int64" },
+    "userId": { "type": "integer", "format": "int64" },
+    "title": { "type": "string" },
+    "description": { "type": "string" },
+    "durationDays": { "type": "integer", "format": "int32" },
+    "isActive": { "type": "boolean" },
+    "days": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "dayNumber": { "type": "integer", "format": "int32" },
+          "description": { "type": "string" },
+          "exerciseCount": { "type": "integer", "format": "int32" }
+        },
+        "x-readme-ref-name": "CourseDaySummaryDto"
+      }
+    },
+    "createdAt": { "type": "string", "format": "date-time" },
+    "updatedAt": { "type": "string", "format": "date-time" }
+  },
+  "x-readme-ref-name": "CourseWithDaysResponse"
+}

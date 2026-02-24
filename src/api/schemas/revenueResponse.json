@@ -1,0 +1,29 @@
+{
+  "type": "object",
+  "properties": {
+    "totalRevenueThisMonth": { "type": "integer", "format": "int64" },
+    "totalRevenueYtd": { "type": "integer", "format": "int64" },
+    "totalRefundsThisMonth": { "type": "integer", "format": "int64" },
+    "avgTransactionValue": { "type": "integer", "format": "int64" },
+    "dataPoints": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "period": { "type": "string" },
+          "total": { "type": "integer", "format": "int64" },
+          "coursePurchase": { "type": "integer", "format": "int64" },
+          "packagePurchase": { "type": "integer", "format": "int64" },
+          "appointmentBooking": { "type": "integer", "format": "int64" },
+          "balanceDeposit": { "type": "integer", "format": "int64" }
+        },
+        "x-readme-ref-name": "RevenueDataPointResponse"
+      }
+    },
+    "revenueByType": {
+      "type": "object",
+      "additionalProperties": { "type": "integer", "format": "int64" }
+    }
+  },
+  "x-readme-ref-name": "RevenueResponse"
+}

@@ -1,0 +1,13 @@
+{
+  "type": "object",
+  "properties": {
+    "feedbackId": { "type": "integer", "format": "int64" },
+    "date": { "type": "string", "format": "date-time" },
+    "patientName": { "type": "string" },
+    "patientPhone": { "type": "string" },
+    "courseTitle": { "type": "string" },
+    "dayNumber": { "type": "integer", "format": "int32" },
+    "painDetails": { "type": "string" }
+  },
+  "x-readme-ref-name": "PainReportResponse"
+}

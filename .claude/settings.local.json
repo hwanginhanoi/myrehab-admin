@@ -27,7 +27,8 @@
       "Bash(npx eslint:*)",
       "Bash(npm run typecheck:*)",
       "Bash(ls:*)",
-      "Bash(npx vite build:*)"
+      "Bash(npx vite build:*)",
+      "Bash(pnpm build:*)"
     ]
   }
 }

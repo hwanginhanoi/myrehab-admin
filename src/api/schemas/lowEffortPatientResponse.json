@@ -1,0 +1,12 @@
+{
+  "type": "object",
+  "properties": {
+    "userId": { "type": "integer", "format": "int64" },
+    "patientName": { "type": "string" },
+    "patientPhone": { "type": "string" },
+    "courseTitle": { "type": "string" },
+    "averageEffort": { "type": "number", "format": "double" },
+    "daysLogged": { "type": "integer", "format": "int64" }
+  },
+  "x-readme-ref-name": "LowEffortPatientResponse"
+}

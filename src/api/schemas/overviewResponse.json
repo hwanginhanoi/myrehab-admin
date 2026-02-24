@@ -1,0 +1,33 @@
+{
+  "type": "object",
+  "properties": {
+    "totalPatients": { "type": "integer", "format": "int64" },
+    "newPatientsThisMonth": { "type": "integer", "format": "int64" },
+    "totalRevenueThisMonth": { "type": "integer", "format": "int64" },
+    "activeSubscriptions": { "type": "integer", "format": "int64" },
+    "activeStandardPackageUsers": { "type": "integer", "format": "int64" },
+    "activePersonalizedCourseUsers": { "type": "integer", "format": "int64" },
+    "appointmentsToday": { "type": "integer", "format": "int64" },
+    "overallCompletionRate": { "type": "number", "format": "double" },
+    "last30DaysRevenueTrend": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "period": { "type": "string" },
+          "total": { "type": "integer", "format": "int64" },
+          "coursePurchase": { "type": "integer", "format": "int64" },
+          "packagePurchase": { "type": "integer", "format": "int64" },
+          "appointmentBooking": { "type": "integer", "format": "int64" },
+          "balanceDeposit": { "type": "integer", "format": "int64" }
+        },
+        "x-readme-ref-name": "RevenueDataPointResponse"
+      }
+    },
+    "appointmentStatusToday": {
+      "type": "object",
+      "additionalProperties": { "type": "integer", "format": "int64" }
+    }
+  },
+  "x-readme-ref-name": "OverviewResponse"
+}

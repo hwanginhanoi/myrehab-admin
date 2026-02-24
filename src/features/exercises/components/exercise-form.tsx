@@ -1,6 +1,6 @@
 'use client'
 
-import { useMemo, useRef } from 'react'
+import { useMemo, useRef, useState } from 'react'
 import { z } from 'zod'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
@@ -27,7 +27,10 @@ import {
   useUpdateExercise,
   useGetAllCategories,
   useGetAllGroups,
+  useGetVideoUrl,
 } from '@/api'
+import { getPublicImageUrl } from '@/lib/file-upload'
+import { FileVideo, Image as ImageIcon, Loader2, Play } from 'lucide-react'
 import { toast } from 'sonner'
 
 const formSchema = z.object({
@@ -72,6 +75,12 @@ export function ExerciseFormComponent({ exercise, mode }: ExerciseFormComponentP
       size: 10000, // Get all groups
     },
   })
+
+  // Fetch presigned video URL: eager in edit mode (needed for objectKey on submit), lazy in view mode
+  const { data: videoUrlData, refetch: fetchVideoUrl, isFetching: isVideoFetching } = useGetVideoUrl(
+    exercise?.id!,
+    { query: { enabled: isEdit && !!exercise?.id } },
+  )
 
   // Group categories by type
   const categoryGroups = useMemo(() => {
@@ -119,7 +128,7 @@ export function ExerciseFormComponent({ exercise, mode }: ExerciseFormComponentP
           title: exercise.title || '',
           description: exercise.description || '',
           imageUrl: exercise.imageUrl || '',
-          videoUrl: exercise.videoUrl || '',
+          videoUrl: '', // not returned by API; existing video shown via previewUrl from useGetVideoUrl
           durationMinutes: exercise.durationMinutes || 0,
           categoryIds: exercise.categories?.map((c) => String(c.id)) || [],
           groupIds: exercise.groups?.map((g) => String(g.id)) || [],
@@ -170,8 +179,8 @@ export function ExerciseFormComponent({ exercise, mode }: ExerciseFormComponentP
         return
       }
 
-      // Check if video is provided (either uploaded or new file)
-      const hasVideo = values.videoUrl || videoUploadRef.current?.hasFile()
+      // Check if video is provided (new upload, new file selected, or existing video in edit mode)
+      const hasVideo = values.videoUrl || videoUploadRef.current?.hasFile() || (isEdit && !!videoUrlData?.objectKey)
       if (!hasVideo) {
         toast.error('Vui lòng chọn video bài tập')
         return
@@ -192,7 +201,7 @@ export function ExerciseFormComponent({ exercise, mode }: ExerciseFormComponentP
         }
       }
 
-      // Upload video if new file selected
+      // Upload video if new file selected; otherwise keep existing object key in edit mode
       if (videoUploadRef.current?.hasFile()) {
         const uploadedVideoKey = await videoUploadRef.current.upload()
         if (uploadedVideoKey) {
@@ -201,6 +210,8 @@ export function ExerciseFormComponent({ exercise, mode }: ExerciseFormComponentP
           toast.error('Không thể tải lên video')
           return
         }
+      } else if (isEdit && !videoUrl) {
+        videoUrl = videoUrlData?.objectKey ?? ''
       }
 
       const payload = {
@@ -354,50 +365,68 @@ export function ExerciseFormComponent({ exercise, mode }: ExerciseFormComponentP
           />
 
           <div className='grid grid-cols-1 md:grid-cols-2 gap-6'>
-            <FormField
-              control={form.control}
-              name='imageUrl'
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Ảnh bài tập</FormLabel>
-                  <FormControl>
-                    <FileUpload
-                      ref={imageUploadRef}
-                      category='exercise-image'
-                      value={field.value}
-                      onChange={field.onChange}
-                      disabled={isView}
-                      label={undefined}
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
+            {isView ? (
+              <FormItem>
+                <FormLabel>Ảnh bài tập</FormLabel>
+                <ExerciseImagePreview imageUrl={exercise?.imageUrl} />
+              </FormItem>
+            ) : (
+              <FormField
+                control={form.control}
+                name='imageUrl'
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Ảnh bài tập</FormLabel>
+                    <FormControl>
+                      <FileUpload
+                        ref={imageUploadRef}
+                        category='exercise-image'
+                        value={field.value}
+                        onChange={field.onChange}
+                        label={undefined}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            )}
 
-            <FormField
-              control={form.control}
-              name='videoUrl'
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Video bài tập</FormLabel>
-                  <FormControl>
-                    <FileUpload
-                      ref={videoUploadRef}
-                      category='exercise-video'
-                      value={field.value}
-                      onChange={field.onChange}
-                      onVideoDurationChange={(duration) => {
-                        form.setValue('durationMinutes', duration)
-                      }}
-                      disabled={isView}
-                      label={undefined}
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
+            {isView ? (
+              <FormItem>
+                <FormLabel>Video bài tập</FormLabel>
+                <ExerciseVideoPreview
+                  imageUrl={exercise?.imageUrl}
+                  videoUrl={videoUrlData?.presignedUrl}
+                  isLoading={isVideoFetching}
+                  onPlay={() => { void fetchVideoUrl() }}
+                />
+              </FormItem>
+            ) : (
+              <FormField
+                control={form.control}
+                name='videoUrl'
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Video bài tập</FormLabel>
+                    <FormControl>
+                      <FileUpload
+                        ref={videoUploadRef}
+                        category='exercise-video'
+                        value={field.value}
+                        onChange={field.onChange}
+                        onVideoDurationChange={(duration) => {
+                          form.setValue('durationMinutes', duration)
+                        }}
+                        label={undefined}
+                        previewUrl={videoUrlData?.presignedUrl}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            )}
           </div>
 
           <div className='flex gap-3 justify-end pt-4'>
@@ -421,6 +450,85 @@ export function ExerciseFormComponent({ exercise, mode }: ExerciseFormComponentP
           </div>
         </form>
       </Form>
+    </div>
+  )
+}
+
+function ExerciseImagePreview({ imageUrl }: { imageUrl?: string }) {
+  const src = imageUrl
+    ? imageUrl.startsWith('http://') || imageUrl.startsWith('https://')
+      ? imageUrl
+      : getPublicImageUrl(imageUrl)
+    : null
+
+  return (
+    <div className='w-full aspect-video relative overflow-hidden rounded-lg border bg-black'>
+      {src ? (
+        <img src={src} alt='Ảnh bài tập' className='absolute inset-0 h-full w-full object-cover' />
+      ) : (
+        <div className='absolute inset-0 flex items-center justify-center'>
+          <ImageIcon className='h-12 w-12 text-white/30' />
+        </div>
+      )}
+    </div>
+  )
+}
+
+function ExerciseVideoPreview({
+  imageUrl,
+  videoUrl,
+  isLoading,
+  onPlay,
+}: {
+  imageUrl?: string
+  videoUrl?: string
+  isLoading: boolean
+  onPlay: () => void
+}) {
+  const [playing, setPlaying] = useState(false)
+
+  const thumbnailSrc = imageUrl
+    ? imageUrl.startsWith('http://') || imageUrl.startsWith('https://')
+      ? imageUrl
+      : getPublicImageUrl(imageUrl)
+    : null
+
+  const handlePlayClick = () => {
+    setPlaying(true)
+    if (!videoUrl) onPlay()
+  }
+
+  return (
+    <div className='w-full aspect-video relative overflow-hidden rounded-lg border bg-black'>
+      {playing && videoUrl ? (
+        <video src={videoUrl} className='absolute inset-0 h-full w-full' controls autoPlay />
+      ) : (
+        <>
+          {thumbnailSrc ? (
+            <img src={thumbnailSrc} alt='Thumbnail' className='absolute inset-0 h-full w-full object-cover' />
+          ) : (
+            <div className='absolute inset-0 flex items-center justify-center'>
+              <FileVideo className='h-12 w-12 text-white/30' />
+            </div>
+          )}
+          <div className='absolute inset-0 flex items-center justify-center bg-black/30'>
+            {playing && isLoading ? (
+              <div className='flex flex-col items-center gap-2 rounded-xl bg-black/50 px-6 py-4'>
+                <Loader2 className='h-10 w-10 animate-spin text-white' />
+                <span className='text-sm text-white/80'>Đang tải video...</span>
+              </div>
+            ) : (
+              <button
+                type='button'
+                onClick={handlePlayClick}
+                className='flex h-16 w-16 items-center justify-center rounded-full bg-white/90 shadow-lg transition-all hover:scale-105 hover:bg-white'
+              >
+                <Play className='ml-1 h-7 w-7 text-black' />
+              </button>
+            )}
+          </div>
+        </>
+      )}
     </div>
   )
 }

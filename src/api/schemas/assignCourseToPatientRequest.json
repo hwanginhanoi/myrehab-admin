@@ -1,1 +1,9 @@
-{"type":"object","properties":{"courseId":{"type":"integer","format":"int64"},"notes":{"type":"string"}},"required":["courseId"],"x-readme-ref-name":"AssignCourseToPatientRequest"}
+{
+  "type": "object",
+  "properties": {
+    "courseId": { "type": "integer", "format": "int64" },
+    "notes": { "type": "string" }
+  },
+  "required": ["courseId"],
+  "x-readme-ref-name": "AssignCourseToPatientRequest"
+}

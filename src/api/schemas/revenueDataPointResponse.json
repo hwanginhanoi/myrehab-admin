@@ -1,0 +1,12 @@
+{
+  "type": "object",
+  "properties": {
+    "period": { "type": "string" },
+    "total": { "type": "integer", "format": "int64" },
+    "coursePurchase": { "type": "integer", "format": "int64" },
+    "packagePurchase": { "type": "integer", "format": "int64" },
+    "appointmentBooking": { "type": "integer", "format": "int64" },
+    "balanceDeposit": { "type": "integer", "format": "int64" }
+  },
+  "x-readme-ref-name": "RevenueDataPointResponse"
+}
