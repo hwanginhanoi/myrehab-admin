@@ -3,12 +3,14 @@
 * Do not edit manually.
 */
 
+import { pageableSchema } from "../pageableSchema.ts";
 import { pagedModelSchema } from "../pagedModelSchema.ts";
 import { z } from "zod/v4";
 
 export const getMyTransactionHistoryQueryParamsSchema = z.object({
-    "page": z.coerce.number().int().default(0).describe("Page number (0-indexed)"),
-"size": z.coerce.number().int().default(20).describe("Page size")
+    get "pageable"(){
+                return pageableSchema
+              }
     })
 
 /**

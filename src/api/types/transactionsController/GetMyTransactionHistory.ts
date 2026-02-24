@@ -3,21 +3,14 @@
 * Do not edit manually.
 */
 
+import type { Pageable } from "../Pageable.ts";
 import type { PagedModel } from "../PagedModel.ts";
 
 export type GetMyTransactionHistoryQueryParams = {
     /**
-     * @description Page number (0-indexed)
-     * @default 0
-     * @type integer | undefined, int32
+     * @type object
     */
-    page?: number;
-    /**
-     * @description Page size
-     * @default 20
-     * @type integer | undefined, int32
-    */
-    size?: number;
+    pageable: Pageable;
 };
 
 /**

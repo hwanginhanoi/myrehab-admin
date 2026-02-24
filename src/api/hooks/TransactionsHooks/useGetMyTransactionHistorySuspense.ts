@@ -9,7 +9,7 @@ import type { RequestConfig, ResponseErrorConfig } from "@/lib/api-client";
 import type { QueryKey, QueryClient, UseSuspenseQueryOptions, UseSuspenseQueryResult } from "@tanstack/react-query";
 import { queryOptions, useSuspenseQuery } from "@tanstack/react-query";
 
-export const getMyTransactionHistorySuspenseQueryKey = (params?: GetMyTransactionHistoryQueryParams) => [{ url: '/api/transactions/my-history' }, ...(params ? [params] : [])] as const
+export const getMyTransactionHistorySuspenseQueryKey = (params: GetMyTransactionHistoryQueryParams) => [{ url: '/api/transactions/my-history' }, ...(params ? [params] : [])] as const
 
 export type GetMyTransactionHistorySuspenseQueryKey = ReturnType<typeof getMyTransactionHistorySuspenseQueryKey>
 
@@ -18,17 +18,17 @@ export type GetMyTransactionHistorySuspenseQueryKey = ReturnType<typeof getMyTra
  * @summary Get my transaction history
  * {@link /api/transactions/my-history}
  */
-export async function getMyTransactionHistorySuspense(params?: GetMyTransactionHistoryQueryParams, config: Partial<RequestConfig> & { client?: typeof fetch } = {}) {
+export async function getMyTransactionHistorySuspense(params: GetMyTransactionHistoryQueryParams, config: Partial<RequestConfig> & { client?: typeof fetch } = {}) {
   const { client: request = fetch, ...requestConfig } = config  
   
   const res = await request<GetMyTransactionHistoryQueryResponse, ResponseErrorConfig<Error>, unknown>({ method : "GET", url : `/api/transactions/my-history`, params, ... requestConfig })  
   return res.data
 }
 
-export function getMyTransactionHistorySuspenseQueryOptions(params?: GetMyTransactionHistoryQueryParams, config: Partial<RequestConfig> & { client?: typeof fetch } = {}) {
+export function getMyTransactionHistorySuspenseQueryOptions(params: GetMyTransactionHistoryQueryParams, config: Partial<RequestConfig> & { client?: typeof fetch } = {}) {
   const queryKey = getMyTransactionHistorySuspenseQueryKey(params)
   return queryOptions<GetMyTransactionHistoryQueryResponse, ResponseErrorConfig<Error>, GetMyTransactionHistoryQueryResponse, typeof queryKey>({
- 
+   enabled: !!(params),
    queryKey,
    queryFn: async ({ signal }) => {
       config.signal = signal
@@ -42,7 +42,7 @@ export function getMyTransactionHistorySuspenseQueryOptions(params?: GetMyTransa
  * @summary Get my transaction history
  * {@link /api/transactions/my-history}
  */
-export function useGetMyTransactionHistorySuspense<TData = GetMyTransactionHistoryQueryResponse, TQueryKey extends QueryKey = GetMyTransactionHistorySuspenseQueryKey>(params?: GetMyTransactionHistoryQueryParams, options: 
+export function useGetMyTransactionHistorySuspense<TData = GetMyTransactionHistoryQueryResponse, TQueryKey extends QueryKey = GetMyTransactionHistorySuspenseQueryKey>(params: GetMyTransactionHistoryQueryParams, options: 
 {
   query?: Partial<UseSuspenseQueryOptions<GetMyTransactionHistoryQueryResponse, ResponseErrorConfig<Error>, TData, TQueryKey>> & { client?: QueryClient },
   client?: Partial<RequestConfig> & { client?: typeof fetch }

@@ -1,0 +1,1 @@
+{"type":"object","properties":{"packageId":{"type":"integer","format":"int64"},"packageTitle":{"type":"string"},"totalSubscribed":{"type":"integer","format":"int64"},"activeSubscriptions":{"type":"integer","format":"int64"},"expiredSubscriptions":{"type":"integer","format":"int64"}},"x-readme-ref-name":"ExercisePackageStatsResponse"}
