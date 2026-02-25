@@ -1,6 +1,6 @@
 import { DotsHorizontalIcon } from '@radix-ui/react-icons'
 import { type Row } from '@tanstack/react-table'
-import { Eye, BookOpen } from 'lucide-react'
+import { Eye, BookOpen, Route } from 'lucide-react'
 import { useNavigate } from '@tanstack/react-router'
 import { type DoctorPatientResponse } from '@/api'
 import { Button } from '@/components/ui/button'
@@ -44,6 +44,20 @@ export function MyPatientsTableRowActions({ row }: MyPatientsTableRowActionsProp
             Xem thông tin
             <DropdownMenuShortcut>
               <Eye size={16} />
+            </DropdownMenuShortcut>
+          </DropdownMenuItem>
+          <DropdownMenuSeparator />
+          <DropdownMenuItem
+            onClick={() => {
+              navigate({
+                to: '/course-assignments',
+                search: { patientId: row.original.userId },
+              })
+            }}
+          >
+            Xem lộ trình
+            <DropdownMenuShortcut>
+              <Route size={16} />
             </DropdownMenuShortcut>
           </DropdownMenuItem>
           <DropdownMenuSeparator />

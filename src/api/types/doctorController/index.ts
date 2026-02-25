@@ -8,4 +8,5 @@ export type { GetMyTrainersQueryParams, GetMyTrainers200, GetMyTrainersQueryResp
 export type { GetPatientCoursesPathParams, GetPatientCoursesQueryParams, GetPatientCourses200, GetPatientCoursesQueryResponse, GetPatientCoursesQuery } from "./GetPatientCourses.ts";
 export type { RejectCourseRequestPathParams, RejectCourseRequest200, RejectCourseRequestMutationRequest, RejectCourseRequestMutationResponse, RejectCourseRequestMutation } from "./RejectCourseRequest.ts";
 export type { RevokeCourseAssignmentPathParams, RevokeCourseAssignment200, RevokeCourseAssignmentMutationResponse, RevokeCourseAssignmentMutation } from "./RevokeCourseAssignment.ts";
+export type { SearchMyPatientsQueryParams, SearchMyPatients200, SearchMyPatientsQueryResponse, SearchMyPatientsQuery } from "./SearchMyPatients.ts";
 export { getCourseRequestsQueryParamsStatusEnum } from "./GetCourseRequests.ts";

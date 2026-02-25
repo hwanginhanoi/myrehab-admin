@@ -36,8 +36,6 @@ export function CourseAssignmentsTable({
 }: CourseAssignmentsTableProps) {
   // Local UI-only states
   const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({
-    patientName: false,
-    courseId: false,
     doctorId: false,
     includeRevoked: false,
     startDate: false,
@@ -58,8 +56,6 @@ export function CourseAssignmentsTable({
     pagination: { defaultPage: 1, defaultPageSize: 10 },
     globalFilter: { enabled: false },
     columnFilters: [
-      { columnId: 'patientName', searchKey: 'patientName', type: 'string' },
-      { columnId: 'courseId', searchKey: 'courseId', type: 'string' },
       { columnId: 'doctorId', searchKey: 'doctorId', type: 'string' },
       { columnId: 'purchaseStatus', searchKey: 'purchaseStatus', type: 'array' },
       { columnId: 'includeRevoked', searchKey: 'includeRevoked', type: 'string' },
@@ -70,18 +66,6 @@ export function CourseAssignmentsTable({
 
   // Add hidden columns for filter support
   const columns = useMemo(() => [
-    {
-      id: 'patientName',
-      header: () => null,
-      cell: () => null,
-      enableSorting: false,
-    },
-    {
-      id: 'courseId',
-      header: () => null,
-      cell: () => null,
-      enableSorting: false,
-    },
     {
       id: 'doctorId',
       header: () => null,

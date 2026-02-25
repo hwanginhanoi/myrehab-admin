@@ -55,6 +55,7 @@ import { Route as AuthenticatedExercisePackagesNewRouteImport } from './routes/_
 import { Route as AuthenticatedExercisePackagesIdRouteImport } from './routes/_authenticated/exercise-packages/$id'
 import { Route as AuthenticatedErrorsErrorRouteImport } from './routes/_authenticated/errors/$error'
 import { Route as AuthenticatedCoursesAssignRouteImport } from './routes/_authenticated/courses/assign'
+import { Route as AuthenticatedCourseAssignmentsIdRouteImport } from './routes/_authenticated/course-assignments/$id'
 import { Route as AuthenticatedAppointmentsIdRouteImport } from './routes/_authenticated/appointments/$id'
 import { Route as AuthenticatedUsersIdRouteRouteImport } from './routes/_authenticated/users/$id.route'
 import { Route as AuthenticatedUsersIdIndexRouteImport } from './routes/_authenticated/users/$id.index'
@@ -330,6 +331,12 @@ const AuthenticatedCoursesAssignRoute =
     path: '/courses/assign',
     getParentRoute: () => AuthenticatedRouteRoute,
   } as any)
+const AuthenticatedCourseAssignmentsIdRoute =
+  AuthenticatedCourseAssignmentsIdRouteImport.update({
+    id: '/course-assignments/$id',
+    path: '/course-assignments/$id',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
 const AuthenticatedAppointmentsIdRoute =
   AuthenticatedAppointmentsIdRouteImport.update({
     id: '/appointments/$id',
@@ -453,6 +460,7 @@ export interface FileRoutesByFullPath {
   '/': typeof AuthenticatedIndexRoute
   '/users/$id': typeof AuthenticatedUsersIdRouteRouteWithChildren
   '/appointments/$id': typeof AuthenticatedAppointmentsIdRoute
+  '/course-assignments/$id': typeof AuthenticatedCourseAssignmentsIdRoute
   '/courses/assign': typeof AuthenticatedCoursesAssignRoute
   '/errors/$error': typeof AuthenticatedErrorsErrorRoute
   '/exercise-packages/$id': typeof AuthenticatedExercisePackagesIdRoute
@@ -516,6 +524,7 @@ export interface FileRoutesByTo {
   '/503': typeof errors503Route
   '/': typeof AuthenticatedIndexRoute
   '/appointments/$id': typeof AuthenticatedAppointmentsIdRoute
+  '/course-assignments/$id': typeof AuthenticatedCourseAssignmentsIdRoute
   '/courses/assign': typeof AuthenticatedCoursesAssignRoute
   '/errors/$error': typeof AuthenticatedErrorsErrorRoute
   '/exercise-packages/$id': typeof AuthenticatedExercisePackagesIdRoute
@@ -580,6 +589,7 @@ export interface FileRoutesById {
   '/_authenticated/': typeof AuthenticatedIndexRoute
   '/_authenticated/users/$id': typeof AuthenticatedUsersIdRouteRouteWithChildren
   '/_authenticated/appointments/$id': typeof AuthenticatedAppointmentsIdRoute
+  '/_authenticated/course-assignments/$id': typeof AuthenticatedCourseAssignmentsIdRoute
   '/_authenticated/courses/assign': typeof AuthenticatedCoursesAssignRoute
   '/_authenticated/errors/$error': typeof AuthenticatedErrorsErrorRoute
   '/_authenticated/exercise-packages/$id': typeof AuthenticatedExercisePackagesIdRoute
@@ -647,6 +657,7 @@ export interface FileRouteTypes {
     | '/'
     | '/users/$id'
     | '/appointments/$id'
+    | '/course-assignments/$id'
     | '/courses/assign'
     | '/errors/$error'
     | '/exercise-packages/$id'
@@ -710,6 +721,7 @@ export interface FileRouteTypes {
     | '/503'
     | '/'
     | '/appointments/$id'
+    | '/course-assignments/$id'
     | '/courses/assign'
     | '/errors/$error'
     | '/exercise-packages/$id'
@@ -773,6 +785,7 @@ export interface FileRouteTypes {
     | '/_authenticated/'
     | '/_authenticated/users/$id'
     | '/_authenticated/appointments/$id'
+    | '/_authenticated/course-assignments/$id'
     | '/_authenticated/courses/assign'
     | '/_authenticated/errors/$error'
     | '/_authenticated/exercise-packages/$id'
@@ -1162,6 +1175,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedCoursesAssignRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/_authenticated/course-assignments/$id': {
+      id: '/_authenticated/course-assignments/$id'
+      path: '/course-assignments/$id'
+      fullPath: '/course-assignments/$id'
+      preLoaderRoute: typeof AuthenticatedCourseAssignmentsIdRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
     '/_authenticated/appointments/$id': {
       id: '/_authenticated/appointments/$id'
       path: '/appointments/$id'
@@ -1404,6 +1424,7 @@ interface AuthenticatedRouteRouteChildren {
   AuthenticatedIndexRoute: typeof AuthenticatedIndexRoute
   AuthenticatedUsersIdRouteRoute: typeof AuthenticatedUsersIdRouteRouteWithChildren
   AuthenticatedAppointmentsIdRoute: typeof AuthenticatedAppointmentsIdRoute
+  AuthenticatedCourseAssignmentsIdRoute: typeof AuthenticatedCourseAssignmentsIdRoute
   AuthenticatedCoursesAssignRoute: typeof AuthenticatedCoursesAssignRoute
   AuthenticatedErrorsErrorRoute: typeof AuthenticatedErrorsErrorRoute
   AuthenticatedExercisePackagesIdRoute: typeof AuthenticatedExercisePackagesIdRoute
@@ -1443,6 +1464,7 @@ const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedIndexRoute: AuthenticatedIndexRoute,
   AuthenticatedUsersIdRouteRoute: AuthenticatedUsersIdRouteRouteWithChildren,
   AuthenticatedAppointmentsIdRoute: AuthenticatedAppointmentsIdRoute,
+  AuthenticatedCourseAssignmentsIdRoute: AuthenticatedCourseAssignmentsIdRoute,
   AuthenticatedCoursesAssignRoute: AuthenticatedCoursesAssignRoute,
   AuthenticatedErrorsErrorRoute: AuthenticatedErrorsErrorRoute,
   AuthenticatedExercisePackagesIdRoute: AuthenticatedExercisePackagesIdRoute,

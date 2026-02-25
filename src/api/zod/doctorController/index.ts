@@ -8,3 +8,4 @@ export { getMyTrainersQueryParamsSchema, getMyTrainers200Schema, getMyTrainersQu
 export { getPatientCoursesPathParamsSchema, getPatientCoursesQueryParamsSchema, getPatientCourses200Schema, getPatientCoursesQueryResponseSchema } from "./getPatientCoursesSchema.ts";
 export { rejectCourseRequestPathParamsSchema, rejectCourseRequest200Schema, rejectCourseRequestMutationRequestSchema, rejectCourseRequestMutationResponseSchema } from "./rejectCourseRequestSchema.ts";
 export { revokeCourseAssignmentPathParamsSchema, revokeCourseAssignment200Schema, revokeCourseAssignmentMutationResponseSchema } from "./revokeCourseAssignmentSchema.ts";
+export { searchMyPatientsQueryParamsSchema, searchMyPatients200Schema, searchMyPatientsQueryResponseSchema } from "./searchMyPatientsSchema.ts";

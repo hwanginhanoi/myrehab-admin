@@ -4,7 +4,6 @@ import { type Table } from '@tanstack/react-table'
 import { format } from 'date-fns'
 import type { DateRange } from 'react-day-picker'
 import { Button } from '@/components/ui/button'
-import { Input } from '@/components/ui/input'
 import { DateRangePicker } from '@/components/date-range-picker'
 import {
   DataTableFacetedFilter,
@@ -14,7 +13,7 @@ import {
 import type { CourseAssignmentDetail } from '../types'
 import { purchaseStatusOptions } from '@/lib/course-assignment-utils'
 import { useAuthStore } from '@/stores/auth-store'
-import { useGetAllStaff, useGetAllCourses, type StaffResponse, type CourseMetadataDto } from '@/api'
+import { useGetAllStaff, type StaffResponse } from '@/api'
 
 type CourseAssignmentsTableToolbarProps = {
   table: Table<CourseAssignmentDetail>
@@ -28,7 +27,7 @@ export function CourseAssignmentsTableToolbar({ table }: CourseAssignmentsTableT
   // Fetch doctors for admin users
   const { data: staffData } = useGetAllStaff(
     {
-      pageable: { page: 0, size: 100 },
+      pageable: { page: 0, size: 1000 },
       staffType: 'DOCTOR' as const,
     },
     {
@@ -45,19 +44,6 @@ export function CourseAssignmentsTableToolbar({ table }: CourseAssignmentsTableT
       value: String(staff.id),
     }))
   }, [staffData])
-
-  // Fetch courses for filter
-  const { data: coursesData } = useGetAllCourses({
-    pageable: { page: 0, size: 100 },
-  })
-
-  const courseOptions = useMemo(() => {
-    if (!coursesData?.content) return []
-    return (coursesData.content as CourseMetadataDto[]).map((course) => ({
-      label: course.title || 'Unknown',
-      value: String(course.id),
-    }))
-  }, [coursesData])
 
   // Date range state
   const [dateRange, setDateRange] = useState<DateRange | undefined>(() => {
@@ -92,23 +78,6 @@ export function CourseAssignmentsTableToolbar({ table }: CourseAssignmentsTableT
     <div className='flex flex-col gap-4'>
       <div className='flex items-center justify-between'>
         <div className='flex flex-1 flex-col-reverse items-start gap-y-2 sm:flex-row sm:items-center sm:space-x-2'>
-          <Input
-            placeholder='Tìm kiếm bệnh nhân...'
-            value={(table.getColumn('patientName')?.getFilterValue() as string) ?? ''}
-            onChange={(event) =>
-              table.getColumn('patientName')?.setFilterValue(event.target.value)
-            }
-            className='h-8 w-[150px] lg:w-[250px]'
-          />
-
-          {table.getColumn('courseId') && (
-            <DataTableSingleSelectFilter
-              column={table.getColumn('courseId')}
-              title='Khóa tập'
-              options={courseOptions}
-            />
-          )}
-
           {isAdmin && table.getColumn('doctorId') && (
             <DataTableSingleSelectFilter
               column={table.getColumn('doctorId')}

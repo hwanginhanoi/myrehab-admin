@@ -4,11 +4,11 @@ import { ConfigDrawer } from '@/components/config-drawer'
 import { Header } from '@/components/layout/header'
 import { Main } from '@/components/layout/main'
 import { ProfileDropdown } from '@/components/profile-dropdown'
+import { PatientSearchSelect } from '@/components/patient-search-select'
 import { Search } from '@/components/search'
 import { ThemeSwitch } from '@/components/theme-switch'
 import { useListCourseAssignments, type ListCourseAssignmentsQueryParams } from '@/api'
 import type { CourseAssignmentDetail } from './types'
-import { CourseAssignmentsProvider } from './components/course-assignments-provider'
 import { CourseAssignmentsTable } from './components/course-assignments-table'
 
 const route = getRouteApi('/_authenticated/course-assignments/')
@@ -21,8 +21,7 @@ export function CourseAssignments() {
   // Note: URL uses 1-indexed pages, but API expects 0-indexed
   const page = search.page || 1
   const pageSize = search.pageSize || 10
-  const patientName = search.patientName?.trim()
-  const courseId = search.courseId
+  const patientId = search.patientId
   const doctorId = search.doctorId
   const purchaseStatus = search.purchaseStatus || []
   const includeRevoked = search.includeRevoked
@@ -36,8 +35,7 @@ export function CourseAssignments() {
         page: page - 1, // Convert to 0-indexed for API
         size: pageSize,
       },
-      ...(patientName && { patientName }),
-      ...(courseId && { courseId }),
+      ...(patientId && { patientId }),
       ...(doctorId && { doctorId }),
       // API expects single purchaseStatus, so take first if multiple selected
       ...(purchaseStatus.length > 0 && { purchaseStatus: purchaseStatus[0] as 'PENDING_PURCHASE' | 'PURCHASED' | 'EXPIRED' }),
@@ -45,7 +43,7 @@ export function CourseAssignments() {
       ...(startDate && { startDate }),
       ...(endDate && { endDate }),
     }),
-    [page, pageSize, patientName, courseId, doctorId, purchaseStatus, includeRevoked, startDate, endDate]
+    [page, pageSize, patientId, doctorId, purchaseStatus, includeRevoked, startDate, endDate]
   )
 
   // Fetch course assignments with server-side filtering and pagination
@@ -59,7 +57,7 @@ export function CourseAssignments() {
   const totalPages = response?.page?.totalPages || 0
 
   return (
-    <CourseAssignmentsProvider>
+    <>
       <Header fixed>
         <Search />
         <div className='ms-auto flex items-center space-x-4'>
@@ -77,6 +75,15 @@ export function CourseAssignments() {
           </p>
         </div>
 
+        <PatientSearchSelect
+          selectedPatientId={patientId}
+          onSelect={(patient) =>
+            navigate({
+              search: (s) => ({ ...s, patientId: patient?.id, page: 1 }),
+            })
+          }
+        />
+
         {isLoading ? (
           <div className='flex items-center justify-center h-64'>
             <p className='text-muted-foreground'>Đang tải...</p>
@@ -90,6 +97,6 @@ export function CourseAssignments() {
           />
         )}
       </Main>
-    </CourseAssignmentsProvider>
+    </>
   )
 }

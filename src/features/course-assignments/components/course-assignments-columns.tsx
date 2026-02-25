@@ -13,9 +13,6 @@ export const courseAssignmentsColumns: ColumnDef<CourseAssignmentDetail>[] = [
     cell: ({ row }) => (
       <div className='max-w-40'>
         <div className='font-medium truncate'>{row.original.patientFullName || '-'}</div>
-        <div className='text-muted-foreground text-sm truncate'>
-          {row.original.patientPhoneNumber || '-'}
-        </div>
       </div>
     ),
   },

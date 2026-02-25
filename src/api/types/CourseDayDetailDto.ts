@@ -3,8 +3,9 @@
 * Do not edit manually.
 */
 
+import type { CourseExerciseDto } from "./CourseExerciseDto.ts";
 
-export type CourseDaySummaryDto = {
+export type CourseDayDetailDto = {
     /**
      * @type integer | undefined, int32
     */
@@ -14,7 +15,7 @@ export type CourseDaySummaryDto = {
     */
     description?: string;
     /**
-     * @type integer | undefined, int32
+     * @type array | undefined
     */
-    exerciseCount?: number;
+    exercises?: CourseExerciseDto[];
 };

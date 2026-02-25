@@ -77,6 +77,8 @@ export type { GetPatientCoursesQueryKey } from "./DoctorHooks/useGetPatientCours
 export type { GetPatientCoursesSuspenseQueryKey } from "./DoctorHooks/useGetPatientCoursesSuspense.ts";
 export type { RejectCourseRequestMutationKey } from "./DoctorHooks/useRejectCourseRequest.ts";
 export type { RevokeCourseAssignmentMutationKey } from "./DoctorHooks/useRevokeCourseAssignment.ts";
+export type { SearchMyPatientsQueryKey } from "./DoctorHooks/useSearchMyPatients.ts";
+export type { SearchMyPatientsSuspenseQueryKey } from "./DoctorHooks/useSearchMyPatientsSuspense.ts";
 export type { CreateCategoryMutationKey } from "./Exercise CategoriesHooks/useCreateCategory.ts";
 export type { GetAllCategoriesQueryKey } from "./Exercise CategoriesHooks/useGetAllCategories.ts";
 export type { GetAllCategoriesSuspenseQueryKey } from "./Exercise CategoriesHooks/useGetAllCategoriesSuspense.ts";
@@ -519,6 +521,14 @@ export { revokeCourseAssignmentMutationKey } from "./DoctorHooks/useRevokeCourse
 export { revokeCourseAssignment } from "./DoctorHooks/useRevokeCourseAssignment.ts";
 export { revokeCourseAssignmentMutationOptions } from "./DoctorHooks/useRevokeCourseAssignment.ts";
 export { useRevokeCourseAssignment } from "./DoctorHooks/useRevokeCourseAssignment.ts";
+export { searchMyPatientsQueryKey } from "./DoctorHooks/useSearchMyPatients.ts";
+export { searchMyPatients } from "./DoctorHooks/useSearchMyPatients.ts";
+export { searchMyPatientsQueryOptions } from "./DoctorHooks/useSearchMyPatients.ts";
+export { useSearchMyPatients } from "./DoctorHooks/useSearchMyPatients.ts";
+export { searchMyPatientsSuspenseQueryKey } from "./DoctorHooks/useSearchMyPatientsSuspense.ts";
+export { searchMyPatientsSuspense } from "./DoctorHooks/useSearchMyPatientsSuspense.ts";
+export { searchMyPatientsSuspenseQueryOptions } from "./DoctorHooks/useSearchMyPatientsSuspense.ts";
+export { useSearchMyPatientsSuspense } from "./DoctorHooks/useSearchMyPatientsSuspense.ts";
 export { createCategoryMutationKey } from "./Exercise CategoriesHooks/useCreateCategory.ts";
 export { createCategory } from "./Exercise CategoriesHooks/useCreateCategory.ts";
 export { createCategoryMutationOptions } from "./Exercise CategoriesHooks/useCreateCategory.ts";

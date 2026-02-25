@@ -3,7 +3,7 @@
 * Do not edit manually.
 */
 
-import type { CourseDaySummaryDto } from "./CourseDaySummaryDto.ts";
+import type { CourseDayDetailDto } from "./CourseDayDetailDto.ts";
 
 export type CourseWithDaysResponse = {
     /**
@@ -33,7 +33,7 @@ export type CourseWithDaysResponse = {
     /**
      * @type array | undefined
     */
-    days?: CourseDaySummaryDto[];
+    days?: CourseDayDetailDto[];
     /**
      * @type string | undefined, date-time
     */
