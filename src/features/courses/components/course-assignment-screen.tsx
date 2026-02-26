@@ -1,7 +1,6 @@
 'use client'
 
 import { useReducer, useCallback, useEffect, useMemo } from 'react'
-import { useNavigate } from '@tanstack/react-router'
 import { useQueryClient } from '@tanstack/react-query'
 import { ArrowLeft, ArrowRight, Check } from 'lucide-react'
 import { Button } from '@/components/ui/button'
@@ -313,11 +312,11 @@ const initialState: AssignmentState = {
 type CourseAssignmentScreenProps = {
   preSelectedPatientId?: number
   preSelectedDoctorId?: number
+  preSelectedPatientName?: string
 }
 
-export function CourseAssignmentScreen({ preSelectedPatientId, preSelectedDoctorId }: CourseAssignmentScreenProps) {
+export function CourseAssignmentScreen({ preSelectedPatientId, preSelectedDoctorId, preSelectedPatientName }: CourseAssignmentScreenProps) {
   const [state, dispatch] = useReducer(assignmentReducer, initialState)
-  const navigate = useNavigate()
   const queryClient = useQueryClient()
   const { auth } = useAuthStore()
   const isAdmin = auth.userType === 'SUPER_ADMIN' || auth.userType === 'ADMIN'
@@ -381,7 +380,7 @@ export function CourseAssignmentScreen({ preSelectedPatientId, preSelectedDoctor
           queryKey: [{ url: '/api/doctors/patients' }],
         })
         toast.success('Đã tạo và gán khóa học thành công')
-        navigate({ to: '/staff' as never })
+        window.history.back()
       },
       onError: (error) => {
         // Check for specific error about staff members
@@ -473,7 +472,7 @@ export function CourseAssignmentScreen({ preSelectedPatientId, preSelectedDoctor
   }
 
   const handleCancel = () => {
-    navigate({ to: '/staff' as never })
+    window.history.back()
   }
 
   return (
@@ -532,7 +531,7 @@ export function CourseAssignmentScreen({ preSelectedPatientId, preSelectedDoctor
                   <>
                     Tạo khóa học cho bệnh nhân:{' '}
                     <span className='font-medium text-foreground'>
-                      {patientData?.fullName ?? `#${state.selectedPatient.id}`}
+                      {patientData?.fullName ?? preSelectedPatientName ?? `#${state.selectedPatient.id}`}
                     </span>
                   </>
                 ) : (

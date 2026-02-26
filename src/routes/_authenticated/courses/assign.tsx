@@ -6,6 +6,7 @@ import { CourseAssignmentScreen } from '@/features/courses'
 type AssignSearch = {
   patientId?: number
   doctorId?: number
+  patientName?: string
 }
 
 export const Route = createFileRoute('/_authenticated/courses/assign')({
@@ -14,12 +15,13 @@ export const Route = createFileRoute('/_authenticated/courses/assign')({
     return {
       patientId: search.patientId as number | undefined,
       doctorId: search.doctorId as number | undefined,
+      patientName: search.patientName as string | undefined,
     }
   },
 })
 
 function AssignCourseRoute() {
-  const { patientId, doctorId } = Route.useSearch()
+  const { patientId, doctorId, patientName } = Route.useSearch()
 
   return (
     <>
@@ -30,7 +32,7 @@ function AssignCourseRoute() {
       </Header>
 
       <Main className='flex flex-col p-6'>
-        <CourseAssignmentScreen preSelectedPatientId={patientId} preSelectedDoctorId={doctorId} />
+        <CourseAssignmentScreen preSelectedPatientId={patientId} preSelectedDoctorId={doctorId} preSelectedPatientName={patientName} />
       </Main>
     </>
   )
