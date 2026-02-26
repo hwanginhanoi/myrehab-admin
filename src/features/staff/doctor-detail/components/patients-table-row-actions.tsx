@@ -1,7 +1,7 @@
 import { DotsHorizontalIcon } from '@radix-ui/react-icons'
 import { type Row } from '@tanstack/react-table'
 import { Trash2, BookOpen } from 'lucide-react'
-import { useNavigate } from '@tanstack/react-router'
+import { useNavigate, getRouteApi } from '@tanstack/react-router'
 import { type DoctorPatientResponse } from '@/api'
 import { Button } from '@/components/ui/button'
 import {
@@ -14,6 +14,8 @@ import {
 } from '@/components/ui/dropdown-menu'
 import { useDoctorDetail } from './doctor-detail-provider'
 
+const Route = getRouteApi('/_authenticated/staff/doctors/$doctorId')
+
 type PatientsTableRowActionsProps = {
   row: Row<DoctorPatientResponse>
 }
@@ -21,6 +23,7 @@ type PatientsTableRowActionsProps = {
 export function PatientsTableRowActions({ row }: PatientsTableRowActionsProps) {
   const { setOpen, setCurrentPatient } = useDoctorDetail()
   const navigate = useNavigate()
+  const { doctorId } = Route.useParams()
 
   return (
     <div className='flex justify-end'>
@@ -39,7 +42,10 @@ export function PatientsTableRowActions({ row }: PatientsTableRowActionsProps) {
             onClick={() => {
               navigate({
                 to: '/courses/assign',
-                search: { patientId: row.original.userId },
+                search: {
+                  patientId: row.original.userId,
+                  doctorId: Number(doctorId),
+                },
               })
             }}
           >

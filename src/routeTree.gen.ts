@@ -37,6 +37,7 @@ import { Route as AuthenticatedExercisesIndexRouteImport } from './routes/_authe
 import { Route as AuthenticatedExercisePackagesIndexRouteImport } from './routes/_authenticated/exercise-packages/index'
 import { Route as AuthenticatedExerciseGroupsIndexRouteImport } from './routes/_authenticated/exercise-groups/index'
 import { Route as AuthenticatedExerciseCategoriesIndexRouteImport } from './routes/_authenticated/exercise-categories/index'
+import { Route as AuthenticatedCourseAssignmentsIndexRouteImport } from './routes/_authenticated/course-assignments/index'
 import { Route as AuthenticatedClinicScheduleIndexRouteImport } from './routes/_authenticated/clinic-schedule/index'
 import { Route as AuthenticatedChatsIndexRouteImport } from './routes/_authenticated/chats/index'
 import { Route as AuthenticatedAppsIndexRouteImport } from './routes/_authenticated/apps/index'
@@ -55,6 +56,7 @@ import { Route as AuthenticatedExercisePackagesNewRouteImport } from './routes/_
 import { Route as AuthenticatedExercisePackagesIdRouteImport } from './routes/_authenticated/exercise-packages/$id'
 import { Route as AuthenticatedErrorsErrorRouteImport } from './routes/_authenticated/errors/$error'
 import { Route as AuthenticatedCoursesAssignRouteImport } from './routes/_authenticated/courses/assign'
+import { Route as AuthenticatedCourseAssignmentsIdRouteImport } from './routes/_authenticated/course-assignments/$id'
 import { Route as AuthenticatedAppointmentsIdRouteImport } from './routes/_authenticated/appointments/$id'
 import { Route as AuthenticatedUsersIdRouteRouteImport } from './routes/_authenticated/users/$id.route'
 import { Route as AuthenticatedUsersIdIndexRouteImport } from './routes/_authenticated/users/$id.index'
@@ -226,6 +228,12 @@ const AuthenticatedExerciseCategoriesIndexRoute =
     path: '/exercise-categories/',
     getParentRoute: () => AuthenticatedRouteRoute,
   } as any)
+const AuthenticatedCourseAssignmentsIndexRoute =
+  AuthenticatedCourseAssignmentsIndexRouteImport.update({
+    id: '/course-assignments/',
+    path: '/course-assignments/',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
 const AuthenticatedClinicScheduleIndexRoute =
   AuthenticatedClinicScheduleIndexRouteImport.update({
     id: '/clinic-schedule/',
@@ -328,6 +336,12 @@ const AuthenticatedCoursesAssignRoute =
   AuthenticatedCoursesAssignRouteImport.update({
     id: '/courses/assign',
     path: '/courses/assign',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedCourseAssignmentsIdRoute =
+  AuthenticatedCourseAssignmentsIdRouteImport.update({
+    id: '/course-assignments/$id',
+    path: '/course-assignments/$id',
     getParentRoute: () => AuthenticatedRouteRoute,
   } as any)
 const AuthenticatedAppointmentsIdRoute =
@@ -453,6 +467,7 @@ export interface FileRoutesByFullPath {
   '/': typeof AuthenticatedIndexRoute
   '/users/$id': typeof AuthenticatedUsersIdRouteRouteWithChildren
   '/appointments/$id': typeof AuthenticatedAppointmentsIdRoute
+  '/course-assignments/$id': typeof AuthenticatedCourseAssignmentsIdRoute
   '/courses/assign': typeof AuthenticatedCoursesAssignRoute
   '/errors/$error': typeof AuthenticatedErrorsErrorRoute
   '/exercise-packages/$id': typeof AuthenticatedExercisePackagesIdRoute
@@ -471,6 +486,7 @@ export interface FileRoutesByFullPath {
   '/apps': typeof AuthenticatedAppsIndexRoute
   '/chats': typeof AuthenticatedChatsIndexRoute
   '/clinic-schedule': typeof AuthenticatedClinicScheduleIndexRoute
+  '/course-assignments': typeof AuthenticatedCourseAssignmentsIndexRoute
   '/exercise-categories': typeof AuthenticatedExerciseCategoriesIndexRoute
   '/exercise-groups': typeof AuthenticatedExerciseGroupsIndexRoute
   '/exercise-packages': typeof AuthenticatedExercisePackagesIndexRoute
@@ -516,6 +532,7 @@ export interface FileRoutesByTo {
   '/503': typeof errors503Route
   '/': typeof AuthenticatedIndexRoute
   '/appointments/$id': typeof AuthenticatedAppointmentsIdRoute
+  '/course-assignments/$id': typeof AuthenticatedCourseAssignmentsIdRoute
   '/courses/assign': typeof AuthenticatedCoursesAssignRoute
   '/errors/$error': typeof AuthenticatedErrorsErrorRoute
   '/exercise-packages/$id': typeof AuthenticatedExercisePackagesIdRoute
@@ -534,6 +551,7 @@ export interface FileRoutesByTo {
   '/apps': typeof AuthenticatedAppsIndexRoute
   '/chats': typeof AuthenticatedChatsIndexRoute
   '/clinic-schedule': typeof AuthenticatedClinicScheduleIndexRoute
+  '/course-assignments': typeof AuthenticatedCourseAssignmentsIndexRoute
   '/exercise-categories': typeof AuthenticatedExerciseCategoriesIndexRoute
   '/exercise-groups': typeof AuthenticatedExerciseGroupsIndexRoute
   '/exercise-packages': typeof AuthenticatedExercisePackagesIndexRoute
@@ -580,6 +598,7 @@ export interface FileRoutesById {
   '/_authenticated/': typeof AuthenticatedIndexRoute
   '/_authenticated/users/$id': typeof AuthenticatedUsersIdRouteRouteWithChildren
   '/_authenticated/appointments/$id': typeof AuthenticatedAppointmentsIdRoute
+  '/_authenticated/course-assignments/$id': typeof AuthenticatedCourseAssignmentsIdRoute
   '/_authenticated/courses/assign': typeof AuthenticatedCoursesAssignRoute
   '/_authenticated/errors/$error': typeof AuthenticatedErrorsErrorRoute
   '/_authenticated/exercise-packages/$id': typeof AuthenticatedExercisePackagesIdRoute
@@ -598,6 +617,7 @@ export interface FileRoutesById {
   '/_authenticated/apps/': typeof AuthenticatedAppsIndexRoute
   '/_authenticated/chats/': typeof AuthenticatedChatsIndexRoute
   '/_authenticated/clinic-schedule/': typeof AuthenticatedClinicScheduleIndexRoute
+  '/_authenticated/course-assignments/': typeof AuthenticatedCourseAssignmentsIndexRoute
   '/_authenticated/exercise-categories/': typeof AuthenticatedExerciseCategoriesIndexRoute
   '/_authenticated/exercise-groups/': typeof AuthenticatedExerciseGroupsIndexRoute
   '/_authenticated/exercise-packages/': typeof AuthenticatedExercisePackagesIndexRoute
@@ -647,6 +667,7 @@ export interface FileRouteTypes {
     | '/'
     | '/users/$id'
     | '/appointments/$id'
+    | '/course-assignments/$id'
     | '/courses/assign'
     | '/errors/$error'
     | '/exercise-packages/$id'
@@ -665,6 +686,7 @@ export interface FileRouteTypes {
     | '/apps'
     | '/chats'
     | '/clinic-schedule'
+    | '/course-assignments'
     | '/exercise-categories'
     | '/exercise-groups'
     | '/exercise-packages'
@@ -710,6 +732,7 @@ export interface FileRouteTypes {
     | '/503'
     | '/'
     | '/appointments/$id'
+    | '/course-assignments/$id'
     | '/courses/assign'
     | '/errors/$error'
     | '/exercise-packages/$id'
@@ -728,6 +751,7 @@ export interface FileRouteTypes {
     | '/apps'
     | '/chats'
     | '/clinic-schedule'
+    | '/course-assignments'
     | '/exercise-categories'
     | '/exercise-groups'
     | '/exercise-packages'
@@ -773,6 +797,7 @@ export interface FileRouteTypes {
     | '/_authenticated/'
     | '/_authenticated/users/$id'
     | '/_authenticated/appointments/$id'
+    | '/_authenticated/course-assignments/$id'
     | '/_authenticated/courses/assign'
     | '/_authenticated/errors/$error'
     | '/_authenticated/exercise-packages/$id'
@@ -791,6 +816,7 @@ export interface FileRouteTypes {
     | '/_authenticated/apps/'
     | '/_authenticated/chats/'
     | '/_authenticated/clinic-schedule/'
+    | '/_authenticated/course-assignments/'
     | '/_authenticated/exercise-categories/'
     | '/_authenticated/exercise-groups/'
     | '/_authenticated/exercise-packages/'
@@ -1036,6 +1062,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedExerciseCategoriesIndexRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/_authenticated/course-assignments/': {
+      id: '/_authenticated/course-assignments/'
+      path: '/course-assignments'
+      fullPath: '/course-assignments'
+      preLoaderRoute: typeof AuthenticatedCourseAssignmentsIndexRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
     '/_authenticated/clinic-schedule/': {
       id: '/_authenticated/clinic-schedule/'
       path: '/clinic-schedule'
@@ -1160,6 +1193,13 @@ declare module '@tanstack/react-router' {
       path: '/courses/assign'
       fullPath: '/courses/assign'
       preLoaderRoute: typeof AuthenticatedCoursesAssignRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/course-assignments/$id': {
+      id: '/_authenticated/course-assignments/$id'
+      path: '/course-assignments/$id'
+      fullPath: '/course-assignments/$id'
+      preLoaderRoute: typeof AuthenticatedCourseAssignmentsIdRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
     '/_authenticated/appointments/$id': {
@@ -1404,6 +1444,7 @@ interface AuthenticatedRouteRouteChildren {
   AuthenticatedIndexRoute: typeof AuthenticatedIndexRoute
   AuthenticatedUsersIdRouteRoute: typeof AuthenticatedUsersIdRouteRouteWithChildren
   AuthenticatedAppointmentsIdRoute: typeof AuthenticatedAppointmentsIdRoute
+  AuthenticatedCourseAssignmentsIdRoute: typeof AuthenticatedCourseAssignmentsIdRoute
   AuthenticatedCoursesAssignRoute: typeof AuthenticatedCoursesAssignRoute
   AuthenticatedErrorsErrorRoute: typeof AuthenticatedErrorsErrorRoute
   AuthenticatedExercisePackagesIdRoute: typeof AuthenticatedExercisePackagesIdRoute
@@ -1418,6 +1459,7 @@ interface AuthenticatedRouteRouteChildren {
   AuthenticatedAppsIndexRoute: typeof AuthenticatedAppsIndexRoute
   AuthenticatedChatsIndexRoute: typeof AuthenticatedChatsIndexRoute
   AuthenticatedClinicScheduleIndexRoute: typeof AuthenticatedClinicScheduleIndexRoute
+  AuthenticatedCourseAssignmentsIndexRoute: typeof AuthenticatedCourseAssignmentsIndexRoute
   AuthenticatedExerciseCategoriesIndexRoute: typeof AuthenticatedExerciseCategoriesIndexRoute
   AuthenticatedExerciseGroupsIndexRoute: typeof AuthenticatedExerciseGroupsIndexRoute
   AuthenticatedExercisePackagesIndexRoute: typeof AuthenticatedExercisePackagesIndexRoute
@@ -1443,6 +1485,7 @@ const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedIndexRoute: AuthenticatedIndexRoute,
   AuthenticatedUsersIdRouteRoute: AuthenticatedUsersIdRouteRouteWithChildren,
   AuthenticatedAppointmentsIdRoute: AuthenticatedAppointmentsIdRoute,
+  AuthenticatedCourseAssignmentsIdRoute: AuthenticatedCourseAssignmentsIdRoute,
   AuthenticatedCoursesAssignRoute: AuthenticatedCoursesAssignRoute,
   AuthenticatedErrorsErrorRoute: AuthenticatedErrorsErrorRoute,
   AuthenticatedExercisePackagesIdRoute: AuthenticatedExercisePackagesIdRoute,
@@ -1459,6 +1502,8 @@ const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedAppsIndexRoute: AuthenticatedAppsIndexRoute,
   AuthenticatedChatsIndexRoute: AuthenticatedChatsIndexRoute,
   AuthenticatedClinicScheduleIndexRoute: AuthenticatedClinicScheduleIndexRoute,
+  AuthenticatedCourseAssignmentsIndexRoute:
+    AuthenticatedCourseAssignmentsIndexRoute,
   AuthenticatedExerciseCategoriesIndexRoute:
     AuthenticatedExerciseCategoriesIndexRoute,
   AuthenticatedExerciseGroupsIndexRoute: AuthenticatedExerciseGroupsIndexRoute,

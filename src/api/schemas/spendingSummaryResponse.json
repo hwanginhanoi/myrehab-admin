@@ -1,5 +1,1 @@
-{
-  "type": "object",
-  "properties": { "totalSpending": { "type": "integer", "format": "int64" } },
-  "x-readme-ref-name": "SpendingSummaryResponse"
-}
+{"type":"object","properties":{"totalSpending":{"type":"integer","format":"int64"}},"x-readme-ref-name":"SpendingSummaryResponse"}

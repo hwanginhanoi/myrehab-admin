@@ -1,11 +1,2 @@
-export type {
-  AddBalance200,
-  AddBalanceMutationRequest,
-  AddBalanceMutationResponse,
-  AddBalanceMutation,
-} from "./AddBalance.ts";
-export type {
-  GetMyBalance200,
-  GetMyBalanceQueryResponse,
-  GetMyBalanceQuery,
-} from "./GetMyBalance.ts";
+export type { AddBalance200, AddBalanceMutationRequest, AddBalanceMutationResponse, AddBalanceMutation } from "./AddBalance.ts";
+export type { GetMyBalance200, GetMyBalanceQueryResponse, GetMyBalanceQuery } from "./GetMyBalance.ts";

@@ -1,20 +1,3 @@
-export type {
-  AssignPatientToDoctorPathParams,
-  AssignPatientToDoctor200,
-  AssignPatientToDoctorMutationRequest,
-  AssignPatientToDoctorMutationResponse,
-  AssignPatientToDoctorMutation,
-} from "./AssignPatientToDoctor.ts";
-export type {
-  GetDoctorPatientsPathParams,
-  GetDoctorPatientsQueryParams,
-  GetDoctorPatients200,
-  GetDoctorPatientsQueryResponse,
-  GetDoctorPatientsQuery,
-} from "./GetDoctorPatients.ts";
-export type {
-  RemovePatientFromDoctorPathParams,
-  RemovePatientFromDoctor200,
-  RemovePatientFromDoctorMutationResponse,
-  RemovePatientFromDoctorMutation,
-} from "./RemovePatientFromDoctor.ts";
+export type { AssignPatientToDoctorPathParams, AssignPatientToDoctor200, AssignPatientToDoctorMutationRequest, AssignPatientToDoctorMutationResponse, AssignPatientToDoctorMutation } from "./AssignPatientToDoctor.ts";
+export type { GetDoctorPatientsPathParams, GetDoctorPatientsQueryParams, GetDoctorPatients200, GetDoctorPatientsQueryResponse, GetDoctorPatientsQuery } from "./GetDoctorPatients.ts";
+export type { RemovePatientFromDoctorPathParams, RemovePatientFromDoctor200, RemovePatientFromDoctorMutationResponse, RemovePatientFromDoctorMutation } from "./RemovePatientFromDoctor.ts";
