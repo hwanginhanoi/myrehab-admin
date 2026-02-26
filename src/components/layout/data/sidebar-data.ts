@@ -29,6 +29,7 @@ import {
   CalendarCheck,
   CalendarDays,
   Clock,
+  BarChart3,
   BookCheck,
 } from 'lucide-react'
 import { Logo } from '@/assets/logo'
@@ -65,6 +66,11 @@ export const sidebarData: SidebarData = {
           title: 'Lịch hẹn',
           url: '/appointments',
           icon: CalendarCheck,
+        },
+        {
+          title: 'Báo cáo & Thống kê',
+          url: '/reporting',
+          icon: BarChart3,
         },
       ],
     },

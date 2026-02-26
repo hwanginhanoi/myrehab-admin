@@ -10,7 +10,6 @@ import {
   validateFile,
   requestPresignedUploadUrl,
   uploadFileToMinIO,
-  requestPresignedDownloadUrl,
   getPublicImageUrl,
 } from '@/lib/file-upload'
 import { toast } from 'sonner'
@@ -24,6 +23,7 @@ interface FileUploadProps {
   className?: string
   accept?: string
   label?: string
+  previewUrl?: string // externally-provided presigned URL (bypasses internal download URL fetch)
 }
 
 export interface FileUploadRef {
@@ -32,7 +32,7 @@ export interface FileUploadRef {
 }
 
 export const FileUpload = forwardRef<FileUploadRef, FileUploadProps>(
-  function FileUpload({ category, value, onChange, onVideoDurationChange, disabled, className, accept, label }, ref) {
+  function FileUpload({ category, value, onChange, onVideoDurationChange, disabled, className, accept, label, previewUrl }, ref) {
     const [file, setFile] = useState<File | null>(null)
     const [preview, setPreview] = useState<string | null>(null)
     const [uploading, setUploading] = useState(false)
@@ -81,7 +81,9 @@ export const FileUpload = forwardRef<FileUploadRef, FileUploadProps>(
         } finally {
           setUploading(false)
           setProgress(0)
-          setUploadStatus('')
+
+
+	        setUploadStatus('')
         }
       },
       hasFile: () => !!file,
@@ -148,37 +150,38 @@ export const FileUpload = forwardRef<FileUploadRef, FileUploadProps>(
 
     // Fetch and generate preview URL when value is provided
     useEffect(() => {
-      if (value && !file && !preview) {
-        const fetchPreview = async () => {
-          try {
-            setPreviewLoading(true)
-            setPreviewError(null)
-
-            if (isImage) {
-              // For images, use public URL directly (no presigned URL needed)
-              // Check if value is already a full URL
-              const url = value.startsWith('http://') || value.startsWith('https://')
-                ? value
-                : getPublicImageUrl(value)
-              setBackendPreviewUrl(url)
-            } else if (isVideo) {
-              // For videos, request presigned URL for security
-              const response = await requestPresignedDownloadUrl({
-                objectKey: value,
-                category,
-              })
-              setBackendPreviewUrl(response.presignedUrl)
-            }
-          } catch {
-            setPreviewError('Không thể tải xem trước')
-          } finally {
-            setPreviewLoading(false)
-          }
+      if (!file && !preview) {
+        // For videos, use externally-provided presigned URL if available
+        if (isVideo && previewUrl) {
+          setBackendPreviewUrl(previewUrl)
+          return
         }
 
-        fetchPreview()
+        if (value) {
+          const fetchPreview = async () => {
+            try {
+              setPreviewLoading(true)
+              setPreviewError(null)
+
+              if (isImage) {
+                // For images, use public URL directly (no presigned URL needed)
+                // Check if value is already a full URL
+                const url = value.startsWith('http://') || value.startsWith('https://')
+                  ? value
+                  : getPublicImageUrl(value)
+                setBackendPreviewUrl(url)
+              }
+            } catch {
+              setPreviewError('Không thể tải xem trước')
+            } finally {
+              setPreviewLoading(false)
+            }
+          }
+
+          fetchPreview()
+        }
       }
-    }, [value, file, preview, isImage, isVideo, category])
+    }, [value, previewUrl, file, preview, isImage, isVideo])
 
     return (
       <div className={cn('space-y-3', className)}>
@@ -195,9 +198,9 @@ export const FileUpload = forwardRef<FileUploadRef, FileUploadProps>(
         />
 
         {/* Upload Area - 16:9 Aspect Ratio */}
-        <div className='relative w-full' style={{ paddingBottom: '56.25%' }}>
+        <div className='relative w-full aspect-video'>
           <div className='absolute inset-0'>
-            {!file && !value && (
+            {!file && !value && !previewUrl && (
               <div
                 onClick={handleBrowseClick}
                 className={cn(
@@ -225,7 +228,7 @@ export const FileUpload = forwardRef<FileUploadRef, FileUploadProps>(
             )}
 
             {/* Preview with 16:9 container */}
-            {(file || value) && (
+            {(file || value || previewUrl) && (
               <div className='h-full w-full relative rounded-lg overflow-hidden border bg-black'>
                 {isImage && (preview || backendPreviewUrl) && (
                   <img
@@ -241,7 +244,7 @@ export const FileUpload = forwardRef<FileUploadRef, FileUploadProps>(
                     controls
                   />
                 )}
-                {value && !preview && !backendPreviewUrl && !previewLoading && (
+                {(value || previewUrl) && !preview && !backendPreviewUrl && !previewLoading && (
                   <div className='h-full w-full flex items-center justify-center'>
                     <div className='text-center text-white'>
                       {isImage ? (

@@ -94,7 +94,7 @@ export function ExercisesActionDialog({
           title: currentRow?.title || '',
           description: currentRow?.description || '',
           imageUrl: currentRow?.imageUrl || '',
-          videoUrl: currentRow?.videoUrl || '',
+          videoUrl: '',
           durationMinutes: currentRow?.durationMinutes || 0,
           categoryIds: currentRow?.categories?.map((c) => String(c.id)) || [],
           groupIds: currentRow?.groups?.map((g) => String(g.id)) || [],
