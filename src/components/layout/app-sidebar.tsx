@@ -21,8 +21,8 @@ const SUPER_ADMIN_ONLY_GROUPS = ['Tổng quan']
 // Groups that require admin access (SUPER_ADMIN or ADMIN only)
 const ADMIN_ONLY_GROUPS = ['Quản trị hệ thống']
 
-// Groups that require doctor access (DOCTOR only)
-const DOCTOR_ONLY_GROUPS = ['Quản trị của tôi']
+// Groups that require doctor or trainer access
+const DOCTOR_OR_TRAINER_GROUPS = ['Quản trị của tôi']
 
 export function AppSidebar() {
   const { collapsible, variant } = useLayout()
@@ -34,6 +34,7 @@ export function AppSidebar() {
     const userType = auth.userType
     const isAdmin = userType === 'SUPER_ADMIN' || userType === 'ADMIN'
     const isDoctor = userType === 'DOCTOR'
+    const isTrainer = userType === 'TRAINER'
 
     return sidebarData.navGroups
       .filter((group) => {
@@ -45,9 +46,9 @@ export function AppSidebar() {
         if (ADMIN_ONLY_GROUPS.includes(group.title)) {
           return isAdmin
         }
-        // If group is doctor-only, only show for DOCTOR
-        if (DOCTOR_ONLY_GROUPS.includes(group.title)) {
-          return isDoctor
+        // If group is doctor-or-trainer, only show for DOCTOR or TRAINER
+        if (DOCTOR_OR_TRAINER_GROUPS.includes(group.title)) {
+          return isDoctor || isTrainer
         }
         return true
       })

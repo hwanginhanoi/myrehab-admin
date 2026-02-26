@@ -65,7 +65,7 @@ export function MyPatientsTableRowActions({ row }: MyPatientsTableRowActionsProp
             onClick={() => {
               navigate({
                 to: '/courses/assign',
-                search: { patientId: row.original.userId, patientName: row.original.fullName },
+                search: { patientId: row.original.userId },
               })
             }}
           >
