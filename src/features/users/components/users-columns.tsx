@@ -13,7 +13,7 @@ export const usersColumns: ColumnDef<UserResponse>[] = [
       <DataTableColumnHeader column={column} title='Họ và tên' />
     ),
     cell: ({ row }) => (
-      <div className='font-medium'>{row.getValue('fullName') || '-'}</div>
+      <div className='font-medium pl-3'>{row.getValue('fullName') || '-'}</div>
     ),
     enableHiding: false,
   },
@@ -22,14 +22,14 @@ export const usersColumns: ColumnDef<UserResponse>[] = [
     header: ({ column }) => (
       <DataTableColumnHeader column={column} title='Số điện thoại' />
     ),
-    cell: ({ row }) => <div>{row.getValue('phoneNumber') || '-'}</div>,
+    cell: ({ row }) => <div className='pl-3'>{row.getValue('phoneNumber') || '-'}</div>,
   },
   {
     accessorKey: 'email',
     header: ({ column }) => (
       <DataTableColumnHeader column={column} title='Email' />
     ),
-    cell: ({ row }) => <div>{row.getValue('email') || '-'}</div>,
+    cell: ({ row }) => <div className='pl-3'>{row.getValue('email') || '-'}</div>,
   },
   {
     accessorKey: 'gender',
@@ -39,9 +39,11 @@ export const usersColumns: ColumnDef<UserResponse>[] = [
     cell: ({ row }) => {
       const gender = row.getValue('gender') as string | undefined
       return (
-        <Badge variant='outline'>
-          {gender ? (genderLabels[gender] || gender) : '-'}
-        </Badge>
+        <div className='pl-3'>
+          <Badge variant='outline'>
+            {gender ? (genderLabels[gender] || gender) : '-'}
+          </Badge>
+        </div>
       )
     },
   },
@@ -53,7 +55,7 @@ export const usersColumns: ColumnDef<UserResponse>[] = [
     cell: ({ row }) => {
       const createdAt = row.getValue('createdAt') as string | undefined
       return (
-        <div>
+        <div className='pl-3'>
           {createdAt ? format(new Date(createdAt), 'dd/MM/yyyy') : '-'}
         </div>
       )
