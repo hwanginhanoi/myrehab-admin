@@ -97,12 +97,6 @@ export function DoctorCourseRequestDetail({ request }: DoctorCourseRequestDetail
                   {request.doctorNotes}
                 </p>
               )}
-              {request.userCourseId && (
-                <p>
-                  <span className='text-muted-foreground'>Mã khóa tập được tạo: </span>
-                  <span className='font-medium'>#{request.userCourseId}</span>
-                </p>
-              )}
             </CardContent>
           </Card>
         )}
