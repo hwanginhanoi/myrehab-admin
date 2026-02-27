@@ -1,9 +1,9 @@
-import { DotsHorizontalIcon } from '@radix-ui/react-icons'
-import { type Row } from '@tanstack/react-table'
-import { Trash2, BookOpen } from 'lucide-react'
-import { useNavigate, getRouteApi } from '@tanstack/react-router'
-import { type DoctorPatientResponse } from '@/api'
-import { Button } from '@/components/ui/button'
+import { DotsHorizontalIcon } from "@radix-ui/react-icons";
+import { type Row } from "@tanstack/react-table";
+import { Trash2, BookOpen } from "lucide-react";
+import { useNavigate, getRouteApi } from "@tanstack/react-router";
+import { type DoctorPatientResponse, useGetUserById } from "@/api";
+import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -11,42 +11,46 @@ import {
   DropdownMenuSeparator,
   DropdownMenuShortcut,
   DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu'
-import { useDoctorDetail } from './doctor-detail-provider'
+} from "@/components/ui/dropdown-menu";
+import { useDoctorDetail } from "./doctor-detail-provider";
 
-const Route = getRouteApi('/_authenticated/staff/doctors/$doctorId')
+const Route = getRouteApi("/_authenticated/staff/doctors/$doctorId");
 
 type PatientsTableRowActionsProps = {
-  row: Row<DoctorPatientResponse>
-}
+  row: Row<DoctorPatientResponse>;
+};
 
 export function PatientsTableRowActions({ row }: PatientsTableRowActionsProps) {
-  const { setOpen, setCurrentPatient } = useDoctorDetail()
-  const navigate = useNavigate()
-  const { doctorId } = Route.useParams()
+  const { setOpen, setCurrentPatient } = useDoctorDetail();
+  const navigate = useNavigate();
+  const { doctorId } = Route.useParams();
+  const { data: user } = useGetUserById(row.original.userId!, {
+    query: { enabled: !!row.original.userId },
+  });
 
   return (
-    <div className='flex justify-end'>
+    <div className="flex justify-end">
       <DropdownMenu modal={false}>
         <DropdownMenuTrigger asChild>
           <Button
-            variant='ghost'
-            className='data-[state=open]:bg-muted flex h-8 w-8 p-0'
+            variant="ghost"
+            className="data-[state=open]:bg-muted flex h-8 w-8 p-0"
           >
-            <DotsHorizontalIcon className='h-4 w-4' />
-            <span className='sr-only'>Mở menu</span>
+            <DotsHorizontalIcon className="h-4 w-4" />
+            <span className="sr-only">Mở menu</span>
           </Button>
         </DropdownMenuTrigger>
-        <DropdownMenuContent align='end' className='w-[180px]'>
+        <DropdownMenuContent align="end" className="w-[180px]">
           <DropdownMenuItem
             onClick={() => {
               navigate({
-                to: '/courses/assign',
+                to: "/courses/assign",
                 search: {
                   patientId: row.original.userId,
                   doctorId: Number(doctorId),
+                  ...(user?.fullName && { patientName: user.fullName }),
                 },
-              })
+              });
             }}
           >
             Gán khóa học
@@ -57,10 +61,10 @@ export function PatientsTableRowActions({ row }: PatientsTableRowActionsProps) {
           <DropdownMenuSeparator />
           <DropdownMenuItem
             onClick={() => {
-              setCurrentPatient(row.original)
-              setOpen('removePatient')
+              setCurrentPatient(row.original);
+              setOpen("removePatient");
             }}
-            className='text-red-500!'
+            className="text-red-500!"
           >
             Xóa
             <DropdownMenuShortcut>
@@ -70,5 +74,5 @@ export function PatientsTableRowActions({ row }: PatientsTableRowActionsProps) {
         </DropdownMenuContent>
       </DropdownMenu>
     </div>
-  )
+  );
 }
