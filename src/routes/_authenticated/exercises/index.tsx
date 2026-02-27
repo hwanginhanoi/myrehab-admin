@@ -9,37 +9,31 @@ const exercisesSearchSchema = z.object({
   title: z.string().optional().catch(''),
   // Category filter (multiple category IDs)
   categoryIds: z
-    .preprocess(
-      (val) => {
-        // Handle string "undefined" or other invalid values
-        if (val === 'undefined' || val === '' || val === null) return undefined
-        // If it's already an array, return it
-        if (Array.isArray(val)) {
-          return val.map(Number).filter(n => !isNaN(n))
-        }
-        // If it's a single value, convert to array
-        const num = Number(val)
-        return isNaN(num) ? undefined : [num]
-      },
-      z.array(z.number()).optional()
-    )
+    .preprocess((val) => {
+      // Handle string "undefined" or other invalid values
+      if (val === 'undefined' || val === '' || val === null) return undefined
+      // If it's already an array, return it
+      if (Array.isArray(val)) {
+        return val.map(Number).filter((n) => !isNaN(n))
+      }
+      // If it's a single value, convert to array
+      const num = Number(val)
+      return isNaN(num) ? undefined : [num]
+    }, z.array(z.number()).optional())
     .catch(undefined),
   // Group filter (multiple group IDs)
   groupIds: z
-    .preprocess(
-      (val) => {
-        // Handle string "undefined" or other invalid values
-        if (val === 'undefined' || val === '' || val === null) return undefined
-        // If it's already an array, return it
-        if (Array.isArray(val)) {
-          return val.map(Number).filter(n => !isNaN(n))
-        }
-        // If it's a single value, convert to array
-        const num = Number(val)
-        return isNaN(num) ? undefined : [num]
-      },
-      z.array(z.number()).optional()
-    )
+    .preprocess((val) => {
+      // Handle string "undefined" or other invalid values
+      if (val === 'undefined' || val === '' || val === null) return undefined
+      // If it's already an array, return it
+      if (Array.isArray(val)) {
+        return val.map(Number).filter((n) => !isNaN(n))
+      }
+      // If it's a single value, convert to array
+      const num = Number(val)
+      return isNaN(num) ? undefined : [num]
+    }, z.array(z.number()).optional())
     .catch(undefined),
 })
 

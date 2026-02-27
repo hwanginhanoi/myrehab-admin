@@ -12,7 +12,7 @@ function TrainerDetailRoute() {
     <>
       <Header>
         <Search />
-        <div className='ms-auto flex items-center space-x-4'>
+        <div className="ms-auto flex items-center space-x-4">
           <ThemeSwitch />
           <ConfigDrawer />
           <ProfileDropdown />
@@ -26,7 +26,9 @@ function TrainerDetailRoute() {
   )
 }
 
-export const Route = createFileRoute('/_authenticated/staff/trainers/$trainerId')({
+export const Route = createFileRoute(
+  '/_authenticated/staff/trainers/$trainerId'
+)({
   validateSearch: (search: Record<string, unknown> & SearchSchemaInput) => ({
     mode: (search.mode as 'view' | 'edit') || 'view',
   }),

@@ -12,20 +12,22 @@ function RehabilitationFormNew() {
     <>
       <Header fixed>
         <Search />
-        <div className='ms-auto flex items-center space-x-4'>
+        <div className="ms-auto flex items-center space-x-4">
           <ThemeSwitch />
           <ConfigDrawer />
           <ProfileDropdown />
         </div>
       </Header>
 
-      <Main className='flex flex-1 flex-col gap-4 sm:gap-6'>
-        <RehabilitationFormComponent mode='create' />
+      <Main className="flex flex-1 flex-col gap-4 sm:gap-6">
+        <RehabilitationFormComponent mode="create" />
       </Main>
     </>
   )
 }
 
-export const Route = createFileRoute('/_authenticated/rehabilitation-forms/new')({
+export const Route = createFileRoute(
+  '/_authenticated/rehabilitation-forms/new'
+)({
   component: RehabilitationFormNew,
 })

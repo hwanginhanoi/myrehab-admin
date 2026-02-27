@@ -1,36 +1,36 @@
-import { useState } from "react";
-import { ChevronDown, ChevronRight } from "lucide-react";
+import { useState } from 'react'
+import { ChevronDown, ChevronRight } from 'lucide-react'
 import {
   Collapsible,
   CollapsibleContent,
   CollapsibleTrigger,
-} from "@/components/ui/collapsible";
-import { Button } from "@/components/ui/button";
-import { useGetAllExercises } from "@/api";
-import type { ParsedCourseDetails } from "@/features/course-requests/types";
+} from '@/components/ui/collapsible'
+import { Button } from '@/components/ui/button'
+import { useGetAllExercises } from '@/api'
+import type { ParsedCourseDetails } from '@/features/course-requests/types'
 
 type CourseDetailsReadOnlyProps = {
-  courseDetails: { [key: string]: object } | undefined;
-};
+  courseDetails: { [key: string]: object } | undefined
+}
 
 export function CourseDetailsReadOnly({
   courseDetails,
 }: CourseDetailsReadOnlyProps) {
-  const details = courseDetails as unknown as ParsedCourseDetails | undefined;
+  const details = courseDetails as unknown as ParsedCourseDetails | undefined
 
   const { data: exercisesData } = useGetAllExercises(
     { pageable: { page: 0, size: 1000 } },
-    { query: { enabled: !!details?.days?.length } },
-  );
+    { query: { enabled: !!details?.days?.length } }
+  )
 
-  const exerciseMap = new Map<number, string>();
+  const exerciseMap = new Map<number, string>()
   if (exercisesData?.content) {
     for (const ex of exercisesData.content as {
-      id?: number;
-      title?: string;
+      id?: number
+      title?: string
     }[]) {
       if (ex.id && ex.title) {
-        exerciseMap.set(ex.id, ex.title);
+        exerciseMap.set(ex.id, ex.title)
       }
     }
   }
@@ -40,7 +40,7 @@ export function CourseDetailsReadOnly({
       <div>
         <p className="text-muted-foreground">Không có thông tin chi tiết.</p>
       </div>
-    );
+    )
   }
 
   return (
@@ -49,7 +49,7 @@ export function CourseDetailsReadOnly({
       <div className="grid grid-cols-2 gap-4 text-sm">
         <div>
           <span className="text-muted-foreground">Tên khóa tập:</span>
-          <p className="font-medium mt-1">{details.courseName || "-"}</p>
+          <p className="font-medium mt-1">{details.courseName || '-'}</p>
         </div>
         <div>
           <span className="text-muted-foreground">Số ngày:</span>
@@ -80,16 +80,16 @@ export function CourseDetailsReadOnly({
         </div>
       )}
     </div>
-  );
+  )
 }
 
 type DayCollapsibleProps = {
-  day: NonNullable<ParsedCourseDetails["days"]>[number];
-  exerciseMap: Map<number, string>;
-};
+  day: NonNullable<ParsedCourseDetails['days']>[number]
+  exerciseMap: Map<number, string>
+}
 
 function DayCollapsible({ day, exerciseMap }: DayCollapsibleProps) {
-  const [open, setOpen] = useState(false);
+  const [open, setOpen] = useState(false)
 
   return (
     <Collapsible open={open} onOpenChange={setOpen}>
@@ -120,7 +120,7 @@ function DayCollapsible({ day, exerciseMap }: DayCollapsibleProps) {
                 className="flex items-center justify-between text-sm py-1 border-b last:border-0"
               >
                 <span className="font-medium">
-                  {idx + 1}.{" "}
+                  {idx + 1}.{' '}
                   {exerciseMap.get(ex.exerciseId) ??
                     `Bài tập #${ex.exerciseId}`}
                 </span>
@@ -133,5 +133,5 @@ function DayCollapsible({ day, exerciseMap }: DayCollapsibleProps) {
         </div>
       </CollapsibleContent>
     </Collapsible>
-  );
+  )
 }

@@ -1,40 +1,40 @@
-import { getRouteApi, Outlet, useNavigate } from "@tanstack/react-router";
+import { getRouteApi, Outlet, useNavigate } from '@tanstack/react-router'
 import {
   ChevronLeft,
   ClipboardList,
   BookOpen,
   MessageSquare,
-} from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { Separator } from "@/components/ui/separator";
-import { AssignmentSidebarNav } from "./components/assignment-sidebar-nav";
+} from 'lucide-react'
+import { Button } from '@/components/ui/button'
+import { Separator } from '@/components/ui/separator'
+import { AssignmentSidebarNav } from './components/assignment-sidebar-nav'
 
-const route = getRouteApi("/_authenticated/course-assignments/$id");
+const route = getRouteApi('/_authenticated/course-assignments/$id')
 
 export function CourseAssignmentDetail() {
-  const { id } = route.useParams();
-  const search = route.useSearch();
-  const navigate = useNavigate();
+  const { id } = route.useParams()
+  const search = route.useSearch()
+  const navigate = useNavigate()
 
-  const { courseTitle, patientFullName } = search;
+  const { courseTitle, patientFullName } = search
 
   const sidebarNavItems = [
     {
-      title: "Thông tin phân công",
+      title: 'Thông tin phân công',
       href: `/course-assignments/${id}`,
       icon: <ClipboardList size={18} />,
     },
     {
-      title: "Chi tiết khóa tập",
+      title: 'Chi tiết khóa tập',
       href: `/course-assignments/${id}/course`,
       icon: <BookOpen size={18} />,
     },
     {
-      title: "Đánh giá hằng ngày",
+      title: 'Đánh giá hằng ngày',
       href: `/course-assignments/${id}/feedback`,
       icon: <MessageSquare size={18} />,
     },
-  ];
+  ]
 
   return (
     <>
@@ -43,7 +43,7 @@ export function CourseAssignmentDetail() {
         <Button
           variant="ghost"
           size="sm"
-          onClick={() => navigate({ to: "/course-assignments" })}
+          onClick={() => navigate({ to: '/course-assignments' })}
           className="h-8 gap-1"
         >
           <ChevronLeft className="h-4 w-4" />
@@ -56,12 +56,12 @@ export function CourseAssignmentDetail() {
       {/* Page Header */}
       <div className="space-y-0.5">
         <h1 className="text-2xl font-bold tracking-tight md:text-3xl">
-          {courseTitle || "Chi tiết phân công"}
+          {courseTitle || 'Chi tiết phân công'}
         </h1>
         <p className="text-muted-foreground">
           {patientFullName
             ? `Phân công cho bệnh nhân ${patientFullName}`
-            : "Xem thông tin chi tiết về phân công khóa tập."}
+            : 'Xem thông tin chi tiết về phân công khóa tập.'}
         </p>
       </div>
 
@@ -77,5 +77,5 @@ export function CourseAssignmentDetail() {
         </div>
       </div>
     </>
-  );
+  )
 }

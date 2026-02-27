@@ -8,7 +8,11 @@ type CourseDayBuilderProps = {
   courseName: string
 }
 
-export function CourseDayBuilder({ customizedDays, dispatch, courseName }: CourseDayBuilderProps) {
+export function CourseDayBuilder({
+  customizedDays,
+  dispatch,
+  courseName,
+}: CourseDayBuilderProps) {
   return (
     <CourseCustomizationSection
       courseName={courseName}

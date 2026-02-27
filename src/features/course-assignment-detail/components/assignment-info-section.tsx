@@ -1,14 +1,14 @@
-import { getRouteApi } from "@tanstack/react-router";
-import { User, Stethoscope, Calendar } from "lucide-react";
-import { PurchaseStatusBadge } from "@/features/course-assignments/components/purchase-status-badge";
-import { ProgressBadge } from "@/features/course-assignments/components/progress-badge";
-import { formatDate } from "@/lib/course-assignment-utils";
-import { AssignmentContentSection } from "./assignment-content-section";
+import { getRouteApi } from '@tanstack/react-router'
+import { User, Stethoscope, Calendar } from 'lucide-react'
+import { PurchaseStatusBadge } from '@/features/course-assignments/components/purchase-status-badge'
+import { ProgressBadge } from '@/features/course-assignments/components/progress-badge'
+import { formatDate } from '@/lib/course-assignment-utils'
+import { AssignmentContentSection } from './assignment-content-section'
 
-const route = getRouteApi("/_authenticated/course-assignments/$id");
+const route = getRouteApi('/_authenticated/course-assignments/$id')
 
 export function AssignmentInfoSection() {
-  const search = route.useSearch();
+  const search = route.useSearch()
   const {
     courseTitle,
     patientFullName,
@@ -17,7 +17,7 @@ export function AssignmentInfoSection() {
     purchaseStatus,
     hasStarted,
     isCompleted,
-  } = search;
+  } = search
 
   return (
     <AssignmentContentSection
@@ -27,13 +27,13 @@ export function AssignmentInfoSection() {
       <div className="space-y-4">
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
           <InfoRow icon={<User className="h-4 w-4" />} label="Bệnh nhân">
-            {patientFullName || "-"}
+            {patientFullName || '-'}
           </InfoRow>
           <InfoRow
             icon={<Stethoscope className="h-4 w-4" />}
             label="Bác sĩ phân công"
           >
-            {assignedByDoctorName || "-"}
+            {assignedByDoctorName || '-'}
           </InfoRow>
         </div>
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
@@ -43,7 +43,7 @@ export function AssignmentInfoSection() {
           >
             {formatDate(assignedAt)}
           </InfoRow>
-          <InfoRow label="Khóa tập">{courseTitle || "-"}</InfoRow>
+          <InfoRow label="Khóa tập">{courseTitle || '-'}</InfoRow>
         </div>
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
           <InfoRow label="Trạng thái thanh toán">
@@ -55,7 +55,7 @@ export function AssignmentInfoSection() {
         </div>
       </div>
     </AssignmentContentSection>
-  );
+  )
 }
 
 function InfoRow({
@@ -63,9 +63,9 @@ function InfoRow({
   label,
   children,
 }: {
-  icon?: React.ReactNode;
-  label: string;
-  children: React.ReactNode;
+  icon?: React.ReactNode
+  label: string
+  children: React.ReactNode
 }) {
   return (
     <div className="flex flex-col gap-1">
@@ -75,5 +75,5 @@ function InfoRow({
       </dt>
       <dd className="text-sm font-medium">{children}</dd>
     </div>
-  );
+  )
 }

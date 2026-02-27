@@ -1,27 +1,27 @@
-import { useNavigate } from "@tanstack/react-router";
-import { format } from "date-fns";
-import { ArrowLeft, Pencil, CheckCircle } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { Header } from "@/components/layout/header";
-import { Main } from "@/components/layout/main";
-import { ProfileDropdown } from "@/components/profile-dropdown";
-import { ThemeSwitch } from "@/components/theme-switch";
-import type { CourseAssignmentRequestResponse } from "@/api";
-import { CourseRequestStatusBadge } from "@/features/course-requests/components/course-request-status-badge";
-import { DoctorFeedbackAlert } from "./components/doctor-feedback-alert";
-import { CourseDetailsReadOnly } from "./components/course-details-read-only";
+import { useNavigate } from '@tanstack/react-router'
+import { format } from 'date-fns'
+import { ArrowLeft, Pencil, CheckCircle } from 'lucide-react'
+import { Button } from '@/components/ui/button'
+import { Header } from '@/components/layout/header'
+import { Main } from '@/components/layout/main'
+import { ProfileDropdown } from '@/components/profile-dropdown'
+import { ThemeSwitch } from '@/components/theme-switch'
+import type { CourseAssignmentRequestResponse } from '@/api'
+import { CourseRequestStatusBadge } from '@/features/course-requests/components/course-request-status-badge'
+import { DoctorFeedbackAlert } from './components/doctor-feedback-alert'
+import { CourseDetailsReadOnly } from './components/course-details-read-only'
 
 type CourseRequestDetailProps = {
-  request: CourseAssignmentRequestResponse;
-};
+  request: CourseAssignmentRequestResponse
+}
 
 export function CourseRequestDetail({ request }: CourseRequestDetailProps) {
-  const navigate = useNavigate();
+  const navigate = useNavigate()
 
-  const isRejected = request.status === "REJECTED";
-  const isApproved = request.status === "APPROVED";
-  const isPending = request.status === "PENDING";
-  const canEdit = isRejected || isPending;
+  const isRejected = request.status === 'REJECTED'
+  const isApproved = request.status === 'APPROVED'
+  const isPending = request.status === 'PENDING'
+  const canEdit = isRejected || isPending
 
   return (
     <>
@@ -40,7 +40,7 @@ export function CourseRequestDetail({ request }: CourseRequestDetailProps) {
               size="icon"
               onClick={() =>
                 navigate({
-                  to: "/course-requests",
+                  to: '/course-requests',
                   search: { page: 1, pageSize: 10 },
                 })
               }
@@ -55,15 +55,15 @@ export function CourseRequestDetail({ request }: CourseRequestDetailProps) {
                 <CourseRequestStatusBadge status={request.status} />
               </div>
               <p className="text-muted-foreground text-sm">
-                Bệnh nhân:{" "}
+                Bệnh nhân:{' '}
                 <span className="font-medium">
-                  {request.patientName || "-"}
+                  {request.patientName || '-'}
                 </span>
                 {request.createdAt && (
                   <>
-                    {" "}
-                    · Ngày tạo:{" "}
-                    {format(new Date(request.createdAt), "dd/MM/yyyy HH:mm")}
+                    {' '}
+                    · Ngày tạo:{' '}
+                    {format(new Date(request.createdAt), 'dd/MM/yyyy HH:mm')}
                   </>
                 )}
               </p>
@@ -73,7 +73,7 @@ export function CourseRequestDetail({ request }: CourseRequestDetailProps) {
             <Button
               onClick={() =>
                 navigate({
-                  to: "/course-requests/$id/edit",
+                  to: '/course-requests/$id/edit',
                   params: { id: String(request.id) },
                 })
               }
@@ -105,7 +105,7 @@ export function CourseRequestDetail({ request }: CourseRequestDetailProps) {
               {request.reviewedAt && (
                 <p>
                   <span className="text-muted-foreground">Ngày duyệt: </span>
-                  {format(new Date(request.reviewedAt), "dd/MM/yyyy HH:mm")}
+                  {format(new Date(request.reviewedAt), 'dd/MM/yyyy HH:mm')}
                 </p>
               )}
               {request.doctorName && (
@@ -117,7 +117,7 @@ export function CourseRequestDetail({ request }: CourseRequestDetailProps) {
               {request.doctorNotes && (
                 <p>
                   <span className="text-muted-foreground">
-                    Ghi chú bác sĩ:{" "}
+                    Ghi chú bác sĩ:{' '}
                   </span>
                   {request.doctorNotes}
                 </p>
@@ -146,5 +146,5 @@ export function CourseRequestDetail({ request }: CourseRequestDetailProps) {
         <CourseDetailsReadOnly courseDetails={request.courseDetails} />
       </Main>
     </>
-  );
+  )
 }

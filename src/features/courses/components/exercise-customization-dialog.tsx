@@ -1,5 +1,3 @@
-'use client'
-
 import { useState } from 'react'
 import {
   Dialog,
@@ -27,8 +25,12 @@ export function ExerciseCustomizationDialog({
   onOpenChange,
   onSave,
 }: ExerciseCustomizationDialogProps) {
-  const [customRepetitions, setCustomRepetitions] = useState<number | undefined>(exercise?.customRepetitions)
-  const [customSets, setCustomSets] = useState<number | undefined>(exercise?.customSets)
+  const [customRepetitions, setCustomRepetitions] = useState<
+    number | undefined
+  >(exercise?.customRepetitions)
+  const [customSets, setCustomSets] = useState<number | undefined>(
+    exercise?.customSets
+  )
   const [prevExercise, setPrevExercise] = useState(exercise)
 
   if (prevExercise !== exercise) {
@@ -39,7 +41,10 @@ export function ExerciseCustomizationDialog({
 
   const handleSave = () => {
     onSave({
-      customRepetitions: customRepetitions && customRepetitions > 0 ? customRepetitions : undefined,
+      customRepetitions:
+        customRepetitions && customRepetitions > 0
+          ? customRepetitions
+          : undefined,
       customSets: customSets && customSets > 0 ? customSets : undefined,
     })
     onOpenChange(false)
@@ -53,48 +58,54 @@ export function ExerciseCustomizationDialog({
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className='sm:max-w-md'>
+      <DialogContent className="sm:max-w-md">
         <DialogHeader>
           <DialogTitle>Tùy chỉnh bài tập</DialogTitle>
           <DialogDescription>{exercise.exerciseTitle}</DialogDescription>
         </DialogHeader>
 
-        <div className='space-y-4 py-4'>
-          <div className='space-y-2'>
-            <Label htmlFor='repetitions'>Số lần lặp</Label>
+        <div className="space-y-4 py-4">
+          <div className="space-y-2">
+            <Label htmlFor="repetitions">Số lần lặp</Label>
             <Input
-              id='repetitions'
-              type='number'
-              min='0'
-              placeholder='Nhập số lần lặp (tùy chọn)'
+              id="repetitions"
+              type="number"
+              min="0"
+              placeholder="Nhập số lần lặp (tùy chọn)"
               value={customRepetitions ?? ''}
               onChange={(e) =>
-                setCustomRepetitions(e.target.value ? Number(e.target.value) : undefined)
+                setCustomRepetitions(
+                  e.target.value ? Number(e.target.value) : undefined
+                )
               }
             />
-            <p className='text-xs text-muted-foreground'>
+            <p className="text-xs text-muted-foreground">
               Để trống nếu không muốn chỉ định số lần lặp cụ thể
             </p>
           </div>
 
-          <div className='space-y-2'>
-            <Label htmlFor='sets'>Số set</Label>
+          <div className="space-y-2">
+            <Label htmlFor="sets">Số set</Label>
             <Input
-              id='sets'
-              type='number'
-              min='0'
-              placeholder='Nhập số set (tùy chọn)'
+              id="sets"
+              type="number"
+              min="0"
+              placeholder="Nhập số set (tùy chọn)"
               value={customSets ?? ''}
-              onChange={(e) => setCustomSets(e.target.value ? Number(e.target.value) : undefined)}
+              onChange={(e) =>
+                setCustomSets(
+                  e.target.value ? Number(e.target.value) : undefined
+                )
+              }
             />
-            <p className='text-xs text-muted-foreground'>
+            <p className="text-xs text-muted-foreground">
               Để trống nếu không muốn chỉ định số set cụ thể
             </p>
           </div>
         </div>
 
         <DialogFooter>
-          <Button variant='outline' onClick={handleClose}>
+          <Button variant="outline" onClick={handleClose}>
             Hủy
           </Button>
           <Button onClick={handleSave}>Lưu thay đổi</Button>

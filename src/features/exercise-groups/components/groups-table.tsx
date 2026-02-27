@@ -28,7 +28,12 @@ type DataTableProps = {
   pageCount: number
 }
 
-export function GroupsTable({ data, search, navigate, pageCount }: DataTableProps) {
+export function GroupsTable({
+  data,
+  search,
+  navigate,
+  pageCount,
+}: DataTableProps) {
   // Local UI-only states
   const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({})
   const [sorting, setSorting] = useState<SortingState>([])
@@ -45,9 +50,7 @@ export function GroupsTable({ data, search, navigate, pageCount }: DataTableProp
     navigate,
     pagination: { defaultPage: 1, defaultPageSize: 10 },
     globalFilter: { enabled: false },
-    columnFilters: [
-      { columnId: 'name', searchKey: 'name', type: 'string' },
-    ],
+    columnFilters: [{ columnId: 'name', searchKey: 'name', type: 'string' }],
   })
 
   const table = useReactTable({
@@ -81,11 +84,11 @@ export function GroupsTable({ data, search, navigate, pageCount }: DataTableProp
       )}
     >
       <GroupsTableToolbar table={table} />
-      <div className='overflow-hidden rounded-md border'>
+      <div className="overflow-hidden rounded-md border">
         <Table>
           <TableHeader>
             {table.getHeaderGroups().map((headerGroup) => (
-              <TableRow key={headerGroup.id} className='group/row'>
+              <TableRow key={headerGroup.id} className="group/row">
                 {headerGroup.headers.map((header) => {
                   return (
                     <TableHead
@@ -115,7 +118,7 @@ export function GroupsTable({ data, search, navigate, pageCount }: DataTableProp
                 <TableRow
                   key={row.id}
                   data-state={row.getIsSelected() && 'selected'}
-                  className='group/row'
+                  className="group/row"
                 >
                   {row.getVisibleCells().map((cell) => (
                     <TableCell
@@ -138,7 +141,7 @@ export function GroupsTable({ data, search, navigate, pageCount }: DataTableProp
               <TableRow>
                 <TableCell
                   colSpan={columns.length}
-                  className='h-24 text-center'
+                  className="h-24 text-center"
                 >
                   Không có dữ liệu.
                 </TableCell>
@@ -147,7 +150,7 @@ export function GroupsTable({ data, search, navigate, pageCount }: DataTableProp
           </TableBody>
         </Table>
       </div>
-      <DataTablePagination table={table} className='mt-auto' />
+      <DataTablePagination table={table} className="mt-auto" />
     </div>
   )
 }

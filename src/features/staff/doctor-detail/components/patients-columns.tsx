@@ -9,15 +9,15 @@ function PatientNameCell({ row }: { row: Row<DoctorPatientResponse> }) {
     query: { enabled: !!row.original.userId },
   })
 
-  if (isLoading) return <div className='text-muted-foreground text-xs'>...</div>
-  return <div className='font-medium'>{user?.fullName || '-'}</div>
+  if (isLoading) return <div className="text-muted-foreground text-xs">...</div>
+  return <div className="font-medium">{user?.fullName || '-'}</div>
 }
 
 export const patientsColumns: ColumnDef<DoctorPatientResponse>[] = [
   {
     id: 'patientName',
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title='Bệnh nhân' />
+      <DataTableColumnHeader column={column} title="Bệnh nhân" />
     ),
     cell: PatientNameCell,
     enableHiding: false,
@@ -26,16 +26,14 @@ export const patientsColumns: ColumnDef<DoctorPatientResponse>[] = [
   {
     accessorKey: 'userPhoneNumber',
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title='Số điện thoại' />
+      <DataTableColumnHeader column={column} title="Số điện thoại" />
     ),
-    cell: ({ row }) => (
-      <div>{row.getValue('userPhoneNumber') || '-'}</div>
-    ),
+    cell: ({ row }) => <div>{row.getValue('userPhoneNumber') || '-'}</div>,
   },
   {
     accessorKey: 'assignedAt',
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title='Ngày gán' />
+      <DataTableColumnHeader column={column} title="Ngày gán" />
     ),
     cell: ({ row }) => {
       const assignedAt = row.getValue('assignedAt') as string | undefined
@@ -49,12 +47,12 @@ export const patientsColumns: ColumnDef<DoctorPatientResponse>[] = [
   {
     accessorKey: 'notes',
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title='Ghi chú' />
+      <DataTableColumnHeader column={column} title="Ghi chú" />
     ),
     cell: ({ row }) => {
       const notes = row.getValue('notes') as string | undefined
       return (
-        <div className='max-w-[300px] truncate' title={notes}>
+        <div className="max-w-[300px] truncate" title={notes}>
           {notes || '-'}
         </div>
       )
@@ -62,7 +60,7 @@ export const patientsColumns: ColumnDef<DoctorPatientResponse>[] = [
   },
   {
     id: 'actions',
-    header: () => <div className='text-right'>Thao tác</div>,
+    header: () => <div className="text-right">Thao tác</div>,
     cell: PatientsTableRowActions,
     enableSorting: false,
     enableHiding: false,

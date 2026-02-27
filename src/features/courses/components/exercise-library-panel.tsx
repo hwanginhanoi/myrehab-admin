@@ -1,14 +1,14 @@
-"use client";
+'use client'
 
-import { useState, useMemo } from "react";
-import { useDraggable } from "@dnd-kit/core";
-import { PlusCircledIcon, CheckIcon } from "@radix-ui/react-icons";
-import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { ScrollArea } from "@/components/ui/scroll-area";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Separator } from "@/components/ui/separator";
+import { useState, useMemo } from 'react'
+import { useDraggable } from '@dnd-kit/core'
+import { PlusCircledIcon, CheckIcon } from '@radix-ui/react-icons'
+import { Badge } from '@/components/ui/badge'
+import { Button } from '@/components/ui/button'
+import { Input } from '@/components/ui/input'
+import { ScrollArea } from '@/components/ui/scroll-area'
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import { Separator } from '@/components/ui/separator'
 import {
   Command,
   CommandEmpty,
@@ -17,31 +17,31 @@ import {
   CommandItem,
   CommandList,
   CommandSeparator,
-} from "@/components/ui/command";
+} from '@/components/ui/command'
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
-} from "@/components/ui/popover";
+} from '@/components/ui/popover'
 import {
   useGetAllExercises,
   useGetAllCategories,
   type ExerciseResponse,
   type CategoryResponse,
-} from "@/api";
-import { cn } from "@/lib/utils";
+} from '@/api'
+import { cn } from '@/lib/utils'
 
 type ExerciseLibraryPanelProps = {
-  onAddExercise?: (exercise: ExerciseResponse) => void;
-};
+  onAddExercise?: (exercise: ExerciseResponse) => void
+}
 
 export function ExerciseLibraryPanel({
   onAddExercise,
 }: ExerciseLibraryPanelProps) {
-  const [searchQuery, setSearchQuery] = useState("");
-  const [page, setPage] = useState(0);
-  const [selectedCategoryIds, setSelectedCategoryIds] = useState<string[]>([]);
-  const pageSize = 10;
+  const [searchQuery, setSearchQuery] = useState('')
+  const [page, setPage] = useState(0)
+  const [selectedCategoryIds, setSelectedCategoryIds] = useState<string[]>([])
+  const pageSize = 10
 
   // Fetch categories for filters
   const { data: categoriesResponse } = useGetAllCategories({
@@ -49,23 +49,22 @@ export function ExerciseLibraryPanel({
       page: 0,
       size: 10000,
     },
-  });
+  })
 
   // Group categories by type
   const categoryGroups = useMemo(() => {
-    const categories = (categoriesResponse?.content ||
-      []) as CategoryResponse[];
-    const groupsMap = new Map<string, CategoryResponse[]>();
+    const categories = (categoriesResponse?.content || []) as CategoryResponse[]
+    const groupsMap = new Map<string, CategoryResponse[]>()
 
     categories.forEach((category: CategoryResponse) => {
-      const type = category.type;
+      const type = category.type
       if (type && !groupsMap.has(type)) {
-        groupsMap.set(type, []);
+        groupsMap.set(type, [])
       }
       if (type) {
-        groupsMap.get(type)?.push(category);
+        groupsMap.get(type)?.push(category)
       }
-    });
+    })
 
     return Array.from(groupsMap.entries()).map(([type, cats]) => ({
       label: getCategoryTypeLabel(type),
@@ -75,8 +74,8 @@ export function ExerciseLibraryPanel({
           label: cat.name!,
           value: String(cat.id!),
         })),
-    }));
-  }, [categoriesResponse]);
+    }))
+  }, [categoriesResponse])
 
   // Fetch exercises
   const { data: exercisesResponse, isLoading } = useGetAllExercises(
@@ -92,11 +91,11 @@ export function ExerciseLibraryPanel({
       query: {
         placeholderData: (previousData) => previousData,
       },
-    },
-  );
+    }
+  )
 
-  const exercises = (exercisesResponse?.content || []) as ExerciseResponse[];
-  const totalPages = exercisesResponse?.page?.totalPages || 0;
+  const exercises = (exercisesResponse?.content || []) as ExerciseResponse[]
+  const totalPages = exercisesResponse?.page?.totalPages || 0
 
   return (
     <Card>
@@ -109,8 +108,8 @@ export function ExerciseLibraryPanel({
           placeholder="Tìm kiếm bài tập..."
           value={searchQuery}
           onChange={(e) => {
-            setSearchQuery(e.target.value);
-            setPage(0);
+            setSearchQuery(e.target.value)
+            setPage(0)
           }}
           className="h-8 w-full"
         />
@@ -122,8 +121,8 @@ export function ExerciseLibraryPanel({
             groups={categoryGroups}
             selectedValues={selectedCategoryIds}
             onChange={(values) => {
-              setSelectedCategoryIds(values);
-              setPage(0);
+              setSelectedCategoryIds(values)
+              setPage(0)
             }}
           />
         </div>
@@ -148,8 +147,8 @@ export function ExerciseLibraryPanel({
             <div className="flex items-center justify-center h-32">
               <p className="text-sm text-muted-foreground">
                 {searchQuery
-                  ? "Không tìm thấy bài tập"
-                  : "Không có bài tập khả dụng"}
+                  ? 'Không tìm thấy bài tập'
+                  : 'Không có bài tập khả dụng'}
               </p>
             </div>
           )}
@@ -166,7 +165,7 @@ export function ExerciseLibraryPanel({
             Trước
           </Button>
           <span className="text-sm text-muted-foreground">
-            Trang {totalPages === 0 ? 0 : page + 1} /{" "}
+            Trang {totalPages === 0 ? 0 : page + 1} /{' '}
             {totalPages === 0 ? 0 : totalPages}
           </span>
           <Button
@@ -180,20 +179,20 @@ export function ExerciseLibraryPanel({
         </div>
       </CardContent>
     </Card>
-  );
+  )
 }
 
 // Library Exercise Card Component
 type LibraryExerciseCardProps = {
-  exercise: ExerciseResponse;
-  onAdd?: (exercise: ExerciseResponse) => void;
-};
+  exercise: ExerciseResponse
+  onAdd?: (exercise: ExerciseResponse) => void
+}
 
 function LibraryExerciseCard({ exercise }: LibraryExerciseCardProps) {
   const { attributes, listeners, setNodeRef, isDragging } = useDraggable({
     id: `library-${exercise.id}`,
-    data: { type: "library-exercise", exercise },
-  });
+    data: { type: 'library-exercise', exercise },
+  })
 
   return (
     <div
@@ -201,15 +200,15 @@ function LibraryExerciseCard({ exercise }: LibraryExerciseCardProps) {
       {...listeners}
       {...attributes}
       className={cn(
-        "flex items-center gap-3 p-3 border rounded-lg cursor-grab hover:bg-accent transition-colors",
-        isDragging && "opacity-50",
+        'flex items-center gap-3 p-3 border rounded-lg cursor-grab hover:bg-accent transition-colors',
+        isDragging && 'opacity-50'
       )}
     >
       {/* Exercise image */}
       {exercise.imageUrl && (
         <img
           src={exercise.imageUrl}
-          alt={exercise.title || ""}
+          alt={exercise.title || ''}
           className="w-12 h-12 rounded object-cover"
         />
       )}
@@ -238,24 +237,24 @@ function LibraryExerciseCard({ exercise }: LibraryExerciseCardProps) {
         )}
       </div>
     </div>
-  );
+  )
 }
 
 // Filter Button Component
 type OptionGroup = {
-  label: string;
+  label: string
   options: {
-    label: string;
-    value: string;
-  }[];
-};
+    label: string
+    value: string
+  }[]
+}
 
 type FilterButtonProps = {
-  title: string;
-  groups: OptionGroup[];
-  selectedValues: string[];
-  onChange: (values: string[]) => void;
-};
+  title: string
+  groups: OptionGroup[]
+  selectedValues: string[]
+  onChange: (values: string[]) => void
+}
 
 function FilterButton({
   title,
@@ -263,8 +262,8 @@ function FilterButton({
   selectedValues,
   onChange,
 }: FilterButtonProps) {
-  const [open, setOpen] = useState(false);
-  const selectedSet = new Set(selectedValues);
+  const [open, setOpen] = useState(false)
+  const selectedSet = new Set(selectedValues)
 
   return (
     <Popover open={open} onOpenChange={setOpen} modal={false}>
@@ -318,30 +317,30 @@ function FilterButton({
               <div key={group.label}>
                 <CommandGroup heading={group.label}>
                   {group.options.map((option) => {
-                    const isSelected = selectedSet.has(option.value);
+                    const isSelected = selectedSet.has(option.value)
                     return (
                       <CommandItem
                         key={option.value}
                         onSelect={() => {
                           const newValues = isSelected
                             ? selectedValues.filter((v) => v !== option.value)
-                            : [...selectedValues, option.value];
-                          onChange(newValues);
+                            : [...selectedValues, option.value]
+                          onChange(newValues)
                         }}
                       >
                         <div
                           className={cn(
-                            "border-primary flex size-4 items-center justify-center rounded-sm border mr-2",
+                            'border-primary flex size-4 items-center justify-center rounded-sm border mr-2',
                             isSelected
-                              ? "bg-primary text-primary-foreground"
-                              : "opacity-50 [&_svg]:invisible",
+                              ? 'bg-primary text-primary-foreground'
+                              : 'opacity-50 [&_svg]:invisible'
                           )}
                         >
                           <CheckIcon className="h-4 w-4" />
                         </div>
                         <span>{option.label}</span>
                       </CommandItem>
-                    );
+                    )
                   })}
                 </CommandGroup>
                 {groupIndex < groups.length - 1 && <CommandSeparator />}
@@ -364,17 +363,17 @@ function FilterButton({
         </Command>
       </PopoverContent>
     </Popover>
-  );
+  )
 }
 
 // Helper function
 function getCategoryTypeLabel(type: string): string {
   const labels: Record<string, string> = {
-    BODY_PART: "Bộ phận cơ thể",
-    HEALTH_CONDITION: "Tình trạng sức khỏe",
-    EXERCISE_TYPE: "Loại bài tập",
-    EXERCISE_EQUIPMENTS: "Dụng cụ tập luyện",
-    OTHERS: "Khác",
-  };
-  return labels[type] || type;
+    BODY_PART: 'Bộ phận cơ thể',
+    HEALTH_CONDITION: 'Tình trạng sức khỏe',
+    EXERCISE_TYPE: 'Loại bài tập',
+    EXERCISE_EQUIPMENTS: 'Dụng cụ tập luyện',
+    OTHERS: 'Khác',
+  }
+  return labels[type] || type
 }

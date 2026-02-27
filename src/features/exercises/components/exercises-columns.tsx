@@ -10,10 +10,12 @@ export const exercisesColumns: ColumnDef<ExerciseResponse>[] = [
   {
     accessorKey: 'title',
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title='Tên bài tập' />
+      <DataTableColumnHeader column={column} title="Tên bài tập" />
     ),
     cell: ({ row }) => (
-      <LongText className='max-w-48 ps-3 font-medium'>{row.getValue('title')}</LongText>
+      <LongText className="max-w-48 ps-3 font-medium">
+        {row.getValue('title')}
+      </LongText>
     ),
     meta: {
       className: cn(
@@ -26,20 +28,20 @@ export const exercisesColumns: ColumnDef<ExerciseResponse>[] = [
   {
     accessorKey: 'categories',
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title='Danh mục' />
+      <DataTableColumnHeader column={column} title="Danh mục" />
     ),
     cell: ({ row }) => {
       const categories = row.original.categories || []
       return (
-        <div className='flex flex-wrap gap-1'>
+        <div className="flex flex-wrap gap-1">
           {categories.length > 0 ? (
             categories.map((category) => (
-              <Badge key={category.id} variant='outline' className='text-xs'>
+              <Badge key={category.id} variant="outline" className="text-xs">
                 {category.name}
               </Badge>
             ))
           ) : (
-            <span className='text-muted-foreground'>-</span>
+            <span className="text-muted-foreground">-</span>
           )}
         </div>
       )
@@ -49,20 +51,20 @@ export const exercisesColumns: ColumnDef<ExerciseResponse>[] = [
   {
     accessorKey: 'groups',
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title='Kho bài tập' />
+      <DataTableColumnHeader column={column} title="Kho bài tập" />
     ),
     cell: ({ row }) => {
       const groups = row.original.groups || []
       return (
-        <div className='flex flex-wrap gap-1'>
+        <div className="flex flex-wrap gap-1">
           {groups.length > 0 ? (
             groups.map((group) => (
-              <Badge key={group.id} variant='secondary' className='text-xs'>
+              <Badge key={group.id} variant="secondary" className="text-xs">
                 {group.name}
               </Badge>
             ))
           ) : (
-            <span className='text-muted-foreground'>-</span>
+            <span className="text-muted-foreground">-</span>
           )}
         </div>
       )
@@ -72,20 +74,20 @@ export const exercisesColumns: ColumnDef<ExerciseResponse>[] = [
   {
     accessorKey: 'durationMinutes',
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title='Thời lượng (phút)' />
+      <DataTableColumnHeader column={column} title="Thời lượng (phút)" />
     ),
-    cell: ({ row }) => (
-      <div>{row.getValue('durationMinutes') || '-'}</div>
-    ),
+    cell: ({ row }) => <div>{row.getValue('durationMinutes') || '-'}</div>,
     enableSorting: false,
   },
   {
     accessorKey: 'description',
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title='Mô tả' />
+      <DataTableColumnHeader column={column} title="Mô tả" />
     ),
     cell: ({ row }) => (
-      <LongText className='max-w-96'>{row.getValue('description') || '-'}</LongText>
+      <LongText className="max-w-96">
+        {row.getValue('description') || '-'}
+      </LongText>
     ),
     enableSorting: false,
   },

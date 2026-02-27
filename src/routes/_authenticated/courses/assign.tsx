@@ -26,13 +26,17 @@ function AssignCourseRoute() {
   return (
     <>
       <Header>
-        <div className='flex items-center gap-2'>
-          <h1 className='text-lg font-semibold md:text-2xl'>Gán khóa học</h1>
+        <div className="flex items-center gap-2">
+          <h1 className="text-lg font-semibold md:text-2xl">Gán khóa học</h1>
         </div>
       </Header>
 
-      <Main className='flex flex-col p-6'>
-        <CourseAssignmentScreen preSelectedPatientId={patientId} preSelectedDoctorId={doctorId} preSelectedPatientName={patientName} />
+      <Main className="flex flex-col p-6">
+        <CourseAssignmentScreen
+          preSelectedPatientId={patientId}
+          preSelectedDoctorId={doctorId}
+          preSelectedPatientName={patientName}
+        />
       </Main>
     </>
   )

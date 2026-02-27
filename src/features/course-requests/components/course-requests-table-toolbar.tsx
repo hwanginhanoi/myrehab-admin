@@ -13,18 +13,20 @@ export function CourseRequestsTableToolbar({
   onStatusChange,
 }: CourseRequestsTableToolbarProps) {
   return (
-    <div className='flex items-center justify-between'>
+    <div className="flex items-center justify-between">
       <Tabs
         value={currentStatus ?? 'all'}
         onValueChange={(value) => {
-          onStatusChange(value === 'all' ? undefined : (value as CourseRequestStatus))
+          onStatusChange(
+            value === 'all' ? undefined : (value as CourseRequestStatus)
+          )
         }}
       >
         <TabsList>
-          <TabsTrigger value='all'>Tất cả</TabsTrigger>
-          <TabsTrigger value='PENDING'>Chờ duyệt</TabsTrigger>
-          <TabsTrigger value='APPROVED'>Đã duyệt</TabsTrigger>
-          <TabsTrigger value='REJECTED'>Bị từ chối</TabsTrigger>
+          <TabsTrigger value="all">Tất cả</TabsTrigger>
+          <TabsTrigger value="PENDING">Chờ duyệt</TabsTrigger>
+          <TabsTrigger value="APPROVED">Đã duyệt</TabsTrigger>
+          <TabsTrigger value="REJECTED">Bị từ chối</TabsTrigger>
         </TabsList>
       </Tabs>
     </div>

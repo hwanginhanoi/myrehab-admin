@@ -57,41 +57,52 @@ export function CourseAssignmentsTable({
     globalFilter: { enabled: false },
     columnFilters: [
       { columnId: 'doctorId', searchKey: 'doctorId', type: 'string' },
-      { columnId: 'purchaseStatus', searchKey: 'purchaseStatus', type: 'array' },
-      { columnId: 'includeRevoked', searchKey: 'includeRevoked', type: 'string' },
+      {
+        columnId: 'purchaseStatus',
+        searchKey: 'purchaseStatus',
+        type: 'array',
+      },
+      {
+        columnId: 'includeRevoked',
+        searchKey: 'includeRevoked',
+        type: 'string',
+      },
       { columnId: 'startDate', searchKey: 'startDate', type: 'string' },
       { columnId: 'endDate', searchKey: 'endDate', type: 'string' },
     ],
   })
 
   // Add hidden columns for filter support
-  const columns = useMemo(() => [
-    {
-      id: 'doctorId',
-      header: () => null,
-      cell: () => null,
-      enableSorting: false,
-    },
-    {
-      id: 'includeRevoked',
-      header: () => null,
-      cell: () => null,
-      enableSorting: false,
-    },
-    {
-      id: 'startDate',
-      header: () => null,
-      cell: () => null,
-      enableSorting: false,
-    },
-    {
-      id: 'endDate',
-      header: () => null,
-      cell: () => null,
-      enableSorting: false,
-    },
-    ...courseAssignmentsColumns,
-  ], [])
+  const columns = useMemo(
+    () => [
+      {
+        id: 'doctorId',
+        header: () => null,
+        cell: () => null,
+        enableSorting: false,
+      },
+      {
+        id: 'includeRevoked',
+        header: () => null,
+        cell: () => null,
+        enableSorting: false,
+      },
+      {
+        id: 'startDate',
+        header: () => null,
+        cell: () => null,
+        enableSorting: false,
+      },
+      {
+        id: 'endDate',
+        header: () => null,
+        cell: () => null,
+        enableSorting: false,
+      },
+      ...courseAssignmentsColumns,
+    ],
+    []
+  )
 
   const table = useReactTable({
     data,
@@ -124,11 +135,11 @@ export function CourseAssignmentsTable({
       )}
     >
       <CourseAssignmentsTableToolbar table={table} />
-      <div className='overflow-hidden rounded-md border'>
+      <div className="overflow-hidden rounded-md border">
         <Table>
           <TableHeader>
             {table.getHeaderGroups().map((headerGroup) => (
-              <TableRow key={headerGroup.id} className='group/row'>
+              <TableRow key={headerGroup.id} className="group/row">
                 {headerGroup.headers.map((header) => (
                   <TableHead
                     key={header.id}
@@ -156,7 +167,7 @@ export function CourseAssignmentsTable({
                 <TableRow
                   key={row.id}
                   data-state={row.getIsSelected() && 'selected'}
-                  className='group/row'
+                  className="group/row"
                 >
                   {row.getVisibleCells().map((cell) => (
                     <TableCell
@@ -179,7 +190,7 @@ export function CourseAssignmentsTable({
               <TableRow>
                 <TableCell
                   colSpan={columns.length}
-                  className='h-24 text-center'
+                  className="h-24 text-center"
                 >
                   Không có dữ liệu.
                 </TableCell>
@@ -188,7 +199,7 @@ export function CourseAssignmentsTable({
           </TableBody>
         </Table>
       </div>
-      <DataTablePagination table={table} className='mt-auto' />
+      <DataTablePagination table={table} className="mt-auto" />
     </div>
   )
 }

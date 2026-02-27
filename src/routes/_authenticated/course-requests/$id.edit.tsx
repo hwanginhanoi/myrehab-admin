@@ -22,16 +22,16 @@ function CourseRequestEditPage() {
 
   if (isLoading) {
     return (
-      <div className='flex h-64 items-center justify-center'>
-        <span className='text-muted-foreground'>Đang tải...</span>
+      <div className="flex h-64 items-center justify-center">
+        <span className="text-muted-foreground">Đang tải...</span>
       </div>
     )
   }
 
   if (!request) {
     return (
-      <div className='flex h-64 items-center justify-center'>
-        <span className='text-muted-foreground'>Không tìm thấy yêu cầu.</span>
+      <div className="flex h-64 items-center justify-center">
+        <span className="text-muted-foreground">Không tìm thấy yêu cầu.</span>
       </div>
     )
   }
@@ -40,27 +40,28 @@ function CourseRequestEditPage() {
     return null
   }
 
-  const feedbackAlert =
-    request.doctorNotes ? (
-      <DoctorFeedbackAlert
-        doctorNotes={request.doctorNotes}
-        reviewedAt={request.reviewedAt}
-        doctorName={request.doctorName}
-      />
-    ) : undefined
+  const feedbackAlert = request.doctorNotes ? (
+    <DoctorFeedbackAlert
+      doctorNotes={request.doctorNotes}
+      reviewedAt={request.reviewedAt}
+      doctorName={request.doctorName}
+    />
+  ) : undefined
 
   return (
     <>
       <Header fixed>
-        <div className='ms-auto flex items-center space-x-4'>
+        <div className="ms-auto flex items-center space-x-4">
           <ThemeSwitch />
           <ProfileDropdown />
         </div>
       </Header>
-      <Main className='flex flex-1 flex-col gap-4 sm:gap-6'>
+      <Main className="flex flex-1 flex-col gap-4 sm:gap-6">
         <div>
-          <h2 className='text-2xl font-bold tracking-tight'>Chỉnh sửa yêu cầu khóa tập</h2>
-          <p className='text-muted-foreground'>
+          <h2 className="text-2xl font-bold tracking-tight">
+            Chỉnh sửa yêu cầu khóa tập
+          </h2>
+          <p className="text-muted-foreground">
             Cập nhật thông tin và nộp lại yêu cầu cho bác sĩ xét duyệt.
           </p>
         </div>
@@ -74,6 +75,8 @@ function CourseRequestEditPage() {
   )
 }
 
-export const Route = createFileRoute('/_authenticated/course-requests/$id/edit')({
+export const Route = createFileRoute(
+  '/_authenticated/course-requests/$id/edit'
+)({
   component: CourseRequestEditPage,
 })

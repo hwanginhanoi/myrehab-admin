@@ -11,7 +11,13 @@ function AdminProfileRoute() {
     return null
   }
 
-  return <AdminProfileSection admin={admin} isLoading={isLoading} readOnly={mode === 'view'} />
+  return (
+    <AdminProfileSection
+      admin={admin}
+      isLoading={isLoading}
+      readOnly={mode === 'view'}
+    />
+  )
 }
 
 export const Route = createFileRoute('/_authenticated/staff/admins/$adminId/')({

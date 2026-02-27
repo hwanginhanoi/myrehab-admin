@@ -11,11 +11,19 @@ type MyTrainersContextType = {
   setCurrentTrainer: React.Dispatch<React.SetStateAction<StaffResponse | null>>
 }
 
-const MyTrainersContext = React.createContext<MyTrainersContextType | null>(null)
+const MyTrainersContext = React.createContext<MyTrainersContextType | null>(
+  null
+)
 
-export function MyTrainersProvider({ children }: { children: React.ReactNode }) {
+export function MyTrainersProvider({
+  children,
+}: {
+  children: React.ReactNode
+}) {
   const [open, setOpen] = useDialogState<DialogType>(null)
-  const [currentTrainer, setCurrentTrainer] = useState<StaffResponse | null>(null)
+  const [currentTrainer, setCurrentTrainer] = useState<StaffResponse | null>(
+    null
+  )
 
   return (
     <MyTrainersContext

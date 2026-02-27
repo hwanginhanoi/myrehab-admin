@@ -1,5 +1,3 @@
-'use client'
-
 import { useSortable } from '@dnd-kit/sortable'
 import { CSS } from '@dnd-kit/utilities'
 import { GripVertical, Trash2 } from 'lucide-react'
@@ -49,15 +47,15 @@ export function ExerciseCardDraggable({
       )}
     >
       {/* Drag handle and number badge */}
-      <div className='flex items-center gap-2'>
+      <div className="flex items-center gap-2">
         <div
           {...attributes}
           {...listeners}
-          className='cursor-grab active:cursor-grabbing touch-none'
+          className="cursor-grab active:cursor-grabbing touch-none"
         >
-          <GripVertical className='h-5 w-5 text-muted-foreground' />
+          <GripVertical className="h-5 w-5 text-muted-foreground" />
         </div>
-        <div className='flex items-center justify-center w-6 h-6 rounded-full bg-muted text-sm font-medium'>
+        <div className="flex items-center justify-center w-6 h-6 rounded-full bg-muted text-sm font-medium">
           {index + 1}
         </div>
       </div>
@@ -67,21 +65,23 @@ export function ExerciseCardDraggable({
         <img
           src={exercise.exerciseImageUrl}
           alt={exercise.exerciseTitle}
-          className='w-16 h-16 rounded object-cover'
+          className="w-16 h-16 rounded object-cover"
         />
       )}
 
       {/* Exercise info */}
-      <div className='flex-1 min-w-0'>
-        <p className='font-medium text-base truncate'>{exercise.exerciseTitle}</p>
-        <div className='flex flex-wrap items-center gap-2 mt-1'>
+      <div className="flex-1 min-w-0">
+        <p className="font-medium text-base truncate">
+          {exercise.exerciseTitle}
+        </p>
+        <div className="flex flex-wrap items-center gap-2 mt-1">
           {exercise.customRepetitions && (
-            <Badge variant='outline' className='text-xs'>
+            <Badge variant="outline" className="text-xs">
               {exercise.customRepetitions} lần lặp
             </Badge>
           )}
           {exercise.customSets && (
-            <Badge variant='outline' className='text-xs'>
+            <Badge variant="outline" className="text-xs">
               {exercise.customSets} set
             </Badge>
           )}
@@ -90,12 +90,12 @@ export function ExerciseCardDraggable({
 
       {/* Actions */}
       <Button
-        variant='ghost'
-        size='sm'
+        variant="ghost"
+        size="sm"
         onClick={() => onRemove(exercise.id)}
-        className='h-8 w-8 p-0 hover:bg-destructive/10 hover:text-destructive'
+        className="h-8 w-8 p-0 hover:bg-destructive/10 hover:text-destructive"
       >
-        <Trash2 className='h-4 w-4' />
+        <Trash2 className="h-4 w-4" />
       </Button>
     </div>
   )

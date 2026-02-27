@@ -8,14 +8,23 @@ type MyPatientsContextType = {
   open: DialogType | null
   setOpen: (str: DialogType | null) => void
   currentPatient: DoctorPatientResponse | null
-  setCurrentPatient: React.Dispatch<React.SetStateAction<DoctorPatientResponse | null>>
+  setCurrentPatient: React.Dispatch<
+    React.SetStateAction<DoctorPatientResponse | null>
+  >
 }
 
-const MyPatientsContext = React.createContext<MyPatientsContextType | null>(null)
+const MyPatientsContext = React.createContext<MyPatientsContextType | null>(
+  null
+)
 
-export function MyPatientsProvider({ children }: { children: React.ReactNode }) {
+export function MyPatientsProvider({
+  children,
+}: {
+  children: React.ReactNode
+}) {
   const [open, setOpen] = useDialogState<DialogType>(null)
-  const [currentPatient, setCurrentPatient] = useState<DoctorPatientResponse | null>(null)
+  const [currentPatient, setCurrentPatient] =
+    useState<DoctorPatientResponse | null>(null)
 
   return (
     <MyPatientsContext

@@ -6,10 +6,13 @@ type DoctorExerciseGroupSectionProps = {
   readOnly?: boolean
 }
 
-export function DoctorExerciseGroupSection({ doctorId, readOnly }: DoctorExerciseGroupSectionProps) {
+export function DoctorExerciseGroupSection({
+  doctorId,
+  readOnly,
+}: DoctorExerciseGroupSectionProps) {
   return (
     <DoctorContentSection
-      title='Quản lý Nhóm bài tập'
+      title="Quản lý Nhóm bài tập"
       desc={
         readOnly
           ? 'Xem các nhóm bài tập được gán cho bác sĩ này.'

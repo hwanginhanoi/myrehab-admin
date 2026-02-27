@@ -6,10 +6,10 @@ export function GroupsDialogs() {
   return (
     <>
       <GroupsActionDialog
-        key='group-add'
+        key="group-add"
         open={open === 'add'}
         onOpenChange={() => setOpen('add')}
-        mode='add'
+        mode="add"
       />
 
       {currentRow && (
@@ -24,7 +24,7 @@ export function GroupsDialogs() {
               }, 500)
             }}
             currentRow={currentRow}
-            mode='edit'
+            mode="edit"
           />
 
           <GroupsActionDialog
@@ -37,7 +37,7 @@ export function GroupsDialogs() {
               }, 500)
             }}
             currentRow={currentRow}
-            mode='view'
+            mode="view"
           />
         </>
       )}

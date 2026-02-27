@@ -12,15 +12,15 @@ function NewExercisePackage() {
     <>
       <Header fixed>
         <Search />
-        <div className='ms-auto flex items-center space-x-4'>
+        <div className="ms-auto flex items-center space-x-4">
           <ThemeSwitch />
           <ConfigDrawer />
           <ProfileDropdown />
         </div>
       </Header>
 
-      <Main className='flex flex-1 flex-col gap-4 sm:gap-6'>
-        <ExercisePackageFormComponent mode='create' />
+      <Main className="flex flex-1 flex-col gap-4 sm:gap-6">
+        <ExercisePackageFormComponent mode="create" />
       </Main>
     </>
   )

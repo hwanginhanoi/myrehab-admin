@@ -13,8 +13,12 @@ export function DoctorPermissionSection({
 }: DoctorPermissionSectionProps) {
   return (
     <DoctorContentSection
-      title='Quản lý Quyền'
-      desc={readOnly ? 'Xem quyền truy cập và thao tác của bác sĩ trong hệ thống.' : 'Quản lý quyền truy cập và thao tác của bác sĩ trong hệ thống.'}
+      title="Quản lý Quyền"
+      desc={
+        readOnly
+          ? 'Xem quyền truy cập và thao tác của bác sĩ trong hệ thống.'
+          : 'Quản lý quyền truy cập và thao tác của bác sĩ trong hệ thống.'
+      }
       fullWidth
     >
       <DoctorPermissionForm doctor={doctor} readOnly={readOnly} />

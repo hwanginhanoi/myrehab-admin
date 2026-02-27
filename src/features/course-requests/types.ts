@@ -18,7 +18,9 @@ export type ParsedCourseDetails = {
   }>
 }
 
-export function parseCourseDetails(courseDetails?: { [key: string]: object }): ParsedCourseDetails {
+export function parseCourseDetails(courseDetails?: {
+  [key: string]: object
+}): ParsedCourseDetails {
   if (!courseDetails) return {}
   return courseDetails as unknown as ParsedCourseDetails
 }

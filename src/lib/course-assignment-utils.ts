@@ -4,7 +4,11 @@ export type PurchaseStatus = 'PENDING_PURCHASE' | 'PURCHASED' | 'EXPIRED'
 
 export const purchaseStatusConfig: Record<
   PurchaseStatus,
-  { label: string; variant: 'default' | 'secondary' | 'destructive'; color: string }
+  {
+    label: string
+    variant: 'default' | 'secondary' | 'destructive'
+    color: string
+  }
 > = {
   PENDING_PURCHASE: {
     label: 'Chờ thanh toán',

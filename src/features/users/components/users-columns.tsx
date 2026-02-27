@@ -10,38 +10,42 @@ export const usersColumns: ColumnDef<UserResponse>[] = [
   {
     accessorKey: 'fullName',
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title='Họ và tên' />
+      <DataTableColumnHeader column={column} title="Họ và tên" />
     ),
     cell: ({ row }) => (
-      <div className='font-medium pl-3'>{row.getValue('fullName') || '-'}</div>
+      <div className="font-medium pl-3">{row.getValue('fullName') || '-'}</div>
     ),
     enableHiding: false,
   },
   {
     accessorKey: 'phoneNumber',
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title='Số điện thoại' />
+      <DataTableColumnHeader column={column} title="Số điện thoại" />
     ),
-    cell: ({ row }) => <div className='pl-3'>{row.getValue('phoneNumber') || '-'}</div>,
+    cell: ({ row }) => (
+      <div className="pl-3">{row.getValue('phoneNumber') || '-'}</div>
+    ),
   },
   {
     accessorKey: 'email',
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title='Email' />
+      <DataTableColumnHeader column={column} title="Email" />
     ),
-    cell: ({ row }) => <div className='pl-3'>{row.getValue('email') || '-'}</div>,
+    cell: ({ row }) => (
+      <div className="pl-3">{row.getValue('email') || '-'}</div>
+    ),
   },
   {
     accessorKey: 'gender',
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title='Giới tính' />
+      <DataTableColumnHeader column={column} title="Giới tính" />
     ),
     cell: ({ row }) => {
       const gender = row.getValue('gender') as string | undefined
       return (
-        <div className='pl-3'>
-          <Badge variant='outline'>
-            {gender ? (genderLabels[gender] || gender) : '-'}
+        <div className="pl-3">
+          <Badge variant="outline">
+            {gender ? genderLabels[gender] || gender : '-'}
           </Badge>
         </div>
       )
@@ -50,12 +54,12 @@ export const usersColumns: ColumnDef<UserResponse>[] = [
   {
     accessorKey: 'createdAt',
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title='Ngày tạo' />
+      <DataTableColumnHeader column={column} title="Ngày tạo" />
     ),
     cell: ({ row }) => {
       const createdAt = row.getValue('createdAt') as string | undefined
       return (
-        <div className='pl-3'>
+        <div className="pl-3">
           {createdAt ? format(new Date(createdAt), 'dd/MM/yyyy') : '-'}
         </div>
       )
@@ -63,7 +67,7 @@ export const usersColumns: ColumnDef<UserResponse>[] = [
   },
   {
     id: 'actions',
-    header: () => <div className='text-right'>Hành động</div>,
+    header: () => <div className="text-right">Hành động</div>,
     cell: UsersTableRowActions,
     enableSorting: false,
     enableHiding: false,

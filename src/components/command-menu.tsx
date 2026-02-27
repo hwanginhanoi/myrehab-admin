@@ -30,7 +30,7 @@ export function CommandMenu() {
   const navigate = useNavigate()
   const { setTheme } = useTheme()
   const { open, setOpen } = useSearch()
-  const { auth } = useAuthStore()
+  const { userType } = useAuthStore()
   const { hasPermission } = usePermissions()
 
   const runCommand = React.useCallback(
@@ -43,7 +43,6 @@ export function CommandMenu() {
 
   // Filter nav groups based on user type and permissions
   const filteredNavGroups = React.useMemo(() => {
-    const userType = auth.userType
     const isAdmin = userType === 'SUPER_ADMIN' || userType === 'ADMIN'
     const isDoctor = userType === 'DOCTOR'
 
@@ -73,13 +72,13 @@ export function CommandMenu() {
         }),
       }))
       .filter((group) => group.items.length > 0)
-  }, [auth.userType, hasPermission])
+  }, [userType, hasPermission])
 
   return (
     <CommandDialog modal open={open} onOpenChange={setOpen}>
-      <CommandInput placeholder='Type a command or search...' />
+      <CommandInput placeholder="Type a command or search..." />
       <CommandList>
-        <ScrollArea type='hover' className='h-72 pe-1'>
+        <ScrollArea type="hover" className="h-72 pe-1">
           <CommandEmpty>No results found.</CommandEmpty>
           {filteredNavGroups.map((group) => (
             <CommandGroup key={group.title} heading={group.title}>
@@ -93,8 +92,8 @@ export function CommandMenu() {
                         runCommand(() => navigate({ to: navItem.url }))
                       }}
                     >
-                      <div className='flex size-4 items-center justify-center'>
-                        <ArrowRight className='text-muted-foreground/80 size-2' />
+                      <div className="flex size-4 items-center justify-center">
+                        <ArrowRight className="text-muted-foreground/80 size-2" />
                       </div>
                       {navItem.title}
                     </CommandItem>
@@ -108,8 +107,8 @@ export function CommandMenu() {
                       runCommand(() => navigate({ to: subItem.url }))
                     }}
                   >
-                    <div className='flex size-4 items-center justify-center'>
-                      <ArrowRight className='text-muted-foreground/80 size-2' />
+                    <div className="flex size-4 items-center justify-center">
+                      <ArrowRight className="text-muted-foreground/80 size-2" />
                     </div>
                     {navItem.title} <ChevronRight /> {subItem.title}
                   </CommandItem>
@@ -118,12 +117,12 @@ export function CommandMenu() {
             </CommandGroup>
           ))}
           <CommandSeparator />
-          <CommandGroup heading='Theme'>
+          <CommandGroup heading="Theme">
             <CommandItem onSelect={() => runCommand(() => setTheme('light'))}>
               <Sun /> <span>Light</span>
             </CommandItem>
             <CommandItem onSelect={() => runCommand(() => setTheme('dark'))}>
-              <Moon className='scale-90' />
+              <Moon className="scale-90" />
               <span>Dark</span>
             </CommandItem>
             <CommandItem onSelect={() => runCommand(() => setTheme('system'))}>

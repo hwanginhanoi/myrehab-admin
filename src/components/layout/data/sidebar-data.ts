@@ -161,7 +161,7 @@ export const sidebarData: SidebarData = {
           icon: ClipboardList,
           requiredPermission: 'rehab_forms:view',
         },
-      ]
+      ],
     },
     {
       title: 'Quản trị người dùng',
@@ -178,7 +178,7 @@ export const sidebarData: SidebarData = {
           icon: Users,
           allowedRoles: ['ADMIN', 'SUPER_ADMIN'],
         },
-      ]
+      ],
     },
     {
       title: 'Hệ thống',

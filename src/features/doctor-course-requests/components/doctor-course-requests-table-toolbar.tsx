@@ -14,25 +14,27 @@ export function DoctorCourseRequestsTableToolbar({
   pendingCount,
 }: DoctorCourseRequestsTableToolbarProps) {
   return (
-    <div className='flex items-center justify-between'>
+    <div className="flex items-center justify-between">
       <Tabs
         value={currentStatus ?? 'all'}
         onValueChange={(value) => {
-          onStatusChange(value === 'all' ? undefined : (value as CourseRequestStatus))
+          onStatusChange(
+            value === 'all' ? undefined : (value as CourseRequestStatus)
+          )
         }}
       >
         <TabsList>
-          <TabsTrigger value='all'>Tất cả</TabsTrigger>
-          <TabsTrigger value='PENDING' className='gap-1'>
+          <TabsTrigger value="all">Tất cả</TabsTrigger>
+          <TabsTrigger value="PENDING" className="gap-1">
             Chờ duyệt
             {pendingCount != null && pendingCount > 0 && (
-              <Badge variant='destructive' className='h-4 px-1 text-xs'>
+              <Badge variant="destructive" className="h-4 px-1 text-xs">
                 {pendingCount}
               </Badge>
             )}
           </TabsTrigger>
-          <TabsTrigger value='APPROVED'>Đã duyệt</TabsTrigger>
-          <TabsTrigger value='REJECTED'>Đã từ chối</TabsTrigger>
+          <TabsTrigger value="APPROVED">Đã duyệt</TabsTrigger>
+          <TabsTrigger value="REJECTED">Đã từ chối</TabsTrigger>
         </TabsList>
       </Tabs>
     </div>

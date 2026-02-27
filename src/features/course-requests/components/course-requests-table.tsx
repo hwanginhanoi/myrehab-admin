@@ -87,11 +87,11 @@ export function CourseRequestsTable({
         currentStatus={currentStatus}
         onStatusChange={onStatusChange}
       />
-      <div className='overflow-hidden rounded-md border'>
+      <div className="overflow-hidden rounded-md border">
         <Table>
           <TableHeader>
             {table.getHeaderGroups().map((headerGroup) => (
-              <TableRow key={headerGroup.id} className='group/row'>
+              <TableRow key={headerGroup.id} className="group/row">
                 {headerGroup.headers.map((header) => (
                   <TableHead
                     key={header.id}
@@ -104,7 +104,10 @@ export function CourseRequestsTable({
                   >
                     {header.isPlaceholder
                       ? null
-                      : flexRender(header.column.columnDef.header, header.getContext())}
+                      : flexRender(
+                          header.column.columnDef.header,
+                          header.getContext()
+                        )}
                   </TableHead>
                 ))}
               </TableRow>
@@ -116,7 +119,7 @@ export function CourseRequestsTable({
                 <TableRow
                   key={row.id}
                   data-state={row.getIsSelected() && 'selected'}
-                  className='group/row'
+                  className="group/row"
                 >
                   {row.getVisibleCells().map((cell) => (
                     <TableCell
@@ -127,14 +130,20 @@ export function CourseRequestsTable({
                         cell.column.columnDef.meta?.tdClassName
                       )}
                     >
-                      {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                      {flexRender(
+                        cell.column.columnDef.cell,
+                        cell.getContext()
+                      )}
                     </TableCell>
                   ))}
                 </TableRow>
               ))
             ) : (
               <TableRow>
-                <TableCell colSpan={courseRequestsColumns.length} className='h-24 text-center'>
+                <TableCell
+                  colSpan={courseRequestsColumns.length}
+                  className="h-24 text-center"
+                >
                   Không có dữ liệu.
                 </TableCell>
               </TableRow>
@@ -142,7 +151,7 @@ export function CourseRequestsTable({
           </TableBody>
         </Table>
       </div>
-      <DataTablePagination table={table} className='mt-auto' />
+      <DataTablePagination table={table} className="mt-auto" />
     </div>
   )
 }

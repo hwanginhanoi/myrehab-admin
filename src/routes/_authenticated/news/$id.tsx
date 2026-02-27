@@ -23,23 +23,23 @@ function NewsDetail() {
     <>
       <Header fixed>
         <Search />
-        <div className='ms-auto flex items-center space-x-4'>
+        <div className="ms-auto flex items-center space-x-4">
           <ThemeSwitch />
           <ConfigDrawer />
           <ProfileDropdown />
         </div>
       </Header>
 
-      <Main className='flex flex-1 flex-col gap-4 sm:gap-6'>
+      <Main className="flex flex-1 flex-col gap-4 sm:gap-6">
         {isLoading ? (
-          <div className='flex items-center justify-center h-64'>
-            <p className='text-muted-foreground'>Đang tải...</p>
+          <div className="flex items-center justify-center h-64">
+            <p className="text-muted-foreground">Đang tải...</p>
           </div>
         ) : news ? (
           <NewsFormComponent news={news} mode={mode || 'view'} />
         ) : (
-          <div className='flex items-center justify-center h-64'>
-            <p className='text-muted-foreground'>Không tìm thấy tin tức</p>
+          <div className="flex items-center justify-center h-64">
+            <p className="text-muted-foreground">Không tìm thấy tin tức</p>
           </div>
         )}
       </Main>

@@ -1,26 +1,26 @@
-import { getRouteApi } from "@tanstack/react-router";
-import { MessageSquare, AlertTriangle, Calendar } from "lucide-react";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
-import { useGetPainReports } from "@/api";
-import { formatDateTime } from "@/lib/course-assignment-utils";
-import { AssignmentContentSection } from "./assignment-content-section";
+import { getRouteApi } from '@tanstack/react-router'
+import { MessageSquare, AlertTriangle, Calendar } from 'lucide-react'
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import { Badge } from '@/components/ui/badge'
+import { useGetPainReports } from '@/api'
+import { formatDateTime } from '@/lib/course-assignment-utils'
+import { AssignmentContentSection } from './assignment-content-section'
 
-const route = getRouteApi("/_authenticated/course-assignments/$id");
+const route = getRouteApi('/_authenticated/course-assignments/$id')
 
 export function DailyFeedbackSection() {
-  const search = route.useSearch();
-  const { courseId, patientFullName } = search;
+  const search = route.useSearch()
+  const { courseId, patientFullName } = search
 
   const { data: painReports, isLoading } = useGetPainReports(
     { courseId },
-    { query: { enabled: !!courseId } },
-  );
+    { query: { enabled: !!courseId } }
+  )
 
   // Filter pain reports to only show reports for this specific patient
   const patientReports = (painReports ?? []).filter(
-    (report) => !patientFullName || report.patientName === patientFullName,
-  );
+    (report) => !patientFullName || report.patientName === patientFullName
+  )
 
   return (
     <AssignmentContentSection
@@ -98,5 +98,5 @@ export function DailyFeedbackSection() {
         )}
       </>
     </AssignmentContentSection>
-  );
+  )
 }

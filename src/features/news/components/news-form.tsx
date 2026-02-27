@@ -1,5 +1,3 @@
-'use client'
-
 import { useRef, useState } from 'react'
 import { z } from 'zod'
 import { useForm } from 'react-hook-form'
@@ -21,10 +19,14 @@ import { Tiptap } from '@/components/tiptap'
 import { SelectDropdown } from '@/components/select-dropdown'
 import { FileUpload, type FileUploadRef } from '@/components/file-upload'
 import { newsStatusOptions } from '@/lib/constants/news-status'
-import { newsCategoryTypeOptions } from '@/lib/constants/news-catergories'
+import { newsCategoryTypeOptions } from '@/lib/constants/news-categories'
 import { type NewsResponse, useCreateNews, useUpdateNews } from '@/api'
 import { toast } from 'sonner'
-import { requestPresignedUploadUrl, uploadFileToMinIO, getPublicImageUrl } from '@/lib/file-upload'
+import {
+  requestPresignedUploadUrl,
+  uploadFileToMinIO,
+  getPublicImageUrl,
+} from '@/lib/file-upload'
 
 /**
  * Helper function to convert base64 string to File object
@@ -60,7 +62,10 @@ const processAndUploadImages = async (htmlContent: string): Promise<string> => {
     if (src && src.startsWith('data:image')) {
       const uploadPromise = (async () => {
         // Convert base64 to file
-        const file = base64ToFile(src, `news-image-${Date.now()}-${imageIndex}.png`)
+        const file = base64ToFile(
+          src,
+          `news-image-${Date.now()}-${imageIndex}.png`
+        )
         imageIndex++
 
         // Upload to MinIO
@@ -140,7 +145,9 @@ export function NewsFormComponent({ news, mode }: NewsFormComponentProps) {
     mutation: {
       onSuccess: () => {
         toast.success('Tạo tin tức thành công')
-        void queryClient.invalidateQueries({ queryKey: [{ url: '/api/news' }] })
+        void queryClient.invalidateQueries({
+          queryKey: [{ url: '/api/news' }],
+        })
         void navigate({ to: '/news' })
       },
       onError: (error) => {
@@ -153,7 +160,9 @@ export function NewsFormComponent({ news, mode }: NewsFormComponentProps) {
     mutation: {
       onSuccess: () => {
         toast.success('Cập nhật tin tức thành công')
-        void queryClient.invalidateQueries({ queryKey: [{ url: '/api/news' }] })
+        void queryClient.invalidateQueries({
+          queryKey: [{ url: '/api/news' }],
+        })
         void navigate({ to: '/news' })
       },
       onError: (error) => {
@@ -228,23 +237,23 @@ export function NewsFormComponent({ news, mode }: NewsFormComponentProps) {
   }
 
   return (
-    <div className='space-y-6'>
+    <div className="space-y-6">
       <div>
-        <h2 className='text-2xl font-bold tracking-tight'>{getTitle()}</h2>
-        <p className='text-muted-foreground'>{getDescription()}</p>
+        <h2 className="text-2xl font-bold tracking-tight">{getTitle()}</h2>
+        <p className="text-muted-foreground">{getDescription()}</p>
       </div>
 
       <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)} className='space-y-6'>
+        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
           <FormField
             control={form.control}
-            name='title'
+            name="title"
             render={({ field }) => (
               <FormItem>
                 <FormLabel>Tiêu đề</FormLabel>
                 <FormControl>
                   <Input
-                    placeholder='Nhập tiêu đề'
+                    placeholder="Nhập tiêu đề"
                     disabled={isView}
                     {...field}
                   />
@@ -256,14 +265,14 @@ export function NewsFormComponent({ news, mode }: NewsFormComponentProps) {
 
           <FormField
             control={form.control}
-            name='summary'
+            name="summary"
             render={({ field }) => (
               <FormItem>
                 <FormLabel>Tóm tắt</FormLabel>
                 <FormControl>
                   <Textarea
-                    placeholder='Nhập tóm tắt'
-                    className='min-h-[80px]'
+                    placeholder="Nhập tóm tắt"
+                    className="min-h-[80px]"
                     disabled={isView}
                     {...field}
                   />
@@ -275,7 +284,7 @@ export function NewsFormComponent({ news, mode }: NewsFormComponentProps) {
 
           <FormField
             control={form.control}
-            name='content'
+            name="content"
             render={({ field }) => (
               <FormItem>
                 <FormLabel>Nội dung</FormLabel>
@@ -284,7 +293,7 @@ export function NewsFormComponent({ news, mode }: NewsFormComponentProps) {
                     value={field.value}
                     onChange={field.onChange}
                     disabled={isView}
-                    placeholder='Nhập nội dung tin tức'
+                    placeholder="Nhập nội dung tin tức"
                   />
                 </FormControl>
                 <FormMessage />
@@ -292,17 +301,17 @@ export function NewsFormComponent({ news, mode }: NewsFormComponentProps) {
             )}
           />
 
-          <div className='grid grid-cols-1 md:grid-cols-2 gap-6'>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <FormField
               control={form.control}
-              name='thumbnailUrl'
+              name="thumbnailUrl"
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Ảnh đại diện</FormLabel>
                   <FormControl>
                     <FileUpload
                       ref={imageUploadRef}
-                      category='news-image'
+                      category="news-image"
                       value={field.value}
                       onChange={field.onChange}
                       disabled={isView}
@@ -315,10 +324,10 @@ export function NewsFormComponent({ news, mode }: NewsFormComponentProps) {
             />
           </div>
 
-          <div className='grid grid-cols-1 md:grid-cols-2 gap-6'>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <FormField
               control={form.control}
-              name='category'
+              name="category"
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Danh mục</FormLabel>
@@ -326,7 +335,7 @@ export function NewsFormComponent({ news, mode }: NewsFormComponentProps) {
                     <SelectDropdown
                       defaultValue={field.value}
                       onValueChange={field.onChange}
-                      placeholder='Chọn danh mục'
+                      placeholder="Chọn danh mục"
                       disabled={isView}
                       items={newsCategoryTypeOptions}
                     />
@@ -338,7 +347,7 @@ export function NewsFormComponent({ news, mode }: NewsFormComponentProps) {
 
             <FormField
               control={form.control}
-              name='status'
+              name="status"
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Trạng thái</FormLabel>
@@ -346,7 +355,7 @@ export function NewsFormComponent({ news, mode }: NewsFormComponentProps) {
                     <SelectDropdown
                       defaultValue={field.value}
                       onValueChange={field.onChange}
-                      placeholder='Chọn trạng thái'
+                      placeholder="Chọn trạng thái"
                       disabled={isView}
                       items={newsStatusOptions}
                     />
@@ -357,18 +366,22 @@ export function NewsFormComponent({ news, mode }: NewsFormComponentProps) {
             />
           </div>
 
-          <div className='flex gap-3 justify-end pt-4'>
+          <div className="flex gap-3 justify-end pt-4">
             <Button
-              type='button'
-              variant='outline'
+              type="button"
+              variant="outline"
               onClick={() => void navigate({ to: '/news' })}
             >
               {isView ? 'Đóng' : 'Hủy'}
             </Button>
             {!isView && (
               <Button
-                type='submit'
-                disabled={createMutation.isPending || updateMutation.isPending || uploadingContentImages}
+                type="submit"
+                disabled={
+                  createMutation.isPending ||
+                  updateMutation.isPending ||
+                  uploadingContentImages
+                }
               >
                 {uploadingContentImages
                   ? 'Đang tải ảnh lên...'

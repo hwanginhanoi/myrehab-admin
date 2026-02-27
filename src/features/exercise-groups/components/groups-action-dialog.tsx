@@ -1,5 +1,3 @@
-'use client'
-
 import { z } from 'zod'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
@@ -54,17 +52,18 @@ export function GroupsActionDialog({
 
   const form = useForm<GroupForm>({
     resolver: zodResolver(formSchema),
-    defaultValues: isEdit || isView
-      ? {
-          name: currentRow?.name || '',
-          description: currentRow?.description || '',
-          isEdit,
-        }
-      : {
-          name: '',
-          description: '',
-          isEdit: false,
-        },
+    defaultValues:
+      isEdit || isView
+        ? {
+            name: currentRow?.name || '',
+            description: currentRow?.description || '',
+            isEdit,
+          }
+        : {
+            name: '',
+            description: '',
+            isEdit: false,
+          },
   })
 
   const createMutation = useCreateGroup({
@@ -73,7 +72,9 @@ export function GroupsActionDialog({
         toast.success('Tạo nhóm thành công')
         form.reset()
         onOpenChange(false)
-        queryClient.invalidateQueries({ queryKey: [{ url: '/api/exercise-groups' }] })
+        queryClient.invalidateQueries({
+          queryKey: [{ url: '/api/exercise-groups' }],
+        })
       },
       onError: (error) => {
         toast.error('Tạo nhóm thất bại: ' + error.message)
@@ -87,7 +88,9 @@ export function GroupsActionDialog({
         toast.success('Cập nhật nhóm thành công')
         form.reset()
         onOpenChange(false)
-        queryClient.invalidateQueries({ queryKey: [{ url: '/api/exercise-groups' }] })
+        queryClient.invalidateQueries({
+          queryKey: [{ url: '/api/exercise-groups' }],
+        })
       },
       onError: (error) => {
         toast.error('Cập nhật nhóm thất bại: ' + error.message)
@@ -138,54 +141,54 @@ export function GroupsActionDialog({
         onOpenChange(state)
       }}
     >
-      <DialogContent className='sm:max-w-3xl max-h-[85vh] overflow-y-auto'>
-        <DialogHeader className='text-start'>
+      <DialogContent className="sm:max-w-3xl max-h-[85vh] overflow-y-auto">
+        <DialogHeader className="text-start">
           <DialogTitle>{getTitle()}</DialogTitle>
           <DialogDescription>{getDescription()}</DialogDescription>
         </DialogHeader>
         <Form {...form}>
           <form
-            id='group-form'
+            id="group-form"
             onSubmit={form.handleSubmit(onSubmit)}
-            className='space-y-4'
+            className="space-y-4"
           >
             <FormField
               control={form.control}
-              name='name'
+              name="name"
               render={({ field }) => (
-                <FormItem className='grid grid-cols-6 items-center space-y-0 gap-x-4 gap-y-1'>
-                  <FormLabel className='col-span-2 text-end'>
+                <FormItem className="grid grid-cols-6 items-center space-y-0 gap-x-4 gap-y-1">
+                  <FormLabel className="col-span-2 text-end">
                     Tên nhóm
                   </FormLabel>
                   <FormControl>
                     <Input
-                      placeholder='Nhập tên nhóm'
-                      className='col-span-4'
+                      placeholder="Nhập tên nhóm"
+                      className="col-span-4"
                       disabled={isView}
                       {...field}
                     />
                   </FormControl>
-                  <FormMessage className='col-span-4 col-start-3' />
+                  <FormMessage className="col-span-4 col-start-3" />
                 </FormItem>
               )}
             />
             <FormField
               control={form.control}
-              name='description'
+              name="description"
               render={({ field }) => (
-                <FormItem className='grid grid-cols-6 items-start space-y-0 gap-x-4 gap-y-1'>
-                  <FormLabel className='col-span-2 text-end pt-2'>
+                <FormItem className="grid grid-cols-6 items-start space-y-0 gap-x-4 gap-y-1">
+                  <FormLabel className="col-span-2 text-end pt-2">
                     Mô tả
                   </FormLabel>
                   <FormControl>
                     <Textarea
-                      placeholder='Nhập mô tả nhóm'
-                      className='col-span-4 min-h-[100px]'
+                      placeholder="Nhập mô tả nhóm"
+                      className="col-span-4 min-h-[100px]"
                       disabled={isView}
                       {...field}
                     />
                   </FormControl>
-                  <FormMessage className='col-span-4 col-start-3' />
+                  <FormMessage className="col-span-4 col-start-3" />
                 </FormItem>
               )}
             />
@@ -194,18 +197,16 @@ export function GroupsActionDialog({
         <DialogFooter>
           {!isView && (
             <Button
-              type='submit'
-              form='group-form'
+              type="submit"
+              form="group-form"
               disabled={createMutation.isPending || updateMutation.isPending}
             >
-              {createMutation.isPending || updateMutation.isPending ? 'Đang lưu...' : 'Lưu'}
+              {createMutation.isPending || updateMutation.isPending
+                ? 'Đang lưu...'
+                : 'Lưu'}
             </Button>
           )}
-          {isView && (
-            <Button onClick={() => onOpenChange(false)}>
-              Đóng
-            </Button>
-          )}
+          {isView && <Button onClick={() => onOpenChange(false)}>Đóng</Button>}
         </DialogFooter>
       </DialogContent>
     </Dialog>

@@ -10,7 +10,7 @@ export function StaffPrimaryButtons() {
   if (!hasPermission('staff:create')) return null
 
   return (
-    <Button className='space-x-1' onClick={() => setOpen('add')}>
+    <Button className="space-x-1" onClick={() => setOpen('add')}>
       <span>Thêm Nhân viên</span>
       <UserPlus size={18} />
     </Button>

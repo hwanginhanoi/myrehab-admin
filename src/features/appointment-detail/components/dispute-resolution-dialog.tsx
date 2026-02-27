@@ -63,8 +63,14 @@ export function DisputeResolutionDialog({
     mutation: {
       onSuccess: () => {
         toast.success('Đã giải quyết tranh chấp')
-        queryClient.invalidateQueries({ queryKey: [{ url: '/api/appointments/:id', params: { id: appointmentId } }] })
-        queryClient.invalidateQueries({ queryKey: [{ url: '/api/appointments/admin/all' }] })
+        queryClient.invalidateQueries({
+          queryKey: [
+            { url: '/api/appointments/:id', params: { id: appointmentId } },
+          ],
+        })
+        queryClient.invalidateQueries({
+          queryKey: [{ url: '/api/appointments/admin/all' }],
+        })
         onOpenChange(false)
         form.reset()
       },
@@ -94,24 +100,27 @@ export function DisputeResolutionDialog({
           </DialogDescription>
         </DialogHeader>
         <Form {...form}>
-          <form onSubmit={form.handleSubmit(onSubmit)} className='space-y-4'>
+          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
             <FormField
               control={form.control}
-              name='resolution'
+              name="resolution"
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Cách giải quyết</FormLabel>
-                  <Select onValueChange={field.onChange} defaultValue={field.value}>
+                  <Select
+                    onValueChange={field.onChange}
+                    defaultValue={field.value}
+                  >
                     <FormControl>
                       <SelectTrigger>
-                        <SelectValue placeholder='Chọn cách giải quyết' />
+                        <SelectValue placeholder="Chọn cách giải quyết" />
                       </SelectTrigger>
                     </FormControl>
                     <SelectContent>
-                      <SelectItem value='APPROVE_DOCTOR'>
+                      <SelectItem value="APPROVE_DOCTOR">
                         Chấp nhận bác sĩ
                       </SelectItem>
-                      <SelectItem value='REFUND_PATIENT'>
+                      <SelectItem value="REFUND_PATIENT">
                         Hoàn tiền bệnh nhân
                       </SelectItem>
                     </SelectContent>
@@ -122,22 +131,29 @@ export function DisputeResolutionDialog({
             />
             <FormField
               control={form.control}
-              name='resolutionNotes'
+              name="resolutionNotes"
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Ghi chú giải quyết</FormLabel>
                   <FormControl>
-                    <Textarea placeholder='Ghi chú thêm (không bắt buộc)' {...field} />
+                    <Textarea
+                      placeholder="Ghi chú thêm (không bắt buộc)"
+                      {...field}
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
               )}
             />
             <DialogFooter>
-              <Button type='button' variant='outline' onClick={() => onOpenChange(false)}>
+              <Button
+                type="button"
+                variant="outline"
+                onClick={() => onOpenChange(false)}
+              >
                 Hủy
               </Button>
-              <Button type='submit' disabled={resolveDispute.isPending}>
+              <Button type="submit" disabled={resolveDispute.isPending}>
                 {resolveDispute.isPending ? 'Đang xử lý...' : 'Giải quyết'}
               </Button>
             </DialogFooter>

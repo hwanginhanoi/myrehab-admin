@@ -50,9 +50,7 @@ export function ExercisePackagesTable({
     navigate,
     pagination: { defaultPage: 1, defaultPageSize: 10 },
     globalFilter: { enabled: false },
-    columnFilters: [
-      { columnId: 'title', searchKey: 'title', type: 'string' },
-    ],
+    columnFilters: [{ columnId: 'title', searchKey: 'title', type: 'string' }],
   })
 
   const table = useReactTable({
@@ -86,11 +84,11 @@ export function ExercisePackagesTable({
       )}
     >
       <ExercisePackagesTableToolbar table={table} />
-      <div className='overflow-hidden rounded-md border'>
+      <div className="overflow-hidden rounded-md border">
         <Table>
           <TableHeader>
             {table.getHeaderGroups().map((headerGroup) => (
-              <TableRow key={headerGroup.id} className='group/row'>
+              <TableRow key={headerGroup.id} className="group/row">
                 {headerGroup.headers.map((header) => {
                   return (
                     <TableHead
@@ -120,7 +118,7 @@ export function ExercisePackagesTable({
                 <TableRow
                   key={row.id}
                   data-state={row.getIsSelected() && 'selected'}
-                  className='group/row'
+                  className="group/row"
                 >
                   {row.getVisibleCells().map((cell) => (
                     <TableCell
@@ -143,7 +141,7 @@ export function ExercisePackagesTable({
               <TableRow>
                 <TableCell
                   colSpan={exercisePackagesColumns.length}
-                  className='h-24 text-center'
+                  className="h-24 text-center"
                 >
                   Không có dữ liệu.
                 </TableCell>
@@ -152,7 +150,7 @@ export function ExercisePackagesTable({
           </TableBody>
         </Table>
       </div>
-      <DataTablePagination table={table} className='mt-auto' />
+      <DataTablePagination table={table} className="mt-auto" />
     </div>
   )
 }

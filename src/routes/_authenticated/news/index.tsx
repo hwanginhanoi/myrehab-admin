@@ -1,7 +1,7 @@
 import z from 'zod'
 import { createFileRoute } from '@tanstack/react-router'
 import { News } from '@/features/news'
-import { CategoryType } from '@/lib/constants/news-catergories'
+import { CategoryType } from '@/lib/constants/news-categories'
 import { NewsStatus } from '@/lib/constants/news-status'
 
 const newsSearchSchema = z.object({
@@ -11,11 +11,7 @@ const newsSearchSchema = z.object({
   title: z.string().optional().catch(''),
   // Filter by status (single select)
   status: z
-    .enum([
-      NewsStatus.DRAFT,
-      NewsStatus.PUBLISHED,
-      NewsStatus.ARCHIVED,
-    ])
+    .enum([NewsStatus.DRAFT, NewsStatus.PUBLISHED, NewsStatus.ARCHIVED])
     .optional()
     .catch(undefined),
   // Filter by category (single select)

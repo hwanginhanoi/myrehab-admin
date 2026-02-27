@@ -1,5 +1,3 @@
-'use client'
-
 import { useState } from 'react'
 import {
   DndContext,
@@ -22,14 +20,41 @@ import { DayContainer } from './day-container'
 import { ExerciseLibraryPanel } from './exercise-library-panel'
 import { ExerciseCustomizationDialog } from './exercise-customization-dialog'
 import type { ExerciseResponse } from '@/api'
-import type { DayWithExercises, CustomExercise } from './course-assignment-screen'
+import type {
+  DayWithExercises,
+  CustomExercise,
+} from './course-assignment-screen'
 
 type CourseAction =
-  | { type: 'MOVE_EXERCISE'; payload: { exerciseId: string; fromDay: number; toDay: number; newIndex: number } }
-  | { type: 'ADD_EXERCISE_TO_DAY'; payload: { dayNumber: number; exercise: CustomExercise } }
-  | { type: 'REORDER_EXERCISES'; payload: { dayNumber: number; exercises: CustomExercise[] } }
-  | { type: 'UPDATE_EXERCISE'; payload: { dayNumber: number; exerciseId: string; updates: Partial<CustomExercise> } }
-  | { type: 'REMOVE_EXERCISE'; payload: { dayNumber: number; exerciseId: string } }
+  | {
+      type: 'MOVE_EXERCISE'
+      payload: {
+        exerciseId: string
+        fromDay: number
+        toDay: number
+        newIndex: number
+      }
+    }
+  | {
+      type: 'ADD_EXERCISE_TO_DAY'
+      payload: { dayNumber: number; exercise: CustomExercise }
+    }
+  | {
+      type: 'REORDER_EXERCISES'
+      payload: { dayNumber: number; exercises: CustomExercise[] }
+    }
+  | {
+      type: 'UPDATE_EXERCISE'
+      payload: {
+        dayNumber: number
+        exerciseId: string
+        updates: Partial<CustomExercise>
+      }
+    }
+  | {
+      type: 'REMOVE_EXERCISE'
+      payload: { dayNumber: number; exerciseId: string }
+    }
   | { type: 'DELETE_DAY'; payload: number }
   | { type: 'DUPLICATE_DAY'; payload: number }
   | { type: 'ADD_DAY' }
@@ -46,8 +71,12 @@ export function CourseCustomizationSection({
   dispatch,
 }: CourseCustomizationSectionProps) {
   const [, setActiveId] = useState<string | null>(null)
-  const [activeExercise, setActiveExercise] = useState<ExerciseResponse | null>(null)
-  const [editingExercise, setEditingExercise] = useState<CustomExercise | null>(null)
+  const [activeExercise, setActiveExercise] = useState<ExerciseResponse | null>(
+    null
+  )
+  const [editingExercise, setEditingExercise] = useState<CustomExercise | null>(
+    null
+  )
   const [dialogOpen, setDialogOpen] = useState(false)
 
   // DnD sensors
@@ -63,7 +92,9 @@ export function CourseCustomizationSection({
   )
 
   // Helper to convert ExerciseResponse to CustomExercise
-  const convertToCustomExercise = (exercise: ExerciseResponse): CustomExercise => {
+  const convertToCustomExercise = (
+    exercise: ExerciseResponse
+  ): CustomExercise => {
     return {
       id: crypto.randomUUID(),
       exerciseId: exercise.id!,
@@ -116,12 +147,16 @@ export function CourseCustomizationSection({
 
         if (!sourceDay || !targetDay) return
 
-        const exerciseIndex = sourceDay.exercises.findIndex((ex) => ex.id === active.id)
+        const exerciseIndex = sourceDay.exercises.findIndex(
+          (ex) => ex.id === active.id
+        )
         if (exerciseIndex === -1) return
 
         // Check if target already has this exercise
         const exerciseId = sourceDay.exercises[exerciseIndex].exerciseId
-        const exists = targetDay.exercises.some((ex) => ex.exerciseId === exerciseId)
+        const exists = targetDay.exercises.some(
+          (ex) => ex.exerciseId === exerciseId
+        )
         if (exists) return // Don't move during dragover if duplicate
 
         // Preview the move
@@ -163,7 +198,9 @@ export function CourseCustomizationSection({
         const day = customizedDays.get(targetDay)
         if (day) {
           // Check if exercise already exists in this day
-          const exists = day.exercises.some((ex) => ex.exerciseId === exercise.id)
+          const exists = day.exercises.some(
+            (ex) => ex.exerciseId === exercise.id
+          )
           if (exists) {
             toast.warning('Bài tập này đã có trong ngày này')
             return
@@ -273,11 +310,11 @@ export function CourseCustomizationSection({
   }
 
   return (
-    <div className='flex flex-col h-full'>
+    <div className="flex flex-col h-full">
       {/* Header */}
-      <div className='mb-4'>
-        <h3 className='text-xl font-bold'>Chi tiết lộ trình</h3>
-        <p className='text-sm text-muted-foreground'>
+      <div className="mb-4">
+        <h3 className="text-xl font-bold">Chi tiết lộ trình</h3>
+        <p className="text-sm text-muted-foreground">
           Kéo thả bài tập giữa các ngày hoặc thêm từ thư viện bên trái
         </p>
       </div>
@@ -290,16 +327,16 @@ export function CourseCustomizationSection({
         onDragOver={handleDragOver}
         onDragEnd={handleDragEnd}
       >
-        <div className='grid grid-cols-1 lg:grid-cols-2 gap-6 flex-1 overflow-hidden'>
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 flex-1 overflow-hidden">
           {/* Left Panel: Exercise Library */}
-          <div className='lg:col-span-1'>
+          <div className="lg:col-span-1">
             <ExerciseLibraryPanel />
           </div>
 
           {/* Right Panel: Day Containers */}
-          <div className='lg:col-span-1'>
-            <ScrollArea className='h-[600px]'>
-              <div className='space-y-4 pr-4'>
+          <div className="lg:col-span-1">
+            <ScrollArea className="h-[600px]">
+              <div className="space-y-4 pr-4">
                 {Array.from(customizedDays.entries())
                   .sort(([a], [b]) => a - b)
                   .map(([dayNum, day]) => (
@@ -316,12 +353,12 @@ export function CourseCustomizationSection({
 
                 {/* Add Day Button */}
                 <Button
-                  variant='default'
+                  variant="default"
                   onClick={() => dispatch({ type: 'ADD_DAY' })}
-                  className='w-full gap-2'
+                  className="w-full gap-2"
                 >
                   Thêm ngày
-                  <Plus className='h-4 w-4' />
+                  <Plus className="h-4 w-4" />
                 </Button>
               </div>
             </ScrollArea>
@@ -331,18 +368,22 @@ export function CourseCustomizationSection({
         {/* Simple Drag Overlay for Library Exercises */}
         <DragOverlay dropAnimation={null}>
           {activeExercise && (
-            <div className='flex items-center gap-3 p-3 border rounded-lg bg-background shadow-lg opacity-90'>
+            <div className="flex items-center gap-3 p-3 border rounded-lg bg-background shadow-lg opacity-90">
               {activeExercise.imageUrl && (
                 <img
                   src={activeExercise.imageUrl}
                   alt={activeExercise.title || ''}
-                  className='w-12 h-12 rounded object-cover'
+                  className="w-12 h-12 rounded object-cover"
                 />
               )}
-              <div className='flex-1 min-w-0'>
-                <p className='font-medium text-sm truncate'>{activeExercise.title}</p>
+              <div className="flex-1 min-w-0">
+                <p className="font-medium text-sm truncate">
+                  {activeExercise.title}
+                </p>
                 {activeExercise.durationMinutes && (
-                  <p className='text-xs text-muted-foreground'>{activeExercise.durationMinutes} phút</p>
+                  <p className="text-xs text-muted-foreground">
+                    {activeExercise.durationMinutes} phút
+                  </p>
                 )}
               </div>
             </div>

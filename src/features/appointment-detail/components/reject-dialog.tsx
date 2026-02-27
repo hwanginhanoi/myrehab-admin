@@ -51,8 +51,14 @@ export function RejectDialog({
     mutation: {
       onSuccess: () => {
         toast.success('Đã từ chối lịch hẹn')
-        queryClient.invalidateQueries({ queryKey: [{ url: '/api/appointments/:id', params: { id: appointmentId } }] })
-        queryClient.invalidateQueries({ queryKey: [{ url: '/api/appointments/admin/all' }] })
+        queryClient.invalidateQueries({
+          queryKey: [
+            { url: '/api/appointments/:id', params: { id: appointmentId } },
+          ],
+        })
+        queryClient.invalidateQueries({
+          queryKey: [{ url: '/api/appointments/admin/all' }],
+        })
         onOpenChange(false)
         form.reset()
       },
@@ -75,29 +81,38 @@ export function RejectDialog({
         <DialogHeader>
           <DialogTitle>Từ chối lịch hẹn</DialogTitle>
           <DialogDescription>
-            Hãy cung cấp lý do từ chối lịch hẹn này. Bệnh nhân sẽ được hoàn tiền tự động.
+            Hãy cung cấp lý do từ chối lịch hẹn này. Bệnh nhân sẽ được hoàn tiền
+            tự động.
           </DialogDescription>
         </DialogHeader>
         <Form {...form}>
-          <form onSubmit={form.handleSubmit(onSubmit)} className='space-y-4'>
+          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
             <FormField
               control={form.control}
-              name='rejectionReason'
+              name="rejectionReason"
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Lý do từ chối</FormLabel>
                   <FormControl>
-                    <Textarea placeholder='Nhập lý do từ chối...' {...field} />
+                    <Textarea placeholder="Nhập lý do từ chối..." {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
               )}
             />
             <DialogFooter>
-              <Button type='button' variant='outline' onClick={() => onOpenChange(false)}>
+              <Button
+                type="button"
+                variant="outline"
+                onClick={() => onOpenChange(false)}
+              >
                 Hủy
               </Button>
-              <Button type='submit' variant='destructive' disabled={rejectAppointment.isPending}>
+              <Button
+                type="submit"
+                variant="destructive"
+                disabled={rejectAppointment.isPending}
+              >
                 {rejectAppointment.isPending ? 'Đang xử lý...' : 'Từ chối'}
               </Button>
             </DialogFooter>

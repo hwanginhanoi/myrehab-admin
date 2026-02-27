@@ -1,11 +1,11 @@
-import { Separator } from "@/components/ui/separator";
+import { Separator } from '@/components/ui/separator'
 
 type AssignmentContentSectionProps = {
-  title: string;
-  desc: string;
-  children: React.JSX.Element;
-  fullWidth?: boolean;
-};
+  title: string
+  desc: string
+  children: React.JSX.Element
+  fullWidth?: boolean
+}
 
 export function AssignmentContentSection({
   title,
@@ -22,11 +22,11 @@ export function AssignmentContentSection({
       <Separator className="my-4 flex-none" />
       <div className="faded-bottom h-full w-full overflow-y-auto scroll-smooth pe-4 pb-12">
         <div
-          className={fullWidth ? "-mx-1 px-1.5" : "-mx-1 px-1.5 lg:max-w-xl"}
+          className={fullWidth ? '-mx-1 px-1.5' : '-mx-1 px-1.5 lg:max-w-xl'}
         >
           {children}
         </div>
       </div>
     </div>
-  );
+  )
 }

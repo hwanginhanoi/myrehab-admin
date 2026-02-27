@@ -14,14 +14,20 @@ type TrainerSidebarNavProps = {
   mode?: 'view' | 'edit'
 }
 
-export function TrainerSidebarNav({ items, trainerId, mode }: TrainerSidebarNavProps) {
+export function TrainerSidebarNav({
+  items,
+  trainerId,
+  mode,
+}: TrainerSidebarNavProps) {
   const { pathname } = useLocation()
 
   return (
-    <nav className='flex space-x-2 lg:flex-col lg:space-y-1 lg:space-x-0'>
+    <nav className="flex space-x-2 lg:flex-col lg:space-y-1 lg:space-x-0">
       {items.map((item) => {
-        const isActive = pathname === item.href ||
-          (item.href !== `/staff/trainers/${trainerId}` && pathname.startsWith(item.href))
+        const isActive =
+          pathname === item.href ||
+          (item.href !== `/staff/trainers/${trainerId}` &&
+            pathname.startsWith(item.href))
 
         return (
           <Link

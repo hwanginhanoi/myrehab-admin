@@ -14,7 +14,10 @@ type DateNavigationProps = {
   onDateChange: (date: string) => void
 }
 
-export function DateNavigation({ selectedDate, onDateChange }: DateNavigationProps) {
+export function DateNavigation({
+  selectedDate,
+  onDateChange,
+}: DateNavigationProps) {
   const currentDate = parseDate(selectedDate)
 
   function handlePrev() {
@@ -30,27 +33,37 @@ export function DateNavigation({ selectedDate, onDateChange }: DateNavigationPro
   }
 
   return (
-    <div className='flex items-center gap-2'>
-      <Button variant='outline' size='sm' onClick={handleToday}>
+    <div className="flex items-center gap-2">
+      <Button variant="outline" size="sm" onClick={handleToday}>
         Hôm nay
       </Button>
-      <Button variant='outline' size='icon' className='h-8 w-8' onClick={handlePrev}>
-        <ChevronLeft className='h-4 w-4' />
+      <Button
+        variant="outline"
+        size="icon"
+        className="h-8 w-8"
+        onClick={handlePrev}
+      >
+        <ChevronLeft className="h-4 w-4" />
       </Button>
-      <Button variant='outline' size='icon' className='h-8 w-8' onClick={handleNext}>
-        <ChevronRight className='h-4 w-4' />
+      <Button
+        variant="outline"
+        size="icon"
+        className="h-8 w-8"
+        onClick={handleNext}
+      >
+        <ChevronRight className="h-4 w-4" />
       </Button>
 
       <Popover>
         <PopoverTrigger asChild>
-          <Button variant='outline' className='gap-2'>
-            <CalendarIcon className='h-4 w-4' />
+          <Button variant="outline" className="gap-2">
+            <CalendarIcon className="h-4 w-4" />
             {format(currentDate, 'EEEE, dd/MM/yyyy', { locale: vi })}
           </Button>
         </PopoverTrigger>
-        <PopoverContent className='w-auto p-0' align='start'>
+        <PopoverContent className="w-auto p-0" align="start">
           <Calendar
-            mode='single'
+            mode="single"
             selected={currentDate}
             onSelect={(date) => {
               if (date) onDateChange(format(date, 'yyyy-MM-dd'))

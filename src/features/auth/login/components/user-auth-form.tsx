@@ -4,7 +4,7 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { Link, useNavigate } from '@tanstack/react-router'
 import { Loader2, LogIn } from 'lucide-react'
 import { toast } from 'sonner'
-import { useAuthStore } from '@/stores/auth-store'
+import { useAuthStore, type UserType } from '@/stores/auth-store'
 import { cn } from '@/lib/utils'
 import { useLoginWithPassword } from '@/api'
 import { Button } from '@/components/ui/button'
@@ -39,7 +39,7 @@ export function UserAuthForm({
   ...props
 }: UserAuthFormProps) {
   const navigate = useNavigate()
-  const { auth } = useAuthStore()
+  const { setUser, setAccessToken, setUserType } = useAuthStore()
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -68,18 +68,19 @@ export function UserAuthForm({
           email: data.email || form.getValues('email'),
           role: data.permissions || [],
           exp: expiryMs,
-          userType: data.userType,
+          userType: data.userType as UserType | undefined,
         }
 
-        auth.setUser(user)
-        auth.setAccessToken(data.accessToken)
-        auth.setUserType(data.userType || null)
+        setUser(user)
+        setAccessToken(data.accessToken)
+        setUserType((data.userType as UserType) || null)
 
         toast.success(`Welcome back!`)
 
         // Redirect based on user type
         // Admin users go to dashboard, others go to exercises page
-        const isAdmin = data.userType === 'SUPER_ADMIN' || data.userType === 'ADMIN'
+        const isAdmin =
+          data.userType === 'SUPER_ADMIN' || data.userType === 'ADMIN'
         const defaultPath = isAdmin ? '/' : '/exercises'
         const targetPath = redirectTo || defaultPath
         navigate({ to: targetPath, replace: true })
@@ -110,12 +111,12 @@ export function UserAuthForm({
       >
         <FormField
           control={form.control}
-          name='email'
+          name="email"
           render={({ field }) => (
             <FormItem>
               <FormLabel>Email</FormLabel>
               <FormControl>
-                <Input placeholder='name@example.com' {...field} />
+                <Input placeholder="name@example.com" {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -123,25 +124,29 @@ export function UserAuthForm({
         />
         <FormField
           control={form.control}
-          name='password'
+          name="password"
           render={({ field }) => (
-            <FormItem className='relative'>
+            <FormItem className="relative">
               <FormLabel>Password</FormLabel>
               <FormControl>
-                <PasswordInput placeholder='********' {...field} />
+                <PasswordInput placeholder="********" {...field} />
               </FormControl>
               <FormMessage />
               <Link
-                to='/forgot-password'
-                className='text-muted-foreground absolute end-0 -top-0.5 text-sm font-medium hover:opacity-75'
+                to="/forgot-password"
+                className="text-muted-foreground absolute end-0 -top-0.5 text-sm font-medium hover:opacity-75"
               >
                 Forgot password?
               </Link>
             </FormItem>
           )}
         />
-        <Button className='mt-2' disabled={loginMutation.isPending}>
-          {loginMutation.isPending ? <Loader2 className='animate-spin' /> : <LogIn />}
+        <Button className="mt-2" disabled={loginMutation.isPending}>
+          {loginMutation.isPending ? (
+            <Loader2 className="animate-spin" />
+          ) : (
+            <LogIn />
+          )}
           Sign in
         </Button>
       </form>

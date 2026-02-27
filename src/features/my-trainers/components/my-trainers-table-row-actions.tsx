@@ -16,22 +16,24 @@ type MyTrainersTableRowActionsProps = {
   row: Row<StaffResponse>
 }
 
-export function MyTrainersTableRowActions({ row }: MyTrainersTableRowActionsProps) {
+export function MyTrainersTableRowActions({
+  row,
+}: MyTrainersTableRowActionsProps) {
   const { setOpen, setCurrentTrainer } = useMyTrainers()
 
   return (
-    <div className='flex justify-end'>
+    <div className="flex justify-end">
       <DropdownMenu modal={false}>
         <DropdownMenuTrigger asChild>
           <Button
-            variant='ghost'
-            className='data-[state=open]:bg-muted flex h-8 w-8 p-0'
+            variant="ghost"
+            className="data-[state=open]:bg-muted flex h-8 w-8 p-0"
           >
-            <DotsHorizontalIcon className='h-4 w-4' />
-            <span className='sr-only'>Mở menu</span>
+            <DotsHorizontalIcon className="h-4 w-4" />
+            <span className="sr-only">Mở menu</span>
           </Button>
         </DropdownMenuTrigger>
-        <DropdownMenuContent align='end' className='w-[180px]'>
+        <DropdownMenuContent align="end" className="w-[180px]">
           <DropdownMenuItem
             onClick={() => {
               setCurrentTrainer(row.original)

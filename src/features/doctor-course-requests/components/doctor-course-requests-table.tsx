@@ -16,7 +16,10 @@ import {
   TableRow,
 } from '@/components/ui/table'
 import { DataTablePagination } from '@/components/server-data-table'
-import type { CourseRequest, CourseRequestStatus } from '@/features/course-requests/types'
+import type {
+  CourseRequest,
+  CourseRequestStatus,
+} from '@/features/course-requests/types'
 import { doctorCourseRequestsColumns } from './doctor-course-requests-columns'
 import { DoctorCourseRequestsTableToolbar } from './doctor-course-requests-table-toolbar'
 
@@ -83,17 +86,17 @@ export function DoctorCourseRequestsTable({
   }, [pageCount, currentPage, onPageChange])
 
   return (
-    <div className='flex flex-1 flex-col gap-4'>
+    <div className="flex flex-1 flex-col gap-4">
       <DoctorCourseRequestsTableToolbar
         currentStatus={currentStatus}
         onStatusChange={onStatusChange}
         pendingCount={pendingCount}
       />
-      <div className='overflow-hidden rounded-md border'>
+      <div className="overflow-hidden rounded-md border">
         <Table>
           <TableHeader>
             {table.getHeaderGroups().map((headerGroup) => (
-              <TableRow key={headerGroup.id} className='group/row'>
+              <TableRow key={headerGroup.id} className="group/row">
                 {headerGroup.headers.map((header) => (
                   <TableHead
                     key={header.id}
@@ -106,7 +109,10 @@ export function DoctorCourseRequestsTable({
                   >
                     {header.isPlaceholder
                       ? null
-                      : flexRender(header.column.columnDef.header, header.getContext())}
+                      : flexRender(
+                          header.column.columnDef.header,
+                          header.getContext()
+                        )}
                   </TableHead>
                 ))}
               </TableRow>
@@ -134,7 +140,10 @@ export function DoctorCourseRequestsTable({
                         cell.column.columnDef.meta?.tdClassName
                       )}
                     >
-                      {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                      {flexRender(
+                        cell.column.columnDef.cell,
+                        cell.getContext()
+                      )}
                     </TableCell>
                   ))}
                 </TableRow>
@@ -143,7 +152,7 @@ export function DoctorCourseRequestsTable({
               <TableRow>
                 <TableCell
                   colSpan={doctorCourseRequestsColumns.length}
-                  className='h-24 text-center'
+                  className="h-24 text-center"
                 >
                   Không có dữ liệu.
                 </TableCell>
@@ -152,7 +161,7 @@ export function DoctorCourseRequestsTable({
           </TableBody>
         </Table>
       </div>
-      <DataTablePagination table={table} className='mt-auto' />
+      <DataTablePagination table={table} className="mt-auto" />
     </div>
   )
 }

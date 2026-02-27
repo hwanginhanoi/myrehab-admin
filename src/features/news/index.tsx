@@ -25,15 +25,18 @@ export function News() {
   const title = (search.title as string | undefined)?.trim()
 
   // Build query params with proper structure matching GetAllNewsQueryParams
-  const queryParams = useMemo<GetAllNewsQueryParams>(() => ({
-    pageable: {
-      page: page - 1, // Convert to 0-indexed for API
-      size: pageSize,
-    },
-    ...(status && { status: status as GetAllNewsQueryParams['status'] }),
-    ...(category && { category }),
-    ...(title && { title }),
-  }), [page, pageSize, status, category, title])
+  const queryParams = useMemo<GetAllNewsQueryParams>(
+    () => ({
+      pageable: {
+        page: page - 1, // Convert to 0-indexed for API
+        size: pageSize,
+      },
+      ...(status && { status: status as GetAllNewsQueryParams['status'] }),
+      ...(category && { category }),
+      ...(title && { title }),
+    }),
+    [page, pageSize, status, category, title]
+  )
 
   // Fetch news with server-side filtering and pagination
   const { data: response, isLoading } = useGetAllNews(queryParams, {
@@ -49,26 +52,28 @@ export function News() {
     <>
       <Header fixed>
         <Search />
-        <div className='ms-auto flex items-center space-x-4'>
+        <div className="ms-auto flex items-center space-x-4">
           <ThemeSwitch />
           <ConfigDrawer />
           <ProfileDropdown />
         </div>
       </Header>
 
-      <Main className='flex flex-1 flex-col gap-4 sm:gap-6'>
-        <div className='flex flex-wrap items-end justify-between gap-2'>
+      <Main className="flex flex-1 flex-col gap-4 sm:gap-6">
+        <div className="flex flex-wrap items-end justify-between gap-2">
           <div>
-            <h2 className='text-2xl font-bold tracking-tight'>Quản lý tin tức</h2>
-            <p className='text-muted-foreground'>
+            <h2 className="text-2xl font-bold tracking-tight">
+              Quản lý tin tức
+            </h2>
+            <p className="text-muted-foreground">
               Quản lý tin tức và bài viết của hệ thống.
             </p>
           </div>
           <NewsPrimaryButtons />
         </div>
         {isLoading ? (
-          <div className='flex items-center justify-center h-64'>
-            <p className='text-muted-foreground'>Đang tải...</p>
+          <div className="flex items-center justify-center h-64">
+            <p className="text-muted-foreground">Đang tải...</p>
           </div>
         ) : (
           <NewsTable

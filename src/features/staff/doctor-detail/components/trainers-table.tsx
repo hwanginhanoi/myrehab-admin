@@ -39,17 +39,14 @@ export function TrainersTable({
   const [sorting, setSorting] = useState<SortingState>([])
 
   // Synced with URL states
-  const {
-    pagination,
-    onPaginationChange,
-    ensurePageInRange,
-  } = useTableUrlState({
-    search,
-    navigate,
-    pagination: { defaultPage: 1, defaultPageSize: 10 },
-    globalFilter: { enabled: false },
-    columnFilters: [],
-  })
+  const { pagination, onPaginationChange, ensurePageInRange } =
+    useTableUrlState({
+      search,
+      navigate,
+      pagination: { defaultPage: 1, defaultPageSize: 10 },
+      globalFilter: { enabled: false },
+      columnFilters: [],
+    })
 
   const table = useReactTable({
     data,
@@ -79,11 +76,11 @@ export function TrainersTable({
       )}
     >
       <TrainersTableToolbar table={table} />
-      <div className='overflow-hidden rounded-md border'>
+      <div className="overflow-hidden rounded-md border">
         <Table>
           <TableHeader>
             {table.getHeaderGroups().map((headerGroup) => (
-              <TableRow key={headerGroup.id} className='group/row'>
+              <TableRow key={headerGroup.id} className="group/row">
                 {headerGroup.headers.map((header) => (
                   <TableHead
                     key={header.id}
@@ -111,7 +108,7 @@ export function TrainersTable({
                 <TableRow
                   key={row.id}
                   data-state={row.getIsSelected() && 'selected'}
-                  className='group/row'
+                  className="group/row"
                 >
                   {row.getVisibleCells().map((cell) => (
                     <TableCell
@@ -134,7 +131,7 @@ export function TrainersTable({
               <TableRow>
                 <TableCell
                   colSpan={trainersColumns.length}
-                  className='h-24 text-center'
+                  className="h-24 text-center"
                 >
                   Không có dữ liệu.
                 </TableCell>
@@ -143,7 +140,7 @@ export function TrainersTable({
           </TableBody>
         </Table>
       </div>
-      <DataTablePagination table={table} className='mt-auto' />
+      <DataTablePagination table={table} className="mt-auto" />
     </div>
   )
 }

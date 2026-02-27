@@ -19,7 +19,11 @@ type UserSidebarNavProps = React.HTMLAttributes<HTMLElement> & {
   }[]
 }
 
-export function UserSidebarNav({ className, items, ...props }: UserSidebarNavProps) {
+export function UserSidebarNav({
+  className,
+  items,
+  ...props
+}: UserSidebarNavProps) {
   const { pathname } = useLocation()
   const navigate = useNavigate()
   const [val, setVal] = useState(pathname ?? items[0]?.href ?? '')
@@ -31,17 +35,17 @@ export function UserSidebarNav({ className, items, ...props }: UserSidebarNavPro
 
   return (
     <>
-      <div className='p-1 md:hidden'>
+      <div className="p-1 md:hidden">
         <Select value={val} onValueChange={handleSelect}>
-          <SelectTrigger className='h-12 sm:w-48'>
-            <SelectValue placeholder='Chọn mục' />
+          <SelectTrigger className="h-12 sm:w-48">
+            <SelectValue placeholder="Chọn mục" />
           </SelectTrigger>
           <SelectContent>
             {items.map((item) => (
               <SelectItem key={item.href} value={item.href}>
-                <div className='flex gap-x-4 px-2 py-1'>
-                  <span className='scale-125'>{item.icon}</span>
-                  <span className='text-md'>{item.title}</span>
+                <div className="flex gap-x-4 px-2 py-1">
+                  <span className="scale-125">{item.icon}</span>
+                  <span className="text-md">{item.title}</span>
                 </div>
               </SelectItem>
             ))}
@@ -50,9 +54,9 @@ export function UserSidebarNav({ className, items, ...props }: UserSidebarNavPro
       </div>
 
       <ScrollArea
-        orientation='horizontal'
-        type='always'
-        className='bg-background hidden w-full min-w-40 px-1 py-2 md:block'
+        orientation="horizontal"
+        type="always"
+        className="bg-background hidden w-full min-w-40 px-1 py-2 md:block"
       >
         <nav
           className={cn(
@@ -73,7 +77,7 @@ export function UserSidebarNav({ className, items, ...props }: UserSidebarNavPro
                 'justify-start'
               )}
             >
-              <span className='me-2'>{item.icon}</span>
+              <span className="me-2">{item.icon}</span>
               {item.title}
             </Link>
           ))}

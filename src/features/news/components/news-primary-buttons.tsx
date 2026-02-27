@@ -10,8 +10,11 @@ export function NewsPrimaryButtons() {
   if (!hasPermission('news:create')) return null
 
   return (
-    <div className='flex gap-2'>
-      <Button className='space-x-1' onClick={() => navigate({ to: '/news/new' })}>
+    <div className="flex gap-2">
+      <Button
+        className="space-x-1"
+        onClick={() => navigate({ to: '/news/new' })}
+      >
         <span>Thêm tin tức</span> <Plus size={18} />
       </Button>
     </div>

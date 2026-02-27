@@ -26,12 +26,11 @@ const DOCTOR_OR_TRAINER_GROUPS = ['Quản trị của tôi']
 
 export function AppSidebar() {
   const { collapsible, variant } = useLayout()
-  const { auth } = useAuthStore()
+  const { userType } = useAuthStore()
   const { hasPermission } = usePermissions()
 
   // Filter nav groups based on user type and permissions
   const filteredNavGroups = useMemo(() => {
-    const userType = auth.userType
     const isAdmin = userType === 'SUPER_ADMIN' || userType === 'ADMIN'
     const isDoctor = userType === 'DOCTOR'
     const isTrainer = userType === 'TRAINER'
@@ -65,7 +64,7 @@ export function AppSidebar() {
         }),
       }))
       .filter((group) => group.items.length > 0)
-  }, [auth.userType, hasPermission])
+  }, [userType, hasPermission])
 
   return (
     <Sidebar collapsible={collapsible} variant={variant}>

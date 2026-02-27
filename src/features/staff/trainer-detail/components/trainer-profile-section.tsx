@@ -8,13 +8,25 @@ type TrainerProfileSectionProps = {
   readOnly?: boolean
 }
 
-export function TrainerProfileSection({ trainer, isLoading, readOnly }: TrainerProfileSectionProps) {
+export function TrainerProfileSection({
+  trainer,
+  isLoading,
+  readOnly,
+}: TrainerProfileSectionProps) {
   return (
     <TrainerContentSection
-      title='Thông tin cá nhân'
-      desc={readOnly ? 'Xem thông tin cá nhân của huấn luyện viên.' : 'Quản lý thông tin cá nhân của huấn luyện viên.'}
+      title="Thông tin cá nhân"
+      desc={
+        readOnly
+          ? 'Xem thông tin cá nhân của huấn luyện viên.'
+          : 'Quản lý thông tin cá nhân của huấn luyện viên.'
+      }
     >
-      <TrainerProfileForm trainer={trainer} isLoading={isLoading} readOnly={readOnly} />
+      <TrainerProfileForm
+        trainer={trainer}
+        isLoading={isLoading}
+        readOnly={readOnly}
+      />
     </TrainerContentSection>
   )
 }

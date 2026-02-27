@@ -1,11 +1,11 @@
-import { useState } from "react";
-import { useNavigate } from "@tanstack/react-router";
-import { useQueryClient } from "@tanstack/react-query";
-import { toast } from "sonner";
-import { CheckCircle, XCircle } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { Textarea } from "@/components/ui/textarea";
-import { Label } from "@/components/ui/label";
+import { useState } from 'react'
+import { useNavigate } from '@tanstack/react-router'
+import { useQueryClient } from '@tanstack/react-query'
+import { toast } from 'sonner'
+import { CheckCircle, XCircle } from 'lucide-react'
+import { Button } from '@/components/ui/button'
+import { Textarea } from '@/components/ui/textarea'
+import { Label } from '@/components/ui/label'
 import {
   AlertDialog,
   AlertDialogAction,
@@ -15,59 +15,59 @@ import {
   AlertDialogFooter,
   AlertDialogHeader,
   AlertDialogTitle,
-} from "@/components/ui/alert-dialog";
-import { useApproveCourseRequest, useRejectCourseRequest } from "@/api";
+} from '@/components/ui/alert-dialog'
+import { useApproveCourseRequest, useRejectCourseRequest } from '@/api'
 
 type ReviewActionPanelProps = {
-  requestId: number;
-};
+  requestId: number
+}
 
 export function ReviewActionPanel({ requestId }: ReviewActionPanelProps) {
-  const navigate = useNavigate();
-  const queryClient = useQueryClient();
-  const [doctorNotes, setDoctorNotes] = useState("");
-  const [showApproveDialog, setShowApproveDialog] = useState(false);
-  const [showRejectDialog, setShowRejectDialog] = useState(false);
+  const navigate = useNavigate()
+  const queryClient = useQueryClient()
+  const [doctorNotes, setDoctorNotes] = useState('')
+  const [showApproveDialog, setShowApproveDialog] = useState(false)
+  const [showRejectDialog, setShowRejectDialog] = useState(false)
 
   const approveMutation = useApproveCourseRequest({
     mutation: {
       onSuccess: () => {
         queryClient.invalidateQueries({
-          queryKey: [{ url: "/api/doctors/course-requests" }],
-        });
-        toast.success("Đã phê duyệt yêu cầu thành công");
+          queryKey: [{ url: '/api/doctors/course-requests' }],
+        })
+        toast.success('Đã phê duyệt yêu cầu thành công')
         navigate({
-          to: "/doctor-course-requests",
+          to: '/doctor-course-requests',
           search: { page: 1, pageSize: 10 },
-        });
+        })
       },
     },
-  });
+  })
 
   const rejectMutation = useRejectCourseRequest({
     mutation: {
       onSuccess: () => {
         queryClient.invalidateQueries({
-          queryKey: [{ url: "/api/doctors/course-requests" }],
-        });
-        toast.success("Đã từ chối yêu cầu");
+          queryKey: [{ url: '/api/doctors/course-requests' }],
+        })
+        toast.success('Đã từ chối yêu cầu')
         navigate({
-          to: "/doctor-course-requests",
+          to: '/doctor-course-requests',
           search: { page: 1, pageSize: 10 },
-        });
+        })
       },
     },
-  });
+  })
 
-  const isPending = approveMutation.isPending || rejectMutation.isPending;
+  const isPending = approveMutation.isPending || rejectMutation.isPending
 
   const handleRejectClick = () => {
     if (!doctorNotes.trim()) {
-      toast.error("Vui lòng nhập lý do từ chối");
-      return;
+      toast.error('Vui lòng nhập lý do từ chối')
+      return
     }
-    setShowRejectDialog(true);
-  };
+    setShowRejectDialog(true)
+  }
 
   const handleConfirmApprove = () => {
     approveMutation.mutate({
@@ -75,17 +75,17 @@ export function ReviewActionPanel({ requestId }: ReviewActionPanelProps) {
       data: doctorNotes.trim()
         ? { doctorNotes: doctorNotes.trim() }
         : undefined,
-    });
-    setShowApproveDialog(false);
-  };
+    })
+    setShowApproveDialog(false)
+  }
 
   const handleConfirmReject = () => {
     rejectMutation.mutate({
       id: requestId,
       data: { doctorNotes: doctorNotes.trim() },
-    });
-    setShowRejectDialog(false);
-  };
+    })
+    setShowRejectDialog(false)
+  }
 
   return (
     <>
@@ -93,7 +93,7 @@ export function ReviewActionPanel({ requestId }: ReviewActionPanelProps) {
         <h3 className="text-lg font-semibold">Xét duyệt yêu cầu</h3>
         <div className="space-y-2">
           <Label htmlFor="doctorNotes">
-            Ghi chú của bác sĩ{" "}
+            Ghi chú của bác sĩ{' '}
             <span className="text-muted-foreground text-xs">
               (bắt buộc khi từ chối)
             </span>
@@ -173,5 +173,5 @@ export function ReviewActionPanel({ requestId }: ReviewActionPanelProps) {
         </AlertDialogContent>
       </AlertDialog>
     </>
-  );
+  )
 }

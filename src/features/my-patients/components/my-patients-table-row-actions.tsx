@@ -1,9 +1,9 @@
-import { DotsHorizontalIcon } from "@radix-ui/react-icons";
-import { type Row } from "@tanstack/react-table";
-import { Eye, BookOpen, Route } from "lucide-react";
-import { useNavigate } from "@tanstack/react-router";
-import { type DoctorPatientResponse } from "@/api";
-import { Button } from "@/components/ui/button";
+import { DotsHorizontalIcon } from '@radix-ui/react-icons'
+import { type Row } from '@tanstack/react-table'
+import { Eye, BookOpen, Route } from 'lucide-react'
+import { useNavigate } from '@tanstack/react-router'
+import { type DoctorPatientResponse } from '@/api'
+import { Button } from '@/components/ui/button'
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -11,18 +11,18 @@ import {
   DropdownMenuSeparator,
   DropdownMenuShortcut,
   DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-import { useMyPatients } from "./my-patients-provider";
+} from '@/components/ui/dropdown-menu'
+import { useMyPatients } from './my-patients-provider'
 
 type MyPatientsTableRowActionsProps = {
-  row: Row<DoctorPatientResponse>;
-};
+  row: Row<DoctorPatientResponse>
+}
 
 export function MyPatientsTableRowActions({
   row,
 }: MyPatientsTableRowActionsProps) {
-  const { setOpen, setCurrentPatient } = useMyPatients();
-  const navigate = useNavigate();
+  const { setOpen, setCurrentPatient } = useMyPatients()
+  const navigate = useNavigate()
 
   return (
     <div className="flex justify-end">
@@ -39,8 +39,8 @@ export function MyPatientsTableRowActions({
         <DropdownMenuContent align="end" className="w-[180px]">
           <DropdownMenuItem
             onClick={() => {
-              setCurrentPatient(row.original);
-              setOpen("preview");
+              setCurrentPatient(row.original)
+              setOpen('preview')
             }}
           >
             Xem thông tin
@@ -52,9 +52,9 @@ export function MyPatientsTableRowActions({
           <DropdownMenuItem
             onClick={() => {
               navigate({
-                to: "/course-assignments",
+                to: '/course-assignments',
                 search: { patientId: row.original.userId },
-              });
+              })
             }}
           >
             Xem lộ trình
@@ -68,14 +68,14 @@ export function MyPatientsTableRowActions({
               // fullName exists at runtime (API returns UserResponse fields) but isn't on DoctorPatientResponse type
               const patientName = (
                 row.original as DoctorPatientResponse & { fullName?: string }
-              ).fullName;
+              ).fullName
               navigate({
-                to: "/courses/assign",
+                to: '/courses/assign',
                 search: {
                   patientId: row.original.userId,
                   ...(patientName && { patientName }),
                 },
-              });
+              })
             }}
           >
             Gán khóa học
@@ -86,5 +86,5 @@ export function MyPatientsTableRowActions({
         </DropdownMenuContent>
       </DropdownMenu>
     </div>
-  );
+  )
 }

@@ -62,27 +62,30 @@ export function StaffTable({
   })
 
   // Add hidden columns for filter support
-  const columns = useMemo(() => [
-    {
-      id: 'query',
-      header: () => null,
-      cell: () => null,
-      enableSorting: false,
-    },
-    {
-      id: 'staffTypeFilter',
-      header: () => null,
-      cell: () => null,
-      enableSorting: false,
-    },
-    {
-      id: 'statusFilter',
-      header: () => null,
-      cell: () => null,
-      enableSorting: false,
-    },
-    ...staffColumns,
-  ], [])
+  const columns = useMemo(
+    () => [
+      {
+        id: 'query',
+        header: () => null,
+        cell: () => null,
+        enableSorting: false,
+      },
+      {
+        id: 'staffTypeFilter',
+        header: () => null,
+        cell: () => null,
+        enableSorting: false,
+      },
+      {
+        id: 'statusFilter',
+        header: () => null,
+        cell: () => null,
+        enableSorting: false,
+      },
+      ...staffColumns,
+    ],
+    []
+  )
 
   const table = useReactTable({
     data,
@@ -115,11 +118,11 @@ export function StaffTable({
       )}
     >
       <StaffTableToolbar table={table} />
-      <div className='overflow-hidden rounded-md border'>
+      <div className="overflow-hidden rounded-md border">
         <Table>
           <TableHeader>
             {table.getHeaderGroups().map((headerGroup) => (
-              <TableRow key={headerGroup.id} className='group/row'>
+              <TableRow key={headerGroup.id} className="group/row">
                 {headerGroup.headers.map((header) => {
                   return (
                     <TableHead
@@ -149,7 +152,7 @@ export function StaffTable({
                 <TableRow
                   key={row.id}
                   data-state={row.getIsSelected() && 'selected'}
-                  className='group/row'
+                  className="group/row"
                 >
                   {row.getVisibleCells().map((cell) => (
                     <TableCell
@@ -172,7 +175,7 @@ export function StaffTable({
               <TableRow>
                 <TableCell
                   colSpan={columns.length}
-                  className='h-24 text-center'
+                  className="h-24 text-center"
                 >
                   Không có dữ liệu.
                 </TableCell>
@@ -181,7 +184,7 @@ export function StaffTable({
           </TableBody>
         </Table>
       </div>
-      <DataTablePagination table={table} className='mt-auto' />
+      <DataTablePagination table={table} className="mt-auto" />
     </div>
   )
 }

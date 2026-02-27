@@ -10,8 +10,8 @@ export function GroupsPrimaryButtons() {
   if (!hasPermission('exercise_groups:create')) return null
 
   return (
-    <div className='flex gap-2'>
-      <Button className='space-x-1' onClick={() => setOpen('add')}>
+    <div className="flex gap-2">
+      <Button className="space-x-1" onClick={() => setOpen('add')}>
         <span>Thêm nhóm</span> <Plus size={18} />
       </Button>
     </div>

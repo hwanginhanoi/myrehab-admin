@@ -1,5 +1,5 @@
-import { useState, useEffect } from "react";
-import { useQueryClient } from "@tanstack/react-query";
+import { useState, useEffect } from 'react'
+import { useQueryClient } from '@tanstack/react-query'
 import {
   Dialog,
   DialogContent,
@@ -7,43 +7,43 @@ import {
   DialogFooter,
   DialogHeader,
   DialogTitle,
-} from "@/components/ui/dialog";
-import { Button } from "@/components/ui/button";
-import { ScrollArea } from "@/components/ui/scroll-area";
-import { Badge } from "@/components/ui/badge";
-import { Loader2, Search } from "lucide-react";
-import { toast } from "sonner";
+} from '@/components/ui/dialog'
+import { Button } from '@/components/ui/button'
+import { ScrollArea } from '@/components/ui/scroll-area'
+import { Badge } from '@/components/ui/badge'
+import { Loader2, Search } from 'lucide-react'
+import { toast } from 'sonner'
 import {
   useGetAvailableTrainersForDoctor,
   useAssignTrainerToDoctor,
   type StaffResponse,
-} from "@/api";
+} from '@/api'
 
 type TrainerAssignmentDialogProps = {
-  doctorId: number;
-  open: boolean;
-  onOpenChange: (open: boolean) => void;
-};
+  doctorId: number
+  open: boolean
+  onOpenChange: (open: boolean) => void
+}
 
 export function TrainerAssignmentDialog({
   doctorId,
   open,
   onOpenChange,
 }: TrainerAssignmentDialogProps) {
-  const [searchQuery, setSearchQuery] = useState("");
-  const [debouncedQuery, setDebouncedQuery] = useState("");
+  const [searchQuery, setSearchQuery] = useState('')
+  const [debouncedQuery, setDebouncedQuery] = useState('')
   const [selectedTrainer, setSelectedTrainer] = useState<StaffResponse | null>(
-    null,
-  );
-  const queryClient = useQueryClient();
+    null
+  )
+  const queryClient = useQueryClient()
 
   // Debounce search query (300ms delay)
   useEffect(() => {
     const timer = setTimeout(() => {
-      setDebouncedQuery(searchQuery);
-    }, 300);
-    return () => clearTimeout(timer);
-  }, [searchQuery]);
+      setDebouncedQuery(searchQuery)
+    }, 300)
+    return () => clearTimeout(timer)
+  }, [searchQuery])
 
   // Fetch available trainers using the new API
   const { data: availableTrainers = [], isLoading } =
@@ -54,42 +54,47 @@ export function TrainerAssignmentDialog({
         query: {
           enabled: open && debouncedQuery.length > 0, // Only fetch when dialog is open AND user has typed
         },
-      },
-    );
+      }
+    )
 
   // Assignment mutation
   const assignMutation = useAssignTrainerToDoctor({
     mutation: {
       onSuccess: () => {
         queryClient.invalidateQueries({
-          queryKey: [{ url: '/api/admin/staff/doctors/:doctorId/trainers', params: { doctorId } }],
-        });
-        toast.success("Đã gán huấn luyện viên thành công");
-        handleClose();
+          queryKey: [
+            {
+              url: '/api/admin/staff/doctors/:doctorId/trainers',
+              params: { doctorId },
+            },
+          ],
+        })
+        toast.success('Đã gán huấn luyện viên thành công')
+        handleClose()
       },
       onError: (error) => {
-        toast.error(error.message || "Không thể gán huấn luyện viên");
+        toast.error(error.message || 'Không thể gán huấn luyện viên')
       },
     },
-  });
+  })
 
   const handleAssign = () => {
-    if (!selectedTrainer?.id) return;
+    if (!selectedTrainer?.id) return
     assignMutation.mutate({
       doctorId,
       trainerId: selectedTrainer.id,
-    });
-  };
+    })
+  }
 
   const handleClose = () => {
-    setSelectedTrainer(null);
-    setSearchQuery("");
-    setDebouncedQuery("");
-    onOpenChange(false);
-  };
+    setSelectedTrainer(null)
+    setSearchQuery('')
+    setDebouncedQuery('')
+    onOpenChange(false)
+  }
 
-  const showEmptyState = !searchQuery;
-  const showResults = searchQuery && !isLoading && availableTrainers.length > 0;
+  const showEmptyState = !searchQuery
+  const showResults = searchQuery && !isLoading && availableTrainers.length > 0
 
   return (
     <Dialog open={open} onOpenChange={handleClose}>
@@ -110,8 +115,8 @@ export function TrainerAssignmentDialog({
                 placeholder="Tìm kiếm..."
                 value={searchQuery}
                 onChange={(e) => {
-                  setSearchQuery(e.target.value);
-                  if (selectedTrainer) setSelectedTrainer(null);
+                  setSearchQuery(e.target.value)
+                  if (selectedTrainer) setSelectedTrainer(null)
                 }}
                 className="w-full h-10 pl-9 pr-3 bg-muted/50 border rounded-md text-sm outline-none focus:ring-0 focus:border-input transition-all"
               />
@@ -156,11 +161,11 @@ export function TrainerAssignmentDialog({
                       key={trainer.id}
                       onClick={() => {
                         setSelectedTrainer(
-                          selectedTrainer?.id === trainer.id ? null : trainer,
-                        );
+                          selectedTrainer?.id === trainer.id ? null : trainer
+                        )
                       }}
                       className={`flex items-center justify-between p-3 rounded-md cursor-pointer hover:bg-accent transition-colors ${
-                        selectedTrainer?.id === trainer.id ? "bg-accent" : ""
+                        selectedTrainer?.id === trainer.id ? 'bg-accent' : ''
                       }`}
                     >
                       <div className="flex-1 min-w-0">
@@ -207,11 +212,11 @@ export function TrainerAssignmentDialog({
                 Đang gán...
               </>
             ) : (
-              "Thêm vào danh sách"
+              'Thêm vào danh sách'
             )}
           </Button>
         </DialogFooter>
       </DialogContent>
     </Dialog>
-  );
+  )
 }

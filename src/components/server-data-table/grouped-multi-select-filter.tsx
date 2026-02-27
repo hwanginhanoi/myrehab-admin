@@ -50,36 +50,37 @@ export function DataTableGroupedMultiSelectFilter<TData, TValue>({
   return (
     <Popover modal={false}>
       <PopoverTrigger asChild>
-        <Button variant='outline' size='sm' className='h-8 border-dashed'>
-          <PlusCircledIcon className='size-4' />
+        <Button variant="outline" size="sm" className="h-8 border-dashed">
+          <PlusCircledIcon className="size-4" />
           {title}
           {selectedValues?.size > 0 && (
             <>
-              <Separator orientation='vertical' className='mx-2 h-4' />
+              <Separator orientation="vertical" className="mx-2 h-4" />
               <Badge
-                variant='secondary'
-                className='rounded-sm px-1 font-normal lg:hidden'
+                variant="secondary"
+                className="rounded-sm px-1 font-normal lg:hidden"
               >
                 {selectedValues.size}
               </Badge>
-              <div className='hidden space-x-1 lg:flex'>
+              <div className="hidden space-x-1 lg:flex">
                 {selectedValues.size > 2 ? (
                   <Badge
-                    variant='secondary'
-                    className='rounded-sm px-1 font-normal'
+                    variant="secondary"
+                    className="rounded-sm px-1 font-normal"
                   >
                     {selectedValues.size} selected
                   </Badge>
                 ) : (
                   // Show selected option labels (max 2)
-                  groups.flatMap(group => group.options)
+                  groups
+                    .flatMap((group) => group.options)
                     .filter((option) => selectedValues.has(option.value))
                     .slice(0, 2)
                     .map((option) => (
                       <Badge
-                        variant='secondary'
+                        variant="secondary"
                         key={option.value}
-                        className='rounded-sm px-1 font-normal'
+                        className="rounded-sm px-1 font-normal"
                       >
                         {option.label}
                       </Badge>
@@ -90,7 +91,7 @@ export function DataTableGroupedMultiSelectFilter<TData, TValue>({
           )}
         </Button>
       </PopoverTrigger>
-      <PopoverContent className='w-[250px] p-0' align='start'>
+      <PopoverContent className="w-[250px] p-0" align="start">
         <Command>
           <CommandInput placeholder={title} />
           <CommandList>
@@ -123,10 +124,12 @@ export function DataTableGroupedMultiSelectFilter<TData, TValue>({
                               : 'opacity-50 [&_svg]:invisible'
                           )}
                         >
-                          <CheckIcon className={cn('text-background h-4 w-4')} />
+                          <CheckIcon
+                            className={cn('text-background h-4 w-4')}
+                          />
                         </div>
                         {option.icon && (
-                          <option.icon className='text-muted-foreground size-4' />
+                          <option.icon className="text-muted-foreground size-4" />
                         )}
                         <span>{option.label}</span>
                       </CommandItem>
@@ -143,7 +146,7 @@ export function DataTableGroupedMultiSelectFilter<TData, TValue>({
                 <CommandGroup>
                   <CommandItem
                     onSelect={() => column?.setFilterValue(undefined)}
-                    className='justify-center text-center'
+                    className="justify-center text-center"
                   >
                     Clear filters
                   </CommandItem>

@@ -15,7 +15,11 @@ import { Label } from '@/components/ui/label'
 import { Badge } from '@/components/ui/badge'
 import { Loader2, Search } from 'lucide-react'
 import { toast } from 'sonner'
-import { useSearchUsersByName, useAssignPatientToDoctor, type UserResponse } from '@/api'
+import {
+  useSearchUsersByName,
+  useAssignPatientToDoctor,
+  type UserResponse,
+} from '@/api'
 
 type PatientAssignmentDialogProps = {
   doctorId: number
@@ -32,7 +36,9 @@ export function PatientAssignmentDialog({
 }: PatientAssignmentDialogProps) {
   const [searchQuery, setSearchQuery] = useState('')
   const [debouncedQuery, setDebouncedQuery] = useState('')
-  const [selectedPatient, setSelectedPatient] = useState<UserResponse | null>(null)
+  const [selectedPatient, setSelectedPatient] = useState<UserResponse | null>(
+    null
+  )
   const [notes, setNotes] = useState('')
   const queryClient = useQueryClient()
 
@@ -64,7 +70,12 @@ export function PatientAssignmentDialog({
     mutation: {
       onSuccess: () => {
         void queryClient.invalidateQueries({
-          queryKey: [{ url: '/api/admin/doctors/:doctorId/patients', params: { doctorId } }],
+          queryKey: [
+            {
+              url: '/api/admin/doctors/:doctorId/patients',
+              params: { doctorId },
+            },
+          ],
         })
         toast.success('Đã gán bệnh nhân thành công')
         handleClose()
@@ -99,64 +110,64 @@ export function PatientAssignmentDialog({
 
   return (
     <Dialog open={open} onOpenChange={handleClose}>
-      <DialogContent className='sm:max-w-lg max-h-[85vh] flex flex-col'>
-        <DialogHeader className='text-start'>
+      <DialogContent className="sm:max-w-lg max-h-[85vh] flex flex-col">
+        <DialogHeader className="text-start">
           <DialogTitle>Gán bệnh nhân</DialogTitle>
           <DialogDescription>
             Tìm kiếm và chọn bệnh nhân để gán cho bác sĩ này.
           </DialogDescription>
         </DialogHeader>
 
-        <div className='overflow-y-auto flex-1 min-h-0 space-y-4'>
-          <div className='px-1'>
-            <div className='relative pb-1'>
-              <Search className='absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground' />
+        <div className="overflow-y-auto flex-1 min-h-0 space-y-4">
+          <div className="px-1">
+            <div className="relative pb-1">
+              <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
               <input
-                type='text'
-                placeholder='Tìm kiếm...'
+                type="text"
+                placeholder="Tìm kiếm..."
                 value={searchQuery}
                 onChange={(e) => {
                   setSearchQuery(e.target.value)
                   if (selectedPatient) setSelectedPatient(null)
                 }}
-                className='w-full h-10 pl-9 pr-3 bg-muted/50 border rounded-md text-sm outline-none focus:ring-0 focus:border-input transition-all'
+                className="w-full h-10 pl-9 pr-3 bg-muted/50 border rounded-md text-sm outline-none focus:ring-0 focus:border-input transition-all"
               />
             </div>
           </div>
 
           {showEmptyState && (
-            <div className='flex flex-col items-center justify-center py-12 text-center'>
-              <Search className='h-12 w-12 text-muted-foreground/40 mb-3' />
-              <p className='text-xs text-muted-foreground mt-1'>
+            <div className="flex flex-col items-center justify-center py-12 text-center">
+              <Search className="h-12 w-12 text-muted-foreground/40 mb-3" />
+              <p className="text-xs text-muted-foreground mt-1">
                 Nhập tên, số điện thoại hoặc email của bệnh nhân
               </p>
             </div>
           )}
 
           {isLoading && (
-            <div className='flex items-center justify-center py-12'>
-              <Loader2 className='mr-2 h-4 w-4 animate-spin' />
-              <p className='text-sm text-muted-foreground'>Đang tìm kiếm...</p>
+            <div className="flex items-center justify-center py-12">
+              <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+              <p className="text-sm text-muted-foreground">Đang tìm kiếm...</p>
             </div>
           )}
 
           {!isLoading && searchQuery && availablePatients.length === 0 && (
-            <div className='flex items-center justify-center py-12'>
-              <p className='text-sm text-muted-foreground'>
+            <div className="flex items-center justify-center py-12">
+              <p className="text-sm text-muted-foreground">
                 Không tìm thấy bệnh nhân
               </p>
             </div>
           )}
 
           {showResults && (
-            <div className='border rounded-md'>
-              <div className='px-3 py-2 border-b bg-muted/30'>
-                <p className='text-xs text-muted-foreground'>
+            <div className="border rounded-md">
+              <div className="px-3 py-2 border-b bg-muted/30">
+                <p className="text-xs text-muted-foreground">
                   Hiển thị tối đa 5 kết quả
                 </p>
               </div>
-              <ScrollArea className='h-[280px]'>
-                <div className='p-2 space-y-1'>
+              <ScrollArea className="h-[280px]">
+                <div className="p-2 space-y-1">
                   {availablePatients.map((patient) => (
                     <div
                       key={patient.id}
@@ -169,17 +180,17 @@ export function PatientAssignmentDialog({
                         selectedPatient?.id === patient.id ? 'bg-accent' : ''
                       }`}
                     >
-                      <div className='flex-1 min-w-0'>
-                        <p className='font-medium text-sm truncate'>
+                      <div className="flex-1 min-w-0">
+                        <p className="font-medium text-sm truncate">
                           {patient.fullName || `Bệnh nhân #${patient.id}`}
                         </p>
-                        <p className='text-xs text-muted-foreground truncate'>
+                        <p className="text-xs text-muted-foreground truncate">
                           {patient.phoneNumber && `${patient.phoneNumber} • `}
                           {patient.email || `ID: ${patient.id}`}
                         </p>
                       </div>
                       {selectedPatient?.id === patient.id && (
-                        <Badge variant='default' className='ml-2 shrink-0'>
+                        <Badge variant="default" className="ml-2 shrink-0">
                           Đã chọn
                         </Badge>
                       )}
@@ -191,23 +202,25 @@ export function PatientAssignmentDialog({
           )}
 
           {selectedPatient && (
-            <div className='space-y-2'>
-              <div className='p-3 bg-muted rounded-lg'>
-                <p className='text-sm font-medium'>Bệnh nhân được chọn:</p>
-                <p className='text-sm'>
-                  {selectedPatient.fullName || `Bệnh nhân #${selectedPatient.id}`}
+            <div className="space-y-2">
+              <div className="p-3 bg-muted rounded-lg">
+                <p className="text-sm font-medium">Bệnh nhân được chọn:</p>
+                <p className="text-sm">
+                  {selectedPatient.fullName ||
+                    `Bệnh nhân #${selectedPatient.id}`}
                 </p>
-                <p className='text-xs text-muted-foreground'>
-                  {selectedPatient.phoneNumber && `${selectedPatient.phoneNumber} • `}
+                <p className="text-xs text-muted-foreground">
+                  {selectedPatient.phoneNumber &&
+                    `${selectedPatient.phoneNumber} • `}
                   {selectedPatient.email || `ID: ${selectedPatient.id}`}
                 </p>
               </div>
 
-              <div className='space-y-2'>
-                <Label htmlFor='notes'>Ghi chú (tùy chọn)</Label>
+              <div className="space-y-2">
+                <Label htmlFor="notes">Ghi chú (tùy chọn)</Label>
                 <Textarea
-                  id='notes'
-                  placeholder='Nhập ghi chú về việc gán bệnh nhân này...'
+                  id="notes"
+                  placeholder="Nhập ghi chú về việc gán bệnh nhân này..."
                   value={notes}
                   onChange={(e) => setNotes(e.target.value)}
                   rows={3}
@@ -217,8 +230,12 @@ export function PatientAssignmentDialog({
           )}
         </div>
 
-        <DialogFooter className='gap-2'>
-          <Button variant='outline' onClick={handleClose} disabled={assignMutation.isPending}>
+        <DialogFooter className="gap-2">
+          <Button
+            variant="outline"
+            onClick={handleClose}
+            disabled={assignMutation.isPending}
+          >
             Hủy
           </Button>
           <Button
@@ -227,7 +244,7 @@ export function PatientAssignmentDialog({
           >
             {assignMutation.isPending ? (
               <>
-                <Loader2 className='mr-2 h-4 w-4 animate-spin' />
+                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
                 Đang gán...
               </>
             ) : (

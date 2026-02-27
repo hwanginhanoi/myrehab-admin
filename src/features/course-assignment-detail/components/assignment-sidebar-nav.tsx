@@ -1,26 +1,26 @@
-import { useState, type JSX } from "react";
-import { useLocation, useNavigate, Link } from "@tanstack/react-router";
-import { cn } from "@/lib/utils";
-import { buttonVariants } from "@/components/ui/button";
-import { ScrollArea } from "@/components/ui/scroll-area";
+import { useState, type JSX } from 'react'
+import { useLocation, useNavigate, Link } from '@tanstack/react-router'
+import { cn } from '@/lib/utils'
+import { buttonVariants } from '@/components/ui/button'
+import { ScrollArea } from '@/components/ui/scroll-area'
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/components/ui/select";
+} from '@/components/ui/select'
 
 type SidebarNavItem = {
-  href: string;
-  title: string;
-  icon: JSX.Element;
-};
+  href: string
+  title: string
+  icon: JSX.Element
+}
 
 type AssignmentSidebarNavProps = React.HTMLAttributes<HTMLElement> & {
-  items: SidebarNavItem[];
-  search: Record<string, unknown>;
-};
+  items: SidebarNavItem[]
+  search: Record<string, unknown>
+}
 
 export function AssignmentSidebarNav({
   className,
@@ -28,14 +28,14 @@ export function AssignmentSidebarNav({
   search,
   ...props
 }: AssignmentSidebarNavProps) {
-  const { pathname } = useLocation();
-  const navigate = useNavigate();
-  const [val, setVal] = useState(pathname ?? items[0]?.href);
+  const { pathname } = useLocation()
+  const navigate = useNavigate()
+  const [val, setVal] = useState(pathname ?? items[0]?.href)
 
   const handleSelect = (e: string) => {
-    setVal(e);
-    navigate({ to: e, search });
-  };
+    setVal(e)
+    navigate({ to: e, search })
+  }
 
   return (
     <>
@@ -64,8 +64,8 @@ export function AssignmentSidebarNav({
       >
         <nav
           className={cn(
-            "flex space-x-2 py-1 lg:flex-col lg:space-y-1 lg:space-x-0",
-            className,
+            'flex space-x-2 py-1 lg:flex-col lg:space-y-1 lg:space-x-0',
+            className
           )}
           {...props}
         >
@@ -75,11 +75,11 @@ export function AssignmentSidebarNav({
               to={item.href}
               search={search}
               className={cn(
-                buttonVariants({ variant: "ghost" }),
+                buttonVariants({ variant: 'ghost' }),
                 pathname === item.href
-                  ? "bg-muted hover:bg-accent"
-                  : "hover:bg-accent hover:underline",
-                "justify-start",
+                  ? 'bg-muted hover:bg-accent'
+                  : 'hover:bg-accent hover:underline',
+                'justify-start'
               )}
             >
               <span className="me-2">{item.icon}</span>
@@ -89,5 +89,5 @@ export function AssignmentSidebarNav({
         </nav>
       </ScrollArea>
     </>
-  );
+  )
 }

@@ -1,23 +1,23 @@
-import { useState } from "react";
-import { type Row } from "@tanstack/react-table";
+import { useState } from 'react'
+import { type Row } from '@tanstack/react-table'
 import {
   CheckCircle,
   ClipboardCheck,
   Eye,
   MoreHorizontal,
   XCircle,
-} from "lucide-react";
-import { useNavigate } from "@tanstack/react-router";
-import { useQueryClient } from "@tanstack/react-query";
-import { toast } from "sonner";
-import { Button } from "@/components/ui/button";
+} from 'lucide-react'
+import { useNavigate } from '@tanstack/react-router'
+import { useQueryClient } from '@tanstack/react-query'
+import { toast } from 'sonner'
+import { Button } from '@/components/ui/button'
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
+} from '@/components/ui/dropdown-menu'
 import {
   AlertDialog,
   AlertDialogAction,
@@ -27,52 +27,52 @@ import {
   AlertDialogFooter,
   AlertDialogHeader,
   AlertDialogTitle,
-} from "@/components/ui/alert-dialog";
-import { Textarea } from "@/components/ui/textarea";
-import { Label } from "@/components/ui/label";
-import { useApproveCourseRequest, useRejectCourseRequest } from "@/api";
-import type { CourseRequest } from "@/features/course-requests/types";
+} from '@/components/ui/alert-dialog'
+import { Textarea } from '@/components/ui/textarea'
+import { Label } from '@/components/ui/label'
+import { useApproveCourseRequest, useRejectCourseRequest } from '@/api'
+import type { CourseRequest } from '@/features/course-requests/types'
 
 type DoctorCourseRequestsRowActionsProps = {
-  row: Row<CourseRequest>;
-};
+  row: Row<CourseRequest>
+}
 
 export function DoctorCourseRequestsRowActions({
   row,
 }: DoctorCourseRequestsRowActionsProps) {
-  const navigate = useNavigate();
-  const queryClient = useQueryClient();
-  const id = row.original.id;
-  const isPendingStatus = row.original.status === "PENDING";
+  const navigate = useNavigate()
+  const queryClient = useQueryClient()
+  const id = row.original.id
+  const isPendingStatus = row.original.status === 'PENDING'
 
-  const [showApproveDialog, setShowApproveDialog] = useState(false);
-  const [showRejectDialog, setShowRejectDialog] = useState(false);
-  const [doctorNotes, setDoctorNotes] = useState("");
+  const [showApproveDialog, setShowApproveDialog] = useState(false)
+  const [showRejectDialog, setShowRejectDialog] = useState(false)
+  const [doctorNotes, setDoctorNotes] = useState('')
 
   const approveMutation = useApproveCourseRequest({
     mutation: {
       onSuccess: () => {
         queryClient.invalidateQueries({
-          queryKey: [{ url: "/api/doctors/course-requests" }],
-        });
-        toast.success("Đã phê duyệt yêu cầu thành công");
+          queryKey: [{ url: '/api/doctors/course-requests' }],
+        })
+        toast.success('Đã phê duyệt yêu cầu thành công')
       },
     },
-  });
+  })
 
   const rejectMutation = useRejectCourseRequest({
     mutation: {
       onSuccess: () => {
         queryClient.invalidateQueries({
-          queryKey: [{ url: "/api/doctors/course-requests" }],
-        });
-        toast.success("Đã từ chối yêu cầu");
-        setDoctorNotes("");
+          queryKey: [{ url: '/api/doctors/course-requests' }],
+        })
+        toast.success('Đã từ chối yêu cầu')
+        setDoctorNotes('')
       },
     },
-  });
+  })
 
-  const isMutating = approveMutation.isPending || rejectMutation.isPending;
+  const isMutating = approveMutation.isPending || rejectMutation.isPending
 
   const handleConfirmApprove = () => {
     approveMutation.mutate({
@@ -80,23 +80,23 @@ export function DoctorCourseRequestsRowActions({
       data: doctorNotes.trim()
         ? { doctorNotes: doctorNotes.trim() }
         : undefined,
-    });
-    setShowApproveDialog(false);
-    setDoctorNotes("");
-  };
+    })
+    setShowApproveDialog(false)
+    setDoctorNotes('')
+  }
 
   const handleConfirmReject = () => {
     if (!doctorNotes.trim()) {
-      toast.error("Vui lòng nhập lý do từ chối");
-      return;
+      toast.error('Vui lòng nhập lý do từ chối')
+      return
     }
     rejectMutation.mutate({
       id: id!,
       data: { doctorNotes: doctorNotes.trim() },
-    });
-    setShowRejectDialog(false);
-    setDoctorNotes("");
-  };
+    })
+    setShowRejectDialog(false)
+    setDoctorNotes('')
+  }
 
   return (
     <>
@@ -117,11 +117,11 @@ export function DoctorCourseRequestsRowActions({
             <DropdownMenuItem
               onClick={() => {
                 navigate({
-                  to: "/doctor-course-requests/$id",
+                  to: '/doctor-course-requests/$id',
                   params: { id: String(id) },
-                  search: { mode: "view" },
+                  search: { mode: 'view' },
                   state: { requestData: row.original },
-                });
+                })
               }}
             >
               <Eye className="mr-2 h-4 w-4" />
@@ -133,11 +133,11 @@ export function DoctorCourseRequestsRowActions({
                 <DropdownMenuItem
                   onClick={() => {
                     navigate({
-                      to: "/doctor-course-requests/$id",
+                      to: '/doctor-course-requests/$id',
                       params: { id: String(id) },
-                      search: { mode: "review" },
+                      search: { mode: 'review' },
                       state: { requestData: row.original },
-                    });
+                    })
                   }}
                 >
                   <ClipboardCheck className="mr-2 h-4 w-4" />
@@ -175,7 +175,7 @@ export function DoctorCourseRequestsRowActions({
           </AlertDialogHeader>
           <div className="space-y-2 py-2">
             <Label htmlFor={`approve-notes-${id}`}>
-              Ghi chú{" "}
+              Ghi chú{' '}
               <span className="text-muted-foreground text-xs">(tùy chọn)</span>
             </Label>
             <Textarea
@@ -188,7 +188,7 @@ export function DoctorCourseRequestsRowActions({
             />
           </div>
           <AlertDialogFooter>
-            <AlertDialogCancel onClick={() => setDoctorNotes("")}>
+            <AlertDialogCancel onClick={() => setDoctorNotes('')}>
               Hủy
             </AlertDialogCancel>
             <AlertDialogAction
@@ -225,7 +225,7 @@ export function DoctorCourseRequestsRowActions({
             />
           </div>
           <AlertDialogFooter>
-            <AlertDialogCancel onClick={() => setDoctorNotes("")}>
+            <AlertDialogCancel onClick={() => setDoctorNotes('')}>
               Hủy
             </AlertDialogCancel>
             <AlertDialogAction
@@ -238,5 +238,5 @@ export function DoctorCourseRequestsRowActions({
         </AlertDialogContent>
       </AlertDialog>
     </>
-  );
+  )
 }

@@ -34,7 +34,9 @@ export function StaffRowActions({ row }: StaffRowActionsProps) {
   const enableStaffMutation = useEnableStaff({
     mutation: {
       onSuccess: () => {
-        queryClient.invalidateQueries({ queryKey: [{ url: '/api/admin/staff' }] })
+        queryClient.invalidateQueries({
+          queryKey: [{ url: '/api/admin/staff' }],
+        })
         toast.success('Đã kích hoạt nhân viên')
       },
       onError: (error) => {
@@ -46,7 +48,9 @@ export function StaffRowActions({ row }: StaffRowActionsProps) {
   const disableStaffMutation = useDisableStaff({
     mutation: {
       onSuccess: () => {
-        queryClient.invalidateQueries({ queryKey: [{ url: '/api/admin/staff' }] })
+        queryClient.invalidateQueries({
+          queryKey: [{ url: '/api/admin/staff' }],
+        })
         toast.success('Đã vô hiệu hóa nhân viên')
       },
       onError: (error) => {
@@ -70,14 +74,14 @@ export function StaffRowActions({ row }: StaffRowActionsProps) {
     <DropdownMenu modal={false}>
       <DropdownMenuTrigger asChild>
         <Button
-          variant='ghost'
-          className='data-[state=open]:bg-muted flex h-8 w-8 p-0'
+          variant="ghost"
+          className="data-[state=open]:bg-muted flex h-8 w-8 p-0"
         >
-          <DotsHorizontalIcon className='h-4 w-4' />
-          <span className='sr-only'>Open menu</span>
+          <DotsHorizontalIcon className="h-4 w-4" />
+          <span className="sr-only">Open menu</span>
         </Button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent align='end' className='w-[180px]'>
+      <DropdownMenuContent align="end" className="w-[180px]">
         {row.original.staffType === 'DOCTOR' && (
           <>
             <DropdownMenuItem
@@ -148,7 +152,7 @@ export function StaffRowActions({ row }: StaffRowActionsProps) {
             <DropdownMenuSeparator />
           </>
         )}
-        {(row.original.staffType === 'ADMIN') && (
+        {row.original.staffType === 'ADMIN' && (
           <>
             <DropdownMenuItem
               onClick={() => {
@@ -203,7 +207,7 @@ export function StaffRowActions({ row }: StaffRowActionsProps) {
                 setCurrentRow(row.original)
                 setOpen('delete')
               }}
-              className='text-red-500!'
+              className="text-red-500!"
             >
               Xóa
               <DropdownMenuShortcut>

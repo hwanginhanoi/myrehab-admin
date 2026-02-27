@@ -61,20 +61,20 @@ export function ForgotPasswordForm({
       >
         <FormField
           control={form.control}
-          name='email'
+          name="email"
           render={({ field }) => (
             <FormItem>
               <FormLabel>Email</FormLabel>
               <FormControl>
-                <Input placeholder='name@example.com' {...field} />
+                <Input placeholder="name@example.com" {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
           )}
         />
-        <Button className='mt-2' disabled={isLoading}>
+        <Button className="mt-2" disabled={isLoading}>
           Continue
-          {isLoading ? <Loader2 className='animate-spin' /> : <ArrowRight />}
+          {isLoading ? <Loader2 className="animate-spin" /> : <ArrowRight />}
         </Button>
       </form>
     </Form>

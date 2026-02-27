@@ -44,7 +44,11 @@ type AdminProfileFormProps = {
   readOnly?: boolean
 }
 
-export function AdminProfileForm({ admin, isLoading, readOnly }: AdminProfileFormProps) {
+export function AdminProfileForm({
+  admin,
+  isLoading,
+  readOnly,
+}: AdminProfileFormProps) {
   const queryClient = useQueryClient()
 
   const form = useForm<AdminProfileFormValues>({
@@ -61,12 +65,18 @@ export function AdminProfileForm({ admin, isLoading, readOnly }: AdminProfileFor
   const updateMutation = useUpdateStaff({
     mutation: {
       onSuccess: () => {
-        queryClient.invalidateQueries({ queryKey: [{ url: '/api/admin/staff' }] })
-        queryClient.invalidateQueries({ queryKey: [{ url: `/api/admin/staff/${admin.id}` }] })
+        queryClient.invalidateQueries({
+          queryKey: [{ url: '/api/admin/staff' }],
+        })
+        queryClient.invalidateQueries({
+          queryKey: [{ url: `/api/admin/staff/${admin.id}` }],
+        })
         toast.success('Đã cập nhật thông tin quản trị viên')
       },
       onError: (error) => {
-        toast.error(error.message || 'Không thể cập nhật thông tin quản trị viên')
+        toast.error(
+          error.message || 'Không thể cập nhật thông tin quản trị viên'
+        )
       },
     },
   })
@@ -88,26 +98,27 @@ export function AdminProfileForm({ admin, isLoading, readOnly }: AdminProfileFor
 
   if (isLoading) {
     return (
-      <div className='flex items-center justify-center h-64'>
-        <p className='text-sm text-muted-foreground'>Đang tải...</p>
+      <div className="flex items-center justify-center h-64">
+        <p className="text-sm text-muted-foreground">Đang tải...</p>
       </div>
     )
   }
 
   return (
     <Form {...form}>
-      <form
-        onSubmit={form.handleSubmit(onSubmit)}
-        className='space-y-8'
-      >
+      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
         <FormField
           control={form.control}
-          name='fullName'
+          name="fullName"
           render={({ field }) => (
             <FormItem>
               <FormLabel>Họ và tên</FormLabel>
               <FormControl>
-                <Input placeholder='Nguyễn Văn A' disabled={readOnly} {...field} />
+                <Input
+                  placeholder="Nguyễn Văn A"
+                  disabled={readOnly}
+                  {...field}
+                />
               </FormControl>
               <FormDescription>
                 Tên đầy đủ của quản trị viên sẽ hiển thị trên hệ thống.
@@ -119,12 +130,17 @@ export function AdminProfileForm({ admin, isLoading, readOnly }: AdminProfileFor
 
         <FormField
           control={form.control}
-          name='email'
+          name="email"
           render={({ field }) => (
             <FormItem>
               <FormLabel>Email</FormLabel>
               <FormControl>
-                <Input type='email' placeholder='admin@example.com' disabled {...field} />
+                <Input
+                  type="email"
+                  placeholder="admin@example.com"
+                  disabled
+                  {...field}
+                />
               </FormControl>
               <FormDescription>
                 Địa chỉ email để liên hệ và đăng nhập hệ thống.
@@ -136,12 +152,16 @@ export function AdminProfileForm({ admin, isLoading, readOnly }: AdminProfileFor
 
         <FormField
           control={form.control}
-          name='phoneNumber'
+          name="phoneNumber"
           render={({ field }) => (
             <FormItem>
               <FormLabel>Số điện thoại</FormLabel>
               <FormControl>
-                <Input placeholder='0912345678' disabled={readOnly} {...field} />
+                <Input
+                  placeholder="0912345678"
+                  disabled={readOnly}
+                  {...field}
+                />
               </FormControl>
               <FormDescription>
                 Số điện thoại liên hệ của quản trị viên.
@@ -153,14 +173,14 @@ export function AdminProfileForm({ admin, isLoading, readOnly }: AdminProfileFor
 
         <FormField
           control={form.control}
-          name='description'
+          name="description"
           render={({ field }) => (
             <FormItem>
               <FormLabel>Mô tả</FormLabel>
               <FormControl>
                 <Textarea
-                  placeholder='Mô tả ngắn về quản trị viên...'
-                  className='resize-none'
+                  placeholder="Mô tả ngắn về quản trị viên..."
+                  className="resize-none"
                   rows={4}
                   disabled={readOnly}
                   {...field}
@@ -174,12 +194,13 @@ export function AdminProfileForm({ admin, isLoading, readOnly }: AdminProfileFor
           )}
         />
 
-        <div className='space-y-4 pt-4 border-t'>
-          <div className='flex items-center justify-between'>
+        <div className="space-y-4 pt-4 border-t">
+          <div className="flex items-center justify-between">
             <div>
-              <p className='text-sm font-medium'>Trạng thái tài khoản</p>
-              <p className='text-sm text-muted-foreground'>
-                Tài khoản hiện đang {admin.enabled ? 'hoạt động' : 'vô hiệu hóa'}
+              <p className="text-sm font-medium">Trạng thái tài khoản</p>
+              <p className="text-sm text-muted-foreground">
+                Tài khoản hiện đang{' '}
+                {admin.enabled ? 'hoạt động' : 'vô hiệu hóa'}
               </p>
             </div>
             <Badge variant={admin.enabled ? 'default' : 'secondary'}>
@@ -187,22 +208,26 @@ export function AdminProfileForm({ admin, isLoading, readOnly }: AdminProfileFor
             </Badge>
           </div>
 
-          <div className='flex items-center justify-between'>
+          <div className="flex items-center justify-between">
             <div>
-              <p className='text-sm font-medium'>Loại tài khoản</p>
-              <p className='text-sm text-muted-foreground'>
+              <p className="text-sm font-medium">Loại tài khoản</p>
+              <p className="text-sm text-muted-foreground">
                 {admin.staffType === 'SUPER_ADMIN' ? 'Super Admin' : 'Admin'}
               </p>
             </div>
-            <Badge variant={admin.staffType === 'SUPER_ADMIN' ? 'destructive' : 'default'}>
+            <Badge
+              variant={
+                admin.staffType === 'SUPER_ADMIN' ? 'destructive' : 'default'
+              }
+            >
               {admin.staffType === 'SUPER_ADMIN' ? 'Super Admin' : 'Admin'}
             </Badge>
           </div>
 
           {admin.createdAt && (
             <div>
-              <p className='text-sm font-medium'>Ngày tạo</p>
-              <p className='text-sm text-muted-foreground'>
+              <p className="text-sm font-medium">Ngày tạo</p>
+              <p className="text-sm text-muted-foreground">
                 {new Date(admin.createdAt).toLocaleDateString('vi-VN', {
                   year: 'numeric',
                   month: 'long',
@@ -216,7 +241,7 @@ export function AdminProfileForm({ admin, isLoading, readOnly }: AdminProfileFor
         </div>
 
         {!readOnly && (
-          <Button type='submit' disabled={updateMutation.isPending}>
+          <Button type="submit" disabled={updateMutation.isPending}>
             {updateMutation.isPending ? 'Đang lưu...' : 'Cập nhật thông tin'}
           </Button>
         )}

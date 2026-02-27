@@ -1,5 +1,3 @@
-'use client'
-
 import { useRef, useEffect } from 'react'
 import { useEditor, EditorContent } from '@tiptap/react'
 import StarterKit from '@tiptap/starter-kit'
@@ -24,7 +22,7 @@ import {
   AlignCenter,
   AlignRight,
   AlignJustify,
-  Palette
+  Palette,
 } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { cn } from '@/lib/utils'
@@ -44,7 +42,7 @@ export function Tiptap({
   onChange,
   disabled = false,
   placeholder = 'Nhập nội dung...',
-  className
+  className,
 }: TiptapProps) {
   const imageInputRef = useRef<HTMLInputElement>(null)
 
@@ -130,265 +128,264 @@ export function Tiptap({
   return (
     <div className={cn('tiptap-wrapper', className)}>
       {/* Toolbar */}
-      <div className='tiptap-toolbar flex flex-wrap items-center gap-1 border-b border-input bg-muted/30 p-2 rounded-t-md'>
+      <div className="tiptap-toolbar flex flex-wrap items-center gap-1 border-b border-input bg-muted/30 p-2 rounded-t-md">
         {/* Bold */}
         <Button
-          type='button'
-          variant='ghost'
-          size='sm'
+          type="button"
+          variant="ghost"
+          size="sm"
           onClick={() => editor.chain().focus().toggleBold().run()}
           disabled={disabled}
-          className={cn(
-            'h-8 px-2',
-            editor.isActive('bold') && 'bg-accent'
-          )}
-          title='Bold'
+          className={cn('h-8 px-2', editor.isActive('bold') && 'bg-accent')}
+          title="Bold"
         >
-          <Bold className='h-4 w-4' />
+          <Bold className="h-4 w-4" />
         </Button>
 
         {/* Italic */}
         <Button
-          type='button'
-          variant='ghost'
-          size='sm'
+          type="button"
+          variant="ghost"
+          size="sm"
           onClick={() => editor.chain().focus().toggleItalic().run()}
           disabled={disabled}
-          className={cn(
-            'h-8 px-2',
-            editor.isActive('italic') && 'bg-accent'
-          )}
-          title='Italic'
+          className={cn('h-8 px-2', editor.isActive('italic') && 'bg-accent')}
+          title="Italic"
         >
-          <Italic className='h-4 w-4' />
+          <Italic className="h-4 w-4" />
         </Button>
 
         {/* Underline */}
         <Button
-          type='button'
-          variant='ghost'
-          size='sm'
+          type="button"
+          variant="ghost"
+          size="sm"
           onClick={() => editor.chain().focus().toggleUnderline().run()}
           disabled={disabled}
           className={cn(
             'h-8 px-2',
             editor.isActive('underline') && 'bg-accent'
           )}
-          title='Underline'
+          title="Underline"
         >
-          <UnderlineIcon className='h-4 w-4' />
+          <UnderlineIcon className="h-4 w-4" />
         </Button>
 
         {/* Strikethrough */}
         <Button
-          type='button'
-          variant='ghost'
-          size='sm'
+          type="button"
+          variant="ghost"
+          size="sm"
           onClick={() => editor.chain().focus().toggleStrike().run()}
           disabled={disabled}
-          className={cn(
-            'h-8 px-2',
-            editor.isActive('strike') && 'bg-accent'
-          )}
-          title='Strikethrough'
+          className={cn('h-8 px-2', editor.isActive('strike') && 'bg-accent')}
+          title="Strikethrough"
         >
-          <Strikethrough className='h-4 w-4' />
+          <Strikethrough className="h-4 w-4" />
         </Button>
 
-        <div className='w-px h-6 bg-border mx-1' />
+        <div className="w-px h-6 bg-border mx-1" />
 
         {/* Heading 1 */}
         <Button
-          type='button'
-          variant='ghost'
-          size='sm'
-          onClick={() => editor.chain().focus().toggleHeading({ level: 1 }).run()}
+          type="button"
+          variant="ghost"
+          size="sm"
+          onClick={() =>
+            editor.chain().focus().toggleHeading({ level: 1 }).run()
+          }
           disabled={disabled}
           className={cn(
             'h-8 px-2',
             editor.isActive('heading', { level: 1 }) && 'bg-accent'
           )}
-          title='Heading 1'
+          title="Heading 1"
         >
-          <Heading1 className='h-4 w-4' />
+          <Heading1 className="h-4 w-4" />
         </Button>
 
         {/* Heading 2 */}
         <Button
-          type='button'
-          variant='ghost'
-          size='sm'
-          onClick={() => editor.chain().focus().toggleHeading({ level: 2 }).run()}
+          type="button"
+          variant="ghost"
+          size="sm"
+          onClick={() =>
+            editor.chain().focus().toggleHeading({ level: 2 }).run()
+          }
           disabled={disabled}
           className={cn(
             'h-8 px-2',
             editor.isActive('heading', { level: 2 }) && 'bg-accent'
           )}
-          title='Heading 2'
+          title="Heading 2"
         >
-          <Heading2 className='h-4 w-4' />
+          <Heading2 className="h-4 w-4" />
         </Button>
 
         {/* Heading 3 */}
         <Button
-          type='button'
-          variant='ghost'
-          size='sm'
-          onClick={() => editor.chain().focus().toggleHeading({ level: 3 }).run()}
+          type="button"
+          variant="ghost"
+          size="sm"
+          onClick={() =>
+            editor.chain().focus().toggleHeading({ level: 3 }).run()
+          }
           disabled={disabled}
           className={cn(
             'h-8 px-2',
             editor.isActive('heading', { level: 3 }) && 'bg-accent'
           )}
-          title='Heading 3'
+          title="Heading 3"
         >
-          <Heading3 className='h-4 w-4' />
+          <Heading3 className="h-4 w-4" />
         </Button>
 
-        <div className='w-px h-6 bg-border mx-1' />
+        <div className="w-px h-6 bg-border mx-1" />
 
         {/* Bullet List */}
         <Button
-          type='button'
-          variant='ghost'
-          size='sm'
+          type="button"
+          variant="ghost"
+          size="sm"
           onClick={() => editor.chain().focus().toggleBulletList().run()}
           disabled={disabled}
           className={cn(
             'h-8 px-2',
             editor.isActive('bulletList') && 'bg-accent'
           )}
-          title='Bullet List'
+          title="Bullet List"
         >
-          <List className='h-4 w-4' />
+          <List className="h-4 w-4" />
         </Button>
 
         {/* Ordered List */}
         <Button
-          type='button'
-          variant='ghost'
-          size='sm'
+          type="button"
+          variant="ghost"
+          size="sm"
           onClick={() => editor.chain().focus().toggleOrderedList().run()}
           disabled={disabled}
           className={cn(
             'h-8 px-2',
             editor.isActive('orderedList') && 'bg-accent'
           )}
-          title='Ordered List'
+          title="Ordered List"
         >
-          <ListOrdered className='h-4 w-4' />
+          <ListOrdered className="h-4 w-4" />
         </Button>
 
-        <div className='w-px h-6 bg-border mx-1' />
+        <div className="w-px h-6 bg-border mx-1" />
 
         {/* Align Left */}
         <Button
-          type='button'
-          variant='ghost'
-          size='sm'
+          type="button"
+          variant="ghost"
+          size="sm"
           onClick={() => editor.chain().focus().setTextAlign('left').run()}
           disabled={disabled}
           className={cn(
             'h-8 px-2',
             editor.isActive({ textAlign: 'left' }) && 'bg-accent'
           )}
-          title='Align Left'
+          title="Align Left"
         >
-          <AlignLeft className='h-4 w-4' />
+          <AlignLeft className="h-4 w-4" />
         </Button>
 
         {/* Align Center */}
         <Button
-          type='button'
-          variant='ghost'
-          size='sm'
+          type="button"
+          variant="ghost"
+          size="sm"
           onClick={() => editor.chain().focus().setTextAlign('center').run()}
           disabled={disabled}
           className={cn(
             'h-8 px-2',
             editor.isActive({ textAlign: 'center' }) && 'bg-accent'
           )}
-          title='Align Center'
+          title="Align Center"
         >
-          <AlignCenter className='h-4 w-4' />
+          <AlignCenter className="h-4 w-4" />
         </Button>
 
         {/* Align Right */}
         <Button
-          type='button'
-          variant='ghost'
-          size='sm'
+          type="button"
+          variant="ghost"
+          size="sm"
           onClick={() => editor.chain().focus().setTextAlign('right').run()}
           disabled={disabled}
           className={cn(
             'h-8 px-2',
             editor.isActive({ textAlign: 'right' }) && 'bg-accent'
           )}
-          title='Align Right'
+          title="Align Right"
         >
-          <AlignRight className='h-4 w-4' />
+          <AlignRight className="h-4 w-4" />
         </Button>
 
         {/* Align Justify */}
         <Button
-          type='button'
-          variant='ghost'
-          size='sm'
+          type="button"
+          variant="ghost"
+          size="sm"
           onClick={() => editor.chain().focus().setTextAlign('justify').run()}
           disabled={disabled}
           className={cn(
             'h-8 px-2',
             editor.isActive({ textAlign: 'justify' }) && 'bg-accent'
           )}
-          title='Align Justify'
+          title="Align Justify"
         >
-          <AlignJustify className='h-4 w-4' />
+          <AlignJustify className="h-4 w-4" />
         </Button>
 
-        <div className='w-px h-6 bg-border mx-1' />
+        <div className="w-px h-6 bg-border mx-1" />
 
         {/* Text Color */}
-        <div className='relative'>
+        <div className="relative">
           <input
-            type='color'
-            onChange={(e) => editor.chain().focus().setColor(e.target.value).run()}
+            type="color"
+            onChange={(e) =>
+              editor.chain().focus().setColor(e.target.value).run()
+            }
             value={editor.getAttributes('textStyle').color || '#000000'}
             disabled={disabled}
-            className='absolute opacity-0 w-8 h-8 cursor-pointer'
-            title='Text Color'
+            className="absolute opacity-0 w-8 h-8 cursor-pointer"
+            title="Text Color"
           />
           <Button
-            type='button'
-            variant='ghost'
-            size='sm'
+            type="button"
+            variant="ghost"
+            size="sm"
             disabled={disabled}
-            className='h-8 px-2 pointer-events-none'
-            title='Text Color'
+            className="h-8 px-2 pointer-events-none"
+            title="Text Color"
           >
-            <Palette className='h-4 w-4' />
+            <Palette className="h-4 w-4" />
           </Button>
         </div>
 
-        <div className='w-px h-6 bg-border mx-1' />
+        <div className="w-px h-6 bg-border mx-1" />
 
         {/* Image Upload */}
         <input
           ref={imageInputRef}
-          type='file'
-          accept='image/jpeg,image/png,image/gif,image/webp'
+          type="file"
+          accept="image/jpeg,image/png,image/gif,image/webp"
           onChange={handleImageSelect}
-          className='hidden'
+          className="hidden"
         />
         <Button
-          type='button'
-          variant='ghost'
-          size='sm'
+          type="button"
+          variant="ghost"
+          size="sm"
           onClick={() => imageInputRef.current?.click()}
           disabled={disabled}
-          className='h-8 px-2'
-          title='Upload Image'
+          className="h-8 px-2"
+          title="Upload Image"
         >
-          <ImagePlus className='h-4 w-4' />
+          <ImagePlus className="h-4 w-4" />
         </Button>
       </div>
 

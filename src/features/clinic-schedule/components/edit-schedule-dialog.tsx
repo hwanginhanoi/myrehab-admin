@@ -24,7 +24,11 @@ import {
 import { Input } from '@/components/ui/input'
 import { Switch } from '@/components/ui/switch'
 import { useUpdateClinicSchedule, type ClinicScheduleResponse } from '@/api'
-import { formatLocalTime, parseTimeString, dayOfWeekLabels } from '@/lib/appointment-utils'
+import {
+  formatLocalTime,
+  parseTimeString,
+  dayOfWeekLabels,
+} from '@/lib/appointment-utils'
 
 const formSchema = z.object({
   isOpen: z.boolean(),
@@ -73,7 +77,9 @@ export function EditScheduleDialog({
     mutation: {
       onSuccess: () => {
         toast.success('Đã cập nhật lịch phòng khám')
-        queryClient.invalidateQueries({ queryKey: [{ url: '/api/appointments/clinic-schedule' }] })
+        queryClient.invalidateQueries({
+          queryKey: [{ url: '/api/appointments/clinic-schedule' }],
+        })
         onOpenChange(false)
       },
       onError: () => {
@@ -107,27 +113,30 @@ export function EditScheduleDialog({
           </DialogDescription>
         </DialogHeader>
         <Form {...form}>
-          <form onSubmit={form.handleSubmit(onSubmit)} className='space-y-4'>
+          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
             <FormField
               control={form.control}
-              name='isOpen'
+              name="isOpen"
               render={({ field }) => (
-                <FormItem className='flex items-center justify-between rounded-lg border p-3'>
+                <FormItem className="flex items-center justify-between rounded-lg border p-3">
                   <FormLabel>Mở cửa</FormLabel>
                   <FormControl>
-                    <Switch checked={field.value} onCheckedChange={field.onChange} />
+                    <Switch
+                      checked={field.value}
+                      onCheckedChange={field.onChange}
+                    />
                   </FormControl>
                 </FormItem>
               )}
             />
             <FormField
               control={form.control}
-              name='openingTime'
+              name="openingTime"
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Giờ mở cửa</FormLabel>
                   <FormControl>
-                    <Input type='time' {...field} />
+                    <Input type="time" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -135,12 +144,12 @@ export function EditScheduleDialog({
             />
             <FormField
               control={form.control}
-              name='closingTime'
+              name="closingTime"
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Giờ đóng cửa</FormLabel>
                   <FormControl>
-                    <Input type='time' {...field} />
+                    <Input type="time" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -148,22 +157,26 @@ export function EditScheduleDialog({
             />
             <FormField
               control={form.control}
-              name='slotDurationMinutes'
+              name="slotDurationMinutes"
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Thời lượng slot (phút)</FormLabel>
                   <FormControl>
-                    <Input type='number' min={1} {...field} />
+                    <Input type="number" min={1} {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
               )}
             />
             <DialogFooter>
-              <Button type='button' variant='outline' onClick={() => onOpenChange(false)}>
+              <Button
+                type="button"
+                variant="outline"
+                onClick={() => onOpenChange(false)}
+              >
                 Hủy
               </Button>
-              <Button type='submit' disabled={updateSchedule.isPending}>
+              <Button type="submit" disabled={updateSchedule.isPending}>
                 {updateSchedule.isPending ? 'Đang lưu...' : 'Lưu'}
               </Button>
             </DialogFooter>

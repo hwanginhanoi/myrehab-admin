@@ -109,7 +109,9 @@ export const deleteFile = async (request: DeleteFileRequest): Promise<void> => {
  * Get public image URL (no presigned URL needed for public images)
  */
 export const getPublicImageUrl = (objectKey: string): string => {
-  const baseUrl = import.meta.env.VITE_MINIO_PUBLIC_URL || 'http://localhost:9000/myrehab-images'
+  const baseUrl =
+    import.meta.env.VITE_MINIO_PUBLIC_URL ||
+    'http://localhost:9000/myrehab-images'
   return `${baseUrl}/${objectKey}`
 }
 
@@ -125,7 +127,12 @@ export const validateFile = (
 
   // Check file type
   if (isImage) {
-    const allowedImageTypes = ['image/jpeg', 'image/png', 'image/gif', 'image/webp']
+    const allowedImageTypes = [
+      'image/jpeg',
+      'image/png',
+      'image/gif',
+      'image/webp',
+    ]
     if (!allowedImageTypes.includes(file.type)) {
       return {
         valid: false,
@@ -144,7 +151,8 @@ export const validateFile = (
     if (!allowedVideoTypes.includes(file.type)) {
       return {
         valid: false,
-        error: 'Chỉ chấp nhận file video định dạng MP4, AVI, MOV, WMV, WebM hoặc MKV',
+        error:
+          'Chỉ chấp nhận file video định dạng MP4, AVI, MOV, WMV, WebM hoặc MKV',
       }
     }
   }

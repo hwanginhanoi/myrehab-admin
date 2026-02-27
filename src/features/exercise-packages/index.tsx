@@ -24,12 +24,13 @@ export function ExercisePackages() {
 
   // Build query params - include filters if present
   const queryParams = useMemo(() => {
-    const params: { pageable: { page: number; size: number }; query?: string } = {
-      pageable: {
-        page: page - 1, // Convert to 0-indexed for API
-        size: pageSize,
-      },
-    }
+    const params: { pageable: { page: number; size: number }; query?: string } =
+      {
+        pageable: {
+          page: page - 1, // Convert to 0-indexed for API
+          size: pageSize,
+        },
+      }
 
     // Add search query if present
     if (title && title.trim()) {
@@ -53,26 +54,26 @@ export function ExercisePackages() {
     <>
       <Header fixed>
         <Search />
-        <div className='ms-auto flex items-center space-x-4'>
+        <div className="ms-auto flex items-center space-x-4">
           <ThemeSwitch />
           <ConfigDrawer />
           <ProfileDropdown />
         </div>
       </Header>
 
-      <Main className='flex flex-1 flex-col gap-4 sm:gap-6'>
-        <div className='flex flex-wrap items-end justify-between gap-2'>
+      <Main className="flex flex-1 flex-col gap-4 sm:gap-6">
+        <div className="flex flex-wrap items-end justify-between gap-2">
           <div>
-            <h2 className='text-2xl font-bold tracking-tight'>Gói bài tập</h2>
-            <p className='text-muted-foreground'>
+            <h2 className="text-2xl font-bold tracking-tight">Gói bài tập</h2>
+            <p className="text-muted-foreground">
               Quản lý gói bài tập phục hồi chức năng.
             </p>
           </div>
           <ExercisePackagesPrimaryButtons />
         </div>
         {isLoading ? (
-          <div className='flex items-center justify-center h-64'>
-            <p className='text-muted-foreground'>Đang tải...</p>
+          <div className="flex items-center justify-center h-64">
+            <p className="text-muted-foreground">Đang tải...</p>
           </div>
         ) : (
           <ExercisePackagesTable

@@ -28,7 +28,12 @@ type DataTableProps = {
   pageCount: number
 }
 
-export function NewsTable({ data, search, navigate, pageCount }: DataTableProps) {
+export function NewsTable({
+  data,
+  search,
+  navigate,
+  pageCount,
+}: DataTableProps) {
   // Local UI-only states
   const [rowSelection, setRowSelection] = useState({})
   const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({})
@@ -87,11 +92,11 @@ export function NewsTable({ data, search, navigate, pageCount }: DataTableProps)
       )}
     >
       <NewsTableToolbar table={table} />
-      <div className='overflow-hidden rounded-md border'>
+      <div className="overflow-hidden rounded-md border">
         <Table>
           <TableHeader>
             {table.getHeaderGroups().map((headerGroup) => (
-              <TableRow key={headerGroup.id} className='group/row'>
+              <TableRow key={headerGroup.id} className="group/row">
                 {headerGroup.headers.map((header) => {
                   return (
                     <TableHead
@@ -121,7 +126,7 @@ export function NewsTable({ data, search, navigate, pageCount }: DataTableProps)
                 <TableRow
                   key={row.id}
                   data-state={row.getIsSelected() && 'selected'}
-                  className='group/row'
+                  className="group/row"
                 >
                   {row.getVisibleCells().map((cell) => (
                     <TableCell
@@ -144,7 +149,7 @@ export function NewsTable({ data, search, navigate, pageCount }: DataTableProps)
               <TableRow>
                 <TableCell
                   colSpan={columns.length}
-                  className='h-24 text-center'
+                  className="h-24 text-center"
                 >
                   Không có dữ liệu.
                 </TableCell>
@@ -153,7 +158,7 @@ export function NewsTable({ data, search, navigate, pageCount }: DataTableProps)
           </TableBody>
         </Table>
       </div>
-      <DataTablePagination table={table} className='mt-auto' />
+      <DataTablePagination table={table} className="mt-auto" />
     </div>
   )
 }

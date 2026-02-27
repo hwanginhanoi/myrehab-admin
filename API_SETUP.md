@@ -18,6 +18,7 @@ VITE_API_BASE_URL=http://localhost:8080
 ```
 
 **For production deployments:**
+
 - Create `.env.production` with production URL
 - Create `.env.staging` with staging URL
 - Vite automatically loads the correct file based on mode
@@ -27,7 +28,8 @@ VITE_API_BASE_URL=http://localhost:8080
 Edit `src/lib/api-client.ts` (line 6):
 
 ```typescript
-const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:8080'
+const API_BASE_URL =
+  import.meta.env.VITE_API_BASE_URL || 'http://localhost:8080'
 //                                                          ^^^^^^^^^^^^^^^^^^
 //                                                          Change default here
 ```
@@ -61,6 +63,7 @@ export default defineConfig({
 ```
 
 Common OpenAPI endpoints:
+
 - Spring Boot: `http://localhost:8080/v3/api-docs`
 - NestJS: `http://localhost:8080/api-json`
 - Express + Swagger: `http://localhost:8080/api-docs/swagger.json`
@@ -170,8 +173,8 @@ function UserProfile({ userId }) {
   // GET /api/users/{id}
   const { data: user } = useGetUserById({
     params: {
-      path: { id: userId }
-    }
+      path: { id: userId },
+    },
   })
 
   // PUT /api/users/{id}
@@ -180,9 +183,9 @@ function UserProfile({ userId }) {
   const handleUpdate = (formData) => {
     updateUser.mutate({
       params: {
-        path: { id: userId }
+        path: { id: userId },
       },
-      data: formData
+      data: formData,
     })
   }
 }

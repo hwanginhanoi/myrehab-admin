@@ -1,17 +1,17 @@
-import { getRouteApi } from "@tanstack/react-router";
-import { BookOpen, Dumbbell, Clock } from "lucide-react";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
-import { useGetCourseStructure } from "@/api";
-import { AssignmentContentSection } from "./assignment-content-section";
+import { getRouteApi } from '@tanstack/react-router'
+import { BookOpen, Dumbbell, Clock } from 'lucide-react'
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import { Badge } from '@/components/ui/badge'
+import { useGetCourseStructure } from '@/api'
+import { AssignmentContentSection } from './assignment-content-section'
 
-const route = getRouteApi("/_authenticated/course-assignments/$id");
+const route = getRouteApi('/_authenticated/course-assignments/$id')
 
 export function CourseStructureSection() {
-  const search = route.useSearch();
-  const { courseId, courseTitle } = search;
+  const search = route.useSearch()
+  const { courseId, courseTitle } = search
 
-  const { data: course, isLoading } = useGetCourseStructure(courseId);
+  const { data: course, isLoading } = useGetCourseStructure(courseId)
 
   return (
     <AssignmentContentSection
@@ -31,7 +31,7 @@ export function CourseStructureSection() {
                 <div>
                   <CardTitle className="flex items-center gap-2">
                     <BookOpen className="h-5 w-5" />
-                    {course.title || courseTitle || "Khóa tập"}
+                    {course.title || courseTitle || 'Khóa tập'}
                   </CardTitle>
                   {course.description && (
                     <p className="text-muted-foreground text-sm mt-1">
@@ -89,7 +89,7 @@ export function CourseStructureSection() {
                               )}
                               <div className="flex-1 min-w-0">
                                 <p className="text-sm font-medium truncate">
-                                  {ex.title || "Bài tập"}
+                                  {ex.title || 'Bài tập'}
                                 </p>
                                 {ex.description && (
                                   <p className="text-xs text-muted-foreground line-clamp-2 mt-0.5">
@@ -131,5 +131,5 @@ export function CourseStructureSection() {
         )}
       </>
     </AssignmentContentSection>
-  );
+  )
 }

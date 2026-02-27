@@ -6,10 +6,10 @@ export function NewsDialogs() {
   return (
     <>
       <NewsActionDialog
-        key='news-add'
+        key="news-add"
         open={open === 'add'}
         onOpenChange={() => setOpen('add')}
-        mode='add'
+        mode="add"
       />
 
       {currentRow && (
@@ -24,7 +24,7 @@ export function NewsDialogs() {
               }, 500)
             }}
             currentRow={currentRow}
-            mode='edit'
+            mode="edit"
           />
 
           <NewsActionDialog
@@ -37,7 +37,7 @@ export function NewsDialogs() {
               }, 500)
             }}
             currentRow={currentRow}
-            mode='view'
+            mode="view"
           />
         </>
       )}

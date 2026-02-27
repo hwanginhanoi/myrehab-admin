@@ -8,12 +8,17 @@ type CourseAssignmentsContextType = {
   setIsPreviewOpen: (open: boolean) => void
 }
 
-const CourseAssignmentsContext = createContext<CourseAssignmentsContextType | undefined>(
-  undefined
-)
+const CourseAssignmentsContext = createContext<
+  CourseAssignmentsContextType | undefined
+>(undefined)
 
-export function CourseAssignmentsProvider({ children }: { children: ReactNode }) {
-  const [currentAssignment, setCurrentAssignment] = useState<CourseAssignmentDetail | null>(null)
+export function CourseAssignmentsProvider({
+  children,
+}: {
+  children: ReactNode
+}) {
+  const [currentAssignment, setCurrentAssignment] =
+    useState<CourseAssignmentDetail | null>(null)
   const [isPreviewOpen, setIsPreviewOpen] = useState(false)
 
   return (
@@ -33,7 +38,9 @@ export function CourseAssignmentsProvider({ children }: { children: ReactNode })
 export function useCourseAssignments() {
   const context = useContext(CourseAssignmentsContext)
   if (!context) {
-    throw new Error('useCourseAssignments must be used within CourseAssignmentsProvider')
+    throw new Error(
+      'useCourseAssignments must be used within CourseAssignmentsProvider'
+    )
   }
   return context
 }

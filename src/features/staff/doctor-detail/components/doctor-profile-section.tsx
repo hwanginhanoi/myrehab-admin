@@ -8,13 +8,25 @@ type DoctorProfileSectionProps = {
   readOnly?: boolean
 }
 
-export function DoctorProfileSection({ doctor, isLoading, readOnly }: DoctorProfileSectionProps) {
+export function DoctorProfileSection({
+  doctor,
+  isLoading,
+  readOnly,
+}: DoctorProfileSectionProps) {
   return (
     <DoctorContentSection
-      title='Thông tin cá nhân'
-      desc={readOnly ? 'Xem thông tin cá nhân và chuyên môn của bác sĩ.' : 'Quản lý thông tin cá nhân và chuyên môn của bác sĩ.'}
+      title="Thông tin cá nhân"
+      desc={
+        readOnly
+          ? 'Xem thông tin cá nhân và chuyên môn của bác sĩ.'
+          : 'Quản lý thông tin cá nhân và chuyên môn của bác sĩ.'
+      }
     >
-      <DoctorProfileForm doctor={doctor} isLoading={isLoading} readOnly={readOnly} />
+      <DoctorProfileForm
+        doctor={doctor}
+        isLoading={isLoading}
+        readOnly={readOnly}
+      />
     </DoctorContentSection>
   )
 }

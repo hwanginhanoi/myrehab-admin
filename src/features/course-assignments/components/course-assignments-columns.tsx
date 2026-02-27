@@ -9,47 +9,68 @@ import { CourseAssignmentsRowActions } from './course-assignments-row-actions'
 export const courseAssignmentsColumns: ColumnDef<CourseAssignmentDetail>[] = [
   {
     id: 'patient',
-    header: ({ column }) => <DataTableColumnHeader column={column} title='Bệnh nhân' />,
+    header: ({ column }) => (
+      <DataTableColumnHeader column={column} title="Bệnh nhân" />
+    ),
     cell: ({ row }) => (
-      <div className='max-w-40'>
-        <div className='font-medium truncate'>{row.original.patientFullName || '-'}</div>
+      <div className="max-w-40">
+        <div className="font-medium truncate">
+          {row.original.patientFullName || '-'}
+        </div>
       </div>
     ),
   },
   {
     accessorKey: 'courseTitle',
-    header: ({ column }) => <DataTableColumnHeader column={column} title='Khóa tập' />,
+    header: ({ column }) => (
+      <DataTableColumnHeader column={column} title="Khóa tập" />
+    ),
     cell: ({ row }) => (
-      <div className='max-w-48 truncate' title={row.getValue('courseTitle')}>
+      <div className="max-w-48 truncate" title={row.getValue('courseTitle')}>
         {row.getValue('courseTitle') || '-'}
       </div>
     ),
   },
   {
     accessorKey: 'assignedByDoctorName',
-    header: ({ column }) => <DataTableColumnHeader column={column} title='Bác sĩ phân công' />,
+    header: ({ column }) => (
+      <DataTableColumnHeader column={column} title="Bác sĩ phân công" />
+    ),
     cell: ({ row }) => (
-      <div className='max-w-32 truncate'>{row.getValue('assignedByDoctorName') || '-'}</div>
+      <div className="max-w-32 truncate">
+        {row.getValue('assignedByDoctorName') || '-'}
+      </div>
     ),
   },
   {
     accessorKey: 'assignedAt',
-    header: ({ column }) => <DataTableColumnHeader column={column} title='Ngày phân công' />,
+    header: ({ column }) => (
+      <DataTableColumnHeader column={column} title="Ngày phân công" />
+    ),
     cell: ({ row }) => <div>{formatDate(row.getValue('assignedAt'))}</div>,
   },
   {
     accessorKey: 'purchaseStatus',
-    header: ({ column }) => <DataTableColumnHeader column={column} title='Trạng thái thanh toán' />,
-    cell: ({ row }) => <PurchaseStatusBadge status={row.getValue('purchaseStatus')} />,
+    header: ({ column }) => (
+      <DataTableColumnHeader column={column} title="Trạng thái thanh toán" />
+    ),
+    cell: ({ row }) => (
+      <PurchaseStatusBadge status={row.getValue('purchaseStatus')} />
+    ),
     filterFn: (row, id, value) => {
       return Array.isArray(value) && value.includes(row.getValue(id))
     },
   },
   {
     id: 'progress',
-    header: ({ column }) => <DataTableColumnHeader column={column} title='Tiến độ' />,
+    header: ({ column }) => (
+      <DataTableColumnHeader column={column} title="Tiến độ" />
+    ),
     cell: ({ row }) => (
-      <ProgressBadge hasStarted={row.original.hasStarted} isCompleted={row.original.isCompleted} />
+      <ProgressBadge
+        hasStarted={row.original.hasStarted}
+        isCompleted={row.original.isCompleted}
+      />
     ),
   },
   {

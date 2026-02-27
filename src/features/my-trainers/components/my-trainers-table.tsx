@@ -52,21 +52,22 @@ export function MyTrainersTable({
     navigate,
     pagination: { defaultPage: 1, defaultPageSize: 10 },
     globalFilter: { enabled: false },
-    columnFilters: [
-      { columnId: 'query', searchKey: 'query', type: 'string' },
-    ],
+    columnFilters: [{ columnId: 'query', searchKey: 'query', type: 'string' }],
   })
 
   // Add hidden column for filter support
-  const columns = useMemo(() => [
-    {
-      id: 'query',
-      header: () => null,
-      cell: () => null,
-      enableSorting: false,
-    },
-    ...myTrainersColumns,
-  ], [])
+  const columns = useMemo(
+    () => [
+      {
+        id: 'query',
+        header: () => null,
+        cell: () => null,
+        enableSorting: false,
+      },
+      ...myTrainersColumns,
+    ],
+    []
+  )
 
   const table = useReactTable({
     data,
@@ -99,11 +100,11 @@ export function MyTrainersTable({
       )}
     >
       <MyTrainersTableToolbar table={table} />
-      <div className='overflow-hidden rounded-md border'>
+      <div className="overflow-hidden rounded-md border">
         <Table>
           <TableHeader>
             {table.getHeaderGroups().map((headerGroup) => (
-              <TableRow key={headerGroup.id} className='group/row'>
+              <TableRow key={headerGroup.id} className="group/row">
                 {headerGroup.headers.map((header) => (
                   <TableHead
                     key={header.id}
@@ -131,7 +132,7 @@ export function MyTrainersTable({
                 <TableRow
                   key={row.id}
                   data-state={row.getIsSelected() && 'selected'}
-                  className='group/row'
+                  className="group/row"
                 >
                   {row.getVisibleCells().map((cell) => (
                     <TableCell
@@ -154,7 +155,7 @@ export function MyTrainersTable({
               <TableRow>
                 <TableCell
                   colSpan={columns.length}
-                  className='h-24 text-center'
+                  className="h-24 text-center"
                 >
                   Không có dữ liệu.
                 </TableCell>
@@ -163,7 +164,7 @@ export function MyTrainersTable({
           </TableBody>
         </Table>
       </div>
-      <DataTablePagination table={table} className='mt-auto' />
+      <DataTablePagination table={table} className="mt-auto" />
     </div>
   )
 }

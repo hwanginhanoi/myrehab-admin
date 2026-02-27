@@ -4,7 +4,7 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from '@/components/ui/sidebar'
-import React from "react";
+import React from 'react'
 
 type TeamSwitcherProps = {
   teams: {
@@ -21,17 +21,15 @@ export function TeamSwitcher({ teams }: TeamSwitcherProps) {
     <SidebarMenu>
       <SidebarMenuItem>
         <SidebarMenuButton
-          size='lg'
-          className='hover:bg-transparent cursor-default pointer-events-none'
+          size="lg"
+          className="hover:bg-transparent cursor-default pointer-events-none"
         >
-          <div className='flex aspect-square size-8 items-center justify-center'>
-            <Logo className='size-8' />
+          <div className="flex aspect-square size-8 items-center justify-center">
+            <Logo className="size-8" />
           </div>
-          <div className='grid flex-1 text-start text-sm leading-tight'>
-            <span className='truncate font-semibold'>
-              {activeTeam.name}
-            </span>
-            <span className='truncate text-xs'>{activeTeam.plan}</span>
+          <div className="grid flex-1 text-start text-sm leading-tight">
+            <span className="truncate font-semibold">{activeTeam.name}</span>
+            <span className="truncate text-xs">{activeTeam.plan}</span>
           </div>
         </SidebarMenuButton>
       </SidebarMenuItem>

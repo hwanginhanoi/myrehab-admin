@@ -1,30 +1,30 @@
-import { useNavigate } from "@tanstack/react-router";
-import { format } from "date-fns";
-import { ArrowLeft, CheckCircle, XCircle } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { Header } from "@/components/layout/header";
-import { Main } from "@/components/layout/main";
-import { ProfileDropdown } from "@/components/profile-dropdown";
-import { ThemeSwitch } from "@/components/theme-switch";
-import type { CourseAssignmentRequestResponse } from "@/api";
-import { CourseRequestStatusBadge } from "@/features/course-requests/components/course-request-status-badge";
-import { CourseDetailsReadOnly } from "@/features/course-request-detail/components/course-details-read-only";
-import { ReviewActionPanel } from "@/features/doctor-course-requests/components/review-action-panel";
+import { useNavigate } from '@tanstack/react-router'
+import { format } from 'date-fns'
+import { ArrowLeft, CheckCircle, XCircle } from 'lucide-react'
+import { Button } from '@/components/ui/button'
+import { Header } from '@/components/layout/header'
+import { Main } from '@/components/layout/main'
+import { ProfileDropdown } from '@/components/profile-dropdown'
+import { ThemeSwitch } from '@/components/theme-switch'
+import type { CourseAssignmentRequestResponse } from '@/api'
+import { CourseRequestStatusBadge } from '@/features/course-requests/components/course-request-status-badge'
+import { CourseDetailsReadOnly } from '@/features/course-request-detail/components/course-details-read-only'
+import { ReviewActionPanel } from '@/features/doctor-course-requests/components/review-action-panel'
 
 type DoctorCourseRequestDetailProps = {
-  request: CourseAssignmentRequestResponse;
-  mode: "view" | "review";
-};
+  request: CourseAssignmentRequestResponse
+  mode: 'view' | 'review'
+}
 
 export function DoctorCourseRequestDetail({
   request,
   mode,
 }: DoctorCourseRequestDetailProps) {
-  const navigate = useNavigate();
+  const navigate = useNavigate()
 
-  const isPending = request.status === "PENDING";
-  const isApproved = request.status === "APPROVED";
-  const isRejected = request.status === "REJECTED";
+  const isPending = request.status === 'PENDING'
+  const isApproved = request.status === 'APPROVED'
+  const isRejected = request.status === 'REJECTED'
 
   return (
     <>
@@ -42,7 +42,7 @@ export function DoctorCourseRequestDetail({
             size="icon"
             onClick={() =>
               navigate({
-                to: "/doctor-course-requests",
+                to: '/doctor-course-requests',
                 search: { page: 1, pageSize: 10 },
               })
             }
@@ -57,16 +57,16 @@ export function DoctorCourseRequestDetail({
               <CourseRequestStatusBadge status={request.status} />
             </div>
             <p className="text-muted-foreground text-sm">
-              Kỹ thuật viên:{" "}
-              <span className="font-medium">{request.trainerName || "-"}</span>
-              {" · "}
-              Bệnh nhân:{" "}
-              <span className="font-medium">{request.patientName || "-"}</span>
+              Kỹ thuật viên:{' '}
+              <span className="font-medium">{request.trainerName || '-'}</span>
+              {' · '}
+              Bệnh nhân:{' '}
+              <span className="font-medium">{request.patientName || '-'}</span>
               {request.createdAt && (
                 <>
-                  {" "}
-                  · Ngày tạo:{" "}
-                  {format(new Date(request.createdAt), "dd/MM/yyyy HH:mm")}
+                  {' '}
+                  · Ngày tạo:{' '}
+                  {format(new Date(request.createdAt), 'dd/MM/yyyy HH:mm')}
                 </>
               )}
             </p>
@@ -87,7 +87,7 @@ export function DoctorCourseRequestDetail({
         <CourseDetailsReadOnly courseDetails={request.courseDetails} />
 
         {/* Review action panel (only for PENDING in review mode) */}
-        {isPending && mode === "review" && (
+        {isPending && mode === 'review' && (
           <ReviewActionPanel requestId={request.id!} />
         )}
 
@@ -102,7 +102,7 @@ export function DoctorCourseRequestDetail({
               {request.reviewedAt && (
                 <p>
                   <span className="text-muted-foreground">Ngày duyệt: </span>
-                  {format(new Date(request.reviewedAt), "dd/MM/yyyy HH:mm")}
+                  {format(new Date(request.reviewedAt), 'dd/MM/yyyy HH:mm')}
                 </p>
               )}
               {request.doctorNotes && (
@@ -126,7 +126,7 @@ export function DoctorCourseRequestDetail({
               {request.reviewedAt && (
                 <p>
                   <span className="text-muted-foreground">Ngày từ chối: </span>
-                  {format(new Date(request.reviewedAt), "dd/MM/yyyy HH:mm")}
+                  {format(new Date(request.reviewedAt), 'dd/MM/yyyy HH:mm')}
                 </p>
               )}
               {request.doctorNotes && (
@@ -140,5 +140,5 @@ export function DoctorCourseRequestDetail({
         )}
       </Main>
     </>
-  );
+  )
 }

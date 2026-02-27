@@ -8,13 +8,25 @@ type AdminProfileSectionProps = {
   readOnly?: boolean
 }
 
-export function AdminProfileSection({ admin, isLoading, readOnly }: AdminProfileSectionProps) {
+export function AdminProfileSection({
+  admin,
+  isLoading,
+  readOnly,
+}: AdminProfileSectionProps) {
   return (
     <AdminContentSection
-      title='Thông tin cá nhân'
-      desc={readOnly ? 'Xem thông tin cá nhân của quản trị viên.' : 'Quản lý thông tin cá nhân của quản trị viên.'}
+      title="Thông tin cá nhân"
+      desc={
+        readOnly
+          ? 'Xem thông tin cá nhân của quản trị viên.'
+          : 'Quản lý thông tin cá nhân của quản trị viên.'
+      }
     >
-      <AdminProfileForm admin={admin} isLoading={isLoading} readOnly={readOnly} />
+      <AdminProfileForm
+        admin={admin}
+        isLoading={isLoading}
+        readOnly={readOnly}
+      />
     </AdminContentSection>
   )
 }

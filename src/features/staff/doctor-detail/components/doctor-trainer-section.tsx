@@ -17,11 +17,20 @@ export function DoctorTrainerSection({
 }: DoctorTrainerSectionProps) {
   return (
     <DoctorContentSection
-      title='Quản lý Huấn luyện viên'
-      desc={readOnly ? 'Xem các huấn luyện viên được gán cho bác sĩ này.' : 'Xem và quản lý các huấn luyện viên được gán cho bác sĩ này.'}
+      title="Quản lý Huấn luyện viên"
+      desc={
+        readOnly
+          ? 'Xem các huấn luyện viên được gán cho bác sĩ này.'
+          : 'Xem và quản lý các huấn luyện viên được gán cho bác sĩ này.'
+      }
       fullWidth
     >
-      <TrainerListCard doctorId={doctorId} search={search} navigate={navigate} readOnly={readOnly} />
+      <TrainerListCard
+        doctorId={doctorId}
+        search={search}
+        navigate={navigate}
+        readOnly={readOnly}
+      />
     </DoctorContentSection>
   )
 }

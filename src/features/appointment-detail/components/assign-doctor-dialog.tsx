@@ -56,8 +56,14 @@ export function AssignDoctorDialog({
     mutation: {
       onSuccess: () => {
         toast.success('Đã phân công bác sĩ')
-        queryClient.invalidateQueries({ queryKey: [{ url: '/api/appointments/:id', params: { id: appointmentId } }] })
-        queryClient.invalidateQueries({ queryKey: [{ url: '/api/appointments/admin/all' }] })
+        queryClient.invalidateQueries({
+          queryKey: [
+            { url: '/api/appointments/:id', params: { id: appointmentId } },
+          ],
+        })
+        queryClient.invalidateQueries({
+          queryKey: [{ url: '/api/appointments/admin/all' }],
+        })
         onOpenChange(false)
         form.reset()
       },
@@ -87,15 +93,19 @@ export function AssignDoctorDialog({
           </DialogDescription>
         </DialogHeader>
         <Form {...form}>
-          <form onSubmit={form.handleSubmit(onSubmit)} className='space-y-4'>
+          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
             <FormField
               control={form.control}
-              name='doctorId'
+              name="doctorId"
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>ID Bác sĩ</FormLabel>
                   <FormControl>
-                    <Input type='number' placeholder='Nhập ID bác sĩ' {...field} />
+                    <Input
+                      type="number"
+                      placeholder="Nhập ID bác sĩ"
+                      {...field}
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -103,22 +113,29 @@ export function AssignDoctorDialog({
             />
             <FormField
               control={form.control}
-              name='adminNotes'
+              name="adminNotes"
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Ghi chú</FormLabel>
                   <FormControl>
-                    <Textarea placeholder='Ghi chú thêm (không bắt buộc)' {...field} />
+                    <Textarea
+                      placeholder="Ghi chú thêm (không bắt buộc)"
+                      {...field}
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
               )}
             />
             <DialogFooter>
-              <Button type='button' variant='outline' onClick={() => onOpenChange(false)}>
+              <Button
+                type="button"
+                variant="outline"
+                onClick={() => onOpenChange(false)}
+              >
                 Hủy
               </Button>
-              <Button type='submit' disabled={assignDoctor.isPending}>
+              <Button type="submit" disabled={assignDoctor.isPending}>
                 {assignDoctor.isPending ? 'Đang xử lý...' : 'Phân công'}
               </Button>
             </DialogFooter>

@@ -5,7 +5,10 @@ import { Header } from '@/components/layout/header'
 import { Main } from '@/components/layout/main'
 import { ProfileDropdown } from '@/components/profile-dropdown'
 import { ThemeSwitch } from '@/components/theme-switch'
-import { useGetMyCourseRequests, type CourseAssignmentRequestResponse } from '@/api'
+import {
+  useGetMyCourseRequests,
+  type CourseAssignmentRequestResponse,
+} from '@/api'
 import { CourseRequestsTable } from './components/course-requests-table'
 import type { CourseRequestStatus } from './types'
 
@@ -37,31 +40,33 @@ export function CourseRequests() {
   return (
     <>
       <Header fixed>
-        <div className='ms-auto flex items-center space-x-4'>
+        <div className="ms-auto flex items-center space-x-4">
           <ThemeSwitch />
           <ProfileDropdown />
         </div>
       </Header>
-      <Main className='flex flex-1 flex-col gap-4 sm:gap-6'>
-        <div className='flex flex-wrap items-end justify-between gap-2'>
+      <Main className="flex flex-1 flex-col gap-4 sm:gap-6">
+        <div className="flex flex-wrap items-end justify-between gap-2">
           <div>
-            <h2 className='text-2xl font-bold tracking-tight'>Yêu cầu khóa tập</h2>
-            <p className='text-muted-foreground'>
+            <h2 className="text-2xl font-bold tracking-tight">
+              Yêu cầu khóa tập
+            </h2>
+            <p className="text-muted-foreground">
               Quản lý các yêu cầu gán khóa tập cho bệnh nhân.
             </p>
           </div>
           <Button
             onClick={() => navigate({ to: '/course-requests/new', search: {} })}
-            className='gap-2'
+            className="gap-2"
           >
-            <Plus className='h-4 w-4' />
+            <Plus className="h-4 w-4" />
             Yêu cầu mới
           </Button>
         </div>
 
         {isLoading ? (
-          <div className='flex h-64 items-center justify-center'>
-            <span className='text-muted-foreground'>Đang tải...</span>
+          <div className="flex h-64 items-center justify-center">
+            <span className="text-muted-foreground">Đang tải...</span>
           </div>
         ) : (
           <CourseRequestsTable
@@ -70,9 +75,19 @@ export function CourseRequests() {
             currentPage={page}
             pageSize={pageSize}
             currentStatus={status}
-            onPageChange={(newPage) => navigate({ search: (prev) => ({ ...prev, page: newPage }) })}
-            onPageSizeChange={(newPageSize) => navigate({ search: (prev) => ({ ...prev, pageSize: newPageSize, page: 1 }) })}
-            onStatusChange={(newStatus?: CourseRequestStatus) => navigate({ search: (prev) => ({ ...prev, status: newStatus, page: 1 }) })}
+            onPageChange={(newPage) =>
+              navigate({ search: (prev) => ({ ...prev, page: newPage }) })
+            }
+            onPageSizeChange={(newPageSize) =>
+              navigate({
+                search: (prev) => ({ ...prev, pageSize: newPageSize, page: 1 }),
+              })
+            }
+            onStatusChange={(newStatus?: CourseRequestStatus) =>
+              navigate({
+                search: (prev) => ({ ...prev, status: newStatus, page: 1 }),
+              })
+            }
           />
         )}
       </Main>

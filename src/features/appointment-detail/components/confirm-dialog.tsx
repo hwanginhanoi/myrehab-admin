@@ -51,8 +51,14 @@ export function ConfirmDialog({
     mutation: {
       onSuccess: () => {
         toast.success('Đã xác nhận lịch hẹn')
-        queryClient.invalidateQueries({ queryKey: [{ url: '/api/appointments/:id', params: { id: appointmentId } }] })
-        queryClient.invalidateQueries({ queryKey: [{ url: '/api/appointments/admin/all' }] })
+        queryClient.invalidateQueries({
+          queryKey: [
+            { url: '/api/appointments/:id', params: { id: appointmentId } },
+          ],
+        })
+        queryClient.invalidateQueries({
+          queryKey: [{ url: '/api/appointments/admin/all' }],
+        })
         onOpenChange(false)
         form.reset()
       },
@@ -79,25 +85,32 @@ export function ConfirmDialog({
           </DialogDescription>
         </DialogHeader>
         <Form {...form}>
-          <form onSubmit={form.handleSubmit(onSubmit)} className='space-y-4'>
+          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
             <FormField
               control={form.control}
-              name='notes'
+              name="notes"
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Ghi chú</FormLabel>
                   <FormControl>
-                    <Textarea placeholder='Ghi chú thêm (không bắt buộc)' {...field} />
+                    <Textarea
+                      placeholder="Ghi chú thêm (không bắt buộc)"
+                      {...field}
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
               )}
             />
             <DialogFooter>
-              <Button type='button' variant='outline' onClick={() => onOpenChange(false)}>
+              <Button
+                type="button"
+                variant="outline"
+                onClick={() => onOpenChange(false)}
+              >
                 Hủy
               </Button>
-              <Button type='submit' disabled={confirmAppointment.isPending}>
+              <Button type="submit" disabled={confirmAppointment.isPending}>
                 {confirmAppointment.isPending ? 'Đang xử lý...' : 'Xác nhận'}
               </Button>
             </DialogFooter>

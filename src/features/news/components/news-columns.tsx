@@ -6,7 +6,7 @@ import { DataTableColumnHeader } from '@/components/data-table'
 import { LongText } from '@/components/long-text'
 import type { NewsResponse } from '@/api'
 import { newsStatusLabels } from '@/lib/constants/news-status'
-import { newsCategoryTypeLabels } from '@/lib/constants/news-catergories'
+import { newsCategoryTypeLabels } from '@/lib/constants/news-categories'
 import { DataTableRowActions } from './data-table-row-actions'
 
 export const newsColumns: ColumnDef<NewsResponse>[] = [
@@ -18,12 +18,12 @@ export const newsColumns: ColumnDef<NewsResponse>[] = [
           table.getIsAllPageRowsSelected()
             ? true
             : table.getIsSomePageRowsSelected()
-            ? 'indeterminate'
-            : false
+              ? 'indeterminate'
+              : false
         }
         onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
-        aria-label='Select all'
-        className='translate-y-[2px]'
+        aria-label="Select all"
+        className="translate-y-[2px]"
       />
     ),
     meta: {
@@ -33,8 +33,8 @@ export const newsColumns: ColumnDef<NewsResponse>[] = [
       <Checkbox
         checked={row.getIsSelected()}
         onCheckedChange={(value) => row.toggleSelected(!!value)}
-        aria-label='Select row'
-        className='translate-y-[2px]'
+        aria-label="Select row"
+        className="translate-y-[2px]"
       />
     ),
     enableSorting: false,
@@ -43,10 +43,12 @@ export const newsColumns: ColumnDef<NewsResponse>[] = [
   {
     accessorKey: 'title',
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title='Tiêu đề' />
+      <DataTableColumnHeader column={column} title="Tiêu đề" />
     ),
     cell: ({ row }) => (
-      <LongText className='max-w-48 ps-3 font-medium'>{row.getValue('title')}</LongText>
+      <LongText className="max-w-48 ps-3 font-medium">
+        {row.getValue('title')}
+      </LongText>
     ),
     meta: {
       className: cn(
@@ -59,14 +61,18 @@ export const newsColumns: ColumnDef<NewsResponse>[] = [
   {
     accessorKey: 'category',
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title='Danh mục' />
+      <DataTableColumnHeader column={column} title="Danh mục" />
     ),
     cell: ({ row }) => {
       const category = row.getValue('category') as string
-      const label = category ? newsCategoryTypeLabels[category as keyof typeof newsCategoryTypeLabels] || category : '-'
+      const label = category
+        ? newsCategoryTypeLabels[
+            category as keyof typeof newsCategoryTypeLabels
+          ] || category
+        : '-'
       return (
-        <div className='flex space-x-2'>
-          <Badge variant='outline' className='capitalize'>
+        <div className="flex space-x-2">
+          <Badge variant="outline" className="capitalize">
             {label}
           </Badge>
         </div>
@@ -80,18 +86,20 @@ export const newsColumns: ColumnDef<NewsResponse>[] = [
   {
     accessorKey: 'status',
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title='Trạng thái' />
+      <DataTableColumnHeader column={column} title="Trạng thái" />
     ),
     cell: ({ row }) => {
       const status = row.getValue('status') as keyof typeof newsStatusLabels
       const label = newsStatusLabels[status] || status
       return (
-        <div className='flex space-x-2'>
+        <div className="flex space-x-2">
           <Badge
             variant={
-              status === 'PUBLISHED' ? 'default' :
-              status === 'DRAFT' ? 'secondary' :
-              'outline'
+              status === 'PUBLISHED'
+                ? 'default'
+                : status === 'DRAFT'
+                  ? 'secondary'
+                  : 'outline'
             }
           >
             {label}
@@ -107,10 +115,10 @@ export const newsColumns: ColumnDef<NewsResponse>[] = [
   {
     accessorKey: 'summary',
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title='Tóm tắt' />
+      <DataTableColumnHeader column={column} title="Tóm tắt" />
     ),
     cell: ({ row }) => (
-      <LongText className='max-w-96'>{row.getValue('summary') || '-'}</LongText>
+      <LongText className="max-w-96">{row.getValue('summary') || '-'}</LongText>
     ),
     enableSorting: false,
   },

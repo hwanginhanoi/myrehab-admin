@@ -1,1 +1,9 @@
-{"type":"object","properties":{"companyName":{"type":"string"},"companyTaxNumber":{"type":"string"},"invoiceIssuanceAddress":{"type":"string"}},"x-readme-ref-name":"UpsertCompanyInfoRequest"}
+{
+  "type": "object",
+  "properties": {
+    "companyName": { "type": "string" },
+    "companyTaxNumber": { "type": "string" },
+    "invoiceIssuanceAddress": { "type": "string" }
+  },
+  "x-readme-ref-name": "UpsertCompanyInfoRequest"
+}

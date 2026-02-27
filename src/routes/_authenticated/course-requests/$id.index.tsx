@@ -8,16 +8,16 @@ function CourseRequestDetailPage() {
 
   if (isLoading) {
     return (
-      <div className='flex h-64 items-center justify-center'>
-        <span className='text-muted-foreground'>Đang tải...</span>
+      <div className="flex h-64 items-center justify-center">
+        <span className="text-muted-foreground">Đang tải...</span>
       </div>
     )
   }
 
   if (!request) {
     return (
-      <div className='flex h-64 items-center justify-center'>
-        <span className='text-muted-foreground'>Không tìm thấy yêu cầu.</span>
+      <div className="flex h-64 items-center justify-center">
+        <span className="text-muted-foreground">Không tìm thấy yêu cầu.</span>
       </div>
     )
   }

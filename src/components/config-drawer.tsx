@@ -44,33 +44,33 @@ export function ConfigDrawer() {
     <Sheet>
       <SheetTrigger asChild>
         <Button
-          size='icon'
-          variant='ghost'
-          aria-label='Open theme settings'
-          aria-describedby='config-drawer-description'
-          className='rounded-full'
+          size="icon"
+          variant="ghost"
+          aria-label="Open theme settings"
+          aria-describedby="config-drawer-description"
+          className="rounded-full"
         >
-          <Settings aria-hidden='true' />
+          <Settings aria-hidden="true" />
         </Button>
       </SheetTrigger>
-      <SheetContent className='flex flex-col'>
-        <SheetHeader className='pb-0 text-start'>
+      <SheetContent className="flex flex-col">
+        <SheetHeader className="pb-0 text-start">
           <SheetTitle>Theme Settings</SheetTitle>
-          <SheetDescription id='config-drawer-description'>
+          <SheetDescription id="config-drawer-description">
             Adjust the appearance and layout to suit your preferences.
           </SheetDescription>
         </SheetHeader>
-        <div className='space-y-6 overflow-y-auto px-4'>
+        <div className="space-y-6 overflow-y-auto px-4">
           <ThemeConfig />
           <SidebarConfig />
           <LayoutConfig />
           <DirConfig />
         </div>
-        <SheetFooter className='gap-2'>
+        <SheetFooter className="gap-2">
           <Button
-            variant='destructive'
+            variant="destructive"
             onClick={handleReset}
-            aria-label='Reset all settings to default values'
+            aria-label="Reset all settings to default values"
           >
             Reset
           </Button>
@@ -101,12 +101,12 @@ function SectionTitle({
       {title}
       {showReset && onReset && (
         <Button
-          size='icon'
-          variant='secondary'
-          className='size-4 rounded-full'
+          size="icon"
+          variant="secondary"
+          className="size-4 rounded-full"
           onClick={onReset}
         >
-          <RotateCcw className='size-3' />
+          <RotateCcw className="size-3" />
         </Button>
       )}
     </div>
@@ -137,8 +137,8 @@ function RadioGroupItem({
           'group-data-[state=checked]:ring-primary group-data-[state=checked]:shadow-2xl',
           'group-focus-visible:ring-2'
         )}
-        role='img'
-        aria-hidden='false'
+        role="img"
+        aria-hidden="false"
         aria-label={`${item.label} option preview`}
       >
         <CircleCheck
@@ -147,20 +147,20 @@ function RadioGroupItem({
             'group-data-[state=unchecked]:hidden',
             'absolute top-0 right-0 translate-x-1/2 -translate-y-1/2'
           )}
-          aria-hidden='true'
+          aria-hidden="true"
         />
         <item.icon
           className={cn(
             !isTheme &&
               'stroke-primary fill-primary group-data-[state=unchecked]:stroke-muted-foreground group-data-[state=unchecked]:fill-muted-foreground'
           )}
-          aria-hidden='true'
+          aria-hidden="true"
         />
       </div>
       <div
-        className='mt-1 text-xs'
+        className="mt-1 text-xs"
         id={`${item.value}-description`}
-        aria-live='polite'
+        aria-live="polite"
       >
         {item.label}
       </div>
@@ -173,16 +173,16 @@ function ThemeConfig() {
   return (
     <div>
       <SectionTitle
-        title='Theme'
+        title="Theme"
         showReset={theme !== defaultTheme}
         onReset={() => setTheme(defaultTheme)}
       />
       <Radio
         value={theme}
         onValueChange={setTheme}
-        className='grid w-full max-w-md grid-cols-3 gap-4'
-        aria-label='Select theme preference'
-        aria-describedby='theme-description'
+        className="grid w-full max-w-md grid-cols-3 gap-4"
+        aria-label="Select theme preference"
+        aria-describedby="theme-description"
       >
         {[
           {
@@ -204,7 +204,7 @@ function ThemeConfig() {
           <RadioGroupItem key={item.value} item={item} isTheme />
         ))}
       </Radio>
-      <div id='theme-description' className='sr-only'>
+      <div id="theme-description" className="sr-only">
         Choose between system preference, light mode, or dark mode
       </div>
     </div>
@@ -214,18 +214,18 @@ function ThemeConfig() {
 function SidebarConfig() {
   const { defaultVariant, variant, setVariant } = useLayout()
   return (
-    <div className='max-md:hidden'>
+    <div className="max-md:hidden">
       <SectionTitle
-        title='Sidebar'
+        title="Sidebar"
         showReset={defaultVariant !== variant}
         onReset={() => setVariant(defaultVariant)}
       />
       <Radio
         value={variant}
         onValueChange={setVariant}
-        className='grid w-full max-w-md grid-cols-3 gap-4'
-        aria-label='Select sidebar style'
-        aria-describedby='sidebar-description'
+        className="grid w-full max-w-md grid-cols-3 gap-4"
+        aria-label="Select sidebar style"
+        aria-describedby="sidebar-description"
       >
         {[
           {
@@ -247,7 +247,7 @@ function SidebarConfig() {
           <RadioGroupItem key={item.value} item={item} />
         ))}
       </Radio>
-      <div id='sidebar-description' className='sr-only'>
+      <div id="sidebar-description" className="sr-only">
         Choose between inset, floating, or standard sidebar layout
       </div>
     </div>
@@ -261,9 +261,9 @@ function LayoutConfig() {
   const radioState = open ? 'default' : collapsible
 
   return (
-    <div className='max-md:hidden'>
+    <div className="max-md:hidden">
       <SectionTitle
-        title='Layout'
+        title="Layout"
         showReset={radioState !== 'default'}
         onReset={() => {
           setOpen(true)
@@ -280,9 +280,9 @@ function LayoutConfig() {
           setOpen(false)
           setCollapsible(v as Collapsible)
         }}
-        className='grid w-full max-w-md grid-cols-3 gap-4'
-        aria-label='Select layout style'
-        aria-describedby='layout-description'
+        className="grid w-full max-w-md grid-cols-3 gap-4"
+        aria-label="Select layout style"
+        aria-describedby="layout-description"
       >
         {[
           {
@@ -304,7 +304,7 @@ function LayoutConfig() {
           <RadioGroupItem key={item.value} item={item} />
         ))}
       </Radio>
-      <div id='layout-description' className='sr-only'>
+      <div id="layout-description" className="sr-only">
         Choose between default expanded, compact icon-only, or full layout mode
       </div>
     </div>
@@ -316,37 +316,37 @@ function DirConfig() {
   return (
     <div>
       <SectionTitle
-        title='Direction'
+        title="Direction"
         showReset={defaultDir !== dir}
         onReset={() => setDir(defaultDir)}
       />
       <Radio
         value={dir}
         onValueChange={setDir}
-        className='grid w-full max-w-md grid-cols-3 gap-4'
-        aria-label='Select site direction'
-        aria-describedby='direction-description'
+        className="grid w-full max-w-md grid-cols-3 gap-4"
+        aria-label="Select site direction"
+        aria-describedby="direction-description"
       >
         {[
           {
             value: 'ltr',
             label: 'Left to Right',
             icon: (props: SVGProps<SVGSVGElement>) => (
-              <IconDir dir='ltr' {...props} />
+              <IconDir dir="ltr" {...props} />
             ),
           },
           {
             value: 'rtl',
             label: 'Right to Left',
             icon: (props: SVGProps<SVGSVGElement>) => (
-              <IconDir dir='rtl' {...props} />
+              <IconDir dir="rtl" {...props} />
             ),
           },
         ].map((item) => (
           <RadioGroupItem key={item.value} item={item} />
         ))}
       </Radio>
-      <div id='direction-description' className='sr-only'>
+      <div id="direction-description" className="sr-only">
         Choose between left-to-right or right-to-left site direction
       </div>
     </div>

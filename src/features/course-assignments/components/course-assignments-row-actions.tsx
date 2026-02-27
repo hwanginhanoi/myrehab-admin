@@ -1,29 +1,29 @@
-import { type Row } from "@tanstack/react-table";
-import { MoreHorizontal, Eye } from "lucide-react";
-import { useNavigate } from "@tanstack/react-router";
-import { Button } from "@/components/ui/button";
+import { type Row } from '@tanstack/react-table'
+import { MoreHorizontal, Eye } from 'lucide-react'
+import { useNavigate } from '@tanstack/react-router'
+import { Button } from '@/components/ui/button'
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-import type { CourseAssignmentDetail } from "../types";
+} from '@/components/ui/dropdown-menu'
+import type { CourseAssignmentDetail } from '../types'
 
 type CourseAssignmentsRowActionsProps = {
-  row: Row<CourseAssignmentDetail>;
-};
+  row: Row<CourseAssignmentDetail>
+}
 
 export function CourseAssignmentsRowActions({
   row,
 }: CourseAssignmentsRowActionsProps) {
-  const navigate = useNavigate();
-  const a = row.original;
+  const navigate = useNavigate()
+  const a = row.original
 
   const handleViewDetails = () => {
-    if (!a.id || !a.courseId) return;
+    if (!a.id || !a.courseId) return
     navigate({
-      to: "/course-assignments/$id",
+      to: '/course-assignments/$id',
       params: { id: String(a.id) },
       search: {
         courseId: a.courseId!,
@@ -36,8 +36,8 @@ export function CourseAssignmentsRowActions({
         isCompleted: a.isCompleted,
         patientId: a.patientId,
       },
-    });
-  };
+    })
+  }
 
   return (
     <DropdownMenu>
@@ -57,5 +57,5 @@ export function CourseAssignmentsRowActions({
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
-  );
+  )
 }

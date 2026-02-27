@@ -11,10 +11,12 @@ export const categoriesColumns: ColumnDef<CategoryResponse>[] = [
   {
     accessorKey: 'name',
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title='Tên danh mục' />
+      <DataTableColumnHeader column={column} title="Tên danh mục" />
     ),
     cell: ({ row }) => (
-      <LongText className='max-w-48 ps-3 font-medium'>{row.getValue('name')}</LongText>
+      <LongText className="max-w-48 ps-3 font-medium">
+        {row.getValue('name')}
+      </LongText>
     ),
     meta: {
       className: cn(
@@ -27,14 +29,14 @@ export const categoriesColumns: ColumnDef<CategoryResponse>[] = [
   {
     accessorKey: 'type',
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title='Phân loại' />
+      <DataTableColumnHeader column={column} title="Phân loại" />
     ),
     cell: ({ row }) => {
       const type = row.getValue('type') as keyof typeof categoryTypeLabels
       const label = categoryTypeLabels[type] || type
       return (
-        <div className='flex space-x-2'>
-          <Badge variant='outline' className='capitalize'>
+        <div className="flex space-x-2">
+          <Badge variant="outline" className="capitalize">
             {label}
           </Badge>
         </div>
@@ -48,10 +50,12 @@ export const categoriesColumns: ColumnDef<CategoryResponse>[] = [
   {
     accessorKey: 'description',
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title='Mô tả' />
+      <DataTableColumnHeader column={column} title="Mô tả" />
     ),
     cell: ({ row }) => (
-      <LongText className='max-w-96'>{row.getValue('description') || '-'}</LongText>
+      <LongText className="max-w-96">
+        {row.getValue('description') || '-'}
+      </LongText>
     ),
     enableSorting: false,
   },
