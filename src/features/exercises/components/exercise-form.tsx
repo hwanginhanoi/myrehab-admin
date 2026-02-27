@@ -180,7 +180,8 @@ export function ExerciseFormComponent({ exercise, mode }: ExerciseFormComponentP
       }
 
       // Check if video is provided (new upload, new file selected, or existing video in edit mode)
-      const hasVideo = values.videoUrl || videoUploadRef.current?.hasFile() || (isEdit && !!videoUrlData?.objectKey)
+      const videoRemoved = videoUploadRef.current?.isRemoved() ?? false
+      const hasVideo = values.videoUrl || videoUploadRef.current?.hasFile() || (isEdit && !!videoUrlData?.objectKey && !videoRemoved)
       if (!hasVideo) {
         toast.error('Vui lòng chọn video bài tập')
         return
@@ -210,7 +211,7 @@ export function ExerciseFormComponent({ exercise, mode }: ExerciseFormComponentP
           toast.error('Không thể tải lên video')
           return
         }
-      } else if (isEdit && !videoUrl) {
+      } else if (isEdit && !videoUrl && !videoRemoved) {
         videoUrl = videoUrlData?.objectKey ?? ''
       }
 

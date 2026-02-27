@@ -29,6 +29,7 @@ interface FileUploadProps {
 export interface FileUploadRef {
   upload: () => Promise<string | null>
   hasFile: () => boolean
+  isRemoved: () => boolean
 }
 
 export const FileUpload = forwardRef<FileUploadRef, FileUploadProps>(
@@ -39,6 +40,7 @@ export const FileUpload = forwardRef<FileUploadRef, FileUploadProps>(
     const [progress, setProgress] = useState(0)
     const [uploadStatus, setUploadStatus] = useState<string>('')
     const [backendPreviewUrl, setBackendPreviewUrl] = useState<string | null>(null)
+    const [isRemovedState, setIsRemovedState] = useState(false)
     const [previewLoading, setPreviewLoading] = useState(false)
     const [previewError, setPreviewError] = useState<string | null>(null)
     const inputRef = useRef<HTMLInputElement>(null)
@@ -87,6 +89,7 @@ export const FileUpload = forwardRef<FileUploadRef, FileUploadProps>(
         }
       },
       hasFile: () => !!file,
+      isRemoved: () => isRemovedState,
     }))
 
     const handleFileSelect = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -100,6 +103,7 @@ export const FileUpload = forwardRef<FileUploadRef, FileUploadProps>(
         return
       }
 
+      setIsRemovedState(false)
       setFile(selectedFile)
 
       // Create preview for images
@@ -136,6 +140,8 @@ export const FileUpload = forwardRef<FileUploadRef, FileUploadProps>(
     const handleRemove = () => {
       setFile(null)
       setPreview(null)
+      setBackendPreviewUrl(null)
+      setIsRemovedState(true)
       onChange('')
       if (inputRef.current) {
         inputRef.current.value = ''
@@ -150,7 +156,7 @@ export const FileUpload = forwardRef<FileUploadRef, FileUploadProps>(
 
     // Fetch and generate preview URL when value is provided
     useEffect(() => {
-      if (!file && !preview) {
+      if (!file && !preview && !isRemovedState) {
         // For videos, use externally-provided presigned URL if available
         if (isVideo && previewUrl) {
           setBackendPreviewUrl(previewUrl)
@@ -181,7 +187,7 @@ export const FileUpload = forwardRef<FileUploadRef, FileUploadProps>(
           fetchPreview()
         }
       }
-    }, [value, previewUrl, file, preview, isImage, isVideo])
+    }, [value, previewUrl, file, preview, isImage, isVideo, isRemovedState])
 
     return (
       <div className={cn('space-y-3', className)}>
@@ -200,7 +206,7 @@ export const FileUpload = forwardRef<FileUploadRef, FileUploadProps>(
         {/* Upload Area - 16:9 Aspect Ratio */}
         <div className='relative w-full aspect-video'>
           <div className='absolute inset-0'>
-            {!file && !value && !previewUrl && (
+            {!file && !value && (!previewUrl || isRemovedState) && (
               <div
                 onClick={handleBrowseClick}
                 className={cn(
@@ -228,7 +234,7 @@ export const FileUpload = forwardRef<FileUploadRef, FileUploadProps>(
             )}
 
             {/* Preview with 16:9 container */}
-            {(file || value || previewUrl) && (
+            {(file || value || (previewUrl && !isRemovedState)) && (
               <div className='h-full w-full relative rounded-lg overflow-hidden border bg-black'>
                 {isImage && (preview || backendPreviewUrl) && (
                   <img
