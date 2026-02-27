@@ -8,7 +8,6 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import {
   Form,
   FormControl,
@@ -407,117 +406,109 @@ export function CourseRequestForm({
         {feedbackAlert}
 
         {/* Patient selection */}
-        <Card>
-          <CardHeader>
-            <CardTitle>Thông tin cơ bản</CardTitle>
-          </CardHeader>
-          <CardContent className="space-y-4">
-            <FormField
-              control={form.control}
-              name="patientId"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Bệnh nhân *</FormLabel>
-                  <FormControl>
-                    <TrainerPatientSearchSelect
-                      selectedPatientId={field.value}
-                      selectedPatientName={form.watch("patientName")}
-                      disabled={isEditMode}
-                      onSelect={(patient) => {
-                        if (patient) {
-                          form.setValue("patientId", patient.id);
-                          form.setValue("patientName", patient.fullName);
-                        } else {
-                          form.resetField("patientId");
-                          form.resetField("patientName");
-                        }
-                      }}
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
+        <div className="space-y-4">
+          <h3 className="text-lg font-semibold">Thông tin cơ bản</h3>
+          <FormField
+            control={form.control}
+            name="patientId"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Bệnh nhân *</FormLabel>
+                <FormControl>
+                  <TrainerPatientSearchSelect
+                    selectedPatientId={field.value}
+                    selectedPatientName={form.watch("patientName")}
+                    disabled={isEditMode}
+                    onSelect={(patient) => {
+                      if (patient) {
+                        form.setValue("patientId", patient.id);
+                        form.setValue("patientName", patient.fullName);
+                      } else {
+                        form.resetField("patientId");
+                        form.resetField("patientName");
+                      }
+                    }}
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
 
-            <FormField
-              control={form.control}
-              name="courseName"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Tên khóa tập *</FormLabel>
-                  <FormControl>
-                    <Input
-                      placeholder="Nhập tên khóa tập..."
-                      maxLength={200}
-                      {...field}
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
+          <FormField
+            control={form.control}
+            name="courseName"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Tên khóa tập *</FormLabel>
+                <FormControl>
+                  <Input
+                    placeholder="Nhập tên khóa tập..."
+                    maxLength={200}
+                    {...field}
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
 
-            <FormField
-              control={form.control}
-              name="description"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Mô tả</FormLabel>
-                  <FormControl>
-                    <Textarea
-                      placeholder="Mô tả ngắn về khóa tập..."
-                      rows={3}
-                      maxLength={1000}
-                      {...field}
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
+          <FormField
+            control={form.control}
+            name="description"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Mô tả</FormLabel>
+                <FormControl>
+                  <Textarea
+                    placeholder="Mô tả ngắn về khóa tập..."
+                    rows={3}
+                    maxLength={1000}
+                    {...field}
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
 
-            <div className="space-y-2">
-              <Label>Số ngày</Label>
-              <p className="text-sm text-muted-foreground">
-                {customizedDays.size} ngày (được cập nhật tự động theo số ngày
-                bên dưới)
-              </p>
-            </div>
+          <div className="space-y-2">
+            <Label>Số ngày</Label>
+            <p className="text-sm text-muted-foreground">
+              {customizedDays.size} ngày (được cập nhật tự động theo số ngày bên
+              dưới)
+            </p>
+          </div>
 
-            <FormField
-              control={form.control}
-              name="trainerNotes"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Ghi chú của kỹ thuật viên</FormLabel>
-                  <FormControl>
-                    <Textarea
-                      placeholder="Ghi chú thêm cho bác sĩ..."
-                      rows={3}
-                      maxLength={1000}
-                      {...field}
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-          </CardContent>
-        </Card>
+          <FormField
+            control={form.control}
+            name="trainerNotes"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Ghi chú của kỹ thuật viên</FormLabel>
+                <FormControl>
+                  <Textarea
+                    placeholder="Ghi chú thêm cho bác sĩ..."
+                    rows={3}
+                    maxLength={1000}
+                    {...field}
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+        </div>
 
         {/* Day builder */}
-        <Card>
-          <CardHeader>
-            <CardTitle>Chi tiết lịch tập</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <CourseDayBuilder
-              customizedDays={customizedDays}
-              dispatch={dispatch}
-              courseName={form.watch("courseName")}
-            />
-          </CardContent>
-        </Card>
+        <div className="space-y-4">
+          <h3 className="text-lg font-semibold">Chi tiết lịch tập</h3>
+          <CourseDayBuilder
+            customizedDays={customizedDays}
+            dispatch={dispatch}
+            courseName={form.watch("courseName")}
+          />
+        </div>
 
         {/* Submit */}
         <div className="flex justify-end gap-2">

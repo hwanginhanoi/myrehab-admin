@@ -119,6 +119,7 @@ export function DoctorCourseRequestsRowActions({
                 navigate({
                   to: "/doctor-course-requests/$id",
                   params: { id: String(id) },
+                  search: { mode: "view" },
                   state: { requestData: row.original },
                 });
               }}
@@ -134,6 +135,7 @@ export function DoctorCourseRequestsRowActions({
                     navigate({
                       to: "/doctor-course-requests/$id",
                       params: { id: String(id) },
+                      search: { mode: "review" },
                       state: { requestData: row.original },
                     });
                   }}

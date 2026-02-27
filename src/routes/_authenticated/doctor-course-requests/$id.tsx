@@ -1,4 +1,5 @@
 import { createFileRoute, useLocation } from "@tanstack/react-router";
+import { z } from "zod";
 import { Loader2 } from "lucide-react";
 import {
   type CourseAssignmentRequestResponse,
@@ -6,8 +7,13 @@ import {
 } from "@/api";
 import { DoctorCourseRequestDetail } from "@/features/doctor-course-request-detail";
 
+const searchSchema = z.object({
+  mode: z.enum(["view", "review"]).optional().catch(undefined),
+});
+
 function DoctorCourseRequestDetailPage() {
   const { id } = Route.useParams();
+  const { mode } = Route.useSearch();
   const location = useLocation();
   const state = location.state as
     | { requestData?: CourseAssignmentRequestResponse }
@@ -44,11 +50,14 @@ function DoctorCourseRequestDetailPage() {
     );
   }
 
-  return <DoctorCourseRequestDetail request={request} />;
+  return (
+    <DoctorCourseRequestDetail request={request} mode={mode ?? "review"} />
+  );
 }
 
 export const Route = createFileRoute(
   "/_authenticated/doctor-course-requests/$id",
 )({
+  validateSearch: searchSchema,
   component: DoctorCourseRequestDetailPage,
 });
