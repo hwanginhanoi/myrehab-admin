@@ -15,6 +15,7 @@ import {
 } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
 import { Textarea } from '@/components/ui/textarea'
+import { Switch } from '@/components/ui/switch'
 import { Badge } from '@/components/ui/badge'
 import { useUpdateStaff, type StaffResponse } from '@/api'
 
@@ -34,6 +35,7 @@ const doctorProfileFormSchema = z.object({
     .max(500, 'Bio must not be longer than 500 characters.')
     .optional()
     .or(z.literal('')),
+  isPublic: z.boolean(),
 })
 
 type DoctorProfileFormValues = z.infer<typeof doctorProfileFormSchema>
@@ -58,6 +60,7 @@ export function DoctorProfileForm({
       email: doctor.email || '',
       specialization: doctor.specialization || '',
       bio: doctor.description || '',
+      isPublic: doctor.isPublic ?? false,
     },
     mode: 'onChange',
   })
@@ -88,6 +91,7 @@ export function DoctorProfileForm({
         staffType: 'DOCTOR',
         email: values.email,
         fullName: values.fullName,
+        isPublic: values.isPublic,
         ...(values.specialization && { specialization: values.specialization }),
         ...(values.bio && { description: values.bio }),
       },
@@ -188,6 +192,28 @@ export function DoctorProfileForm({
                 Thông tin giới thiệu về bác sĩ (tối đa 500 ký tự).
               </FormDescription>
               <FormMessage />
+            </FormItem>
+          )}
+        />
+
+        <FormField
+          control={form.control}
+          name="isPublic"
+          render={({ field }) => (
+            <FormItem className="flex items-center justify-between rounded-lg border p-4">
+              <div>
+                <FormLabel>Hiển thị trên ứng dụng</FormLabel>
+                <FormDescription className="text-xs">
+                  Bác sĩ sẽ xuất hiện trong danh sách trên ứng dụng di động.
+                </FormDescription>
+              </div>
+              <FormControl>
+                <Switch
+                  checked={field.value}
+                  onCheckedChange={field.onChange}
+                  disabled={readOnly}
+                />
+              </FormControl>
             </FormItem>
           )}
         />

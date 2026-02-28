@@ -1,7 +1,6 @@
 import {
   Bar,
   BarChart,
-  CartesianGrid,
   ResponsiveContainer,
   Tooltip,
   XAxis,
@@ -12,6 +11,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Skeleton } from '@/components/ui/skeleton'
 import type { CourseStatsResponse } from '@/api'
 import { formatPercent } from '../../lib/formatters'
+import { ChartTooltip } from '../../components/chart-tooltip'
 
 interface CourseCompletionChartProps {
   courses: CourseStatsResponse[]
@@ -52,11 +52,6 @@ export function CourseCompletionChart({
             height={Math.max(300, chartData.length * 50)}
           >
             <BarChart data={chartData} layout="vertical" margin={{ left: 20 }}>
-              <CartesianGrid
-                strokeDasharray="3 3"
-                className="stroke-border"
-                horizontal={false}
-              />
               <XAxis
                 type="number"
                 fontSize={12}
@@ -74,25 +69,24 @@ export function CourseCompletionChart({
                 stroke="#888888"
               />
               <Tooltip
-                contentStyle={{
-                  borderRadius: '8px',
-                  border: '1px solid hsl(var(--border))',
-                  backgroundColor: 'hsl(var(--popover))',
-                  color: 'hsl(var(--popover-foreground))',
+                content={(props) => {
+                  const completionRate =
+                    props.payload?.[0]?.payload?.completionRate
+                  return (
+                    <ChartTooltip
+                      {...props}
+                      label={
+                        props.payload?.[0]?.payload?.fullName ?? props.label
+                      }
+                      valueFormatter={(value, name) =>
+                        name === 'Hoàn thành' && completionRate != null
+                          ? `${value} (${formatPercent(completionRate)})`
+                          : String(value)
+                      }
+                    />
+                  )
                 }}
-                labelFormatter={(_, payload) => {
-                  if (payload?.[0]?.payload?.fullName)
-                    return payload[0].payload.fullName
-                  return ''
-                }}
-                formatter={(value: number, name: string, props) => {
-                  if (name === 'completionRate') return null
-                  const suffix =
-                    props?.payload?.completionRate != null
-                      ? ` (${formatPercent(props.payload.completionRate)})`
-                      : ''
-                  return [`${value}${suffix}`, name]
-                }}
+                cursor={{ fill: '#888888', opacity: 0.08 }}
               />
               <Legend />
               <Bar dataKey="Hoàn thành" stackId="a" fill="var(--chart-1)" />

@@ -14,6 +14,7 @@ import {
 import {
   Form,
   FormControl,
+  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -28,6 +29,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select'
+import { Switch } from '@/components/ui/switch'
 import { PasswordInput } from '@/components/password-input'
 import { toast } from 'sonner'
 import { useCreateStaff, useUpdateStaff, type StaffResponse } from '@/api'
@@ -51,6 +53,7 @@ const formSchema = z
       .optional()
       .or(z.literal('')),
     staffType: z.enum(['DOCTOR', 'TRAINER', 'ADMIN', 'SUPER_ADMIN']),
+    isPublic: z.boolean().optional(),
     isEdit: z.boolean(),
   })
   .refine(
@@ -93,6 +96,7 @@ export function StaffActionDialog({
           phoneNumber: currentRow.phoneNumber || '',
           description: currentRow.description || '',
           staffType: (currentRow.staffType as StaffType) || 'DOCTOR',
+          isPublic: currentRow.isPublic ?? false,
           password: '',
           isEdit,
         }
@@ -102,10 +106,13 @@ export function StaffActionDialog({
           phoneNumber: '',
           description: '',
           staffType: staffType,
+          isPublic: false,
           password: '',
           isEdit,
         },
   })
+
+  const watchedStaffType = form.watch('staffType')
 
   const createMutation = useCreateStaff({
     mutation: {
@@ -146,6 +153,7 @@ export function StaffActionDialog({
       staffType: values.staffType,
       ...(values.phoneNumber && { phoneNumber: values.phoneNumber }),
       ...(values.description && { description: values.description }),
+      ...(values.staffType === 'DOCTOR' && { isPublic: values.isPublic ?? false }),
     }
 
     if (isEdit && currentRow?.id) {
@@ -314,6 +322,28 @@ export function StaffActionDialog({
                       />
                     </FormControl>
                     <FormMessage className="col-span-4 col-start-3" />
+                  </FormItem>
+                )}
+              />
+            )}
+            {watchedStaffType === 'DOCTOR' && (
+              <FormField
+                control={form.control}
+                name="isPublic"
+                render={({ field }) => (
+                  <FormItem className="flex items-center justify-between rounded-lg border p-3">
+                    <div>
+                      <FormLabel>Hiển thị trên ứng dụng</FormLabel>
+                      <FormDescription className="text-xs">
+                        Bác sĩ sẽ xuất hiện trong danh sách trên ứng dụng di động.
+                      </FormDescription>
+                    </div>
+                    <FormControl>
+                      <Switch
+                        checked={field.value}
+                        onCheckedChange={field.onChange}
+                      />
+                    </FormControl>
                   </FormItem>
                 )}
               />

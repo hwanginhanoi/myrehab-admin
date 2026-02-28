@@ -1,15 +1,1 @@
-{
-  "type": "object",
-  "properties": {
-    "doctorId": { "type": "integer", "format": "int64" },
-    "doctorName": { "type": "string" },
-    "specialization": { "type": "string" },
-    "patientCount": { "type": "integer", "format": "int64" },
-    "coursesAssigned": { "type": "integer", "format": "int64" },
-    "coursesCompleted": { "type": "integer", "format": "int64" },
-    "completionRate": { "type": "number", "format": "double" },
-    "appointmentsThisMonth": { "type": "integer", "format": "int64" },
-    "disputeCount": { "type": "integer", "format": "int64" }
-  },
-  "x-readme-ref-name": "DoctorStatsResponse"
-}
+{"type":"object","properties":{"doctorId":{"type":"integer","format":"int64"},"doctorName":{"type":"string"},"specialization":{"type":"string"},"patientCount":{"type":"integer","format":"int64"},"coursesAssigned":{"type":"integer","format":"int64"},"coursesCompleted":{"type":"integer","format":"int64"},"completionRate":{"type":"number","format":"double"},"appointmentsThisMonth":{"type":"integer","format":"int64"},"disputeCount":{"type":"integer","format":"int64"}},"x-readme-ref-name":"DoctorStatsResponse"}
