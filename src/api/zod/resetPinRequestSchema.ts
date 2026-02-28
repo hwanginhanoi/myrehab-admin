@@ -11,5 +11,9 @@ export const resetPinRequestSchema = z.object({
     .regex(
       /^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$/
     ),
-  newPin: z.string().regex(/^\d{6}$/),
+  newPin: z
+    .string()
+    .min(6)
+    .max(6)
+    .regex(/^\d{6}$/),
 })

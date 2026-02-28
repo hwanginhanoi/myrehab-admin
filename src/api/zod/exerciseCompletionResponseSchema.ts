@@ -8,7 +8,5 @@ import { z } from 'zod/v4'
 export const exerciseCompletionResponseSchema = z.object({
   dayExerciseId: z.optional(z.int()),
   isCompleted: z.optional(z.boolean()),
-  dayUnlocked: z.optional(z.boolean()),
-  nextDayNumber: z.optional(z.int()),
   message: z.optional(z.string()),
 })

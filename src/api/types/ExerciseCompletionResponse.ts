@@ -13,14 +13,6 @@ export type ExerciseCompletionResponse = {
    */
   isCompleted?: boolean
   /**
-   * @type boolean | undefined
-   */
-  dayUnlocked?: boolean
-  /**
-   * @type integer | undefined, int32
-   */
-  nextDayNumber?: number
-  /**
    * @type string | undefined
    */
   message?: string

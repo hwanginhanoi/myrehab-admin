@@ -86,6 +86,12 @@ export type {
   GetMyAppointmentsQuery,
 } from './appointmentsController/GetMyAppointments.ts'
 export type {
+  GetVideoTokenPathParams,
+  GetVideoToken200,
+  GetVideoTokenQueryResponse,
+  GetVideoTokenQuery,
+} from './appointmentsController/GetVideoToken.ts'
+export type {
   MarkCompletePathParams,
   MarkComplete200,
   MarkCompleteMutationResponse,
@@ -284,6 +290,7 @@ export type {
   GetDayContentQuery,
 } from './courseProgressController/GetDayContent.ts'
 export type {
+  GetMyAssignedCourses1QueryParamsStatusEnumKey,
   GetMyAssignedCourses1QueryParams,
   GetMyAssignedCourses1200,
   GetMyAssignedCourses1QueryResponse,
@@ -301,6 +308,12 @@ export type {
   StartCourseMutationResponse,
   StartCourseMutation,
 } from './courseProgressController/StartCourse.ts'
+export type {
+  StopCoursePathParams,
+  StopCourse204,
+  StopCourseMutationResponse,
+  StopCourseMutation,
+} from './courseProgressController/StopCourse.ts'
 export type {
   CourseProgressHistoryResponseArchivalReasonEnumKey,
   CourseProgressHistoryResponse,
@@ -571,6 +584,7 @@ export type { LocalTime } from './LocalTime.ts'
 export type { LoginWithPasswordRequest } from './LoginWithPasswordRequest.ts'
 export type { LoginWithPinRequest } from './LoginWithPinRequest.ts'
 export type { LowEffortPatientResponse } from './LowEffortPatientResponse.ts'
+export type { MyAssignedCourseResponse } from './MyAssignedCourseResponse.ts'
 export type { MyPatientResponse } from './MyPatientResponse.ts'
 export type { NationalHealthInsuranceResponse } from './NationalHealthInsuranceResponse.ts'
 export type {
@@ -604,8 +618,10 @@ export type { NonCompulsoryHealthInsuranceResponse } from './NonCompulsoryHealth
 export type { OtpResponse } from './OtpResponse.ts'
 export type { OverviewResponse } from './OverviewResponse.ts'
 export type { Pageable } from './Pageable.ts'
+export type { PageableObject } from './PageableObject.ts'
 export type { PagedModel } from './PagedModel.ts'
 export type { PageMetadata } from './PageMetadata.ts'
+export type { PageMyAssignedCourseResponse } from './PageMyAssignedCourseResponse.ts'
 export type { PainReportResponse } from './PainReportResponse.ts'
 export type {
   AssignPatientToDoctorPathParams,
@@ -748,6 +764,7 @@ export type { RevenueResponse } from './RevenueResponse.ts'
 export type { ReviewCourseRequestRequest } from './ReviewCourseRequestRequest.ts'
 export type { SendOtpRequest } from './SendOtpRequest.ts'
 export type { SepayWebhookPayload } from './SepayWebhookPayload.ts'
+export type { SortObject } from './SortObject.ts'
 export type { SpendingSummaryResponse } from './SpendingSummaryResponse.ts'
 export type { StaffAuthResponse } from './StaffAuthResponse.ts'
 export type {
@@ -758,7 +775,7 @@ export type {
 } from './staffManagementController/AssignExerciseGroupToDoctor.ts'
 export type {
   AssignTrainerToDoctorPathParams,
-  AssignTrainerToDoctor200,
+  AssignTrainerToDoctor204,
   AssignTrainerToDoctorMutationResponse,
   AssignTrainerToDoctorMutation,
 } from './staffManagementController/AssignTrainerToDoctor.ts'
@@ -1011,12 +1028,14 @@ export type { UserResponse } from './UserResponse.ts'
 export type { VerifyPinResetOtpRequest } from './VerifyPinResetOtpRequest.ts'
 export type { VerifyRegistrationOtpRequest } from './VerifyRegistrationOtpRequest.ts'
 export type { VerifyRegistrationOtpResponse } from './VerifyRegistrationOtpResponse.ts'
+export type { VideoTokenResponse } from './VideoTokenResponse.ts'
 export type { WebhookResponse } from './WebhookResponse.ts'
 export { appointmentResponseStatusEnum } from './AppointmentResponse.ts'
 export { categoryResponseTypeEnum } from './CategoryResponse.ts'
 export { clinicScheduleResponseDayOfWeekEnum } from './ClinicScheduleResponse.ts'
 export { courseAssignmentRequestResponseStatusEnum } from './CourseAssignmentRequestResponse.ts'
 export { listCourseAssignmentsQueryParamsPurchaseStatusEnum } from './courseAssignmentsController/ListCourseAssignments.ts'
+export { getMyAssignedCourses1QueryParamsStatusEnum } from './courseProgressController/GetMyAssignedCourses1.ts'
 export { courseProgressHistoryResponseArchivalReasonEnum } from './CourseProgressHistoryResponse.ts'
 export { createCategoryRequestTypeEnum } from './CreateCategoryRequest.ts'
 export { createNewsRequestStatusEnum } from './CreateNewsRequest.ts'

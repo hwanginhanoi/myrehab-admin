@@ -70,6 +70,11 @@ export {
   getMyAppointmentsQueryResponseSchema,
 } from './appointmentsController/getMyAppointmentsSchema.ts'
 export {
+  getVideoTokenPathParamsSchema,
+  getVideoToken200Schema,
+  getVideoTokenQueryResponseSchema,
+} from './appointmentsController/getVideoTokenSchema.ts'
+export {
   markCompletePathParamsSchema,
   markComplete200Schema,
   markCompleteMutationResponseSchema,
@@ -245,6 +250,11 @@ export {
   startCourseMutationRequestSchema,
   startCourseMutationResponseSchema,
 } from './courseProgressController/startCourseSchema.ts'
+export {
+  stopCoursePathParamsSchema,
+  stopCourse204Schema,
+  stopCourseMutationResponseSchema,
+} from './courseProgressController/stopCourseSchema.ts'
 export { courseProgressHistoryResponseSchema } from './courseProgressHistoryResponseSchema.ts'
 export { courseProgressResponseSchema } from './courseProgressResponseSchema.ts'
 export {
@@ -466,6 +476,7 @@ export { localTimeSchema } from './localTimeSchema.ts'
 export { loginWithPasswordRequestSchema } from './loginWithPasswordRequestSchema.ts'
 export { loginWithPinRequestSchema } from './loginWithPinRequestSchema.ts'
 export { lowEffortPatientResponseSchema } from './lowEffortPatientResponseSchema.ts'
+export { myAssignedCourseResponseSchema } from './myAssignedCourseResponseSchema.ts'
 export { myPatientResponseSchema } from './myPatientResponseSchema.ts'
 export { nationalHealthInsuranceResponseSchema } from './nationalHealthInsuranceResponseSchema.ts'
 export {
@@ -493,9 +504,11 @@ export { newsResponseSchema } from './newsResponseSchema.ts'
 export { nonCompulsoryHealthInsuranceResponseSchema } from './nonCompulsoryHealthInsuranceResponseSchema.ts'
 export { otpResponseSchema } from './otpResponseSchema.ts'
 export { overviewResponseSchema } from './overviewResponseSchema.ts'
+export { pageableObjectSchema } from './pageableObjectSchema.ts'
 export { pageableSchema } from './pageableSchema.ts'
 export { pagedModelSchema } from './pagedModelSchema.ts'
 export { pageMetadataSchema } from './pageMetadataSchema.ts'
+export { pageMyAssignedCourseResponseSchema } from './pageMyAssignedCourseResponseSchema.ts'
 export { painReportResponseSchema } from './painReportResponseSchema.ts'
 export {
   assignPatientToDoctorPathParamsSchema,
@@ -610,6 +623,7 @@ export { revenueResponseSchema } from './revenueResponseSchema.ts'
 export { reviewCourseRequestRequestSchema } from './reviewCourseRequestRequestSchema.ts'
 export { sendOtpRequestSchema } from './sendOtpRequestSchema.ts'
 export { sepayWebhookPayloadSchema } from './sepayWebhookPayloadSchema.ts'
+export { sortObjectSchema } from './sortObjectSchema.ts'
 export { spendingSummaryResponseSchema } from './spendingSummaryResponseSchema.ts'
 export { staffAuthResponseSchema } from './staffAuthResponseSchema.ts'
 export {
@@ -619,7 +633,7 @@ export {
 } from './staffManagementController/assignExerciseGroupToDoctorSchema.ts'
 export {
   assignTrainerToDoctorPathParamsSchema,
-  assignTrainerToDoctor200Schema,
+  assignTrainerToDoctor204Schema,
   assignTrainerToDoctorMutationResponseSchema,
 } from './staffManagementController/assignTrainerToDoctorSchema.ts'
 export {
@@ -810,4 +824,5 @@ export { userResponseSchema } from './userResponseSchema.ts'
 export { verifyPinResetOtpRequestSchema } from './verifyPinResetOtpRequestSchema.ts'
 export { verifyRegistrationOtpRequestSchema } from './verifyRegistrationOtpRequestSchema.ts'
 export { verifyRegistrationOtpResponseSchema } from './verifyRegistrationOtpResponseSchema.ts'
+export { videoTokenResponseSchema } from './videoTokenResponseSchema.ts'
 export { webhookResponseSchema } from './webhookResponseSchema.ts'

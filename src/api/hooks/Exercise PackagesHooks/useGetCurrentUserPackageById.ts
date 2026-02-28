@@ -40,11 +40,7 @@ export async function getCurrentUserPackageById(
     GetCurrentUserPackageByIdQueryResponse,
     ResponseErrorConfig<Error>,
     unknown
-  >({
-    method: 'GET',
-    url: `/api/exercise-packages/me/${id}`,
-    ...requestConfig,
-  })
+  >({ method: 'GET', url: `/api/exercise-packages/me/${id}`, ...requestConfig })
   return res.data
 }
 

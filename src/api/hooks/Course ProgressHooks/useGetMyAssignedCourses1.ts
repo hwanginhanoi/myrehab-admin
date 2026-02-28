@@ -18,7 +18,7 @@ import type {
 import { queryOptions, useQuery } from '@tanstack/react-query'
 
 export const getMyAssignedCourses1QueryKey = (
-  params: GetMyAssignedCourses1QueryParams
+  params?: GetMyAssignedCourses1QueryParams
 ) =>
   [
     { url: '/api/course-progress/my-courses' },
@@ -30,12 +30,12 @@ export type GetMyAssignedCourses1QueryKey = ReturnType<
 >
 
 /**
- * @description Retrieve all courses assigned to me by doctors. Shows which courses I can start based on current progress.
+ * @description Retrieve all courses assigned to me by doctors. Filter by status: PENDING_PURCHASE (not yet paid), ACTIVE (paid, not completed), COMPLETED (finished). Omit status to return all.
  * @summary Get my assigned courses
  * {@link /api/course-progress/my-courses}
  */
 export async function getMyAssignedCourses1(
-  params: GetMyAssignedCourses1QueryParams,
+  params?: GetMyAssignedCourses1QueryParams,
   config: Partial<RequestConfig> & { client?: typeof fetch } = {}
 ) {
   const { client: request = fetch, ...requestConfig } = config
@@ -54,7 +54,7 @@ export async function getMyAssignedCourses1(
 }
 
 export function getMyAssignedCourses1QueryOptions(
-  params: GetMyAssignedCourses1QueryParams,
+  params?: GetMyAssignedCourses1QueryParams,
   config: Partial<RequestConfig> & { client?: typeof fetch } = {}
 ) {
   const queryKey = getMyAssignedCourses1QueryKey(params)
@@ -64,7 +64,6 @@ export function getMyAssignedCourses1QueryOptions(
     GetMyAssignedCourses1QueryResponse,
     typeof queryKey
   >({
-    enabled: !!params,
     queryKey,
     queryFn: async ({ signal }) => {
       config.signal = signal
@@ -74,7 +73,7 @@ export function getMyAssignedCourses1QueryOptions(
 }
 
 /**
- * @description Retrieve all courses assigned to me by doctors. Shows which courses I can start based on current progress.
+ * @description Retrieve all courses assigned to me by doctors. Filter by status: PENDING_PURCHASE (not yet paid), ACTIVE (paid, not completed), COMPLETED (finished). Omit status to return all.
  * @summary Get my assigned courses
  * {@link /api/course-progress/my-courses}
  */
@@ -83,7 +82,7 @@ export function useGetMyAssignedCourses1<
   TQueryData = GetMyAssignedCourses1QueryResponse,
   TQueryKey extends QueryKey = GetMyAssignedCourses1QueryKey,
 >(
-  params: GetMyAssignedCourses1QueryParams,
+  params?: GetMyAssignedCourses1QueryParams,
   options: {
     query?: Partial<
       QueryObserverOptions<

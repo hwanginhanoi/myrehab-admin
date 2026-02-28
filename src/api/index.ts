@@ -18,6 +18,8 @@ export type { GetDoctorAppointmentsQueryKey } from './hooks/AppointmentsHooks/us
 export type { GetDoctorAppointmentsSuspenseQueryKey } from './hooks/AppointmentsHooks/useGetDoctorAppointmentsSuspense.ts'
 export type { GetMyAppointmentsQueryKey } from './hooks/AppointmentsHooks/useGetMyAppointments.ts'
 export type { GetMyAppointmentsSuspenseQueryKey } from './hooks/AppointmentsHooks/useGetMyAppointmentsSuspense.ts'
+export type { GetVideoTokenQueryKey } from './hooks/AppointmentsHooks/useGetVideoToken.ts'
+export type { GetVideoTokenSuspenseQueryKey } from './hooks/AppointmentsHooks/useGetVideoTokenSuspense.ts'
 export type { MarkCompleteMutationKey } from './hooks/AppointmentsHooks/useMarkComplete.ts'
 export type { RejectAppointmentMutationKey } from './hooks/AppointmentsHooks/useRejectAppointment.ts'
 export type { ResolveDisputeMutationKey } from './hooks/AppointmentsHooks/useResolveDispute.ts'
@@ -58,6 +60,7 @@ export type { GetMyAssignedCourses1SuspenseQueryKey } from './hooks/Course Progr
 export type { GetProgressHistoryQueryKey } from './hooks/Course ProgressHooks/useGetProgressHistory.ts'
 export type { GetProgressHistorySuspenseQueryKey } from './hooks/Course ProgressHooks/useGetProgressHistorySuspense.ts'
 export type { StartCourseMutationKey } from './hooks/Course ProgressHooks/useStartCourse.ts'
+export type { StopCourseMutationKey } from './hooks/Course ProgressHooks/useStopCourse.ts'
 export type { GetAllCoursesQueryKey } from './hooks/CoursesHooks/useGetAllCourses.ts'
 export type { GetAllCoursesSuspenseQueryKey } from './hooks/CoursesHooks/useGetAllCoursesSuspense.ts'
 export type { GetCourseStructureQueryKey } from './hooks/CoursesHooks/useGetCourseStructure.ts'
@@ -293,6 +296,12 @@ export type {
   GetMyAppointmentsQuery,
 } from './types/appointmentsController/GetMyAppointments.ts'
 export type {
+  GetVideoTokenPathParams,
+  GetVideoToken200,
+  GetVideoTokenQueryResponse,
+  GetVideoTokenQuery,
+} from './types/appointmentsController/GetVideoToken.ts'
+export type {
   MarkCompletePathParams,
   MarkComplete200,
   MarkCompleteMutationResponse,
@@ -491,6 +500,7 @@ export type {
   GetDayContentQuery,
 } from './types/courseProgressController/GetDayContent.ts'
 export type {
+  GetMyAssignedCourses1QueryParamsStatusEnumKey,
   GetMyAssignedCourses1QueryParams,
   GetMyAssignedCourses1200,
   GetMyAssignedCourses1QueryResponse,
@@ -508,6 +518,12 @@ export type {
   StartCourseMutationResponse,
   StartCourseMutation,
 } from './types/courseProgressController/StartCourse.ts'
+export type {
+  StopCoursePathParams,
+  StopCourse204,
+  StopCourseMutationResponse,
+  StopCourseMutation,
+} from './types/courseProgressController/StopCourse.ts'
 export type {
   CourseProgressHistoryResponseArchivalReasonEnumKey,
   CourseProgressHistoryResponse,
@@ -778,6 +794,7 @@ export type { LocalTime } from './types/LocalTime.ts'
 export type { LoginWithPasswordRequest } from './types/LoginWithPasswordRequest.ts'
 export type { LoginWithPinRequest } from './types/LoginWithPinRequest.ts'
 export type { LowEffortPatientResponse } from './types/LowEffortPatientResponse.ts'
+export type { MyAssignedCourseResponse } from './types/MyAssignedCourseResponse.ts'
 export type { MyPatientResponse } from './types/MyPatientResponse.ts'
 export type { NationalHealthInsuranceResponse } from './types/NationalHealthInsuranceResponse.ts'
 export type {
@@ -814,8 +831,10 @@ export type { NonCompulsoryHealthInsuranceResponse } from './types/NonCompulsory
 export type { OtpResponse } from './types/OtpResponse.ts'
 export type { OverviewResponse } from './types/OverviewResponse.ts'
 export type { Pageable } from './types/Pageable.ts'
+export type { PageableObject } from './types/PageableObject.ts'
 export type { PagedModel } from './types/PagedModel.ts'
 export type { PageMetadata } from './types/PageMetadata.ts'
+export type { PageMyAssignedCourseResponse } from './types/PageMyAssignedCourseResponse.ts'
 export type { PainReportResponse } from './types/PainReportResponse.ts'
 export type {
   AssignPatientToDoctorPathParams,
@@ -958,6 +977,7 @@ export type { RevenueResponse } from './types/RevenueResponse.ts'
 export type { ReviewCourseRequestRequest } from './types/ReviewCourseRequestRequest.ts'
 export type { SendOtpRequest } from './types/SendOtpRequest.ts'
 export type { SepayWebhookPayload } from './types/SepayWebhookPayload.ts'
+export type { SortObject } from './types/SortObject.ts'
 export type { SpendingSummaryResponse } from './types/SpendingSummaryResponse.ts'
 export type { StaffAuthResponse } from './types/StaffAuthResponse.ts'
 export type {
@@ -968,7 +988,7 @@ export type {
 } from './types/staffManagementController/AssignExerciseGroupToDoctor.ts'
 export type {
   AssignTrainerToDoctorPathParams,
-  AssignTrainerToDoctor200,
+  AssignTrainerToDoctor204,
   AssignTrainerToDoctorMutationResponse,
   AssignTrainerToDoctorMutation,
 } from './types/staffManagementController/AssignTrainerToDoctor.ts'
@@ -1221,6 +1241,7 @@ export type { UserResponse } from './types/UserResponse.ts'
 export type { VerifyPinResetOtpRequest } from './types/VerifyPinResetOtpRequest.ts'
 export type { VerifyRegistrationOtpRequest } from './types/VerifyRegistrationOtpRequest.ts'
 export type { VerifyRegistrationOtpResponse } from './types/VerifyRegistrationOtpResponse.ts'
+export type { VideoTokenResponse } from './types/VideoTokenResponse.ts'
 export type { WebhookResponse } from './types/WebhookResponse.ts'
 export { assignDoctorMutationKey } from './hooks/AppointmentsHooks/useAssignDoctor.ts'
 export { assignDoctor } from './hooks/AppointmentsHooks/useAssignDoctor.ts'
@@ -1302,6 +1323,14 @@ export { getMyAppointmentsSuspenseQueryKey } from './hooks/AppointmentsHooks/use
 export { getMyAppointmentsSuspense } from './hooks/AppointmentsHooks/useGetMyAppointmentsSuspense.ts'
 export { getMyAppointmentsSuspenseQueryOptions } from './hooks/AppointmentsHooks/useGetMyAppointmentsSuspense.ts'
 export { useGetMyAppointmentsSuspense } from './hooks/AppointmentsHooks/useGetMyAppointmentsSuspense.ts'
+export { getVideoTokenQueryKey } from './hooks/AppointmentsHooks/useGetVideoToken.ts'
+export { getVideoToken } from './hooks/AppointmentsHooks/useGetVideoToken.ts'
+export { getVideoTokenQueryOptions } from './hooks/AppointmentsHooks/useGetVideoToken.ts'
+export { useGetVideoToken } from './hooks/AppointmentsHooks/useGetVideoToken.ts'
+export { getVideoTokenSuspenseQueryKey } from './hooks/AppointmentsHooks/useGetVideoTokenSuspense.ts'
+export { getVideoTokenSuspense } from './hooks/AppointmentsHooks/useGetVideoTokenSuspense.ts'
+export { getVideoTokenSuspenseQueryOptions } from './hooks/AppointmentsHooks/useGetVideoTokenSuspense.ts'
+export { useGetVideoTokenSuspense } from './hooks/AppointmentsHooks/useGetVideoTokenSuspense.ts'
 export { markCompleteMutationKey } from './hooks/AppointmentsHooks/useMarkComplete.ts'
 export { markComplete } from './hooks/AppointmentsHooks/useMarkComplete.ts'
 export { markCompleteMutationOptions } from './hooks/AppointmentsHooks/useMarkComplete.ts'
@@ -1462,6 +1491,10 @@ export { startCourseMutationKey } from './hooks/Course ProgressHooks/useStartCou
 export { startCourse } from './hooks/Course ProgressHooks/useStartCourse.ts'
 export { startCourseMutationOptions } from './hooks/Course ProgressHooks/useStartCourse.ts'
 export { useStartCourse } from './hooks/Course ProgressHooks/useStartCourse.ts'
+export { stopCourseMutationKey } from './hooks/Course ProgressHooks/useStopCourse.ts'
+export { stopCourse } from './hooks/Course ProgressHooks/useStopCourse.ts'
+export { stopCourseMutationOptions } from './hooks/Course ProgressHooks/useStopCourse.ts'
+export { useStopCourse } from './hooks/Course ProgressHooks/useStopCourse.ts'
 export { getAllCoursesQueryKey } from './hooks/CoursesHooks/useGetAllCourses.ts'
 export { getAllCourses } from './hooks/CoursesHooks/useGetAllCourses.ts'
 export { getAllCoursesQueryOptions } from './hooks/CoursesHooks/useGetAllCourses.ts'
@@ -2055,6 +2088,7 @@ export { categoryResponseTypeEnum } from './types/CategoryResponse.ts'
 export { clinicScheduleResponseDayOfWeekEnum } from './types/ClinicScheduleResponse.ts'
 export { courseAssignmentRequestResponseStatusEnum } from './types/CourseAssignmentRequestResponse.ts'
 export { listCourseAssignmentsQueryParamsPurchaseStatusEnum } from './types/courseAssignmentsController/ListCourseAssignments.ts'
+export { getMyAssignedCourses1QueryParamsStatusEnum } from './types/courseProgressController/GetMyAssignedCourses1.ts'
 export { courseProgressHistoryResponseArchivalReasonEnum } from './types/CourseProgressHistoryResponse.ts'
 export { createCategoryRequestTypeEnum } from './types/CreateCategoryRequest.ts'
 export { createNewsRequestStatusEnum } from './types/CreateNewsRequest.ts'
@@ -2148,6 +2182,11 @@ export {
   getMyAppointments200Schema,
   getMyAppointmentsQueryResponseSchema,
 } from './zod/appointmentsController/getMyAppointmentsSchema.ts'
+export {
+  getVideoTokenPathParamsSchema,
+  getVideoToken200Schema,
+  getVideoTokenQueryResponseSchema,
+} from './zod/appointmentsController/getVideoTokenSchema.ts'
 export {
   markCompletePathParamsSchema,
   markComplete200Schema,
@@ -2324,6 +2363,11 @@ export {
   startCourseMutationRequestSchema,
   startCourseMutationResponseSchema,
 } from './zod/courseProgressController/startCourseSchema.ts'
+export {
+  stopCoursePathParamsSchema,
+  stopCourse204Schema,
+  stopCourseMutationResponseSchema,
+} from './zod/courseProgressController/stopCourseSchema.ts'
 export { courseProgressHistoryResponseSchema } from './zod/courseProgressHistoryResponseSchema.ts'
 export { courseProgressResponseSchema } from './zod/courseProgressResponseSchema.ts'
 export {
@@ -2545,6 +2589,7 @@ export { localTimeSchema } from './zod/localTimeSchema.ts'
 export { loginWithPasswordRequestSchema } from './zod/loginWithPasswordRequestSchema.ts'
 export { loginWithPinRequestSchema } from './zod/loginWithPinRequestSchema.ts'
 export { lowEffortPatientResponseSchema } from './zod/lowEffortPatientResponseSchema.ts'
+export { myAssignedCourseResponseSchema } from './zod/myAssignedCourseResponseSchema.ts'
 export { myPatientResponseSchema } from './zod/myPatientResponseSchema.ts'
 export { nationalHealthInsuranceResponseSchema } from './zod/nationalHealthInsuranceResponseSchema.ts'
 export {
@@ -2572,9 +2617,11 @@ export { newsResponseSchema } from './zod/newsResponseSchema.ts'
 export { nonCompulsoryHealthInsuranceResponseSchema } from './zod/nonCompulsoryHealthInsuranceResponseSchema.ts'
 export { otpResponseSchema } from './zod/otpResponseSchema.ts'
 export { overviewResponseSchema } from './zod/overviewResponseSchema.ts'
+export { pageableObjectSchema } from './zod/pageableObjectSchema.ts'
 export { pageableSchema } from './zod/pageableSchema.ts'
 export { pagedModelSchema } from './zod/pagedModelSchema.ts'
 export { pageMetadataSchema } from './zod/pageMetadataSchema.ts'
+export { pageMyAssignedCourseResponseSchema } from './zod/pageMyAssignedCourseResponseSchema.ts'
 export { painReportResponseSchema } from './zod/painReportResponseSchema.ts'
 export {
   assignPatientToDoctorPathParamsSchema,
@@ -2689,6 +2736,7 @@ export { revenueResponseSchema } from './zod/revenueResponseSchema.ts'
 export { reviewCourseRequestRequestSchema } from './zod/reviewCourseRequestRequestSchema.ts'
 export { sendOtpRequestSchema } from './zod/sendOtpRequestSchema.ts'
 export { sepayWebhookPayloadSchema } from './zod/sepayWebhookPayloadSchema.ts'
+export { sortObjectSchema } from './zod/sortObjectSchema.ts'
 export { spendingSummaryResponseSchema } from './zod/spendingSummaryResponseSchema.ts'
 export { staffAuthResponseSchema } from './zod/staffAuthResponseSchema.ts'
 export {
@@ -2698,7 +2746,7 @@ export {
 } from './zod/staffManagementController/assignExerciseGroupToDoctorSchema.ts'
 export {
   assignTrainerToDoctorPathParamsSchema,
-  assignTrainerToDoctor200Schema,
+  assignTrainerToDoctor204Schema,
   assignTrainerToDoctorMutationResponseSchema,
 } from './zod/staffManagementController/assignTrainerToDoctorSchema.ts'
 export {
@@ -2889,4 +2937,5 @@ export { userResponseSchema } from './zod/userResponseSchema.ts'
 export { verifyPinResetOtpRequestSchema } from './zod/verifyPinResetOtpRequestSchema.ts'
 export { verifyRegistrationOtpRequestSchema } from './zod/verifyRegistrationOtpRequestSchema.ts'
 export { verifyRegistrationOtpResponseSchema } from './zod/verifyRegistrationOtpResponseSchema.ts'
+export { videoTokenResponseSchema } from './zod/videoTokenResponseSchema.ts'
 export { webhookResponseSchema } from './zod/webhookResponseSchema.ts'

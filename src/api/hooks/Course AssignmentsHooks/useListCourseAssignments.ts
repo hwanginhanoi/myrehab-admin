@@ -40,12 +40,7 @@ export async function listCourseAssignments(
     ListCourseAssignmentsQueryResponse,
     ResponseErrorConfig<Error>,
     unknown
-  >({
-    method: 'GET',
-    url: `/api/course-assignments`,
-    params,
-    ...requestConfig,
-  })
+  >({ method: 'GET', url: `/api/course-assignments`, params, ...requestConfig })
   return res.data
 }
 

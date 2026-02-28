@@ -80,6 +80,12 @@ export type {
   GetMyAppointmentsQuery,
 } from './GetMyAppointments.ts'
 export type {
+  GetVideoTokenPathParams,
+  GetVideoToken200,
+  GetVideoTokenQueryResponse,
+  GetVideoTokenQuery,
+} from './GetVideoToken.ts'
+export type {
   MarkCompletePathParams,
   MarkComplete200,
   MarkCompleteMutationResponse,

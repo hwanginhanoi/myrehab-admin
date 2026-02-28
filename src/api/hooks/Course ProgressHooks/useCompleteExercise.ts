@@ -24,7 +24,7 @@ export type CompleteExerciseMutationKey = ReturnType<
 >
 
 /**
- * @description Mark a specific exercise as completed. Idempotent: returns success if already completed. Auto-unlocks next day if all exercises in current day are completed. Auto-completes course if this was the last exercise of the last day.
+ * @description Mark a specific exercise as completed. Idempotent: returns success if already completed. Auto-completes course when all exercises across all days are done.
  * @summary Mark exercise as complete
  * {@link /api/course-progress/exercises/:dayExerciseId/complete}
  */
@@ -64,7 +64,7 @@ export function completeExerciseMutationOptions(
 }
 
 /**
- * @description Mark a specific exercise as completed. Idempotent: returns success if already completed. Auto-unlocks next day if all exercises in current day are completed. Auto-completes course if this was the last exercise of the last day.
+ * @description Mark a specific exercise as completed. Idempotent: returns success if already completed. Auto-completes course when all exercises across all days are done.
  * @summary Mark exercise as complete
  * {@link /api/course-progress/exercises/:dayExerciseId/complete}
  */

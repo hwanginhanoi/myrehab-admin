@@ -5,7 +5,7 @@ export {
 } from './assignExerciseGroupToDoctorSchema.ts'
 export {
   assignTrainerToDoctorPathParamsSchema,
-  assignTrainerToDoctor200Schema,
+  assignTrainerToDoctor204Schema,
   assignTrainerToDoctorMutationResponseSchema,
 } from './assignTrainerToDoctorSchema.ts'
 export {

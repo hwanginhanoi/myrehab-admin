@@ -42,3 +42,8 @@ export {
   startCourseMutationRequestSchema,
   startCourseMutationResponseSchema,
 } from './startCourseSchema.ts'
+export {
+  stopCoursePathParamsSchema,
+  stopCourse204Schema,
+  stopCourseMutationResponseSchema,
+} from './stopCourseSchema.ts'

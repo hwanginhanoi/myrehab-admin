@@ -67,6 +67,11 @@ export {
   getMyAppointmentsQueryResponseSchema,
 } from './getMyAppointmentsSchema.ts'
 export {
+  getVideoTokenPathParamsSchema,
+  getVideoToken200Schema,
+  getVideoTokenQueryResponseSchema,
+} from './getVideoTokenSchema.ts'
+export {
   markCompletePathParamsSchema,
   markComplete200Schema,
   markCompleteMutationResponseSchema,

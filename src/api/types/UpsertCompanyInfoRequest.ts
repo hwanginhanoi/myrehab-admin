@@ -5,14 +5,20 @@
 
 export type UpsertCompanyInfoRequest = {
   /**
+   * @minLength 0
+   * @maxLength 200
    * @type string | undefined
    */
   companyName?: string
   /**
+   * @minLength 0
+   * @maxLength 50
    * @type string | undefined
    */
   companyTaxNumber?: string
   /**
+   * @minLength 0
+   * @maxLength 500
    * @type string | undefined
    */
   invoiceIssuanceAddress?: string

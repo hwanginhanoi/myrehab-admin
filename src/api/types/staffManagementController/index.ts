@@ -6,7 +6,7 @@ export type {
 } from './AssignExerciseGroupToDoctor.ts'
 export type {
   AssignTrainerToDoctorPathParams,
-  AssignTrainerToDoctor200,
+  AssignTrainerToDoctor204,
   AssignTrainerToDoctorMutationResponse,
   AssignTrainerToDoctorMutation,
 } from './AssignTrainerToDoctor.ts'

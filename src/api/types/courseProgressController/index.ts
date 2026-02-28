@@ -34,6 +34,7 @@ export type {
   GetDayContentQuery,
 } from './GetDayContent.ts'
 export type {
+  GetMyAssignedCourses1QueryParamsStatusEnumKey,
   GetMyAssignedCourses1QueryParams,
   GetMyAssignedCourses1200,
   GetMyAssignedCourses1QueryResponse,
@@ -51,3 +52,10 @@ export type {
   StartCourseMutationResponse,
   StartCourseMutation,
 } from './StartCourse.ts'
+export type {
+  StopCoursePathParams,
+  StopCourse204,
+  StopCourseMutationResponse,
+  StopCourseMutation,
+} from './StopCourse.ts'
+export { getMyAssignedCourses1QueryParamsStatusEnum } from './GetMyAssignedCourses1.ts'

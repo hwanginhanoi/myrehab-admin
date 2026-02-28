@@ -14,5 +14,9 @@ export const registerRequestSchema = z.object({
     .regex(
       /^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$/
     ),
-  pin: z.string().regex(/^\d{6}$/),
+  pin: z
+    .string()
+    .min(6)
+    .max(6)
+    .regex(/^\d{6}$/),
 })

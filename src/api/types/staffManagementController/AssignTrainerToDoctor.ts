@@ -17,14 +17,14 @@ export type AssignTrainerToDoctorPathParams = {
 }
 
 /**
- * @description OK
+ * @description Trainer assigned successfully
  */
-export type AssignTrainerToDoctor200 = any
+export type AssignTrainerToDoctor204 = any
 
-export type AssignTrainerToDoctorMutationResponse = AssignTrainerToDoctor200
+export type AssignTrainerToDoctorMutationResponse = AssignTrainerToDoctor204
 
 export type AssignTrainerToDoctorMutation = {
-  Response: AssignTrainerToDoctor200
+  Response: AssignTrainerToDoctor204
   PathParams: AssignTrainerToDoctorPathParams
   Errors: any
 }

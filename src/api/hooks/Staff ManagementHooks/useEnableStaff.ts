@@ -36,11 +36,7 @@ export async function enableStaff(
     EnableStaffMutationResponse,
     ResponseErrorConfig<Error>,
     unknown
-  >({
-    method: 'PATCH',
-    url: `/api/admin/staff/${id}/enable`,
-    ...requestConfig,
-  })
+  >({ method: 'PATCH', url: `/api/admin/staff/${id}/enable`, ...requestConfig })
   return res.data
 }
 

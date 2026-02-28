@@ -4,7 +4,10 @@
  */
 
 import fetch from '@/lib/api-client'
-import type { GetCurrentProgressQueryResponse } from '../../types/courseProgressController/GetCurrentProgress.ts'
+import type {
+  GetVideoTokenQueryResponse,
+  GetVideoTokenPathParams,
+} from '../../types/appointmentsController/GetVideoToken.ts'
 import type { RequestConfig, ResponseErrorConfig } from '@/lib/api-client'
 import type {
   QueryKey,
@@ -14,62 +17,71 @@ import type {
 } from '@tanstack/react-query'
 import { queryOptions, useSuspenseQuery } from '@tanstack/react-query'
 
-export const getCurrentProgressSuspenseQueryKey = () =>
-  [{ url: '/api/course-progress/my-current' }] as const
+export const getVideoTokenSuspenseQueryKey = (
+  id: GetVideoTokenPathParams['id']
+) => [{ url: '/api/appointments/:id/video-token', params: { id: id } }] as const
 
-export type GetCurrentProgressSuspenseQueryKey = ReturnType<
-  typeof getCurrentProgressSuspenseQueryKey
+export type GetVideoTokenSuspenseQueryKey = ReturnType<
+  typeof getVideoTokenSuspenseQueryKey
 >
 
 /**
- * @description Retrieve the user's current active course progress. Returns 404 if no active course is found.
- * @summary Get current active progress
- * {@link /api/course-progress/my-current}
+ * @description Generate an Agora RTC token for a confirmed appointment's video call
+ * @summary Get video call token
+ * {@link /api/appointments/:id/video-token}
  */
-export async function getCurrentProgressSuspense(
+export async function getVideoTokenSuspense(
+  id: GetVideoTokenPathParams['id'],
   config: Partial<RequestConfig> & { client?: typeof fetch } = {}
 ) {
   const { client: request = fetch, ...requestConfig } = config
 
   const res = await request<
-    GetCurrentProgressQueryResponse,
+    GetVideoTokenQueryResponse,
     ResponseErrorConfig<Error>,
     unknown
-  >({ method: 'GET', url: `/api/course-progress/my-current`, ...requestConfig })
+  >({
+    method: 'GET',
+    url: `/api/appointments/${id}/video-token`,
+    ...requestConfig,
+  })
   return res.data
 }
 
-export function getCurrentProgressSuspenseQueryOptions(
+export function getVideoTokenSuspenseQueryOptions(
+  id: GetVideoTokenPathParams['id'],
   config: Partial<RequestConfig> & { client?: typeof fetch } = {}
 ) {
-  const queryKey = getCurrentProgressSuspenseQueryKey()
+  const queryKey = getVideoTokenSuspenseQueryKey(id)
   return queryOptions<
-    GetCurrentProgressQueryResponse,
+    GetVideoTokenQueryResponse,
     ResponseErrorConfig<Error>,
-    GetCurrentProgressQueryResponse,
+    GetVideoTokenQueryResponse,
     typeof queryKey
   >({
+    enabled: !!id,
     queryKey,
     queryFn: async ({ signal }) => {
       config.signal = signal
-      return getCurrentProgressSuspense(config)
+      return getVideoTokenSuspense(id, config)
     },
   })
 }
 
 /**
- * @description Retrieve the user's current active course progress. Returns 404 if no active course is found.
- * @summary Get current active progress
- * {@link /api/course-progress/my-current}
+ * @description Generate an Agora RTC token for a confirmed appointment's video call
+ * @summary Get video call token
+ * {@link /api/appointments/:id/video-token}
  */
-export function useGetCurrentProgressSuspense<
-  TData = GetCurrentProgressQueryResponse,
-  TQueryKey extends QueryKey = GetCurrentProgressSuspenseQueryKey,
+export function useGetVideoTokenSuspense<
+  TData = GetVideoTokenQueryResponse,
+  TQueryKey extends QueryKey = GetVideoTokenSuspenseQueryKey,
 >(
+  id: GetVideoTokenPathParams['id'],
   options: {
     query?: Partial<
       UseSuspenseQueryOptions<
-        GetCurrentProgressQueryResponse,
+        GetVideoTokenQueryResponse,
         ResponseErrorConfig<Error>,
         TData,
         TQueryKey
@@ -80,12 +92,11 @@ export function useGetCurrentProgressSuspense<
 ) {
   const { query: queryConfig = {}, client: config = {} } = options ?? {}
   const { client: queryClient, ...queryOptions } = queryConfig
-  const queryKey =
-    queryOptions?.queryKey ?? getCurrentProgressSuspenseQueryKey()
+  const queryKey = queryOptions?.queryKey ?? getVideoTokenSuspenseQueryKey(id)
 
   const query = useSuspenseQuery(
     {
-      ...getCurrentProgressSuspenseQueryOptions(config),
+      ...getVideoTokenSuspenseQueryOptions(id, config),
       queryKey,
       ...queryOptions,
     } as unknown as UseSuspenseQueryOptions,

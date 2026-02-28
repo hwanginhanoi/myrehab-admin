@@ -3,20 +3,48 @@
  * Do not edit manually.
  */
 
-import type { Pageable } from '../Pageable.ts'
-import type { PagedModel } from '../PagedModel.ts'
+import type { PageMyAssignedCourseResponse } from '../PageMyAssignedCourseResponse.ts'
+
+export const getMyAssignedCourses1QueryParamsStatusEnum = {
+  PENDING_PURCHASE: 'PENDING_PURCHASE',
+  ACTIVE: 'ACTIVE',
+  COMPLETED: 'COMPLETED',
+} as const
+
+export type GetMyAssignedCourses1QueryParamsStatusEnumKey =
+  (typeof getMyAssignedCourses1QueryParamsStatusEnum)[keyof typeof getMyAssignedCourses1QueryParamsStatusEnum]
 
 export type GetMyAssignedCourses1QueryParams = {
   /**
-   * @type object
+   * @description Filter by course status
+   * @type string | undefined
    */
-  pageable: Pageable
+  status?: GetMyAssignedCourses1QueryParamsStatusEnumKey
+  /**
+   * @description Zero-based page index (0..N)
+   * @minLength 0
+   * @default 0
+   * @type integer | undefined
+   */
+  page?: number
+  /**
+   * @description The size of the page to be returned
+   * @minLength 1
+   * @default 20
+   * @type integer | undefined
+   */
+  size?: number
+  /**
+   * @description Sorting criteria in the format: property,(asc|desc). Default sort order is ascending. Multiple sort criteria are supported.
+   * @type array | undefined
+   */
+  sort?: string[]
 }
 
 /**
  * @description OK
  */
-export type GetMyAssignedCourses1200 = PagedModel
+export type GetMyAssignedCourses1200 = PageMyAssignedCourseResponse
 
 export type GetMyAssignedCourses1QueryResponse = GetMyAssignedCourses1200
 

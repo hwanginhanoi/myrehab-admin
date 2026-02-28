@@ -6,7 +6,7 @@
 import { z } from 'zod/v4'
 
 export const upsertCompanyInfoRequestSchema = z.object({
-  companyName: z.optional(z.string()),
-  companyTaxNumber: z.optional(z.string()),
-  invoiceIssuanceAddress: z.optional(z.string()),
+  companyName: z.optional(z.string().min(0).max(200)),
+  companyTaxNumber: z.optional(z.string().min(0).max(50)),
+  invoiceIssuanceAddress: z.optional(z.string().min(0).max(500)),
 })

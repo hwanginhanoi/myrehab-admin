@@ -31,7 +31,7 @@ export const getDayContentQueryKey = (
 export type GetDayContentQueryKey = ReturnType<typeof getDayContentQueryKey>
 
 /**
- * @description Retrieve all exercises for a specific day with completion status. Returns 423 LOCKED if day is not yet unlocked. User must complete Day N to access Day N+1.
+ * @description Retrieve all exercises for a specific day with completion status.
  * @summary Get day's exercises
  * {@link /api/course-progress/courses/:courseId/days/:dayNumber}
  */
@@ -76,7 +76,7 @@ export function getDayContentQueryOptions(
 }
 
 /**
- * @description Retrieve all exercises for a specific day with completion status. Returns 423 LOCKED if day is not yet unlocked. User must complete Day N to access Day N+1.
+ * @description Retrieve all exercises for a specific day with completion status.
  * @summary Get day's exercises
  * {@link /api/course-progress/courses/:courseId/days/:dayNumber}
  */

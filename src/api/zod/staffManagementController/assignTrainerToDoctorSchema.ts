@@ -11,10 +11,10 @@ export const assignTrainerToDoctorPathParamsSchema = z.object({
 })
 
 /**
- * @description OK
+ * @description Trainer assigned successfully
  */
-export const assignTrainerToDoctor200Schema = z.any()
+export const assignTrainerToDoctor204Schema = z.any()
 
 export const assignTrainerToDoctorMutationResponseSchema = z.lazy(
-  () => assignTrainerToDoctor200Schema
+  () => assignTrainerToDoctor204Schema
 )

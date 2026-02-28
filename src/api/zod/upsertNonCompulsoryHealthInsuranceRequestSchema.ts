@@ -6,7 +6,7 @@
 import { z } from 'zod/v4'
 
 export const upsertNonCompulsoryHealthInsuranceRequestSchema = z.object({
-  insuranceNumber: z.optional(z.string()),
-  placeOfRegistration: z.optional(z.string()),
+  insuranceNumber: z.optional(z.string().min(0).max(50)),
+  placeOfRegistration: z.optional(z.string().min(0).max(200)),
   expiryDate: z.optional(z.iso.date()),
 })

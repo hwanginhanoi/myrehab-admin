@@ -4,7 +4,10 @@
  */
 
 import fetch from '@/lib/api-client'
-import type { GetCurrentProgressQueryResponse } from '../../types/courseProgressController/GetCurrentProgress.ts'
+import type {
+  GetVideoTokenQueryResponse,
+  GetVideoTokenPathParams,
+} from '../../types/appointmentsController/GetVideoToken.ts'
 import type { RequestConfig, ResponseErrorConfig } from '@/lib/api-client'
 import type {
   QueryKey,
@@ -14,63 +17,69 @@ import type {
 } from '@tanstack/react-query'
 import { queryOptions, useQuery } from '@tanstack/react-query'
 
-export const getCurrentProgressQueryKey = () =>
-  [{ url: '/api/course-progress/my-current' }] as const
+export const getVideoTokenQueryKey = (id: GetVideoTokenPathParams['id']) =>
+  [{ url: '/api/appointments/:id/video-token', params: { id: id } }] as const
 
-export type GetCurrentProgressQueryKey = ReturnType<
-  typeof getCurrentProgressQueryKey
->
+export type GetVideoTokenQueryKey = ReturnType<typeof getVideoTokenQueryKey>
 
 /**
- * @description Retrieve the user's current active course progress. Returns 404 if no active course is found.
- * @summary Get current active progress
- * {@link /api/course-progress/my-current}
+ * @description Generate an Agora RTC token for a confirmed appointment's video call
+ * @summary Get video call token
+ * {@link /api/appointments/:id/video-token}
  */
-export async function getCurrentProgress(
+export async function getVideoToken(
+  id: GetVideoTokenPathParams['id'],
   config: Partial<RequestConfig> & { client?: typeof fetch } = {}
 ) {
   const { client: request = fetch, ...requestConfig } = config
 
   const res = await request<
-    GetCurrentProgressQueryResponse,
+    GetVideoTokenQueryResponse,
     ResponseErrorConfig<Error>,
     unknown
-  >({ method: 'GET', url: `/api/course-progress/my-current`, ...requestConfig })
+  >({
+    method: 'GET',
+    url: `/api/appointments/${id}/video-token`,
+    ...requestConfig,
+  })
   return res.data
 }
 
-export function getCurrentProgressQueryOptions(
+export function getVideoTokenQueryOptions(
+  id: GetVideoTokenPathParams['id'],
   config: Partial<RequestConfig> & { client?: typeof fetch } = {}
 ) {
-  const queryKey = getCurrentProgressQueryKey()
+  const queryKey = getVideoTokenQueryKey(id)
   return queryOptions<
-    GetCurrentProgressQueryResponse,
+    GetVideoTokenQueryResponse,
     ResponseErrorConfig<Error>,
-    GetCurrentProgressQueryResponse,
+    GetVideoTokenQueryResponse,
     typeof queryKey
   >({
+    enabled: !!id,
     queryKey,
     queryFn: async ({ signal }) => {
       config.signal = signal
-      return getCurrentProgress(config)
+      return getVideoToken(id, config)
     },
   })
 }
 
 /**
- * @description Retrieve the user's current active course progress. Returns 404 if no active course is found.
- * @summary Get current active progress
- * {@link /api/course-progress/my-current}
+ * @description Generate an Agora RTC token for a confirmed appointment's video call
+ * @summary Get video call token
+ * {@link /api/appointments/:id/video-token}
  */
-export function useGetCurrentProgress<
-  TData = GetCurrentProgressQueryResponse,
-  TQueryData = GetCurrentProgressQueryResponse,
-  TQueryKey extends QueryKey = GetCurrentProgressQueryKey,
+export function useGetVideoToken<
+  TData = GetVideoTokenQueryResponse,
+  TQueryData = GetVideoTokenQueryResponse,
+  TQueryKey extends QueryKey = GetVideoTokenQueryKey,
 >(
+  id: GetVideoTokenPathParams['id'],
   options: {
     query?: Partial<
       QueryObserverOptions<
-        GetCurrentProgressQueryResponse,
+        GetVideoTokenQueryResponse,
         ResponseErrorConfig<Error>,
         TData,
         TQueryData,
@@ -82,11 +91,11 @@ export function useGetCurrentProgress<
 ) {
   const { query: queryConfig = {}, client: config = {} } = options ?? {}
   const { client: queryClient, ...queryOptions } = queryConfig
-  const queryKey = queryOptions?.queryKey ?? getCurrentProgressQueryKey()
+  const queryKey = queryOptions?.queryKey ?? getVideoTokenQueryKey(id)
 
   const query = useQuery(
     {
-      ...getCurrentProgressQueryOptions(config),
+      ...getVideoTokenQueryOptions(id, config),
       queryKey,
       ...queryOptions,
     } as unknown as QueryObserverOptions,
