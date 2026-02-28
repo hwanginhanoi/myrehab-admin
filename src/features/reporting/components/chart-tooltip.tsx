@@ -4,7 +4,7 @@ import type {
   ValueType,
 } from 'recharts/types/component/DefaultTooltipContent'
 
-type ChartTooltipProps = TooltipContentProps<ValueType, NameType> & {
+type ChartTooltipProps = Partial<TooltipContentProps<ValueType, NameType>> & {
   valueFormatter?: (value: number, name: string) => string
 }
 
