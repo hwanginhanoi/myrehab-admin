@@ -46,26 +46,26 @@ function UsersContent() {
     <>
       <Header fixed>
         <Search />
-        <div className='ms-auto flex items-center space-x-4'>
+        <div className="ms-auto flex items-center space-x-4">
           <ThemeSwitch />
           <ConfigDrawer />
           <ProfileDropdown />
         </div>
       </Header>
-      <Main className='flex flex-1 flex-col gap-4 sm:gap-6'>
-        <div className='flex flex-wrap items-end justify-between gap-2'>
+      <Main className="flex flex-1 flex-col gap-4 sm:gap-6">
+        <div className="flex flex-wrap items-end justify-between gap-2">
           <div>
-            <h2 className='text-2xl font-bold tracking-tight'>
+            <h2 className="text-2xl font-bold tracking-tight">
               Quản lý người dùng
             </h2>
-            <p className='text-muted-foreground'>
+            <p className="text-muted-foreground">
               Quản lý thông tin người dùng trong hệ thống.
             </p>
           </div>
         </div>
         {isLoading ? (
-          <div className='flex h-64 items-center justify-center'>
-            <span className='text-muted-foreground'>Đang tải...</span>
+          <div className="flex h-64 items-center justify-center">
+            <span className="text-muted-foreground">Đang tải...</span>
           </div>
         ) : (
           <UsersTable
@@ -76,7 +76,6 @@ function UsersContent() {
           />
         )}
       </Main>
-
     </>
   )
 }

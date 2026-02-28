@@ -3,10 +3,10 @@
  * Do not edit manually.
  */
 
-import { z } from "zod/v4";
+import { z } from 'zod/v4'
 
 export const courseMetadataDtoSchema = z.object({
   id: z.optional(z.int()),
   title: z.optional(z.string()),
   totalDays: z.optional(z.int()),
-});
+})

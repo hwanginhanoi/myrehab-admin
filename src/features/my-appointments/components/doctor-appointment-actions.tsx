@@ -2,19 +2,27 @@ import { useState } from 'react'
 import { useQueryClient } from '@tanstack/react-query'
 import { toast } from 'sonner'
 import { Button } from '@/components/ui/button'
-import { useConfirmAppointment, useMarkComplete, type AppointmentResponse } from '@/api'
+import {
+  useConfirmAppointment,
+  useMarkComplete,
+  type AppointmentResponse,
+} from '@/api'
 import { RejectDialog } from '@/features/appointment-detail/components/reject-dialog'
 
 type DoctorAppointmentActionsProps = {
   appointment: AppointmentResponse
 }
 
-export function DoctorAppointmentActions({ appointment }: DoctorAppointmentActionsProps) {
+export function DoctorAppointmentActions({
+  appointment,
+}: DoctorAppointmentActionsProps) {
   const [rejectOpen, setRejectOpen] = useState(false)
   const queryClient = useQueryClient()
 
   const invalidate = () => {
-    queryClient.invalidateQueries({ queryKey: [{ url: '/api/appointments/doctor/my-appointments' }] })
+    queryClient.invalidateQueries({
+      queryKey: [{ url: '/api/appointments/doctor/my-appointments' }],
+    })
   }
 
   const confirmAppointment = useConfirmAppointment({
@@ -42,17 +50,17 @@ export function DoctorAppointmentActions({ appointment }: DoctorAppointmentActio
   if (appointment.status === 'PENDING_CONFIRMATION') {
     return (
       <>
-        <div className='flex gap-2'>
+        <div className="flex gap-2">
           <Button
-            size='sm'
+            size="sm"
             onClick={() => confirmAppointment.mutate({ id: appointment.id! })}
             disabled={isPending}
           >
             Xác nhận
           </Button>
           <Button
-            size='sm'
-            variant='destructive'
+            size="sm"
+            variant="destructive"
             onClick={() => setRejectOpen(true)}
             disabled={isPending}
           >
@@ -71,7 +79,7 @@ export function DoctorAppointmentActions({ appointment }: DoctorAppointmentActio
   if (appointment.status === 'CONFIRMED') {
     return (
       <Button
-        size='sm'
+        size="sm"
         onClick={() => markComplete.mutate({ id: appointment.id! })}
         disabled={isPending}
       >

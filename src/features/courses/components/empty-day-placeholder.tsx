@@ -7,7 +7,10 @@ type EmptyDayPlaceholderProps = {
   isAddButton?: boolean
 }
 
-export function EmptyDayPlaceholder({ dayNumber, isAddButton = false }: EmptyDayPlaceholderProps) {
+export function EmptyDayPlaceholder({
+  dayNumber,
+  isAddButton = false,
+}: EmptyDayPlaceholderProps) {
   const { setNodeRef, isOver } = useDroppable({
     id: `day-${dayNumber}-placeholder`,
     data: { type: 'day', dayNumber },
@@ -22,12 +25,14 @@ export function EmptyDayPlaceholder({ dayNumber, isAddButton = false }: EmptyDay
           isOver && 'border-primary bg-primary/10'
         )}
       >
-        <div className='flex items-center justify-center w-10 h-10 rounded-full bg-muted'>
-          <Plus className='h-5 w-5 text-muted-foreground' />
+        <div className="flex items-center justify-center w-10 h-10 rounded-full bg-muted">
+          <Plus className="h-5 w-5 text-muted-foreground" />
         </div>
-        <div className='flex flex-col'>
-          <p className='text-base font-medium'>Thêm bài tập</p>
-          <p className='text-sm text-muted-foreground'>Kéo và thả bài tập vào đây</p>
+        <div className="flex flex-col">
+          <p className="text-base font-medium">Thêm bài tập</p>
+          <p className="text-sm text-muted-foreground">
+            Kéo và thả bài tập vào đây
+          </p>
         </div>
       </div>
     )
@@ -41,8 +46,8 @@ export function EmptyDayPlaceholder({ dayNumber, isAddButton = false }: EmptyDay
         isOver && 'border-primary bg-primary/10'
       )}
     >
-      <Plus className='h-8 w-8 text-muted-foreground mb-2' />
-      <p className='text-sm text-muted-foreground text-center'>
+      <Plus className="h-8 w-8 text-muted-foreground mb-2" />
+      <p className="text-sm text-muted-foreground text-center">
         Kéo bài tập vào đây
         <br />
         hoặc thêm từ thư viện bên trái

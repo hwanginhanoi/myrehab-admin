@@ -3,32 +3,25 @@
  * Do not edit manually.
  */
 
-import type { PagedModel } from "../PagedModel.ts";
+import type { Pageable } from '../Pageable.ts'
+import type { PagedModel } from '../PagedModel.ts'
 
 export type GetMyTransactionHistoryQueryParams = {
   /**
-   * @description Page number (0-indexed)
-   * @default 0
-   * @type integer | undefined, int32
+   * @type object
    */
-  page?: number;
-  /**
-   * @description Page size
-   * @default 20
-   * @type integer | undefined, int32
-   */
-  size?: number;
-};
+  pageable: Pageable
+}
 
 /**
  * @description OK
  */
-export type GetMyTransactionHistory200 = PagedModel;
+export type GetMyTransactionHistory200 = PagedModel
 
-export type GetMyTransactionHistoryQueryResponse = GetMyTransactionHistory200;
+export type GetMyTransactionHistoryQueryResponse = GetMyTransactionHistory200
 
 export type GetMyTransactionHistoryQuery = {
-  Response: GetMyTransactionHistory200;
-  QueryParams: GetMyTransactionHistoryQueryParams;
-  Errors: any;
-};
+  Response: GetMyTransactionHistory200
+  QueryParams: GetMyTransactionHistoryQueryParams
+  Errors: any
+}

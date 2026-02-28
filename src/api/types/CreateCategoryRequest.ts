@@ -4,27 +4,27 @@
  */
 
 export const createCategoryRequestTypeEnum = {
-  BODY_PART: "BODY_PART",
-  HEALTH_CONDITION: "HEALTH_CONDITION",
-  EXERCISE_TYPE: "EXERCISE_TYPE",
-  EXERCISE_EQUIPMENTS: "EXERCISE_EQUIPMENTS",
-  OTHERS: "OTHERS",
-} as const;
+  BODY_PART: 'BODY_PART',
+  HEALTH_CONDITION: 'HEALTH_CONDITION',
+  EXERCISE_TYPE: 'EXERCISE_TYPE',
+  EXERCISE_EQUIPMENTS: 'EXERCISE_EQUIPMENTS',
+  OTHERS: 'OTHERS',
+} as const
 
 export type CreateCategoryRequestTypeEnumKey =
-  (typeof createCategoryRequestTypeEnum)[keyof typeof createCategoryRequestTypeEnum];
+  (typeof createCategoryRequestTypeEnum)[keyof typeof createCategoryRequestTypeEnum]
 
 export type CreateCategoryRequest = {
   /**
    * @type string
    */
-  name: string;
+  name: string
   /**
    * @type string | undefined
    */
-  description?: string;
+  description?: string
   /**
    * @type string
    */
-  type: CreateCategoryRequestTypeEnumKey;
-};
+  type: CreateCategoryRequestTypeEnumKey
+}

@@ -3,16 +3,16 @@
  * Do not edit manually.
  */
 
-import { subscriptionResponseSchema } from "../subscriptionResponseSchema.ts";
-import { z } from "zod/v4";
+import { subscriptionResponseSchema } from '../subscriptionResponseSchema.ts'
+import { z } from 'zod/v4'
 
 /**
  * @description OK
  */
 export const getMySubscriptions200Schema = z.array(
-  z.lazy(() => subscriptionResponseSchema),
-);
+  z.lazy(() => subscriptionResponseSchema)
+)
 
 export const getMySubscriptionsQueryResponseSchema = z.lazy(
-  () => getMySubscriptions200Schema,
-);
+  () => getMySubscriptions200Schema
+)

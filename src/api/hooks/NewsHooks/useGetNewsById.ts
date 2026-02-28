@@ -3,24 +3,24 @@
  * Do not edit manually.
  */
 
-import fetch from "@/lib/api-client";
+import fetch from '@/lib/api-client'
 import type {
   GetNewsByIdQueryResponse,
   GetNewsByIdPathParams,
-} from "../../types/newsController/GetNewsById.ts";
-import type { RequestConfig, ResponseErrorConfig } from "@/lib/api-client";
+} from '../../types/newsController/GetNewsById.ts'
+import type { RequestConfig, ResponseErrorConfig } from '@/lib/api-client'
 import type {
   QueryKey,
   QueryClient,
   QueryObserverOptions,
   UseQueryResult,
-} from "@tanstack/react-query";
-import { queryOptions, useQuery } from "@tanstack/react-query";
+} from '@tanstack/react-query'
+import { queryOptions, useQuery } from '@tanstack/react-query'
 
-export const getNewsByIdQueryKey = (id: GetNewsByIdPathParams["id"]) =>
-  [{ url: "/api/news/:id", params: { id: id } }] as const;
+export const getNewsByIdQueryKey = (id: GetNewsByIdPathParams['id']) =>
+  [{ url: '/api/news/:id', params: { id: id } }] as const
 
-export type GetNewsByIdQueryKey = ReturnType<typeof getNewsByIdQueryKey>;
+export type GetNewsByIdQueryKey = ReturnType<typeof getNewsByIdQueryKey>
 
 /**
  * @description Retrieve a specific news article by its ID
@@ -28,24 +28,24 @@ export type GetNewsByIdQueryKey = ReturnType<typeof getNewsByIdQueryKey>;
  * {@link /api/news/:id}
  */
 export async function getNewsById(
-  id: GetNewsByIdPathParams["id"],
-  config: Partial<RequestConfig> & { client?: typeof fetch } = {},
+  id: GetNewsByIdPathParams['id'],
+  config: Partial<RequestConfig> & { client?: typeof fetch } = {}
 ) {
-  const { client: request = fetch, ...requestConfig } = config;
+  const { client: request = fetch, ...requestConfig } = config
 
   const res = await request<
     GetNewsByIdQueryResponse,
     ResponseErrorConfig<Error>,
     unknown
-  >({ method: "GET", url: `/api/news/${id}`, ...requestConfig });
-  return res.data;
+  >({ method: 'GET', url: `/api/news/${id}`, ...requestConfig })
+  return res.data
 }
 
 export function getNewsByIdQueryOptions(
-  id: GetNewsByIdPathParams["id"],
-  config: Partial<RequestConfig> & { client?: typeof fetch } = {},
+  id: GetNewsByIdPathParams['id'],
+  config: Partial<RequestConfig> & { client?: typeof fetch } = {}
 ) {
-  const queryKey = getNewsByIdQueryKey(id);
+  const queryKey = getNewsByIdQueryKey(id)
   return queryOptions<
     GetNewsByIdQueryResponse,
     ResponseErrorConfig<Error>,
@@ -55,10 +55,10 @@ export function getNewsByIdQueryOptions(
     enabled: !!id,
     queryKey,
     queryFn: async ({ signal }) => {
-      config.signal = signal;
-      return getNewsById(id, config);
+      config.signal = signal
+      return getNewsById(id, config)
     },
-  });
+  })
 }
 
 /**
@@ -71,7 +71,7 @@ export function useGetNewsById<
   TQueryData = GetNewsByIdQueryResponse,
   TQueryKey extends QueryKey = GetNewsByIdQueryKey,
 >(
-  id: GetNewsByIdPathParams["id"],
+  id: GetNewsByIdPathParams['id'],
   options: {
     query?: Partial<
       QueryObserverOptions<
@@ -81,13 +81,13 @@ export function useGetNewsById<
         TQueryData,
         TQueryKey
       >
-    > & { client?: QueryClient };
-    client?: Partial<RequestConfig> & { client?: typeof fetch };
-  } = {},
+    > & { client?: QueryClient }
+    client?: Partial<RequestConfig> & { client?: typeof fetch }
+  } = {}
 ) {
-  const { query: queryConfig = {}, client: config = {} } = options ?? {};
-  const { client: queryClient, ...queryOptions } = queryConfig;
-  const queryKey = queryOptions?.queryKey ?? getNewsByIdQueryKey(id);
+  const { query: queryConfig = {}, client: config = {} } = options ?? {}
+  const { client: queryClient, ...queryOptions } = queryConfig
+  const queryKey = queryOptions?.queryKey ?? getNewsByIdQueryKey(id)
 
   const query = useQuery(
     {
@@ -95,12 +95,12 @@ export function useGetNewsById<
       queryKey,
       ...queryOptions,
     } as unknown as QueryObserverOptions,
-    queryClient,
+    queryClient
   ) as UseQueryResult<TData, ResponseErrorConfig<Error>> & {
-    queryKey: TQueryKey;
-  };
+    queryKey: TQueryKey
+  }
 
-  query.queryKey = queryKey as TQueryKey;
+  query.queryKey = queryKey as TQueryKey
 
-  return query;
+  return query
 }

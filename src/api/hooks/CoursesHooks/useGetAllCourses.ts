@@ -3,24 +3,24 @@
  * Do not edit manually.
  */
 
-import fetch from "@/lib/api-client";
+import fetch from '@/lib/api-client'
 import type {
   GetAllCoursesQueryResponse,
   GetAllCoursesQueryParams,
-} from "../../types/coursesController/GetAllCourses.ts";
-import type { RequestConfig, ResponseErrorConfig } from "@/lib/api-client";
+} from '../../types/coursesController/GetAllCourses.ts'
+import type { RequestConfig, ResponseErrorConfig } from '@/lib/api-client'
 import type {
   QueryKey,
   QueryClient,
   QueryObserverOptions,
   UseQueryResult,
-} from "@tanstack/react-query";
-import { queryOptions, useQuery } from "@tanstack/react-query";
+} from '@tanstack/react-query'
+import { queryOptions, useQuery } from '@tanstack/react-query'
 
 export const getAllCoursesQueryKey = (params: GetAllCoursesQueryParams) =>
-  [{ url: "/api/courses" }, ...(params ? [params] : [])] as const;
+  [{ url: '/api/courses' }, ...(params ? [params] : [])] as const
 
-export type GetAllCoursesQueryKey = ReturnType<typeof getAllCoursesQueryKey>;
+export type GetAllCoursesQueryKey = ReturnType<typeof getAllCoursesQueryKey>
 
 /**
  * @description Get paginated list of all active courses
@@ -29,23 +29,23 @@ export type GetAllCoursesQueryKey = ReturnType<typeof getAllCoursesQueryKey>;
  */
 export async function getAllCourses(
   params: GetAllCoursesQueryParams,
-  config: Partial<RequestConfig> & { client?: typeof fetch } = {},
+  config: Partial<RequestConfig> & { client?: typeof fetch } = {}
 ) {
-  const { client: request = fetch, ...requestConfig } = config;
+  const { client: request = fetch, ...requestConfig } = config
 
   const res = await request<
     GetAllCoursesQueryResponse,
     ResponseErrorConfig<Error>,
     unknown
-  >({ method: "GET", url: `/api/courses`, params, ...requestConfig });
-  return res.data;
+  >({ method: 'GET', url: `/api/courses`, params, ...requestConfig })
+  return res.data
 }
 
 export function getAllCoursesQueryOptions(
   params: GetAllCoursesQueryParams,
-  config: Partial<RequestConfig> & { client?: typeof fetch } = {},
+  config: Partial<RequestConfig> & { client?: typeof fetch } = {}
 ) {
-  const queryKey = getAllCoursesQueryKey(params);
+  const queryKey = getAllCoursesQueryKey(params)
   return queryOptions<
     GetAllCoursesQueryResponse,
     ResponseErrorConfig<Error>,
@@ -55,10 +55,10 @@ export function getAllCoursesQueryOptions(
     enabled: !!params,
     queryKey,
     queryFn: async ({ signal }) => {
-      config.signal = signal;
-      return getAllCourses(params, config);
+      config.signal = signal
+      return getAllCourses(params, config)
     },
-  });
+  })
 }
 
 /**
@@ -81,13 +81,13 @@ export function useGetAllCourses<
         TQueryData,
         TQueryKey
       >
-    > & { client?: QueryClient };
-    client?: Partial<RequestConfig> & { client?: typeof fetch };
-  } = {},
+    > & { client?: QueryClient }
+    client?: Partial<RequestConfig> & { client?: typeof fetch }
+  } = {}
 ) {
-  const { query: queryConfig = {}, client: config = {} } = options ?? {};
-  const { client: queryClient, ...queryOptions } = queryConfig;
-  const queryKey = queryOptions?.queryKey ?? getAllCoursesQueryKey(params);
+  const { query: queryConfig = {}, client: config = {} } = options ?? {}
+  const { client: queryClient, ...queryOptions } = queryConfig
+  const queryKey = queryOptions?.queryKey ?? getAllCoursesQueryKey(params)
 
   const query = useQuery(
     {
@@ -95,12 +95,12 @@ export function useGetAllCourses<
       queryKey,
       ...queryOptions,
     } as unknown as QueryObserverOptions,
-    queryClient,
+    queryClient
   ) as UseQueryResult<TData, ResponseErrorConfig<Error>> & {
-    queryKey: TQueryKey;
-  };
+    queryKey: TQueryKey
+  }
 
-  query.queryKey = queryKey as TQueryKey;
+  query.queryKey = queryKey as TQueryKey
 
-  return query;
+  return query
 }

@@ -106,12 +106,16 @@ export function TransactionsTable({
         'flex flex-1 flex-col gap-4'
       )}
     >
-      <TransactionsTableToolbar table={table} search={search} navigate={navigate} />
-      <div className='overflow-hidden rounded-md border'>
+      <TransactionsTableToolbar
+        table={table}
+        search={search}
+        navigate={navigate}
+      />
+      <div className="overflow-hidden rounded-md border">
         <Table>
           <TableHeader>
             {table.getHeaderGroups().map((headerGroup) => (
-              <TableRow key={headerGroup.id} className='group/row'>
+              <TableRow key={headerGroup.id} className="group/row">
                 {headerGroup.headers.map((header) => (
                   <TableHead
                     key={header.id}
@@ -139,7 +143,7 @@ export function TransactionsTable({
                 <TableRow
                   key={row.id}
                   data-state={row.getIsSelected() && 'selected'}
-                  className='group/row'
+                  className="group/row"
                 >
                   {row.getVisibleCells().map((cell) => (
                     <TableCell
@@ -162,7 +166,7 @@ export function TransactionsTable({
               <TableRow>
                 <TableCell
                   colSpan={columns.length}
-                  className='h-24 text-center'
+                  className="h-24 text-center"
                 >
                   Không có dữ liệu.
                 </TableCell>
@@ -171,7 +175,7 @@ export function TransactionsTable({
           </TableBody>
         </Table>
       </div>
-      <DataTablePagination table={table} className='mt-auto' />
+      <DataTablePagination table={table} className="mt-auto" />
     </div>
   )
 }

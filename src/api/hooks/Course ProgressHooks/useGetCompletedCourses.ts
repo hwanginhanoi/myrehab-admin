@@ -3,23 +3,31 @@
  * Do not edit manually.
  */
 
-import fetch from "@/lib/api-client";
-import type { GetCompletedCoursesQueryResponse } from "../../types/courseProgressController/GetCompletedCourses.ts";
-import type { RequestConfig, ResponseErrorConfig } from "@/lib/api-client";
+import fetch from '@/lib/api-client'
+import type {
+  GetCompletedCoursesQueryResponse,
+  GetCompletedCoursesQueryParams,
+} from '../../types/courseProgressController/GetCompletedCourses.ts'
+import type { RequestConfig, ResponseErrorConfig } from '@/lib/api-client'
 import type {
   QueryKey,
   QueryClient,
   QueryObserverOptions,
   UseQueryResult,
-} from "@tanstack/react-query";
-import { queryOptions, useQuery } from "@tanstack/react-query";
+} from '@tanstack/react-query'
+import { queryOptions, useQuery } from '@tanstack/react-query'
 
-export const getCompletedCoursesQueryKey = () =>
-  [{ url: "/api/course-progress/completed" }] as const;
+export const getCompletedCoursesQueryKey = (
+  params: GetCompletedCoursesQueryParams
+) =>
+  [
+    { url: '/api/course-progress/completed' },
+    ...(params ? [params] : []),
+  ] as const
 
 export type GetCompletedCoursesQueryKey = ReturnType<
   typeof getCompletedCoursesQueryKey
->;
+>
 
 /**
  * @description Retrieve all successfully completed courses (archived with COMPLETED reason). Excludes courses that were restarted or expired. Shows user's achievements and finished rehabilitation programs.
@@ -27,34 +35,42 @@ export type GetCompletedCoursesQueryKey = ReturnType<
  * {@link /api/course-progress/completed}
  */
 export async function getCompletedCourses(
-  config: Partial<RequestConfig> & { client?: typeof fetch } = {},
+  params: GetCompletedCoursesQueryParams,
+  config: Partial<RequestConfig> & { client?: typeof fetch } = {}
 ) {
-  const { client: request = fetch, ...requestConfig } = config;
+  const { client: request = fetch, ...requestConfig } = config
 
   const res = await request<
     GetCompletedCoursesQueryResponse,
     ResponseErrorConfig<Error>,
     unknown
-  >({ method: "GET", url: `/api/course-progress/completed`, ...requestConfig });
-  return res.data;
+  >({
+    method: 'GET',
+    url: `/api/course-progress/completed`,
+    params,
+    ...requestConfig,
+  })
+  return res.data
 }
 
 export function getCompletedCoursesQueryOptions(
-  config: Partial<RequestConfig> & { client?: typeof fetch } = {},
+  params: GetCompletedCoursesQueryParams,
+  config: Partial<RequestConfig> & { client?: typeof fetch } = {}
 ) {
-  const queryKey = getCompletedCoursesQueryKey();
+  const queryKey = getCompletedCoursesQueryKey(params)
   return queryOptions<
     GetCompletedCoursesQueryResponse,
     ResponseErrorConfig<Error>,
     GetCompletedCoursesQueryResponse,
     typeof queryKey
   >({
+    enabled: !!params,
     queryKey,
     queryFn: async ({ signal }) => {
-      config.signal = signal;
-      return getCompletedCourses(config);
+      config.signal = signal
+      return getCompletedCourses(params, config)
     },
-  });
+  })
 }
 
 /**
@@ -67,6 +83,7 @@ export function useGetCompletedCourses<
   TQueryData = GetCompletedCoursesQueryResponse,
   TQueryKey extends QueryKey = GetCompletedCoursesQueryKey,
 >(
+  params: GetCompletedCoursesQueryParams,
   options: {
     query?: Partial<
       QueryObserverOptions<
@@ -76,26 +93,26 @@ export function useGetCompletedCourses<
         TQueryData,
         TQueryKey
       >
-    > & { client?: QueryClient };
-    client?: Partial<RequestConfig> & { client?: typeof fetch };
-  } = {},
+    > & { client?: QueryClient }
+    client?: Partial<RequestConfig> & { client?: typeof fetch }
+  } = {}
 ) {
-  const { query: queryConfig = {}, client: config = {} } = options ?? {};
-  const { client: queryClient, ...queryOptions } = queryConfig;
-  const queryKey = queryOptions?.queryKey ?? getCompletedCoursesQueryKey();
+  const { query: queryConfig = {}, client: config = {} } = options ?? {}
+  const { client: queryClient, ...queryOptions } = queryConfig
+  const queryKey = queryOptions?.queryKey ?? getCompletedCoursesQueryKey(params)
 
   const query = useQuery(
     {
-      ...getCompletedCoursesQueryOptions(config),
+      ...getCompletedCoursesQueryOptions(params, config),
       queryKey,
       ...queryOptions,
     } as unknown as QueryObserverOptions,
-    queryClient,
+    queryClient
   ) as UseQueryResult<TData, ResponseErrorConfig<Error>> & {
-    queryKey: TQueryKey;
-  };
+    queryKey: TQueryKey
+  }
 
-  query.queryKey = queryKey as TQueryKey;
+  query.queryKey = queryKey as TQueryKey
 
-  return query;
+  return query
 }

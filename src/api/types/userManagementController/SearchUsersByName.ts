@@ -3,25 +3,25 @@
  * Do not edit manually.
  */
 
-import type { UserResponse } from "../UserResponse.ts";
+import type { UserResponse } from '../UserResponse.ts'
 
 export type SearchUsersByNameQueryParams = {
   /**
    * @description Search by name, phone number, or email (case-insensitive)
    * @type string | undefined
    */
-  query?: string;
-};
+  query?: string
+}
 
 /**
  * @description OK
  */
-export type SearchUsersByName200 = UserResponse[];
+export type SearchUsersByName200 = UserResponse[]
 
-export type SearchUsersByNameQueryResponse = SearchUsersByName200;
+export type SearchUsersByNameQueryResponse = SearchUsersByName200
 
 export type SearchUsersByNameQuery = {
-  Response: SearchUsersByName200;
-  QueryParams: SearchUsersByNameQueryParams;
-  Errors: any;
-};
+  Response: SearchUsersByName200
+  QueryParams: SearchUsersByNameQueryParams
+  Errors: any
+}

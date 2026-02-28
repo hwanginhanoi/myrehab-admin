@@ -3,20 +3,20 @@
  * Do not edit manually.
  */
 
-import { groupResponseSchema } from "../groupResponseSchema.ts";
-import { z } from "zod/v4";
+import { groupResponseSchema } from '../groupResponseSchema.ts'
+import { z } from 'zod/v4'
 
 export const getExerciseGroupsByDoctorPathParamsSchema = z.object({
-  doctorId: z.coerce.number().int().describe("Doctor ID"),
-});
+  doctorId: z.coerce.number().int().describe('Doctor ID'),
+})
 
 /**
  * @description OK
  */
 export const getExerciseGroupsByDoctor200Schema = z.array(
-  z.lazy(() => groupResponseSchema),
-);
+  z.lazy(() => groupResponseSchema)
+)
 
 export const getExerciseGroupsByDoctorQueryResponseSchema = z.lazy(
-  () => getExerciseGroupsByDoctor200Schema,
-);
+  () => getExerciseGroupsByDoctor200Schema
+)

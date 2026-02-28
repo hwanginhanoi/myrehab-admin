@@ -3,39 +3,39 @@
  * Do not edit manually.
  */
 
-import type { Pageable } from "../Pageable.ts";
-import type { PagedModel } from "../PagedModel.ts";
+import type { Pageable } from '../Pageable.ts'
+import type { PagedModel } from '../PagedModel.ts'
 
 export type GetTrainersByDoctorPathParams = {
   /**
    * @description Doctor ID
    * @type integer, int64
    */
-  doctorId: number;
-};
+  doctorId: number
+}
 
 export type GetTrainersByDoctorQueryParams = {
   /**
    * @description Search by fullName or email (case-insensitive)
    * @type string | undefined
    */
-  query?: string;
+  query?: string
   /**
    * @type object
    */
-  pageable: Pageable;
-};
+  pageable: Pageable
+}
 
 /**
  * @description OK
  */
-export type GetTrainersByDoctor200 = PagedModel;
+export type GetTrainersByDoctor200 = PagedModel
 
-export type GetTrainersByDoctorQueryResponse = GetTrainersByDoctor200;
+export type GetTrainersByDoctorQueryResponse = GetTrainersByDoctor200
 
 export type GetTrainersByDoctorQuery = {
-  Response: GetTrainersByDoctor200;
-  PathParams: GetTrainersByDoctorPathParams;
-  QueryParams: GetTrainersByDoctorQueryParams;
-  Errors: any;
-};
+  Response: GetTrainersByDoctor200
+  PathParams: GetTrainersByDoctorPathParams
+  QueryParams: GetTrainersByDoctorQueryParams
+  Errors: any
+}

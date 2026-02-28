@@ -3,7 +3,7 @@
  * Do not edit manually.
  */
 
-import { z } from "zod/v4";
+import { z } from 'zod/v4'
 
 export const newsResponseSchema = z.object({
   id: z.optional(z.int()),
@@ -12,9 +12,9 @@ export const newsResponseSchema = z.object({
   summary: z.optional(z.string()),
   thumbnailUrl: z.optional(z.string()),
   authorId: z.optional(z.int()),
-  status: z.optional(z.enum(["DRAFT", "PUBLISHED", "ARCHIVED"])),
+  status: z.optional(z.enum(['DRAFT', 'PUBLISHED', 'ARCHIVED'])),
   category: z.optional(z.string()),
   publishedAt: z.optional(z.string().datetime()),
   createdAt: z.optional(z.string().datetime()),
   updatedAt: z.optional(z.string().datetime()),
-});
+})

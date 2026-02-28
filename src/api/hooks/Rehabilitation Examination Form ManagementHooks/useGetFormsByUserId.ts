@@ -3,36 +3,36 @@
  * Do not edit manually.
  */
 
-import fetch from "@/lib/api-client";
+import fetch from '@/lib/api-client'
 import type {
   GetFormsByUserIdQueryResponse,
   GetFormsByUserIdPathParams,
   GetFormsByUserIdQueryParams,
-} from "../../types/rehabilitationExaminationFormManagementController/GetFormsByUserId.ts";
-import type { RequestConfig, ResponseErrorConfig } from "@/lib/api-client";
+} from '../../types/rehabilitationExaminationFormManagementController/GetFormsByUserId.ts'
+import type { RequestConfig, ResponseErrorConfig } from '@/lib/api-client'
 import type {
   QueryKey,
   QueryClient,
   QueryObserverOptions,
   UseQueryResult,
-} from "@tanstack/react-query";
-import { queryOptions, useQuery } from "@tanstack/react-query";
+} from '@tanstack/react-query'
+import { queryOptions, useQuery } from '@tanstack/react-query'
 
 export const getFormsByUserIdQueryKey = (
-  userId: GetFormsByUserIdPathParams["userId"],
-  params: GetFormsByUserIdQueryParams,
+  userId: GetFormsByUserIdPathParams['userId'],
+  params: GetFormsByUserIdQueryParams
 ) =>
   [
     {
-      url: "/api/rehabilitation-examination-forms/user/:userId",
+      url: '/api/rehabilitation-examination-forms/user/:userId',
       params: { userId: userId },
     },
     ...(params ? [params] : []),
-  ] as const;
+  ] as const
 
 export type GetFormsByUserIdQueryKey = ReturnType<
   typeof getFormsByUserIdQueryKey
->;
+>
 
 /**
  * @description Retrieve paginated rehabilitation examination forms for a specific user
@@ -40,31 +40,31 @@ export type GetFormsByUserIdQueryKey = ReturnType<
  * {@link /api/rehabilitation-examination-forms/user/:userId}
  */
 export async function getFormsByUserId(
-  userId: GetFormsByUserIdPathParams["userId"],
+  userId: GetFormsByUserIdPathParams['userId'],
   params: GetFormsByUserIdQueryParams,
-  config: Partial<RequestConfig> & { client?: typeof fetch } = {},
+  config: Partial<RequestConfig> & { client?: typeof fetch } = {}
 ) {
-  const { client: request = fetch, ...requestConfig } = config;
+  const { client: request = fetch, ...requestConfig } = config
 
   const res = await request<
     GetFormsByUserIdQueryResponse,
     ResponseErrorConfig<Error>,
     unknown
   >({
-    method: "GET",
+    method: 'GET',
     url: `/api/rehabilitation-examination-forms/user/${userId}`,
     params,
     ...requestConfig,
-  });
-  return res.data;
+  })
+  return res.data
 }
 
 export function getFormsByUserIdQueryOptions(
-  userId: GetFormsByUserIdPathParams["userId"],
+  userId: GetFormsByUserIdPathParams['userId'],
   params: GetFormsByUserIdQueryParams,
-  config: Partial<RequestConfig> & { client?: typeof fetch } = {},
+  config: Partial<RequestConfig> & { client?: typeof fetch } = {}
 ) {
-  const queryKey = getFormsByUserIdQueryKey(userId, params);
+  const queryKey = getFormsByUserIdQueryKey(userId, params)
   return queryOptions<
     GetFormsByUserIdQueryResponse,
     ResponseErrorConfig<Error>,
@@ -74,10 +74,10 @@ export function getFormsByUserIdQueryOptions(
     enabled: !!(userId && params),
     queryKey,
     queryFn: async ({ signal }) => {
-      config.signal = signal;
-      return getFormsByUserId(userId, params, config);
+      config.signal = signal
+      return getFormsByUserId(userId, params, config)
     },
-  });
+  })
 }
 
 /**
@@ -90,7 +90,7 @@ export function useGetFormsByUserId<
   TQueryData = GetFormsByUserIdQueryResponse,
   TQueryKey extends QueryKey = GetFormsByUserIdQueryKey,
 >(
-  userId: GetFormsByUserIdPathParams["userId"],
+  userId: GetFormsByUserIdPathParams['userId'],
   params: GetFormsByUserIdQueryParams,
   options: {
     query?: Partial<
@@ -101,14 +101,14 @@ export function useGetFormsByUserId<
         TQueryData,
         TQueryKey
       >
-    > & { client?: QueryClient };
-    client?: Partial<RequestConfig> & { client?: typeof fetch };
-  } = {},
+    > & { client?: QueryClient }
+    client?: Partial<RequestConfig> & { client?: typeof fetch }
+  } = {}
 ) {
-  const { query: queryConfig = {}, client: config = {} } = options ?? {};
-  const { client: queryClient, ...queryOptions } = queryConfig;
+  const { query: queryConfig = {}, client: config = {} } = options ?? {}
+  const { client: queryClient, ...queryOptions } = queryConfig
   const queryKey =
-    queryOptions?.queryKey ?? getFormsByUserIdQueryKey(userId, params);
+    queryOptions?.queryKey ?? getFormsByUserIdQueryKey(userId, params)
 
   const query = useQuery(
     {
@@ -116,12 +116,12 @@ export function useGetFormsByUserId<
       queryKey,
       ...queryOptions,
     } as unknown as QueryObserverOptions,
-    queryClient,
+    queryClient
   ) as UseQueryResult<TData, ResponseErrorConfig<Error>> & {
-    queryKey: TQueryKey;
-  };
+    queryKey: TQueryKey
+  }
 
-  query.queryKey = queryKey as TQueryKey;
+  query.queryKey = queryKey as TQueryKey
 
-  return query;
+  return query
 }

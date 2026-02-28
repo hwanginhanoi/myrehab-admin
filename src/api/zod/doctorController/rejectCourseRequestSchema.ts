@@ -3,25 +3,25 @@
  * Do not edit manually.
  */
 
-import { courseAssignmentRequestResponseSchema } from "../courseAssignmentRequestResponseSchema.ts";
-import { reviewCourseRequestRequestSchema } from "../reviewCourseRequestRequestSchema.ts";
-import { z } from "zod/v4";
+import { courseAssignmentRequestResponseSchema } from '../courseAssignmentRequestResponseSchema.ts'
+import { reviewCourseRequestRequestSchema } from '../reviewCourseRequestRequestSchema.ts'
+import { z } from 'zod/v4'
 
 export const rejectCourseRequestPathParamsSchema = z.object({
   id: z.coerce.number().int(),
-});
+})
 
 /**
  * @description OK
  */
 export const rejectCourseRequest200Schema = z.lazy(
-  () => courseAssignmentRequestResponseSchema,
-);
+  () => courseAssignmentRequestResponseSchema
+)
 
 export const rejectCourseRequestMutationRequestSchema = z.lazy(
-  () => reviewCourseRequestRequestSchema,
-);
+  () => reviewCourseRequestRequestSchema
+)
 
 export const rejectCourseRequestMutationResponseSchema = z.lazy(
-  () => rejectCourseRequest200Schema,
-);
+  () => rejectCourseRequest200Schema
+)

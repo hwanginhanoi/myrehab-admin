@@ -8,23 +8,23 @@ export type AssignTrainerToDoctorPathParams = {
    * @description Doctor ID
    * @type integer, int64
    */
-  doctorId: number;
+  doctorId: number
   /**
    * @description Trainer ID
    * @type integer, int64
    */
-  trainerId: number;
-};
+  trainerId: number
+}
 
 /**
- * @description OK
+ * @description Trainer assigned successfully
  */
-export type AssignTrainerToDoctor200 = any;
+export type AssignTrainerToDoctor204 = any
 
-export type AssignTrainerToDoctorMutationResponse = AssignTrainerToDoctor200;
+export type AssignTrainerToDoctorMutationResponse = AssignTrainerToDoctor204
 
 export type AssignTrainerToDoctorMutation = {
-  Response: AssignTrainerToDoctor200;
-  PathParams: AssignTrainerToDoctorPathParams;
-  Errors: any;
-};
+  Response: AssignTrainerToDoctor204
+  PathParams: AssignTrainerToDoctorPathParams
+  Errors: any
+}

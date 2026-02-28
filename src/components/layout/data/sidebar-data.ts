@@ -24,11 +24,14 @@ import {
   Dumbbell,
   Newspaper,
   ClipboardList,
+  ClipboardCheck,
   Image,
   Receipt,
   CalendarCheck,
   CalendarDays,
   Clock,
+  BarChart3,
+  BookCheck,
 } from 'lucide-react'
 import { Logo } from '@/assets/logo'
 import { type SidebarData } from '../types'
@@ -65,6 +68,11 @@ export const sidebarData: SidebarData = {
           url: '/appointments',
           icon: CalendarCheck,
         },
+        {
+          title: 'Báo cáo & Thống kê',
+          url: '/reporting',
+          icon: BarChart3,
+        },
       ],
     },
     {
@@ -84,6 +92,18 @@ export const sidebarData: SidebarData = {
           title: 'Lịch hẹn của tôi',
           url: '/my-appointments',
           icon: CalendarDays,
+        },
+        {
+          title: 'Yêu cầu khóa tập',
+          url: '/course-requests',
+          icon: ClipboardCheck,
+          allowedRoles: ['TRAINER'],
+        },
+        {
+          title: 'Xét duyệt khóa tập',
+          url: '/doctor-course-requests',
+          icon: ShieldCheck,
+          allowedRoles: ['DOCTOR'],
         },
       ],
     },
@@ -113,6 +133,11 @@ export const sidebarData: SidebarData = {
       title: 'Quản trị nội dung',
       items: [
         {
+          title: 'Phân công khóa tập',
+          url: '/course-assignments',
+          icon: BookCheck,
+        },
+        {
           title: 'Danh mục bài tập',
           url: '/exercise-categories',
           icon: FolderTree,
@@ -136,7 +161,7 @@ export const sidebarData: SidebarData = {
           icon: ClipboardList,
           requiredPermission: 'rehab_forms:view',
         },
-      ]
+      ],
     },
     {
       title: 'Quản trị người dùng',
@@ -153,7 +178,7 @@ export const sidebarData: SidebarData = {
           icon: Users,
           allowedRoles: ['ADMIN', 'SUPER_ADMIN'],
         },
-      ]
+      ],
     },
     {
       title: 'Hệ thống',

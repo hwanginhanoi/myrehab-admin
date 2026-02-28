@@ -7,17 +7,17 @@ export type VerifyRegistrationOtpResponse = {
   /**
    * @type string | undefined
    */
-  verificationToken?: string;
+  verificationToken?: string
   /**
    * @type string | undefined
    */
-  message?: string;
+  message?: string
   /**
    * @type integer | undefined, int64
    */
-  expiresInSeconds?: number;
+  expiresInSeconds?: number
   /**
    * @type string | undefined
    */
-  phoneNumber?: string;
-};
+  phoneNumber?: string
+}

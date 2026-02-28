@@ -3,25 +3,25 @@
  * Do not edit manually.
  */
 
-import fetch from "@/lib/api-client";
+import fetch from '@/lib/api-client'
 import type {
   HandleWebhookMutationRequest,
   HandleWebhookMutationResponse,
-} from "../../types/paymentController/HandleWebhook.ts";
-import type { RequestConfig, ResponseErrorConfig } from "@/lib/api-client";
+} from '../../types/paymentController/HandleWebhook.ts'
+import type { RequestConfig, ResponseErrorConfig } from '@/lib/api-client'
 import type {
   UseMutationOptions,
   UseMutationResult,
   QueryClient,
-} from "@tanstack/react-query";
-import { mutationOptions, useMutation } from "@tanstack/react-query";
+} from '@tanstack/react-query'
+import { mutationOptions, useMutation } from '@tanstack/react-query'
 
 export const handleWebhookMutationKey = () =>
-  [{ url: "/api/payment/webhook" }] as const;
+  [{ url: '/api/payment/webhook' }] as const
 
 export type HandleWebhookMutationKey = ReturnType<
   typeof handleWebhookMutationKey
->;
+>
 
 /**
  * @description Receives payment notifications from SePay. Public endpoint authenticated via API Key header. Automatically adds balance when payment is confirmed.
@@ -31,32 +31,32 @@ export type HandleWebhookMutationKey = ReturnType<
 export async function handleWebhook(
   data: HandleWebhookMutationRequest,
   config: Partial<RequestConfig<HandleWebhookMutationRequest>> & {
-    client?: typeof fetch;
-  } = {},
+    client?: typeof fetch
+  } = {}
 ) {
-  const { client: request = fetch, ...requestConfig } = config;
+  const { client: request = fetch, ...requestConfig } = config
 
-  const requestData = data;
+  const requestData = data
 
   const res = await request<
     HandleWebhookMutationResponse,
     ResponseErrorConfig<Error>,
     HandleWebhookMutationRequest
   >({
-    method: "POST",
+    method: 'POST',
     url: `/api/payment/webhook`,
     data: requestData,
     ...requestConfig,
-  });
-  return res.data;
+  })
+  return res.data
 }
 
 export function handleWebhookMutationOptions(
   config: Partial<RequestConfig<HandleWebhookMutationRequest>> & {
-    client?: typeof fetch;
-  } = {},
+    client?: typeof fetch
+  } = {}
 ) {
-  const mutationKey = handleWebhookMutationKey();
+  const mutationKey = handleWebhookMutationKey()
   return mutationOptions<
     HandleWebhookMutationResponse,
     ResponseErrorConfig<Error>,
@@ -65,9 +65,9 @@ export function handleWebhookMutationOptions(
   >({
     mutationKey,
     mutationFn: async ({ data }) => {
-      return handleWebhook(data, config);
+      return handleWebhook(data, config)
     },
-  });
+  })
 }
 
 /**
@@ -82,24 +82,24 @@ export function useHandleWebhook<TContext>(
       ResponseErrorConfig<Error>,
       { data: HandleWebhookMutationRequest },
       TContext
-    > & { client?: QueryClient };
+    > & { client?: QueryClient }
     client?: Partial<RequestConfig<HandleWebhookMutationRequest>> & {
-      client?: typeof fetch;
-    };
-  } = {},
+      client?: typeof fetch
+    }
+  } = {}
 ) {
-  const { mutation = {}, client: config = {} } = options ?? {};
-  const { client: queryClient, ...mutationOptions } = mutation;
-  const mutationKey = mutationOptions.mutationKey ?? handleWebhookMutationKey();
+  const { mutation = {}, client: config = {} } = options ?? {}
+  const { client: queryClient, ...mutationOptions } = mutation
+  const mutationKey = mutationOptions.mutationKey ?? handleWebhookMutationKey()
 
   const baseOptions = handleWebhookMutationOptions(
-    config,
+    config
   ) as UseMutationOptions<
     HandleWebhookMutationResponse,
     ResponseErrorConfig<Error>,
     { data: HandleWebhookMutationRequest },
     TContext
-  >;
+  >
 
   return useMutation<
     HandleWebhookMutationResponse,
@@ -112,11 +112,11 @@ export function useHandleWebhook<TContext>(
       mutationKey,
       ...mutationOptions,
     },
-    queryClient,
+    queryClient
   ) as UseMutationResult<
     HandleWebhookMutationResponse,
     ResponseErrorConfig<Error>,
     { data: HandleWebhookMutationRequest },
     TContext
-  >;
+  >
 }

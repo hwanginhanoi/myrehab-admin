@@ -6,10 +6,10 @@ export function ExercisesDialogs() {
   return (
     <>
       <ExercisesActionDialog
-        key='exercise-add'
+        key="exercise-add"
         open={open === 'add'}
         onOpenChange={() => setOpen('add')}
-        mode='add'
+        mode="add"
       />
 
       {currentRow && (
@@ -24,7 +24,7 @@ export function ExercisesDialogs() {
               }, 500)
             }}
             currentRow={currentRow}
-            mode='edit'
+            mode="edit"
           />
 
           <ExercisesActionDialog
@@ -37,7 +37,7 @@ export function ExercisesDialogs() {
               }, 500)
             }}
             currentRow={currentRow}
-            mode='view'
+            mode="view"
           />
         </>
       )}

@@ -3,31 +3,31 @@
  * Do not edit manually.
  */
 
-import fetch from "@/lib/api-client";
+import fetch from '@/lib/api-client'
 import type {
   GetCompanyInfoQueryResponse,
   GetCompanyInfoPathParams,
-} from "../../types/userHealthInfoController/GetCompanyInfo.ts";
-import type { RequestConfig, ResponseErrorConfig } from "@/lib/api-client";
+} from '../../types/userHealthInfoController/GetCompanyInfo.ts'
+import type { RequestConfig, ResponseErrorConfig } from '@/lib/api-client'
 import type {
   QueryKey,
   QueryClient,
   QueryObserverOptions,
   UseQueryResult,
-} from "@tanstack/react-query";
-import { queryOptions, useQuery } from "@tanstack/react-query";
+} from '@tanstack/react-query'
+import { queryOptions, useQuery } from '@tanstack/react-query'
 
 export const getCompanyInfoQueryKey = (
-  userId: GetCompanyInfoPathParams["userId"],
+  userId: GetCompanyInfoPathParams['userId']
 ) =>
   [
     {
-      url: "/api/users/:userId/health-info/company-info",
+      url: '/api/users/:userId/health-info/company-info',
       params: { userId: userId },
     },
-  ] as const;
+  ] as const
 
-export type GetCompanyInfoQueryKey = ReturnType<typeof getCompanyInfoQueryKey>;
+export type GetCompanyInfoQueryKey = ReturnType<typeof getCompanyInfoQueryKey>
 
 /**
  * @description Admins can retrieve a user's company information
@@ -35,28 +35,28 @@ export type GetCompanyInfoQueryKey = ReturnType<typeof getCompanyInfoQueryKey>;
  * {@link /api/users/:userId/health-info/company-info}
  */
 export async function getCompanyInfo(
-  userId: GetCompanyInfoPathParams["userId"],
-  config: Partial<RequestConfig> & { client?: typeof fetch } = {},
+  userId: GetCompanyInfoPathParams['userId'],
+  config: Partial<RequestConfig> & { client?: typeof fetch } = {}
 ) {
-  const { client: request = fetch, ...requestConfig } = config;
+  const { client: request = fetch, ...requestConfig } = config
 
   const res = await request<
     GetCompanyInfoQueryResponse,
     ResponseErrorConfig<Error>,
     unknown
   >({
-    method: "GET",
+    method: 'GET',
     url: `/api/users/${userId}/health-info/company-info`,
     ...requestConfig,
-  });
-  return res.data;
+  })
+  return res.data
 }
 
 export function getCompanyInfoQueryOptions(
-  userId: GetCompanyInfoPathParams["userId"],
-  config: Partial<RequestConfig> & { client?: typeof fetch } = {},
+  userId: GetCompanyInfoPathParams['userId'],
+  config: Partial<RequestConfig> & { client?: typeof fetch } = {}
 ) {
-  const queryKey = getCompanyInfoQueryKey(userId);
+  const queryKey = getCompanyInfoQueryKey(userId)
   return queryOptions<
     GetCompanyInfoQueryResponse,
     ResponseErrorConfig<Error>,
@@ -66,10 +66,10 @@ export function getCompanyInfoQueryOptions(
     enabled: !!userId,
     queryKey,
     queryFn: async ({ signal }) => {
-      config.signal = signal;
-      return getCompanyInfo(userId, config);
+      config.signal = signal
+      return getCompanyInfo(userId, config)
     },
-  });
+  })
 }
 
 /**
@@ -82,7 +82,7 @@ export function useGetCompanyInfo<
   TQueryData = GetCompanyInfoQueryResponse,
   TQueryKey extends QueryKey = GetCompanyInfoQueryKey,
 >(
-  userId: GetCompanyInfoPathParams["userId"],
+  userId: GetCompanyInfoPathParams['userId'],
   options: {
     query?: Partial<
       QueryObserverOptions<
@@ -92,13 +92,13 @@ export function useGetCompanyInfo<
         TQueryData,
         TQueryKey
       >
-    > & { client?: QueryClient };
-    client?: Partial<RequestConfig> & { client?: typeof fetch };
-  } = {},
+    > & { client?: QueryClient }
+    client?: Partial<RequestConfig> & { client?: typeof fetch }
+  } = {}
 ) {
-  const { query: queryConfig = {}, client: config = {} } = options ?? {};
-  const { client: queryClient, ...queryOptions } = queryConfig;
-  const queryKey = queryOptions?.queryKey ?? getCompanyInfoQueryKey(userId);
+  const { query: queryConfig = {}, client: config = {} } = options ?? {}
+  const { client: queryClient, ...queryOptions } = queryConfig
+  const queryKey = queryOptions?.queryKey ?? getCompanyInfoQueryKey(userId)
 
   const query = useQuery(
     {
@@ -106,12 +106,12 @@ export function useGetCompanyInfo<
       queryKey,
       ...queryOptions,
     } as unknown as QueryObserverOptions,
-    queryClient,
+    queryClient
   ) as UseQueryResult<TData, ResponseErrorConfig<Error>> & {
-    queryKey: TQueryKey;
-  };
+    queryKey: TQueryKey
+  }
 
-  query.queryKey = queryKey as TQueryKey;
+  query.queryKey = queryKey as TQueryKey
 
-  return query;
+  return query
 }

@@ -3,19 +3,19 @@
  * Do not edit manually.
  */
 
-import { createExerciseRequestSchema } from "../createExerciseRequestSchema.ts";
-import { exerciseResponseSchema } from "../exerciseResponseSchema.ts";
-import { z } from "zod/v4";
+import { createExerciseRequestSchema } from '../createExerciseRequestSchema.ts'
+import { exerciseResponseSchema } from '../exerciseResponseSchema.ts'
+import { z } from 'zod/v4'
 
 /**
  * @description OK
  */
-export const createExercise200Schema = z.lazy(() => exerciseResponseSchema);
+export const createExercise200Schema = z.lazy(() => exerciseResponseSchema)
 
 export const createExerciseMutationRequestSchema = z.lazy(
-  () => createExerciseRequestSchema,
-);
+  () => createExerciseRequestSchema
+)
 
 export const createExerciseMutationResponseSchema = z.lazy(
-  () => createExercise200Schema,
-);
+  () => createExercise200Schema
+)

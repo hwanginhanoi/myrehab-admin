@@ -3,31 +3,31 @@
  * Do not edit manually.
  */
 
-import fetch from "@/lib/api-client";
+import fetch from '@/lib/api-client'
 import type {
   GetDisputedAppointmentsQueryResponse,
   GetDisputedAppointmentsQueryParams,
-} from "../../types/appointmentsController/GetDisputedAppointments.ts";
-import type { RequestConfig, ResponseErrorConfig } from "@/lib/api-client";
+} from '../../types/appointmentsController/GetDisputedAppointments.ts'
+import type { RequestConfig, ResponseErrorConfig } from '@/lib/api-client'
 import type {
   QueryKey,
   QueryClient,
   QueryObserverOptions,
   UseQueryResult,
-} from "@tanstack/react-query";
-import { queryOptions, useQuery } from "@tanstack/react-query";
+} from '@tanstack/react-query'
+import { queryOptions, useQuery } from '@tanstack/react-query'
 
 export const getDisputedAppointmentsQueryKey = (
-  params: GetDisputedAppointmentsQueryParams,
+  params: GetDisputedAppointmentsQueryParams
 ) =>
   [
-    { url: "/api/appointments/admin/disputed" },
+    { url: '/api/appointments/admin/disputed' },
     ...(params ? [params] : []),
-  ] as const;
+  ] as const
 
 export type GetDisputedAppointmentsQueryKey = ReturnType<
   typeof getDisputedAppointmentsQueryKey
->;
+>
 
 /**
  * @description Admin views all disputed appointments
@@ -36,28 +36,28 @@ export type GetDisputedAppointmentsQueryKey = ReturnType<
  */
 export async function getDisputedAppointments(
   params: GetDisputedAppointmentsQueryParams,
-  config: Partial<RequestConfig> & { client?: typeof fetch } = {},
+  config: Partial<RequestConfig> & { client?: typeof fetch } = {}
 ) {
-  const { client: request = fetch, ...requestConfig } = config;
+  const { client: request = fetch, ...requestConfig } = config
 
   const res = await request<
     GetDisputedAppointmentsQueryResponse,
     ResponseErrorConfig<Error>,
     unknown
   >({
-    method: "GET",
+    method: 'GET',
     url: `/api/appointments/admin/disputed`,
     params,
     ...requestConfig,
-  });
-  return res.data;
+  })
+  return res.data
 }
 
 export function getDisputedAppointmentsQueryOptions(
   params: GetDisputedAppointmentsQueryParams,
-  config: Partial<RequestConfig> & { client?: typeof fetch } = {},
+  config: Partial<RequestConfig> & { client?: typeof fetch } = {}
 ) {
-  const queryKey = getDisputedAppointmentsQueryKey(params);
+  const queryKey = getDisputedAppointmentsQueryKey(params)
   return queryOptions<
     GetDisputedAppointmentsQueryResponse,
     ResponseErrorConfig<Error>,
@@ -67,10 +67,10 @@ export function getDisputedAppointmentsQueryOptions(
     enabled: !!params,
     queryKey,
     queryFn: async ({ signal }) => {
-      config.signal = signal;
-      return getDisputedAppointments(params, config);
+      config.signal = signal
+      return getDisputedAppointments(params, config)
     },
-  });
+  })
 }
 
 /**
@@ -93,14 +93,14 @@ export function useGetDisputedAppointments<
         TQueryData,
         TQueryKey
       >
-    > & { client?: QueryClient };
-    client?: Partial<RequestConfig> & { client?: typeof fetch };
-  } = {},
+    > & { client?: QueryClient }
+    client?: Partial<RequestConfig> & { client?: typeof fetch }
+  } = {}
 ) {
-  const { query: queryConfig = {}, client: config = {} } = options ?? {};
-  const { client: queryClient, ...queryOptions } = queryConfig;
+  const { query: queryConfig = {}, client: config = {} } = options ?? {}
+  const { client: queryClient, ...queryOptions } = queryConfig
   const queryKey =
-    queryOptions?.queryKey ?? getDisputedAppointmentsQueryKey(params);
+    queryOptions?.queryKey ?? getDisputedAppointmentsQueryKey(params)
 
   const query = useQuery(
     {
@@ -108,12 +108,12 @@ export function useGetDisputedAppointments<
       queryKey,
       ...queryOptions,
     } as unknown as QueryObserverOptions,
-    queryClient,
+    queryClient
   ) as UseQueryResult<TData, ResponseErrorConfig<Error>> & {
-    queryKey: TQueryKey;
-  };
+    queryKey: TQueryKey
+  }
 
-  query.queryKey = queryKey as TQueryKey;
+  query.queryKey = queryKey as TQueryKey
 
-  return query;
+  return query
 }

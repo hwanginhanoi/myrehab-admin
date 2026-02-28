@@ -6,6 +6,9 @@ type DoctorPermissionFormProps = {
   readOnly?: boolean
 }
 
-export function DoctorPermissionForm({ doctor, readOnly }: DoctorPermissionFormProps) {
+export function DoctorPermissionForm({
+  doctor,
+  readOnly,
+}: DoctorPermissionFormProps) {
   return <StaffPermissionForm staff={doctor} readOnly={readOnly} />
 }

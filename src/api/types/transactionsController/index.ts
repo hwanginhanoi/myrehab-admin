@@ -3,15 +3,15 @@ export type {
   GetAllTransactionHistory200,
   GetAllTransactionHistoryQueryResponse,
   GetAllTransactionHistoryQuery,
-} from "./GetAllTransactionHistory.ts";
+} from './GetAllTransactionHistory.ts'
 export type {
   GetMyTotalSpending200,
   GetMyTotalSpendingQueryResponse,
   GetMyTotalSpendingQuery,
-} from "./GetMyTotalSpending.ts";
+} from './GetMyTotalSpending.ts'
 export type {
   GetMyTransactionHistoryQueryParams,
   GetMyTransactionHistory200,
   GetMyTransactionHistoryQueryResponse,
   GetMyTransactionHistoryQuery,
-} from "./GetMyTransactionHistory.ts";
+} from './GetMyTransactionHistory.ts'

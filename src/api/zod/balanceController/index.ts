@@ -2,8 +2,8 @@ export {
   addBalance200Schema,
   addBalanceMutationRequestSchema,
   addBalanceMutationResponseSchema,
-} from "./addBalanceSchema.ts";
+} from './addBalanceSchema.ts'
 export {
   getMyBalance200Schema,
   getMyBalanceQueryResponseSchema,
-} from "./getMyBalanceSchema.ts";
+} from './getMyBalanceSchema.ts'

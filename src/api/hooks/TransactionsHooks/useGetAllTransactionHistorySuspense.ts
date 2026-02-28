@@ -3,28 +3,28 @@
  * Do not edit manually.
  */
 
-import fetch from "@/lib/api-client";
+import fetch from '@/lib/api-client'
 import type {
   GetAllTransactionHistoryQueryResponse,
   GetAllTransactionHistoryQueryParams,
-} from "../../types/transactionsController/GetAllTransactionHistory.ts";
-import type { RequestConfig, ResponseErrorConfig } from "@/lib/api-client";
+} from '../../types/transactionsController/GetAllTransactionHistory.ts'
+import type { RequestConfig, ResponseErrorConfig } from '@/lib/api-client'
 import type {
   QueryKey,
   QueryClient,
   UseSuspenseQueryOptions,
   UseSuspenseQueryResult,
-} from "@tanstack/react-query";
-import { queryOptions, useSuspenseQuery } from "@tanstack/react-query";
+} from '@tanstack/react-query'
+import { queryOptions, useSuspenseQuery } from '@tanstack/react-query'
 
 export const getAllTransactionHistorySuspenseQueryKey = (
-  params: GetAllTransactionHistoryQueryParams,
+  params: GetAllTransactionHistoryQueryParams
 ) =>
-  [{ url: "/api/transactions/history" }, ...(params ? [params] : [])] as const;
+  [{ url: '/api/transactions/history' }, ...(params ? [params] : [])] as const
 
 export type GetAllTransactionHistorySuspenseQueryKey = ReturnType<
   typeof getAllTransactionHistorySuspenseQueryKey
->;
+>
 
 /**
  * @description Retrieve paginated transaction history across all users with optional filters. Search by user name or phone number (case-insensitive, partial match).
@@ -33,28 +33,28 @@ export type GetAllTransactionHistorySuspenseQueryKey = ReturnType<
  */
 export async function getAllTransactionHistorySuspense(
   params: GetAllTransactionHistoryQueryParams,
-  config: Partial<RequestConfig> & { client?: typeof fetch } = {},
+  config: Partial<RequestConfig> & { client?: typeof fetch } = {}
 ) {
-  const { client: request = fetch, ...requestConfig } = config;
+  const { client: request = fetch, ...requestConfig } = config
 
   const res = await request<
     GetAllTransactionHistoryQueryResponse,
     ResponseErrorConfig<Error>,
     unknown
   >({
-    method: "GET",
+    method: 'GET',
     url: `/api/transactions/history`,
     params,
     ...requestConfig,
-  });
-  return res.data;
+  })
+  return res.data
 }
 
 export function getAllTransactionHistorySuspenseQueryOptions(
   params: GetAllTransactionHistoryQueryParams,
-  config: Partial<RequestConfig> & { client?: typeof fetch } = {},
+  config: Partial<RequestConfig> & { client?: typeof fetch } = {}
 ) {
-  const queryKey = getAllTransactionHistorySuspenseQueryKey(params);
+  const queryKey = getAllTransactionHistorySuspenseQueryKey(params)
   return queryOptions<
     GetAllTransactionHistoryQueryResponse,
     ResponseErrorConfig<Error>,
@@ -64,10 +64,10 @@ export function getAllTransactionHistorySuspenseQueryOptions(
     enabled: !!params,
     queryKey,
     queryFn: async ({ signal }) => {
-      config.signal = signal;
-      return getAllTransactionHistorySuspense(params, config);
+      config.signal = signal
+      return getAllTransactionHistorySuspense(params, config)
     },
-  });
+  })
 }
 
 /**
@@ -88,14 +88,14 @@ export function useGetAllTransactionHistorySuspense<
         TData,
         TQueryKey
       >
-    > & { client?: QueryClient };
-    client?: Partial<RequestConfig> & { client?: typeof fetch };
-  } = {},
+    > & { client?: QueryClient }
+    client?: Partial<RequestConfig> & { client?: typeof fetch }
+  } = {}
 ) {
-  const { query: queryConfig = {}, client: config = {} } = options ?? {};
-  const { client: queryClient, ...queryOptions } = queryConfig;
+  const { query: queryConfig = {}, client: config = {} } = options ?? {}
+  const { client: queryClient, ...queryOptions } = queryConfig
   const queryKey =
-    queryOptions?.queryKey ?? getAllTransactionHistorySuspenseQueryKey(params);
+    queryOptions?.queryKey ?? getAllTransactionHistorySuspenseQueryKey(params)
 
   const query = useSuspenseQuery(
     {
@@ -103,12 +103,12 @@ export function useGetAllTransactionHistorySuspense<
       queryKey,
       ...queryOptions,
     } as unknown as UseSuspenseQueryOptions,
-    queryClient,
+    queryClient
   ) as UseSuspenseQueryResult<TData, ResponseErrorConfig<Error>> & {
-    queryKey: TQueryKey;
-  };
+    queryKey: TQueryKey
+  }
 
-  query.queryKey = queryKey as TQueryKey;
+  query.queryKey = queryKey as TQueryKey
 
-  return query;
+  return query
 }

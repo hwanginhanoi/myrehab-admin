@@ -3,33 +3,33 @@
  * Do not edit manually.
  */
 
-import fetch from "@/lib/api-client";
+import fetch from '@/lib/api-client'
 import type {
   GetNonCompulsoryInsuranceQueryResponse,
   GetNonCompulsoryInsurancePathParams,
-} from "../../types/userHealthInfoController/GetNonCompulsoryInsurance.ts";
-import type { RequestConfig, ResponseErrorConfig } from "@/lib/api-client";
+} from '../../types/userHealthInfoController/GetNonCompulsoryInsurance.ts'
+import type { RequestConfig, ResponseErrorConfig } from '@/lib/api-client'
 import type {
   QueryKey,
   QueryClient,
   QueryObserverOptions,
   UseQueryResult,
-} from "@tanstack/react-query";
-import { queryOptions, useQuery } from "@tanstack/react-query";
+} from '@tanstack/react-query'
+import { queryOptions, useQuery } from '@tanstack/react-query'
 
 export const getNonCompulsoryInsuranceQueryKey = (
-  userId: GetNonCompulsoryInsurancePathParams["userId"],
+  userId: GetNonCompulsoryInsurancePathParams['userId']
 ) =>
   [
     {
-      url: "/api/users/:userId/health-info/non-compulsory-insurance",
+      url: '/api/users/:userId/health-info/non-compulsory-insurance',
       params: { userId: userId },
     },
-  ] as const;
+  ] as const
 
 export type GetNonCompulsoryInsuranceQueryKey = ReturnType<
   typeof getNonCompulsoryInsuranceQueryKey
->;
+>
 
 /**
  * @description Admins can retrieve a user's non-compulsory health insurance information
@@ -37,28 +37,28 @@ export type GetNonCompulsoryInsuranceQueryKey = ReturnType<
  * {@link /api/users/:userId/health-info/non-compulsory-insurance}
  */
 export async function getNonCompulsoryInsurance(
-  userId: GetNonCompulsoryInsurancePathParams["userId"],
-  config: Partial<RequestConfig> & { client?: typeof fetch } = {},
+  userId: GetNonCompulsoryInsurancePathParams['userId'],
+  config: Partial<RequestConfig> & { client?: typeof fetch } = {}
 ) {
-  const { client: request = fetch, ...requestConfig } = config;
+  const { client: request = fetch, ...requestConfig } = config
 
   const res = await request<
     GetNonCompulsoryInsuranceQueryResponse,
     ResponseErrorConfig<Error>,
     unknown
   >({
-    method: "GET",
+    method: 'GET',
     url: `/api/users/${userId}/health-info/non-compulsory-insurance`,
     ...requestConfig,
-  });
-  return res.data;
+  })
+  return res.data
 }
 
 export function getNonCompulsoryInsuranceQueryOptions(
-  userId: GetNonCompulsoryInsurancePathParams["userId"],
-  config: Partial<RequestConfig> & { client?: typeof fetch } = {},
+  userId: GetNonCompulsoryInsurancePathParams['userId'],
+  config: Partial<RequestConfig> & { client?: typeof fetch } = {}
 ) {
-  const queryKey = getNonCompulsoryInsuranceQueryKey(userId);
+  const queryKey = getNonCompulsoryInsuranceQueryKey(userId)
   return queryOptions<
     GetNonCompulsoryInsuranceQueryResponse,
     ResponseErrorConfig<Error>,
@@ -68,10 +68,10 @@ export function getNonCompulsoryInsuranceQueryOptions(
     enabled: !!userId,
     queryKey,
     queryFn: async ({ signal }) => {
-      config.signal = signal;
-      return getNonCompulsoryInsurance(userId, config);
+      config.signal = signal
+      return getNonCompulsoryInsurance(userId, config)
     },
-  });
+  })
 }
 
 /**
@@ -84,7 +84,7 @@ export function useGetNonCompulsoryInsurance<
   TQueryData = GetNonCompulsoryInsuranceQueryResponse,
   TQueryKey extends QueryKey = GetNonCompulsoryInsuranceQueryKey,
 >(
-  userId: GetNonCompulsoryInsurancePathParams["userId"],
+  userId: GetNonCompulsoryInsurancePathParams['userId'],
   options: {
     query?: Partial<
       QueryObserverOptions<
@@ -94,14 +94,14 @@ export function useGetNonCompulsoryInsurance<
         TQueryData,
         TQueryKey
       >
-    > & { client?: QueryClient };
-    client?: Partial<RequestConfig> & { client?: typeof fetch };
-  } = {},
+    > & { client?: QueryClient }
+    client?: Partial<RequestConfig> & { client?: typeof fetch }
+  } = {}
 ) {
-  const { query: queryConfig = {}, client: config = {} } = options ?? {};
-  const { client: queryClient, ...queryOptions } = queryConfig;
+  const { query: queryConfig = {}, client: config = {} } = options ?? {}
+  const { client: queryClient, ...queryOptions } = queryConfig
   const queryKey =
-    queryOptions?.queryKey ?? getNonCompulsoryInsuranceQueryKey(userId);
+    queryOptions?.queryKey ?? getNonCompulsoryInsuranceQueryKey(userId)
 
   const query = useQuery(
     {
@@ -109,12 +109,12 @@ export function useGetNonCompulsoryInsurance<
       queryKey,
       ...queryOptions,
     } as unknown as QueryObserverOptions,
-    queryClient,
+    queryClient
   ) as UseQueryResult<TData, ResponseErrorConfig<Error>> & {
-    queryKey: TQueryKey;
-  };
+    queryKey: TQueryKey
+  }
 
-  query.queryKey = queryKey as TQueryKey;
+  query.queryKey = queryKey as TQueryKey
 
-  return query;
+  return query
 }

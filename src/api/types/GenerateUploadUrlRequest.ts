@@ -7,15 +7,15 @@ export type GenerateUploadUrlRequest = {
   /**
    * @type string
    */
-  fileName: string;
+  fileName: string
   /**
    * @pattern ^(image|video)/.*
    * @type string
    */
-  contentType: string;
+  contentType: string
   /**
    * @pattern ^(exercise-image|exercise-video|course-image|course-video|profile-image|news-image|exercise-package-image)$
    * @type string
    */
-  category: string;
-};
+  category: string
+}

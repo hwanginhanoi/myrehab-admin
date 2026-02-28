@@ -3,20 +3,20 @@
  * Do not edit manually.
  */
 
-import type { AddBalanceRequest } from "../AddBalanceRequest.ts";
-import type { BalanceResponse } from "../BalanceResponse.ts";
+import type { AddBalanceRequest } from '../AddBalanceRequest.ts'
+import type { BalanceResponse } from '../BalanceResponse.ts'
 
 /**
  * @description OK
  */
-export type AddBalance200 = BalanceResponse;
+export type AddBalance200 = BalanceResponse
 
-export type AddBalanceMutationRequest = AddBalanceRequest;
+export type AddBalanceMutationRequest = AddBalanceRequest
 
-export type AddBalanceMutationResponse = AddBalance200;
+export type AddBalanceMutationResponse = AddBalance200
 
 export type AddBalanceMutation = {
-  Response: AddBalance200;
-  Request: AddBalanceMutationRequest;
-  Errors: any;
-};
+  Response: AddBalance200
+  Request: AddBalanceMutationRequest
+  Errors: any
+}

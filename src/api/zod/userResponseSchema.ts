@@ -3,7 +3,7 @@
  * Do not edit manually.
  */
 
-import { z } from "zod/v4";
+import { z } from 'zod/v4'
 
 export const userResponseSchema = z.object({
   id: z.optional(z.int()),
@@ -17,4 +17,4 @@ export const userResponseSchema = z.object({
   balance: z.optional(z.int()),
   createdAt: z.optional(z.string().datetime()),
   updatedAt: z.optional(z.string().datetime()),
-});
+})

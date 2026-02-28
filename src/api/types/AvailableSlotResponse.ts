@@ -3,23 +3,23 @@
  * Do not edit manually.
  */
 
-import type { LocalTime } from "./LocalTime.ts";
+import type { LocalTime } from './LocalTime.ts'
 
 export type AvailableSlotResponse = {
   /**
    * @type string | undefined, date
    */
-  date?: string;
+  date?: string
   /**
    * @type object | undefined
    */
-  startTime?: LocalTime;
+  startTime?: LocalTime
   /**
    * @type object | undefined
    */
-  endTime?: LocalTime;
+  endTime?: LocalTime
   /**
    * @type boolean | undefined
    */
-  available?: boolean;
-};
+  available?: boolean
+}

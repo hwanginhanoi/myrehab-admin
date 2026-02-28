@@ -4,14 +4,14 @@
  */
 
 export const createStaffRequestStaffTypeEnum = {
-  DOCTOR: "DOCTOR",
-  TRAINER: "TRAINER",
-  ADMIN: "ADMIN",
-  SUPER_ADMIN: "SUPER_ADMIN",
-} as const;
+  DOCTOR: 'DOCTOR',
+  TRAINER: 'TRAINER',
+  ADMIN: 'ADMIN',
+  SUPER_ADMIN: 'SUPER_ADMIN',
+} as const
 
 export type CreateStaffRequestStaffTypeEnumKey =
-  (typeof createStaffRequestStaffTypeEnum)[keyof typeof createStaffRequestStaffTypeEnum];
+  (typeof createStaffRequestStaffTypeEnum)[keyof typeof createStaffRequestStaffTypeEnum]
 
 /**
  * @description Create request for staff - contains only Staff entity fields
@@ -21,37 +21,37 @@ export type CreateStaffRequest = {
    * @description Staff email address
    * @type string
    */
-  email: string;
+  email: string
   /**
    * @description Staff password (min 8 characters)
    * @minLength 8
    * @maxLength 2147483647
    * @type string
    */
-  password: string;
+  password: string
   /**
    * @description Staff full name
    * @type string
    */
-  fullName: string;
+  fullName: string
   /**
    * @description Staff phone number
    * @type string | undefined
    */
-  phoneNumber?: string;
+  phoneNumber?: string
   /**
    * @description Type of staff to create
    * @type string
    */
-  staffType: CreateStaffRequestStaffTypeEnumKey;
+  staffType: CreateStaffRequestStaffTypeEnumKey
   /**
    * @description Staff description or bio
    * @type string | undefined
    */
-  description?: string;
+  description?: string
   /**
    * @description List of permission codes assigned to this staff member
    * @type array | undefined
    */
-  permissions?: string[];
-};
+  permissions?: string[]
+}

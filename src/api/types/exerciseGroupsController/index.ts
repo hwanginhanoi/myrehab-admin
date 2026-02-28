@@ -3,23 +3,23 @@ export type {
   CreateGroupMutationRequest,
   CreateGroupMutationResponse,
   CreateGroupMutation,
-} from "./CreateGroup.ts";
+} from './CreateGroup.ts'
 export type {
   GetAllGroupsQueryParams,
   GetAllGroups200,
   GetAllGroupsQueryResponse,
   GetAllGroupsQuery,
-} from "./GetAllGroups.ts";
+} from './GetAllGroups.ts'
 export type {
   GetGroupByIdPathParams,
   GetGroupById200,
   GetGroupByIdQueryResponse,
   GetGroupByIdQuery,
-} from "./GetGroupById.ts";
+} from './GetGroupById.ts'
 export type {
   UpdateGroupPathParams,
   UpdateGroup200,
   UpdateGroupMutationRequest,
   UpdateGroupMutationResponse,
   UpdateGroupMutation,
-} from "./UpdateGroup.ts";
+} from './UpdateGroup.ts'

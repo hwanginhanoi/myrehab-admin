@@ -13,8 +13,12 @@ export function TrainerPermissionSection({
 }: TrainerPermissionSectionProps) {
   return (
     <TrainerContentSection
-      title='Quản lý Quyền'
-      desc={readOnly ? 'Xem quyền truy cập và thao tác của huấn luyện viên trong hệ thống.' : 'Quản lý quyền truy cập và thao tác của huấn luyện viên trong hệ thống.'}
+      title="Quản lý Quyền"
+      desc={
+        readOnly
+          ? 'Xem quyền truy cập và thao tác của huấn luyện viên trong hệ thống.'
+          : 'Quản lý quyền truy cập và thao tác của huấn luyện viên trong hệ thống.'
+      }
       fullWidth
     >
       <StaffPermissionForm staff={trainer} readOnly={readOnly} />

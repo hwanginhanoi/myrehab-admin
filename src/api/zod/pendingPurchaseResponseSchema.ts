@@ -3,7 +3,7 @@
  * Do not edit manually.
  */
 
-import { z } from "zod/v4";
+import { z } from 'zod/v4'
 
 export const pendingPurchaseResponseSchema = z.object({
   userCourseId: z.optional(z.int()),
@@ -16,4 +16,4 @@ export const pendingPurchaseResponseSchema = z.object({
   notes: z.optional(z.string()),
   monthlyPrice: z.optional(z.int()),
   yearlyPrice: z.optional(z.int()),
-});
+})

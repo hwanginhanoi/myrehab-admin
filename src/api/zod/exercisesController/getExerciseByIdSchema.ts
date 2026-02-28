@@ -3,18 +3,18 @@
  * Do not edit manually.
  */
 
-import { exerciseResponseSchema } from "../exerciseResponseSchema.ts";
-import { z } from "zod/v4";
+import { exerciseResponseSchema } from '../exerciseResponseSchema.ts'
+import { z } from 'zod/v4'
 
 export const getExerciseByIdPathParamsSchema = z.object({
-  id: z.coerce.number().int().describe("Exercise ID"),
-});
+  id: z.coerce.number().int().describe('Exercise ID'),
+})
 
 /**
  * @description OK
  */
-export const getExerciseById200Schema = z.lazy(() => exerciseResponseSchema);
+export const getExerciseById200Schema = z.lazy(() => exerciseResponseSchema)
 
 export const getExerciseByIdQueryResponseSchema = z.lazy(
-  () => getExerciseById200Schema,
-);
+  () => getExerciseById200Schema
+)

@@ -7,45 +7,45 @@ export type FeedbackResponse = {
   /**
    * @type integer | undefined, int64
    */
-  id?: number;
+  id?: number
   /**
    * @type integer | undefined, int64
    */
-  courseDayId?: number;
+  courseDayId?: number
   /**
    * @type integer | undefined, int32
    */
-  dayNumber?: number;
+  dayNumber?: number
   /**
    * @type integer | undefined, int32
    */
-  completionPercentage?: number;
+  completionPercentage?: number
   /**
    * @type integer | undefined, int32
    */
-  effortPercentage?: number;
+  effortPercentage?: number
   /**
    * @type boolean | undefined
    */
-  hasPain?: boolean;
+  hasPain?: boolean
   /**
    * @type string | undefined
    */
-  painDetails?: string;
+  painDetails?: string
   /**
    * @type string | undefined
    */
-  hardestExercise?: string;
+  hardestExercise?: string
   /**
    * @type string | undefined
    */
-  hardestExerciseReason?: string;
+  hardestExerciseReason?: string
   /**
    * @type string | undefined
    */
-  generalNotes?: string;
+  generalNotes?: string
   /**
    * @type string | undefined, date-time
    */
-  createdAt?: string;
-};
+  createdAt?: string
+}

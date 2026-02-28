@@ -3,28 +3,28 @@
  * Do not edit manually.
  */
 
-import { localTimeSchema } from "./localTimeSchema.ts";
-import { z } from "zod/v4";
+import { localTimeSchema } from './localTimeSchema.ts'
+import { z } from 'zod/v4'
 
 export const clinicScheduleResponseSchema = z.object({
   id: z.optional(z.int()),
   dayOfWeek: z.optional(
     z.enum([
-      "MONDAY",
-      "TUESDAY",
-      "WEDNESDAY",
-      "THURSDAY",
-      "FRIDAY",
-      "SATURDAY",
-      "SUNDAY",
-    ]),
+      'MONDAY',
+      'TUESDAY',
+      'WEDNESDAY',
+      'THURSDAY',
+      'FRIDAY',
+      'SATURDAY',
+      'SUNDAY',
+    ])
   ),
   isOpen: z.optional(z.boolean()),
   get openingTime() {
-    return localTimeSchema.optional();
+    return localTimeSchema.optional()
   },
   get closingTime() {
-    return localTimeSchema.optional();
+    return localTimeSchema.optional()
   },
   slotDurationMinutes: z.optional(z.int()),
-});
+})

@@ -6,10 +6,10 @@ export function CategoriesDialogs() {
   return (
     <>
       <CategoriesActionDialog
-        key='category-add'
+        key="category-add"
         open={open === 'add'}
         onOpenChange={() => setOpen('add')}
-        mode='add'
+        mode="add"
       />
 
       {currentRow && (
@@ -24,7 +24,7 @@ export function CategoriesDialogs() {
               }, 500)
             }}
             currentRow={currentRow}
-            mode='edit'
+            mode="edit"
           />
 
           <CategoriesActionDialog
@@ -37,7 +37,7 @@ export function CategoriesDialogs() {
               }, 500)
             }}
             currentRow={currentRow}
-            mode='view'
+            mode="view"
           />
         </>
       )}

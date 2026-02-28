@@ -1,7 +1,13 @@
 import { getRouteApi, Outlet } from '@tanstack/react-router'
 import { Button } from '@/components/ui/button'
 import { Separator } from '@/components/ui/separator'
-import { Building2, ChevronLeft, Shield, ShieldCheck, UserCog } from 'lucide-react'
+import {
+  Building2,
+  ChevronLeft,
+  Shield,
+  ShieldCheck,
+  UserCog,
+} from 'lucide-react'
 import { useGetUserById } from '@/api'
 import { UserSidebarNav } from './components/user-sidebar-nav'
 
@@ -15,8 +21,10 @@ export function UserDetail() {
 
   if (error) {
     return (
-      <div className='flex flex-col items-center justify-center h-64 space-y-4'>
-        <p className='text-lg font-semibold text-destructive'>Không tìm thấy người dùng</p>
+      <div className="flex flex-col items-center justify-center h-64 space-y-4">
+        <p className="text-lg font-semibold text-destructive">
+          Không tìm thấy người dùng
+        </p>
         <Button
           onClick={() =>
             navigate({
@@ -24,7 +32,7 @@ export function UserDetail() {
             })
           }
         >
-          <ChevronLeft className='mr-2 h-4 w-4' />
+          <ChevronLeft className="mr-2 h-4 w-4" />
           Quay lại danh sách người dùng
         </Button>
       </div>
@@ -57,42 +65,42 @@ export function UserDetail() {
   return (
     <>
       {/* Breadcrumb Navigation */}
-      <div className='flex items-center gap-2 text-sm text-muted-foreground'>
+      <div className="flex items-center gap-2 text-sm text-muted-foreground">
         <Button
-          variant='ghost'
-          size='sm'
+          variant="ghost"
+          size="sm"
           onClick={() =>
             navigate({
               to: '/users',
             })
           }
-          className='h-8 gap-1'
+          className="h-8 gap-1"
         >
-          <ChevronLeft className='h-4 w-4' />
+          <ChevronLeft className="h-4 w-4" />
           Người dùng
         </Button>
         <span>/</span>
-        <span className='text-foreground font-medium'>Chi tiết người dùng</span>
+        <span className="text-foreground font-medium">Chi tiết người dùng</span>
       </div>
 
       {/* Page Header */}
-      <div className='space-y-0.5'>
-        <h1 className='text-2xl font-bold tracking-tight md:text-3xl'>
+      <div className="space-y-0.5">
+        <h1 className="text-2xl font-bold tracking-tight md:text-3xl">
           {isLoading ? 'Đang tải...' : user?.fullName || 'Chi tiết Người dùng'}
         </h1>
-        <p className='text-muted-foreground'>
+        <p className="text-muted-foreground">
           Xem thông tin chi tiết của người dùng.
         </p>
       </div>
 
-      <Separator className='my-4 lg:my-6' />
+      <Separator className="my-4 lg:my-6" />
 
       {/* Content with Sidebar */}
-      <div className='flex flex-1 flex-col space-y-2 overflow-hidden md:space-y-2 lg:flex-row lg:space-y-0 lg:space-x-12'>
-        <aside className='top-0 lg:sticky lg:w-1/5'>
+      <div className="flex flex-1 flex-col space-y-2 overflow-hidden md:space-y-2 lg:flex-row lg:space-y-0 lg:space-x-12">
+        <aside className="top-0 lg:sticky lg:w-1/5">
           <UserSidebarNav items={sidebarNavItems} />
         </aside>
-        <div className='flex w-full overflow-y-hidden p-1'>
+        <div className="flex w-full overflow-y-hidden p-1">
           <Outlet />
         </div>
       </div>

@@ -3,30 +3,30 @@
  * Do not edit manually.
  */
 
-import type { Pageable } from "../Pageable.ts";
-import type { PagedModel } from "../PagedModel.ts";
+import type { Pageable } from '../Pageable.ts'
+import type { PagedModel } from '../PagedModel.ts'
 
 export type GetDoctorPatients1QueryParams = {
   /**
    * @description Search by patient name or phone number
    * @type string | undefined
    */
-  query?: string;
+  query?: string
   /**
    * @type object
    */
-  pageable: Pageable;
-};
+  pageable: Pageable
+}
 
 /**
  * @description OK
  */
-export type GetDoctorPatients1200 = PagedModel;
+export type GetDoctorPatients1200 = PagedModel
 
-export type GetDoctorPatients1QueryResponse = GetDoctorPatients1200;
+export type GetDoctorPatients1QueryResponse = GetDoctorPatients1200
 
 export type GetDoctorPatients1Query = {
-  Response: GetDoctorPatients1200;
-  QueryParams: GetDoctorPatients1QueryParams;
-  Errors: any;
-};
+  Response: GetDoctorPatients1200
+  QueryParams: GetDoctorPatients1QueryParams
+  Errors: any
+}

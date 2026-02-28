@@ -3,25 +3,25 @@
  * Do not edit manually.
  */
 
-import fetch from "@/lib/api-client";
+import fetch from '@/lib/api-client'
 import type {
   ConfirmCompletionMutationResponse,
   ConfirmCompletionPathParams,
-} from "../../types/appointmentsController/ConfirmCompletion.ts";
-import type { RequestConfig, ResponseErrorConfig } from "@/lib/api-client";
+} from '../../types/appointmentsController/ConfirmCompletion.ts'
+import type { RequestConfig, ResponseErrorConfig } from '@/lib/api-client'
 import type {
   UseMutationOptions,
   UseMutationResult,
   QueryClient,
-} from "@tanstack/react-query";
-import { mutationOptions, useMutation } from "@tanstack/react-query";
+} from '@tanstack/react-query'
+import { mutationOptions, useMutation } from '@tanstack/react-query'
 
 export const confirmCompletionMutationKey = () =>
-  [{ url: "/api/appointments/:id/confirm-completion" }] as const;
+  [{ url: '/api/appointments/:id/confirm-completion' }] as const
 
 export type ConfirmCompletionMutationKey = ReturnType<
   typeof confirmCompletionMutationKey
->;
+>
 
 /**
  * @description Patient confirms the appointment was completed successfully
@@ -29,38 +29,38 @@ export type ConfirmCompletionMutationKey = ReturnType<
  * {@link /api/appointments/:id/confirm-completion}
  */
 export async function confirmCompletion(
-  id: ConfirmCompletionPathParams["id"],
-  config: Partial<RequestConfig> & { client?: typeof fetch } = {},
+  id: ConfirmCompletionPathParams['id'],
+  config: Partial<RequestConfig> & { client?: typeof fetch } = {}
 ) {
-  const { client: request = fetch, ...requestConfig } = config;
+  const { client: request = fetch, ...requestConfig } = config
 
   const res = await request<
     ConfirmCompletionMutationResponse,
     ResponseErrorConfig<Error>,
     unknown
   >({
-    method: "POST",
+    method: 'POST',
     url: `/api/appointments/${id}/confirm-completion`,
     ...requestConfig,
-  });
-  return res.data;
+  })
+  return res.data
 }
 
 export function confirmCompletionMutationOptions(
-  config: Partial<RequestConfig> & { client?: typeof fetch } = {},
+  config: Partial<RequestConfig> & { client?: typeof fetch } = {}
 ) {
-  const mutationKey = confirmCompletionMutationKey();
+  const mutationKey = confirmCompletionMutationKey()
   return mutationOptions<
     ConfirmCompletionMutationResponse,
     ResponseErrorConfig<Error>,
-    { id: ConfirmCompletionPathParams["id"] },
+    { id: ConfirmCompletionPathParams['id'] },
     typeof mutationKey
   >({
     mutationKey,
     mutationFn: async ({ id }) => {
-      return confirmCompletion(id, config);
+      return confirmCompletion(id, config)
     },
-  });
+  })
 }
 
 /**
@@ -73,30 +73,30 @@ export function useConfirmCompletion<TContext>(
     mutation?: UseMutationOptions<
       ConfirmCompletionMutationResponse,
       ResponseErrorConfig<Error>,
-      { id: ConfirmCompletionPathParams["id"] },
+      { id: ConfirmCompletionPathParams['id'] },
       TContext
-    > & { client?: QueryClient };
-    client?: Partial<RequestConfig> & { client?: typeof fetch };
-  } = {},
+    > & { client?: QueryClient }
+    client?: Partial<RequestConfig> & { client?: typeof fetch }
+  } = {}
 ) {
-  const { mutation = {}, client: config = {} } = options ?? {};
-  const { client: queryClient, ...mutationOptions } = mutation;
+  const { mutation = {}, client: config = {} } = options ?? {}
+  const { client: queryClient, ...mutationOptions } = mutation
   const mutationKey =
-    mutationOptions.mutationKey ?? confirmCompletionMutationKey();
+    mutationOptions.mutationKey ?? confirmCompletionMutationKey()
 
   const baseOptions = confirmCompletionMutationOptions(
-    config,
+    config
   ) as UseMutationOptions<
     ConfirmCompletionMutationResponse,
     ResponseErrorConfig<Error>,
-    { id: ConfirmCompletionPathParams["id"] },
+    { id: ConfirmCompletionPathParams['id'] },
     TContext
-  >;
+  >
 
   return useMutation<
     ConfirmCompletionMutationResponse,
     ResponseErrorConfig<Error>,
-    { id: ConfirmCompletionPathParams["id"] },
+    { id: ConfirmCompletionPathParams['id'] },
     TContext
   >(
     {
@@ -104,11 +104,11 @@ export function useConfirmCompletion<TContext>(
       mutationKey,
       ...mutationOptions,
     },
-    queryClient,
+    queryClient
   ) as UseMutationResult<
     ConfirmCompletionMutationResponse,
     ResponseErrorConfig<Error>,
-    { id: ConfirmCompletionPathParams["id"] },
+    { id: ConfirmCompletionPathParams['id'] },
     TContext
-  >;
+  >
 }

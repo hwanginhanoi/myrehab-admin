@@ -3,25 +3,25 @@
  * Do not edit manually.
  */
 
-import fetch from "@/lib/api-client";
+import fetch from '@/lib/api-client'
 import type {
   UpdateClinicScheduleMutationRequest,
   UpdateClinicScheduleMutationResponse,
-} from "../../types/appointmentsController/UpdateClinicSchedule.ts";
-import type { RequestConfig, ResponseErrorConfig } from "@/lib/api-client";
+} from '../../types/appointmentsController/UpdateClinicSchedule.ts'
+import type { RequestConfig, ResponseErrorConfig } from '@/lib/api-client'
 import type {
   UseMutationOptions,
   UseMutationResult,
   QueryClient,
-} from "@tanstack/react-query";
-import { mutationOptions, useMutation } from "@tanstack/react-query";
+} from '@tanstack/react-query'
+import { mutationOptions, useMutation } from '@tanstack/react-query'
 
 export const updateClinicScheduleMutationKey = () =>
-  [{ url: "/api/appointments/clinic-schedule" }] as const;
+  [{ url: '/api/appointments/clinic-schedule' }] as const
 
 export type UpdateClinicScheduleMutationKey = ReturnType<
   typeof updateClinicScheduleMutationKey
->;
+>
 
 /**
  * @description Admin updates clinic hours for a specific day
@@ -31,32 +31,32 @@ export type UpdateClinicScheduleMutationKey = ReturnType<
 export async function updateClinicSchedule(
   data: UpdateClinicScheduleMutationRequest,
   config: Partial<RequestConfig<UpdateClinicScheduleMutationRequest>> & {
-    client?: typeof fetch;
-  } = {},
+    client?: typeof fetch
+  } = {}
 ) {
-  const { client: request = fetch, ...requestConfig } = config;
+  const { client: request = fetch, ...requestConfig } = config
 
-  const requestData = data;
+  const requestData = data
 
   const res = await request<
     UpdateClinicScheduleMutationResponse,
     ResponseErrorConfig<Error>,
     UpdateClinicScheduleMutationRequest
   >({
-    method: "PUT",
+    method: 'PUT',
     url: `/api/appointments/clinic-schedule`,
     data: requestData,
     ...requestConfig,
-  });
-  return res.data;
+  })
+  return res.data
 }
 
 export function updateClinicScheduleMutationOptions(
   config: Partial<RequestConfig<UpdateClinicScheduleMutationRequest>> & {
-    client?: typeof fetch;
-  } = {},
+    client?: typeof fetch
+  } = {}
 ) {
-  const mutationKey = updateClinicScheduleMutationKey();
+  const mutationKey = updateClinicScheduleMutationKey()
   return mutationOptions<
     UpdateClinicScheduleMutationResponse,
     ResponseErrorConfig<Error>,
@@ -65,9 +65,9 @@ export function updateClinicScheduleMutationOptions(
   >({
     mutationKey,
     mutationFn: async ({ data }) => {
-      return updateClinicSchedule(data, config);
+      return updateClinicSchedule(data, config)
     },
-  });
+  })
 }
 
 /**
@@ -82,25 +82,25 @@ export function useUpdateClinicSchedule<TContext>(
       ResponseErrorConfig<Error>,
       { data: UpdateClinicScheduleMutationRequest },
       TContext
-    > & { client?: QueryClient };
+    > & { client?: QueryClient }
     client?: Partial<RequestConfig<UpdateClinicScheduleMutationRequest>> & {
-      client?: typeof fetch;
-    };
-  } = {},
+      client?: typeof fetch
+    }
+  } = {}
 ) {
-  const { mutation = {}, client: config = {} } = options ?? {};
-  const { client: queryClient, ...mutationOptions } = mutation;
+  const { mutation = {}, client: config = {} } = options ?? {}
+  const { client: queryClient, ...mutationOptions } = mutation
   const mutationKey =
-    mutationOptions.mutationKey ?? updateClinicScheduleMutationKey();
+    mutationOptions.mutationKey ?? updateClinicScheduleMutationKey()
 
   const baseOptions = updateClinicScheduleMutationOptions(
-    config,
+    config
   ) as UseMutationOptions<
     UpdateClinicScheduleMutationResponse,
     ResponseErrorConfig<Error>,
     { data: UpdateClinicScheduleMutationRequest },
     TContext
-  >;
+  >
 
   return useMutation<
     UpdateClinicScheduleMutationResponse,
@@ -113,11 +113,11 @@ export function useUpdateClinicSchedule<TContext>(
       mutationKey,
       ...mutationOptions,
     },
-    queryClient,
+    queryClient
   ) as UseMutationResult<
     UpdateClinicScheduleMutationResponse,
     ResponseErrorConfig<Error>,
     { data: UpdateClinicScheduleMutationRequest },
     TContext
-  >;
+  >
 }

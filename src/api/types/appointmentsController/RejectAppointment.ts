@@ -3,28 +3,28 @@
  * Do not edit manually.
  */
 
-import type { AppointmentResponse } from "../AppointmentResponse.ts";
-import type { RejectAppointmentRequest } from "../RejectAppointmentRequest.ts";
+import type { AppointmentResponse } from '../AppointmentResponse.ts'
+import type { RejectAppointmentRequest } from '../RejectAppointmentRequest.ts'
 
 export type RejectAppointmentPathParams = {
   /**
    * @type integer, int64
    */
-  id: number;
-};
+  id: number
+}
 
 /**
  * @description OK
  */
-export type RejectAppointment200 = AppointmentResponse;
+export type RejectAppointment200 = AppointmentResponse
 
-export type RejectAppointmentMutationRequest = RejectAppointmentRequest;
+export type RejectAppointmentMutationRequest = RejectAppointmentRequest
 
-export type RejectAppointmentMutationResponse = RejectAppointment200;
+export type RejectAppointmentMutationResponse = RejectAppointment200
 
 export type RejectAppointmentMutation = {
-  Response: RejectAppointment200;
-  Request: RejectAppointmentMutationRequest;
-  PathParams: RejectAppointmentPathParams;
-  Errors: any;
-};
+  Response: RejectAppointment200
+  Request: RejectAppointmentMutationRequest
+  PathParams: RejectAppointmentPathParams
+  Errors: any
+}

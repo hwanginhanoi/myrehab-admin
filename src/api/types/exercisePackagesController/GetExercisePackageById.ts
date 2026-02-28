@@ -3,25 +3,25 @@
  * Do not edit manually.
  */
 
-import type { ExercisePackageDetailResponse } from "../ExercisePackageDetailResponse.ts";
+import type { ExercisePackageDetailResponse } from '../ExercisePackageDetailResponse.ts'
 
 export type GetExercisePackageByIdPathParams = {
   /**
    * @description Exercise Package ID
    * @type integer, int64
    */
-  id: number;
-};
+  id: number
+}
 
 /**
  * @description OK
  */
-export type GetExercisePackageById200 = ExercisePackageDetailResponse;
+export type GetExercisePackageById200 = ExercisePackageDetailResponse
 
-export type GetExercisePackageByIdQueryResponse = GetExercisePackageById200;
+export type GetExercisePackageByIdQueryResponse = GetExercisePackageById200
 
 export type GetExercisePackageByIdQuery = {
-  Response: GetExercisePackageById200;
-  PathParams: GetExercisePackageByIdPathParams;
-  Errors: any;
-};
+  Response: GetExercisePackageById200
+  PathParams: GetExercisePackageByIdPathParams
+  Errors: any
+}

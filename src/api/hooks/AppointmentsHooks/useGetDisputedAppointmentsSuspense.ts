@@ -3,31 +3,31 @@
  * Do not edit manually.
  */
 
-import fetch from "@/lib/api-client";
+import fetch from '@/lib/api-client'
 import type {
   GetDisputedAppointmentsQueryResponse,
   GetDisputedAppointmentsQueryParams,
-} from "../../types/appointmentsController/GetDisputedAppointments.ts";
-import type { RequestConfig, ResponseErrorConfig } from "@/lib/api-client";
+} from '../../types/appointmentsController/GetDisputedAppointments.ts'
+import type { RequestConfig, ResponseErrorConfig } from '@/lib/api-client'
 import type {
   QueryKey,
   QueryClient,
   UseSuspenseQueryOptions,
   UseSuspenseQueryResult,
-} from "@tanstack/react-query";
-import { queryOptions, useSuspenseQuery } from "@tanstack/react-query";
+} from '@tanstack/react-query'
+import { queryOptions, useSuspenseQuery } from '@tanstack/react-query'
 
 export const getDisputedAppointmentsSuspenseQueryKey = (
-  params: GetDisputedAppointmentsQueryParams,
+  params: GetDisputedAppointmentsQueryParams
 ) =>
   [
-    { url: "/api/appointments/admin/disputed" },
+    { url: '/api/appointments/admin/disputed' },
     ...(params ? [params] : []),
-  ] as const;
+  ] as const
 
 export type GetDisputedAppointmentsSuspenseQueryKey = ReturnType<
   typeof getDisputedAppointmentsSuspenseQueryKey
->;
+>
 
 /**
  * @description Admin views all disputed appointments
@@ -36,28 +36,28 @@ export type GetDisputedAppointmentsSuspenseQueryKey = ReturnType<
  */
 export async function getDisputedAppointmentsSuspense(
   params: GetDisputedAppointmentsQueryParams,
-  config: Partial<RequestConfig> & { client?: typeof fetch } = {},
+  config: Partial<RequestConfig> & { client?: typeof fetch } = {}
 ) {
-  const { client: request = fetch, ...requestConfig } = config;
+  const { client: request = fetch, ...requestConfig } = config
 
   const res = await request<
     GetDisputedAppointmentsQueryResponse,
     ResponseErrorConfig<Error>,
     unknown
   >({
-    method: "GET",
+    method: 'GET',
     url: `/api/appointments/admin/disputed`,
     params,
     ...requestConfig,
-  });
-  return res.data;
+  })
+  return res.data
 }
 
 export function getDisputedAppointmentsSuspenseQueryOptions(
   params: GetDisputedAppointmentsQueryParams,
-  config: Partial<RequestConfig> & { client?: typeof fetch } = {},
+  config: Partial<RequestConfig> & { client?: typeof fetch } = {}
 ) {
-  const queryKey = getDisputedAppointmentsSuspenseQueryKey(params);
+  const queryKey = getDisputedAppointmentsSuspenseQueryKey(params)
   return queryOptions<
     GetDisputedAppointmentsQueryResponse,
     ResponseErrorConfig<Error>,
@@ -67,10 +67,10 @@ export function getDisputedAppointmentsSuspenseQueryOptions(
     enabled: !!params,
     queryKey,
     queryFn: async ({ signal }) => {
-      config.signal = signal;
-      return getDisputedAppointmentsSuspense(params, config);
+      config.signal = signal
+      return getDisputedAppointmentsSuspense(params, config)
     },
-  });
+  })
 }
 
 /**
@@ -91,14 +91,14 @@ export function useGetDisputedAppointmentsSuspense<
         TData,
         TQueryKey
       >
-    > & { client?: QueryClient };
-    client?: Partial<RequestConfig> & { client?: typeof fetch };
-  } = {},
+    > & { client?: QueryClient }
+    client?: Partial<RequestConfig> & { client?: typeof fetch }
+  } = {}
 ) {
-  const { query: queryConfig = {}, client: config = {} } = options ?? {};
-  const { client: queryClient, ...queryOptions } = queryConfig;
+  const { query: queryConfig = {}, client: config = {} } = options ?? {}
+  const { client: queryClient, ...queryOptions } = queryConfig
   const queryKey =
-    queryOptions?.queryKey ?? getDisputedAppointmentsSuspenseQueryKey(params);
+    queryOptions?.queryKey ?? getDisputedAppointmentsSuspenseQueryKey(params)
 
   const query = useSuspenseQuery(
     {
@@ -106,12 +106,12 @@ export function useGetDisputedAppointmentsSuspense<
       queryKey,
       ...queryOptions,
     } as unknown as UseSuspenseQueryOptions,
-    queryClient,
+    queryClient
   ) as UseSuspenseQueryResult<TData, ResponseErrorConfig<Error>> & {
-    queryKey: TQueryKey;
-  };
+    queryKey: TQueryKey
+  }
 
-  query.queryKey = queryKey as TQueryKey;
+  query.queryKey = queryKey as TQueryKey
 
-  return query;
+  return query
 }

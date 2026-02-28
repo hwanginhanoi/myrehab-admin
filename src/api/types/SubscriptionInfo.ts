@@ -4,44 +4,44 @@
  */
 
 export const subscriptionInfoSubscriptionTypeEnum = {
-  MONTHLY: "MONTHLY",
-  YEARLY: "YEARLY",
-} as const;
+  MONTHLY: 'MONTHLY',
+  YEARLY: 'YEARLY',
+} as const
 
 export type SubscriptionInfoSubscriptionTypeEnumKey =
-  (typeof subscriptionInfoSubscriptionTypeEnum)[keyof typeof subscriptionInfoSubscriptionTypeEnum];
+  (typeof subscriptionInfoSubscriptionTypeEnum)[keyof typeof subscriptionInfoSubscriptionTypeEnum]
 
 export type SubscriptionInfo = {
   /**
    * @type boolean | undefined
    */
-  hasSubscription?: boolean;
+  hasSubscription?: boolean
   /**
    * @type integer | undefined, int64
    */
-  subscriptionId?: number;
+  subscriptionId?: number
   /**
    * @type string | undefined
    */
-  subscriptionType?: SubscriptionInfoSubscriptionTypeEnumKey;
+  subscriptionType?: SubscriptionInfoSubscriptionTypeEnumKey
   /**
    * @type integer | undefined, int64
    */
-  pricePaid?: number;
+  pricePaid?: number
   /**
    * @type string | undefined, date-time
    */
-  purchasedAt?: string;
+  purchasedAt?: string
   /**
    * @type string | undefined, date-time
    */
-  expiresAt?: string;
+  expiresAt?: string
   /**
    * @type boolean | undefined
    */
-  isActive?: boolean;
+  isActive?: boolean
   /**
    * @type boolean | undefined
    */
-  isExpired?: boolean;
-};
+  isExpired?: boolean
+}

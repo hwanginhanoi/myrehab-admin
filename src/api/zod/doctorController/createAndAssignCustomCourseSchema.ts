@@ -3,25 +3,25 @@
  * Do not edit manually.
  */
 
-import { createCustomCourseRequestSchema } from "../createCustomCourseRequestSchema.ts";
-import { userCourseAssignmentResponseSchema } from "../userCourseAssignmentResponseSchema.ts";
-import { z } from "zod/v4";
+import { createCustomCourseRequestSchema } from '../createCustomCourseRequestSchema.ts'
+import { userCourseAssignmentResponseSchema } from '../userCourseAssignmentResponseSchema.ts'
+import { z } from 'zod/v4'
 
 export const createAndAssignCustomCoursePathParamsSchema = z.object({
-  userId: z.coerce.number().int().describe("User ID"),
-});
+  userId: z.coerce.number().int().describe('User ID'),
+})
 
 /**
  * @description OK
  */
 export const createAndAssignCustomCourse200Schema = z.lazy(
-  () => userCourseAssignmentResponseSchema,
-);
+  () => userCourseAssignmentResponseSchema
+)
 
 export const createAndAssignCustomCourseMutationRequestSchema = z.lazy(
-  () => createCustomCourseRequestSchema,
-);
+  () => createCustomCourseRequestSchema
+)
 
 export const createAndAssignCustomCourseMutationResponseSchema = z.lazy(
-  () => createAndAssignCustomCourse200Schema,
-);
+  () => createAndAssignCustomCourse200Schema
+)

@@ -3,28 +3,27 @@
  * Do not edit manually.
  */
 
-import fetch from "@/lib/api-client";
+import fetch from '@/lib/api-client'
 import type {
   GetMyTrainersQueryResponse,
   GetMyTrainersQueryParams,
-} from "../../types/doctorController/GetMyTrainers.ts";
-import type { RequestConfig, ResponseErrorConfig } from "@/lib/api-client";
+} from '../../types/doctorController/GetMyTrainers.ts'
+import type { RequestConfig, ResponseErrorConfig } from '@/lib/api-client'
 import type {
   QueryKey,
   QueryClient,
   UseSuspenseQueryOptions,
   UseSuspenseQueryResult,
-} from "@tanstack/react-query";
-import { queryOptions, useSuspenseQuery } from "@tanstack/react-query";
+} from '@tanstack/react-query'
+import { queryOptions, useSuspenseQuery } from '@tanstack/react-query'
 
 export const getMyTrainersSuspenseQueryKey = (
-  params: GetMyTrainersQueryParams,
-) =>
-  [{ url: "/api/doctors/my-trainers" }, ...(params ? [params] : [])] as const;
+  params: GetMyTrainersQueryParams
+) => [{ url: '/api/doctors/my-trainers' }, ...(params ? [params] : [])] as const
 
 export type GetMyTrainersSuspenseQueryKey = ReturnType<
   typeof getMyTrainersSuspenseQueryKey
->;
+>
 
 /**
  * @description Get all trainers assigned to the authenticated doctor
@@ -33,28 +32,28 @@ export type GetMyTrainersSuspenseQueryKey = ReturnType<
  */
 export async function getMyTrainersSuspense(
   params: GetMyTrainersQueryParams,
-  config: Partial<RequestConfig> & { client?: typeof fetch } = {},
+  config: Partial<RequestConfig> & { client?: typeof fetch } = {}
 ) {
-  const { client: request = fetch, ...requestConfig } = config;
+  const { client: request = fetch, ...requestConfig } = config
 
   const res = await request<
     GetMyTrainersQueryResponse,
     ResponseErrorConfig<Error>,
     unknown
   >({
-    method: "GET",
+    method: 'GET',
     url: `/api/doctors/my-trainers`,
     params,
     ...requestConfig,
-  });
-  return res.data;
+  })
+  return res.data
 }
 
 export function getMyTrainersSuspenseQueryOptions(
   params: GetMyTrainersQueryParams,
-  config: Partial<RequestConfig> & { client?: typeof fetch } = {},
+  config: Partial<RequestConfig> & { client?: typeof fetch } = {}
 ) {
-  const queryKey = getMyTrainersSuspenseQueryKey(params);
+  const queryKey = getMyTrainersSuspenseQueryKey(params)
   return queryOptions<
     GetMyTrainersQueryResponse,
     ResponseErrorConfig<Error>,
@@ -64,10 +63,10 @@ export function getMyTrainersSuspenseQueryOptions(
     enabled: !!params,
     queryKey,
     queryFn: async ({ signal }) => {
-      config.signal = signal;
-      return getMyTrainersSuspense(params, config);
+      config.signal = signal
+      return getMyTrainersSuspense(params, config)
     },
-  });
+  })
 }
 
 /**
@@ -88,14 +87,14 @@ export function useGetMyTrainersSuspense<
         TData,
         TQueryKey
       >
-    > & { client?: QueryClient };
-    client?: Partial<RequestConfig> & { client?: typeof fetch };
-  } = {},
+    > & { client?: QueryClient }
+    client?: Partial<RequestConfig> & { client?: typeof fetch }
+  } = {}
 ) {
-  const { query: queryConfig = {}, client: config = {} } = options ?? {};
-  const { client: queryClient, ...queryOptions } = queryConfig;
+  const { query: queryConfig = {}, client: config = {} } = options ?? {}
+  const { client: queryClient, ...queryOptions } = queryConfig
   const queryKey =
-    queryOptions?.queryKey ?? getMyTrainersSuspenseQueryKey(params);
+    queryOptions?.queryKey ?? getMyTrainersSuspenseQueryKey(params)
 
   const query = useSuspenseQuery(
     {
@@ -103,12 +102,12 @@ export function useGetMyTrainersSuspense<
       queryKey,
       ...queryOptions,
     } as unknown as UseSuspenseQueryOptions,
-    queryClient,
+    queryClient
   ) as UseSuspenseQueryResult<TData, ResponseErrorConfig<Error>> & {
-    queryKey: TQueryKey;
-  };
+    queryKey: TQueryKey
+  }
 
-  query.queryKey = queryKey as TQueryKey;
+  query.queryKey = queryKey as TQueryKey
 
-  return query;
+  return query
 }

@@ -3,20 +3,20 @@
  * Do not edit manually.
  */
 
-import type { OtpResponse } from "../OtpResponse.ts";
-import type { SendOtpRequest } from "../SendOtpRequest.ts";
+import type { OtpResponse } from '../OtpResponse.ts'
+import type { SendOtpRequest } from '../SendOtpRequest.ts'
 
 /**
  * @description OK
  */
-export type RequestPinReset200 = OtpResponse;
+export type RequestPinReset200 = OtpResponse
 
-export type RequestPinResetMutationRequest = SendOtpRequest;
+export type RequestPinResetMutationRequest = SendOtpRequest
 
-export type RequestPinResetMutationResponse = RequestPinReset200;
+export type RequestPinResetMutationResponse = RequestPinReset200
 
 export type RequestPinResetMutation = {
-  Response: RequestPinReset200;
-  Request: RequestPinResetMutationRequest;
-  Errors: any;
-};
+  Response: RequestPinReset200
+  Request: RequestPinResetMutationRequest
+  Errors: any
+}

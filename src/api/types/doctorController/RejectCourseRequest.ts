@@ -3,28 +3,28 @@
  * Do not edit manually.
  */
 
-import type { CourseAssignmentRequestResponse } from "../CourseAssignmentRequestResponse.ts";
-import type { ReviewCourseRequestRequest } from "../ReviewCourseRequestRequest.ts";
+import type { CourseAssignmentRequestResponse } from '../CourseAssignmentRequestResponse.ts'
+import type { ReviewCourseRequestRequest } from '../ReviewCourseRequestRequest.ts'
 
 export type RejectCourseRequestPathParams = {
   /**
    * @type integer, int64
    */
-  id: number;
-};
+  id: number
+}
 
 /**
  * @description OK
  */
-export type RejectCourseRequest200 = CourseAssignmentRequestResponse;
+export type RejectCourseRequest200 = CourseAssignmentRequestResponse
 
-export type RejectCourseRequestMutationRequest = ReviewCourseRequestRequest;
+export type RejectCourseRequestMutationRequest = ReviewCourseRequestRequest
 
-export type RejectCourseRequestMutationResponse = RejectCourseRequest200;
+export type RejectCourseRequestMutationResponse = RejectCourseRequest200
 
 export type RejectCourseRequestMutation = {
-  Response: RejectCourseRequest200;
-  Request: RejectCourseRequestMutationRequest;
-  PathParams: RejectCourseRequestPathParams;
-  Errors: any;
-};
+  Response: RejectCourseRequest200
+  Request: RejectCourseRequestMutationRequest
+  PathParams: RejectCourseRequestPathParams
+  Errors: any
+}

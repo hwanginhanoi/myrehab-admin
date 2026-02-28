@@ -2,54 +2,54 @@ export {
   checkPhone200Schema,
   checkPhoneMutationRequestSchema,
   checkPhoneMutationResponseSchema,
-} from "./checkPhoneSchema.ts";
+} from './checkPhoneSchema.ts'
 export {
   loginWithPassword200Schema,
   loginWithPasswordMutationRequestSchema,
   loginWithPasswordMutationResponseSchema,
-} from "./loginWithPasswordSchema.ts";
+} from './loginWithPasswordSchema.ts'
 export {
   loginWithPin200Schema,
   loginWithPinMutationRequestSchema,
   loginWithPinMutationResponseSchema,
-} from "./loginWithPinSchema.ts";
+} from './loginWithPinSchema.ts'
 export {
   logout200Schema,
   logoutMutationRequestSchema,
   logoutMutationResponseSchema,
-} from "./logoutSchema.ts";
+} from './logoutSchema.ts'
 export {
   refreshToken200Schema,
   refreshTokenMutationRequestSchema,
   refreshTokenMutationResponseSchema,
-} from "./refreshTokenSchema.ts";
+} from './refreshTokenSchema.ts'
 export {
   register200Schema,
   registerMutationRequestSchema,
   registerMutationResponseSchema,
-} from "./registerSchema.ts";
+} from './registerSchema.ts'
 export {
   requestPinReset200Schema,
   requestPinResetMutationRequestSchema,
   requestPinResetMutationResponseSchema,
-} from "./requestPinResetSchema.ts";
+} from './requestPinResetSchema.ts'
 export {
   resetPin200Schema,
   resetPinMutationRequestSchema,
   resetPinMutationResponseSchema,
-} from "./resetPinSchema.ts";
+} from './resetPinSchema.ts'
 export {
   sendRegistrationOtp200Schema,
   sendRegistrationOtpMutationRequestSchema,
   sendRegistrationOtpMutationResponseSchema,
-} from "./sendRegistrationOtpSchema.ts";
+} from './sendRegistrationOtpSchema.ts'
 export {
   verifyPinResetOtp200Schema,
   verifyPinResetOtpMutationRequestSchema,
   verifyPinResetOtpMutationResponseSchema,
-} from "./verifyPinResetOtpSchema.ts";
+} from './verifyPinResetOtpSchema.ts'
 export {
   verifyRegistrationOtp200Schema,
   verifyRegistrationOtpMutationRequestSchema,
   verifyRegistrationOtpMutationResponseSchema,
-} from "./verifyRegistrationOtpSchema.ts";
+} from './verifyRegistrationOtpSchema.ts'

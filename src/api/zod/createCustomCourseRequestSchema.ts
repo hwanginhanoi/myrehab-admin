@@ -3,15 +3,16 @@
  * Do not edit manually.
  */
 
-import { courseDayDtoSchema } from "./courseDayDtoSchema.ts";
-import { z } from "zod/v4";
+import { courseDayDtoSchema } from './courseDayDtoSchema.ts'
+import { z } from 'zod/v4'
 
 export const createCustomCourseRequestSchema = z.object({
   title: z.string(),
   description: z.string(),
   durationDays: z.int(),
   notes: z.optional(z.string()),
+  assigningDoctorId: z.optional(z.int()),
   get courseDays() {
-    return z.array(courseDayDtoSchema);
+    return z.array(courseDayDtoSchema)
   },
-});
+})

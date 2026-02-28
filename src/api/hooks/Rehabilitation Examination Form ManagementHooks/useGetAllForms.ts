@@ -3,27 +3,27 @@
  * Do not edit manually.
  */
 
-import fetch from "@/lib/api-client";
+import fetch from '@/lib/api-client'
 import type {
   GetAllFormsQueryResponse,
   GetAllFormsQueryParams,
-} from "../../types/rehabilitationExaminationFormManagementController/GetAllForms.ts";
-import type { RequestConfig, ResponseErrorConfig } from "@/lib/api-client";
+} from '../../types/rehabilitationExaminationFormManagementController/GetAllForms.ts'
+import type { RequestConfig, ResponseErrorConfig } from '@/lib/api-client'
 import type {
   QueryKey,
   QueryClient,
   QueryObserverOptions,
   UseQueryResult,
-} from "@tanstack/react-query";
-import { queryOptions, useQuery } from "@tanstack/react-query";
+} from '@tanstack/react-query'
+import { queryOptions, useQuery } from '@tanstack/react-query'
 
 export const getAllFormsQueryKey = (params: GetAllFormsQueryParams) =>
   [
-    { url: "/api/rehabilitation-examination-forms" },
+    { url: '/api/rehabilitation-examination-forms' },
     ...(params ? [params] : []),
-  ] as const;
+  ] as const
 
-export type GetAllFormsQueryKey = ReturnType<typeof getAllFormsQueryKey>;
+export type GetAllFormsQueryKey = ReturnType<typeof getAllFormsQueryKey>
 
 /**
  * @description Retrieve a paginated list of all rehabilitation examination forms. Optional search by patient name (Admin and Doctor only)
@@ -32,28 +32,28 @@ export type GetAllFormsQueryKey = ReturnType<typeof getAllFormsQueryKey>;
  */
 export async function getAllForms(
   params: GetAllFormsQueryParams,
-  config: Partial<RequestConfig> & { client?: typeof fetch } = {},
+  config: Partial<RequestConfig> & { client?: typeof fetch } = {}
 ) {
-  const { client: request = fetch, ...requestConfig } = config;
+  const { client: request = fetch, ...requestConfig } = config
 
   const res = await request<
     GetAllFormsQueryResponse,
     ResponseErrorConfig<Error>,
     unknown
   >({
-    method: "GET",
+    method: 'GET',
     url: `/api/rehabilitation-examination-forms`,
     params,
     ...requestConfig,
-  });
-  return res.data;
+  })
+  return res.data
 }
 
 export function getAllFormsQueryOptions(
   params: GetAllFormsQueryParams,
-  config: Partial<RequestConfig> & { client?: typeof fetch } = {},
+  config: Partial<RequestConfig> & { client?: typeof fetch } = {}
 ) {
-  const queryKey = getAllFormsQueryKey(params);
+  const queryKey = getAllFormsQueryKey(params)
   return queryOptions<
     GetAllFormsQueryResponse,
     ResponseErrorConfig<Error>,
@@ -63,10 +63,10 @@ export function getAllFormsQueryOptions(
     enabled: !!params,
     queryKey,
     queryFn: async ({ signal }) => {
-      config.signal = signal;
-      return getAllForms(params, config);
+      config.signal = signal
+      return getAllForms(params, config)
     },
-  });
+  })
 }
 
 /**
@@ -89,13 +89,13 @@ export function useGetAllForms<
         TQueryData,
         TQueryKey
       >
-    > & { client?: QueryClient };
-    client?: Partial<RequestConfig> & { client?: typeof fetch };
-  } = {},
+    > & { client?: QueryClient }
+    client?: Partial<RequestConfig> & { client?: typeof fetch }
+  } = {}
 ) {
-  const { query: queryConfig = {}, client: config = {} } = options ?? {};
-  const { client: queryClient, ...queryOptions } = queryConfig;
-  const queryKey = queryOptions?.queryKey ?? getAllFormsQueryKey(params);
+  const { query: queryConfig = {}, client: config = {} } = options ?? {}
+  const { client: queryClient, ...queryOptions } = queryConfig
+  const queryKey = queryOptions?.queryKey ?? getAllFormsQueryKey(params)
 
   const query = useQuery(
     {
@@ -103,12 +103,12 @@ export function useGetAllForms<
       queryKey,
       ...queryOptions,
     } as unknown as QueryObserverOptions,
-    queryClient,
+    queryClient
   ) as UseQueryResult<TData, ResponseErrorConfig<Error>> & {
-    queryKey: TQueryKey;
-  };
+    queryKey: TQueryKey
+  }
 
-  query.queryKey = queryKey as TQueryKey;
+  query.queryKey = queryKey as TQueryKey
 
-  return query;
+  return query
 }

@@ -7,7 +7,10 @@ import { ProfileDropdown } from '@/components/profile-dropdown'
 import { Search } from '@/components/search'
 import { ThemeSwitch } from '@/components/theme-switch'
 import { useGetMyTrainers, type GetMyTrainersQueryParams } from '@/api'
-import { MyTrainersProvider, useMyTrainers } from './components/my-trainers-provider'
+import {
+  MyTrainersProvider,
+  useMyTrainers,
+} from './components/my-trainers-provider'
 import { MyTrainersTable } from './components/my-trainers-table'
 import { TrainerPreviewDialog } from './components/trainer-preview-dialog'
 
@@ -46,24 +49,26 @@ function MyTrainersContent() {
     <>
       <Header fixed>
         <Search />
-        <div className='ms-auto flex items-center space-x-4'>
+        <div className="ms-auto flex items-center space-x-4">
           <ThemeSwitch />
           <ConfigDrawer />
           <ProfileDropdown />
         </div>
       </Header>
-      <Main className='flex flex-1 flex-col gap-4 sm:gap-6'>
-        <div className='flex flex-wrap items-end justify-between gap-2'>
+      <Main className="flex flex-1 flex-col gap-4 sm:gap-6">
+        <div className="flex flex-wrap items-end justify-between gap-2">
           <div>
-            <h2 className='text-2xl font-bold tracking-tight'>Huấn luyện viên của tôi</h2>
-            <p className='text-muted-foreground'>
+            <h2 className="text-2xl font-bold tracking-tight">
+              Huấn luyện viên của tôi
+            </h2>
+            <p className="text-muted-foreground">
               Quản lý danh sách huấn luyện viên được phân công.
             </p>
           </div>
         </div>
         {isLoading ? (
-          <div className='flex h-64 items-center justify-center'>
-            <span className='text-muted-foreground'>Đang tải...</span>
+          <div className="flex h-64 items-center justify-center">
+            <span className="text-muted-foreground">Đang tải...</span>
           </div>
         ) : (
           <MyTrainersTable

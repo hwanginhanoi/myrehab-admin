@@ -3,20 +3,20 @@
  * Do not edit manually.
  */
 
-import type { CreateGroupRequest } from "../CreateGroupRequest.ts";
-import type { GroupResponse } from "../GroupResponse.ts";
+import type { CreateGroupRequest } from '../CreateGroupRequest.ts'
+import type { GroupResponse } from '../GroupResponse.ts'
 
 /**
  * @description OK
  */
-export type CreateGroup200 = GroupResponse;
+export type CreateGroup200 = GroupResponse
 
-export type CreateGroupMutationRequest = CreateGroupRequest;
+export type CreateGroupMutationRequest = CreateGroupRequest
 
-export type CreateGroupMutationResponse = CreateGroup200;
+export type CreateGroupMutationResponse = CreateGroup200
 
 export type CreateGroupMutation = {
-  Response: CreateGroup200;
-  Request: CreateGroupMutationRequest;
-  Errors: any;
-};
+  Response: CreateGroup200
+  Request: CreateGroupMutationRequest
+  Errors: any
+}

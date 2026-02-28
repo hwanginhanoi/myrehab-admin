@@ -3,31 +3,31 @@
  * Do not edit manually.
  */
 
-import fetch from "@/lib/api-client";
+import fetch from '@/lib/api-client'
 import type {
   GetMyCourseRequestsQueryResponse,
   GetMyCourseRequestsQueryParams,
-} from "../../types/trainerController/GetMyCourseRequests.ts";
-import type { RequestConfig, ResponseErrorConfig } from "@/lib/api-client";
+} from '../../types/trainerController/GetMyCourseRequests.ts'
+import type { RequestConfig, ResponseErrorConfig } from '@/lib/api-client'
 import type {
   QueryKey,
   QueryClient,
   UseSuspenseQueryOptions,
   UseSuspenseQueryResult,
-} from "@tanstack/react-query";
-import { queryOptions, useSuspenseQuery } from "@tanstack/react-query";
+} from '@tanstack/react-query'
+import { queryOptions, useSuspenseQuery } from '@tanstack/react-query'
 
 export const getMyCourseRequestsSuspenseQueryKey = (
-  params: GetMyCourseRequestsQueryParams,
+  params: GetMyCourseRequestsQueryParams
 ) =>
   [
-    { url: "/api/trainer/course-requests" },
+    { url: '/api/trainer/course-requests' },
     ...(params ? [params] : []),
-  ] as const;
+  ] as const
 
 export type GetMyCourseRequestsSuspenseQueryKey = ReturnType<
   typeof getMyCourseRequestsSuspenseQueryKey
->;
+>
 
 /**
  * @description View all course assignment requests created by this trainer, optionally filtered by status
@@ -36,28 +36,28 @@ export type GetMyCourseRequestsSuspenseQueryKey = ReturnType<
  */
 export async function getMyCourseRequestsSuspense(
   params: GetMyCourseRequestsQueryParams,
-  config: Partial<RequestConfig> & { client?: typeof fetch } = {},
+  config: Partial<RequestConfig> & { client?: typeof fetch } = {}
 ) {
-  const { client: request = fetch, ...requestConfig } = config;
+  const { client: request = fetch, ...requestConfig } = config
 
   const res = await request<
     GetMyCourseRequestsQueryResponse,
     ResponseErrorConfig<Error>,
     unknown
   >({
-    method: "GET",
+    method: 'GET',
     url: `/api/trainer/course-requests`,
     params,
     ...requestConfig,
-  });
-  return res.data;
+  })
+  return res.data
 }
 
 export function getMyCourseRequestsSuspenseQueryOptions(
   params: GetMyCourseRequestsQueryParams,
-  config: Partial<RequestConfig> & { client?: typeof fetch } = {},
+  config: Partial<RequestConfig> & { client?: typeof fetch } = {}
 ) {
-  const queryKey = getMyCourseRequestsSuspenseQueryKey(params);
+  const queryKey = getMyCourseRequestsSuspenseQueryKey(params)
   return queryOptions<
     GetMyCourseRequestsQueryResponse,
     ResponseErrorConfig<Error>,
@@ -67,10 +67,10 @@ export function getMyCourseRequestsSuspenseQueryOptions(
     enabled: !!params,
     queryKey,
     queryFn: async ({ signal }) => {
-      config.signal = signal;
-      return getMyCourseRequestsSuspense(params, config);
+      config.signal = signal
+      return getMyCourseRequestsSuspense(params, config)
     },
-  });
+  })
 }
 
 /**
@@ -91,14 +91,14 @@ export function useGetMyCourseRequestsSuspense<
         TData,
         TQueryKey
       >
-    > & { client?: QueryClient };
-    client?: Partial<RequestConfig> & { client?: typeof fetch };
-  } = {},
+    > & { client?: QueryClient }
+    client?: Partial<RequestConfig> & { client?: typeof fetch }
+  } = {}
 ) {
-  const { query: queryConfig = {}, client: config = {} } = options ?? {};
-  const { client: queryClient, ...queryOptions } = queryConfig;
+  const { query: queryConfig = {}, client: config = {} } = options ?? {}
+  const { client: queryClient, ...queryOptions } = queryConfig
   const queryKey =
-    queryOptions?.queryKey ?? getMyCourseRequestsSuspenseQueryKey(params);
+    queryOptions?.queryKey ?? getMyCourseRequestsSuspenseQueryKey(params)
 
   const query = useSuspenseQuery(
     {
@@ -106,12 +106,12 @@ export function useGetMyCourseRequestsSuspense<
       queryKey,
       ...queryOptions,
     } as unknown as UseSuspenseQueryOptions,
-    queryClient,
+    queryClient
   ) as UseSuspenseQueryResult<TData, ResponseErrorConfig<Error>> & {
-    queryKey: TQueryKey;
-  };
+    queryKey: TQueryKey
+  }
 
-  query.queryKey = queryKey as TQueryKey;
+  query.queryKey = queryKey as TQueryKey
 
-  return query;
+  return query
 }

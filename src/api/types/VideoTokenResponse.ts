@@ -7,21 +7,21 @@ export type VideoTokenResponse = {
   /**
    * @type string | undefined
    */
-  channelName?: string;
+  channelName?: string
   /**
    * @type string | undefined
    */
-  token?: string;
+  token?: string
   /**
    * @type integer | undefined, int32
    */
-  uid?: number;
+  uid?: number
   /**
    * @type string | undefined
    */
-  appId?: string;
+  appId?: string
   /**
    * @type string | undefined, date-time
    */
-  expiresAt?: string;
-};
+  expiresAt?: string
+}

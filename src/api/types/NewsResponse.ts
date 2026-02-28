@@ -4,57 +4,57 @@
  */
 
 export const newsResponseStatusEnum = {
-  DRAFT: "DRAFT",
-  PUBLISHED: "PUBLISHED",
-  ARCHIVED: "ARCHIVED",
-} as const;
+  DRAFT: 'DRAFT',
+  PUBLISHED: 'PUBLISHED',
+  ARCHIVED: 'ARCHIVED',
+} as const
 
 export type NewsResponseStatusEnumKey =
-  (typeof newsResponseStatusEnum)[keyof typeof newsResponseStatusEnum];
+  (typeof newsResponseStatusEnum)[keyof typeof newsResponseStatusEnum]
 
 export type NewsResponse = {
   /**
    * @type integer | undefined, int64
    */
-  id?: number;
+  id?: number
   /**
    * @type string | undefined
    */
-  title?: string;
+  title?: string
   /**
    * @type string | undefined
    */
-  content?: string;
+  content?: string
   /**
    * @type string | undefined
    */
-  summary?: string;
+  summary?: string
   /**
    * @type string | undefined
    */
-  thumbnailUrl?: string;
+  thumbnailUrl?: string
   /**
    * @type integer | undefined, int64
    */
-  authorId?: number;
+  authorId?: number
   /**
    * @type string | undefined
    */
-  status?: NewsResponseStatusEnumKey;
+  status?: NewsResponseStatusEnumKey
   /**
    * @type string | undefined
    */
-  category?: string;
+  category?: string
   /**
    * @type string | undefined, date-time
    */
-  publishedAt?: string;
+  publishedAt?: string
   /**
    * @type string | undefined, date-time
    */
-  createdAt?: string;
+  createdAt?: string
   /**
    * @type string | undefined, date-time
    */
-  updatedAt?: string;
-};
+  updatedAt?: string
+}

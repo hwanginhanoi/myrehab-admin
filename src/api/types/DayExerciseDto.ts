@@ -7,13 +7,13 @@ export type DayExerciseDto = {
   /**
    * @type integer, int64
    */
-  exerciseId: number;
+  exerciseId: number
   /**
    * @type integer, int32
    */
-  orderInDay: number;
+  orderInDay: number
   /**
    * @type integer | undefined, int32
    */
-  customRepetitions?: number;
-};
+  customRepetitions?: number
+}

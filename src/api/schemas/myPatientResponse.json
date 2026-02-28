@@ -1,0 +1,15 @@
+{
+  "type": "object",
+  "properties": {
+    "userId": { "type": "integer", "format": "int64" },
+    "phoneNumber": { "type": "string" },
+    "fullName": { "type": "string" },
+    "gender": { "type": "string" },
+    "dateOfBirth": { "type": "string", "format": "date" },
+    "assignedAt": { "type": "string", "format": "date-time" },
+    "assignedCoursesCount": { "type": "integer", "format": "int32" },
+    "completedCoursesCount": { "type": "integer", "format": "int32" },
+    "hasActiveCourse": { "type": "boolean" }
+  },
+  "x-readme-ref-name": "MyPatientResponse"
+}

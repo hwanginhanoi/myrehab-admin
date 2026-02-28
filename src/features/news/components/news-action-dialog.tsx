@@ -1,5 +1,3 @@
-'use client'
-
 import { useRef, useState } from 'react'
 import { z } from 'zod'
 import { useForm } from 'react-hook-form'
@@ -28,10 +26,14 @@ import { Tiptap } from '@/components/tiptap'
 import { SelectDropdown } from '@/components/select-dropdown'
 import { FileUpload, type FileUploadRef } from '@/components/file-upload'
 import { newsStatusOptions } from '@/lib/constants/news-status'
-import { newsCategoryTypeOptions } from '@/lib/constants/news-catergories'
+import { newsCategoryTypeOptions } from '@/lib/constants/news-categories'
 import { type NewsResponse, useCreateNews, useUpdateNews } from '@/api'
 import { toast } from 'sonner'
-import { requestPresignedUploadUrl, uploadFileToMinIO, getPublicImageUrl } from '@/lib/file-upload'
+import {
+  requestPresignedUploadUrl,
+  uploadFileToMinIO,
+  getPublicImageUrl,
+} from '@/lib/file-upload'
 
 /**
  * Helper function to convert base64 string to File object
@@ -67,7 +69,10 @@ const processAndUploadImages = async (htmlContent: string): Promise<string> => {
     if (src && src.startsWith('data:image')) {
       const uploadPromise = (async () => {
         // Convert base64 to file
-        const file = base64ToFile(src, `news-image-${Date.now()}-${imageIndex}.png`)
+        const file = base64ToFile(
+          src,
+          `news-image-${Date.now()}-${imageIndex}.png`
+        )
         imageIndex++
 
         // Upload to MinIO
@@ -117,11 +122,11 @@ type NewsActionDialogProps = {
 }
 
 export function NewsActionDialog({
-   currentRow,
-   open,
-   onOpenChange,
-   mode,
- }: NewsActionDialogProps) {
+  currentRow,
+  open,
+  onOpenChange,
+  mode,
+}: NewsActionDialogProps) {
   const isEdit = mode === 'edit'
   const isView = mode === 'view'
 
@@ -131,25 +136,26 @@ export function NewsActionDialog({
 
   const form = useForm<NewsForm>({
     resolver: zodResolver(formSchema),
-    defaultValues: isEdit || isView
+    defaultValues:
+      isEdit || isView
         ? {
-          title: currentRow?.title || '',
-          content: currentRow?.content || '',
-          summary: currentRow?.summary || '',
-          thumbnailUrl: currentRow?.thumbnailUrl || '',
-          status: currentRow?.status || '',
-          category: currentRow?.category || '',
-          isEdit,
-        }
+            title: currentRow?.title || '',
+            content: currentRow?.content || '',
+            summary: currentRow?.summary || '',
+            thumbnailUrl: currentRow?.thumbnailUrl || '',
+            status: currentRow?.status || '',
+            category: currentRow?.category || '',
+            isEdit,
+          }
         : {
-          title: '',
-          content: '',
-          summary: '',
-          thumbnailUrl: '',
-          status: 'DRAFT',
-          category: '',
-          isEdit: false,
-        },
+            title: '',
+            content: '',
+            summary: '',
+            thumbnailUrl: '',
+            status: 'DRAFT',
+            category: '',
+            isEdit: false,
+          },
   })
 
   const createMutation = useCreateNews({
@@ -251,167 +257,173 @@ export function NewsActionDialog({
   }
 
   return (
-      <Dialog
-          open={open}
-          onOpenChange={(state) => {
-            form.reset()
-            onOpenChange(state)
-          }}
-      >
-        <DialogContent className='sm:max-w-6xl max-h-[90vh] overflow-y-auto'>
-          <DialogHeader className='text-start'>
-            <DialogTitle>{getTitle()}</DialogTitle>
-            <DialogDescription>{getDescription()}</DialogDescription>
-          </DialogHeader>
-          <Form {...form}>
-            <form
-                id='news-form'
-                onSubmit={form.handleSubmit(onSubmit)}
-                className='space-y-4'
+    <Dialog
+      open={open}
+      onOpenChange={(state) => {
+        form.reset()
+        onOpenChange(state)
+      }}
+    >
+      <DialogContent className="sm:max-w-6xl max-h-[90vh] overflow-y-auto">
+        <DialogHeader className="text-start">
+          <DialogTitle>{getTitle()}</DialogTitle>
+          <DialogDescription>{getDescription()}</DialogDescription>
+        </DialogHeader>
+        <Form {...form}>
+          <form
+            id="news-form"
+            onSubmit={form.handleSubmit(onSubmit)}
+            className="space-y-4"
+          >
+            <FormField
+              control={form.control}
+              name="title"
+              render={({ field }) => (
+                <FormItem className="grid grid-cols-6 items-center space-y-0 gap-x-4 gap-y-1">
+                  <FormLabel className="col-span-2 text-end">Tiêu đề</FormLabel>
+                  <FormControl>
+                    <Input
+                      placeholder="Nhập tiêu đề"
+                      className="col-span-4"
+                      disabled={isView}
+                      {...field}
+                    />
+                  </FormControl>
+                  <FormMessage className="col-span-4 col-start-3" />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="summary"
+              render={({ field }) => (
+                <FormItem className="grid grid-cols-6 items-start space-y-0 gap-x-4 gap-y-1">
+                  <FormLabel className="col-span-2 text-end pt-2">
+                    Tóm tắt
+                  </FormLabel>
+                  <FormControl>
+                    <Textarea
+                      placeholder="Nhập tóm tắt"
+                      className="col-span-4 min-h-[80px]"
+                      disabled={isView}
+                      {...field}
+                    />
+                  </FormControl>
+                  <FormMessage className="col-span-4 col-start-3" />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="content"
+              render={({ field }) => (
+                <FormItem className="grid grid-cols-6 items-start space-y-0 gap-x-4 gap-y-1">
+                  <FormLabel className="col-span-2 text-end pt-2">
+                    Nội dung
+                  </FormLabel>
+                  <FormControl>
+                    <Tiptap
+                      value={field.value}
+                      onChange={field.onChange}
+                      disabled={isView}
+                      placeholder="Nhập nội dung tin tức"
+                      className="col-span-4"
+                    />
+                  </FormControl>
+                  <FormMessage className="col-span-4 col-start-3" />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="thumbnailUrl"
+              render={({ field }) => (
+                <FormItem className="grid grid-cols-6 items-start space-y-0 gap-x-4 gap-y-1">
+                  <FormLabel className="col-span-2 text-end pt-2">
+                    Ảnh đại diện
+                  </FormLabel>
+                  <FormControl>
+                    <FileUpload
+                      ref={imageUploadRef}
+                      category="news-image"
+                      value={field.value}
+                      onChange={field.onChange}
+                      disabled={isView}
+                      className="col-span-4"
+                      label={undefined}
+                    />
+                  </FormControl>
+                  <FormMessage className="col-span-4 col-start-3" />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="category"
+              render={({ field }) => (
+                <FormItem className="grid grid-cols-6 items-center space-y-0 gap-x-4 gap-y-1">
+                  <FormLabel className="col-span-2 text-end">
+                    Danh mục
+                  </FormLabel>
+                  <FormControl>
+                    <SelectDropdown
+                      defaultValue={field.value}
+                      onValueChange={field.onChange}
+                      placeholder="Chọn danh mục"
+                      className="col-span-4"
+                      disabled={isView}
+                      items={newsCategoryTypeOptions}
+                    />
+                  </FormControl>
+                  <FormMessage className="col-span-4 col-start-3" />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="status"
+              render={({ field }) => (
+                <FormItem className="grid grid-cols-6 items-center space-y-0 gap-x-4 gap-y-1">
+                  <FormLabel className="col-span-2 text-end">
+                    Trạng thái
+                  </FormLabel>
+                  <FormControl>
+                    <SelectDropdown
+                      defaultValue={field.value}
+                      onValueChange={field.onChange}
+                      placeholder="Chọn trạng thái"
+                      className="col-span-4"
+                      disabled={isView}
+                      items={newsStatusOptions}
+                    />
+                  </FormControl>
+                  <FormMessage className="col-span-4 col-start-3" />
+                </FormItem>
+              )}
+            />
+          </form>
+        </Form>
+        <DialogFooter>
+          {!isView && (
+            <Button
+              type="submit"
+              form="news-form"
+              disabled={
+                createMutation.isPending ||
+                updateMutation.isPending ||
+                uploadingContentImages
+              }
             >
-              <FormField
-                  control={form.control}
-                  name='title'
-                  render={({ field }) => (
-                      <FormItem className='grid grid-cols-6 items-center space-y-0 gap-x-4 gap-y-1'>
-                        <FormLabel className='col-span-2 text-end'>
-                          Tiêu đề
-                        </FormLabel>
-                        <FormControl>
-                          <Input
-                              placeholder='Nhập tiêu đề'
-                              className='col-span-4'
-                              disabled={isView}
-                              {...field}
-                          />
-                        </FormControl>
-                        <FormMessage className='col-span-4 col-start-3' />
-                      </FormItem>
-                  )}
-              />
-              <FormField
-                  control={form.control}
-                  name='summary'
-                  render={({ field }) => (
-                      <FormItem className='grid grid-cols-6 items-start space-y-0 gap-x-4 gap-y-1'>
-                        <FormLabel className='col-span-2 text-end pt-2'>
-                          Tóm tắt
-                        </FormLabel>
-                        <FormControl>
-                          <Textarea
-                              placeholder='Nhập tóm tắt'
-                              className='col-span-4 min-h-[80px]'
-                              disabled={isView}
-                              {...field}
-                          />
-                        </FormControl>
-                        <FormMessage className='col-span-4 col-start-3' />
-                      </FormItem>
-                  )}
-              />
-              <FormField
-                  control={form.control}
-                  name='content'
-                  render={({ field }) => (
-                      <FormItem className='grid grid-cols-6 items-start space-y-0 gap-x-4 gap-y-1'>
-                        <FormLabel className='col-span-2 text-end pt-2'>
-                          Nội dung
-                        </FormLabel>
-                        <FormControl>
-                          <Tiptap
-                              value={field.value}
-                              onChange={field.onChange}
-                              disabled={isView}
-                              placeholder='Nhập nội dung tin tức'
-                              className='col-span-4'
-                          />
-                        </FormControl>
-                        <FormMessage className='col-span-4 col-start-3' />
-                      </FormItem>
-                  )}
-              />
-              <FormField
-                  control={form.control}
-                  name='thumbnailUrl'
-                  render={({ field }) => (
-                      <FormItem className='grid grid-cols-6 items-start space-y-0 gap-x-4 gap-y-1'>
-                        <FormLabel className='col-span-2 text-end pt-2'>
-                          Ảnh đại diện
-                        </FormLabel>
-                        <FormControl>
-                          <FileUpload
-                              ref={imageUploadRef}
-                              category='news-image'
-                              value={field.value}
-                              onChange={field.onChange}
-                              disabled={isView}
-                              className='col-span-4'
-                              label={undefined}
-                          />
-                        </FormControl>
-                        <FormMessage className='col-span-4 col-start-3' />
-                      </FormItem>
-                  )}
-              />
-              <FormField
-                  control={form.control}
-                  name='category'
-                  render={({ field }) => (
-                      <FormItem className='grid grid-cols-6 items-center space-y-0 gap-x-4 gap-y-1'>
-                        <FormLabel className='col-span-2 text-end'>Danh mục</FormLabel>
-                        <FormControl>
-                          <SelectDropdown
-                              defaultValue={field.value}
-                              onValueChange={field.onChange}
-                              placeholder='Chọn danh mục'
-                              className='col-span-4'
-                              disabled={isView}
-                              items={newsCategoryTypeOptions}
-                          />
-                        </FormControl>
-                        <FormMessage className='col-span-4 col-start-3' />
-                      </FormItem>
-                  )}
-              />
-              <FormField
-                  control={form.control}
-                  name='status'
-                  render={({ field }) => (
-                      <FormItem className='grid grid-cols-6 items-center space-y-0 gap-x-4 gap-y-1'>
-                        <FormLabel className='col-span-2 text-end'>Trạng thái</FormLabel>
-                        <FormControl>
-                          <SelectDropdown
-                              defaultValue={field.value}
-                              onValueChange={field.onChange}
-                              placeholder='Chọn trạng thái'
-                              className='col-span-4'
-                              disabled={isView}
-                              items={newsStatusOptions}
-                          />
-                        </FormControl>
-                        <FormMessage className='col-span-4 col-start-3' />
-                      </FormItem>
-                  )}
-              />
-            </form>
-          </Form>
-          <DialogFooter>
-            {!isView && (
-                <Button
-                    type='submit'
-                    form='news-form'
-                    disabled={createMutation.isPending || updateMutation.isPending || uploadingContentImages}
-                >
-                  {uploadingContentImages ? 'Đang tải ảnh lên...' : createMutation.isPending || updateMutation.isPending ? 'Đang lưu...' : 'Lưu'}
-                </Button>
-            )}
-            {isView && (
-                <Button onClick={() => onOpenChange(false)}>
-                  Đóng
-                </Button>
-            )}
-          </DialogFooter>
-        </DialogContent>
-      </Dialog>
+              {uploadingContentImages
+                ? 'Đang tải ảnh lên...'
+                : createMutation.isPending || updateMutation.isPending
+                  ? 'Đang lưu...'
+                  : 'Lưu'}
+            </Button>
+          )}
+          {isView && <Button onClick={() => onOpenChange(false)}>Đóng</Button>}
+        </DialogFooter>
+      </DialogContent>
+    </Dialog>
   )
 }

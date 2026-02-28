@@ -3,16 +3,16 @@
  * Do not edit manually.
  */
 
-import { refreshTokenRequestSchema } from "../refreshTokenRequestSchema.ts";
-import { z } from "zod/v4";
+import { refreshTokenRequestSchema } from '../refreshTokenRequestSchema.ts'
+import { z } from 'zod/v4'
 
 /**
  * @description OK
  */
-export const logout200Schema = z.object({});
+export const logout200Schema = z.object({})
 
 export const logoutMutationRequestSchema = z.lazy(
-  () => refreshTokenRequestSchema,
-);
+  () => refreshTokenRequestSchema
+)
 
-export const logoutMutationResponseSchema = z.lazy(() => logout200Schema);
+export const logoutMutationResponseSchema = z.lazy(() => logout200Schema)

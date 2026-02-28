@@ -3,20 +3,20 @@
  * Do not edit manually.
  */
 
-import type { CreateStaffRequest } from "../CreateStaffRequest.ts";
-import type { StaffResponse } from "../StaffResponse.ts";
+import type { CreateStaffRequest } from '../CreateStaffRequest.ts'
+import type { StaffResponse } from '../StaffResponse.ts'
 
 /**
  * @description OK
  */
-export type CreateStaff200 = StaffResponse;
+export type CreateStaff200 = StaffResponse
 
-export type CreateStaffMutationRequest = CreateStaffRequest;
+export type CreateStaffMutationRequest = CreateStaffRequest
 
-export type CreateStaffMutationResponse = CreateStaff200;
+export type CreateStaffMutationResponse = CreateStaff200
 
 export type CreateStaffMutation = {
-  Response: CreateStaff200;
-  Request: CreateStaffMutationRequest;
-  Errors: any;
-};
+  Response: CreateStaff200
+  Request: CreateStaffMutationRequest
+  Errors: any
+}

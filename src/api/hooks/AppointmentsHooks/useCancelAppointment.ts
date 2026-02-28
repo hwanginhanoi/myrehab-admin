@@ -3,26 +3,26 @@
  * Do not edit manually.
  */
 
-import fetch from "@/lib/api-client";
+import fetch from '@/lib/api-client'
 import type {
   CancelAppointmentMutationRequest,
   CancelAppointmentMutationResponse,
   CancelAppointmentPathParams,
-} from "../../types/appointmentsController/CancelAppointment.ts";
-import type { RequestConfig, ResponseErrorConfig } from "@/lib/api-client";
+} from '../../types/appointmentsController/CancelAppointment.ts'
+import type { RequestConfig, ResponseErrorConfig } from '@/lib/api-client'
 import type {
   UseMutationOptions,
   UseMutationResult,
   QueryClient,
-} from "@tanstack/react-query";
-import { mutationOptions, useMutation } from "@tanstack/react-query";
+} from '@tanstack/react-query'
+import { mutationOptions, useMutation } from '@tanstack/react-query'
 
 export const cancelAppointmentMutationKey = () =>
-  [{ url: "/api/appointments/:id/cancel" }] as const;
+  [{ url: '/api/appointments/:id/cancel' }] as const
 
 export type CancelAppointmentMutationKey = ReturnType<
   typeof cancelAppointmentMutationKey
->;
+>
 
 /**
  * @description Patient cancels a pending appointment with automatic refund
@@ -30,49 +30,49 @@ export type CancelAppointmentMutationKey = ReturnType<
  * {@link /api/appointments/:id/cancel}
  */
 export async function cancelAppointment(
-  id: CancelAppointmentPathParams["id"],
+  id: CancelAppointmentPathParams['id'],
   data?: CancelAppointmentMutationRequest,
   config: Partial<RequestConfig<CancelAppointmentMutationRequest>> & {
-    client?: typeof fetch;
-  } = {},
+    client?: typeof fetch
+  } = {}
 ) {
-  const { client: request = fetch, ...requestConfig } = config;
+  const { client: request = fetch, ...requestConfig } = config
 
-  const requestData = data;
+  const requestData = data
 
   const res = await request<
     CancelAppointmentMutationResponse,
     ResponseErrorConfig<Error>,
     CancelAppointmentMutationRequest
   >({
-    method: "POST",
+    method: 'POST',
     url: `/api/appointments/${id}/cancel`,
     data: requestData,
     ...requestConfig,
-  });
-  return res.data;
+  })
+  return res.data
 }
 
 export function cancelAppointmentMutationOptions(
   config: Partial<RequestConfig<CancelAppointmentMutationRequest>> & {
-    client?: typeof fetch;
-  } = {},
+    client?: typeof fetch
+  } = {}
 ) {
-  const mutationKey = cancelAppointmentMutationKey();
+  const mutationKey = cancelAppointmentMutationKey()
   return mutationOptions<
     CancelAppointmentMutationResponse,
     ResponseErrorConfig<Error>,
     {
-      id: CancelAppointmentPathParams["id"];
-      data?: CancelAppointmentMutationRequest;
+      id: CancelAppointmentPathParams['id']
+      data?: CancelAppointmentMutationRequest
     },
     typeof mutationKey
   >({
     mutationKey,
     mutationFn: async ({ id, data }) => {
-      return cancelAppointment(id, data, config);
+      return cancelAppointment(id, data, config)
     },
-  });
+  })
 }
 
 /**
@@ -86,39 +86,39 @@ export function useCancelAppointment<TContext>(
       CancelAppointmentMutationResponse,
       ResponseErrorConfig<Error>,
       {
-        id: CancelAppointmentPathParams["id"];
-        data?: CancelAppointmentMutationRequest;
+        id: CancelAppointmentPathParams['id']
+        data?: CancelAppointmentMutationRequest
       },
       TContext
-    > & { client?: QueryClient };
+    > & { client?: QueryClient }
     client?: Partial<RequestConfig<CancelAppointmentMutationRequest>> & {
-      client?: typeof fetch;
-    };
-  } = {},
+      client?: typeof fetch
+    }
+  } = {}
 ) {
-  const { mutation = {}, client: config = {} } = options ?? {};
-  const { client: queryClient, ...mutationOptions } = mutation;
+  const { mutation = {}, client: config = {} } = options ?? {}
+  const { client: queryClient, ...mutationOptions } = mutation
   const mutationKey =
-    mutationOptions.mutationKey ?? cancelAppointmentMutationKey();
+    mutationOptions.mutationKey ?? cancelAppointmentMutationKey()
 
   const baseOptions = cancelAppointmentMutationOptions(
-    config,
+    config
   ) as UseMutationOptions<
     CancelAppointmentMutationResponse,
     ResponseErrorConfig<Error>,
     {
-      id: CancelAppointmentPathParams["id"];
-      data?: CancelAppointmentMutationRequest;
+      id: CancelAppointmentPathParams['id']
+      data?: CancelAppointmentMutationRequest
     },
     TContext
-  >;
+  >
 
   return useMutation<
     CancelAppointmentMutationResponse,
     ResponseErrorConfig<Error>,
     {
-      id: CancelAppointmentPathParams["id"];
-      data?: CancelAppointmentMutationRequest;
+      id: CancelAppointmentPathParams['id']
+      data?: CancelAppointmentMutationRequest
     },
     TContext
   >(
@@ -127,14 +127,14 @@ export function useCancelAppointment<TContext>(
       mutationKey,
       ...mutationOptions,
     },
-    queryClient,
+    queryClient
   ) as UseMutationResult<
     CancelAppointmentMutationResponse,
     ResponseErrorConfig<Error>,
     {
-      id: CancelAppointmentPathParams["id"];
-      data?: CancelAppointmentMutationRequest;
+      id: CancelAppointmentPathParams['id']
+      data?: CancelAppointmentMutationRequest
     },
     TContext
-  >;
+  >
 }

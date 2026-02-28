@@ -3,43 +3,43 @@
  * Do not edit manually.
  */
 
-import type { ExerciseResponse } from "./ExerciseResponse.ts";
+import type { ExerciseResponse } from './ExerciseResponse.ts'
 
 export type ExercisePackageDetailResponse = {
   /**
    * @type integer | undefined, int64
    */
-  id?: number;
+  id?: number
   /**
    * @type string | undefined
    */
-  title?: string;
+  title?: string
   /**
    * @type string | undefined
    */
-  description?: string;
+  description?: string
   /**
    * @type string | undefined
    */
-  imageUrl?: string;
+  imageUrl?: string
   /**
    * @type array | undefined
    */
-  exercises?: ExerciseResponse[];
+  exercises?: ExerciseResponse[]
   /**
    * @type integer | undefined, int64
    */
-  monthlyPrice?: number;
+  monthlyPrice?: number
   /**
    * @type integer | undefined, int64
    */
-  yearlyPrice?: number;
+  yearlyPrice?: number
   /**
    * @type string | undefined, date-time
    */
-  createdAt?: string;
+  createdAt?: string
   /**
    * @type string | undefined, date-time
    */
-  updatedAt?: string;
-};
+  updatedAt?: string
+}

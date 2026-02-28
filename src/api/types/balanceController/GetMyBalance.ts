@@ -3,16 +3,16 @@
  * Do not edit manually.
  */
 
-import type { BalanceResponse } from "../BalanceResponse.ts";
+import type { BalanceResponse } from '../BalanceResponse.ts'
 
 /**
  * @description OK
  */
-export type GetMyBalance200 = BalanceResponse;
+export type GetMyBalance200 = BalanceResponse
 
-export type GetMyBalanceQueryResponse = GetMyBalance200;
+export type GetMyBalanceQueryResponse = GetMyBalance200
 
 export type GetMyBalanceQuery = {
-  Response: GetMyBalance200;
-  Errors: any;
-};
+  Response: GetMyBalance200
+  Errors: any
+}

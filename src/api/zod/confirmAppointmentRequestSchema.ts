@@ -3,8 +3,8 @@
  * Do not edit manually.
  */
 
-import { z } from "zod/v4";
+import { z } from 'zod/v4'
 
 export const confirmAppointmentRequestSchema = z.object({
   notes: z.optional(z.string()),
-});
+})

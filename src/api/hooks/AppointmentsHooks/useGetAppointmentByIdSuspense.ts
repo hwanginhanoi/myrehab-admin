@@ -3,27 +3,27 @@
  * Do not edit manually.
  */
 
-import fetch from "@/lib/api-client";
+import fetch from '@/lib/api-client'
 import type {
   GetAppointmentByIdQueryResponse,
   GetAppointmentByIdPathParams,
-} from "../../types/appointmentsController/GetAppointmentById.ts";
-import type { RequestConfig, ResponseErrorConfig } from "@/lib/api-client";
+} from '../../types/appointmentsController/GetAppointmentById.ts'
+import type { RequestConfig, ResponseErrorConfig } from '@/lib/api-client'
 import type {
   QueryKey,
   QueryClient,
   UseSuspenseQueryOptions,
   UseSuspenseQueryResult,
-} from "@tanstack/react-query";
-import { queryOptions, useSuspenseQuery } from "@tanstack/react-query";
+} from '@tanstack/react-query'
+import { queryOptions, useSuspenseQuery } from '@tanstack/react-query'
 
 export const getAppointmentByIdSuspenseQueryKey = (
-  id: GetAppointmentByIdPathParams["id"],
-) => [{ url: "/api/appointments/:id", params: { id: id } }] as const;
+  id: GetAppointmentByIdPathParams['id']
+) => [{ url: '/api/appointments/:id', params: { id: id } }] as const
 
 export type GetAppointmentByIdSuspenseQueryKey = ReturnType<
   typeof getAppointmentByIdSuspenseQueryKey
->;
+>
 
 /**
  * @description Get details of a specific appointment
@@ -31,24 +31,24 @@ export type GetAppointmentByIdSuspenseQueryKey = ReturnType<
  * {@link /api/appointments/:id}
  */
 export async function getAppointmentByIdSuspense(
-  id: GetAppointmentByIdPathParams["id"],
-  config: Partial<RequestConfig> & { client?: typeof fetch } = {},
+  id: GetAppointmentByIdPathParams['id'],
+  config: Partial<RequestConfig> & { client?: typeof fetch } = {}
 ) {
-  const { client: request = fetch, ...requestConfig } = config;
+  const { client: request = fetch, ...requestConfig } = config
 
   const res = await request<
     GetAppointmentByIdQueryResponse,
     ResponseErrorConfig<Error>,
     unknown
-  >({ method: "GET", url: `/api/appointments/${id}`, ...requestConfig });
-  return res.data;
+  >({ method: 'GET', url: `/api/appointments/${id}`, ...requestConfig })
+  return res.data
 }
 
 export function getAppointmentByIdSuspenseQueryOptions(
-  id: GetAppointmentByIdPathParams["id"],
-  config: Partial<RequestConfig> & { client?: typeof fetch } = {},
+  id: GetAppointmentByIdPathParams['id'],
+  config: Partial<RequestConfig> & { client?: typeof fetch } = {}
 ) {
-  const queryKey = getAppointmentByIdSuspenseQueryKey(id);
+  const queryKey = getAppointmentByIdSuspenseQueryKey(id)
   return queryOptions<
     GetAppointmentByIdQueryResponse,
     ResponseErrorConfig<Error>,
@@ -58,10 +58,10 @@ export function getAppointmentByIdSuspenseQueryOptions(
     enabled: !!id,
     queryKey,
     queryFn: async ({ signal }) => {
-      config.signal = signal;
-      return getAppointmentByIdSuspense(id, config);
+      config.signal = signal
+      return getAppointmentByIdSuspense(id, config)
     },
-  });
+  })
 }
 
 /**
@@ -73,7 +73,7 @@ export function useGetAppointmentByIdSuspense<
   TData = GetAppointmentByIdQueryResponse,
   TQueryKey extends QueryKey = GetAppointmentByIdSuspenseQueryKey,
 >(
-  id: GetAppointmentByIdPathParams["id"],
+  id: GetAppointmentByIdPathParams['id'],
   options: {
     query?: Partial<
       UseSuspenseQueryOptions<
@@ -82,14 +82,14 @@ export function useGetAppointmentByIdSuspense<
         TData,
         TQueryKey
       >
-    > & { client?: QueryClient };
-    client?: Partial<RequestConfig> & { client?: typeof fetch };
-  } = {},
+    > & { client?: QueryClient }
+    client?: Partial<RequestConfig> & { client?: typeof fetch }
+  } = {}
 ) {
-  const { query: queryConfig = {}, client: config = {} } = options ?? {};
-  const { client: queryClient, ...queryOptions } = queryConfig;
+  const { query: queryConfig = {}, client: config = {} } = options ?? {}
+  const { client: queryClient, ...queryOptions } = queryConfig
   const queryKey =
-    queryOptions?.queryKey ?? getAppointmentByIdSuspenseQueryKey(id);
+    queryOptions?.queryKey ?? getAppointmentByIdSuspenseQueryKey(id)
 
   const query = useSuspenseQuery(
     {
@@ -97,12 +97,12 @@ export function useGetAppointmentByIdSuspense<
       queryKey,
       ...queryOptions,
     } as unknown as UseSuspenseQueryOptions,
-    queryClient,
+    queryClient
   ) as UseSuspenseQueryResult<TData, ResponseErrorConfig<Error>> & {
-    queryKey: TQueryKey;
-  };
+    queryKey: TQueryKey
+  }
 
-  query.queryKey = queryKey as TQueryKey;
+  query.queryKey = queryKey as TQueryKey
 
-  return query;
+  return query
 }

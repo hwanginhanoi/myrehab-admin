@@ -3,22 +3,22 @@
  * Do not edit manually.
  */
 
-import type { NationalHealthInsuranceResponse } from "../NationalHealthInsuranceResponse.ts";
-import type { UpsertNationalHealthInsuranceRequest } from "../UpsertNationalHealthInsuranceRequest.ts";
+import type { NationalHealthInsuranceResponse } from '../NationalHealthInsuranceResponse.ts'
+import type { UpsertNationalHealthInsuranceRequest } from '../UpsertNationalHealthInsuranceRequest.ts'
 
 /**
  * @description OK
  */
-export type UpsertMyNationalInsurance200 = NationalHealthInsuranceResponse;
+export type UpsertMyNationalInsurance200 = NationalHealthInsuranceResponse
 
 export type UpsertMyNationalInsuranceMutationRequest =
-  UpsertNationalHealthInsuranceRequest;
+  UpsertNationalHealthInsuranceRequest
 
 export type UpsertMyNationalInsuranceMutationResponse =
-  UpsertMyNationalInsurance200;
+  UpsertMyNationalInsurance200
 
 export type UpsertMyNationalInsuranceMutation = {
-  Response: UpsertMyNationalInsurance200;
-  Request: UpsertMyNationalInsuranceMutationRequest;
-  Errors: any;
-};
+  Response: UpsertMyNationalInsurance200
+  Request: UpsertMyNationalInsuranceMutationRequest
+  Errors: any
+}

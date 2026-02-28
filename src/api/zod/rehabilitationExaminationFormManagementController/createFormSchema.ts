@@ -3,21 +3,21 @@
  * Do not edit manually.
  */
 
-import { createRehabilitationExaminationFormRequestSchema } from "../createRehabilitationExaminationFormRequestSchema.ts";
-import { rehabilitationExaminationFormResponseSchema } from "../rehabilitationExaminationFormResponseSchema.ts";
-import { z } from "zod/v4";
+import { createRehabilitationExaminationFormRequestSchema } from '../createRehabilitationExaminationFormRequestSchema.ts'
+import { rehabilitationExaminationFormResponseSchema } from '../rehabilitationExaminationFormResponseSchema.ts'
+import { z } from 'zod/v4'
 
 /**
  * @description OK
  */
 export const createForm200Schema = z.lazy(
-  () => rehabilitationExaminationFormResponseSchema,
-);
+  () => rehabilitationExaminationFormResponseSchema
+)
 
 export const createFormMutationRequestSchema = z.lazy(
-  () => createRehabilitationExaminationFormRequestSchema,
-);
+  () => createRehabilitationExaminationFormRequestSchema
+)
 
 export const createFormMutationResponseSchema = z.lazy(
-  () => createForm200Schema,
-);
+  () => createForm200Schema
+)

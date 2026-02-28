@@ -3,27 +3,27 @@
  * Do not edit manually.
  */
 
-import { feedbackExistsResponseSchema } from "../feedbackExistsResponseSchema.ts";
-import { z } from "zod/v4";
+import { feedbackExistsResponseSchema } from '../feedbackExistsResponseSchema.ts'
+import { z } from 'zod/v4'
 
 export const checkFeedbackExistsPathParamsSchema = z.object({
-  courseDayId: z.coerce.number().int().describe("Course Day ID"),
-});
+  courseDayId: z.coerce.number().int().describe('Course Day ID'),
+})
 
 /**
  * @description Check completed successfully
  */
 export const checkFeedbackExists200Schema = z.lazy(
-  () => feedbackExistsResponseSchema,
-);
+  () => feedbackExistsResponseSchema
+)
 
 /**
  * @description No active course progress found
  */
 export const checkFeedbackExists404Schema = z.lazy(
-  () => feedbackExistsResponseSchema,
-);
+  () => feedbackExistsResponseSchema
+)
 
 export const checkFeedbackExistsQueryResponseSchema = z.lazy(
-  () => checkFeedbackExists200Schema,
-);
+  () => checkFeedbackExists200Schema
+)

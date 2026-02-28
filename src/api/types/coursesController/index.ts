@@ -3,10 +3,10 @@ export type {
   GetAllCourses200,
   GetAllCoursesQueryResponse,
   GetAllCoursesQuery,
-} from "./GetAllCourses.ts";
+} from './GetAllCourses.ts'
 export type {
   GetCourseStructurePathParams,
   GetCourseStructure200,
   GetCourseStructureQueryResponse,
   GetCourseStructureQuery,
-} from "./GetCourseStructure.ts";
+} from './GetCourseStructure.ts'

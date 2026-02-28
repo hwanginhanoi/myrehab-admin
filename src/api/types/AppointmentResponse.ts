@@ -3,125 +3,125 @@
  * Do not edit manually.
  */
 
-import type { LocalTime } from "./LocalTime.ts";
+import type { LocalTime } from './LocalTime.ts'
 
 export const appointmentResponseStatusEnum = {
-  PENDING_CONFIRMATION: "PENDING_CONFIRMATION",
-  CONFIRMED: "CONFIRMED",
-  DOCTOR_COMPLETED: "DOCTOR_COMPLETED",
-  COMPLETED: "COMPLETED",
-  CANCELLED: "CANCELLED",
-  REJECTED: "REJECTED",
-  DISPUTED: "DISPUTED",
-  REFUNDED: "REFUNDED",
-} as const;
+  PENDING_CONFIRMATION: 'PENDING_CONFIRMATION',
+  CONFIRMED: 'CONFIRMED',
+  DOCTOR_COMPLETED: 'DOCTOR_COMPLETED',
+  COMPLETED: 'COMPLETED',
+  CANCELLED: 'CANCELLED',
+  REJECTED: 'REJECTED',
+  DISPUTED: 'DISPUTED',
+  REFUNDED: 'REFUNDED',
+} as const
 
 export type AppointmentResponseStatusEnumKey =
-  (typeof appointmentResponseStatusEnum)[keyof typeof appointmentResponseStatusEnum];
+  (typeof appointmentResponseStatusEnum)[keyof typeof appointmentResponseStatusEnum]
 
 export type AppointmentResponse = {
   /**
    * @type integer | undefined, int64
    */
-  id?: number;
+  id?: number
   /**
    * @type integer | undefined, int64
    */
-  userId?: number;
+  userId?: number
   /**
    * @type string | undefined
    */
-  userName?: string;
+  userName?: string
   /**
    * @type integer | undefined, int64
    */
-  doctorId?: number;
+  doctorId?: number
   /**
    * @type string | undefined
    */
-  doctorName?: string;
+  doctorName?: string
   /**
    * @type string | undefined, date
    */
-  appointmentDate?: string;
+  appointmentDate?: string
   /**
    * @type object | undefined
    */
-  startTime?: LocalTime;
+  startTime?: LocalTime
   /**
    * @type object | undefined
    */
-  endTime?: LocalTime;
+  endTime?: LocalTime
   /**
    * @type string | undefined
    */
-  status?: AppointmentResponseStatusEnumKey;
+  status?: AppointmentResponseStatusEnumKey
   /**
    * @type integer | undefined, int64
    */
-  fee?: number;
+  fee?: number
   /**
    * @type string | undefined
    */
-  patientNotes?: string;
+  patientNotes?: string
   /**
    * @type string | undefined
    */
-  doctorNotes?: string;
+  doctorNotes?: string
   /**
    * @type string | undefined
    */
-  adminNotes?: string;
+  adminNotes?: string
   /**
    * @type string | undefined
    */
-  rejectionReason?: string;
+  rejectionReason?: string
   /**
    * @type string | undefined
    */
-  cancellationReason?: string;
+  cancellationReason?: string
   /**
    * @type string | undefined
    */
-  confirmedByStaffName?: string;
+  confirmedByStaffName?: string
   /**
    * @type string | undefined, date-time
    */
-  confirmedAt?: string;
+  confirmedAt?: string
   /**
    * @type string | undefined, date-time
    */
-  doctorCompletedAt?: string;
+  doctorCompletedAt?: string
   /**
    * @type string | undefined, date-time
    */
-  patientConfirmedAt?: string;
+  patientConfirmedAt?: string
   /**
    * @type string | undefined, date-time
    */
-  disputedAt?: string;
+  disputedAt?: string
   /**
    * @type string | undefined
    */
-  disputeNotes?: string;
+  disputeNotes?: string
   /**
    * @type string | undefined
    */
-  resolvedByAdminName?: string;
+  resolvedByAdminName?: string
   /**
    * @type string | undefined
    */
-  disputeResolutionNotes?: string;
+  disputeResolutionNotes?: string
   /**
    * @type string | undefined, date-time
    */
-  resolvedAt?: string;
+  resolvedAt?: string
   /**
    * @type string | undefined, date-time
    */
-  createdAt?: string;
+  createdAt?: string
   /**
    * @type string | undefined, date-time
    */
-  updatedAt?: string;
-};
+  updatedAt?: string
+}

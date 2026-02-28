@@ -3,26 +3,26 @@
  * Do not edit manually.
  */
 
-import { userResponseSchema } from "../userResponseSchema.ts";
-import { z } from "zod/v4";
+import { userResponseSchema } from '../userResponseSchema.ts'
+import { z } from 'zod/v4'
 
 export const searchUsersByNameQueryParamsSchema = z
   .object({
     query: z.optional(
       z
         .string()
-        .describe("Search by name, phone number, or email (case-insensitive)"),
+        .describe('Search by name, phone number, or email (case-insensitive)')
     ),
   })
-  .optional();
+  .optional()
 
 /**
  * @description OK
  */
 export const searchUsersByName200Schema = z.array(
-  z.lazy(() => userResponseSchema),
-);
+  z.lazy(() => userResponseSchema)
+)
 
 export const searchUsersByNameQueryResponseSchema = z.lazy(
-  () => searchUsersByName200Schema,
-);
+  () => searchUsersByName200Schema
+)

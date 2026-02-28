@@ -2,25 +2,25 @@ export {
   createCourseRequest200Schema,
   createCourseRequestMutationRequestSchema,
   createCourseRequestMutationResponseSchema,
-} from "./createCourseRequestSchema.ts";
+} from './createCourseRequestSchema.ts'
 export {
   getCourseRequestByIdPathParamsSchema,
   getCourseRequestById200Schema,
   getCourseRequestByIdQueryResponseSchema,
-} from "./getCourseRequestByIdSchema.ts";
+} from './getCourseRequestByIdSchema.ts'
 export {
   getDoctorPatients1QueryParamsSchema,
   getDoctorPatients1200Schema,
   getDoctorPatients1QueryResponseSchema,
-} from "./getDoctorPatients1Schema.ts";
+} from './getDoctorPatients1Schema.ts'
 export {
   getMyCourseRequestsQueryParamsSchema,
   getMyCourseRequests200Schema,
   getMyCourseRequestsQueryResponseSchema,
-} from "./getMyCourseRequestsSchema.ts";
+} from './getMyCourseRequestsSchema.ts'
 export {
   updateCourseRequestPathParamsSchema,
   updateCourseRequest200Schema,
   updateCourseRequestMutationRequestSchema,
   updateCourseRequestMutationResponseSchema,
-} from "./updateCourseRequestSchema.ts";
+} from './updateCourseRequestSchema.ts'

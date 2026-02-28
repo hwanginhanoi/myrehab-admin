@@ -3,50 +3,61 @@
  * Do not edit manually.
  */
 
-import fetch from "@/lib/api-client";
-import type { GetMyAssignedCourses1QueryResponse } from "../../types/courseProgressController/GetMyAssignedCourses1.ts";
-import type { RequestConfig, ResponseErrorConfig } from "@/lib/api-client";
+import fetch from '@/lib/api-client'
+import type {
+  GetMyAssignedCourses1QueryResponse,
+  GetMyAssignedCourses1QueryParams,
+} from '../../types/courseProgressController/GetMyAssignedCourses1.ts'
+import type { RequestConfig, ResponseErrorConfig } from '@/lib/api-client'
 import type {
   QueryKey,
   QueryClient,
   UseSuspenseQueryOptions,
   UseSuspenseQueryResult,
-} from "@tanstack/react-query";
-import { queryOptions, useSuspenseQuery } from "@tanstack/react-query";
+} from '@tanstack/react-query'
+import { queryOptions, useSuspenseQuery } from '@tanstack/react-query'
 
-export const getMyAssignedCourses1SuspenseQueryKey = () =>
-  [{ url: "/api/course-progress/my-courses" }] as const;
+export const getMyAssignedCourses1SuspenseQueryKey = (
+  params?: GetMyAssignedCourses1QueryParams
+) =>
+  [
+    { url: '/api/course-progress/my-courses' },
+    ...(params ? [params] : []),
+  ] as const
 
 export type GetMyAssignedCourses1SuspenseQueryKey = ReturnType<
   typeof getMyAssignedCourses1SuspenseQueryKey
->;
+>
 
 /**
- * @description Retrieve all courses assigned to me by doctors. Shows which courses I can start based on current progress.
+ * @description Retrieve all courses assigned to me by doctors. Filter by status: PENDING_PURCHASE (not yet paid), ACTIVE (paid, not completed), COMPLETED (finished). Omit status to return all.
  * @summary Get my assigned courses
  * {@link /api/course-progress/my-courses}
  */
 export async function getMyAssignedCourses1Suspense(
-  config: Partial<RequestConfig> & { client?: typeof fetch } = {},
+  params?: GetMyAssignedCourses1QueryParams,
+  config: Partial<RequestConfig> & { client?: typeof fetch } = {}
 ) {
-  const { client: request = fetch, ...requestConfig } = config;
+  const { client: request = fetch, ...requestConfig } = config
 
   const res = await request<
     GetMyAssignedCourses1QueryResponse,
     ResponseErrorConfig<Error>,
     unknown
   >({
-    method: "GET",
+    method: 'GET',
     url: `/api/course-progress/my-courses`,
+    params,
     ...requestConfig,
-  });
-  return res.data;
+  })
+  return res.data
 }
 
 export function getMyAssignedCourses1SuspenseQueryOptions(
-  config: Partial<RequestConfig> & { client?: typeof fetch } = {},
+  params?: GetMyAssignedCourses1QueryParams,
+  config: Partial<RequestConfig> & { client?: typeof fetch } = {}
 ) {
-  const queryKey = getMyAssignedCourses1SuspenseQueryKey();
+  const queryKey = getMyAssignedCourses1SuspenseQueryKey(params)
   return queryOptions<
     GetMyAssignedCourses1QueryResponse,
     ResponseErrorConfig<Error>,
@@ -55,14 +66,14 @@ export function getMyAssignedCourses1SuspenseQueryOptions(
   >({
     queryKey,
     queryFn: async ({ signal }) => {
-      config.signal = signal;
-      return getMyAssignedCourses1Suspense(config);
+      config.signal = signal
+      return getMyAssignedCourses1Suspense(params, config)
     },
-  });
+  })
 }
 
 /**
- * @description Retrieve all courses assigned to me by doctors. Shows which courses I can start based on current progress.
+ * @description Retrieve all courses assigned to me by doctors. Filter by status: PENDING_PURCHASE (not yet paid), ACTIVE (paid, not completed), COMPLETED (finished). Omit status to return all.
  * @summary Get my assigned courses
  * {@link /api/course-progress/my-courses}
  */
@@ -70,6 +81,7 @@ export function useGetMyAssignedCourses1Suspense<
   TData = GetMyAssignedCourses1QueryResponse,
   TQueryKey extends QueryKey = GetMyAssignedCourses1SuspenseQueryKey,
 >(
+  params?: GetMyAssignedCourses1QueryParams,
   options: {
     query?: Partial<
       UseSuspenseQueryOptions<
@@ -78,27 +90,27 @@ export function useGetMyAssignedCourses1Suspense<
         TData,
         TQueryKey
       >
-    > & { client?: QueryClient };
-    client?: Partial<RequestConfig> & { client?: typeof fetch };
-  } = {},
+    > & { client?: QueryClient }
+    client?: Partial<RequestConfig> & { client?: typeof fetch }
+  } = {}
 ) {
-  const { query: queryConfig = {}, client: config = {} } = options ?? {};
-  const { client: queryClient, ...queryOptions } = queryConfig;
+  const { query: queryConfig = {}, client: config = {} } = options ?? {}
+  const { client: queryClient, ...queryOptions } = queryConfig
   const queryKey =
-    queryOptions?.queryKey ?? getMyAssignedCourses1SuspenseQueryKey();
+    queryOptions?.queryKey ?? getMyAssignedCourses1SuspenseQueryKey(params)
 
   const query = useSuspenseQuery(
     {
-      ...getMyAssignedCourses1SuspenseQueryOptions(config),
+      ...getMyAssignedCourses1SuspenseQueryOptions(params, config),
       queryKey,
       ...queryOptions,
     } as unknown as UseSuspenseQueryOptions,
-    queryClient,
+    queryClient
   ) as UseSuspenseQueryResult<TData, ResponseErrorConfig<Error>> & {
-    queryKey: TQueryKey;
-  };
+    queryKey: TQueryKey
+  }
 
-  query.queryKey = queryKey as TQueryKey;
+  query.queryKey = queryKey as TQueryKey
 
-  return query;
+  return query
 }

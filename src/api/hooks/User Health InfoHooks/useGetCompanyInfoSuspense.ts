@@ -3,33 +3,33 @@
  * Do not edit manually.
  */
 
-import fetch from "@/lib/api-client";
+import fetch from '@/lib/api-client'
 import type {
   GetCompanyInfoQueryResponse,
   GetCompanyInfoPathParams,
-} from "../../types/userHealthInfoController/GetCompanyInfo.ts";
-import type { RequestConfig, ResponseErrorConfig } from "@/lib/api-client";
+} from '../../types/userHealthInfoController/GetCompanyInfo.ts'
+import type { RequestConfig, ResponseErrorConfig } from '@/lib/api-client'
 import type {
   QueryKey,
   QueryClient,
   UseSuspenseQueryOptions,
   UseSuspenseQueryResult,
-} from "@tanstack/react-query";
-import { queryOptions, useSuspenseQuery } from "@tanstack/react-query";
+} from '@tanstack/react-query'
+import { queryOptions, useSuspenseQuery } from '@tanstack/react-query'
 
 export const getCompanyInfoSuspenseQueryKey = (
-  userId: GetCompanyInfoPathParams["userId"],
+  userId: GetCompanyInfoPathParams['userId']
 ) =>
   [
     {
-      url: "/api/users/:userId/health-info/company-info",
+      url: '/api/users/:userId/health-info/company-info',
       params: { userId: userId },
     },
-  ] as const;
+  ] as const
 
 export type GetCompanyInfoSuspenseQueryKey = ReturnType<
   typeof getCompanyInfoSuspenseQueryKey
->;
+>
 
 /**
  * @description Admins can retrieve a user's company information
@@ -37,28 +37,28 @@ export type GetCompanyInfoSuspenseQueryKey = ReturnType<
  * {@link /api/users/:userId/health-info/company-info}
  */
 export async function getCompanyInfoSuspense(
-  userId: GetCompanyInfoPathParams["userId"],
-  config: Partial<RequestConfig> & { client?: typeof fetch } = {},
+  userId: GetCompanyInfoPathParams['userId'],
+  config: Partial<RequestConfig> & { client?: typeof fetch } = {}
 ) {
-  const { client: request = fetch, ...requestConfig } = config;
+  const { client: request = fetch, ...requestConfig } = config
 
   const res = await request<
     GetCompanyInfoQueryResponse,
     ResponseErrorConfig<Error>,
     unknown
   >({
-    method: "GET",
+    method: 'GET',
     url: `/api/users/${userId}/health-info/company-info`,
     ...requestConfig,
-  });
-  return res.data;
+  })
+  return res.data
 }
 
 export function getCompanyInfoSuspenseQueryOptions(
-  userId: GetCompanyInfoPathParams["userId"],
-  config: Partial<RequestConfig> & { client?: typeof fetch } = {},
+  userId: GetCompanyInfoPathParams['userId'],
+  config: Partial<RequestConfig> & { client?: typeof fetch } = {}
 ) {
-  const queryKey = getCompanyInfoSuspenseQueryKey(userId);
+  const queryKey = getCompanyInfoSuspenseQueryKey(userId)
   return queryOptions<
     GetCompanyInfoQueryResponse,
     ResponseErrorConfig<Error>,
@@ -68,10 +68,10 @@ export function getCompanyInfoSuspenseQueryOptions(
     enabled: !!userId,
     queryKey,
     queryFn: async ({ signal }) => {
-      config.signal = signal;
-      return getCompanyInfoSuspense(userId, config);
+      config.signal = signal
+      return getCompanyInfoSuspense(userId, config)
     },
-  });
+  })
 }
 
 /**
@@ -83,7 +83,7 @@ export function useGetCompanyInfoSuspense<
   TData = GetCompanyInfoQueryResponse,
   TQueryKey extends QueryKey = GetCompanyInfoSuspenseQueryKey,
 >(
-  userId: GetCompanyInfoPathParams["userId"],
+  userId: GetCompanyInfoPathParams['userId'],
   options: {
     query?: Partial<
       UseSuspenseQueryOptions<
@@ -92,14 +92,14 @@ export function useGetCompanyInfoSuspense<
         TData,
         TQueryKey
       >
-    > & { client?: QueryClient };
-    client?: Partial<RequestConfig> & { client?: typeof fetch };
-  } = {},
+    > & { client?: QueryClient }
+    client?: Partial<RequestConfig> & { client?: typeof fetch }
+  } = {}
 ) {
-  const { query: queryConfig = {}, client: config = {} } = options ?? {};
-  const { client: queryClient, ...queryOptions } = queryConfig;
+  const { query: queryConfig = {}, client: config = {} } = options ?? {}
+  const { client: queryClient, ...queryOptions } = queryConfig
   const queryKey =
-    queryOptions?.queryKey ?? getCompanyInfoSuspenseQueryKey(userId);
+    queryOptions?.queryKey ?? getCompanyInfoSuspenseQueryKey(userId)
 
   const query = useSuspenseQuery(
     {
@@ -107,12 +107,12 @@ export function useGetCompanyInfoSuspense<
       queryKey,
       ...queryOptions,
     } as unknown as UseSuspenseQueryOptions,
-    queryClient,
+    queryClient
   ) as UseSuspenseQueryResult<TData, ResponseErrorConfig<Error>> & {
-    queryKey: TQueryKey;
-  };
+    queryKey: TQueryKey
+  }
 
-  query.queryKey = queryKey as TQueryKey;
+  query.queryKey = queryKey as TQueryKey
 
-  return query;
+  return query
 }

@@ -3,29 +3,29 @@
  * Do not edit manually.
  */
 
-import fetch from "@/lib/api-client";
+import fetch from '@/lib/api-client'
 import type {
   GetAllFormsQueryResponse,
   GetAllFormsQueryParams,
-} from "../../types/rehabilitationExaminationFormManagementController/GetAllForms.ts";
-import type { RequestConfig, ResponseErrorConfig } from "@/lib/api-client";
+} from '../../types/rehabilitationExaminationFormManagementController/GetAllForms.ts'
+import type { RequestConfig, ResponseErrorConfig } from '@/lib/api-client'
 import type {
   QueryKey,
   QueryClient,
   UseSuspenseQueryOptions,
   UseSuspenseQueryResult,
-} from "@tanstack/react-query";
-import { queryOptions, useSuspenseQuery } from "@tanstack/react-query";
+} from '@tanstack/react-query'
+import { queryOptions, useSuspenseQuery } from '@tanstack/react-query'
 
 export const getAllFormsSuspenseQueryKey = (params: GetAllFormsQueryParams) =>
   [
-    { url: "/api/rehabilitation-examination-forms" },
+    { url: '/api/rehabilitation-examination-forms' },
     ...(params ? [params] : []),
-  ] as const;
+  ] as const
 
 export type GetAllFormsSuspenseQueryKey = ReturnType<
   typeof getAllFormsSuspenseQueryKey
->;
+>
 
 /**
  * @description Retrieve a paginated list of all rehabilitation examination forms. Optional search by patient name (Admin and Doctor only)
@@ -34,28 +34,28 @@ export type GetAllFormsSuspenseQueryKey = ReturnType<
  */
 export async function getAllFormsSuspense(
   params: GetAllFormsQueryParams,
-  config: Partial<RequestConfig> & { client?: typeof fetch } = {},
+  config: Partial<RequestConfig> & { client?: typeof fetch } = {}
 ) {
-  const { client: request = fetch, ...requestConfig } = config;
+  const { client: request = fetch, ...requestConfig } = config
 
   const res = await request<
     GetAllFormsQueryResponse,
     ResponseErrorConfig<Error>,
     unknown
   >({
-    method: "GET",
+    method: 'GET',
     url: `/api/rehabilitation-examination-forms`,
     params,
     ...requestConfig,
-  });
-  return res.data;
+  })
+  return res.data
 }
 
 export function getAllFormsSuspenseQueryOptions(
   params: GetAllFormsQueryParams,
-  config: Partial<RequestConfig> & { client?: typeof fetch } = {},
+  config: Partial<RequestConfig> & { client?: typeof fetch } = {}
 ) {
-  const queryKey = getAllFormsSuspenseQueryKey(params);
+  const queryKey = getAllFormsSuspenseQueryKey(params)
   return queryOptions<
     GetAllFormsQueryResponse,
     ResponseErrorConfig<Error>,
@@ -65,10 +65,10 @@ export function getAllFormsSuspenseQueryOptions(
     enabled: !!params,
     queryKey,
     queryFn: async ({ signal }) => {
-      config.signal = signal;
-      return getAllFormsSuspense(params, config);
+      config.signal = signal
+      return getAllFormsSuspense(params, config)
     },
-  });
+  })
 }
 
 /**
@@ -89,14 +89,13 @@ export function useGetAllFormsSuspense<
         TData,
         TQueryKey
       >
-    > & { client?: QueryClient };
-    client?: Partial<RequestConfig> & { client?: typeof fetch };
-  } = {},
+    > & { client?: QueryClient }
+    client?: Partial<RequestConfig> & { client?: typeof fetch }
+  } = {}
 ) {
-  const { query: queryConfig = {}, client: config = {} } = options ?? {};
-  const { client: queryClient, ...queryOptions } = queryConfig;
-  const queryKey =
-    queryOptions?.queryKey ?? getAllFormsSuspenseQueryKey(params);
+  const { query: queryConfig = {}, client: config = {} } = options ?? {}
+  const { client: queryClient, ...queryOptions } = queryConfig
+  const queryKey = queryOptions?.queryKey ?? getAllFormsSuspenseQueryKey(params)
 
   const query = useSuspenseQuery(
     {
@@ -104,12 +103,12 @@ export function useGetAllFormsSuspense<
       queryKey,
       ...queryOptions,
     } as unknown as UseSuspenseQueryOptions,
-    queryClient,
+    queryClient
   ) as UseSuspenseQueryResult<TData, ResponseErrorConfig<Error>> & {
-    queryKey: TQueryKey;
-  };
+    queryKey: TQueryKey
+  }
 
-  query.queryKey = queryKey as TQueryKey;
+  query.queryKey = queryKey as TQueryKey
 
-  return query;
+  return query
 }

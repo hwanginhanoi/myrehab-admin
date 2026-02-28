@@ -3,7 +3,7 @@
  * Do not edit manually.
  */
 
-import type { CourseDayRequest } from "./CourseDayRequest.ts";
+import type { CourseDayRequest } from './CourseDayRequest.ts'
 
 export type CourseDetailsRequest = {
   /**
@@ -11,19 +11,19 @@ export type CourseDetailsRequest = {
    * @maxLength 200
    * @type string
    */
-  courseName: string;
+  courseName: string
   /**
    * @minLength 0
    * @maxLength 1000
    * @type string | undefined
    */
-  description?: string;
+  description?: string
   /**
    * @type integer, int32
    */
-  durationDays: number;
+  durationDays: number
   /**
    * @type array
    */
-  days: CourseDayRequest[];
-};
+  days: CourseDayRequest[]
+}

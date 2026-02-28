@@ -7,5 +7,5 @@ export type ConfirmAppointmentRequest = {
   /**
    * @type string | undefined
    */
-  notes?: string;
-};
+  notes?: string
+}

@@ -8,12 +8,12 @@ export type VerifyRegistrationOtpRequest = {
    * @pattern ^\+?[1-9]\d{1,14}$
    * @type string
    */
-  phoneNumber: string;
+  phoneNumber: string
   /**
    * @minLength 6
    * @maxLength 6
    * @pattern ^\d{6}$
    * @type string
    */
-  otp: string;
-};
+  otp: string
+}

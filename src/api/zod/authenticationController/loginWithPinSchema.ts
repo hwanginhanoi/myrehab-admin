@@ -3,19 +3,19 @@
  * Do not edit manually.
  */
 
-import { loginWithPinRequestSchema } from "../loginWithPinRequestSchema.ts";
-import { userAuthResponseSchema } from "../userAuthResponseSchema.ts";
-import { z } from "zod/v4";
+import { loginWithPinRequestSchema } from '../loginWithPinRequestSchema.ts'
+import { userAuthResponseSchema } from '../userAuthResponseSchema.ts'
+import { z } from 'zod/v4'
 
 /**
  * @description OK
  */
-export const loginWithPin200Schema = z.lazy(() => userAuthResponseSchema);
+export const loginWithPin200Schema = z.lazy(() => userAuthResponseSchema)
 
 export const loginWithPinMutationRequestSchema = z.lazy(
-  () => loginWithPinRequestSchema,
-);
+  () => loginWithPinRequestSchema
+)
 
 export const loginWithPinMutationResponseSchema = z.lazy(
-  () => loginWithPin200Schema,
-);
+  () => loginWithPin200Schema
+)

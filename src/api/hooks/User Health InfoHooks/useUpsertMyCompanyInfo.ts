@@ -3,25 +3,25 @@
  * Do not edit manually.
  */
 
-import fetch from "@/lib/api-client";
+import fetch from '@/lib/api-client'
 import type {
   UpsertMyCompanyInfoMutationRequest,
   UpsertMyCompanyInfoMutationResponse,
-} from "../../types/userHealthInfoController/UpsertMyCompanyInfo.ts";
-import type { RequestConfig, ResponseErrorConfig } from "@/lib/api-client";
+} from '../../types/userHealthInfoController/UpsertMyCompanyInfo.ts'
+import type { RequestConfig, ResponseErrorConfig } from '@/lib/api-client'
 import type {
   UseMutationOptions,
   UseMutationResult,
   QueryClient,
-} from "@tanstack/react-query";
-import { mutationOptions, useMutation } from "@tanstack/react-query";
+} from '@tanstack/react-query'
+import { mutationOptions, useMutation } from '@tanstack/react-query'
 
 export const upsertMyCompanyInfoMutationKey = () =>
-  [{ url: "/api/users/me/health-info/company-info" }] as const;
+  [{ url: '/api/users/me/health-info/company-info' }] as const
 
 export type UpsertMyCompanyInfoMutationKey = ReturnType<
   typeof upsertMyCompanyInfoMutationKey
->;
+>
 
 /**
  * @description Mobile users can create or update their own company information
@@ -31,32 +31,32 @@ export type UpsertMyCompanyInfoMutationKey = ReturnType<
 export async function upsertMyCompanyInfo(
   data?: UpsertMyCompanyInfoMutationRequest,
   config: Partial<RequestConfig<UpsertMyCompanyInfoMutationRequest>> & {
-    client?: typeof fetch;
-  } = {},
+    client?: typeof fetch
+  } = {}
 ) {
-  const { client: request = fetch, ...requestConfig } = config;
+  const { client: request = fetch, ...requestConfig } = config
 
-  const requestData = data;
+  const requestData = data
 
   const res = await request<
     UpsertMyCompanyInfoMutationResponse,
     ResponseErrorConfig<Error>,
     UpsertMyCompanyInfoMutationRequest
   >({
-    method: "PUT",
+    method: 'PUT',
     url: `/api/users/me/health-info/company-info`,
     data: requestData,
     ...requestConfig,
-  });
-  return res.data;
+  })
+  return res.data
 }
 
 export function upsertMyCompanyInfoMutationOptions(
   config: Partial<RequestConfig<UpsertMyCompanyInfoMutationRequest>> & {
-    client?: typeof fetch;
-  } = {},
+    client?: typeof fetch
+  } = {}
 ) {
-  const mutationKey = upsertMyCompanyInfoMutationKey();
+  const mutationKey = upsertMyCompanyInfoMutationKey()
   return mutationOptions<
     UpsertMyCompanyInfoMutationResponse,
     ResponseErrorConfig<Error>,
@@ -65,9 +65,9 @@ export function upsertMyCompanyInfoMutationOptions(
   >({
     mutationKey,
     mutationFn: async ({ data }) => {
-      return upsertMyCompanyInfo(data, config);
+      return upsertMyCompanyInfo(data, config)
     },
-  });
+  })
 }
 
 /**
@@ -82,25 +82,25 @@ export function useUpsertMyCompanyInfo<TContext>(
       ResponseErrorConfig<Error>,
       { data?: UpsertMyCompanyInfoMutationRequest },
       TContext
-    > & { client?: QueryClient };
+    > & { client?: QueryClient }
     client?: Partial<RequestConfig<UpsertMyCompanyInfoMutationRequest>> & {
-      client?: typeof fetch;
-    };
-  } = {},
+      client?: typeof fetch
+    }
+  } = {}
 ) {
-  const { mutation = {}, client: config = {} } = options ?? {};
-  const { client: queryClient, ...mutationOptions } = mutation;
+  const { mutation = {}, client: config = {} } = options ?? {}
+  const { client: queryClient, ...mutationOptions } = mutation
   const mutationKey =
-    mutationOptions.mutationKey ?? upsertMyCompanyInfoMutationKey();
+    mutationOptions.mutationKey ?? upsertMyCompanyInfoMutationKey()
 
   const baseOptions = upsertMyCompanyInfoMutationOptions(
-    config,
+    config
   ) as UseMutationOptions<
     UpsertMyCompanyInfoMutationResponse,
     ResponseErrorConfig<Error>,
     { data?: UpsertMyCompanyInfoMutationRequest },
     TContext
-  >;
+  >
 
   return useMutation<
     UpsertMyCompanyInfoMutationResponse,
@@ -113,11 +113,11 @@ export function useUpsertMyCompanyInfo<TContext>(
       mutationKey,
       ...mutationOptions,
     },
-    queryClient,
+    queryClient
   ) as UseMutationResult<
     UpsertMyCompanyInfoMutationResponse,
     ResponseErrorConfig<Error>,
     { data?: UpsertMyCompanyInfoMutationRequest },
     TContext
-  >;
+  >
 }

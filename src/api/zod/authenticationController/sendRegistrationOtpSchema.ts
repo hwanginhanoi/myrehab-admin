@@ -3,19 +3,19 @@
  * Do not edit manually.
  */
 
-import { otpResponseSchema } from "../otpResponseSchema.ts";
-import { sendOtpRequestSchema } from "../sendOtpRequestSchema.ts";
-import { z } from "zod/v4";
+import { otpResponseSchema } from '../otpResponseSchema.ts'
+import { sendOtpRequestSchema } from '../sendOtpRequestSchema.ts'
+import { z } from 'zod/v4'
 
 /**
  * @description OK
  */
-export const sendRegistrationOtp200Schema = z.lazy(() => otpResponseSchema);
+export const sendRegistrationOtp200Schema = z.lazy(() => otpResponseSchema)
 
 export const sendRegistrationOtpMutationRequestSchema = z.lazy(
-  () => sendOtpRequestSchema,
-);
+  () => sendOtpRequestSchema
+)
 
 export const sendRegistrationOtpMutationResponseSchema = z.lazy(
-  () => sendRegistrationOtp200Schema,
-);
+  () => sendRegistrationOtp200Schema
+)

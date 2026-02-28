@@ -3,26 +3,26 @@
  * Do not edit manually.
  */
 
-import fetch from "@/lib/api-client";
+import fetch from '@/lib/api-client'
 import type {
   GetAllStaffQueryResponse,
   GetAllStaffQueryParams,
-} from "../../types/staffManagementController/GetAllStaff.ts";
-import type { RequestConfig, ResponseErrorConfig } from "@/lib/api-client";
+} from '../../types/staffManagementController/GetAllStaff.ts'
+import type { RequestConfig, ResponseErrorConfig } from '@/lib/api-client'
 import type {
   QueryKey,
   QueryClient,
   UseSuspenseQueryOptions,
   UseSuspenseQueryResult,
-} from "@tanstack/react-query";
-import { queryOptions, useSuspenseQuery } from "@tanstack/react-query";
+} from '@tanstack/react-query'
+import { queryOptions, useSuspenseQuery } from '@tanstack/react-query'
 
 export const getAllStaffSuspenseQueryKey = (params: GetAllStaffQueryParams) =>
-  [{ url: "/api/admin/staff" }, ...(params ? [params] : [])] as const;
+  [{ url: '/api/admin/staff' }, ...(params ? [params] : [])] as const
 
 export type GetAllStaffSuspenseQueryKey = ReturnType<
   typeof getAllStaffSuspenseQueryKey
->;
+>
 
 /**
  * @description Retrieve staff members with optional filtering by type, enabled status, and search query. Supports pagination. By default, only enabled staff are returned.
@@ -31,23 +31,23 @@ export type GetAllStaffSuspenseQueryKey = ReturnType<
  */
 export async function getAllStaffSuspense(
   params: GetAllStaffQueryParams,
-  config: Partial<RequestConfig> & { client?: typeof fetch } = {},
+  config: Partial<RequestConfig> & { client?: typeof fetch } = {}
 ) {
-  const { client: request = fetch, ...requestConfig } = config;
+  const { client: request = fetch, ...requestConfig } = config
 
   const res = await request<
     GetAllStaffQueryResponse,
     ResponseErrorConfig<Error>,
     unknown
-  >({ method: "GET", url: `/api/admin/staff`, params, ...requestConfig });
-  return res.data;
+  >({ method: 'GET', url: `/api/admin/staff`, params, ...requestConfig })
+  return res.data
 }
 
 export function getAllStaffSuspenseQueryOptions(
   params: GetAllStaffQueryParams,
-  config: Partial<RequestConfig> & { client?: typeof fetch } = {},
+  config: Partial<RequestConfig> & { client?: typeof fetch } = {}
 ) {
-  const queryKey = getAllStaffSuspenseQueryKey(params);
+  const queryKey = getAllStaffSuspenseQueryKey(params)
   return queryOptions<
     GetAllStaffQueryResponse,
     ResponseErrorConfig<Error>,
@@ -57,10 +57,10 @@ export function getAllStaffSuspenseQueryOptions(
     enabled: !!params,
     queryKey,
     queryFn: async ({ signal }) => {
-      config.signal = signal;
-      return getAllStaffSuspense(params, config);
+      config.signal = signal
+      return getAllStaffSuspense(params, config)
     },
-  });
+  })
 }
 
 /**
@@ -81,14 +81,13 @@ export function useGetAllStaffSuspense<
         TData,
         TQueryKey
       >
-    > & { client?: QueryClient };
-    client?: Partial<RequestConfig> & { client?: typeof fetch };
-  } = {},
+    > & { client?: QueryClient }
+    client?: Partial<RequestConfig> & { client?: typeof fetch }
+  } = {}
 ) {
-  const { query: queryConfig = {}, client: config = {} } = options ?? {};
-  const { client: queryClient, ...queryOptions } = queryConfig;
-  const queryKey =
-    queryOptions?.queryKey ?? getAllStaffSuspenseQueryKey(params);
+  const { query: queryConfig = {}, client: config = {} } = options ?? {}
+  const { client: queryClient, ...queryOptions } = queryConfig
+  const queryKey = queryOptions?.queryKey ?? getAllStaffSuspenseQueryKey(params)
 
   const query = useSuspenseQuery(
     {
@@ -96,12 +95,12 @@ export function useGetAllStaffSuspense<
       queryKey,
       ...queryOptions,
     } as unknown as UseSuspenseQueryOptions,
-    queryClient,
+    queryClient
   ) as UseSuspenseQueryResult<TData, ResponseErrorConfig<Error>> & {
-    queryKey: TQueryKey;
-  };
+    queryKey: TQueryKey
+  }
 
-  query.queryKey = queryKey as TQueryKey;
+  query.queryKey = queryKey as TQueryKey
 
-  return query;
+  return query
 }

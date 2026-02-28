@@ -3,10 +3,10 @@
  * Do not edit manually.
  */
 
-import { z } from "zod/v4";
+import { z } from 'zod/v4'
 
 export const dayExerciseDtoSchema = z.object({
   exerciseId: z.int(),
   orderInDay: z.int(),
   customRepetitions: z.optional(z.int()),
-});
+})

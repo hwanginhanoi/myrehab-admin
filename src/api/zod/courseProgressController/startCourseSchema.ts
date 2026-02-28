@@ -3,19 +3,19 @@
  * Do not edit manually.
  */
 
-import { courseProgressResponseSchema } from "../courseProgressResponseSchema.ts";
-import { startCourseRequestSchema } from "../startCourseRequestSchema.ts";
-import { z } from "zod/v4";
+import { courseProgressResponseSchema } from '../courseProgressResponseSchema.ts'
+import { startCourseRequestSchema } from '../startCourseRequestSchema.ts'
+import { z } from 'zod/v4'
 
 /**
  * @description OK
  */
-export const startCourse200Schema = z.lazy(() => courseProgressResponseSchema);
+export const startCourse200Schema = z.lazy(() => courseProgressResponseSchema)
 
 export const startCourseMutationRequestSchema = z.lazy(
-  () => startCourseRequestSchema,
-);
+  () => startCourseRequestSchema
+)
 
 export const startCourseMutationResponseSchema = z.lazy(
-  () => startCourse200Schema,
-);
+  () => startCourse200Schema
+)

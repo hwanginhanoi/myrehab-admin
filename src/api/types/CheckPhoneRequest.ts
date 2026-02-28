@@ -8,5 +8,5 @@ export type CheckPhoneRequest = {
    * @pattern ^\+?[1-9]\d{1,14}$
    * @type string
    */
-  phoneNumber: string;
-};
+  phoneNumber: string
+}

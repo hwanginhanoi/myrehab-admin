@@ -3,20 +3,20 @@
  * Do not edit manually.
  */
 
-import { exercisePackageWithSubscriptionResponseSchema } from "../exercisePackageWithSubscriptionResponseSchema.ts";
-import { z } from "zod/v4";
+import { exercisePackageDetailWithSubscriptionResponseSchema } from '../exercisePackageDetailWithSubscriptionResponseSchema.ts'
+import { z } from 'zod/v4'
 
 export const getCurrentUserPackageByIdPathParamsSchema = z.object({
-  id: z.coerce.number().int().describe("Exercise Package ID"),
-});
+  id: z.coerce.number().int().describe('Exercise Package ID'),
+})
 
 /**
  * @description OK
  */
 export const getCurrentUserPackageById200Schema = z.lazy(
-  () => exercisePackageWithSubscriptionResponseSchema,
-);
+  () => exercisePackageDetailWithSubscriptionResponseSchema
+)
 
 export const getCurrentUserPackageByIdQueryResponseSchema = z.lazy(
-  () => getCurrentUserPackageById200Schema,
-);
+  () => getCurrentUserPackageById200Schema
+)

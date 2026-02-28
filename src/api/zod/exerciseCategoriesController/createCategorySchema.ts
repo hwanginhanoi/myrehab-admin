@@ -3,19 +3,19 @@
  * Do not edit manually.
  */
 
-import { categoryResponseSchema } from "../categoryResponseSchema.ts";
-import { createCategoryRequestSchema } from "../createCategoryRequestSchema.ts";
-import { z } from "zod/v4";
+import { categoryResponseSchema } from '../categoryResponseSchema.ts'
+import { createCategoryRequestSchema } from '../createCategoryRequestSchema.ts'
+import { z } from 'zod/v4'
 
 /**
  * @description OK
  */
-export const createCategory200Schema = z.lazy(() => categoryResponseSchema);
+export const createCategory200Schema = z.lazy(() => categoryResponseSchema)
 
 export const createCategoryMutationRequestSchema = z.lazy(
-  () => createCategoryRequestSchema,
-);
+  () => createCategoryRequestSchema
+)
 
 export const createCategoryMutationResponseSchema = z.lazy(
-  () => createCategory200Schema,
-);
+  () => createCategory200Schema
+)

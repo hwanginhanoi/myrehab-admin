@@ -3,25 +3,25 @@
  * Do not edit manually.
  */
 
-import fetch from "@/lib/api-client";
+import fetch from '@/lib/api-client'
 import type {
   UpsertMyNationalInsuranceMutationRequest,
   UpsertMyNationalInsuranceMutationResponse,
-} from "../../types/userHealthInfoController/UpsertMyNationalInsurance.ts";
-import type { RequestConfig, ResponseErrorConfig } from "@/lib/api-client";
+} from '../../types/userHealthInfoController/UpsertMyNationalInsurance.ts'
+import type { RequestConfig, ResponseErrorConfig } from '@/lib/api-client'
 import type {
   UseMutationOptions,
   UseMutationResult,
   QueryClient,
-} from "@tanstack/react-query";
-import { mutationOptions, useMutation } from "@tanstack/react-query";
+} from '@tanstack/react-query'
+import { mutationOptions, useMutation } from '@tanstack/react-query'
 
 export const upsertMyNationalInsuranceMutationKey = () =>
-  [{ url: "/api/users/me/health-info/national-insurance" }] as const;
+  [{ url: '/api/users/me/health-info/national-insurance' }] as const
 
 export type UpsertMyNationalInsuranceMutationKey = ReturnType<
   typeof upsertMyNationalInsuranceMutationKey
->;
+>
 
 /**
  * @description Mobile users can create or update their own national health insurance information
@@ -31,32 +31,32 @@ export type UpsertMyNationalInsuranceMutationKey = ReturnType<
 export async function upsertMyNationalInsurance(
   data?: UpsertMyNationalInsuranceMutationRequest,
   config: Partial<RequestConfig<UpsertMyNationalInsuranceMutationRequest>> & {
-    client?: typeof fetch;
-  } = {},
+    client?: typeof fetch
+  } = {}
 ) {
-  const { client: request = fetch, ...requestConfig } = config;
+  const { client: request = fetch, ...requestConfig } = config
 
-  const requestData = data;
+  const requestData = data
 
   const res = await request<
     UpsertMyNationalInsuranceMutationResponse,
     ResponseErrorConfig<Error>,
     UpsertMyNationalInsuranceMutationRequest
   >({
-    method: "PUT",
+    method: 'PUT',
     url: `/api/users/me/health-info/national-insurance`,
     data: requestData,
     ...requestConfig,
-  });
-  return res.data;
+  })
+  return res.data
 }
 
 export function upsertMyNationalInsuranceMutationOptions(
   config: Partial<RequestConfig<UpsertMyNationalInsuranceMutationRequest>> & {
-    client?: typeof fetch;
-  } = {},
+    client?: typeof fetch
+  } = {}
 ) {
-  const mutationKey = upsertMyNationalInsuranceMutationKey();
+  const mutationKey = upsertMyNationalInsuranceMutationKey()
   return mutationOptions<
     UpsertMyNationalInsuranceMutationResponse,
     ResponseErrorConfig<Error>,
@@ -65,9 +65,9 @@ export function upsertMyNationalInsuranceMutationOptions(
   >({
     mutationKey,
     mutationFn: async ({ data }) => {
-      return upsertMyNationalInsurance(data, config);
+      return upsertMyNationalInsurance(data, config)
     },
-  });
+  })
 }
 
 /**
@@ -82,25 +82,25 @@ export function useUpsertMyNationalInsurance<TContext>(
       ResponseErrorConfig<Error>,
       { data?: UpsertMyNationalInsuranceMutationRequest },
       TContext
-    > & { client?: QueryClient };
+    > & { client?: QueryClient }
     client?: Partial<
       RequestConfig<UpsertMyNationalInsuranceMutationRequest>
-    > & { client?: typeof fetch };
-  } = {},
+    > & { client?: typeof fetch }
+  } = {}
 ) {
-  const { mutation = {}, client: config = {} } = options ?? {};
-  const { client: queryClient, ...mutationOptions } = mutation;
+  const { mutation = {}, client: config = {} } = options ?? {}
+  const { client: queryClient, ...mutationOptions } = mutation
   const mutationKey =
-    mutationOptions.mutationKey ?? upsertMyNationalInsuranceMutationKey();
+    mutationOptions.mutationKey ?? upsertMyNationalInsuranceMutationKey()
 
   const baseOptions = upsertMyNationalInsuranceMutationOptions(
-    config,
+    config
   ) as UseMutationOptions<
     UpsertMyNationalInsuranceMutationResponse,
     ResponseErrorConfig<Error>,
     { data?: UpsertMyNationalInsuranceMutationRequest },
     TContext
-  >;
+  >
 
   return useMutation<
     UpsertMyNationalInsuranceMutationResponse,
@@ -113,11 +113,11 @@ export function useUpsertMyNationalInsurance<TContext>(
       mutationKey,
       ...mutationOptions,
     },
-    queryClient,
+    queryClient
   ) as UseMutationResult<
     UpsertMyNationalInsuranceMutationResponse,
     ResponseErrorConfig<Error>,
     { data?: UpsertMyNationalInsuranceMutationRequest },
     TContext
-  >;
+  >
 }

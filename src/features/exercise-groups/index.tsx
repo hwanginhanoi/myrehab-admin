@@ -25,13 +25,16 @@ export function ExerciseGroups() {
   const name = (search.name as string | undefined)?.trim()
 
   // Build query params with optional filters
-  const queryParams = useMemo<GetAllGroupsQueryParams>(() => ({
-    pageable: {
-      page: page - 1, // Convert to 0-indexed for API
-      size: pageSize,
-    },
-    ...(name && { query: name }),
-  }), [page, pageSize, name])
+  const queryParams = useMemo<GetAllGroupsQueryParams>(
+    () => ({
+      pageable: {
+        page: page - 1, // Convert to 0-indexed for API
+        size: pageSize,
+      },
+      ...(name && { query: name }),
+    }),
+    [page, pageSize, name]
+  )
 
   // Fetch groups with server-side filtering and pagination
   const { data: response, isLoading } = useGetAllGroups(queryParams, {
@@ -47,26 +50,26 @@ export function ExerciseGroups() {
     <GroupsProvider>
       <Header fixed>
         <Search />
-        <div className='ms-auto flex items-center space-x-4'>
+        <div className="ms-auto flex items-center space-x-4">
           <ThemeSwitch />
           <ConfigDrawer />
           <ProfileDropdown />
         </div>
       </Header>
 
-      <Main className='flex flex-1 flex-col gap-4 sm:gap-6'>
-        <div className='flex flex-wrap items-end justify-between gap-2'>
+      <Main className="flex flex-1 flex-col gap-4 sm:gap-6">
+        <div className="flex flex-wrap items-end justify-between gap-2">
           <div>
-            <h2 className='text-2xl font-bold tracking-tight'>Nhóm bài tập</h2>
-            <p className='text-muted-foreground'>
+            <h2 className="text-2xl font-bold tracking-tight">Nhóm bài tập</h2>
+            <p className="text-muted-foreground">
               Quản lý nhóm bài tập phục hồi chức năng.
             </p>
           </div>
           <GroupsPrimaryButtons />
         </div>
         {isLoading ? (
-          <div className='flex items-center justify-center h-64'>
-            <p className='text-muted-foreground'>Đang tải...</p>
+          <div className="flex items-center justify-center h-64">
+            <p className="text-muted-foreground">Đang tải...</p>
           </div>
         ) : (
           <GroupsTable

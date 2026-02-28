@@ -3,9 +3,9 @@
  * Do not edit manually.
  */
 
-import { z } from "zod/v4";
+import { z } from 'zod/v4'
 
 export const feedbackExistsResponseSchema = z.object({
   exists: z.optional(z.boolean()),
   feedbackId: z.optional(z.int()),
-});
+})

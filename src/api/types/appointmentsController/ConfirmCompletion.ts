@@ -3,24 +3,24 @@
  * Do not edit manually.
  */
 
-import type { AppointmentResponse } from "../AppointmentResponse.ts";
+import type { AppointmentResponse } from '../AppointmentResponse.ts'
 
 export type ConfirmCompletionPathParams = {
   /**
    * @type integer, int64
    */
-  id: number;
-};
+  id: number
+}
 
 /**
  * @description OK
  */
-export type ConfirmCompletion200 = AppointmentResponse;
+export type ConfirmCompletion200 = AppointmentResponse
 
-export type ConfirmCompletionMutationResponse = ConfirmCompletion200;
+export type ConfirmCompletionMutationResponse = ConfirmCompletion200
 
 export type ConfirmCompletionMutation = {
-  Response: ConfirmCompletion200;
-  PathParams: ConfirmCompletionPathParams;
-  Errors: any;
-};
+  Response: ConfirmCompletion200
+  PathParams: ConfirmCompletionPathParams
+  Errors: any
+}

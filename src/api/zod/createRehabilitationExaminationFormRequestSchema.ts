@@ -3,7 +3,7 @@
  * Do not edit manually.
  */
 
-import { z } from "zod/v4";
+import { z } from 'zod/v4'
 
 export const createRehabilitationExaminationFormRequestSchema = z.object({
   userId: z.int(),
@@ -38,4 +38,4 @@ export const createRehabilitationExaminationFormRequestSchema = z.object({
   weight: z.optional(z.number()),
   bmi: z.optional(z.number()),
   rehabilitationMethods: z.optional(z.string()),
-});
+})

@@ -3,25 +3,25 @@
  * Do not edit manually.
  */
 
-import type { CompanyInfoResponse } from "../CompanyInfoResponse.ts";
+import type { CompanyInfoResponse } from '../CompanyInfoResponse.ts'
 
 export type GetCompanyInfoPathParams = {
   /**
    * @description User ID
    * @type integer, int64
    */
-  userId: number;
-};
+  userId: number
+}
 
 /**
  * @description OK
  */
-export type GetCompanyInfo200 = CompanyInfoResponse;
+export type GetCompanyInfo200 = CompanyInfoResponse
 
-export type GetCompanyInfoQueryResponse = GetCompanyInfo200;
+export type GetCompanyInfoQueryResponse = GetCompanyInfo200
 
 export type GetCompanyInfoQuery = {
-  Response: GetCompanyInfo200;
-  PathParams: GetCompanyInfoPathParams;
-  Errors: any;
-};
+  Response: GetCompanyInfo200
+  PathParams: GetCompanyInfoPathParams
+  Errors: any
+}

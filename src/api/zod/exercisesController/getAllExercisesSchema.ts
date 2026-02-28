@@ -3,30 +3,30 @@
  * Do not edit manually.
  */
 
-import { pageableSchema } from "../pageableSchema.ts";
-import { pagedModelSchema } from "../pagedModelSchema.ts";
-import { z } from "zod/v4";
+import { pageableSchema } from '../pageableSchema.ts'
+import { pagedModelSchema } from '../pagedModelSchema.ts'
+import { z } from 'zod/v4'
 
 export const getAllExercisesQueryParamsSchema = z.object({
   categoryIds: z.optional(
-    z.array(z.coerce.number().int()).describe("Category IDs (comma-separated)"),
+    z.array(z.coerce.number().int()).describe('Category IDs (comma-separated)')
   ),
   groupIds: z.optional(
-    z.array(z.coerce.number().int()).describe("Group IDs (comma-separated)"),
+    z.array(z.coerce.number().int()).describe('Group IDs (comma-separated)')
   ),
   query: z.optional(
-    z.string().describe("Search query for title (case-insensitive)"),
+    z.string().describe('Search query for title (case-insensitive)')
   ),
   get pageable() {
-    return pageableSchema;
+    return pageableSchema
   },
-});
+})
 
 /**
  * @description OK
  */
-export const getAllExercises200Schema = z.lazy(() => pagedModelSchema);
+export const getAllExercises200Schema = z.lazy(() => pagedModelSchema)
 
 export const getAllExercisesQueryResponseSchema = z.lazy(
-  () => getAllExercises200Schema,
-);
+  () => getAllExercises200Schema
+)

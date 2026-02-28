@@ -3,13 +3,13 @@
  * Do not edit manually.
  */
 
-import { dayExerciseDtoSchema } from "./dayExerciseDtoSchema.ts";
-import { z } from "zod/v4";
+import { dayExerciseDtoSchema } from './dayExerciseDtoSchema.ts'
+import { z } from 'zod/v4'
 
 export const courseDayDtoSchema = z.object({
   dayNumber: z.int(),
   description: z.optional(z.string()),
   get exercises() {
-    return z.array(dayExerciseDtoSchema);
+    return z.array(dayExerciseDtoSchema)
   },
-});
+})

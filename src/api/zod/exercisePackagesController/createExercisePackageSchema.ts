@@ -3,21 +3,21 @@
  * Do not edit manually.
  */
 
-import { createExercisePackageRequestSchema } from "../createExercisePackageRequestSchema.ts";
-import { exercisePackageResponseSchema } from "../exercisePackageResponseSchema.ts";
-import { z } from "zod/v4";
+import { createExercisePackageRequestSchema } from '../createExercisePackageRequestSchema.ts'
+import { exercisePackageResponseSchema } from '../exercisePackageResponseSchema.ts'
+import { z } from 'zod/v4'
 
 /**
  * @description OK
  */
 export const createExercisePackage200Schema = z.lazy(
-  () => exercisePackageResponseSchema,
-);
+  () => exercisePackageResponseSchema
+)
 
 export const createExercisePackageMutationRequestSchema = z.lazy(
-  () => createExercisePackageRequestSchema,
-);
+  () => createExercisePackageRequestSchema
+)
 
 export const createExercisePackageMutationResponseSchema = z.lazy(
-  () => createExercisePackage200Schema,
-);
+  () => createExercisePackage200Schema
+)

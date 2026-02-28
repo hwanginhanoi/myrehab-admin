@@ -3,26 +3,26 @@
  * Do not edit manually.
  */
 
-import fetch from "@/lib/api-client";
+import fetch from '@/lib/api-client'
 import type {
   UpdateCourseRequestMutationRequest,
   UpdateCourseRequestMutationResponse,
   UpdateCourseRequestPathParams,
-} from "../../types/trainerController/UpdateCourseRequest.ts";
-import type { RequestConfig, ResponseErrorConfig } from "@/lib/api-client";
+} from '../../types/trainerController/UpdateCourseRequest.ts'
+import type { RequestConfig, ResponseErrorConfig } from '@/lib/api-client'
 import type {
   UseMutationOptions,
   UseMutationResult,
   QueryClient,
-} from "@tanstack/react-query";
-import { mutationOptions, useMutation } from "@tanstack/react-query";
+} from '@tanstack/react-query'
+import { mutationOptions, useMutation } from '@tanstack/react-query'
 
 export const updateCourseRequestMutationKey = () =>
-  [{ url: "/api/trainer/course-requests/:id" }] as const;
+  [{ url: '/api/trainer/course-requests/:id' }] as const
 
 export type UpdateCourseRequestMutationKey = ReturnType<
   typeof updateCourseRequestMutationKey
->;
+>
 
 /**
  * @description Update a PENDING or REJECTED course assignment request. Only trainer's own pending/rejected requests can be modified.
@@ -30,49 +30,49 @@ export type UpdateCourseRequestMutationKey = ReturnType<
  * {@link /api/trainer/course-requests/:id}
  */
 export async function updateCourseRequest(
-  id: UpdateCourseRequestPathParams["id"],
+  id: UpdateCourseRequestPathParams['id'],
   data: UpdateCourseRequestMutationRequest,
   config: Partial<RequestConfig<UpdateCourseRequestMutationRequest>> & {
-    client?: typeof fetch;
-  } = {},
+    client?: typeof fetch
+  } = {}
 ) {
-  const { client: request = fetch, ...requestConfig } = config;
+  const { client: request = fetch, ...requestConfig } = config
 
-  const requestData = data;
+  const requestData = data
 
   const res = await request<
     UpdateCourseRequestMutationResponse,
     ResponseErrorConfig<Error>,
     UpdateCourseRequestMutationRequest
   >({
-    method: "PUT",
+    method: 'PUT',
     url: `/api/trainer/course-requests/${id}`,
     data: requestData,
     ...requestConfig,
-  });
-  return res.data;
+  })
+  return res.data
 }
 
 export function updateCourseRequestMutationOptions(
   config: Partial<RequestConfig<UpdateCourseRequestMutationRequest>> & {
-    client?: typeof fetch;
-  } = {},
+    client?: typeof fetch
+  } = {}
 ) {
-  const mutationKey = updateCourseRequestMutationKey();
+  const mutationKey = updateCourseRequestMutationKey()
   return mutationOptions<
     UpdateCourseRequestMutationResponse,
     ResponseErrorConfig<Error>,
     {
-      id: UpdateCourseRequestPathParams["id"];
-      data: UpdateCourseRequestMutationRequest;
+      id: UpdateCourseRequestPathParams['id']
+      data: UpdateCourseRequestMutationRequest
     },
     typeof mutationKey
   >({
     mutationKey,
     mutationFn: async ({ id, data }) => {
-      return updateCourseRequest(id, data, config);
+      return updateCourseRequest(id, data, config)
     },
-  });
+  })
 }
 
 /**
@@ -86,39 +86,39 @@ export function useUpdateCourseRequest<TContext>(
       UpdateCourseRequestMutationResponse,
       ResponseErrorConfig<Error>,
       {
-        id: UpdateCourseRequestPathParams["id"];
-        data: UpdateCourseRequestMutationRequest;
+        id: UpdateCourseRequestPathParams['id']
+        data: UpdateCourseRequestMutationRequest
       },
       TContext
-    > & { client?: QueryClient };
+    > & { client?: QueryClient }
     client?: Partial<RequestConfig<UpdateCourseRequestMutationRequest>> & {
-      client?: typeof fetch;
-    };
-  } = {},
+      client?: typeof fetch
+    }
+  } = {}
 ) {
-  const { mutation = {}, client: config = {} } = options ?? {};
-  const { client: queryClient, ...mutationOptions } = mutation;
+  const { mutation = {}, client: config = {} } = options ?? {}
+  const { client: queryClient, ...mutationOptions } = mutation
   const mutationKey =
-    mutationOptions.mutationKey ?? updateCourseRequestMutationKey();
+    mutationOptions.mutationKey ?? updateCourseRequestMutationKey()
 
   const baseOptions = updateCourseRequestMutationOptions(
-    config,
+    config
   ) as UseMutationOptions<
     UpdateCourseRequestMutationResponse,
     ResponseErrorConfig<Error>,
     {
-      id: UpdateCourseRequestPathParams["id"];
-      data: UpdateCourseRequestMutationRequest;
+      id: UpdateCourseRequestPathParams['id']
+      data: UpdateCourseRequestMutationRequest
     },
     TContext
-  >;
+  >
 
   return useMutation<
     UpdateCourseRequestMutationResponse,
     ResponseErrorConfig<Error>,
     {
-      id: UpdateCourseRequestPathParams["id"];
-      data: UpdateCourseRequestMutationRequest;
+      id: UpdateCourseRequestPathParams['id']
+      data: UpdateCourseRequestMutationRequest
     },
     TContext
   >(
@@ -127,14 +127,14 @@ export function useUpdateCourseRequest<TContext>(
       mutationKey,
       ...mutationOptions,
     },
-    queryClient,
+    queryClient
   ) as UseMutationResult<
     UpdateCourseRequestMutationResponse,
     ResponseErrorConfig<Error>,
     {
-      id: UpdateCourseRequestPathParams["id"];
-      data: UpdateCourseRequestMutationRequest;
+      id: UpdateCourseRequestPathParams['id']
+      data: UpdateCourseRequestMutationRequest
     },
     TContext
-  >;
+  >
 }

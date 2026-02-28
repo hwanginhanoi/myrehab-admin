@@ -3,26 +3,26 @@
  * Do not edit manually.
  */
 
-import fetch from "@/lib/api-client";
+import fetch from '@/lib/api-client'
 import type {
   RejectCourseRequestMutationRequest,
   RejectCourseRequestMutationResponse,
   RejectCourseRequestPathParams,
-} from "../../types/doctorController/RejectCourseRequest.ts";
-import type { RequestConfig, ResponseErrorConfig } from "@/lib/api-client";
+} from '../../types/doctorController/RejectCourseRequest.ts'
+import type { RequestConfig, ResponseErrorConfig } from '@/lib/api-client'
 import type {
   UseMutationOptions,
   UseMutationResult,
   QueryClient,
-} from "@tanstack/react-query";
-import { mutationOptions, useMutation } from "@tanstack/react-query";
+} from '@tanstack/react-query'
+import { mutationOptions, useMutation } from '@tanstack/react-query'
 
 export const rejectCourseRequestMutationKey = () =>
-  [{ url: "/api/doctors/course-requests/:id/reject" }] as const;
+  [{ url: '/api/doctors/course-requests/:id/reject' }] as const
 
 export type RejectCourseRequestMutationKey = ReturnType<
   typeof rejectCourseRequestMutationKey
->;
+>
 
 /**
  * @description Reject a course assignment request from a trainer with feedback. Trainer can modify and resubmit.
@@ -30,49 +30,49 @@ export type RejectCourseRequestMutationKey = ReturnType<
  * {@link /api/doctors/course-requests/:id/reject}
  */
 export async function rejectCourseRequest(
-  id: RejectCourseRequestPathParams["id"],
+  id: RejectCourseRequestPathParams['id'],
   data?: RejectCourseRequestMutationRequest,
   config: Partial<RequestConfig<RejectCourseRequestMutationRequest>> & {
-    client?: typeof fetch;
-  } = {},
+    client?: typeof fetch
+  } = {}
 ) {
-  const { client: request = fetch, ...requestConfig } = config;
+  const { client: request = fetch, ...requestConfig } = config
 
-  const requestData = data;
+  const requestData = data
 
   const res = await request<
     RejectCourseRequestMutationResponse,
     ResponseErrorConfig<Error>,
     RejectCourseRequestMutationRequest
   >({
-    method: "POST",
+    method: 'POST',
     url: `/api/doctors/course-requests/${id}/reject`,
     data: requestData,
     ...requestConfig,
-  });
-  return res.data;
+  })
+  return res.data
 }
 
 export function rejectCourseRequestMutationOptions(
   config: Partial<RequestConfig<RejectCourseRequestMutationRequest>> & {
-    client?: typeof fetch;
-  } = {},
+    client?: typeof fetch
+  } = {}
 ) {
-  const mutationKey = rejectCourseRequestMutationKey();
+  const mutationKey = rejectCourseRequestMutationKey()
   return mutationOptions<
     RejectCourseRequestMutationResponse,
     ResponseErrorConfig<Error>,
     {
-      id: RejectCourseRequestPathParams["id"];
-      data?: RejectCourseRequestMutationRequest;
+      id: RejectCourseRequestPathParams['id']
+      data?: RejectCourseRequestMutationRequest
     },
     typeof mutationKey
   >({
     mutationKey,
     mutationFn: async ({ id, data }) => {
-      return rejectCourseRequest(id, data, config);
+      return rejectCourseRequest(id, data, config)
     },
-  });
+  })
 }
 
 /**
@@ -86,39 +86,39 @@ export function useRejectCourseRequest<TContext>(
       RejectCourseRequestMutationResponse,
       ResponseErrorConfig<Error>,
       {
-        id: RejectCourseRequestPathParams["id"];
-        data?: RejectCourseRequestMutationRequest;
+        id: RejectCourseRequestPathParams['id']
+        data?: RejectCourseRequestMutationRequest
       },
       TContext
-    > & { client?: QueryClient };
+    > & { client?: QueryClient }
     client?: Partial<RequestConfig<RejectCourseRequestMutationRequest>> & {
-      client?: typeof fetch;
-    };
-  } = {},
+      client?: typeof fetch
+    }
+  } = {}
 ) {
-  const { mutation = {}, client: config = {} } = options ?? {};
-  const { client: queryClient, ...mutationOptions } = mutation;
+  const { mutation = {}, client: config = {} } = options ?? {}
+  const { client: queryClient, ...mutationOptions } = mutation
   const mutationKey =
-    mutationOptions.mutationKey ?? rejectCourseRequestMutationKey();
+    mutationOptions.mutationKey ?? rejectCourseRequestMutationKey()
 
   const baseOptions = rejectCourseRequestMutationOptions(
-    config,
+    config
   ) as UseMutationOptions<
     RejectCourseRequestMutationResponse,
     ResponseErrorConfig<Error>,
     {
-      id: RejectCourseRequestPathParams["id"];
-      data?: RejectCourseRequestMutationRequest;
+      id: RejectCourseRequestPathParams['id']
+      data?: RejectCourseRequestMutationRequest
     },
     TContext
-  >;
+  >
 
   return useMutation<
     RejectCourseRequestMutationResponse,
     ResponseErrorConfig<Error>,
     {
-      id: RejectCourseRequestPathParams["id"];
-      data?: RejectCourseRequestMutationRequest;
+      id: RejectCourseRequestPathParams['id']
+      data?: RejectCourseRequestMutationRequest
     },
     TContext
   >(
@@ -127,14 +127,14 @@ export function useRejectCourseRequest<TContext>(
       mutationKey,
       ...mutationOptions,
     },
-    queryClient,
+    queryClient
   ) as UseMutationResult<
     RejectCourseRequestMutationResponse,
     ResponseErrorConfig<Error>,
     {
-      id: RejectCourseRequestPathParams["id"];
-      data?: RejectCourseRequestMutationRequest;
+      id: RejectCourseRequestPathParams['id']
+      data?: RejectCourseRequestMutationRequest
     },
     TContext
-  >;
+  >
 }

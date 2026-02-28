@@ -49,21 +49,21 @@ export function DataTableGroupedSingleSelectFilter<TData, TValue>({
 
   // Find the selected option across all groups
   const selectedOption = groups
-    .flatMap(group => group.options)
-    .find(option => option.value === filterValue)
+    .flatMap((group) => group.options)
+    .find((option) => option.value === filterValue)
 
   return (
     <Popover modal={false}>
       <PopoverTrigger asChild>
-        <Button variant='outline' size='sm' className='h-8 border-dashed'>
-          <PlusCircledIcon className='size-4' />
+        <Button variant="outline" size="sm" className="h-8 border-dashed">
+          <PlusCircledIcon className="size-4" />
           {title}
           {selectedOption && (
             <>
-              <Separator orientation='vertical' className='mx-2 h-4' />
+              <Separator orientation="vertical" className="mx-2 h-4" />
               <Badge
-                variant='secondary'
-                className='rounded-sm px-1 font-normal'
+                variant="secondary"
+                className="rounded-sm px-1 font-normal"
               >
                 {selectedOption.label}
               </Badge>
@@ -71,7 +71,7 @@ export function DataTableGroupedSingleSelectFilter<TData, TValue>({
           )}
         </Button>
       </PopoverTrigger>
-      <PopoverContent className='w-[250px] p-0' align='start'>
+      <PopoverContent className="w-[250px] p-0" align="start">
         <Command>
           <CommandInput placeholder={title} />
           <CommandList>
@@ -102,10 +102,12 @@ export function DataTableGroupedSingleSelectFilter<TData, TValue>({
                               : 'opacity-50 [&_svg]:invisible'
                           )}
                         >
-                          <CheckIcon className={cn('text-background h-4 w-4')} />
+                          <CheckIcon
+                            className={cn('text-background h-4 w-4')}
+                          />
                         </div>
                         {option.icon && (
-                          <option.icon className='text-muted-foreground size-4' />
+                          <option.icon className="text-muted-foreground size-4" />
                         )}
                         <span>{option.label}</span>
                       </CommandItem>
@@ -122,7 +124,7 @@ export function DataTableGroupedSingleSelectFilter<TData, TValue>({
                 <CommandGroup>
                   <CommandItem
                     onSelect={() => column?.setFilterValue(undefined)}
-                    className='justify-center text-center'
+                    className="justify-center text-center"
                   >
                     Clear filter
                   </CommandItem>

@@ -7,45 +7,45 @@ export type DayExerciseItemResponse = {
   /**
    * @type integer | undefined, int64
    */
-  dayExerciseId?: number;
+  dayExerciseId?: number
   /**
    * @type integer | undefined, int64
    */
-  exerciseId?: number;
+  exerciseId?: number
   /**
    * @type string | undefined
    */
-  exerciseTitle?: string;
+  exerciseTitle?: string
   /**
    * @type string | undefined
    */
-  exerciseDescription?: string;
+  exerciseDescription?: string
   /**
    * @type string | undefined
    */
-  exerciseImageUrl?: string;
+  exerciseImageUrl?: string
   /**
    * @type string | undefined
    */
-  exerciseVideoUrl?: string;
+  exerciseVideoUrl?: string
   /**
    * @type integer | undefined, int32
    */
-  exerciseDurationMinutes?: number;
+  exerciseDurationMinutes?: number
   /**
    * @type integer | undefined, int32
    */
-  orderInDay?: number;
+  orderInDay?: number
   /**
    * @type integer | undefined, int32
    */
-  customRepetitions?: number;
+  customRepetitions?: number
   /**
    * @type boolean | undefined
    */
-  isCompleted?: boolean;
+  isCompleted?: boolean
   /**
    * @type string | undefined, date-time
    */
-  completedAt?: string;
-};
+  completedAt?: string
+}

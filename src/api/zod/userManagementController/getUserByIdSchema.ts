@@ -3,18 +3,16 @@
  * Do not edit manually.
  */
 
-import { userResponseSchema } from "../userResponseSchema.ts";
-import { z } from "zod/v4";
+import { userResponseSchema } from '../userResponseSchema.ts'
+import { z } from 'zod/v4'
 
 export const getUserByIdPathParamsSchema = z.object({
   userId: z.coerce.number().int(),
-});
+})
 
 /**
  * @description OK
  */
-export const getUserById200Schema = z.lazy(() => userResponseSchema);
+export const getUserById200Schema = z.lazy(() => userResponseSchema)
 
-export const getUserByIdQueryResponseSchema = z.lazy(
-  () => getUserById200Schema,
-);
+export const getUserByIdQueryResponseSchema = z.lazy(() => getUserById200Schema)

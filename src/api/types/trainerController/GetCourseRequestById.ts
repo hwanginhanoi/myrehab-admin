@@ -3,24 +3,24 @@
  * Do not edit manually.
  */
 
-import type { CourseAssignmentRequestResponse } from "../CourseAssignmentRequestResponse.ts";
+import type { CourseAssignmentRequestResponse } from '../CourseAssignmentRequestResponse.ts'
 
 export type GetCourseRequestByIdPathParams = {
   /**
    * @type integer, int64
    */
-  id: number;
-};
+  id: number
+}
 
 /**
  * @description OK
  */
-export type GetCourseRequestById200 = CourseAssignmentRequestResponse;
+export type GetCourseRequestById200 = CourseAssignmentRequestResponse
 
-export type GetCourseRequestByIdQueryResponse = GetCourseRequestById200;
+export type GetCourseRequestByIdQueryResponse = GetCourseRequestById200
 
 export type GetCourseRequestByIdQuery = {
-  Response: GetCourseRequestById200;
-  PathParams: GetCourseRequestByIdPathParams;
-  Errors: any;
-};
+  Response: GetCourseRequestById200
+  PathParams: GetCourseRequestByIdPathParams
+  Errors: any
+}

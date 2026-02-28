@@ -1,6 +1,4 @@
-'use client'
-
-import { useMemo, useRef } from 'react'
+import { useMemo, useRef, useState } from 'react'
 import { z } from 'zod'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
@@ -27,7 +25,10 @@ import {
   useUpdateExercise,
   useGetAllCategories,
   useGetAllGroups,
+  useGetVideoUrl,
 } from '@/api'
+import { getPublicImageUrl } from '@/lib/file-upload'
+import { FileVideo, Image as ImageIcon, Loader2, Play } from 'lucide-react'
 import { toast } from 'sonner'
 
 const formSchema = z.object({
@@ -36,9 +37,7 @@ const formSchema = z.object({
   imageUrl: z.string(), // Can be empty if file is selected
   videoUrl: z.string(), // Can be empty if file is selected
   durationMinutes: z.number().min(1, 'Thời lượng phải lớn hơn 0'),
-  categoryIds: z
-    .array(z.string())
-    .max(6, 'Chỉ được chọn tối đa 6 danh mục'),
+  categoryIds: z.array(z.string()).max(6, 'Chỉ được chọn tối đa 6 danh mục'),
   groupIds: z.array(z.string()).min(1, 'Vui lòng chọn ít nhất một kho bài tập'),
 })
 
@@ -49,7 +48,10 @@ type ExerciseFormComponentProps = {
   mode: 'create' | 'edit' | 'view'
 }
 
-export function ExerciseFormComponent({ exercise, mode }: ExerciseFormComponentProps) {
+export function ExerciseFormComponent({
+  exercise,
+  mode,
+}: ExerciseFormComponentProps) {
   const navigate = useNavigate()
   const queryClient = useQueryClient()
   const isView = mode === 'view'
@@ -71,6 +73,15 @@ export function ExerciseFormComponent({ exercise, mode }: ExerciseFormComponentP
       page: 0,
       size: 10000, // Get all groups
     },
+  })
+
+  // Fetch presigned video URL: eager in edit mode (needed for objectKey on submit), lazy in view mode
+  const {
+    data: videoUrlData,
+    refetch: fetchVideoUrl,
+    isFetching: isVideoFetching,
+  } = useGetVideoUrl(exercise?.id!, {
+    query: { enabled: isEdit && !!exercise?.id },
   })
 
   // Group categories by type
@@ -103,13 +114,15 @@ export function ExerciseFormComponent({ exercise, mode }: ExerciseFormComponentP
   // Wrap groups in a single group for consistent styling
   const groupOptions = useMemo(() => {
     const groups = (groupsResponse?.content as GroupResponse[]) || []
-    return [{
-      label: 'Kho bài tập',
-      options: groups.map((group) => ({
-        label: group.name || '',
-        value: String(group.id),
-      })),
-    }]
+    return [
+      {
+        label: 'Kho bài tập',
+        options: groups.map((group) => ({
+          label: group.name || '',
+          value: String(group.id),
+        })),
+      },
+    ]
   }, [groupsResponse])
 
   const form = useForm<ExerciseForm>({
@@ -119,7 +132,7 @@ export function ExerciseFormComponent({ exercise, mode }: ExerciseFormComponentP
           title: exercise.title || '',
           description: exercise.description || '',
           imageUrl: exercise.imageUrl || '',
-          videoUrl: exercise.videoUrl || '',
+          videoUrl: '', // not returned by API; existing video shown via previewUrl from useGetVideoUrl
           durationMinutes: exercise.durationMinutes || 0,
           categoryIds: exercise.categories?.map((c) => String(c.id)) || [],
           groupIds: exercise.groups?.map((g) => String(g.id)) || [],
@@ -139,8 +152,13 @@ export function ExerciseFormComponent({ exercise, mode }: ExerciseFormComponentP
     mutation: {
       onSuccess: () => {
         toast.success('Tạo bài tập thành công')
-        void queryClient.invalidateQueries({ queryKey: [{ url: '/api/exercises' }] })
-        void navigate({ to: '/exercises', search: { categoryIds: undefined, groupIds: undefined } })
+        void queryClient.invalidateQueries({
+          queryKey: [{ url: '/api/exercises' }],
+        })
+        void navigate({
+          to: '/exercises',
+          search: { categoryIds: undefined, groupIds: undefined },
+        })
       },
       onError: (error) => {
         toast.error('Tạo bài tập thất bại: ' + error.message)
@@ -152,8 +170,13 @@ export function ExerciseFormComponent({ exercise, mode }: ExerciseFormComponentP
     mutation: {
       onSuccess: () => {
         toast.success('Cập nhật bài tập thành công')
-        void queryClient.invalidateQueries({ queryKey: [{ url: '/api/exercises' }] })
-        void navigate({ to: '/exercises', search: { categoryIds: undefined, groupIds: undefined } })
+        void queryClient.invalidateQueries({
+          queryKey: [{ url: '/api/exercises' }],
+        })
+        void navigate({
+          to: '/exercises',
+          search: { categoryIds: undefined, groupIds: undefined },
+        })
       },
       onError: (error) => {
         toast.error('Cập nhật bài tập thất bại: ' + error.message)
@@ -170,8 +193,12 @@ export function ExerciseFormComponent({ exercise, mode }: ExerciseFormComponentP
         return
       }
 
-      // Check if video is provided (either uploaded or new file)
-      const hasVideo = values.videoUrl || videoUploadRef.current?.hasFile()
+      // Check if video is provided (new upload, new file selected, or existing video in edit mode)
+      const videoRemoved = videoUploadRef.current?.isRemoved() ?? false
+      const hasVideo =
+        values.videoUrl ||
+        videoUploadRef.current?.hasFile() ||
+        (isEdit && !!videoUrlData?.objectKey && !videoRemoved)
       if (!hasVideo) {
         toast.error('Vui lòng chọn video bài tập')
         return
@@ -192,7 +219,7 @@ export function ExerciseFormComponent({ exercise, mode }: ExerciseFormComponentP
         }
       }
 
-      // Upload video if new file selected
+      // Upload video if new file selected; otherwise keep existing object key in edit mode
       if (videoUploadRef.current?.hasFile()) {
         const uploadedVideoKey = await videoUploadRef.current.upload()
         if (uploadedVideoKey) {
@@ -201,6 +228,8 @@ export function ExerciseFormComponent({ exercise, mode }: ExerciseFormComponentP
           toast.error('Không thể tải lên video')
           return
         }
+      } else if (isEdit && !videoUrl && !videoRemoved) {
+        videoUrl = videoUrlData?.objectKey ?? ''
       }
 
       const payload = {
@@ -241,28 +270,28 @@ export function ExerciseFormComponent({ exercise, mode }: ExerciseFormComponentP
   }
 
   return (
-    <div className='space-y-6'>
+    <div className="space-y-6">
       <div>
-        <h2 className='text-2xl font-bold tracking-tight'>{getTitle()}</h2>
-        <p className='text-muted-foreground'>{getDescription()}</p>
+        <h2 className="text-2xl font-bold tracking-tight">{getTitle()}</h2>
+        <p className="text-muted-foreground">{getDescription()}</p>
       </div>
 
       <Form {...form}>
         <form
           // eslint-disable-next-line react-hooks/refs
           onSubmit={form.handleSubmit(onSubmit)}
-          className='space-y-6'
+          className="space-y-6"
         >
-          <div className='grid grid-cols-1 md:grid-cols-2 gap-6'>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <FormField
               control={form.control}
-              name='title'
+              name="title"
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Tên bài tập</FormLabel>
                   <FormControl>
                     <Input
-                      placeholder='Nhập tên bài tập'
+                      placeholder="Nhập tên bài tập"
                       disabled={isView}
                       {...field}
                     />
@@ -274,14 +303,14 @@ export function ExerciseFormComponent({ exercise, mode }: ExerciseFormComponentP
 
             <FormField
               control={form.control}
-              name='durationMinutes'
+              name="durationMinutes"
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Thời lượng (phút)</FormLabel>
                   <FormControl>
                     <Input
-                      type='number'
-                      placeholder='Tự động từ video'
+                      type="number"
+                      placeholder="Tự động từ video"
                       disabled={true}
                       {...field}
                       value={field.value || ''}
@@ -295,7 +324,7 @@ export function ExerciseFormComponent({ exercise, mode }: ExerciseFormComponentP
 
           <FormField
             control={form.control}
-            name='categoryIds'
+            name="categoryIds"
             render={({ field }) => (
               <FormItem>
                 <FormLabel>Danh mục</FormLabel>
@@ -304,7 +333,7 @@ export function ExerciseFormComponent({ exercise, mode }: ExerciseFormComponentP
                     groups={categoryGroups}
                     selected={field.value || []}
                     onChange={field.onChange}
-                    placeholder='Chọn danh mục'
+                    placeholder="Chọn danh mục"
                     disabled={isView}
                     maxSelections={6}
                   />
@@ -316,7 +345,7 @@ export function ExerciseFormComponent({ exercise, mode }: ExerciseFormComponentP
 
           <FormField
             control={form.control}
-            name='groupIds'
+            name="groupIds"
             render={({ field }) => (
               <FormItem>
                 <FormLabel>Kho bài tập</FormLabel>
@@ -325,7 +354,7 @@ export function ExerciseFormComponent({ exercise, mode }: ExerciseFormComponentP
                     groups={groupOptions}
                     selected={field.value || []}
                     onChange={field.onChange}
-                    placeholder='Chọn kho bài tập'
+                    placeholder="Chọn kho bài tập"
                     disabled={isView}
                   />
                 </FormControl>
@@ -336,14 +365,14 @@ export function ExerciseFormComponent({ exercise, mode }: ExerciseFormComponentP
 
           <FormField
             control={form.control}
-            name='description'
+            name="description"
             render={({ field }) => (
               <FormItem>
                 <FormLabel>Mô tả</FormLabel>
                 <FormControl>
                   <Textarea
-                    placeholder='Nhập mô tả bài tập'
-                    className='min-h-[120px]'
+                    placeholder="Nhập mô tả bài tập"
+                    className="min-h-[120px]"
                     disabled={isView}
                     {...field}
                   />
@@ -353,64 +382,89 @@ export function ExerciseFormComponent({ exercise, mode }: ExerciseFormComponentP
             )}
           />
 
-          <div className='grid grid-cols-1 md:grid-cols-2 gap-6'>
-            <FormField
-              control={form.control}
-              name='imageUrl'
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Ảnh bài tập</FormLabel>
-                  <FormControl>
-                    <FileUpload
-                      ref={imageUploadRef}
-                      category='exercise-image'
-                      value={field.value}
-                      onChange={field.onChange}
-                      disabled={isView}
-                      label={undefined}
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {isView ? (
+              <FormItem>
+                <FormLabel>Ảnh bài tập</FormLabel>
+                <ExerciseImagePreview imageUrl={exercise?.imageUrl} />
+              </FormItem>
+            ) : (
+              <FormField
+                control={form.control}
+                name="imageUrl"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Ảnh bài tập</FormLabel>
+                    <FormControl>
+                      <FileUpload
+                        ref={imageUploadRef}
+                        category="exercise-image"
+                        value={field.value}
+                        onChange={field.onChange}
+                        label={undefined}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            )}
 
-            <FormField
-              control={form.control}
-              name='videoUrl'
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Video bài tập</FormLabel>
-                  <FormControl>
-                    <FileUpload
-                      ref={videoUploadRef}
-                      category='exercise-video'
-                      value={field.value}
-                      onChange={field.onChange}
-                      onVideoDurationChange={(duration) => {
-                        form.setValue('durationMinutes', duration)
-                      }}
-                      disabled={isView}
-                      label={undefined}
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
+            {isView ? (
+              <FormItem>
+                <FormLabel>Video bài tập</FormLabel>
+                <ExerciseVideoPreview
+                  imageUrl={exercise?.imageUrl}
+                  videoUrl={videoUrlData?.presignedUrl}
+                  isLoading={isVideoFetching}
+                  onPlay={() => {
+                    void fetchVideoUrl()
+                  }}
+                />
+              </FormItem>
+            ) : (
+              <FormField
+                control={form.control}
+                name="videoUrl"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Video bài tập</FormLabel>
+                    <FormControl>
+                      <FileUpload
+                        ref={videoUploadRef}
+                        category="exercise-video"
+                        value={field.value}
+                        onChange={field.onChange}
+                        onVideoDurationChange={(duration) => {
+                          form.setValue('durationMinutes', duration)
+                        }}
+                        label={undefined}
+                        previewUrl={videoUrlData?.presignedUrl}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            )}
           </div>
 
-          <div className='flex gap-3 justify-end pt-4'>
+          <div className="flex gap-3 justify-end pt-4">
             <Button
-              type='button'
-              variant='outline'
-              onClick={() => void navigate({ to: '/exercises', search: { categoryIds: undefined, groupIds: undefined } })}
+              type="button"
+              variant="outline"
+              onClick={() =>
+                void navigate({
+                  to: '/exercises',
+                  search: { categoryIds: undefined, groupIds: undefined },
+                })
+              }
             >
               {isView ? 'Đóng' : 'Hủy'}
             </Button>
             {!isView && (
               <Button
-                type='submit'
+                type="submit"
                 disabled={createMutation.isPending || updateMutation.isPending}
               >
                 {createMutation.isPending || updateMutation.isPending
@@ -421,6 +475,98 @@ export function ExerciseFormComponent({ exercise, mode }: ExerciseFormComponentP
           </div>
         </form>
       </Form>
+    </div>
+  )
+}
+
+function ExerciseImagePreview({ imageUrl }: { imageUrl?: string }) {
+  const src = imageUrl
+    ? imageUrl.startsWith('http://') || imageUrl.startsWith('https://')
+      ? imageUrl
+      : getPublicImageUrl(imageUrl)
+    : null
+
+  return (
+    <div className="w-full aspect-video relative overflow-hidden rounded-lg border bg-black">
+      {src ? (
+        <img
+          src={src}
+          alt="Ảnh bài tập"
+          className="absolute inset-0 h-full w-full object-cover"
+        />
+      ) : (
+        <div className="absolute inset-0 flex items-center justify-center">
+          <ImageIcon className="h-12 w-12 text-white/30" />
+        </div>
+      )}
+    </div>
+  )
+}
+
+function ExerciseVideoPreview({
+  imageUrl,
+  videoUrl,
+  isLoading,
+  onPlay,
+}: {
+  imageUrl?: string
+  videoUrl?: string
+  isLoading: boolean
+  onPlay: () => void
+}) {
+  const [playing, setPlaying] = useState(false)
+
+  const thumbnailSrc = imageUrl
+    ? imageUrl.startsWith('http://') || imageUrl.startsWith('https://')
+      ? imageUrl
+      : getPublicImageUrl(imageUrl)
+    : null
+
+  const handlePlayClick = () => {
+    setPlaying(true)
+    if (!videoUrl) onPlay()
+  }
+
+  return (
+    <div className="w-full aspect-video relative overflow-hidden rounded-lg border bg-black">
+      {playing && videoUrl ? (
+        <video
+          src={videoUrl}
+          className="absolute inset-0 h-full w-full"
+          controls
+          autoPlay
+        />
+      ) : (
+        <>
+          {thumbnailSrc ? (
+            <img
+              src={thumbnailSrc}
+              alt="Thumbnail"
+              className="absolute inset-0 h-full w-full object-cover"
+            />
+          ) : (
+            <div className="absolute inset-0 flex items-center justify-center">
+              <FileVideo className="h-12 w-12 text-white/30" />
+            </div>
+          )}
+          <div className="absolute inset-0 flex items-center justify-center bg-black/30">
+            {playing && isLoading ? (
+              <div className="flex flex-col items-center gap-2 rounded-xl bg-black/50 px-6 py-4">
+                <Loader2 className="h-10 w-10 animate-spin text-white" />
+                <span className="text-sm text-white/80">Đang tải video...</span>
+              </div>
+            ) : (
+              <button
+                type="button"
+                onClick={handlePlayClick}
+                className="flex h-16 w-16 items-center justify-center rounded-full bg-white/90 shadow-lg transition-all hover:scale-105 hover:bg-white"
+              >
+                <Play className="ml-1 h-7 w-7 text-black" />
+              </button>
+            )}
+          </div>
+        </>
+      )}
     </div>
   )
 }

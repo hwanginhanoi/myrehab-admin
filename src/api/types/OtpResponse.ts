@@ -7,13 +7,13 @@ export type OtpResponse = {
   /**
    * @type string | undefined
    */
-  message?: string;
+  message?: string
   /**
    * @type string | undefined
    */
-  otpId?: string;
+  otpId?: string
   /**
    * @type integer | undefined, int64
    */
-  expiresInSeconds?: number;
-};
+  expiresInSeconds?: number
+}

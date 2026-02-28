@@ -7,9 +7,9 @@ export type WebhookResponse = {
   /**
    * @type boolean | undefined
    */
-  success?: boolean;
+  success?: boolean
   /**
    * @type string | undefined
    */
-  message?: string;
-};
+  message?: string
+}

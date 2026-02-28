@@ -3,25 +3,25 @@
  * Do not edit manually.
  */
 
-import { appointmentResponseSchema } from "../appointmentResponseSchema.ts";
-import { rejectAppointmentRequestSchema } from "../rejectAppointmentRequestSchema.ts";
-import { z } from "zod/v4";
+import { appointmentResponseSchema } from '../appointmentResponseSchema.ts'
+import { rejectAppointmentRequestSchema } from '../rejectAppointmentRequestSchema.ts'
+import { z } from 'zod/v4'
 
 export const rejectAppointmentPathParamsSchema = z.object({
   id: z.coerce.number().int(),
-});
+})
 
 /**
  * @description OK
  */
 export const rejectAppointment200Schema = z.lazy(
-  () => appointmentResponseSchema,
-);
+  () => appointmentResponseSchema
+)
 
 export const rejectAppointmentMutationRequestSchema = z.lazy(
-  () => rejectAppointmentRequestSchema,
-);
+  () => rejectAppointmentRequestSchema
+)
 
 export const rejectAppointmentMutationResponseSchema = z.lazy(
-  () => rejectAppointment200Schema,
-);
+  () => rejectAppointment200Schema
+)

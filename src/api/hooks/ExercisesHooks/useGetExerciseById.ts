@@ -3,26 +3,24 @@
  * Do not edit manually.
  */
 
-import fetch from "@/lib/api-client";
+import fetch from '@/lib/api-client'
 import type {
   GetExerciseByIdQueryResponse,
   GetExerciseByIdPathParams,
-} from "../../types/exercisesController/GetExerciseById.ts";
-import type { RequestConfig, ResponseErrorConfig } from "@/lib/api-client";
+} from '../../types/exercisesController/GetExerciseById.ts'
+import type { RequestConfig, ResponseErrorConfig } from '@/lib/api-client'
 import type {
   QueryKey,
   QueryClient,
   QueryObserverOptions,
   UseQueryResult,
-} from "@tanstack/react-query";
-import { queryOptions, useQuery } from "@tanstack/react-query";
+} from '@tanstack/react-query'
+import { queryOptions, useQuery } from '@tanstack/react-query'
 
-export const getExerciseByIdQueryKey = (id: GetExerciseByIdPathParams["id"]) =>
-  [{ url: "/api/exercises/:id", params: { id: id } }] as const;
+export const getExerciseByIdQueryKey = (id: GetExerciseByIdPathParams['id']) =>
+  [{ url: '/api/exercises/:id', params: { id: id } }] as const
 
-export type GetExerciseByIdQueryKey = ReturnType<
-  typeof getExerciseByIdQueryKey
->;
+export type GetExerciseByIdQueryKey = ReturnType<typeof getExerciseByIdQueryKey>
 
 /**
  * @description Retrieve a specific exercise. User must have access through exercise groups.
@@ -30,24 +28,24 @@ export type GetExerciseByIdQueryKey = ReturnType<
  * {@link /api/exercises/:id}
  */
 export async function getExerciseById(
-  id: GetExerciseByIdPathParams["id"],
-  config: Partial<RequestConfig> & { client?: typeof fetch } = {},
+  id: GetExerciseByIdPathParams['id'],
+  config: Partial<RequestConfig> & { client?: typeof fetch } = {}
 ) {
-  const { client: request = fetch, ...requestConfig } = config;
+  const { client: request = fetch, ...requestConfig } = config
 
   const res = await request<
     GetExerciseByIdQueryResponse,
     ResponseErrorConfig<Error>,
     unknown
-  >({ method: "GET", url: `/api/exercises/${id}`, ...requestConfig });
-  return res.data;
+  >({ method: 'GET', url: `/api/exercises/${id}`, ...requestConfig })
+  return res.data
 }
 
 export function getExerciseByIdQueryOptions(
-  id: GetExerciseByIdPathParams["id"],
-  config: Partial<RequestConfig> & { client?: typeof fetch } = {},
+  id: GetExerciseByIdPathParams['id'],
+  config: Partial<RequestConfig> & { client?: typeof fetch } = {}
 ) {
-  const queryKey = getExerciseByIdQueryKey(id);
+  const queryKey = getExerciseByIdQueryKey(id)
   return queryOptions<
     GetExerciseByIdQueryResponse,
     ResponseErrorConfig<Error>,
@@ -57,10 +55,10 @@ export function getExerciseByIdQueryOptions(
     enabled: !!id,
     queryKey,
     queryFn: async ({ signal }) => {
-      config.signal = signal;
-      return getExerciseById(id, config);
+      config.signal = signal
+      return getExerciseById(id, config)
     },
-  });
+  })
 }
 
 /**
@@ -73,7 +71,7 @@ export function useGetExerciseById<
   TQueryData = GetExerciseByIdQueryResponse,
   TQueryKey extends QueryKey = GetExerciseByIdQueryKey,
 >(
-  id: GetExerciseByIdPathParams["id"],
+  id: GetExerciseByIdPathParams['id'],
   options: {
     query?: Partial<
       QueryObserverOptions<
@@ -83,13 +81,13 @@ export function useGetExerciseById<
         TQueryData,
         TQueryKey
       >
-    > & { client?: QueryClient };
-    client?: Partial<RequestConfig> & { client?: typeof fetch };
-  } = {},
+    > & { client?: QueryClient }
+    client?: Partial<RequestConfig> & { client?: typeof fetch }
+  } = {}
 ) {
-  const { query: queryConfig = {}, client: config = {} } = options ?? {};
-  const { client: queryClient, ...queryOptions } = queryConfig;
-  const queryKey = queryOptions?.queryKey ?? getExerciseByIdQueryKey(id);
+  const { query: queryConfig = {}, client: config = {} } = options ?? {}
+  const { client: queryClient, ...queryOptions } = queryConfig
+  const queryKey = queryOptions?.queryKey ?? getExerciseByIdQueryKey(id)
 
   const query = useQuery(
     {
@@ -97,12 +95,12 @@ export function useGetExerciseById<
       queryKey,
       ...queryOptions,
     } as unknown as QueryObserverOptions,
-    queryClient,
+    queryClient
   ) as UseQueryResult<TData, ResponseErrorConfig<Error>> & {
-    queryKey: TQueryKey;
-  };
+    queryKey: TQueryKey
+  }
 
-  query.queryKey = queryKey as TQueryKey;
+  query.queryKey = queryKey as TQueryKey
 
-  return query;
+  return query
 }

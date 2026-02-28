@@ -3,27 +3,27 @@
  * Do not edit manually.
  */
 
-import fetch from "@/lib/api-client";
+import fetch from '@/lib/api-client'
 import type {
   GetCurrentUserPackageByIdQueryResponse,
   GetCurrentUserPackageByIdPathParams,
-} from "../../types/exercisePackagesController/GetCurrentUserPackageById.ts";
-import type { RequestConfig, ResponseErrorConfig } from "@/lib/api-client";
+} from '../../types/exercisePackagesController/GetCurrentUserPackageById.ts'
+import type { RequestConfig, ResponseErrorConfig } from '@/lib/api-client'
 import type {
   QueryKey,
   QueryClient,
   UseSuspenseQueryOptions,
   UseSuspenseQueryResult,
-} from "@tanstack/react-query";
-import { queryOptions, useSuspenseQuery } from "@tanstack/react-query";
+} from '@tanstack/react-query'
+import { queryOptions, useSuspenseQuery } from '@tanstack/react-query'
 
 export const getCurrentUserPackageByIdSuspenseQueryKey = (
-  id: GetCurrentUserPackageByIdPathParams["id"],
-) => [{ url: "/api/exercise-packages/me/:id", params: { id: id } }] as const;
+  id: GetCurrentUserPackageByIdPathParams['id']
+) => [{ url: '/api/exercise-packages/me/:id', params: { id: id } }] as const
 
 export type GetCurrentUserPackageByIdSuspenseQueryKey = ReturnType<
   typeof getCurrentUserPackageByIdSuspenseQueryKey
->;
+>
 
 /**
  * @description Retrieve a specific exercise package with the current user's subscription information. Returns full package details along with subscription information (if subscribed) and current pricing options (monthlyPrice and yearlyPrice in VND). Can be used to check access to any package (owned or not).
@@ -31,28 +31,24 @@ export type GetCurrentUserPackageByIdSuspenseQueryKey = ReturnType<
  * {@link /api/exercise-packages/me/:id}
  */
 export async function getCurrentUserPackageByIdSuspense(
-  id: GetCurrentUserPackageByIdPathParams["id"],
-  config: Partial<RequestConfig> & { client?: typeof fetch } = {},
+  id: GetCurrentUserPackageByIdPathParams['id'],
+  config: Partial<RequestConfig> & { client?: typeof fetch } = {}
 ) {
-  const { client: request = fetch, ...requestConfig } = config;
+  const { client: request = fetch, ...requestConfig } = config
 
   const res = await request<
     GetCurrentUserPackageByIdQueryResponse,
     ResponseErrorConfig<Error>,
     unknown
-  >({
-    method: "GET",
-    url: `/api/exercise-packages/me/${id}`,
-    ...requestConfig,
-  });
-  return res.data;
+  >({ method: 'GET', url: `/api/exercise-packages/me/${id}`, ...requestConfig })
+  return res.data
 }
 
 export function getCurrentUserPackageByIdSuspenseQueryOptions(
-  id: GetCurrentUserPackageByIdPathParams["id"],
-  config: Partial<RequestConfig> & { client?: typeof fetch } = {},
+  id: GetCurrentUserPackageByIdPathParams['id'],
+  config: Partial<RequestConfig> & { client?: typeof fetch } = {}
 ) {
-  const queryKey = getCurrentUserPackageByIdSuspenseQueryKey(id);
+  const queryKey = getCurrentUserPackageByIdSuspenseQueryKey(id)
   return queryOptions<
     GetCurrentUserPackageByIdQueryResponse,
     ResponseErrorConfig<Error>,
@@ -62,10 +58,10 @@ export function getCurrentUserPackageByIdSuspenseQueryOptions(
     enabled: !!id,
     queryKey,
     queryFn: async ({ signal }) => {
-      config.signal = signal;
-      return getCurrentUserPackageByIdSuspense(id, config);
+      config.signal = signal
+      return getCurrentUserPackageByIdSuspense(id, config)
     },
-  });
+  })
 }
 
 /**
@@ -77,7 +73,7 @@ export function useGetCurrentUserPackageByIdSuspense<
   TData = GetCurrentUserPackageByIdQueryResponse,
   TQueryKey extends QueryKey = GetCurrentUserPackageByIdSuspenseQueryKey,
 >(
-  id: GetCurrentUserPackageByIdPathParams["id"],
+  id: GetCurrentUserPackageByIdPathParams['id'],
   options: {
     query?: Partial<
       UseSuspenseQueryOptions<
@@ -86,14 +82,14 @@ export function useGetCurrentUserPackageByIdSuspense<
         TData,
         TQueryKey
       >
-    > & { client?: QueryClient };
-    client?: Partial<RequestConfig> & { client?: typeof fetch };
-  } = {},
+    > & { client?: QueryClient }
+    client?: Partial<RequestConfig> & { client?: typeof fetch }
+  } = {}
 ) {
-  const { query: queryConfig = {}, client: config = {} } = options ?? {};
-  const { client: queryClient, ...queryOptions } = queryConfig;
+  const { query: queryConfig = {}, client: config = {} } = options ?? {}
+  const { client: queryClient, ...queryOptions } = queryConfig
   const queryKey =
-    queryOptions?.queryKey ?? getCurrentUserPackageByIdSuspenseQueryKey(id);
+    queryOptions?.queryKey ?? getCurrentUserPackageByIdSuspenseQueryKey(id)
 
   const query = useSuspenseQuery(
     {
@@ -101,12 +97,12 @@ export function useGetCurrentUserPackageByIdSuspense<
       queryKey,
       ...queryOptions,
     } as unknown as UseSuspenseQueryOptions,
-    queryClient,
+    queryClient
   ) as UseSuspenseQueryResult<TData, ResponseErrorConfig<Error>> & {
-    queryKey: TQueryKey;
-  };
+    queryKey: TQueryKey
+  }
 
-  query.queryKey = queryKey as TQueryKey;
+  query.queryKey = queryKey as TQueryKey
 
-  return query;
+  return query
 }

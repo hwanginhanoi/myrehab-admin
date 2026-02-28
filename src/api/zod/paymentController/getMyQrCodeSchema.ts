@@ -3,14 +3,12 @@
  * Do not edit manually.
  */
 
-import { qrCodeResponseSchema } from "../qrCodeResponseSchema.ts";
-import { z } from "zod/v4";
+import { qrCodeResponseSchema } from '../qrCodeResponseSchema.ts'
+import { z } from 'zod/v4'
 
 /**
  * @description OK
  */
-export const getMyQrCode200Schema = z.lazy(() => qrCodeResponseSchema);
+export const getMyQrCode200Schema = z.lazy(() => qrCodeResponseSchema)
 
-export const getMyQrCodeQueryResponseSchema = z.lazy(
-  () => getMyQrCode200Schema,
-);
+export const getMyQrCodeQueryResponseSchema = z.lazy(() => getMyQrCode200Schema)

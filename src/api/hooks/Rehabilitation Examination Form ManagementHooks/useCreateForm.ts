@@ -3,23 +3,23 @@
  * Do not edit manually.
  */
 
-import fetch from "@/lib/api-client";
+import fetch from '@/lib/api-client'
 import type {
   CreateFormMutationRequest,
   CreateFormMutationResponse,
-} from "../../types/rehabilitationExaminationFormManagementController/CreateForm.ts";
-import type { RequestConfig, ResponseErrorConfig } from "@/lib/api-client";
+} from '../../types/rehabilitationExaminationFormManagementController/CreateForm.ts'
+import type { RequestConfig, ResponseErrorConfig } from '@/lib/api-client'
 import type {
   UseMutationOptions,
   UseMutationResult,
   QueryClient,
-} from "@tanstack/react-query";
-import { mutationOptions, useMutation } from "@tanstack/react-query";
+} from '@tanstack/react-query'
+import { mutationOptions, useMutation } from '@tanstack/react-query'
 
 export const createFormMutationKey = () =>
-  [{ url: "/api/rehabilitation-examination-forms" }] as const;
+  [{ url: '/api/rehabilitation-examination-forms' }] as const
 
-export type CreateFormMutationKey = ReturnType<typeof createFormMutationKey>;
+export type CreateFormMutationKey = ReturnType<typeof createFormMutationKey>
 
 /**
  * @description Create a new rehabilitation examination form. Requires rehab_forms:create permission.
@@ -29,32 +29,32 @@ export type CreateFormMutationKey = ReturnType<typeof createFormMutationKey>;
 export async function createForm(
   data: CreateFormMutationRequest,
   config: Partial<RequestConfig<CreateFormMutationRequest>> & {
-    client?: typeof fetch;
-  } = {},
+    client?: typeof fetch
+  } = {}
 ) {
-  const { client: request = fetch, ...requestConfig } = config;
+  const { client: request = fetch, ...requestConfig } = config
 
-  const requestData = data;
+  const requestData = data
 
   const res = await request<
     CreateFormMutationResponse,
     ResponseErrorConfig<Error>,
     CreateFormMutationRequest
   >({
-    method: "POST",
+    method: 'POST',
     url: `/api/rehabilitation-examination-forms`,
     data: requestData,
     ...requestConfig,
-  });
-  return res.data;
+  })
+  return res.data
 }
 
 export function createFormMutationOptions(
   config: Partial<RequestConfig<CreateFormMutationRequest>> & {
-    client?: typeof fetch;
-  } = {},
+    client?: typeof fetch
+  } = {}
 ) {
-  const mutationKey = createFormMutationKey();
+  const mutationKey = createFormMutationKey()
   return mutationOptions<
     CreateFormMutationResponse,
     ResponseErrorConfig<Error>,
@@ -63,9 +63,9 @@ export function createFormMutationOptions(
   >({
     mutationKey,
     mutationFn: async ({ data }) => {
-      return createForm(data, config);
+      return createForm(data, config)
     },
-  });
+  })
 }
 
 /**
@@ -80,22 +80,22 @@ export function useCreateForm<TContext>(
       ResponseErrorConfig<Error>,
       { data: CreateFormMutationRequest },
       TContext
-    > & { client?: QueryClient };
+    > & { client?: QueryClient }
     client?: Partial<RequestConfig<CreateFormMutationRequest>> & {
-      client?: typeof fetch;
-    };
-  } = {},
+      client?: typeof fetch
+    }
+  } = {}
 ) {
-  const { mutation = {}, client: config = {} } = options ?? {};
-  const { client: queryClient, ...mutationOptions } = mutation;
-  const mutationKey = mutationOptions.mutationKey ?? createFormMutationKey();
+  const { mutation = {}, client: config = {} } = options ?? {}
+  const { client: queryClient, ...mutationOptions } = mutation
+  const mutationKey = mutationOptions.mutationKey ?? createFormMutationKey()
 
   const baseOptions = createFormMutationOptions(config) as UseMutationOptions<
     CreateFormMutationResponse,
     ResponseErrorConfig<Error>,
     { data: CreateFormMutationRequest },
     TContext
-  >;
+  >
 
   return useMutation<
     CreateFormMutationResponse,
@@ -108,11 +108,11 @@ export function useCreateForm<TContext>(
       mutationKey,
       ...mutationOptions,
     },
-    queryClient,
+    queryClient
   ) as UseMutationResult<
     CreateFormMutationResponse,
     ResponseErrorConfig<Error>,
     { data: CreateFormMutationRequest },
     TContext
-  >;
+  >
 }

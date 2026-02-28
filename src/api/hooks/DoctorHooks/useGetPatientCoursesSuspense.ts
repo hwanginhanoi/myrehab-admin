@@ -3,33 +3,36 @@
  * Do not edit manually.
  */
 
-import fetch from "@/lib/api-client";
+import fetch from '@/lib/api-client'
 import type {
   GetPatientCoursesQueryResponse,
   GetPatientCoursesPathParams,
-} from "../../types/doctorController/GetPatientCourses.ts";
-import type { RequestConfig, ResponseErrorConfig } from "@/lib/api-client";
+  GetPatientCoursesQueryParams,
+} from '../../types/doctorController/GetPatientCourses.ts'
+import type { RequestConfig, ResponseErrorConfig } from '@/lib/api-client'
 import type {
   QueryKey,
   QueryClient,
   UseSuspenseQueryOptions,
   UseSuspenseQueryResult,
-} from "@tanstack/react-query";
-import { queryOptions, useSuspenseQuery } from "@tanstack/react-query";
+} from '@tanstack/react-query'
+import { queryOptions, useSuspenseQuery } from '@tanstack/react-query'
 
 export const getPatientCoursesSuspenseQueryKey = (
-  userId: GetPatientCoursesPathParams["userId"],
+  userId: GetPatientCoursesPathParams['userId'],
+  params: GetPatientCoursesQueryParams
 ) =>
   [
     {
-      url: "/api/doctors/patients/:userId/courses",
+      url: '/api/doctors/patients/:userId/courses',
       params: { userId: userId },
     },
-  ] as const;
+    ...(params ? [params] : []),
+  ] as const
 
 export type GetPatientCoursesSuspenseQueryKey = ReturnType<
   typeof getPatientCoursesSuspenseQueryKey
->;
+>
 
 /**
  * @description Get all courses I assigned to this patient
@@ -37,41 +40,44 @@ export type GetPatientCoursesSuspenseQueryKey = ReturnType<
  * {@link /api/doctors/patients/:userId/courses}
  */
 export async function getPatientCoursesSuspense(
-  userId: GetPatientCoursesPathParams["userId"],
-  config: Partial<RequestConfig> & { client?: typeof fetch } = {},
+  userId: GetPatientCoursesPathParams['userId'],
+  params: GetPatientCoursesQueryParams,
+  config: Partial<RequestConfig> & { client?: typeof fetch } = {}
 ) {
-  const { client: request = fetch, ...requestConfig } = config;
+  const { client: request = fetch, ...requestConfig } = config
 
   const res = await request<
     GetPatientCoursesQueryResponse,
     ResponseErrorConfig<Error>,
     unknown
   >({
-    method: "GET",
+    method: 'GET',
     url: `/api/doctors/patients/${userId}/courses`,
+    params,
     ...requestConfig,
-  });
-  return res.data;
+  })
+  return res.data
 }
 
 export function getPatientCoursesSuspenseQueryOptions(
-  userId: GetPatientCoursesPathParams["userId"],
-  config: Partial<RequestConfig> & { client?: typeof fetch } = {},
+  userId: GetPatientCoursesPathParams['userId'],
+  params: GetPatientCoursesQueryParams,
+  config: Partial<RequestConfig> & { client?: typeof fetch } = {}
 ) {
-  const queryKey = getPatientCoursesSuspenseQueryKey(userId);
+  const queryKey = getPatientCoursesSuspenseQueryKey(userId, params)
   return queryOptions<
     GetPatientCoursesQueryResponse,
     ResponseErrorConfig<Error>,
     GetPatientCoursesQueryResponse,
     typeof queryKey
   >({
-    enabled: !!userId,
+    enabled: !!(userId && params),
     queryKey,
     queryFn: async ({ signal }) => {
-      config.signal = signal;
-      return getPatientCoursesSuspense(userId, config);
+      config.signal = signal
+      return getPatientCoursesSuspense(userId, params, config)
     },
-  });
+  })
 }
 
 /**
@@ -83,7 +89,8 @@ export function useGetPatientCoursesSuspense<
   TData = GetPatientCoursesQueryResponse,
   TQueryKey extends QueryKey = GetPatientCoursesSuspenseQueryKey,
 >(
-  userId: GetPatientCoursesPathParams["userId"],
+  userId: GetPatientCoursesPathParams['userId'],
+  params: GetPatientCoursesQueryParams,
   options: {
     query?: Partial<
       UseSuspenseQueryOptions<
@@ -92,27 +99,27 @@ export function useGetPatientCoursesSuspense<
         TData,
         TQueryKey
       >
-    > & { client?: QueryClient };
-    client?: Partial<RequestConfig> & { client?: typeof fetch };
-  } = {},
+    > & { client?: QueryClient }
+    client?: Partial<RequestConfig> & { client?: typeof fetch }
+  } = {}
 ) {
-  const { query: queryConfig = {}, client: config = {} } = options ?? {};
-  const { client: queryClient, ...queryOptions } = queryConfig;
+  const { query: queryConfig = {}, client: config = {} } = options ?? {}
+  const { client: queryClient, ...queryOptions } = queryConfig
   const queryKey =
-    queryOptions?.queryKey ?? getPatientCoursesSuspenseQueryKey(userId);
+    queryOptions?.queryKey ?? getPatientCoursesSuspenseQueryKey(userId, params)
 
   const query = useSuspenseQuery(
     {
-      ...getPatientCoursesSuspenseQueryOptions(userId, config),
+      ...getPatientCoursesSuspenseQueryOptions(userId, params, config),
       queryKey,
       ...queryOptions,
     } as unknown as UseSuspenseQueryOptions,
-    queryClient,
+    queryClient
   ) as UseSuspenseQueryResult<TData, ResponseErrorConfig<Error>> & {
-    queryKey: TQueryKey;
-  };
+    queryKey: TQueryKey
+  }
 
-  query.queryKey = queryKey as TQueryKey;
+  query.queryKey = queryKey as TQueryKey
 
-  return query;
+  return query
 }

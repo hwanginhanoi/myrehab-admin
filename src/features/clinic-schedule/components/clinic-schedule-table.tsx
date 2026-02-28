@@ -39,7 +39,7 @@ export function ClinicScheduleTable({ data }: ClinicScheduleTableProps) {
 
   return (
     <>
-      <div className='overflow-hidden rounded-md border'>
+      <div className="overflow-hidden rounded-md border">
         <Table>
           <TableHeader>
             <TableRow>
@@ -48,20 +48,20 @@ export function ClinicScheduleTable({ data }: ClinicScheduleTableProps) {
               <TableHead>Giờ mở cửa</TableHead>
               <TableHead>Giờ đóng cửa</TableHead>
               <TableHead>Thời lượng slot (phút)</TableHead>
-              <TableHead className='w-10'></TableHead>
+              <TableHead className="w-10"></TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
             {sortedData.map((item) => (
               <TableRow key={item.id}>
-                <TableCell className='font-medium'>
+                <TableCell className="font-medium">
                   {dayOfWeekLabels[item.dayOfWeek || ''] || item.dayOfWeek}
                 </TableCell>
                 <TableCell>
                   {item.isOpen ? (
-                    <Badge variant='default'>Mở cửa</Badge>
+                    <Badge variant="default">Mở cửa</Badge>
                   ) : (
-                    <Badge variant='secondary'>Đóng cửa</Badge>
+                    <Badge variant="secondary">Đóng cửa</Badge>
                   )}
                 </TableCell>
                 <TableCell>{formatLocalTime(item.openingTime)}</TableCell>
@@ -69,18 +69,18 @@ export function ClinicScheduleTable({ data }: ClinicScheduleTableProps) {
                 <TableCell>{item.slotDurationMinutes ?? '-'}</TableCell>
                 <TableCell>
                   <Button
-                    variant='ghost'
-                    size='icon'
+                    variant="ghost"
+                    size="icon"
                     onClick={() => setEditItem(item)}
                   >
-                    <Pencil className='h-4 w-4' />
+                    <Pencil className="h-4 w-4" />
                   </Button>
                 </TableCell>
               </TableRow>
             ))}
             {sortedData.length === 0 && (
               <TableRow>
-                <TableCell colSpan={6} className='h-24 text-center'>
+                <TableCell colSpan={6} className="h-24 text-center">
                   Không có dữ liệu.
                 </TableCell>
               </TableRow>

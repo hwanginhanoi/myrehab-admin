@@ -3,25 +3,25 @@
  * Do not edit manually.
  */
 
-import fetch from "@/lib/api-client";
+import fetch from '@/lib/api-client'
 import type {
   CompleteCourseMutationResponse,
   CompleteCoursePathParams,
-} from "../../types/courseProgressController/CompleteCourse.ts";
-import type { RequestConfig, ResponseErrorConfig } from "@/lib/api-client";
+} from '../../types/courseProgressController/CompleteCourse.ts'
+import type { RequestConfig, ResponseErrorConfig } from '@/lib/api-client'
 import type {
   UseMutationOptions,
   UseMutationResult,
   QueryClient,
-} from "@tanstack/react-query";
-import { mutationOptions, useMutation } from "@tanstack/react-query";
+} from '@tanstack/react-query'
+import { mutationOptions, useMutation } from '@tanstack/react-query'
 
 export const completeCourseMutationKey = () =>
-  [{ url: "/api/course-progress/courses/:courseId/complete" }] as const;
+  [{ url: '/api/course-progress/courses/:courseId/complete' }] as const
 
 export type CompleteCourseMutationKey = ReturnType<
   typeof completeCourseMutationKey
->;
+>
 
 /**
  * @description Manually mark a course as complete. Typically auto-completed when last exercise is done, but this endpoint allows manual completion.
@@ -29,38 +29,38 @@ export type CompleteCourseMutationKey = ReturnType<
  * {@link /api/course-progress/courses/:courseId/complete}
  */
 export async function completeCourse(
-  courseId: CompleteCoursePathParams["courseId"],
-  config: Partial<RequestConfig> & { client?: typeof fetch } = {},
+  courseId: CompleteCoursePathParams['courseId'],
+  config: Partial<RequestConfig> & { client?: typeof fetch } = {}
 ) {
-  const { client: request = fetch, ...requestConfig } = config;
+  const { client: request = fetch, ...requestConfig } = config
 
   const res = await request<
     CompleteCourseMutationResponse,
     ResponseErrorConfig<Error>,
     unknown
   >({
-    method: "POST",
+    method: 'POST',
     url: `/api/course-progress/courses/${courseId}/complete`,
     ...requestConfig,
-  });
-  return res.data;
+  })
+  return res.data
 }
 
 export function completeCourseMutationOptions(
-  config: Partial<RequestConfig> & { client?: typeof fetch } = {},
+  config: Partial<RequestConfig> & { client?: typeof fetch } = {}
 ) {
-  const mutationKey = completeCourseMutationKey();
+  const mutationKey = completeCourseMutationKey()
   return mutationOptions<
     CompleteCourseMutationResponse,
     ResponseErrorConfig<Error>,
-    { courseId: CompleteCoursePathParams["courseId"] },
+    { courseId: CompleteCoursePathParams['courseId'] },
     typeof mutationKey
   >({
     mutationKey,
     mutationFn: async ({ courseId }) => {
-      return completeCourse(courseId, config);
+      return completeCourse(courseId, config)
     },
-  });
+  })
 }
 
 /**
@@ -73,30 +73,29 @@ export function useCompleteCourse<TContext>(
     mutation?: UseMutationOptions<
       CompleteCourseMutationResponse,
       ResponseErrorConfig<Error>,
-      { courseId: CompleteCoursePathParams["courseId"] },
+      { courseId: CompleteCoursePathParams['courseId'] },
       TContext
-    > & { client?: QueryClient };
-    client?: Partial<RequestConfig> & { client?: typeof fetch };
-  } = {},
+    > & { client?: QueryClient }
+    client?: Partial<RequestConfig> & { client?: typeof fetch }
+  } = {}
 ) {
-  const { mutation = {}, client: config = {} } = options ?? {};
-  const { client: queryClient, ...mutationOptions } = mutation;
-  const mutationKey =
-    mutationOptions.mutationKey ?? completeCourseMutationKey();
+  const { mutation = {}, client: config = {} } = options ?? {}
+  const { client: queryClient, ...mutationOptions } = mutation
+  const mutationKey = mutationOptions.mutationKey ?? completeCourseMutationKey()
 
   const baseOptions = completeCourseMutationOptions(
-    config,
+    config
   ) as UseMutationOptions<
     CompleteCourseMutationResponse,
     ResponseErrorConfig<Error>,
-    { courseId: CompleteCoursePathParams["courseId"] },
+    { courseId: CompleteCoursePathParams['courseId'] },
     TContext
-  >;
+  >
 
   return useMutation<
     CompleteCourseMutationResponse,
     ResponseErrorConfig<Error>,
-    { courseId: CompleteCoursePathParams["courseId"] },
+    { courseId: CompleteCoursePathParams['courseId'] },
     TContext
   >(
     {
@@ -104,11 +103,11 @@ export function useCompleteCourse<TContext>(
       mutationKey,
       ...mutationOptions,
     },
-    queryClient,
+    queryClient
   ) as UseMutationResult<
     CompleteCourseMutationResponse,
     ResponseErrorConfig<Error>,
-    { courseId: CompleteCoursePathParams["courseId"] },
+    { courseId: CompleteCoursePathParams['courseId'] },
     TContext
-  >;
+  >
 }

@@ -3,23 +3,23 @@
  * Do not edit manually.
  */
 
-import { categoryResponseSchema } from "../categoryResponseSchema.ts";
-import { updateCategoryRequestSchema } from "../updateCategoryRequestSchema.ts";
-import { z } from "zod/v4";
+import { categoryResponseSchema } from '../categoryResponseSchema.ts'
+import { updateCategoryRequestSchema } from '../updateCategoryRequestSchema.ts'
+import { z } from 'zod/v4'
 
 export const updateCategoryPathParamsSchema = z.object({
-  id: z.coerce.number().int().describe("Category ID"),
-});
+  id: z.coerce.number().int().describe('Category ID'),
+})
 
 /**
  * @description OK
  */
-export const updateCategory200Schema = z.lazy(() => categoryResponseSchema);
+export const updateCategory200Schema = z.lazy(() => categoryResponseSchema)
 
 export const updateCategoryMutationRequestSchema = z.lazy(
-  () => updateCategoryRequestSchema,
-);
+  () => updateCategoryRequestSchema
+)
 
 export const updateCategoryMutationResponseSchema = z.lazy(
-  () => updateCategory200Schema,
-);
+  () => updateCategory200Schema
+)

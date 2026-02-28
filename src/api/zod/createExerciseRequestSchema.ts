@@ -3,7 +3,7 @@
  * Do not edit manually.
  */
 
-import { z } from "zod/v4";
+import { z } from 'zod/v4'
 
 export const createExerciseRequestSchema = z.object({
   title: z.string(),
@@ -13,4 +13,4 @@ export const createExerciseRequestSchema = z.object({
   durationMinutes: z.int(),
   categoryIds: z.array(z.int()).min(0).max(6),
   groupIds: z.array(z.int()),
-});
+})

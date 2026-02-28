@@ -48,47 +48,50 @@ export function GroupedMultiSelect({
   const [open, setOpen] = React.useState(false)
   const selectedValues = new Set(selected)
 
-  const allOptions = React.useMemo(() =>
-    groups.flatMap(group => group.options),
+  const allOptions = React.useMemo(
+    () => groups.flatMap((group) => group.options),
     [groups]
   )
 
-  const isMaxReached = maxSelections !== undefined && selected.length >= maxSelections
+  const isMaxReached =
+    maxSelections !== undefined && selected.length >= maxSelections
 
   return (
     <Popover open={open} onOpenChange={setOpen} modal={false}>
       <PopoverTrigger asChild>
         <Button
-          variant='outline'
-          role='combobox'
+          variant="outline"
+          role="combobox"
           aria-expanded={open}
           className={cn('w-full justify-between h-auto min-h-10', className)}
           disabled={disabled}
         >
-          <div className='flex flex-wrap gap-1 max-w-full'>
+          <div className="flex flex-wrap gap-1 max-w-full">
             {selected.length > 0 ? (
               selected.map((value) => {
                 const option = allOptions.find((opt) => opt.value === value)
                 return option ? (
                   <Badge
-                    variant='secondary'
+                    variant="secondary"
                     key={value}
-                    className='rounded-sm px-2 font-normal'
+                    className="rounded-sm px-2 font-normal"
                   >
                     {option.label}
                   </Badge>
                 ) : null
               })
             ) : (
-              <span className='text-muted-foreground text-sm'>{placeholder}</span>
+              <span className="text-muted-foreground text-sm">
+                {placeholder}
+              </span>
             )}
           </div>
-          <ChevronsUpDown className='h-4 w-4 shrink-0 opacity-50 ml-2' />
+          <ChevronsUpDown className="h-4 w-4 shrink-0 opacity-50 ml-2" />
         </Button>
       </PopoverTrigger>
-      <PopoverContent className='w-[400px] p-0' align='start'>
+      <PopoverContent className="w-[400px] p-0" align="start">
         <Command>
-          <CommandInput placeholder='Tìm kiếm...' />
+          <CommandInput placeholder="Tìm kiếm..." />
           <CommandList>
             <CommandEmpty>Không tìm thấy kết quả.</CommandEmpty>
             {groups.map((group, groupIndex) => (
@@ -117,9 +120,11 @@ export function GroupedMultiSelect({
                               : 'opacity-50 [&_svg]:invisible'
                           )}
                         >
-                          <CheckIcon className='h-4 w-4' />
+                          <CheckIcon className="h-4 w-4" />
                         </div>
-                        <span className={isDisabled ? 'opacity-50' : ''}>{option.label}</span>
+                        <span className={isDisabled ? 'opacity-50' : ''}>
+                          {option.label}
+                        </span>
                       </CommandItem>
                     )
                   })}
@@ -133,7 +138,7 @@ export function GroupedMultiSelect({
                 <CommandGroup>
                   <CommandItem
                     onSelect={() => onChange([])}
-                    className='justify-center text-center'
+                    className="justify-center text-center"
                   >
                     Xóa tất cả
                   </CommandItem>

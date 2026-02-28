@@ -3,31 +3,31 @@
  * Do not edit manually.
  */
 
-import type { CreateCustomCourseRequest } from "../CreateCustomCourseRequest.ts";
-import type { UserCourseAssignmentResponse } from "../UserCourseAssignmentResponse.ts";
+import type { CreateCustomCourseRequest } from '../CreateCustomCourseRequest.ts'
+import type { UserCourseAssignmentResponse } from '../UserCourseAssignmentResponse.ts'
 
 export type CreateAndAssignCustomCoursePathParams = {
   /**
    * @description User ID
    * @type integer, int64
    */
-  userId: number;
-};
+  userId: number
+}
 
 /**
  * @description OK
  */
-export type CreateAndAssignCustomCourse200 = UserCourseAssignmentResponse;
+export type CreateAndAssignCustomCourse200 = UserCourseAssignmentResponse
 
 export type CreateAndAssignCustomCourseMutationRequest =
-  CreateCustomCourseRequest;
+  CreateCustomCourseRequest
 
 export type CreateAndAssignCustomCourseMutationResponse =
-  CreateAndAssignCustomCourse200;
+  CreateAndAssignCustomCourse200
 
 export type CreateAndAssignCustomCourseMutation = {
-  Response: CreateAndAssignCustomCourse200;
-  Request: CreateAndAssignCustomCourseMutationRequest;
-  PathParams: CreateAndAssignCustomCoursePathParams;
-  Errors: any;
-};
+  Response: CreateAndAssignCustomCourse200
+  Request: CreateAndAssignCustomCourseMutationRequest
+  PathParams: CreateAndAssignCustomCoursePathParams
+  Errors: any
+}

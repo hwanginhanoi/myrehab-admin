@@ -3,31 +3,31 @@
  * Do not edit manually.
  */
 
-import fetch from "@/lib/api-client";
+import fetch from '@/lib/api-client'
 import type {
   GetMyAppointmentsQueryResponse,
   GetMyAppointmentsQueryParams,
-} from "../../types/appointmentsController/GetMyAppointments.ts";
-import type { RequestConfig, ResponseErrorConfig } from "@/lib/api-client";
+} from '../../types/appointmentsController/GetMyAppointments.ts'
+import type { RequestConfig, ResponseErrorConfig } from '@/lib/api-client'
 import type {
   QueryKey,
   QueryClient,
   QueryObserverOptions,
   UseQueryResult,
-} from "@tanstack/react-query";
-import { queryOptions, useQuery } from "@tanstack/react-query";
+} from '@tanstack/react-query'
+import { queryOptions, useQuery } from '@tanstack/react-query'
 
 export const getMyAppointmentsQueryKey = (
-  params: GetMyAppointmentsQueryParams,
+  params: GetMyAppointmentsQueryParams
 ) =>
   [
-    { url: "/api/appointments/my-appointments" },
+    { url: '/api/appointments/my-appointments' },
     ...(params ? [params] : []),
-  ] as const;
+  ] as const
 
 export type GetMyAppointmentsQueryKey = ReturnType<
   typeof getMyAppointmentsQueryKey
->;
+>
 
 /**
  * @description List all appointments for the authenticated patient
@@ -36,28 +36,28 @@ export type GetMyAppointmentsQueryKey = ReturnType<
  */
 export async function getMyAppointments(
   params: GetMyAppointmentsQueryParams,
-  config: Partial<RequestConfig> & { client?: typeof fetch } = {},
+  config: Partial<RequestConfig> & { client?: typeof fetch } = {}
 ) {
-  const { client: request = fetch, ...requestConfig } = config;
+  const { client: request = fetch, ...requestConfig } = config
 
   const res = await request<
     GetMyAppointmentsQueryResponse,
     ResponseErrorConfig<Error>,
     unknown
   >({
-    method: "GET",
+    method: 'GET',
     url: `/api/appointments/my-appointments`,
     params,
     ...requestConfig,
-  });
-  return res.data;
+  })
+  return res.data
 }
 
 export function getMyAppointmentsQueryOptions(
   params: GetMyAppointmentsQueryParams,
-  config: Partial<RequestConfig> & { client?: typeof fetch } = {},
+  config: Partial<RequestConfig> & { client?: typeof fetch } = {}
 ) {
-  const queryKey = getMyAppointmentsQueryKey(params);
+  const queryKey = getMyAppointmentsQueryKey(params)
   return queryOptions<
     GetMyAppointmentsQueryResponse,
     ResponseErrorConfig<Error>,
@@ -67,10 +67,10 @@ export function getMyAppointmentsQueryOptions(
     enabled: !!params,
     queryKey,
     queryFn: async ({ signal }) => {
-      config.signal = signal;
-      return getMyAppointments(params, config);
+      config.signal = signal
+      return getMyAppointments(params, config)
     },
-  });
+  })
 }
 
 /**
@@ -93,13 +93,13 @@ export function useGetMyAppointments<
         TQueryData,
         TQueryKey
       >
-    > & { client?: QueryClient };
-    client?: Partial<RequestConfig> & { client?: typeof fetch };
-  } = {},
+    > & { client?: QueryClient }
+    client?: Partial<RequestConfig> & { client?: typeof fetch }
+  } = {}
 ) {
-  const { query: queryConfig = {}, client: config = {} } = options ?? {};
-  const { client: queryClient, ...queryOptions } = queryConfig;
-  const queryKey = queryOptions?.queryKey ?? getMyAppointmentsQueryKey(params);
+  const { query: queryConfig = {}, client: config = {} } = options ?? {}
+  const { client: queryClient, ...queryOptions } = queryConfig
+  const queryKey = queryOptions?.queryKey ?? getMyAppointmentsQueryKey(params)
 
   const query = useQuery(
     {
@@ -107,12 +107,12 @@ export function useGetMyAppointments<
       queryKey,
       ...queryOptions,
     } as unknown as QueryObserverOptions,
-    queryClient,
+    queryClient
   ) as UseQueryResult<TData, ResponseErrorConfig<Error>> & {
-    queryKey: TQueryKey;
-  };
+    queryKey: TQueryKey
+  }
 
-  query.queryKey = queryKey as TQueryKey;
+  query.queryKey = queryKey as TQueryKey
 
-  return query;
+  return query
 }

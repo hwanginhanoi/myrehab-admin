@@ -7,13 +7,13 @@ export type PresignedUrlResponse = {
   /**
    * @type string | undefined
    */
-  presignedUrl?: string;
+  presignedUrl?: string
   /**
    * @type string | undefined
    */
-  objectKey?: string;
+  objectKey?: string
   /**
    * @type string | undefined
    */
-  expiresIn?: string;
-};
+  expiresIn?: string
+}

@@ -3,63 +3,63 @@
  * Do not edit manually.
  */
 
-import fetch from "@/lib/api-client";
+import fetch from '@/lib/api-client'
 import type {
   GetDayContentQueryResponse,
   GetDayContentPathParams,
-} from "../../types/courseProgressController/GetDayContent.ts";
-import type { RequestConfig, ResponseErrorConfig } from "@/lib/api-client";
+} from '../../types/courseProgressController/GetDayContent.ts'
+import type { RequestConfig, ResponseErrorConfig } from '@/lib/api-client'
 import type {
   QueryKey,
   QueryClient,
   QueryObserverOptions,
   UseQueryResult,
-} from "@tanstack/react-query";
-import { queryOptions, useQuery } from "@tanstack/react-query";
+} from '@tanstack/react-query'
+import { queryOptions, useQuery } from '@tanstack/react-query'
 
 export const getDayContentQueryKey = (
-  courseId: GetDayContentPathParams["courseId"],
-  dayNumber: GetDayContentPathParams["dayNumber"],
+  courseId: GetDayContentPathParams['courseId'],
+  dayNumber: GetDayContentPathParams['dayNumber']
 ) =>
   [
     {
-      url: "/api/course-progress/courses/:courseId/days/:dayNumber",
+      url: '/api/course-progress/courses/:courseId/days/:dayNumber',
       params: { courseId: courseId, dayNumber: dayNumber },
     },
-  ] as const;
+  ] as const
 
-export type GetDayContentQueryKey = ReturnType<typeof getDayContentQueryKey>;
+export type GetDayContentQueryKey = ReturnType<typeof getDayContentQueryKey>
 
 /**
- * @description Retrieve all exercises for a specific day with completion status. Returns 423 LOCKED if day is not yet unlocked. User must complete Day N to access Day N+1.
+ * @description Retrieve all exercises for a specific day with completion status.
  * @summary Get day's exercises
  * {@link /api/course-progress/courses/:courseId/days/:dayNumber}
  */
 export async function getDayContent(
-  courseId: GetDayContentPathParams["courseId"],
-  dayNumber: GetDayContentPathParams["dayNumber"],
-  config: Partial<RequestConfig> & { client?: typeof fetch } = {},
+  courseId: GetDayContentPathParams['courseId'],
+  dayNumber: GetDayContentPathParams['dayNumber'],
+  config: Partial<RequestConfig> & { client?: typeof fetch } = {}
 ) {
-  const { client: request = fetch, ...requestConfig } = config;
+  const { client: request = fetch, ...requestConfig } = config
 
   const res = await request<
     GetDayContentQueryResponse,
     ResponseErrorConfig<Error>,
     unknown
   >({
-    method: "GET",
+    method: 'GET',
     url: `/api/course-progress/courses/${courseId}/days/${dayNumber}`,
     ...requestConfig,
-  });
-  return res.data;
+  })
+  return res.data
 }
 
 export function getDayContentQueryOptions(
-  courseId: GetDayContentPathParams["courseId"],
-  dayNumber: GetDayContentPathParams["dayNumber"],
-  config: Partial<RequestConfig> & { client?: typeof fetch } = {},
+  courseId: GetDayContentPathParams['courseId'],
+  dayNumber: GetDayContentPathParams['dayNumber'],
+  config: Partial<RequestConfig> & { client?: typeof fetch } = {}
 ) {
-  const queryKey = getDayContentQueryKey(courseId, dayNumber);
+  const queryKey = getDayContentQueryKey(courseId, dayNumber)
   return queryOptions<
     GetDayContentQueryResponse,
     ResponseErrorConfig<Error>,
@@ -69,14 +69,14 @@ export function getDayContentQueryOptions(
     enabled: !!(courseId && dayNumber),
     queryKey,
     queryFn: async ({ signal }) => {
-      config.signal = signal;
-      return getDayContent(courseId, dayNumber, config);
+      config.signal = signal
+      return getDayContent(courseId, dayNumber, config)
     },
-  });
+  })
 }
 
 /**
- * @description Retrieve all exercises for a specific day with completion status. Returns 423 LOCKED if day is not yet unlocked. User must complete Day N to access Day N+1.
+ * @description Retrieve all exercises for a specific day with completion status.
  * @summary Get day's exercises
  * {@link /api/course-progress/courses/:courseId/days/:dayNumber}
  */
@@ -85,8 +85,8 @@ export function useGetDayContent<
   TQueryData = GetDayContentQueryResponse,
   TQueryKey extends QueryKey = GetDayContentQueryKey,
 >(
-  courseId: GetDayContentPathParams["courseId"],
-  dayNumber: GetDayContentPathParams["dayNumber"],
+  courseId: GetDayContentPathParams['courseId'],
+  dayNumber: GetDayContentPathParams['dayNumber'],
   options: {
     query?: Partial<
       QueryObserverOptions<
@@ -96,14 +96,14 @@ export function useGetDayContent<
         TQueryData,
         TQueryKey
       >
-    > & { client?: QueryClient };
-    client?: Partial<RequestConfig> & { client?: typeof fetch };
-  } = {},
+    > & { client?: QueryClient }
+    client?: Partial<RequestConfig> & { client?: typeof fetch }
+  } = {}
 ) {
-  const { query: queryConfig = {}, client: config = {} } = options ?? {};
-  const { client: queryClient, ...queryOptions } = queryConfig;
+  const { query: queryConfig = {}, client: config = {} } = options ?? {}
+  const { client: queryClient, ...queryOptions } = queryConfig
   const queryKey =
-    queryOptions?.queryKey ?? getDayContentQueryKey(courseId, dayNumber);
+    queryOptions?.queryKey ?? getDayContentQueryKey(courseId, dayNumber)
 
   const query = useQuery(
     {
@@ -111,12 +111,12 @@ export function useGetDayContent<
       queryKey,
       ...queryOptions,
     } as unknown as QueryObserverOptions,
-    queryClient,
+    queryClient
   ) as UseQueryResult<TData, ResponseErrorConfig<Error>> & {
-    queryKey: TQueryKey;
-  };
+    queryKey: TQueryKey
+  }
 
-  query.queryKey = queryKey as TQueryKey;
+  query.queryKey = queryKey as TQueryKey
 
-  return query;
+  return query
 }

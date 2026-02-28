@@ -3,25 +3,25 @@
  * Do not edit manually.
  */
 
-import type { StaffResponse } from "../StaffResponse.ts";
+import type { StaffResponse } from '../StaffResponse.ts'
 
 export type DisableStaffPathParams = {
   /**
    * @description Staff ID
    * @type integer, int64
    */
-  id: number;
-};
+  id: number
+}
 
 /**
  * @description OK
  */
-export type DisableStaff200 = StaffResponse;
+export type DisableStaff200 = StaffResponse
 
-export type DisableStaffMutationResponse = DisableStaff200;
+export type DisableStaffMutationResponse = DisableStaff200
 
 export type DisableStaffMutation = {
-  Response: DisableStaff200;
-  PathParams: DisableStaffPathParams;
-  Errors: any;
-};
+  Response: DisableStaff200
+  PathParams: DisableStaffPathParams
+  Errors: any
+}

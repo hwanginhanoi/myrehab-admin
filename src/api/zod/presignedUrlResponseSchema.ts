@@ -3,10 +3,10 @@
  * Do not edit manually.
  */
 
-import { z } from "zod/v4";
+import { z } from 'zod/v4'
 
 export const presignedUrlResponseSchema = z.object({
   presignedUrl: z.optional(z.string()),
   objectKey: z.optional(z.string()),
   expiresIn: z.optional(z.string()),
-});
+})

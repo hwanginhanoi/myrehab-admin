@@ -8,24 +8,24 @@ export type AssignExerciseGroupToDoctorPathParams = {
    * @description Doctor ID
    * @type integer, int64
    */
-  doctorId: number;
+  doctorId: number
   /**
    * @description Exercise Group ID
    * @type integer, int64
    */
-  groupId: number;
-};
+  groupId: number
+}
 
 /**
  * @description OK
  */
-export type AssignExerciseGroupToDoctor200 = any;
+export type AssignExerciseGroupToDoctor200 = any
 
 export type AssignExerciseGroupToDoctorMutationResponse =
-  AssignExerciseGroupToDoctor200;
+  AssignExerciseGroupToDoctor200
 
 export type AssignExerciseGroupToDoctorMutation = {
-  Response: AssignExerciseGroupToDoctor200;
-  PathParams: AssignExerciseGroupToDoctorPathParams;
-  Errors: any;
-};
+  Response: AssignExerciseGroupToDoctor200
+  PathParams: AssignExerciseGroupToDoctorPathParams
+  Errors: any
+}

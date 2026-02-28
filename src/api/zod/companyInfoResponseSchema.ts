@@ -3,7 +3,7 @@
  * Do not edit manually.
  */
 
-import { z } from "zod/v4";
+import { z } from 'zod/v4'
 
 export const companyInfoResponseSchema = z.object({
   id: z.optional(z.int()),
@@ -13,4 +13,4 @@ export const companyInfoResponseSchema = z.object({
   invoiceIssuanceAddress: z.optional(z.string()),
   createdAt: z.optional(z.string().datetime()),
   updatedAt: z.optional(z.string().datetime()),
-});
+})

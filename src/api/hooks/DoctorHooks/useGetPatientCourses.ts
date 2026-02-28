@@ -3,33 +3,36 @@
  * Do not edit manually.
  */
 
-import fetch from "@/lib/api-client";
+import fetch from '@/lib/api-client'
 import type {
   GetPatientCoursesQueryResponse,
   GetPatientCoursesPathParams,
-} from "../../types/doctorController/GetPatientCourses.ts";
-import type { RequestConfig, ResponseErrorConfig } from "@/lib/api-client";
+  GetPatientCoursesQueryParams,
+} from '../../types/doctorController/GetPatientCourses.ts'
+import type { RequestConfig, ResponseErrorConfig } from '@/lib/api-client'
 import type {
   QueryKey,
   QueryClient,
   QueryObserverOptions,
   UseQueryResult,
-} from "@tanstack/react-query";
-import { queryOptions, useQuery } from "@tanstack/react-query";
+} from '@tanstack/react-query'
+import { queryOptions, useQuery } from '@tanstack/react-query'
 
 export const getPatientCoursesQueryKey = (
-  userId: GetPatientCoursesPathParams["userId"],
+  userId: GetPatientCoursesPathParams['userId'],
+  params: GetPatientCoursesQueryParams
 ) =>
   [
     {
-      url: "/api/doctors/patients/:userId/courses",
+      url: '/api/doctors/patients/:userId/courses',
       params: { userId: userId },
     },
-  ] as const;
+    ...(params ? [params] : []),
+  ] as const
 
 export type GetPatientCoursesQueryKey = ReturnType<
   typeof getPatientCoursesQueryKey
->;
+>
 
 /**
  * @description Get all courses I assigned to this patient
@@ -37,41 +40,44 @@ export type GetPatientCoursesQueryKey = ReturnType<
  * {@link /api/doctors/patients/:userId/courses}
  */
 export async function getPatientCourses(
-  userId: GetPatientCoursesPathParams["userId"],
-  config: Partial<RequestConfig> & { client?: typeof fetch } = {},
+  userId: GetPatientCoursesPathParams['userId'],
+  params: GetPatientCoursesQueryParams,
+  config: Partial<RequestConfig> & { client?: typeof fetch } = {}
 ) {
-  const { client: request = fetch, ...requestConfig } = config;
+  const { client: request = fetch, ...requestConfig } = config
 
   const res = await request<
     GetPatientCoursesQueryResponse,
     ResponseErrorConfig<Error>,
     unknown
   >({
-    method: "GET",
+    method: 'GET',
     url: `/api/doctors/patients/${userId}/courses`,
+    params,
     ...requestConfig,
-  });
-  return res.data;
+  })
+  return res.data
 }
 
 export function getPatientCoursesQueryOptions(
-  userId: GetPatientCoursesPathParams["userId"],
-  config: Partial<RequestConfig> & { client?: typeof fetch } = {},
+  userId: GetPatientCoursesPathParams['userId'],
+  params: GetPatientCoursesQueryParams,
+  config: Partial<RequestConfig> & { client?: typeof fetch } = {}
 ) {
-  const queryKey = getPatientCoursesQueryKey(userId);
+  const queryKey = getPatientCoursesQueryKey(userId, params)
   return queryOptions<
     GetPatientCoursesQueryResponse,
     ResponseErrorConfig<Error>,
     GetPatientCoursesQueryResponse,
     typeof queryKey
   >({
-    enabled: !!userId,
+    enabled: !!(userId && params),
     queryKey,
     queryFn: async ({ signal }) => {
-      config.signal = signal;
-      return getPatientCourses(userId, config);
+      config.signal = signal
+      return getPatientCourses(userId, params, config)
     },
-  });
+  })
 }
 
 /**
@@ -84,7 +90,8 @@ export function useGetPatientCourses<
   TQueryData = GetPatientCoursesQueryResponse,
   TQueryKey extends QueryKey = GetPatientCoursesQueryKey,
 >(
-  userId: GetPatientCoursesPathParams["userId"],
+  userId: GetPatientCoursesPathParams['userId'],
+  params: GetPatientCoursesQueryParams,
   options: {
     query?: Partial<
       QueryObserverOptions<
@@ -94,26 +101,27 @@ export function useGetPatientCourses<
         TQueryData,
         TQueryKey
       >
-    > & { client?: QueryClient };
-    client?: Partial<RequestConfig> & { client?: typeof fetch };
-  } = {},
+    > & { client?: QueryClient }
+    client?: Partial<RequestConfig> & { client?: typeof fetch }
+  } = {}
 ) {
-  const { query: queryConfig = {}, client: config = {} } = options ?? {};
-  const { client: queryClient, ...queryOptions } = queryConfig;
-  const queryKey = queryOptions?.queryKey ?? getPatientCoursesQueryKey(userId);
+  const { query: queryConfig = {}, client: config = {} } = options ?? {}
+  const { client: queryClient, ...queryOptions } = queryConfig
+  const queryKey =
+    queryOptions?.queryKey ?? getPatientCoursesQueryKey(userId, params)
 
   const query = useQuery(
     {
-      ...getPatientCoursesQueryOptions(userId, config),
+      ...getPatientCoursesQueryOptions(userId, params, config),
       queryKey,
       ...queryOptions,
     } as unknown as QueryObserverOptions,
-    queryClient,
+    queryClient
   ) as UseQueryResult<TData, ResponseErrorConfig<Error>> & {
-    queryKey: TQueryKey;
-  };
+    queryKey: TQueryKey
+  }
 
-  query.queryKey = queryKey as TQueryKey;
+  query.queryKey = queryKey as TQueryKey
 
-  return query;
+  return query
 }

@@ -3,23 +3,23 @@
  * Do not edit manually.
  */
 
-import { groupResponseSchema } from "../groupResponseSchema.ts";
-import { updateGroupRequestSchema } from "../updateGroupRequestSchema.ts";
-import { z } from "zod/v4";
+import { groupResponseSchema } from '../groupResponseSchema.ts'
+import { updateGroupRequestSchema } from '../updateGroupRequestSchema.ts'
+import { z } from 'zod/v4'
 
 export const updateGroupPathParamsSchema = z.object({
-  id: z.coerce.number().int().describe("Group ID"),
-});
+  id: z.coerce.number().int().describe('Group ID'),
+})
 
 /**
  * @description OK
  */
-export const updateGroup200Schema = z.lazy(() => groupResponseSchema);
+export const updateGroup200Schema = z.lazy(() => groupResponseSchema)
 
 export const updateGroupMutationRequestSchema = z.lazy(
-  () => updateGroupRequestSchema,
-);
+  () => updateGroupRequestSchema
+)
 
 export const updateGroupMutationResponseSchema = z.lazy(
-  () => updateGroup200Schema,
-);
+  () => updateGroup200Schema
+)

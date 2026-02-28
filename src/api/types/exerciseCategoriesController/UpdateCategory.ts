@@ -3,29 +3,29 @@
  * Do not edit manually.
  */
 
-import type { CategoryResponse } from "../CategoryResponse.ts";
-import type { UpdateCategoryRequest } from "../UpdateCategoryRequest.ts";
+import type { CategoryResponse } from '../CategoryResponse.ts'
+import type { UpdateCategoryRequest } from '../UpdateCategoryRequest.ts'
 
 export type UpdateCategoryPathParams = {
   /**
    * @description Category ID
    * @type integer, int64
    */
-  id: number;
-};
+  id: number
+}
 
 /**
  * @description OK
  */
-export type UpdateCategory200 = CategoryResponse;
+export type UpdateCategory200 = CategoryResponse
 
-export type UpdateCategoryMutationRequest = UpdateCategoryRequest;
+export type UpdateCategoryMutationRequest = UpdateCategoryRequest
 
-export type UpdateCategoryMutationResponse = UpdateCategory200;
+export type UpdateCategoryMutationResponse = UpdateCategory200
 
 export type UpdateCategoryMutation = {
-  Response: UpdateCategory200;
-  Request: UpdateCategoryMutationRequest;
-  PathParams: UpdateCategoryPathParams;
-  Errors: any;
-};
+  Response: UpdateCategory200
+  Request: UpdateCategoryMutationRequest
+  PathParams: UpdateCategoryPathParams
+  Errors: any
+}

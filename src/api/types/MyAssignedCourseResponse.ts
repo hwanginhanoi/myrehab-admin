@@ -7,45 +7,45 @@ export type MyAssignedCourseResponse = {
   /**
    * @type integer | undefined, int64
    */
-  userCourseId?: number;
+  userCourseId?: number
   /**
    * @type integer | undefined, int64
    */
-  courseId?: number;
+  courseId?: number
   /**
    * @type string | undefined
    */
-  courseTitle?: string;
+  courseTitle?: string
   /**
    * @type string | undefined
    */
-  courseDescription?: string;
+  courseDescription?: string
   /**
    * @type integer | undefined, int32
    */
-  durationDays?: number;
+  durationDays?: number
   /**
    * @type string | undefined
    */
-  assignedByDoctorName?: string;
+  assignedByDoctorName?: string
   /**
    * @type string | undefined, date-time
    */
-  assignedAt?: string;
+  assignedAt?: string
   /**
    * @type string | undefined
    */
-  notes?: string;
+  notes?: string
   /**
    * @type boolean | undefined
    */
-  canStart?: boolean;
+  canStart?: boolean
   /**
    * @type boolean | undefined
    */
-  hasStarted?: boolean;
+  hasStarted?: boolean
   /**
    * @type boolean | undefined
    */
-  isCompleted?: boolean;
-};
+  isCompleted?: boolean
+}

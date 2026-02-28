@@ -3,23 +3,23 @@
  * Do not edit manually.
  */
 
-import fetch from "@/lib/api-client";
+import fetch from '@/lib/api-client'
 import type {
   CreateGroupMutationRequest,
   CreateGroupMutationResponse,
-} from "../../types/exerciseGroupsController/CreateGroup.ts";
-import type { RequestConfig, ResponseErrorConfig } from "@/lib/api-client";
+} from '../../types/exerciseGroupsController/CreateGroup.ts'
+import type { RequestConfig, ResponseErrorConfig } from '@/lib/api-client'
 import type {
   UseMutationOptions,
   UseMutationResult,
   QueryClient,
-} from "@tanstack/react-query";
-import { mutationOptions, useMutation } from "@tanstack/react-query";
+} from '@tanstack/react-query'
+import { mutationOptions, useMutation } from '@tanstack/react-query'
 
 export const createGroupMutationKey = () =>
-  [{ url: "/api/exercise-groups" }] as const;
+  [{ url: '/api/exercise-groups' }] as const
 
-export type CreateGroupMutationKey = ReturnType<typeof createGroupMutationKey>;
+export type CreateGroupMutationKey = ReturnType<typeof createGroupMutationKey>
 
 /**
  * @description Create a new exercise group with name and description. Requires exercise_groups:create permission.
@@ -29,32 +29,32 @@ export type CreateGroupMutationKey = ReturnType<typeof createGroupMutationKey>;
 export async function createGroup(
   data: CreateGroupMutationRequest,
   config: Partial<RequestConfig<CreateGroupMutationRequest>> & {
-    client?: typeof fetch;
-  } = {},
+    client?: typeof fetch
+  } = {}
 ) {
-  const { client: request = fetch, ...requestConfig } = config;
+  const { client: request = fetch, ...requestConfig } = config
 
-  const requestData = data;
+  const requestData = data
 
   const res = await request<
     CreateGroupMutationResponse,
     ResponseErrorConfig<Error>,
     CreateGroupMutationRequest
   >({
-    method: "POST",
+    method: 'POST',
     url: `/api/exercise-groups`,
     data: requestData,
     ...requestConfig,
-  });
-  return res.data;
+  })
+  return res.data
 }
 
 export function createGroupMutationOptions(
   config: Partial<RequestConfig<CreateGroupMutationRequest>> & {
-    client?: typeof fetch;
-  } = {},
+    client?: typeof fetch
+  } = {}
 ) {
-  const mutationKey = createGroupMutationKey();
+  const mutationKey = createGroupMutationKey()
   return mutationOptions<
     CreateGroupMutationResponse,
     ResponseErrorConfig<Error>,
@@ -63,9 +63,9 @@ export function createGroupMutationOptions(
   >({
     mutationKey,
     mutationFn: async ({ data }) => {
-      return createGroup(data, config);
+      return createGroup(data, config)
     },
-  });
+  })
 }
 
 /**
@@ -80,22 +80,22 @@ export function useCreateGroup<TContext>(
       ResponseErrorConfig<Error>,
       { data: CreateGroupMutationRequest },
       TContext
-    > & { client?: QueryClient };
+    > & { client?: QueryClient }
     client?: Partial<RequestConfig<CreateGroupMutationRequest>> & {
-      client?: typeof fetch;
-    };
-  } = {},
+      client?: typeof fetch
+    }
+  } = {}
 ) {
-  const { mutation = {}, client: config = {} } = options ?? {};
-  const { client: queryClient, ...mutationOptions } = mutation;
-  const mutationKey = mutationOptions.mutationKey ?? createGroupMutationKey();
+  const { mutation = {}, client: config = {} } = options ?? {}
+  const { client: queryClient, ...mutationOptions } = mutation
+  const mutationKey = mutationOptions.mutationKey ?? createGroupMutationKey()
 
   const baseOptions = createGroupMutationOptions(config) as UseMutationOptions<
     CreateGroupMutationResponse,
     ResponseErrorConfig<Error>,
     { data: CreateGroupMutationRequest },
     TContext
-  >;
+  >
 
   return useMutation<
     CreateGroupMutationResponse,
@@ -108,11 +108,11 @@ export function useCreateGroup<TContext>(
       mutationKey,
       ...mutationOptions,
     },
-    queryClient,
+    queryClient
   ) as UseMutationResult<
     CreateGroupMutationResponse,
     ResponseErrorConfig<Error>,
     { data: CreateGroupMutationRequest },
     TContext
-  >;
+  >
 }

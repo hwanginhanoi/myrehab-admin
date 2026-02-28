@@ -3,25 +3,25 @@
  * Do not edit manually.
  */
 
-import fetch from "@/lib/api-client";
+import fetch from '@/lib/api-client'
 import type {
   CreateExerciseMutationRequest,
   CreateExerciseMutationResponse,
-} from "../../types/exercisesController/CreateExercise.ts";
-import type { RequestConfig, ResponseErrorConfig } from "@/lib/api-client";
+} from '../../types/exercisesController/CreateExercise.ts'
+import type { RequestConfig, ResponseErrorConfig } from '@/lib/api-client'
 import type {
   UseMutationOptions,
   UseMutationResult,
   QueryClient,
-} from "@tanstack/react-query";
-import { mutationOptions, useMutation } from "@tanstack/react-query";
+} from '@tanstack/react-query'
+import { mutationOptions, useMutation } from '@tanstack/react-query'
 
 export const createExerciseMutationKey = () =>
-  [{ url: "/api/exercises" }] as const;
+  [{ url: '/api/exercises' }] as const
 
 export type CreateExerciseMutationKey = ReturnType<
   typeof createExerciseMutationKey
->;
+>
 
 /**
  * @description Create a new exercise. Requires exercises:create permission.
@@ -31,32 +31,32 @@ export type CreateExerciseMutationKey = ReturnType<
 export async function createExercise(
   data: CreateExerciseMutationRequest,
   config: Partial<RequestConfig<CreateExerciseMutationRequest>> & {
-    client?: typeof fetch;
-  } = {},
+    client?: typeof fetch
+  } = {}
 ) {
-  const { client: request = fetch, ...requestConfig } = config;
+  const { client: request = fetch, ...requestConfig } = config
 
-  const requestData = data;
+  const requestData = data
 
   const res = await request<
     CreateExerciseMutationResponse,
     ResponseErrorConfig<Error>,
     CreateExerciseMutationRequest
   >({
-    method: "POST",
+    method: 'POST',
     url: `/api/exercises`,
     data: requestData,
     ...requestConfig,
-  });
-  return res.data;
+  })
+  return res.data
 }
 
 export function createExerciseMutationOptions(
   config: Partial<RequestConfig<CreateExerciseMutationRequest>> & {
-    client?: typeof fetch;
-  } = {},
+    client?: typeof fetch
+  } = {}
 ) {
-  const mutationKey = createExerciseMutationKey();
+  const mutationKey = createExerciseMutationKey()
   return mutationOptions<
     CreateExerciseMutationResponse,
     ResponseErrorConfig<Error>,
@@ -65,9 +65,9 @@ export function createExerciseMutationOptions(
   >({
     mutationKey,
     mutationFn: async ({ data }) => {
-      return createExercise(data, config);
+      return createExercise(data, config)
     },
-  });
+  })
 }
 
 /**
@@ -82,25 +82,24 @@ export function useCreateExercise<TContext>(
       ResponseErrorConfig<Error>,
       { data: CreateExerciseMutationRequest },
       TContext
-    > & { client?: QueryClient };
+    > & { client?: QueryClient }
     client?: Partial<RequestConfig<CreateExerciseMutationRequest>> & {
-      client?: typeof fetch;
-    };
-  } = {},
+      client?: typeof fetch
+    }
+  } = {}
 ) {
-  const { mutation = {}, client: config = {} } = options ?? {};
-  const { client: queryClient, ...mutationOptions } = mutation;
-  const mutationKey =
-    mutationOptions.mutationKey ?? createExerciseMutationKey();
+  const { mutation = {}, client: config = {} } = options ?? {}
+  const { client: queryClient, ...mutationOptions } = mutation
+  const mutationKey = mutationOptions.mutationKey ?? createExerciseMutationKey()
 
   const baseOptions = createExerciseMutationOptions(
-    config,
+    config
   ) as UseMutationOptions<
     CreateExerciseMutationResponse,
     ResponseErrorConfig<Error>,
     { data: CreateExerciseMutationRequest },
     TContext
-  >;
+  >
 
   return useMutation<
     CreateExerciseMutationResponse,
@@ -113,11 +112,11 @@ export function useCreateExercise<TContext>(
       mutationKey,
       ...mutationOptions,
     },
-    queryClient,
+    queryClient
   ) as UseMutationResult<
     CreateExerciseMutationResponse,
     ResponseErrorConfig<Error>,
     { data: CreateExerciseMutationRequest },
     TContext
-  >;
+  >
 }

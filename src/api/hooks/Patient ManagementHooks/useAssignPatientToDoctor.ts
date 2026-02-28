@@ -3,26 +3,26 @@
  * Do not edit manually.
  */
 
-import fetch from "@/lib/api-client";
+import fetch from '@/lib/api-client'
 import type {
   AssignPatientToDoctorMutationRequest,
   AssignPatientToDoctorMutationResponse,
   AssignPatientToDoctorPathParams,
-} from "../../types/patientManagementController/AssignPatientToDoctor.ts";
-import type { RequestConfig, ResponseErrorConfig } from "@/lib/api-client";
+} from '../../types/patientManagementController/AssignPatientToDoctor.ts'
+import type { RequestConfig, ResponseErrorConfig } from '@/lib/api-client'
 import type {
   UseMutationOptions,
   UseMutationResult,
   QueryClient,
-} from "@tanstack/react-query";
-import { mutationOptions, useMutation } from "@tanstack/react-query";
+} from '@tanstack/react-query'
+import { mutationOptions, useMutation } from '@tanstack/react-query'
 
 export const assignPatientToDoctorMutationKey = () =>
-  [{ url: "/api/admin/doctors/:doctorId/patients" }] as const;
+  [{ url: '/api/admin/doctors/:doctorId/patients' }] as const
 
 export type AssignPatientToDoctorMutationKey = ReturnType<
   typeof assignPatientToDoctorMutationKey
->;
+>
 
 /**
  * @description Assign a patient (user) to a doctor
@@ -30,49 +30,49 @@ export type AssignPatientToDoctorMutationKey = ReturnType<
  * {@link /api/admin/doctors/:doctorId/patients}
  */
 export async function assignPatientToDoctor(
-  doctorId: AssignPatientToDoctorPathParams["doctorId"],
+  doctorId: AssignPatientToDoctorPathParams['doctorId'],
   data: AssignPatientToDoctorMutationRequest,
   config: Partial<RequestConfig<AssignPatientToDoctorMutationRequest>> & {
-    client?: typeof fetch;
-  } = {},
+    client?: typeof fetch
+  } = {}
 ) {
-  const { client: request = fetch, ...requestConfig } = config;
+  const { client: request = fetch, ...requestConfig } = config
 
-  const requestData = data;
+  const requestData = data
 
   const res = await request<
     AssignPatientToDoctorMutationResponse,
     ResponseErrorConfig<Error>,
     AssignPatientToDoctorMutationRequest
   >({
-    method: "POST",
+    method: 'POST',
     url: `/api/admin/doctors/${doctorId}/patients`,
     data: requestData,
     ...requestConfig,
-  });
-  return res.data;
+  })
+  return res.data
 }
 
 export function assignPatientToDoctorMutationOptions(
   config: Partial<RequestConfig<AssignPatientToDoctorMutationRequest>> & {
-    client?: typeof fetch;
-  } = {},
+    client?: typeof fetch
+  } = {}
 ) {
-  const mutationKey = assignPatientToDoctorMutationKey();
+  const mutationKey = assignPatientToDoctorMutationKey()
   return mutationOptions<
     AssignPatientToDoctorMutationResponse,
     ResponseErrorConfig<Error>,
     {
-      doctorId: AssignPatientToDoctorPathParams["doctorId"];
-      data: AssignPatientToDoctorMutationRequest;
+      doctorId: AssignPatientToDoctorPathParams['doctorId']
+      data: AssignPatientToDoctorMutationRequest
     },
     typeof mutationKey
   >({
     mutationKey,
     mutationFn: async ({ doctorId, data }) => {
-      return assignPatientToDoctor(doctorId, data, config);
+      return assignPatientToDoctor(doctorId, data, config)
     },
-  });
+  })
 }
 
 /**
@@ -86,39 +86,39 @@ export function useAssignPatientToDoctor<TContext>(
       AssignPatientToDoctorMutationResponse,
       ResponseErrorConfig<Error>,
       {
-        doctorId: AssignPatientToDoctorPathParams["doctorId"];
-        data: AssignPatientToDoctorMutationRequest;
+        doctorId: AssignPatientToDoctorPathParams['doctorId']
+        data: AssignPatientToDoctorMutationRequest
       },
       TContext
-    > & { client?: QueryClient };
+    > & { client?: QueryClient }
     client?: Partial<RequestConfig<AssignPatientToDoctorMutationRequest>> & {
-      client?: typeof fetch;
-    };
-  } = {},
+      client?: typeof fetch
+    }
+  } = {}
 ) {
-  const { mutation = {}, client: config = {} } = options ?? {};
-  const { client: queryClient, ...mutationOptions } = mutation;
+  const { mutation = {}, client: config = {} } = options ?? {}
+  const { client: queryClient, ...mutationOptions } = mutation
   const mutationKey =
-    mutationOptions.mutationKey ?? assignPatientToDoctorMutationKey();
+    mutationOptions.mutationKey ?? assignPatientToDoctorMutationKey()
 
   const baseOptions = assignPatientToDoctorMutationOptions(
-    config,
+    config
   ) as UseMutationOptions<
     AssignPatientToDoctorMutationResponse,
     ResponseErrorConfig<Error>,
     {
-      doctorId: AssignPatientToDoctorPathParams["doctorId"];
-      data: AssignPatientToDoctorMutationRequest;
+      doctorId: AssignPatientToDoctorPathParams['doctorId']
+      data: AssignPatientToDoctorMutationRequest
     },
     TContext
-  >;
+  >
 
   return useMutation<
     AssignPatientToDoctorMutationResponse,
     ResponseErrorConfig<Error>,
     {
-      doctorId: AssignPatientToDoctorPathParams["doctorId"];
-      data: AssignPatientToDoctorMutationRequest;
+      doctorId: AssignPatientToDoctorPathParams['doctorId']
+      data: AssignPatientToDoctorMutationRequest
     },
     TContext
   >(
@@ -127,14 +127,14 @@ export function useAssignPatientToDoctor<TContext>(
       mutationKey,
       ...mutationOptions,
     },
-    queryClient,
+    queryClient
   ) as UseMutationResult<
     AssignPatientToDoctorMutationResponse,
     ResponseErrorConfig<Error>,
     {
-      doctorId: AssignPatientToDoctorPathParams["doctorId"];
-      data: AssignPatientToDoctorMutationRequest;
+      doctorId: AssignPatientToDoctorPathParams['doctorId']
+      data: AssignPatientToDoctorMutationRequest
     },
     TContext
-  >;
+  >
 }

@@ -3,8 +3,8 @@
  * Do not edit manually.
  */
 
-import { localTimeSchema } from "./localTimeSchema.ts";
-import { z } from "zod/v4";
+import { localTimeSchema } from './localTimeSchema.ts'
+import { z } from 'zod/v4'
 
 export const appointmentResponseSchema = z.object({
   id: z.optional(z.int()),
@@ -14,22 +14,22 @@ export const appointmentResponseSchema = z.object({
   doctorName: z.optional(z.string()),
   appointmentDate: z.optional(z.iso.date()),
   get startTime() {
-    return localTimeSchema.optional();
+    return localTimeSchema.optional()
   },
   get endTime() {
-    return localTimeSchema.optional();
+    return localTimeSchema.optional()
   },
   status: z.optional(
     z.enum([
-      "PENDING_CONFIRMATION",
-      "CONFIRMED",
-      "DOCTOR_COMPLETED",
-      "COMPLETED",
-      "CANCELLED",
-      "REJECTED",
-      "DISPUTED",
-      "REFUNDED",
-    ]),
+      'PENDING_CONFIRMATION',
+      'CONFIRMED',
+      'DOCTOR_COMPLETED',
+      'COMPLETED',
+      'CANCELLED',
+      'REJECTED',
+      'DISPUTED',
+      'REFUNDED',
+    ])
   ),
   fee: z.optional(z.int()),
   patientNotes: z.optional(z.string()),
@@ -48,4 +48,4 @@ export const appointmentResponseSchema = z.object({
   resolvedAt: z.optional(z.string().datetime()),
   createdAt: z.optional(z.string().datetime()),
   updatedAt: z.optional(z.string().datetime()),
-});
+})

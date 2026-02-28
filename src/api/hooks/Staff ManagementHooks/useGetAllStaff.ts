@@ -3,24 +3,24 @@
  * Do not edit manually.
  */
 
-import fetch from "@/lib/api-client";
+import fetch from '@/lib/api-client'
 import type {
   GetAllStaffQueryResponse,
   GetAllStaffQueryParams,
-} from "../../types/staffManagementController/GetAllStaff.ts";
-import type { RequestConfig, ResponseErrorConfig } from "@/lib/api-client";
+} from '../../types/staffManagementController/GetAllStaff.ts'
+import type { RequestConfig, ResponseErrorConfig } from '@/lib/api-client'
 import type {
   QueryKey,
   QueryClient,
   QueryObserverOptions,
   UseQueryResult,
-} from "@tanstack/react-query";
-import { queryOptions, useQuery } from "@tanstack/react-query";
+} from '@tanstack/react-query'
+import { queryOptions, useQuery } from '@tanstack/react-query'
 
 export const getAllStaffQueryKey = (params: GetAllStaffQueryParams) =>
-  [{ url: "/api/admin/staff" }, ...(params ? [params] : [])] as const;
+  [{ url: '/api/admin/staff' }, ...(params ? [params] : [])] as const
 
-export type GetAllStaffQueryKey = ReturnType<typeof getAllStaffQueryKey>;
+export type GetAllStaffQueryKey = ReturnType<typeof getAllStaffQueryKey>
 
 /**
  * @description Retrieve staff members with optional filtering by type, enabled status, and search query. Supports pagination. By default, only enabled staff are returned.
@@ -29,23 +29,23 @@ export type GetAllStaffQueryKey = ReturnType<typeof getAllStaffQueryKey>;
  */
 export async function getAllStaff(
   params: GetAllStaffQueryParams,
-  config: Partial<RequestConfig> & { client?: typeof fetch } = {},
+  config: Partial<RequestConfig> & { client?: typeof fetch } = {}
 ) {
-  const { client: request = fetch, ...requestConfig } = config;
+  const { client: request = fetch, ...requestConfig } = config
 
   const res = await request<
     GetAllStaffQueryResponse,
     ResponseErrorConfig<Error>,
     unknown
-  >({ method: "GET", url: `/api/admin/staff`, params, ...requestConfig });
-  return res.data;
+  >({ method: 'GET', url: `/api/admin/staff`, params, ...requestConfig })
+  return res.data
 }
 
 export function getAllStaffQueryOptions(
   params: GetAllStaffQueryParams,
-  config: Partial<RequestConfig> & { client?: typeof fetch } = {},
+  config: Partial<RequestConfig> & { client?: typeof fetch } = {}
 ) {
-  const queryKey = getAllStaffQueryKey(params);
+  const queryKey = getAllStaffQueryKey(params)
   return queryOptions<
     GetAllStaffQueryResponse,
     ResponseErrorConfig<Error>,
@@ -55,10 +55,10 @@ export function getAllStaffQueryOptions(
     enabled: !!params,
     queryKey,
     queryFn: async ({ signal }) => {
-      config.signal = signal;
-      return getAllStaff(params, config);
+      config.signal = signal
+      return getAllStaff(params, config)
     },
-  });
+  })
 }
 
 /**
@@ -81,13 +81,13 @@ export function useGetAllStaff<
         TQueryData,
         TQueryKey
       >
-    > & { client?: QueryClient };
-    client?: Partial<RequestConfig> & { client?: typeof fetch };
-  } = {},
+    > & { client?: QueryClient }
+    client?: Partial<RequestConfig> & { client?: typeof fetch }
+  } = {}
 ) {
-  const { query: queryConfig = {}, client: config = {} } = options ?? {};
-  const { client: queryClient, ...queryOptions } = queryConfig;
-  const queryKey = queryOptions?.queryKey ?? getAllStaffQueryKey(params);
+  const { query: queryConfig = {}, client: config = {} } = options ?? {}
+  const { client: queryClient, ...queryOptions } = queryConfig
+  const queryKey = queryOptions?.queryKey ?? getAllStaffQueryKey(params)
 
   const query = useQuery(
     {
@@ -95,12 +95,12 @@ export function useGetAllStaff<
       queryKey,
       ...queryOptions,
     } as unknown as QueryObserverOptions,
-    queryClient,
+    queryClient
   ) as UseQueryResult<TData, ResponseErrorConfig<Error>> & {
-    queryKey: TQueryKey;
-  };
+    queryKey: TQueryKey
+  }
 
-  query.queryKey = queryKey as TQueryKey;
+  query.queryKey = queryKey as TQueryKey
 
-  return query;
+  return query
 }

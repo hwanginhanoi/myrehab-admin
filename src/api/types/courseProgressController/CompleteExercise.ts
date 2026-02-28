@@ -3,25 +3,25 @@
  * Do not edit manually.
  */
 
-import type { ExerciseCompletionResponse } from "../ExerciseCompletionResponse.ts";
+import type { ExerciseCompletionResponse } from '../ExerciseCompletionResponse.ts'
 
 export type CompleteExercisePathParams = {
   /**
    * @description Day Exercise ID
    * @type integer, int64
    */
-  dayExerciseId: number;
-};
+  dayExerciseId: number
+}
 
 /**
  * @description OK
  */
-export type CompleteExercise200 = ExerciseCompletionResponse;
+export type CompleteExercise200 = ExerciseCompletionResponse
 
-export type CompleteExerciseMutationResponse = CompleteExercise200;
+export type CompleteExerciseMutationResponse = CompleteExercise200
 
 export type CompleteExerciseMutation = {
-  Response: CompleteExercise200;
-  PathParams: CompleteExercisePathParams;
-  Errors: any;
-};
+  Response: CompleteExercise200
+  PathParams: CompleteExercisePathParams
+  Errors: any
+}

@@ -3,27 +3,27 @@
  * Do not edit manually.
  */
 
-import fetch from "@/lib/api-client";
+import fetch from '@/lib/api-client'
 import type {
   GetCurrentUserPackageByIdQueryResponse,
   GetCurrentUserPackageByIdPathParams,
-} from "../../types/exercisePackagesController/GetCurrentUserPackageById.ts";
-import type { RequestConfig, ResponseErrorConfig } from "@/lib/api-client";
+} from '../../types/exercisePackagesController/GetCurrentUserPackageById.ts'
+import type { RequestConfig, ResponseErrorConfig } from '@/lib/api-client'
 import type {
   QueryKey,
   QueryClient,
   QueryObserverOptions,
   UseQueryResult,
-} from "@tanstack/react-query";
-import { queryOptions, useQuery } from "@tanstack/react-query";
+} from '@tanstack/react-query'
+import { queryOptions, useQuery } from '@tanstack/react-query'
 
 export const getCurrentUserPackageByIdQueryKey = (
-  id: GetCurrentUserPackageByIdPathParams["id"],
-) => [{ url: "/api/exercise-packages/me/:id", params: { id: id } }] as const;
+  id: GetCurrentUserPackageByIdPathParams['id']
+) => [{ url: '/api/exercise-packages/me/:id', params: { id: id } }] as const
 
 export type GetCurrentUserPackageByIdQueryKey = ReturnType<
   typeof getCurrentUserPackageByIdQueryKey
->;
+>
 
 /**
  * @description Retrieve a specific exercise package with the current user's subscription information. Returns full package details along with subscription information (if subscribed) and current pricing options (monthlyPrice and yearlyPrice in VND). Can be used to check access to any package (owned or not).
@@ -31,28 +31,24 @@ export type GetCurrentUserPackageByIdQueryKey = ReturnType<
  * {@link /api/exercise-packages/me/:id}
  */
 export async function getCurrentUserPackageById(
-  id: GetCurrentUserPackageByIdPathParams["id"],
-  config: Partial<RequestConfig> & { client?: typeof fetch } = {},
+  id: GetCurrentUserPackageByIdPathParams['id'],
+  config: Partial<RequestConfig> & { client?: typeof fetch } = {}
 ) {
-  const { client: request = fetch, ...requestConfig } = config;
+  const { client: request = fetch, ...requestConfig } = config
 
   const res = await request<
     GetCurrentUserPackageByIdQueryResponse,
     ResponseErrorConfig<Error>,
     unknown
-  >({
-    method: "GET",
-    url: `/api/exercise-packages/me/${id}`,
-    ...requestConfig,
-  });
-  return res.data;
+  >({ method: 'GET', url: `/api/exercise-packages/me/${id}`, ...requestConfig })
+  return res.data
 }
 
 export function getCurrentUserPackageByIdQueryOptions(
-  id: GetCurrentUserPackageByIdPathParams["id"],
-  config: Partial<RequestConfig> & { client?: typeof fetch } = {},
+  id: GetCurrentUserPackageByIdPathParams['id'],
+  config: Partial<RequestConfig> & { client?: typeof fetch } = {}
 ) {
-  const queryKey = getCurrentUserPackageByIdQueryKey(id);
+  const queryKey = getCurrentUserPackageByIdQueryKey(id)
   return queryOptions<
     GetCurrentUserPackageByIdQueryResponse,
     ResponseErrorConfig<Error>,
@@ -62,10 +58,10 @@ export function getCurrentUserPackageByIdQueryOptions(
     enabled: !!id,
     queryKey,
     queryFn: async ({ signal }) => {
-      config.signal = signal;
-      return getCurrentUserPackageById(id, config);
+      config.signal = signal
+      return getCurrentUserPackageById(id, config)
     },
-  });
+  })
 }
 
 /**
@@ -78,7 +74,7 @@ export function useGetCurrentUserPackageById<
   TQueryData = GetCurrentUserPackageByIdQueryResponse,
   TQueryKey extends QueryKey = GetCurrentUserPackageByIdQueryKey,
 >(
-  id: GetCurrentUserPackageByIdPathParams["id"],
+  id: GetCurrentUserPackageByIdPathParams['id'],
   options: {
     query?: Partial<
       QueryObserverOptions<
@@ -88,14 +84,14 @@ export function useGetCurrentUserPackageById<
         TQueryData,
         TQueryKey
       >
-    > & { client?: QueryClient };
-    client?: Partial<RequestConfig> & { client?: typeof fetch };
-  } = {},
+    > & { client?: QueryClient }
+    client?: Partial<RequestConfig> & { client?: typeof fetch }
+  } = {}
 ) {
-  const { query: queryConfig = {}, client: config = {} } = options ?? {};
-  const { client: queryClient, ...queryOptions } = queryConfig;
+  const { query: queryConfig = {}, client: config = {} } = options ?? {}
+  const { client: queryClient, ...queryOptions } = queryConfig
   const queryKey =
-    queryOptions?.queryKey ?? getCurrentUserPackageByIdQueryKey(id);
+    queryOptions?.queryKey ?? getCurrentUserPackageByIdQueryKey(id)
 
   const query = useQuery(
     {
@@ -103,12 +99,12 @@ export function useGetCurrentUserPackageById<
       queryKey,
       ...queryOptions,
     } as unknown as QueryObserverOptions,
-    queryClient,
+    queryClient
   ) as UseQueryResult<TData, ResponseErrorConfig<Error>> & {
-    queryKey: TQueryKey;
-  };
+    queryKey: TQueryKey
+  }
 
-  query.queryKey = queryKey as TQueryKey;
+  query.queryKey = queryKey as TQueryKey
 
-  return query;
+  return query
 }

@@ -1,5 +1,3 @@
-'use client'
-
 import { z } from 'zod'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
@@ -89,27 +87,28 @@ export function ExercisesActionDialog({
 
   const form = useForm<ExerciseForm>({
     resolver: zodResolver(formSchema),
-    defaultValues: isEdit || isView
-      ? {
-          title: currentRow?.title || '',
-          description: currentRow?.description || '',
-          imageUrl: currentRow?.imageUrl || '',
-          videoUrl: currentRow?.videoUrl || '',
-          durationMinutes: currentRow?.durationMinutes || 0,
-          categoryIds: currentRow?.categories?.map((c) => String(c.id)) || [],
-          groupIds: currentRow?.groups?.map((g) => String(g.id)) || [],
-          isEdit,
-        }
-      : {
-          title: '',
-          description: '',
-          imageUrl: '',
-          videoUrl: '',
-          durationMinutes: 0,
-          categoryIds: [],
-          groupIds: [],
-          isEdit: false,
-        },
+    defaultValues:
+      isEdit || isView
+        ? {
+            title: currentRow?.title || '',
+            description: currentRow?.description || '',
+            imageUrl: currentRow?.imageUrl || '',
+            videoUrl: '',
+            durationMinutes: currentRow?.durationMinutes || 0,
+            categoryIds: currentRow?.categories?.map((c) => String(c.id)) || [],
+            groupIds: currentRow?.groups?.map((g) => String(g.id)) || [],
+            isEdit,
+          }
+        : {
+            title: '',
+            description: '',
+            imageUrl: '',
+            videoUrl: '',
+            durationMinutes: 0,
+            categoryIds: [],
+            groupIds: [],
+            isEdit: false,
+          },
   })
 
   const createMutation = useCreateExercise({
@@ -118,7 +117,9 @@ export function ExercisesActionDialog({
         toast.success('Tạo bài tập thành công')
         form.reset()
         onOpenChange(false)
-        void queryClient.invalidateQueries({ queryKey: [{ url: '/api/exercises' }] })
+        void queryClient.invalidateQueries({
+          queryKey: [{ url: '/api/exercises' }],
+        })
       },
       onError: (error) => {
         toast.error('Tạo bài tập thất bại: ' + error.message)
@@ -132,7 +133,9 @@ export function ExercisesActionDialog({
         toast.success('Cập nhật bài tập thành công')
         form.reset()
         onOpenChange(false)
-        void queryClient.invalidateQueries({ queryKey: [{ url: '/api/exercises' }] })
+        void queryClient.invalidateQueries({
+          queryKey: [{ url: '/api/exercises' }],
+        })
       },
       onError: (error) => {
         toast.error('Cập nhật bài tập thất bại: ' + error.message)
@@ -188,164 +191,168 @@ export function ExercisesActionDialog({
         onOpenChange(state)
       }}
     >
-      <DialogContent className='sm:max-w-4xl max-h-[90vh] overflow-y-auto'>
-        <DialogHeader className='text-start'>
+      <DialogContent className="sm:max-w-4xl max-h-[90vh] overflow-y-auto">
+        <DialogHeader className="text-start">
           <DialogTitle>{getTitle()}</DialogTitle>
           <DialogDescription>{getDescription()}</DialogDescription>
         </DialogHeader>
         <Form {...form}>
           <form
-            id='exercise-form'
+            id="exercise-form"
             onSubmit={form.handleSubmit(onSubmit)}
-            className='space-y-4'
+            className="space-y-4"
           >
             <FormField
               control={form.control}
-              name='title'
+              name="title"
               render={({ field }) => (
-                <FormItem className='grid grid-cols-6 items-center space-y-0 gap-x-4 gap-y-1'>
-                  <FormLabel className='col-span-2 text-end'>
+                <FormItem className="grid grid-cols-6 items-center space-y-0 gap-x-4 gap-y-1">
+                  <FormLabel className="col-span-2 text-end">
                     Tên bài tập
                   </FormLabel>
                   <FormControl>
                     <Input
-                      placeholder='Nhập tên bài tập'
-                      className='col-span-4'
+                      placeholder="Nhập tên bài tập"
+                      className="col-span-4"
                       disabled={isView}
                       {...field}
                     />
                   </FormControl>
-                  <FormMessage className='col-span-4 col-start-3' />
+                  <FormMessage className="col-span-4 col-start-3" />
                 </FormItem>
               )}
             />
 
             <FormField
               control={form.control}
-              name='categoryIds'
+              name="categoryIds"
               render={({ field }) => (
-                <FormItem className='grid grid-cols-6 items-center space-y-0 gap-x-4 gap-y-1'>
-                  <FormLabel className='col-span-2 text-end'>Danh mục</FormLabel>
+                <FormItem className="grid grid-cols-6 items-center space-y-0 gap-x-4 gap-y-1">
+                  <FormLabel className="col-span-2 text-end">
+                    Danh mục
+                  </FormLabel>
                   <FormControl>
-                    <div className='col-span-4'>
+                    <div className="col-span-4">
                       <MultiSelect
                         options={categoryOptions}
                         selected={field.value || []}
                         onChange={field.onChange}
-                        placeholder='Chọn danh mục'
+                        placeholder="Chọn danh mục"
                         disabled={isView}
                       />
                     </div>
                   </FormControl>
-                  <FormMessage className='col-span-4 col-start-3' />
+                  <FormMessage className="col-span-4 col-start-3" />
                 </FormItem>
               )}
             />
 
             <FormField
               control={form.control}
-              name='groupIds'
+              name="groupIds"
               render={({ field }) => (
-                <FormItem className='grid grid-cols-6 items-center space-y-0 gap-x-4 gap-y-1'>
-                  <FormLabel className='col-span-2 text-end'>Kho bài tập</FormLabel>
+                <FormItem className="grid grid-cols-6 items-center space-y-0 gap-x-4 gap-y-1">
+                  <FormLabel className="col-span-2 text-end">
+                    Kho bài tập
+                  </FormLabel>
                   <FormControl>
-                    <div className='col-span-4'>
+                    <div className="col-span-4">
                       <MultiSelect
                         options={groupOptions}
                         selected={field.value || []}
                         onChange={field.onChange}
-                        placeholder='Chọn kho bài tập'
+                        placeholder="Chọn kho bài tập"
                         disabled={isView}
                       />
                     </div>
                   </FormControl>
-                  <FormMessage className='col-span-4 col-start-3' />
+                  <FormMessage className="col-span-4 col-start-3" />
                 </FormItem>
               )}
             />
 
             <FormField
               control={form.control}
-              name='durationMinutes'
+              name="durationMinutes"
               render={({ field }) => (
-                <FormItem className='grid grid-cols-6 items-center space-y-0 gap-x-4 gap-y-1'>
-                  <FormLabel className='col-span-2 text-end'>
+                <FormItem className="grid grid-cols-6 items-center space-y-0 gap-x-4 gap-y-1">
+                  <FormLabel className="col-span-2 text-end">
                     Thời lượng (phút)
                   </FormLabel>
                   <FormControl>
                     <Input
-                      type='number'
-                      placeholder='Nhập thời lượng'
-                      className='col-span-4'
+                      type="number"
+                      placeholder="Nhập thời lượng"
+                      className="col-span-4"
                       disabled={isView}
                       {...field}
                       value={field.value || ''}
                     />
                   </FormControl>
-                  <FormMessage className='col-span-4 col-start-3' />
+                  <FormMessage className="col-span-4 col-start-3" />
                 </FormItem>
               )}
             />
 
             <FormField
               control={form.control}
-              name='description'
+              name="description"
               render={({ field }) => (
-                <FormItem className='grid grid-cols-6 items-start space-y-0 gap-x-4 gap-y-1'>
-                  <FormLabel className='col-span-2 text-end pt-2'>
+                <FormItem className="grid grid-cols-6 items-start space-y-0 gap-x-4 gap-y-1">
+                  <FormLabel className="col-span-2 text-end pt-2">
                     Mô tả
                   </FormLabel>
                   <FormControl>
                     <Textarea
-                      placeholder='Nhập mô tả bài tập'
-                      className='col-span-4 min-h-[100px]'
+                      placeholder="Nhập mô tả bài tập"
+                      className="col-span-4 min-h-[100px]"
                       disabled={isView}
                       {...field}
                     />
                   </FormControl>
-                  <FormMessage className='col-span-4 col-start-3' />
+                  <FormMessage className="col-span-4 col-start-3" />
                 </FormItem>
               )}
             />
 
             <FormField
               control={form.control}
-              name='imageUrl'
+              name="imageUrl"
               render={({ field }) => (
-                <FormItem className='grid grid-cols-6 items-center space-y-0 gap-x-4 gap-y-1'>
-                  <FormLabel className='col-span-2 text-end'>
+                <FormItem className="grid grid-cols-6 items-center space-y-0 gap-x-4 gap-y-1">
+                  <FormLabel className="col-span-2 text-end">
                     Link ảnh
                   </FormLabel>
                   <FormControl>
                     <Input
-                      placeholder='https://example.com/image.jpg'
-                      className='col-span-4'
+                      placeholder="https://example.com/image.jpg"
+                      className="col-span-4"
                       disabled={isView}
                       {...field}
                     />
                   </FormControl>
-                  <FormMessage className='col-span-4 col-start-3' />
+                  <FormMessage className="col-span-4 col-start-3" />
                 </FormItem>
               )}
             />
 
             <FormField
               control={form.control}
-              name='videoUrl'
+              name="videoUrl"
               render={({ field }) => (
-                <FormItem className='grid grid-cols-6 items-center space-y-0 gap-x-4 gap-y-1'>
-                  <FormLabel className='col-span-2 text-end'>
+                <FormItem className="grid grid-cols-6 items-center space-y-0 gap-x-4 gap-y-1">
+                  <FormLabel className="col-span-2 text-end">
                     Link video
                   </FormLabel>
                   <FormControl>
                     <Input
-                      placeholder='https://example.com/video.mp4'
-                      className='col-span-4'
+                      placeholder="https://example.com/video.mp4"
+                      className="col-span-4"
                       disabled={isView}
                       {...field}
                     />
                   </FormControl>
-                  <FormMessage className='col-span-4 col-start-3' />
+                  <FormMessage className="col-span-4 col-start-3" />
                 </FormItem>
               )}
             />
@@ -354,18 +361,16 @@ export function ExercisesActionDialog({
         <DialogFooter>
           {!isView && (
             <Button
-              type='submit'
-              form='exercise-form'
+              type="submit"
+              form="exercise-form"
               disabled={createMutation.isPending || updateMutation.isPending}
             >
-              {createMutation.isPending || updateMutation.isPending ? 'Đang lưu...' : 'Lưu'}
+              {createMutation.isPending || updateMutation.isPending
+                ? 'Đang lưu...'
+                : 'Lưu'}
             </Button>
           )}
-          {isView && (
-            <Button onClick={() => onOpenChange(false)}>
-              Đóng
-            </Button>
-          )}
+          {isView && <Button onClick={() => onOpenChange(false)}>Đóng</Button>}
         </DialogFooter>
       </DialogContent>
     </Dialog>

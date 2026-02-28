@@ -3,24 +3,24 @@
  * Do not edit manually.
  */
 
-import fetch from "@/lib/api-client";
+import fetch from '@/lib/api-client'
 import type {
   GetMyPatientsQueryResponse,
   GetMyPatientsQueryParams,
-} from "../../types/doctorController/GetMyPatients.ts";
-import type { RequestConfig, ResponseErrorConfig } from "@/lib/api-client";
+} from '../../types/doctorController/GetMyPatients.ts'
+import type { RequestConfig, ResponseErrorConfig } from '@/lib/api-client'
 import type {
   QueryKey,
   QueryClient,
   QueryObserverOptions,
   UseQueryResult,
-} from "@tanstack/react-query";
-import { queryOptions, useQuery } from "@tanstack/react-query";
+} from '@tanstack/react-query'
+import { queryOptions, useQuery } from '@tanstack/react-query'
 
 export const getMyPatientsQueryKey = (params: GetMyPatientsQueryParams) =>
-  [{ url: "/api/doctors/my-patients" }, ...(params ? [params] : [])] as const;
+  [{ url: '/api/doctors/my-patients' }, ...(params ? [params] : [])] as const
 
-export type GetMyPatientsQueryKey = ReturnType<typeof getMyPatientsQueryKey>;
+export type GetMyPatientsQueryKey = ReturnType<typeof getMyPatientsQueryKey>
 
 /**
  * @description Get all patients assigned to me
@@ -29,28 +29,28 @@ export type GetMyPatientsQueryKey = ReturnType<typeof getMyPatientsQueryKey>;
  */
 export async function getMyPatients(
   params: GetMyPatientsQueryParams,
-  config: Partial<RequestConfig> & { client?: typeof fetch } = {},
+  config: Partial<RequestConfig> & { client?: typeof fetch } = {}
 ) {
-  const { client: request = fetch, ...requestConfig } = config;
+  const { client: request = fetch, ...requestConfig } = config
 
   const res = await request<
     GetMyPatientsQueryResponse,
     ResponseErrorConfig<Error>,
     unknown
   >({
-    method: "GET",
+    method: 'GET',
     url: `/api/doctors/my-patients`,
     params,
     ...requestConfig,
-  });
-  return res.data;
+  })
+  return res.data
 }
 
 export function getMyPatientsQueryOptions(
   params: GetMyPatientsQueryParams,
-  config: Partial<RequestConfig> & { client?: typeof fetch } = {},
+  config: Partial<RequestConfig> & { client?: typeof fetch } = {}
 ) {
-  const queryKey = getMyPatientsQueryKey(params);
+  const queryKey = getMyPatientsQueryKey(params)
   return queryOptions<
     GetMyPatientsQueryResponse,
     ResponseErrorConfig<Error>,
@@ -60,10 +60,10 @@ export function getMyPatientsQueryOptions(
     enabled: !!params,
     queryKey,
     queryFn: async ({ signal }) => {
-      config.signal = signal;
-      return getMyPatients(params, config);
+      config.signal = signal
+      return getMyPatients(params, config)
     },
-  });
+  })
 }
 
 /**
@@ -86,13 +86,13 @@ export function useGetMyPatients<
         TQueryData,
         TQueryKey
       >
-    > & { client?: QueryClient };
-    client?: Partial<RequestConfig> & { client?: typeof fetch };
-  } = {},
+    > & { client?: QueryClient }
+    client?: Partial<RequestConfig> & { client?: typeof fetch }
+  } = {}
 ) {
-  const { query: queryConfig = {}, client: config = {} } = options ?? {};
-  const { client: queryClient, ...queryOptions } = queryConfig;
-  const queryKey = queryOptions?.queryKey ?? getMyPatientsQueryKey(params);
+  const { query: queryConfig = {}, client: config = {} } = options ?? {}
+  const { client: queryClient, ...queryOptions } = queryConfig
+  const queryKey = queryOptions?.queryKey ?? getMyPatientsQueryKey(params)
 
   const query = useQuery(
     {
@@ -100,12 +100,12 @@ export function useGetMyPatients<
       queryKey,
       ...queryOptions,
     } as unknown as QueryObserverOptions,
-    queryClient,
+    queryClient
   ) as UseQueryResult<TData, ResponseErrorConfig<Error>> & {
-    queryKey: TQueryKey;
-  };
+    queryKey: TQueryKey
+  }
 
-  query.queryKey = queryKey as TQueryKey;
+  query.queryKey = queryKey as TQueryKey
 
-  return query;
+  return query
 }

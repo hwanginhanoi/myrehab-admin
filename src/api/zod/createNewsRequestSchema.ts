@@ -3,7 +3,7 @@
  * Do not edit manually.
  */
 
-import { z } from "zod/v4";
+import { z } from 'zod/v4'
 
 export const createNewsRequestSchema = z.object({
   title: z.string(),
@@ -11,6 +11,6 @@ export const createNewsRequestSchema = z.object({
   summary: z.optional(z.string()),
   thumbnailUrl: z.optional(z.string()),
   authorId: z.optional(z.int()),
-  status: z.enum(["DRAFT", "PUBLISHED", "ARCHIVED"]),
+  status: z.enum(['DRAFT', 'PUBLISHED', 'ARCHIVED']),
   category: z.optional(z.string()),
-});
+})

@@ -3,68 +3,68 @@
  * Do not edit manually.
  */
 
-import fetch from "@/lib/api-client";
+import fetch from '@/lib/api-client'
 import type {
   CompleteExerciseMutationResponse,
   CompleteExercisePathParams,
-} from "../../types/courseProgressController/CompleteExercise.ts";
-import type { RequestConfig, ResponseErrorConfig } from "@/lib/api-client";
+} from '../../types/courseProgressController/CompleteExercise.ts'
+import type { RequestConfig, ResponseErrorConfig } from '@/lib/api-client'
 import type {
   UseMutationOptions,
   UseMutationResult,
   QueryClient,
-} from "@tanstack/react-query";
-import { mutationOptions, useMutation } from "@tanstack/react-query";
+} from '@tanstack/react-query'
+import { mutationOptions, useMutation } from '@tanstack/react-query'
 
 export const completeExerciseMutationKey = () =>
-  [{ url: "/api/course-progress/exercises/:dayExerciseId/complete" }] as const;
+  [{ url: '/api/course-progress/exercises/:dayExerciseId/complete' }] as const
 
 export type CompleteExerciseMutationKey = ReturnType<
   typeof completeExerciseMutationKey
->;
+>
 
 /**
- * @description Mark a specific exercise as completed. Idempotent: returns success if already completed. Auto-unlocks next day if all exercises in current day are completed. Auto-completes course if this was the last exercise of the last day.
+ * @description Mark a specific exercise as completed. Idempotent: returns success if already completed. Auto-completes course when all exercises across all days are done.
  * @summary Mark exercise as complete
  * {@link /api/course-progress/exercises/:dayExerciseId/complete}
  */
 export async function completeExercise(
-  dayExerciseId: CompleteExercisePathParams["dayExerciseId"],
-  config: Partial<RequestConfig> & { client?: typeof fetch } = {},
+  dayExerciseId: CompleteExercisePathParams['dayExerciseId'],
+  config: Partial<RequestConfig> & { client?: typeof fetch } = {}
 ) {
-  const { client: request = fetch, ...requestConfig } = config;
+  const { client: request = fetch, ...requestConfig } = config
 
   const res = await request<
     CompleteExerciseMutationResponse,
     ResponseErrorConfig<Error>,
     unknown
   >({
-    method: "POST",
+    method: 'POST',
     url: `/api/course-progress/exercises/${dayExerciseId}/complete`,
     ...requestConfig,
-  });
-  return res.data;
+  })
+  return res.data
 }
 
 export function completeExerciseMutationOptions(
-  config: Partial<RequestConfig> & { client?: typeof fetch } = {},
+  config: Partial<RequestConfig> & { client?: typeof fetch } = {}
 ) {
-  const mutationKey = completeExerciseMutationKey();
+  const mutationKey = completeExerciseMutationKey()
   return mutationOptions<
     CompleteExerciseMutationResponse,
     ResponseErrorConfig<Error>,
-    { dayExerciseId: CompleteExercisePathParams["dayExerciseId"] },
+    { dayExerciseId: CompleteExercisePathParams['dayExerciseId'] },
     typeof mutationKey
   >({
     mutationKey,
     mutationFn: async ({ dayExerciseId }) => {
-      return completeExercise(dayExerciseId, config);
+      return completeExercise(dayExerciseId, config)
     },
-  });
+  })
 }
 
 /**
- * @description Mark a specific exercise as completed. Idempotent: returns success if already completed. Auto-unlocks next day if all exercises in current day are completed. Auto-completes course if this was the last exercise of the last day.
+ * @description Mark a specific exercise as completed. Idempotent: returns success if already completed. Auto-completes course when all exercises across all days are done.
  * @summary Mark exercise as complete
  * {@link /api/course-progress/exercises/:dayExerciseId/complete}
  */
@@ -73,30 +73,30 @@ export function useCompleteExercise<TContext>(
     mutation?: UseMutationOptions<
       CompleteExerciseMutationResponse,
       ResponseErrorConfig<Error>,
-      { dayExerciseId: CompleteExercisePathParams["dayExerciseId"] },
+      { dayExerciseId: CompleteExercisePathParams['dayExerciseId'] },
       TContext
-    > & { client?: QueryClient };
-    client?: Partial<RequestConfig> & { client?: typeof fetch };
-  } = {},
+    > & { client?: QueryClient }
+    client?: Partial<RequestConfig> & { client?: typeof fetch }
+  } = {}
 ) {
-  const { mutation = {}, client: config = {} } = options ?? {};
-  const { client: queryClient, ...mutationOptions } = mutation;
+  const { mutation = {}, client: config = {} } = options ?? {}
+  const { client: queryClient, ...mutationOptions } = mutation
   const mutationKey =
-    mutationOptions.mutationKey ?? completeExerciseMutationKey();
+    mutationOptions.mutationKey ?? completeExerciseMutationKey()
 
   const baseOptions = completeExerciseMutationOptions(
-    config,
+    config
   ) as UseMutationOptions<
     CompleteExerciseMutationResponse,
     ResponseErrorConfig<Error>,
-    { dayExerciseId: CompleteExercisePathParams["dayExerciseId"] },
+    { dayExerciseId: CompleteExercisePathParams['dayExerciseId'] },
     TContext
-  >;
+  >
 
   return useMutation<
     CompleteExerciseMutationResponse,
     ResponseErrorConfig<Error>,
-    { dayExerciseId: CompleteExercisePathParams["dayExerciseId"] },
+    { dayExerciseId: CompleteExercisePathParams['dayExerciseId'] },
     TContext
   >(
     {
@@ -104,11 +104,11 @@ export function useCompleteExercise<TContext>(
       mutationKey,
       ...mutationOptions,
     },
-    queryClient,
+    queryClient
   ) as UseMutationResult<
     CompleteExerciseMutationResponse,
     ResponseErrorConfig<Error>,
-    { dayExerciseId: CompleteExercisePathParams["dayExerciseId"] },
+    { dayExerciseId: CompleteExercisePathParams['dayExerciseId'] },
     TContext
-  >;
+  >
 }

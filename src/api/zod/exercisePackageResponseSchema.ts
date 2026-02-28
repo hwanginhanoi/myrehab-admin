@@ -3,7 +3,7 @@
  * Do not edit manually.
  */
 
-import { z } from "zod/v4";
+import { z } from 'zod/v4'
 
 export const exercisePackageResponseSchema = z.object({
   id: z.optional(z.int()),
@@ -15,4 +15,4 @@ export const exercisePackageResponseSchema = z.object({
   yearlyPrice: z.optional(z.int()),
   createdAt: z.optional(z.string().datetime()),
   updatedAt: z.optional(z.string().datetime()),
-});
+})

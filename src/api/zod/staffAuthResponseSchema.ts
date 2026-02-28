@@ -3,7 +3,7 @@
  * Do not edit manually.
  */
 
-import { z } from "zod/v4";
+import { z } from 'zod/v4'
 
 export const staffAuthResponseSchema = z.object({
   accessToken: z.optional(z.string()),
@@ -13,4 +13,4 @@ export const staffAuthResponseSchema = z.object({
   staffId: z.optional(z.int()),
   email: z.optional(z.string()),
   permissions: z.optional(z.array(z.string())),
-});
+})

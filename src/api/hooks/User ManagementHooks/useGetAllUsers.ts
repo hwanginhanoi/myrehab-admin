@@ -3,24 +3,24 @@
  * Do not edit manually.
  */
 
-import fetch from "@/lib/api-client";
+import fetch from '@/lib/api-client'
 import type {
   GetAllUsersQueryResponse,
   GetAllUsersQueryParams,
-} from "../../types/userManagementController/GetAllUsers.ts";
-import type { RequestConfig, ResponseErrorConfig } from "@/lib/api-client";
+} from '../../types/userManagementController/GetAllUsers.ts'
+import type { RequestConfig, ResponseErrorConfig } from '@/lib/api-client'
 import type {
   QueryKey,
   QueryClient,
   QueryObserverOptions,
   UseQueryResult,
-} from "@tanstack/react-query";
-import { queryOptions, useQuery } from "@tanstack/react-query";
+} from '@tanstack/react-query'
+import { queryOptions, useQuery } from '@tanstack/react-query'
 
 export const getAllUsersQueryKey = (params: GetAllUsersQueryParams) =>
-  [{ url: "/api/users" }, ...(params ? [params] : [])] as const;
+  [{ url: '/api/users' }, ...(params ? [params] : [])] as const
 
-export type GetAllUsersQueryKey = ReturnType<typeof getAllUsersQueryKey>;
+export type GetAllUsersQueryKey = ReturnType<typeof getAllUsersQueryKey>
 
 /**
  * @description Retrieve users with optional filtering by gender and search query (case-insensitive on name, phone, email). Supports pagination.
@@ -29,23 +29,23 @@ export type GetAllUsersQueryKey = ReturnType<typeof getAllUsersQueryKey>;
  */
 export async function getAllUsers(
   params: GetAllUsersQueryParams,
-  config: Partial<RequestConfig> & { client?: typeof fetch } = {},
+  config: Partial<RequestConfig> & { client?: typeof fetch } = {}
 ) {
-  const { client: request = fetch, ...requestConfig } = config;
+  const { client: request = fetch, ...requestConfig } = config
 
   const res = await request<
     GetAllUsersQueryResponse,
     ResponseErrorConfig<Error>,
     unknown
-  >({ method: "GET", url: `/api/users`, params, ...requestConfig });
-  return res.data;
+  >({ method: 'GET', url: `/api/users`, params, ...requestConfig })
+  return res.data
 }
 
 export function getAllUsersQueryOptions(
   params: GetAllUsersQueryParams,
-  config: Partial<RequestConfig> & { client?: typeof fetch } = {},
+  config: Partial<RequestConfig> & { client?: typeof fetch } = {}
 ) {
-  const queryKey = getAllUsersQueryKey(params);
+  const queryKey = getAllUsersQueryKey(params)
   return queryOptions<
     GetAllUsersQueryResponse,
     ResponseErrorConfig<Error>,
@@ -55,10 +55,10 @@ export function getAllUsersQueryOptions(
     enabled: !!params,
     queryKey,
     queryFn: async ({ signal }) => {
-      config.signal = signal;
-      return getAllUsers(params, config);
+      config.signal = signal
+      return getAllUsers(params, config)
     },
-  });
+  })
 }
 
 /**
@@ -81,13 +81,13 @@ export function useGetAllUsers<
         TQueryData,
         TQueryKey
       >
-    > & { client?: QueryClient };
-    client?: Partial<RequestConfig> & { client?: typeof fetch };
-  } = {},
+    > & { client?: QueryClient }
+    client?: Partial<RequestConfig> & { client?: typeof fetch }
+  } = {}
 ) {
-  const { query: queryConfig = {}, client: config = {} } = options ?? {};
-  const { client: queryClient, ...queryOptions } = queryConfig;
-  const queryKey = queryOptions?.queryKey ?? getAllUsersQueryKey(params);
+  const { query: queryConfig = {}, client: config = {} } = options ?? {}
+  const { client: queryClient, ...queryOptions } = queryConfig
+  const queryKey = queryOptions?.queryKey ?? getAllUsersQueryKey(params)
 
   const query = useQuery(
     {
@@ -95,12 +95,12 @@ export function useGetAllUsers<
       queryKey,
       ...queryOptions,
     } as unknown as QueryObserverOptions,
-    queryClient,
+    queryClient
   ) as UseQueryResult<TData, ResponseErrorConfig<Error>> & {
-    queryKey: TQueryKey;
-  };
+    queryKey: TQueryKey
+  }
 
-  query.queryKey = queryKey as TQueryKey;
+  query.queryKey = queryKey as TQueryKey
 
-  return query;
+  return query
 }

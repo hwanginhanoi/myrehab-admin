@@ -3,34 +3,34 @@
  * Do not edit manually.
  */
 
-import fetch from "@/lib/api-client";
+import fetch from '@/lib/api-client'
 import type {
   CheckFeedbackExistsQueryResponse,
   CheckFeedbackExistsPathParams,
   CheckFeedbackExists404,
-} from "../../types/courseDayFeedbackController/CheckFeedbackExists.ts";
-import type { RequestConfig, ResponseErrorConfig } from "@/lib/api-client";
+} from '../../types/courseDayFeedbackController/CheckFeedbackExists.ts'
+import type { RequestConfig, ResponseErrorConfig } from '@/lib/api-client'
 import type {
   QueryKey,
   QueryClient,
   UseSuspenseQueryOptions,
   UseSuspenseQueryResult,
-} from "@tanstack/react-query";
-import { queryOptions, useSuspenseQuery } from "@tanstack/react-query";
+} from '@tanstack/react-query'
+import { queryOptions, useSuspenseQuery } from '@tanstack/react-query'
 
 export const checkFeedbackExistsSuspenseQueryKey = (
-  courseDayId: CheckFeedbackExistsPathParams["courseDayId"],
+  courseDayId: CheckFeedbackExistsPathParams['courseDayId']
 ) =>
   [
     {
-      url: "/api/course-progress/days/:courseDayId/feedback/exists",
+      url: '/api/course-progress/days/:courseDayId/feedback/exists',
       params: { courseDayId: courseDayId },
     },
-  ] as const;
+  ] as const
 
 export type CheckFeedbackExistsSuspenseQueryKey = ReturnType<
   typeof checkFeedbackExistsSuspenseQueryKey
->;
+>
 
 /**
  * @description Check whether the user has already submitted feedback for a specific course day. Returns existence flag and feedback ID if it exists.
@@ -38,28 +38,28 @@ export type CheckFeedbackExistsSuspenseQueryKey = ReturnType<
  * {@link /api/course-progress/days/:courseDayId/feedback/exists}
  */
 export async function checkFeedbackExistsSuspense(
-  courseDayId: CheckFeedbackExistsPathParams["courseDayId"],
-  config: Partial<RequestConfig> & { client?: typeof fetch } = {},
+  courseDayId: CheckFeedbackExistsPathParams['courseDayId'],
+  config: Partial<RequestConfig> & { client?: typeof fetch } = {}
 ) {
-  const { client: request = fetch, ...requestConfig } = config;
+  const { client: request = fetch, ...requestConfig } = config
 
   const res = await request<
     CheckFeedbackExistsQueryResponse,
     ResponseErrorConfig<CheckFeedbackExists404>,
     unknown
   >({
-    method: "GET",
+    method: 'GET',
     url: `/api/course-progress/days/${courseDayId}/feedback/exists`,
     ...requestConfig,
-  });
-  return res.data;
+  })
+  return res.data
 }
 
 export function checkFeedbackExistsSuspenseQueryOptions(
-  courseDayId: CheckFeedbackExistsPathParams["courseDayId"],
-  config: Partial<RequestConfig> & { client?: typeof fetch } = {},
+  courseDayId: CheckFeedbackExistsPathParams['courseDayId'],
+  config: Partial<RequestConfig> & { client?: typeof fetch } = {}
 ) {
-  const queryKey = checkFeedbackExistsSuspenseQueryKey(courseDayId);
+  const queryKey = checkFeedbackExistsSuspenseQueryKey(courseDayId)
   return queryOptions<
     CheckFeedbackExistsQueryResponse,
     ResponseErrorConfig<CheckFeedbackExists404>,
@@ -69,10 +69,10 @@ export function checkFeedbackExistsSuspenseQueryOptions(
     enabled: !!courseDayId,
     queryKey,
     queryFn: async ({ signal }) => {
-      config.signal = signal;
-      return checkFeedbackExistsSuspense(courseDayId, config);
+      config.signal = signal
+      return checkFeedbackExistsSuspense(courseDayId, config)
     },
-  });
+  })
 }
 
 /**
@@ -84,7 +84,7 @@ export function useCheckFeedbackExistsSuspense<
   TData = CheckFeedbackExistsQueryResponse,
   TQueryKey extends QueryKey = CheckFeedbackExistsSuspenseQueryKey,
 >(
-  courseDayId: CheckFeedbackExistsPathParams["courseDayId"],
+  courseDayId: CheckFeedbackExistsPathParams['courseDayId'],
   options: {
     query?: Partial<
       UseSuspenseQueryOptions<
@@ -93,14 +93,14 @@ export function useCheckFeedbackExistsSuspense<
         TData,
         TQueryKey
       >
-    > & { client?: QueryClient };
-    client?: Partial<RequestConfig> & { client?: typeof fetch };
-  } = {},
+    > & { client?: QueryClient }
+    client?: Partial<RequestConfig> & { client?: typeof fetch }
+  } = {}
 ) {
-  const { query: queryConfig = {}, client: config = {} } = options ?? {};
-  const { client: queryClient, ...queryOptions } = queryConfig;
+  const { query: queryConfig = {}, client: config = {} } = options ?? {}
+  const { client: queryClient, ...queryOptions } = queryConfig
   const queryKey =
-    queryOptions?.queryKey ?? checkFeedbackExistsSuspenseQueryKey(courseDayId);
+    queryOptions?.queryKey ?? checkFeedbackExistsSuspenseQueryKey(courseDayId)
 
   const query = useSuspenseQuery(
     {
@@ -108,13 +108,13 @@ export function useCheckFeedbackExistsSuspense<
       queryKey,
       ...queryOptions,
     } as unknown as UseSuspenseQueryOptions,
-    queryClient,
+    queryClient
   ) as UseSuspenseQueryResult<
     TData,
     ResponseErrorConfig<CheckFeedbackExists404>
-  > & { queryKey: TQueryKey };
+  > & { queryKey: TQueryKey }
 
-  query.queryKey = queryKey as TQueryKey;
+  query.queryKey = queryKey as TQueryKey
 
-  return query;
+  return query
 }

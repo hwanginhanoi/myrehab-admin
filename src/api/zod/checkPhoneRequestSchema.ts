@@ -3,8 +3,8 @@
  * Do not edit manually.
  */
 
-import { z } from "zod/v4";
+import { z } from 'zod/v4'
 
 export const checkPhoneRequestSchema = z.object({
   phoneNumber: z.string().regex(/^\+?[1-9]\d{1,14}$/),
-});
+})

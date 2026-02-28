@@ -3,24 +3,24 @@
  * Do not edit manually.
  */
 
-import type { RehabilitationExaminationFormResponse } from "../RehabilitationExaminationFormResponse.ts";
+import type { RehabilitationExaminationFormResponse } from '../RehabilitationExaminationFormResponse.ts'
 
 export type GetFormByIdPathParams = {
   /**
    * @type integer, int64
    */
-  id: number;
-};
+  id: number
+}
 
 /**
  * @description OK
  */
-export type GetFormById200 = RehabilitationExaminationFormResponse;
+export type GetFormById200 = RehabilitationExaminationFormResponse
 
-export type GetFormByIdQueryResponse = GetFormById200;
+export type GetFormByIdQueryResponse = GetFormById200
 
 export type GetFormByIdQuery = {
-  Response: GetFormById200;
-  PathParams: GetFormByIdPathParams;
-  Errors: any;
-};
+  Response: GetFormById200
+  PathParams: GetFormByIdPathParams
+  Errors: any
+}

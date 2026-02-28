@@ -3,80 +3,80 @@
  * Do not edit manually.
  */
 
-import fetch from "@/lib/api-client";
+import fetch from '@/lib/api-client'
 import type {
   AssignCourseToPatientMutationRequest,
   AssignCourseToPatientMutationResponse,
   AssignCourseToPatientPathParams,
-} from "../../types/doctorController/AssignCourseToPatient.ts";
-import type { RequestConfig, ResponseErrorConfig } from "@/lib/api-client";
+} from '../../types/doctorController/AssignCourseToPatient.ts'
+import type { RequestConfig, ResponseErrorConfig } from '@/lib/api-client'
 import type {
   UseMutationOptions,
   UseMutationResult,
   QueryClient,
-} from "@tanstack/react-query";
-import { mutationOptions, useMutation } from "@tanstack/react-query";
+} from '@tanstack/react-query'
+import { mutationOptions, useMutation } from '@tanstack/react-query'
 
 export const assignCourseToPatientMutationKey = () =>
-  [{ url: "/api/doctors/patients/:userId/courses" }] as const;
+  [{ url: '/api/doctors/patients/:userId/courses' }] as const
 
 export type AssignCourseToPatientMutationKey = ReturnType<
   typeof assignCourseToPatientMutationKey
->;
+>
 
 /**
- * @description Assign a course to my patient
+ * @description Assign an existing course to a patient.For DOCTORS: The course will be assigned by you to your patient.For SUPER_ADMIN/ADMIN: You must specify 'assigningDoctorId' in the request body to indicate which doctor is assigning the course.
  * @summary Assign course to patient
  * {@link /api/doctors/patients/:userId/courses}
  */
 export async function assignCourseToPatient(
-  userId: AssignCourseToPatientPathParams["userId"],
+  userId: AssignCourseToPatientPathParams['userId'],
   data: AssignCourseToPatientMutationRequest,
   config: Partial<RequestConfig<AssignCourseToPatientMutationRequest>> & {
-    client?: typeof fetch;
-  } = {},
+    client?: typeof fetch
+  } = {}
 ) {
-  const { client: request = fetch, ...requestConfig } = config;
+  const { client: request = fetch, ...requestConfig } = config
 
-  const requestData = data;
+  const requestData = data
 
   const res = await request<
     AssignCourseToPatientMutationResponse,
     ResponseErrorConfig<Error>,
     AssignCourseToPatientMutationRequest
   >({
-    method: "POST",
+    method: 'POST',
     url: `/api/doctors/patients/${userId}/courses`,
     data: requestData,
     ...requestConfig,
-  });
-  return res.data;
+  })
+  return res.data
 }
 
 export function assignCourseToPatientMutationOptions(
   config: Partial<RequestConfig<AssignCourseToPatientMutationRequest>> & {
-    client?: typeof fetch;
-  } = {},
+    client?: typeof fetch
+  } = {}
 ) {
-  const mutationKey = assignCourseToPatientMutationKey();
+  const mutationKey = assignCourseToPatientMutationKey()
   return mutationOptions<
     AssignCourseToPatientMutationResponse,
     ResponseErrorConfig<Error>,
     {
-      userId: AssignCourseToPatientPathParams["userId"];
-      data: AssignCourseToPatientMutationRequest;
+      userId: AssignCourseToPatientPathParams['userId']
+      data: AssignCourseToPatientMutationRequest
     },
     typeof mutationKey
   >({
     mutationKey,
     mutationFn: async ({ userId, data }) => {
-      return assignCourseToPatient(userId, data, config);
+      return assignCourseToPatient(userId, data, config)
     },
-  });
+  })
 }
 
 /**
- * @description Assign a course to my patient
+ * @description Assign an existing course to a patient.For DOCTORS: The course will be assigned by you to your patient.For SUPER_ADMIN/ADMIN: You must specify 'assigningDoctorId' in the request body to indicate which doctor is assigning the course.
  * @summary Assign course to patient
  * {@link /api/doctors/patients/:userId/courses}
  */
@@ -86,39 +86,39 @@ export function useAssignCourseToPatient<TContext>(
       AssignCourseToPatientMutationResponse,
       ResponseErrorConfig<Error>,
       {
-        userId: AssignCourseToPatientPathParams["userId"];
-        data: AssignCourseToPatientMutationRequest;
+        userId: AssignCourseToPatientPathParams['userId']
+        data: AssignCourseToPatientMutationRequest
       },
       TContext
-    > & { client?: QueryClient };
+    > & { client?: QueryClient }
     client?: Partial<RequestConfig<AssignCourseToPatientMutationRequest>> & {
-      client?: typeof fetch;
-    };
-  } = {},
+      client?: typeof fetch
+    }
+  } = {}
 ) {
-  const { mutation = {}, client: config = {} } = options ?? {};
-  const { client: queryClient, ...mutationOptions } = mutation;
+  const { mutation = {}, client: config = {} } = options ?? {}
+  const { client: queryClient, ...mutationOptions } = mutation
   const mutationKey =
-    mutationOptions.mutationKey ?? assignCourseToPatientMutationKey();
+    mutationOptions.mutationKey ?? assignCourseToPatientMutationKey()
 
   const baseOptions = assignCourseToPatientMutationOptions(
-    config,
+    config
   ) as UseMutationOptions<
     AssignCourseToPatientMutationResponse,
     ResponseErrorConfig<Error>,
     {
-      userId: AssignCourseToPatientPathParams["userId"];
-      data: AssignCourseToPatientMutationRequest;
+      userId: AssignCourseToPatientPathParams['userId']
+      data: AssignCourseToPatientMutationRequest
     },
     TContext
-  >;
+  >
 
   return useMutation<
     AssignCourseToPatientMutationResponse,
     ResponseErrorConfig<Error>,
     {
-      userId: AssignCourseToPatientPathParams["userId"];
-      data: AssignCourseToPatientMutationRequest;
+      userId: AssignCourseToPatientPathParams['userId']
+      data: AssignCourseToPatientMutationRequest
     },
     TContext
   >(
@@ -127,14 +127,14 @@ export function useAssignCourseToPatient<TContext>(
       mutationKey,
       ...mutationOptions,
     },
-    queryClient,
+    queryClient
   ) as UseMutationResult<
     AssignCourseToPatientMutationResponse,
     ResponseErrorConfig<Error>,
     {
-      userId: AssignCourseToPatientPathParams["userId"];
-      data: AssignCourseToPatientMutationRequest;
+      userId: AssignCourseToPatientPathParams['userId']
+      data: AssignCourseToPatientMutationRequest
     },
     TContext
-  >;
+  >
 }

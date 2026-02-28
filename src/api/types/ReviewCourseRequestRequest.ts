@@ -9,5 +9,5 @@ export type ReviewCourseRequestRequest = {
    * @maxLength 1000
    * @type string | undefined
    */
-  doctorNotes?: string;
-};
+  doctorNotes?: string
+}

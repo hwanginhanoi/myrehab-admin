@@ -3,7 +3,7 @@
  * Do not edit manually.
  */
 
-import { z } from "zod/v4";
+import { z } from 'zod/v4'
 
 export const feedbackResponseSchema = z.object({
   id: z.optional(z.int()),
@@ -17,4 +17,4 @@ export const feedbackResponseSchema = z.object({
   hardestExerciseReason: z.optional(z.string()),
   generalNotes: z.optional(z.string()),
   createdAt: z.optional(z.string().datetime()),
-});
+})

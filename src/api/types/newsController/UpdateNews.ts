@@ -3,28 +3,28 @@
  * Do not edit manually.
  */
 
-import type { NewsResponse } from "../NewsResponse.ts";
-import type { UpdateNewsRequest } from "../UpdateNewsRequest.ts";
+import type { NewsResponse } from '../NewsResponse.ts'
+import type { UpdateNewsRequest } from '../UpdateNewsRequest.ts'
 
 export type UpdateNewsPathParams = {
   /**
    * @type integer, int64
    */
-  id: number;
-};
+  id: number
+}
 
 /**
  * @description OK
  */
-export type UpdateNews200 = NewsResponse;
+export type UpdateNews200 = NewsResponse
 
-export type UpdateNewsMutationRequest = UpdateNewsRequest;
+export type UpdateNewsMutationRequest = UpdateNewsRequest
 
-export type UpdateNewsMutationResponse = UpdateNews200;
+export type UpdateNewsMutationResponse = UpdateNews200
 
 export type UpdateNewsMutation = {
-  Response: UpdateNews200;
-  Request: UpdateNewsMutationRequest;
-  PathParams: UpdateNewsPathParams;
-  Errors: any;
-};
+  Response: UpdateNews200
+  Request: UpdateNewsMutationRequest
+  PathParams: UpdateNewsPathParams
+  Errors: any
+}

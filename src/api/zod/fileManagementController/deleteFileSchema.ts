@@ -3,19 +3,19 @@
  * Do not edit manually.
  */
 
-import { deleteFileRequestSchema } from "../deleteFileRequestSchema.ts";
-import { fileDeleteResponseSchema } from "../fileDeleteResponseSchema.ts";
-import { z } from "zod/v4";
+import { deleteFileRequestSchema } from '../deleteFileRequestSchema.ts'
+import { fileDeleteResponseSchema } from '../fileDeleteResponseSchema.ts'
+import { z } from 'zod/v4'
 
 /**
  * @description OK
  */
-export const deleteFile200Schema = z.lazy(() => fileDeleteResponseSchema);
+export const deleteFile200Schema = z.lazy(() => fileDeleteResponseSchema)
 
 export const deleteFileMutationRequestSchema = z.lazy(
-  () => deleteFileRequestSchema,
-);
+  () => deleteFileRequestSchema
+)
 
 export const deleteFileMutationResponseSchema = z.lazy(
-  () => deleteFile200Schema,
-);
+  () => deleteFile200Schema
+)

@@ -3,7 +3,7 @@
  * Do not edit manually.
  */
 
-import { z } from "zod/v4";
+import { z } from 'zod/v4'
 
 export const qrCodeResponseSchema = z.object({
   qrCodeUrl: z.optional(z.string()),
@@ -13,4 +13,4 @@ export const qrCodeResponseSchema = z.object({
   accountName: z.optional(z.string()),
   bankCode: z.optional(z.string()),
   instruction: z.optional(z.string()),
-});
+})

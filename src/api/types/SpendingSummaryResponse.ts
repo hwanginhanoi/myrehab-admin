@@ -7,5 +7,5 @@ export type SpendingSummaryResponse = {
   /**
    * @type integer | undefined, int64
    */
-  totalSpending?: number;
-};
+  totalSpending?: number
+}

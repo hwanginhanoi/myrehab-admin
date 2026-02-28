@@ -3,31 +3,31 @@
  * Do not edit manually.
  */
 
-import fetch from "@/lib/api-client";
+import fetch from '@/lib/api-client'
 import type {
   GetMyAssignedCoursesQueryResponse,
   GetMyAssignedCoursesQueryParams,
-} from "../../types/doctorController/GetMyAssignedCourses.ts";
-import type { RequestConfig, ResponseErrorConfig } from "@/lib/api-client";
+} from '../../types/doctorController/GetMyAssignedCourses.ts'
+import type { RequestConfig, ResponseErrorConfig } from '@/lib/api-client'
 import type {
   QueryKey,
   QueryClient,
   QueryObserverOptions,
   UseQueryResult,
-} from "@tanstack/react-query";
-import { queryOptions, useQuery } from "@tanstack/react-query";
+} from '@tanstack/react-query'
+import { queryOptions, useQuery } from '@tanstack/react-query'
 
 export const getMyAssignedCoursesQueryKey = (
-  params: GetMyAssignedCoursesQueryParams,
+  params: GetMyAssignedCoursesQueryParams
 ) =>
   [
-    { url: "/api/doctors/my-course-assignments" },
+    { url: '/api/doctors/my-course-assignments' },
     ...(params ? [params] : []),
-  ] as const;
+  ] as const
 
 export type GetMyAssignedCoursesQueryKey = ReturnType<
   typeof getMyAssignedCoursesQueryKey
->;
+>
 
 /**
  * @description Get all courses I assigned to all my patients
@@ -36,28 +36,28 @@ export type GetMyAssignedCoursesQueryKey = ReturnType<
  */
 export async function getMyAssignedCourses(
   params: GetMyAssignedCoursesQueryParams,
-  config: Partial<RequestConfig> & { client?: typeof fetch } = {},
+  config: Partial<RequestConfig> & { client?: typeof fetch } = {}
 ) {
-  const { client: request = fetch, ...requestConfig } = config;
+  const { client: request = fetch, ...requestConfig } = config
 
   const res = await request<
     GetMyAssignedCoursesQueryResponse,
     ResponseErrorConfig<Error>,
     unknown
   >({
-    method: "GET",
+    method: 'GET',
     url: `/api/doctors/my-course-assignments`,
     params,
     ...requestConfig,
-  });
-  return res.data;
+  })
+  return res.data
 }
 
 export function getMyAssignedCoursesQueryOptions(
   params: GetMyAssignedCoursesQueryParams,
-  config: Partial<RequestConfig> & { client?: typeof fetch } = {},
+  config: Partial<RequestConfig> & { client?: typeof fetch } = {}
 ) {
-  const queryKey = getMyAssignedCoursesQueryKey(params);
+  const queryKey = getMyAssignedCoursesQueryKey(params)
   return queryOptions<
     GetMyAssignedCoursesQueryResponse,
     ResponseErrorConfig<Error>,
@@ -67,10 +67,10 @@ export function getMyAssignedCoursesQueryOptions(
     enabled: !!params,
     queryKey,
     queryFn: async ({ signal }) => {
-      config.signal = signal;
-      return getMyAssignedCourses(params, config);
+      config.signal = signal
+      return getMyAssignedCourses(params, config)
     },
-  });
+  })
 }
 
 /**
@@ -93,14 +93,14 @@ export function useGetMyAssignedCourses<
         TQueryData,
         TQueryKey
       >
-    > & { client?: QueryClient };
-    client?: Partial<RequestConfig> & { client?: typeof fetch };
-  } = {},
+    > & { client?: QueryClient }
+    client?: Partial<RequestConfig> & { client?: typeof fetch }
+  } = {}
 ) {
-  const { query: queryConfig = {}, client: config = {} } = options ?? {};
-  const { client: queryClient, ...queryOptions } = queryConfig;
+  const { query: queryConfig = {}, client: config = {} } = options ?? {}
+  const { client: queryClient, ...queryOptions } = queryConfig
   const queryKey =
-    queryOptions?.queryKey ?? getMyAssignedCoursesQueryKey(params);
+    queryOptions?.queryKey ?? getMyAssignedCoursesQueryKey(params)
 
   const query = useQuery(
     {
@@ -108,12 +108,12 @@ export function useGetMyAssignedCourses<
       queryKey,
       ...queryOptions,
     } as unknown as QueryObserverOptions,
-    queryClient,
+    queryClient
   ) as UseQueryResult<TData, ResponseErrorConfig<Error>> & {
-    queryKey: TQueryKey;
-  };
+    queryKey: TQueryKey
+  }
 
-  query.queryKey = queryKey as TQueryKey;
+  query.queryKey = queryKey as TQueryKey
 
-  return query;
+  return query
 }

@@ -3,19 +3,19 @@
  * Do not edit manually.
  */
 
-import { createNewsRequestSchema } from "../createNewsRequestSchema.ts";
-import { newsResponseSchema } from "../newsResponseSchema.ts";
-import { z } from "zod/v4";
+import { createNewsRequestSchema } from '../createNewsRequestSchema.ts'
+import { newsResponseSchema } from '../newsResponseSchema.ts'
+import { z } from 'zod/v4'
 
 /**
  * @description OK
  */
-export const createNews200Schema = z.lazy(() => newsResponseSchema);
+export const createNews200Schema = z.lazy(() => newsResponseSchema)
 
 export const createNewsMutationRequestSchema = z.lazy(
-  () => createNewsRequestSchema,
-);
+  () => createNewsRequestSchema
+)
 
 export const createNewsMutationResponseSchema = z.lazy(
-  () => createNews200Schema,
-);
+  () => createNews200Schema
+)

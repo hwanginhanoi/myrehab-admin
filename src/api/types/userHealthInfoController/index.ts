@@ -3,34 +3,34 @@ export type {
   GetCompanyInfo200,
   GetCompanyInfoQueryResponse,
   GetCompanyInfoQuery,
-} from "./GetCompanyInfo.ts";
+} from './GetCompanyInfo.ts'
 export type {
   GetNationalInsurancePathParams,
   GetNationalInsurance200,
   GetNationalInsuranceQueryResponse,
   GetNationalInsuranceQuery,
-} from "./GetNationalInsurance.ts";
+} from './GetNationalInsurance.ts'
 export type {
   GetNonCompulsoryInsurancePathParams,
   GetNonCompulsoryInsurance200,
   GetNonCompulsoryInsuranceQueryResponse,
   GetNonCompulsoryInsuranceQuery,
-} from "./GetNonCompulsoryInsurance.ts";
+} from './GetNonCompulsoryInsurance.ts'
 export type {
   UpsertMyCompanyInfo200,
   UpsertMyCompanyInfoMutationRequest,
   UpsertMyCompanyInfoMutationResponse,
   UpsertMyCompanyInfoMutation,
-} from "./UpsertMyCompanyInfo.ts";
+} from './UpsertMyCompanyInfo.ts'
 export type {
   UpsertMyNationalInsurance200,
   UpsertMyNationalInsuranceMutationRequest,
   UpsertMyNationalInsuranceMutationResponse,
   UpsertMyNationalInsuranceMutation,
-} from "./UpsertMyNationalInsurance.ts";
+} from './UpsertMyNationalInsurance.ts'
 export type {
   UpsertMyNonCompulsoryInsurance200,
   UpsertMyNonCompulsoryInsuranceMutationRequest,
   UpsertMyNonCompulsoryInsuranceMutationResponse,
   UpsertMyNonCompulsoryInsuranceMutation,
-} from "./UpsertMyNonCompulsoryInsurance.ts";
+} from './UpsertMyNonCompulsoryInsurance.ts'

@@ -7,9 +7,9 @@ export type LoginWithPasswordRequest = {
   /**
    * @type string
    */
-  email: string;
+  email: string
   /**
    * @type string
    */
-  password: string;
-};
+  password: string
+}

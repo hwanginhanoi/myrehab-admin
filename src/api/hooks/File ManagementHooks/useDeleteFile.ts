@@ -3,22 +3,22 @@
  * Do not edit manually.
  */
 
-import fetch from "@/lib/api-client";
+import fetch from '@/lib/api-client'
 import type {
   DeleteFileMutationRequest,
   DeleteFileMutationResponse,
-} from "../../types/fileManagementController/DeleteFile.ts";
-import type { RequestConfig, ResponseErrorConfig } from "@/lib/api-client";
+} from '../../types/fileManagementController/DeleteFile.ts'
+import type { RequestConfig, ResponseErrorConfig } from '@/lib/api-client'
 import type {
   UseMutationOptions,
   UseMutationResult,
   QueryClient,
-} from "@tanstack/react-query";
-import { mutationOptions, useMutation } from "@tanstack/react-query";
+} from '@tanstack/react-query'
+import { mutationOptions, useMutation } from '@tanstack/react-query'
 
-export const deleteFileMutationKey = () => [{ url: "/api/files" }] as const;
+export const deleteFileMutationKey = () => [{ url: '/api/files' }] as const
 
-export type DeleteFileMutationKey = ReturnType<typeof deleteFileMutationKey>;
+export type DeleteFileMutationKey = ReturnType<typeof deleteFileMutationKey>
 
 /**
  * @description Delete a file from MinIO storage. Requires files:delete permission.
@@ -28,32 +28,32 @@ export type DeleteFileMutationKey = ReturnType<typeof deleteFileMutationKey>;
 export async function deleteFile(
   data: DeleteFileMutationRequest,
   config: Partial<RequestConfig<DeleteFileMutationRequest>> & {
-    client?: typeof fetch;
-  } = {},
+    client?: typeof fetch
+  } = {}
 ) {
-  const { client: request = fetch, ...requestConfig } = config;
+  const { client: request = fetch, ...requestConfig } = config
 
-  const requestData = data;
+  const requestData = data
 
   const res = await request<
     DeleteFileMutationResponse,
     ResponseErrorConfig<Error>,
     DeleteFileMutationRequest
   >({
-    method: "DELETE",
+    method: 'DELETE',
     url: `/api/files`,
     data: requestData,
     ...requestConfig,
-  });
-  return res.data;
+  })
+  return res.data
 }
 
 export function deleteFileMutationOptions(
   config: Partial<RequestConfig<DeleteFileMutationRequest>> & {
-    client?: typeof fetch;
-  } = {},
+    client?: typeof fetch
+  } = {}
 ) {
-  const mutationKey = deleteFileMutationKey();
+  const mutationKey = deleteFileMutationKey()
   return mutationOptions<
     DeleteFileMutationResponse,
     ResponseErrorConfig<Error>,
@@ -62,9 +62,9 @@ export function deleteFileMutationOptions(
   >({
     mutationKey,
     mutationFn: async ({ data }) => {
-      return deleteFile(data, config);
+      return deleteFile(data, config)
     },
-  });
+  })
 }
 
 /**
@@ -79,22 +79,22 @@ export function useDeleteFile<TContext>(
       ResponseErrorConfig<Error>,
       { data: DeleteFileMutationRequest },
       TContext
-    > & { client?: QueryClient };
+    > & { client?: QueryClient }
     client?: Partial<RequestConfig<DeleteFileMutationRequest>> & {
-      client?: typeof fetch;
-    };
-  } = {},
+      client?: typeof fetch
+    }
+  } = {}
 ) {
-  const { mutation = {}, client: config = {} } = options ?? {};
-  const { client: queryClient, ...mutationOptions } = mutation;
-  const mutationKey = mutationOptions.mutationKey ?? deleteFileMutationKey();
+  const { mutation = {}, client: config = {} } = options ?? {}
+  const { client: queryClient, ...mutationOptions } = mutation
+  const mutationKey = mutationOptions.mutationKey ?? deleteFileMutationKey()
 
   const baseOptions = deleteFileMutationOptions(config) as UseMutationOptions<
     DeleteFileMutationResponse,
     ResponseErrorConfig<Error>,
     { data: DeleteFileMutationRequest },
     TContext
-  >;
+  >
 
   return useMutation<
     DeleteFileMutationResponse,
@@ -107,11 +107,11 @@ export function useDeleteFile<TContext>(
       mutationKey,
       ...mutationOptions,
     },
-    queryClient,
+    queryClient
   ) as UseMutationResult<
     DeleteFileMutationResponse,
     ResponseErrorConfig<Error>,
     { data: DeleteFileMutationRequest },
     TContext
-  >;
+  >
 }

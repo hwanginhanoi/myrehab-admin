@@ -3,23 +3,23 @@
  * Do not edit manually.
  */
 
-import fetch from "@/lib/api-client";
+import fetch from '@/lib/api-client'
 import type {
   CreateStaffMutationRequest,
   CreateStaffMutationResponse,
-} from "../../types/staffManagementController/CreateStaff.ts";
-import type { RequestConfig, ResponseErrorConfig } from "@/lib/api-client";
+} from '../../types/staffManagementController/CreateStaff.ts'
+import type { RequestConfig, ResponseErrorConfig } from '@/lib/api-client'
 import type {
   UseMutationOptions,
   UseMutationResult,
   QueryClient,
-} from "@tanstack/react-query";
-import { mutationOptions, useMutation } from "@tanstack/react-query";
+} from '@tanstack/react-query'
+import { mutationOptions, useMutation } from '@tanstack/react-query'
 
 export const createStaffMutationKey = () =>
-  [{ url: "/api/admin/staff" }] as const;
+  [{ url: '/api/admin/staff' }] as const
 
-export type CreateStaffMutationKey = ReturnType<typeof createStaffMutationKey>;
+export type CreateStaffMutationKey = ReturnType<typeof createStaffMutationKey>
 
 /**
  * @description Create a new staff account. SUPER_ADMIN can create ADMIN/DOCTOR/TRAINER. ADMIN can only create DOCTOR/TRAINER.
@@ -29,32 +29,32 @@ export type CreateStaffMutationKey = ReturnType<typeof createStaffMutationKey>;
 export async function createStaff(
   data: CreateStaffMutationRequest,
   config: Partial<RequestConfig<CreateStaffMutationRequest>> & {
-    client?: typeof fetch;
-  } = {},
+    client?: typeof fetch
+  } = {}
 ) {
-  const { client: request = fetch, ...requestConfig } = config;
+  const { client: request = fetch, ...requestConfig } = config
 
-  const requestData = data;
+  const requestData = data
 
   const res = await request<
     CreateStaffMutationResponse,
     ResponseErrorConfig<Error>,
     CreateStaffMutationRequest
   >({
-    method: "POST",
+    method: 'POST',
     url: `/api/admin/staff`,
     data: requestData,
     ...requestConfig,
-  });
-  return res.data;
+  })
+  return res.data
 }
 
 export function createStaffMutationOptions(
   config: Partial<RequestConfig<CreateStaffMutationRequest>> & {
-    client?: typeof fetch;
-  } = {},
+    client?: typeof fetch
+  } = {}
 ) {
-  const mutationKey = createStaffMutationKey();
+  const mutationKey = createStaffMutationKey()
   return mutationOptions<
     CreateStaffMutationResponse,
     ResponseErrorConfig<Error>,
@@ -63,9 +63,9 @@ export function createStaffMutationOptions(
   >({
     mutationKey,
     mutationFn: async ({ data }) => {
-      return createStaff(data, config);
+      return createStaff(data, config)
     },
-  });
+  })
 }
 
 /**
@@ -80,22 +80,22 @@ export function useCreateStaff<TContext>(
       ResponseErrorConfig<Error>,
       { data: CreateStaffMutationRequest },
       TContext
-    > & { client?: QueryClient };
+    > & { client?: QueryClient }
     client?: Partial<RequestConfig<CreateStaffMutationRequest>> & {
-      client?: typeof fetch;
-    };
-  } = {},
+      client?: typeof fetch
+    }
+  } = {}
 ) {
-  const { mutation = {}, client: config = {} } = options ?? {};
-  const { client: queryClient, ...mutationOptions } = mutation;
-  const mutationKey = mutationOptions.mutationKey ?? createStaffMutationKey();
+  const { mutation = {}, client: config = {} } = options ?? {}
+  const { client: queryClient, ...mutationOptions } = mutation
+  const mutationKey = mutationOptions.mutationKey ?? createStaffMutationKey()
 
   const baseOptions = createStaffMutationOptions(config) as UseMutationOptions<
     CreateStaffMutationResponse,
     ResponseErrorConfig<Error>,
     { data: CreateStaffMutationRequest },
     TContext
-  >;
+  >
 
   return useMutation<
     CreateStaffMutationResponse,
@@ -108,11 +108,11 @@ export function useCreateStaff<TContext>(
       mutationKey,
       ...mutationOptions,
     },
-    queryClient,
+    queryClient
   ) as UseMutationResult<
     CreateStaffMutationResponse,
     ResponseErrorConfig<Error>,
     { data: CreateStaffMutationRequest },
     TContext
-  >;
+  >
 }

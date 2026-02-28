@@ -3,7 +3,7 @@
  * Do not edit manually.
  */
 
-import { z } from "zod/v4";
+import { z } from 'zod/v4'
 
 export const categoryResponseSchema = z.object({
   id: z.optional(z.int()),
@@ -11,13 +11,13 @@ export const categoryResponseSchema = z.object({
   description: z.optional(z.string()),
   type: z.optional(
     z.enum([
-      "BODY_PART",
-      "HEALTH_CONDITION",
-      "EXERCISE_TYPE",
-      "EXERCISE_EQUIPMENTS",
-      "OTHERS",
-    ]),
+      'BODY_PART',
+      'HEALTH_CONDITION',
+      'EXERCISE_TYPE',
+      'EXERCISE_EQUIPMENTS',
+      'OTHERS',
+    ])
   ),
   createdAt: z.optional(z.string().datetime()),
   updatedAt: z.optional(z.string().datetime()),
-});
+})

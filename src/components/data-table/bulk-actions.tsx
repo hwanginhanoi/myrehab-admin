@@ -127,19 +127,19 @@ export function DataTableBulkActions<TData>({
     <>
       {/* Live region for screen reader announcements */}
       <div
-        aria-live='polite'
-        aria-atomic='true'
-        className='sr-only'
-        role='status'
+        aria-live="polite"
+        aria-atomic="true"
+        className="sr-only"
+        role="status"
       >
         {announcement}
       </div>
 
       <div
         ref={toolbarRef}
-        role='toolbar'
+        role="toolbar"
         aria-label={`Bulk actions for ${selectedCount} selected ${entityName}${selectedCount > 1 ? 's' : ''}`}
-        aria-describedby='bulk-actions-description'
+        aria-describedby="bulk-actions-description"
         tabIndex={-1}
         onKeyDown={handleKeyDown}
         className={cn(
@@ -159,15 +159,15 @@ export function DataTableBulkActions<TData>({
           <Tooltip>
             <TooltipTrigger asChild>
               <Button
-                variant='outline'
-                size='icon'
+                variant="outline"
+                size="icon"
                 onClick={handleClearSelection}
-                className='size-6 rounded-full'
-                aria-label='Clear selection'
-                title='Clear selection (Escape)'
+                className="size-6 rounded-full"
+                aria-label="Clear selection"
+                title="Clear selection (Escape)"
               >
                 <X />
-                <span className='sr-only'>Clear selection</span>
+                <span className="sr-only">Clear selection</span>
               </Button>
             </TooltipTrigger>
             <TooltipContent>
@@ -176,23 +176,23 @@ export function DataTableBulkActions<TData>({
           </Tooltip>
 
           <Separator
-            className='h-5'
-            orientation='vertical'
-            aria-hidden='true'
+            className="h-5"
+            orientation="vertical"
+            aria-hidden="true"
           />
 
           <div
-            className='flex items-center gap-x-1 text-sm'
-            id='bulk-actions-description'
+            className="flex items-center gap-x-1 text-sm"
+            id="bulk-actions-description"
           >
             <Badge
-              variant='default'
-              className='min-w-8 rounded-lg'
+              variant="default"
+              className="min-w-8 rounded-lg"
               aria-label={`${selectedCount} selected`}
             >
               {selectedCount}
             </Badge>{' '}
-            <span className='hidden sm:inline'>
+            <span className="hidden sm:inline">
               {entityName}
               {selectedCount > 1 ? 's' : ''}
             </span>{' '}
@@ -200,9 +200,9 @@ export function DataTableBulkActions<TData>({
           </div>
 
           <Separator
-            className='h-5'
-            orientation='vertical'
-            aria-hidden='true'
+            className="h-5"
+            orientation="vertical"
+            aria-hidden="true"
           />
 
           {children}

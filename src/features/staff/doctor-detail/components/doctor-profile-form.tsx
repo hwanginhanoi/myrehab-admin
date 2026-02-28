@@ -44,7 +44,11 @@ type DoctorProfileFormProps = {
   readOnly?: boolean
 }
 
-export function DoctorProfileForm({ doctor, isLoading, readOnly }: DoctorProfileFormProps) {
+export function DoctorProfileForm({
+  doctor,
+  isLoading,
+  readOnly,
+}: DoctorProfileFormProps) {
   const queryClient = useQueryClient()
 
   const form = useForm<DoctorProfileFormValues>({
@@ -61,8 +65,12 @@ export function DoctorProfileForm({ doctor, isLoading, readOnly }: DoctorProfile
   const updateMutation = useUpdateStaff({
     mutation: {
       onSuccess: () => {
-        queryClient.invalidateQueries({ queryKey: [{ url: '/api/admin/staff' }] })
-        queryClient.invalidateQueries({ queryKey: [{ url: `/api/admin/staff/${doctor.id}` }] })
+        queryClient.invalidateQueries({
+          queryKey: [{ url: '/api/admin/staff' }],
+        })
+        queryClient.invalidateQueries({
+          queryKey: [{ url: `/api/admin/staff/${doctor.id}` }],
+        })
         toast.success('Đã cập nhật thông tin bác sĩ')
       },
       onError: (error) => {
@@ -88,26 +96,27 @@ export function DoctorProfileForm({ doctor, isLoading, readOnly }: DoctorProfile
 
   if (isLoading) {
     return (
-      <div className='flex items-center justify-center h-64'>
-        <p className='text-sm text-muted-foreground'>Đang tải...</p>
+      <div className="flex items-center justify-center h-64">
+        <p className="text-sm text-muted-foreground">Đang tải...</p>
       </div>
     )
   }
 
   return (
     <Form {...form}>
-      <form
-        onSubmit={form.handleSubmit(onSubmit)}
-        className='space-y-8'
-      >
+      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
         <FormField
           control={form.control}
-          name='fullName'
+          name="fullName"
           render={({ field }) => (
             <FormItem>
               <FormLabel>Họ và tên</FormLabel>
               <FormControl>
-                <Input placeholder='Nguyễn Văn A' disabled={readOnly} {...field} />
+                <Input
+                  placeholder="Nguyễn Văn A"
+                  disabled={readOnly}
+                  {...field}
+                />
               </FormControl>
               <FormDescription>
                 Tên đầy đủ của bác sĩ sẽ hiển thị trên hệ thống.
@@ -119,12 +128,17 @@ export function DoctorProfileForm({ doctor, isLoading, readOnly }: DoctorProfile
 
         <FormField
           control={form.control}
-          name='email'
+          name="email"
           render={({ field }) => (
             <FormItem>
               <FormLabel>Email</FormLabel>
               <FormControl>
-                <Input type='email' placeholder='doctor@example.com' disabled {...field} />
+                <Input
+                  type="email"
+                  placeholder="doctor@example.com"
+                  disabled
+                  {...field}
+                />
               </FormControl>
               <FormDescription>
                 Địa chỉ email để liên hệ và đăng nhập hệ thống.
@@ -136,12 +150,16 @@ export function DoctorProfileForm({ doctor, isLoading, readOnly }: DoctorProfile
 
         <FormField
           control={form.control}
-          name='specialization'
+          name="specialization"
           render={({ field }) => (
             <FormItem>
               <FormLabel>Chuyên môn</FormLabel>
               <FormControl>
-                <Input placeholder='Chuyên khoa phục hồi chức năng' disabled={readOnly} {...field} />
+                <Input
+                  placeholder="Chuyên khoa phục hồi chức năng"
+                  disabled={readOnly}
+                  {...field}
+                />
               </FormControl>
               <FormDescription>
                 Lĩnh vực chuyên môn hoặc chuyên khoa của bác sĩ.
@@ -153,14 +171,14 @@ export function DoctorProfileForm({ doctor, isLoading, readOnly }: DoctorProfile
 
         <FormField
           control={form.control}
-          name='bio'
+          name="bio"
           render={({ field }) => (
             <FormItem>
               <FormLabel>Giới thiệu</FormLabel>
               <FormControl>
                 <Textarea
-                  placeholder='Giới thiệu ngắn về bác sĩ...'
-                  className='resize-none'
+                  placeholder="Giới thiệu ngắn về bác sĩ..."
+                  className="resize-none"
                   rows={4}
                   disabled={readOnly}
                   {...field}
@@ -174,12 +192,13 @@ export function DoctorProfileForm({ doctor, isLoading, readOnly }: DoctorProfile
           )}
         />
 
-        <div className='space-y-4 pt-4 border-t'>
-          <div className='flex items-center justify-between'>
+        <div className="space-y-4 pt-4 border-t">
+          <div className="flex items-center justify-between">
             <div>
-              <p className='text-sm font-medium'>Trạng thái tài khoản</p>
-              <p className='text-sm text-muted-foreground'>
-                Tài khoản hiện đang {doctor.enabled ? 'hoạt động' : 'vô hiệu hóa'}
+              <p className="text-sm font-medium">Trạng thái tài khoản</p>
+              <p className="text-sm text-muted-foreground">
+                Tài khoản hiện đang{' '}
+                {doctor.enabled ? 'hoạt động' : 'vô hiệu hóa'}
               </p>
             </div>
             <Badge variant={doctor.enabled ? 'default' : 'secondary'}>
@@ -189,8 +208,8 @@ export function DoctorProfileForm({ doctor, isLoading, readOnly }: DoctorProfile
 
           {doctor.createdAt && (
             <div>
-              <p className='text-sm font-medium'>Ngày tạo</p>
-              <p className='text-sm text-muted-foreground'>
+              <p className="text-sm font-medium">Ngày tạo</p>
+              <p className="text-sm text-muted-foreground">
                 {new Date(doctor.createdAt).toLocaleDateString('vi-VN', {
                   year: 'numeric',
                   month: 'long',
@@ -204,7 +223,7 @@ export function DoctorProfileForm({ doctor, isLoading, readOnly }: DoctorProfile
         </div>
 
         {!readOnly && (
-          <Button type='submit' disabled={updateMutation.isPending}>
+          <Button type="submit" disabled={updateMutation.isPending}>
             {updateMutation.isPending ? 'Đang lưu...' : 'Cập nhật thông tin'}
           </Button>
         )}

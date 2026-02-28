@@ -3,26 +3,26 @@
  * Do not edit manually.
  */
 
-import type { GroupResponse } from "../GroupResponse.ts";
+import type { GroupResponse } from '../GroupResponse.ts'
 
 export type GetExerciseGroupsByDoctorPathParams = {
   /**
    * @description Doctor ID
    * @type integer, int64
    */
-  doctorId: number;
-};
+  doctorId: number
+}
 
 /**
  * @description OK
  */
-export type GetExerciseGroupsByDoctor200 = GroupResponse[];
+export type GetExerciseGroupsByDoctor200 = GroupResponse[]
 
 export type GetExerciseGroupsByDoctorQueryResponse =
-  GetExerciseGroupsByDoctor200;
+  GetExerciseGroupsByDoctor200
 
 export type GetExerciseGroupsByDoctorQuery = {
-  Response: GetExerciseGroupsByDoctor200;
-  PathParams: GetExerciseGroupsByDoctorPathParams;
-  Errors: any;
-};
+  Response: GetExerciseGroupsByDoctor200
+  PathParams: GetExerciseGroupsByDoctorPathParams
+  Errors: any
+}

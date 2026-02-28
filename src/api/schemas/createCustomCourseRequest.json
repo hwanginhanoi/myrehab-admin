@@ -5,6 +5,7 @@
     "description": { "type": "string" },
     "durationDays": { "type": "integer", "format": "int32" },
     "notes": { "type": "string" },
+    "assigningDoctorId": { "type": "integer", "format": "int64" },
     "courseDays": {
       "type": "array",
       "items": {

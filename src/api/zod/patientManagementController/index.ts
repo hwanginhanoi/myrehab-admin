@@ -3,15 +3,15 @@ export {
   assignPatientToDoctor200Schema,
   assignPatientToDoctorMutationRequestSchema,
   assignPatientToDoctorMutationResponseSchema,
-} from "./assignPatientToDoctorSchema.ts";
+} from './assignPatientToDoctorSchema.ts'
 export {
   getDoctorPatientsPathParamsSchema,
   getDoctorPatientsQueryParamsSchema,
   getDoctorPatients200Schema,
   getDoctorPatientsQueryResponseSchema,
-} from "./getDoctorPatientsSchema.ts";
+} from './getDoctorPatientsSchema.ts'
 export {
   removePatientFromDoctorPathParamsSchema,
   removePatientFromDoctor200Schema,
   removePatientFromDoctorMutationResponseSchema,
-} from "./removePatientFromDoctorSchema.ts";
+} from './removePatientFromDoctorSchema.ts'

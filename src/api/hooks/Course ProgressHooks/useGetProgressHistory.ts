@@ -3,23 +3,31 @@
  * Do not edit manually.
  */
 
-import fetch from "@/lib/api-client";
-import type { GetProgressHistoryQueryResponse } from "../../types/courseProgressController/GetProgressHistory.ts";
-import type { RequestConfig, ResponseErrorConfig } from "@/lib/api-client";
+import fetch from '@/lib/api-client'
+import type {
+  GetProgressHistoryQueryResponse,
+  GetProgressHistoryQueryParams,
+} from '../../types/courseProgressController/GetProgressHistory.ts'
+import type { RequestConfig, ResponseErrorConfig } from '@/lib/api-client'
 import type {
   QueryKey,
   QueryClient,
   QueryObserverOptions,
   UseQueryResult,
-} from "@tanstack/react-query";
-import { queryOptions, useQuery } from "@tanstack/react-query";
+} from '@tanstack/react-query'
+import { queryOptions, useQuery } from '@tanstack/react-query'
 
-export const getProgressHistoryQueryKey = () =>
-  [{ url: "/api/course-progress/history" }] as const;
+export const getProgressHistoryQueryKey = (
+  params: GetProgressHistoryQueryParams
+) =>
+  [
+    { url: '/api/course-progress/history' },
+    ...(params ? [params] : []),
+  ] as const
 
 export type GetProgressHistoryQueryKey = ReturnType<
   typeof getProgressHistoryQueryKey
->;
+>
 
 /**
  * @description Retrieve all progress records (active and archived) for the authenticated user. Includes completed courses, restarted attempts, and expired subscriptions. Useful for viewing complete rehabilitation journey.
@@ -27,34 +35,42 @@ export type GetProgressHistoryQueryKey = ReturnType<
  * {@link /api/course-progress/history}
  */
 export async function getProgressHistory(
-  config: Partial<RequestConfig> & { client?: typeof fetch } = {},
+  params: GetProgressHistoryQueryParams,
+  config: Partial<RequestConfig> & { client?: typeof fetch } = {}
 ) {
-  const { client: request = fetch, ...requestConfig } = config;
+  const { client: request = fetch, ...requestConfig } = config
 
   const res = await request<
     GetProgressHistoryQueryResponse,
     ResponseErrorConfig<Error>,
     unknown
-  >({ method: "GET", url: `/api/course-progress/history`, ...requestConfig });
-  return res.data;
+  >({
+    method: 'GET',
+    url: `/api/course-progress/history`,
+    params,
+    ...requestConfig,
+  })
+  return res.data
 }
 
 export function getProgressHistoryQueryOptions(
-  config: Partial<RequestConfig> & { client?: typeof fetch } = {},
+  params: GetProgressHistoryQueryParams,
+  config: Partial<RequestConfig> & { client?: typeof fetch } = {}
 ) {
-  const queryKey = getProgressHistoryQueryKey();
+  const queryKey = getProgressHistoryQueryKey(params)
   return queryOptions<
     GetProgressHistoryQueryResponse,
     ResponseErrorConfig<Error>,
     GetProgressHistoryQueryResponse,
     typeof queryKey
   >({
+    enabled: !!params,
     queryKey,
     queryFn: async ({ signal }) => {
-      config.signal = signal;
-      return getProgressHistory(config);
+      config.signal = signal
+      return getProgressHistory(params, config)
     },
-  });
+  })
 }
 
 /**
@@ -67,6 +83,7 @@ export function useGetProgressHistory<
   TQueryData = GetProgressHistoryQueryResponse,
   TQueryKey extends QueryKey = GetProgressHistoryQueryKey,
 >(
+  params: GetProgressHistoryQueryParams,
   options: {
     query?: Partial<
       QueryObserverOptions<
@@ -76,26 +93,26 @@ export function useGetProgressHistory<
         TQueryData,
         TQueryKey
       >
-    > & { client?: QueryClient };
-    client?: Partial<RequestConfig> & { client?: typeof fetch };
-  } = {},
+    > & { client?: QueryClient }
+    client?: Partial<RequestConfig> & { client?: typeof fetch }
+  } = {}
 ) {
-  const { query: queryConfig = {}, client: config = {} } = options ?? {};
-  const { client: queryClient, ...queryOptions } = queryConfig;
-  const queryKey = queryOptions?.queryKey ?? getProgressHistoryQueryKey();
+  const { query: queryConfig = {}, client: config = {} } = options ?? {}
+  const { client: queryClient, ...queryOptions } = queryConfig
+  const queryKey = queryOptions?.queryKey ?? getProgressHistoryQueryKey(params)
 
   const query = useQuery(
     {
-      ...getProgressHistoryQueryOptions(config),
+      ...getProgressHistoryQueryOptions(params, config),
       queryKey,
       ...queryOptions,
     } as unknown as QueryObserverOptions,
-    queryClient,
+    queryClient
   ) as UseQueryResult<TData, ResponseErrorConfig<Error>> & {
-    queryKey: TQueryKey;
-  };
+    queryKey: TQueryKey
+  }
 
-  query.queryKey = queryKey as TQueryKey;
+  query.queryKey = queryKey as TQueryKey
 
-  return query;
+  return query
 }

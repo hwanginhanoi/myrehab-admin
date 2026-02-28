@@ -9,39 +9,39 @@ export type SubmitFeedbackRequest = {
    * @maxLength 100
    * @type integer, int32
    */
-  completionPercentage: number;
+  completionPercentage: number
   /**
    * @minLength 0
    * @maxLength 100
    * @type integer, int32
    */
-  effortPercentage: number;
+  effortPercentage: number
   /**
    * @type boolean
    */
-  hasPain: boolean;
+  hasPain: boolean
   /**
    * @minLength 0
    * @maxLength 2000
    * @type string | undefined
    */
-  painDetails?: string;
+  painDetails?: string
   /**
    * @minLength 0
    * @maxLength 500
    * @type string | undefined
    */
-  hardestExercise?: string;
+  hardestExercise?: string
   /**
    * @minLength 0
    * @maxLength 2000
    * @type string | undefined
    */
-  hardestExerciseReason?: string;
+  hardestExerciseReason?: string
   /**
    * @minLength 0
    * @maxLength 2000
    * @type string | undefined
    */
-  generalNotes?: string;
-};
+  generalNotes?: string
+}

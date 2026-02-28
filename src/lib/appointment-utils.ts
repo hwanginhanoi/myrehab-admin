@@ -62,12 +62,12 @@ export const appointmentStatusConfig = {
 
 export type AppointmentStatus = keyof typeof appointmentStatusConfig
 
-export const appointmentStatusOptions = Object.entries(appointmentStatusConfig).map(
-  ([value, config]) => ({
-    label: config.label,
-    value,
-  })
-)
+export const appointmentStatusOptions = Object.entries(
+  appointmentStatusConfig
+).map(([value, config]) => ({
+  label: config.label,
+  value,
+}))
 
 export type AppointmentAction =
   | 'assign_doctor'

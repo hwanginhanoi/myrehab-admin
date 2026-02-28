@@ -4,74 +4,74 @@
  */
 
 export const courseProgressHistoryResponseArchivalReasonEnum = {
-  COMPLETED: "COMPLETED",
-  RESTARTED: "RESTARTED",
-  SUBSCRIPTION_EXPIRED: "SUBSCRIPTION_EXPIRED",
-  REVOKED: "REVOKED",
-} as const;
+  COMPLETED: 'COMPLETED',
+  RESTARTED: 'RESTARTED',
+  SUBSCRIPTION_EXPIRED: 'SUBSCRIPTION_EXPIRED',
+  REVOKED: 'REVOKED',
+} as const
 
 export type CourseProgressHistoryResponseArchivalReasonEnumKey =
-  (typeof courseProgressHistoryResponseArchivalReasonEnum)[keyof typeof courseProgressHistoryResponseArchivalReasonEnum];
+  (typeof courseProgressHistoryResponseArchivalReasonEnum)[keyof typeof courseProgressHistoryResponseArchivalReasonEnum]
 
 export type CourseProgressHistoryResponse = {
   /**
    * @type integer | undefined, int64
    */
-  id?: number;
+  id?: number
   /**
    * @type integer | undefined, int64
    */
-  courseId?: number;
+  courseId?: number
   /**
    * @type string | undefined
    */
-  courseTitle?: string;
+  courseTitle?: string
   /**
    * @type integer | undefined, int32
    */
-  currentDayNumber?: number;
+  currentDayNumber?: number
   /**
    * @type integer | undefined, int32
    */
-  totalDays?: number;
+  totalDays?: number
   /**
    * @type boolean | undefined
    */
-  isCompleted?: boolean;
+  isCompleted?: boolean
   /**
    * @type boolean | undefined
    */
-  isActive?: boolean;
+  isActive?: boolean
   /**
    * @type string | undefined, date-time
    */
-  startedAt?: string;
+  startedAt?: string
   /**
    * @type string | undefined, date-time
    */
-  completedAt?: string;
+  completedAt?: string
   /**
    * @type string | undefined, date-time
    */
-  archivedAt?: string;
+  archivedAt?: string
   /**
    * @type string | undefined
    */
-  archivalReason?: CourseProgressHistoryResponseArchivalReasonEnumKey;
+  archivalReason?: CourseProgressHistoryResponseArchivalReasonEnumKey
   /**
    * @type number | undefined, double
    */
-  progressPercentage?: number;
+  progressPercentage?: number
   /**
    * @type integer | undefined, int32
    */
-  attemptNumber?: number;
+  attemptNumber?: number
   /**
    * @type string | undefined, date-time
    */
-  createdAt?: string;
+  createdAt?: string
   /**
    * @type string | undefined, date-time
    */
-  updatedAt?: string;
-};
+  updatedAt?: string
+}

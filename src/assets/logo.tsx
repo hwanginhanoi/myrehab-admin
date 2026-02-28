@@ -16,7 +16,7 @@ export function Logo({ className, size = 'md' }: LogoProps) {
   return (
     <img
       src={logoImage}
-      alt='MyRehab'
+      alt="MyRehab"
       className={cn(sizeClasses[size], 'object-contain', className)}
     />
   )

@@ -3,25 +3,25 @@
  * Do not edit manually.
  */
 
-import type { CategoryResponse } from "../CategoryResponse.ts";
+import type { CategoryResponse } from '../CategoryResponse.ts'
 
 export type GetCategoryByIdPathParams = {
   /**
    * @description Category ID
    * @type integer, int64
    */
-  id: number;
-};
+  id: number
+}
 
 /**
  * @description OK
  */
-export type GetCategoryById200 = CategoryResponse;
+export type GetCategoryById200 = CategoryResponse
 
-export type GetCategoryByIdQueryResponse = GetCategoryById200;
+export type GetCategoryByIdQueryResponse = GetCategoryById200
 
 export type GetCategoryByIdQuery = {
-  Response: GetCategoryById200;
-  PathParams: GetCategoryByIdPathParams;
-  Errors: any;
-};
+  Response: GetCategoryById200
+  PathParams: GetCategoryByIdPathParams
+  Errors: any
+}

@@ -3,7 +3,7 @@
  * Do not edit manually.
  */
 
-import { z } from "zod/v4";
+import { z } from 'zod/v4'
 
 export const videoTokenResponseSchema = z.object({
   channelName: z.optional(z.string()),
@@ -11,4 +11,4 @@ export const videoTokenResponseSchema = z.object({
   uid: z.optional(z.int()),
   appId: z.optional(z.string()),
   expiresAt: z.optional(z.string().datetime()),
-});
+})

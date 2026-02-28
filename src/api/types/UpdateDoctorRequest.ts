@@ -4,14 +4,14 @@
  */
 
 export const updateDoctorRequestStaffTypeEnum = {
-  DOCTOR: "DOCTOR",
-  TRAINER: "TRAINER",
-  ADMIN: "ADMIN",
-  SUPER_ADMIN: "SUPER_ADMIN",
-} as const;
+  DOCTOR: 'DOCTOR',
+  TRAINER: 'TRAINER',
+  ADMIN: 'ADMIN',
+  SUPER_ADMIN: 'SUPER_ADMIN',
+} as const
 
 export type UpdateDoctorRequestStaffTypeEnumKey =
-  (typeof updateDoctorRequestStaffTypeEnum)[keyof typeof updateDoctorRequestStaffTypeEnum];
+  (typeof updateDoctorRequestStaffTypeEnum)[keyof typeof updateDoctorRequestStaffTypeEnum]
 
 /**
  * @description Update request for Doctor staff
@@ -21,20 +21,20 @@ export type UpdateDoctorRequest = {
    * @description Doctor\'s medical specialization
    * @type string | undefined
    */
-  specialization?: string;
+  specialization?: string
   /**
    * @description Staff email address
    * @type string
    */
-  email: string;
+  email: string
   /**
    * @description Staff full name
    * @type string
    */
-  fullName: string;
+  fullName: string
   /**
    * @description Staff type discriminator
    * @type string
    */
-  staffType: UpdateDoctorRequestStaffTypeEnumKey;
-};
+  staffType: UpdateDoctorRequestStaffTypeEnumKey
+}

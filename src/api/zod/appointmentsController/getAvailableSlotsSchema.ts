@@ -3,21 +3,21 @@
  * Do not edit manually.
  */
 
-import { availableSlotResponseSchema } from "../availableSlotResponseSchema.ts";
-import { z } from "zod/v4";
+import { availableSlotResponseSchema } from '../availableSlotResponseSchema.ts'
+import { z } from 'zod/v4'
 
 export const getAvailableSlotsQueryParamsSchema = z.object({
   date: z.iso.date(),
   doctorId: z.optional(z.coerce.number().int()),
-});
+})
 
 /**
  * @description OK
  */
 export const getAvailableSlots200Schema = z.array(
-  z.lazy(() => availableSlotResponseSchema),
-);
+  z.lazy(() => availableSlotResponseSchema)
+)
 
 export const getAvailableSlotsQueryResponseSchema = z.lazy(
-  () => getAvailableSlots200Schema,
-);
+  () => getAvailableSlots200Schema
+)

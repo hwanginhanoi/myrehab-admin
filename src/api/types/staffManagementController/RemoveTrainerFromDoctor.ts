@@ -8,24 +8,23 @@ export type RemoveTrainerFromDoctorPathParams = {
    * @description Doctor ID
    * @type integer, int64
    */
-  doctorId: number;
+  doctorId: number
   /**
    * @description Trainer ID
    * @type integer, int64
    */
-  trainerId: number;
-};
+  trainerId: number
+}
 
 /**
  * @description OK
  */
-export type RemoveTrainerFromDoctor200 = any;
+export type RemoveTrainerFromDoctor200 = any
 
-export type RemoveTrainerFromDoctorMutationResponse =
-  RemoveTrainerFromDoctor200;
+export type RemoveTrainerFromDoctorMutationResponse = RemoveTrainerFromDoctor200
 
 export type RemoveTrainerFromDoctorMutation = {
-  Response: RemoveTrainerFromDoctor200;
-  PathParams: RemoveTrainerFromDoctorPathParams;
-  Errors: any;
-};
+  Response: RemoveTrainerFromDoctor200
+  PathParams: RemoveTrainerFromDoctorPathParams
+  Errors: any
+}

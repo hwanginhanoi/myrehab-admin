@@ -3,7 +3,7 @@
  * Do not edit manually.
  */
 
-import { z } from "zod/v4";
+import { z } from 'zod/v4'
 
 export const dayExerciseItemResponseSchema = z.object({
   dayExerciseId: z.optional(z.int()),
@@ -17,4 +17,4 @@ export const dayExerciseItemResponseSchema = z.object({
   customRepetitions: z.optional(z.int()),
   isCompleted: z.optional(z.boolean()),
   completedAt: z.optional(z.string().datetime()),
-});
+})

@@ -3,28 +3,28 @@
  * Do not edit manually.
  */
 
-import fetch from "@/lib/api-client";
+import fetch from '@/lib/api-client'
 import type {
   GetCourseStructureQueryResponse,
   GetCourseStructurePathParams,
-} from "../../types/coursesController/GetCourseStructure.ts";
-import type { RequestConfig, ResponseErrorConfig } from "@/lib/api-client";
+} from '../../types/coursesController/GetCourseStructure.ts'
+import type { RequestConfig, ResponseErrorConfig } from '@/lib/api-client'
 import type {
   QueryKey,
   QueryClient,
   UseSuspenseQueryOptions,
   UseSuspenseQueryResult,
-} from "@tanstack/react-query";
-import { queryOptions, useSuspenseQuery } from "@tanstack/react-query";
+} from '@tanstack/react-query'
+import { queryOptions, useSuspenseQuery } from '@tanstack/react-query'
 
 export const getCourseStructureSuspenseQueryKey = (
-  courseId: GetCourseStructurePathParams["courseId"],
+  courseId: GetCourseStructurePathParams['courseId']
 ) =>
-  [{ url: "/api/courses/:courseId", params: { courseId: courseId } }] as const;
+  [{ url: '/api/courses/:courseId', params: { courseId: courseId } }] as const
 
 export type GetCourseStructureSuspenseQueryKey = ReturnType<
   typeof getCourseStructureSuspenseQueryKey
->;
+>
 
 /**
  * @description Get course details with all days and exercise counts
@@ -32,24 +32,24 @@ export type GetCourseStructureSuspenseQueryKey = ReturnType<
  * {@link /api/courses/:courseId}
  */
 export async function getCourseStructureSuspense(
-  courseId: GetCourseStructurePathParams["courseId"],
-  config: Partial<RequestConfig> & { client?: typeof fetch } = {},
+  courseId: GetCourseStructurePathParams['courseId'],
+  config: Partial<RequestConfig> & { client?: typeof fetch } = {}
 ) {
-  const { client: request = fetch, ...requestConfig } = config;
+  const { client: request = fetch, ...requestConfig } = config
 
   const res = await request<
     GetCourseStructureQueryResponse,
     ResponseErrorConfig<Error>,
     unknown
-  >({ method: "GET", url: `/api/courses/${courseId}`, ...requestConfig });
-  return res.data;
+  >({ method: 'GET', url: `/api/courses/${courseId}`, ...requestConfig })
+  return res.data
 }
 
 export function getCourseStructureSuspenseQueryOptions(
-  courseId: GetCourseStructurePathParams["courseId"],
-  config: Partial<RequestConfig> & { client?: typeof fetch } = {},
+  courseId: GetCourseStructurePathParams['courseId'],
+  config: Partial<RequestConfig> & { client?: typeof fetch } = {}
 ) {
-  const queryKey = getCourseStructureSuspenseQueryKey(courseId);
+  const queryKey = getCourseStructureSuspenseQueryKey(courseId)
   return queryOptions<
     GetCourseStructureQueryResponse,
     ResponseErrorConfig<Error>,
@@ -59,10 +59,10 @@ export function getCourseStructureSuspenseQueryOptions(
     enabled: !!courseId,
     queryKey,
     queryFn: async ({ signal }) => {
-      config.signal = signal;
-      return getCourseStructureSuspense(courseId, config);
+      config.signal = signal
+      return getCourseStructureSuspense(courseId, config)
     },
-  });
+  })
 }
 
 /**
@@ -74,7 +74,7 @@ export function useGetCourseStructureSuspense<
   TData = GetCourseStructureQueryResponse,
   TQueryKey extends QueryKey = GetCourseStructureSuspenseQueryKey,
 >(
-  courseId: GetCourseStructurePathParams["courseId"],
+  courseId: GetCourseStructurePathParams['courseId'],
   options: {
     query?: Partial<
       UseSuspenseQueryOptions<
@@ -83,14 +83,14 @@ export function useGetCourseStructureSuspense<
         TData,
         TQueryKey
       >
-    > & { client?: QueryClient };
-    client?: Partial<RequestConfig> & { client?: typeof fetch };
-  } = {},
+    > & { client?: QueryClient }
+    client?: Partial<RequestConfig> & { client?: typeof fetch }
+  } = {}
 ) {
-  const { query: queryConfig = {}, client: config = {} } = options ?? {};
-  const { client: queryClient, ...queryOptions } = queryConfig;
+  const { query: queryConfig = {}, client: config = {} } = options ?? {}
+  const { client: queryClient, ...queryOptions } = queryConfig
   const queryKey =
-    queryOptions?.queryKey ?? getCourseStructureSuspenseQueryKey(courseId);
+    queryOptions?.queryKey ?? getCourseStructureSuspenseQueryKey(courseId)
 
   const query = useSuspenseQuery(
     {
@@ -98,12 +98,12 @@ export function useGetCourseStructureSuspense<
       queryKey,
       ...queryOptions,
     } as unknown as UseSuspenseQueryOptions,
-    queryClient,
+    queryClient
   ) as UseSuspenseQueryResult<TData, ResponseErrorConfig<Error>> & {
-    queryKey: TQueryKey;
-  };
+    queryKey: TQueryKey
+  }
 
-  query.queryKey = queryKey as TQueryKey;
+  query.queryKey = queryKey as TQueryKey
 
-  return query;
+  return query
 }

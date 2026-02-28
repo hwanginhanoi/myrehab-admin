@@ -3,16 +3,41 @@
  * Do not edit manually.
  */
 
-import { myAssignedCourseResponseSchema } from "../myAssignedCourseResponseSchema.ts";
-import { z } from "zod/v4";
+import { pageMyAssignedCourseResponseSchema } from '../pageMyAssignedCourseResponseSchema.ts'
+import { z } from 'zod/v4'
+
+export const getMyAssignedCourses1QueryParamsSchema = z.object({
+  status: z.optional(
+    z
+      .enum(['PENDING_PURCHASE', 'ACTIVE', 'COMPLETED'])
+      .describe('Filter by course status')
+  ),
+  page: z.coerce
+    .number()
+    .int()
+    .min(0)
+    .default(0)
+    .describe('Zero-based page index (0..N)'),
+  size: z.coerce
+    .number()
+    .int()
+    .min(1)
+    .default(20)
+    .describe('The size of the page to be returned'),
+  sort: z
+    .array(z.string())
+    .describe(
+      'Sorting criteria in the format: property,(asc|desc). Default sort order is ascending. Multiple sort criteria are supported.'
+    ),
+})
 
 /**
  * @description OK
  */
-export const getMyAssignedCourses1200Schema = z.array(
-  z.lazy(() => myAssignedCourseResponseSchema),
-);
+export const getMyAssignedCourses1200Schema = z.lazy(
+  () => pageMyAssignedCourseResponseSchema
+)
 
 export const getMyAssignedCourses1QueryResponseSchema = z.lazy(
-  () => getMyAssignedCourses1200Schema,
-);
+  () => getMyAssignedCourses1200Schema
+)

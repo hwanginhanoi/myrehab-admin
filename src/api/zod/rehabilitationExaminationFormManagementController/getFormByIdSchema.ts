@@ -3,20 +3,18 @@
  * Do not edit manually.
  */
 
-import { rehabilitationExaminationFormResponseSchema } from "../rehabilitationExaminationFormResponseSchema.ts";
-import { z } from "zod/v4";
+import { rehabilitationExaminationFormResponseSchema } from '../rehabilitationExaminationFormResponseSchema.ts'
+import { z } from 'zod/v4'
 
 export const getFormByIdPathParamsSchema = z.object({
   id: z.coerce.number().int(),
-});
+})
 
 /**
  * @description OK
  */
 export const getFormById200Schema = z.lazy(
-  () => rehabilitationExaminationFormResponseSchema,
-);
+  () => rehabilitationExaminationFormResponseSchema
+)
 
-export const getFormByIdQueryResponseSchema = z.lazy(
-  () => getFormById200Schema,
-);
+export const getFormByIdQueryResponseSchema = z.lazy(() => getFormById200Schema)

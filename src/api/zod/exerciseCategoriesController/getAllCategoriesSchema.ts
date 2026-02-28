@@ -3,37 +3,37 @@
  * Do not edit manually.
  */
 
-import { pageableSchema } from "../pageableSchema.ts";
-import { pagedModelSchema } from "../pagedModelSchema.ts";
-import { z } from "zod/v4";
+import { pageableSchema } from '../pageableSchema.ts'
+import { pagedModelSchema } from '../pagedModelSchema.ts'
+import { z } from 'zod/v4'
 
 export const getAllCategoriesQueryParamsSchema = z.object({
   type: z.optional(
     z
       .enum([
-        "BODY_PART",
-        "HEALTH_CONDITION",
-        "EXERCISE_TYPE",
-        "EXERCISE_EQUIPMENTS",
-        "OTHERS",
+        'BODY_PART',
+        'HEALTH_CONDITION',
+        'EXERCISE_TYPE',
+        'EXERCISE_EQUIPMENTS',
+        'OTHERS',
       ])
       .describe(
-        "Category type (BODY_PART, HEALTH_CONDITION, EXERCISE_TYPE, EXERCISE_EQUIPMENTS, OTHERS)",
-      ),
+        'Category type (BODY_PART, HEALTH_CONDITION, EXERCISE_TYPE, EXERCISE_EQUIPMENTS, OTHERS)'
+      )
   ),
   query: z.optional(
-    z.string().describe("Search query for category name (case-insensitive)"),
+    z.string().describe('Search query for category name (case-insensitive)')
   ),
   get pageable() {
-    return pageableSchema;
+    return pageableSchema
   },
-});
+})
 
 /**
  * @description OK
  */
-export const getAllCategories200Schema = z.lazy(() => pagedModelSchema);
+export const getAllCategories200Schema = z.lazy(() => pagedModelSchema)
 
 export const getAllCategoriesQueryResponseSchema = z.lazy(
-  () => getAllCategories200Schema,
-);
+  () => getAllCategories200Schema
+)

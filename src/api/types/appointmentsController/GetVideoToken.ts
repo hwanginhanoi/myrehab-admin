@@ -3,24 +3,24 @@
  * Do not edit manually.
  */
 
-import type { VideoTokenResponse } from "../VideoTokenResponse.ts";
+import type { VideoTokenResponse } from '../VideoTokenResponse.ts'
 
 export type GetVideoTokenPathParams = {
   /**
    * @type integer, int64
    */
-  id: number;
-};
+  id: number
+}
 
 /**
  * @description OK
  */
-export type GetVideoToken200 = VideoTokenResponse;
+export type GetVideoToken200 = VideoTokenResponse
 
-export type GetVideoTokenQueryResponse = GetVideoToken200;
+export type GetVideoTokenQueryResponse = GetVideoToken200
 
 export type GetVideoTokenQuery = {
-  Response: GetVideoToken200;
-  PathParams: GetVideoTokenPathParams;
-  Errors: any;
-};
+  Response: GetVideoToken200
+  PathParams: GetVideoTokenPathParams
+  Errors: any
+}

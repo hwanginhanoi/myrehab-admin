@@ -3,9 +3,9 @@
  * Do not edit manually.
  */
 
-import { z } from "zod/v4";
+import { z } from 'zod/v4'
 
 export const purchaseCourseRequestSchema = z.object({
   userCourseId: z.int(),
-  subscriptionType: z.enum(["MONTHLY", "YEARLY"]),
-});
+  subscriptionType: z.enum(['MONTHLY', 'YEARLY']),
+})

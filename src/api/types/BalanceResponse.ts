@@ -7,5 +7,5 @@ export type BalanceResponse = {
   /**
    * @type integer | undefined, int64
    */
-  balance?: number;
-};
+  balance?: number
+}

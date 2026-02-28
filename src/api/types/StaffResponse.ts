@@ -7,61 +7,61 @@ export type StaffResponse = {
   /**
    * @type integer | undefined, int64
    */
-  id?: number;
+  id?: number
   /**
    * @type string | undefined
    */
-  email?: string;
+  email?: string
   /**
    * @type string | undefined
    */
-  fullName?: string;
+  fullName?: string
   /**
    * @type string | undefined
    */
-  phoneNumber?: string;
+  phoneNumber?: string
   /**
    * @type string | undefined
    */
-  staffType?: string;
+  staffType?: string
   /**
    * @type string | undefined
    */
-  specialization?: string;
+  specialization?: string
   /**
    * @type string | undefined
    */
-  description?: string;
+  description?: string
   /**
    * @type integer | undefined, int64
    */
-  doctorId?: number;
+  doctorId?: number
   /**
    * @type array | undefined
    */
-  permissions?: string[];
+  permissions?: string[]
   /**
    * @type boolean | undefined
    */
-  enabled?: boolean;
+  enabled?: boolean
   /**
    * @type boolean | undefined
    */
-  accountNonExpired?: boolean;
+  accountNonExpired?: boolean
   /**
    * @type boolean | undefined
    */
-  accountNonLocked?: boolean;
+  accountNonLocked?: boolean
   /**
    * @type boolean | undefined
    */
-  credentialsNonExpired?: boolean;
+  credentialsNonExpired?: boolean
   /**
    * @type string | undefined, date-time
    */
-  createdAt?: string;
+  createdAt?: string
   /**
    * @type string | undefined, date-time
    */
-  updatedAt?: string;
-};
+  updatedAt?: string
+}

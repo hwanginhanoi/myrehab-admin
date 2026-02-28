@@ -3,24 +3,24 @@
  * Do not edit manually.
  */
 
-import fetch from "@/lib/api-client";
+import fetch from '@/lib/api-client'
 import type {
   UpdateStaffMutationRequest,
   UpdateStaffMutationResponse,
   UpdateStaffPathParams,
-} from "../../types/staffManagementController/UpdateStaff.ts";
-import type { RequestConfig, ResponseErrorConfig } from "@/lib/api-client";
+} from '../../types/staffManagementController/UpdateStaff.ts'
+import type { RequestConfig, ResponseErrorConfig } from '@/lib/api-client'
 import type {
   UseMutationOptions,
   UseMutationResult,
   QueryClient,
-} from "@tanstack/react-query";
-import { mutationOptions, useMutation } from "@tanstack/react-query";
+} from '@tanstack/react-query'
+import { mutationOptions, useMutation } from '@tanstack/react-query'
 
 export const updateStaffMutationKey = () =>
-  [{ url: "/api/admin/staff/:id" }] as const;
+  [{ url: '/api/admin/staff/:id' }] as const
 
-export type UpdateStaffMutationKey = ReturnType<typeof updateStaffMutationKey>;
+export type UpdateStaffMutationKey = ReturnType<typeof updateStaffMutationKey>
 
 /**
  * @description Update an existing staff member's profile information and permissions
@@ -28,46 +28,46 @@ export type UpdateStaffMutationKey = ReturnType<typeof updateStaffMutationKey>;
  * {@link /api/admin/staff/:id}
  */
 export async function updateStaff(
-  id: UpdateStaffPathParams["id"],
+  id: UpdateStaffPathParams['id'],
   data: UpdateStaffMutationRequest,
   config: Partial<RequestConfig<UpdateStaffMutationRequest>> & {
-    client?: typeof fetch;
-  } = {},
+    client?: typeof fetch
+  } = {}
 ) {
-  const { client: request = fetch, ...requestConfig } = config;
+  const { client: request = fetch, ...requestConfig } = config
 
-  const requestData = data;
+  const requestData = data
 
   const res = await request<
     UpdateStaffMutationResponse,
     ResponseErrorConfig<Error>,
     UpdateStaffMutationRequest
   >({
-    method: "PUT",
+    method: 'PUT',
     url: `/api/admin/staff/${id}`,
     data: requestData,
     ...requestConfig,
-  });
-  return res.data;
+  })
+  return res.data
 }
 
 export function updateStaffMutationOptions(
   config: Partial<RequestConfig<UpdateStaffMutationRequest>> & {
-    client?: typeof fetch;
-  } = {},
+    client?: typeof fetch
+  } = {}
 ) {
-  const mutationKey = updateStaffMutationKey();
+  const mutationKey = updateStaffMutationKey()
   return mutationOptions<
     UpdateStaffMutationResponse,
     ResponseErrorConfig<Error>,
-    { id: UpdateStaffPathParams["id"]; data: UpdateStaffMutationRequest },
+    { id: UpdateStaffPathParams['id']; data: UpdateStaffMutationRequest },
     typeof mutationKey
   >({
     mutationKey,
     mutationFn: async ({ id, data }) => {
-      return updateStaff(id, data, config);
+      return updateStaff(id, data, config)
     },
-  });
+  })
 }
 
 /**
@@ -80,29 +80,29 @@ export function useUpdateStaff<TContext>(
     mutation?: UseMutationOptions<
       UpdateStaffMutationResponse,
       ResponseErrorConfig<Error>,
-      { id: UpdateStaffPathParams["id"]; data: UpdateStaffMutationRequest },
+      { id: UpdateStaffPathParams['id']; data: UpdateStaffMutationRequest },
       TContext
-    > & { client?: QueryClient };
+    > & { client?: QueryClient }
     client?: Partial<RequestConfig<UpdateStaffMutationRequest>> & {
-      client?: typeof fetch;
-    };
-  } = {},
+      client?: typeof fetch
+    }
+  } = {}
 ) {
-  const { mutation = {}, client: config = {} } = options ?? {};
-  const { client: queryClient, ...mutationOptions } = mutation;
-  const mutationKey = mutationOptions.mutationKey ?? updateStaffMutationKey();
+  const { mutation = {}, client: config = {} } = options ?? {}
+  const { client: queryClient, ...mutationOptions } = mutation
+  const mutationKey = mutationOptions.mutationKey ?? updateStaffMutationKey()
 
   const baseOptions = updateStaffMutationOptions(config) as UseMutationOptions<
     UpdateStaffMutationResponse,
     ResponseErrorConfig<Error>,
-    { id: UpdateStaffPathParams["id"]; data: UpdateStaffMutationRequest },
+    { id: UpdateStaffPathParams['id']; data: UpdateStaffMutationRequest },
     TContext
-  >;
+  >
 
   return useMutation<
     UpdateStaffMutationResponse,
     ResponseErrorConfig<Error>,
-    { id: UpdateStaffPathParams["id"]; data: UpdateStaffMutationRequest },
+    { id: UpdateStaffPathParams['id']; data: UpdateStaffMutationRequest },
     TContext
   >(
     {
@@ -110,11 +110,11 @@ export function useUpdateStaff<TContext>(
       mutationKey,
       ...mutationOptions,
     },
-    queryClient,
+    queryClient
   ) as UseMutationResult<
     UpdateStaffMutationResponse,
     ResponseErrorConfig<Error>,
-    { id: UpdateStaffPathParams["id"]; data: UpdateStaffMutationRequest },
+    { id: UpdateStaffPathParams['id']; data: UpdateStaffMutationRequest },
     TContext
-  >;
+  >
 }

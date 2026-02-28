@@ -3,30 +3,30 @@
  * Do not edit manually.
  */
 
-import type { Pageable } from "../Pageable.ts";
-import type { PagedModel } from "../PagedModel.ts";
+import type { Pageable } from '../Pageable.ts'
+import type { PagedModel } from '../PagedModel.ts'
 
 export type GetAvailablePackagesQueryParams = {
   /**
    * @description Search query for title (case-insensitive)
    * @type string | undefined
    */
-  query?: string;
+  query?: string
   /**
    * @type object
    */
-  pageable: Pageable;
-};
+  pageable: Pageable
+}
 
 /**
  * @description OK
  */
-export type GetAvailablePackages200 = PagedModel;
+export type GetAvailablePackages200 = PagedModel
 
-export type GetAvailablePackagesQueryResponse = GetAvailablePackages200;
+export type GetAvailablePackagesQueryResponse = GetAvailablePackages200
 
 export type GetAvailablePackagesQuery = {
-  Response: GetAvailablePackages200;
-  QueryParams: GetAvailablePackagesQueryParams;
-  Errors: any;
-};
+  Response: GetAvailablePackages200
+  QueryParams: GetAvailablePackagesQueryParams
+  Errors: any
+}

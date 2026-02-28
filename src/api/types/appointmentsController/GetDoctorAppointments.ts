@@ -3,25 +3,25 @@
  * Do not edit manually.
  */
 
-import type { Pageable } from "../Pageable.ts";
-import type { PagedModel } from "../PagedModel.ts";
+import type { Pageable } from '../Pageable.ts'
+import type { PagedModel } from '../PagedModel.ts'
 
 export type GetDoctorAppointmentsQueryParams = {
   /**
    * @type object
    */
-  pageable: Pageable;
-};
+  pageable: Pageable
+}
 
 /**
  * @description OK
  */
-export type GetDoctorAppointments200 = PagedModel;
+export type GetDoctorAppointments200 = PagedModel
 
-export type GetDoctorAppointmentsQueryResponse = GetDoctorAppointments200;
+export type GetDoctorAppointmentsQueryResponse = GetDoctorAppointments200
 
 export type GetDoctorAppointmentsQuery = {
-  Response: GetDoctorAppointments200;
-  QueryParams: GetDoctorAppointmentsQueryParams;
-  Errors: any;
-};
+  Response: GetDoctorAppointments200
+  QueryParams: GetDoctorAppointmentsQueryParams
+  Errors: any
+}

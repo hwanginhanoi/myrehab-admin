@@ -3,19 +3,19 @@
  * Do not edit manually.
  */
 
-import type { RefreshTokenRequest } from "../RefreshTokenRequest.ts";
+import type { RefreshTokenRequest } from '../RefreshTokenRequest.ts'
 
 /**
  * @description OK
  */
-export type Logout200 = object;
+export type Logout200 = object
 
-export type LogoutMutationRequest = RefreshTokenRequest;
+export type LogoutMutationRequest = RefreshTokenRequest
 
-export type LogoutMutationResponse = Logout200;
+export type LogoutMutationResponse = Logout200
 
 export type LogoutMutation = {
-  Response: Logout200;
-  Request: LogoutMutationRequest;
-  Errors: any;
-};
+  Response: Logout200
+  Request: LogoutMutationRequest
+  Errors: any
+}

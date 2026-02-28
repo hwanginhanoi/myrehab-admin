@@ -3,21 +3,21 @@
  * Do not edit manually.
  */
 
-import fetch from "@/lib/api-client";
-import type { GetMyBalanceQueryResponse } from "../../types/balanceController/GetMyBalance.ts";
-import type { RequestConfig, ResponseErrorConfig } from "@/lib/api-client";
+import fetch from '@/lib/api-client'
+import type { GetMyBalanceQueryResponse } from '../../types/balanceController/GetMyBalance.ts'
+import type { RequestConfig, ResponseErrorConfig } from '@/lib/api-client'
 import type {
   QueryKey,
   QueryClient,
   QueryObserverOptions,
   UseQueryResult,
-} from "@tanstack/react-query";
-import { queryOptions, useQuery } from "@tanstack/react-query";
+} from '@tanstack/react-query'
+import { queryOptions, useQuery } from '@tanstack/react-query'
 
 export const getMyBalanceQueryKey = () =>
-  [{ url: "/api/balance/my-balance" }] as const;
+  [{ url: '/api/balance/my-balance' }] as const
 
-export type GetMyBalanceQueryKey = ReturnType<typeof getMyBalanceQueryKey>;
+export type GetMyBalanceQueryKey = ReturnType<typeof getMyBalanceQueryKey>
 
 /**
  * @description Retrieve the current balance for the authenticated user
@@ -25,22 +25,22 @@ export type GetMyBalanceQueryKey = ReturnType<typeof getMyBalanceQueryKey>;
  * {@link /api/balance/my-balance}
  */
 export async function getMyBalance(
-  config: Partial<RequestConfig> & { client?: typeof fetch } = {},
+  config: Partial<RequestConfig> & { client?: typeof fetch } = {}
 ) {
-  const { client: request = fetch, ...requestConfig } = config;
+  const { client: request = fetch, ...requestConfig } = config
 
   const res = await request<
     GetMyBalanceQueryResponse,
     ResponseErrorConfig<Error>,
     unknown
-  >({ method: "GET", url: `/api/balance/my-balance`, ...requestConfig });
-  return res.data;
+  >({ method: 'GET', url: `/api/balance/my-balance`, ...requestConfig })
+  return res.data
 }
 
 export function getMyBalanceQueryOptions(
-  config: Partial<RequestConfig> & { client?: typeof fetch } = {},
+  config: Partial<RequestConfig> & { client?: typeof fetch } = {}
 ) {
-  const queryKey = getMyBalanceQueryKey();
+  const queryKey = getMyBalanceQueryKey()
   return queryOptions<
     GetMyBalanceQueryResponse,
     ResponseErrorConfig<Error>,
@@ -49,10 +49,10 @@ export function getMyBalanceQueryOptions(
   >({
     queryKey,
     queryFn: async ({ signal }) => {
-      config.signal = signal;
-      return getMyBalance(config);
+      config.signal = signal
+      return getMyBalance(config)
     },
-  });
+  })
 }
 
 /**
@@ -74,13 +74,13 @@ export function useGetMyBalance<
         TQueryData,
         TQueryKey
       >
-    > & { client?: QueryClient };
-    client?: Partial<RequestConfig> & { client?: typeof fetch };
-  } = {},
+    > & { client?: QueryClient }
+    client?: Partial<RequestConfig> & { client?: typeof fetch }
+  } = {}
 ) {
-  const { query: queryConfig = {}, client: config = {} } = options ?? {};
-  const { client: queryClient, ...queryOptions } = queryConfig;
-  const queryKey = queryOptions?.queryKey ?? getMyBalanceQueryKey();
+  const { query: queryConfig = {}, client: config = {} } = options ?? {}
+  const { client: queryClient, ...queryOptions } = queryConfig
+  const queryKey = queryOptions?.queryKey ?? getMyBalanceQueryKey()
 
   const query = useQuery(
     {
@@ -88,12 +88,12 @@ export function useGetMyBalance<
       queryKey,
       ...queryOptions,
     } as unknown as QueryObserverOptions,
-    queryClient,
+    queryClient
   ) as UseQueryResult<TData, ResponseErrorConfig<Error>> & {
-    queryKey: TQueryKey;
-  };
+    queryKey: TQueryKey
+  }
 
-  query.queryKey = queryKey as TQueryKey;
+  query.queryKey = queryKey as TQueryKey
 
-  return query;
+  return query
 }

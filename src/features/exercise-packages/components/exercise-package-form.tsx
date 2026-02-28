@@ -1,5 +1,3 @@
-'use client'
-
 import { useRef } from 'react'
 import { z } from 'zod'
 import { useForm } from 'react-hook-form'
@@ -75,7 +73,9 @@ export function ExercisePackageFormComponent({
     mutation: {
       onSuccess: () => {
         toast.success('Tạo gói bài tập thành công')
-        queryClient.invalidateQueries({ queryKey: [{ url: '/api/exercise-packages' }] })
+        queryClient.invalidateQueries({
+          queryKey: [{ url: '/api/exercise-packages' }],
+        })
         navigate({ to: '/exercise-packages' })
       },
       onError: (error) => {
@@ -88,7 +88,9 @@ export function ExercisePackageFormComponent({
     mutation: {
       onSuccess: () => {
         toast.success('Cập nhật gói bài tập thành công')
-        queryClient.invalidateQueries({ queryKey: [{ url: '/api/exercise-packages' }] })
+        queryClient.invalidateQueries({
+          queryKey: [{ url: '/api/exercise-packages' }],
+        })
         navigate({ to: '/exercise-packages' })
       },
       onError: (error) => {
@@ -148,23 +150,28 @@ export function ExercisePackageFormComponent({
   }
 
   return (
-    <div className='space-y-6'>
+    <div className="space-y-6">
       <div>
-        <h2 className='text-2xl font-bold tracking-tight'>{getTitle()}</h2>
-        <p className='text-muted-foreground'>{getDescription()}</p>
+        <h2 className="text-2xl font-bold tracking-tight">{getTitle()}</h2>
+        <p className="text-muted-foreground">{getDescription()}</p>
       </div>
 
       <Form {...form}>
-        <form onSubmit={(e) => { void form.handleSubmit(onSubmit)(e) }} className='space-y-6'>
+        <form
+          onSubmit={(e) => {
+            void form.handleSubmit(onSubmit)(e)
+          }}
+          className="space-y-6"
+        >
           <FormField
             control={form.control}
-            name='title'
+            name="title"
             render={({ field }) => (
               <FormItem>
                 <FormLabel>Tên gói bài tập</FormLabel>
                 <FormControl>
                   <Input
-                    placeholder='Nhập tên gói bài tập'
+                    placeholder="Nhập tên gói bài tập"
                     disabled={isView}
                     {...field}
                   />
@@ -174,17 +181,17 @@ export function ExercisePackageFormComponent({
             )}
           />
 
-          <div className='grid grid-cols-1 md:grid-cols-2 gap-6'>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <FormField
               control={form.control}
-              name='imageUrl'
+              name="imageUrl"
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Ảnh gói bài tập</FormLabel>
                   <FormControl>
                     <FileUpload
                       ref={imageUploadRef}
-                      category='exercise-package-image'
+                      category="exercise-package-image"
                       value={field.value}
                       onChange={field.onChange}
                       disabled={isView}
@@ -199,14 +206,14 @@ export function ExercisePackageFormComponent({
 
           <FormField
             control={form.control}
-            name='description'
+            name="description"
             render={({ field }) => (
               <FormItem>
                 <FormLabel>Mô tả</FormLabel>
                 <FormControl>
                   <Textarea
-                    placeholder='Nhập mô tả gói bài tập'
-                    className='min-h-[120px]'
+                    placeholder="Nhập mô tả gói bài tập"
+                    className="min-h-[120px]"
                     disabled={isView}
                     {...field}
                   />
@@ -218,7 +225,7 @@ export function ExercisePackageFormComponent({
 
           <FormField
             control={form.control}
-            name='exercises'
+            name="exercises"
             render={({ field }) => (
               <FormItem>
                 <FormLabel>Bài tập</FormLabel>
@@ -234,17 +241,17 @@ export function ExercisePackageFormComponent({
             )}
           />
 
-          <div className='flex gap-3 justify-end pt-4'>
+          <div className="flex gap-3 justify-end pt-4">
             <Button
-              type='button'
-              variant='outline'
+              type="button"
+              variant="outline"
               onClick={() => navigate({ to: '/exercise-packages' })}
             >
               {isView ? 'Đóng' : 'Hủy'}
             </Button>
             {!isView && (
               <Button
-                type='submit'
+                type="submit"
                 disabled={createMutation.isPending || updateMutation.isPending}
               >
                 {createMutation.isPending || updateMutation.isPending

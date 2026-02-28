@@ -3,25 +3,25 @@
  * Do not edit manually.
  */
 
-import type { Pageable } from "../Pageable.ts";
-import type { PagedModel } from "../PagedModel.ts";
+import type { Pageable } from '../Pageable.ts'
+import type { PagedModel } from '../PagedModel.ts'
 
 export type GetMyAssignedCoursesQueryParams = {
   /**
    * @type object
    */
-  pageable: Pageable;
-};
+  pageable: Pageable
+}
 
 /**
  * @description OK
  */
-export type GetMyAssignedCourses200 = PagedModel;
+export type GetMyAssignedCourses200 = PagedModel
 
-export type GetMyAssignedCoursesQueryResponse = GetMyAssignedCourses200;
+export type GetMyAssignedCoursesQueryResponse = GetMyAssignedCourses200
 
 export type GetMyAssignedCoursesQuery = {
-  Response: GetMyAssignedCourses200;
-  QueryParams: GetMyAssignedCoursesQueryParams;
-  Errors: any;
-};
+  Response: GetMyAssignedCourses200
+  QueryParams: GetMyAssignedCoursesQueryParams
+  Errors: any
+}

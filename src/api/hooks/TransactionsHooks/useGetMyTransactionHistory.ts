@@ -3,31 +3,31 @@
  * Do not edit manually.
  */
 
-import fetch from "@/lib/api-client";
+import fetch from '@/lib/api-client'
 import type {
   GetMyTransactionHistoryQueryResponse,
   GetMyTransactionHistoryQueryParams,
-} from "../../types/transactionsController/GetMyTransactionHistory.ts";
-import type { RequestConfig, ResponseErrorConfig } from "@/lib/api-client";
+} from '../../types/transactionsController/GetMyTransactionHistory.ts'
+import type { RequestConfig, ResponseErrorConfig } from '@/lib/api-client'
 import type {
   QueryKey,
   QueryClient,
   QueryObserverOptions,
   UseQueryResult,
-} from "@tanstack/react-query";
-import { queryOptions, useQuery } from "@tanstack/react-query";
+} from '@tanstack/react-query'
+import { queryOptions, useQuery } from '@tanstack/react-query'
 
 export const getMyTransactionHistoryQueryKey = (
-  params?: GetMyTransactionHistoryQueryParams,
+  params: GetMyTransactionHistoryQueryParams
 ) =>
   [
-    { url: "/api/transactions/my-history" },
+    { url: '/api/transactions/my-history' },
     ...(params ? [params] : []),
-  ] as const;
+  ] as const
 
 export type GetMyTransactionHistoryQueryKey = ReturnType<
   typeof getMyTransactionHistoryQueryKey
->;
+>
 
 /**
  * @description Retrieve paginated transaction history for the authenticated user
@@ -35,41 +35,42 @@ export type GetMyTransactionHistoryQueryKey = ReturnType<
  * {@link /api/transactions/my-history}
  */
 export async function getMyTransactionHistory(
-  params?: GetMyTransactionHistoryQueryParams,
-  config: Partial<RequestConfig> & { client?: typeof fetch } = {},
+  params: GetMyTransactionHistoryQueryParams,
+  config: Partial<RequestConfig> & { client?: typeof fetch } = {}
 ) {
-  const { client: request = fetch, ...requestConfig } = config;
+  const { client: request = fetch, ...requestConfig } = config
 
   const res = await request<
     GetMyTransactionHistoryQueryResponse,
     ResponseErrorConfig<Error>,
     unknown
   >({
-    method: "GET",
+    method: 'GET',
     url: `/api/transactions/my-history`,
     params,
     ...requestConfig,
-  });
-  return res.data;
+  })
+  return res.data
 }
 
 export function getMyTransactionHistoryQueryOptions(
-  params?: GetMyTransactionHistoryQueryParams,
-  config: Partial<RequestConfig> & { client?: typeof fetch } = {},
+  params: GetMyTransactionHistoryQueryParams,
+  config: Partial<RequestConfig> & { client?: typeof fetch } = {}
 ) {
-  const queryKey = getMyTransactionHistoryQueryKey(params);
+  const queryKey = getMyTransactionHistoryQueryKey(params)
   return queryOptions<
     GetMyTransactionHistoryQueryResponse,
     ResponseErrorConfig<Error>,
     GetMyTransactionHistoryQueryResponse,
     typeof queryKey
   >({
+    enabled: !!params,
     queryKey,
     queryFn: async ({ signal }) => {
-      config.signal = signal;
-      return getMyTransactionHistory(params, config);
+      config.signal = signal
+      return getMyTransactionHistory(params, config)
     },
-  });
+  })
 }
 
 /**
@@ -82,7 +83,7 @@ export function useGetMyTransactionHistory<
   TQueryData = GetMyTransactionHistoryQueryResponse,
   TQueryKey extends QueryKey = GetMyTransactionHistoryQueryKey,
 >(
-  params?: GetMyTransactionHistoryQueryParams,
+  params: GetMyTransactionHistoryQueryParams,
   options: {
     query?: Partial<
       QueryObserverOptions<
@@ -92,14 +93,14 @@ export function useGetMyTransactionHistory<
         TQueryData,
         TQueryKey
       >
-    > & { client?: QueryClient };
-    client?: Partial<RequestConfig> & { client?: typeof fetch };
-  } = {},
+    > & { client?: QueryClient }
+    client?: Partial<RequestConfig> & { client?: typeof fetch }
+  } = {}
 ) {
-  const { query: queryConfig = {}, client: config = {} } = options ?? {};
-  const { client: queryClient, ...queryOptions } = queryConfig;
+  const { query: queryConfig = {}, client: config = {} } = options ?? {}
+  const { client: queryClient, ...queryOptions } = queryConfig
   const queryKey =
-    queryOptions?.queryKey ?? getMyTransactionHistoryQueryKey(params);
+    queryOptions?.queryKey ?? getMyTransactionHistoryQueryKey(params)
 
   const query = useQuery(
     {
@@ -107,12 +108,12 @@ export function useGetMyTransactionHistory<
       queryKey,
       ...queryOptions,
     } as unknown as QueryObserverOptions,
-    queryClient,
+    queryClient
   ) as UseQueryResult<TData, ResponseErrorConfig<Error>> & {
-    queryKey: TQueryKey;
-  };
+    queryKey: TQueryKey
+  }
 
-  query.queryKey = queryKey as TQueryKey;
+  query.queryKey = queryKey as TQueryKey
 
-  return query;
+  return query
 }

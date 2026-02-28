@@ -4,8 +4,7 @@ import { useAuthStore } from '@/stores/auth-store'
 
 export const Route = createFileRoute('/_authenticated/')({
   beforeLoad: async () => {
-    const { auth } = useAuthStore.getState()
-    const userType = auth.userType
+    const { userType } = useAuthStore.getState()
 
     // Only SUPER_ADMIN can access the dashboard
     if (userType !== 'SUPER_ADMIN') {
@@ -15,7 +14,6 @@ export const Route = createFileRoute('/_authenticated/')({
           categoryIds: [],
           groupIds: [],
         },
-
       })
     }
   },

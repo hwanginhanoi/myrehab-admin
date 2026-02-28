@@ -7,29 +7,29 @@ export type CreateExerciseRequest = {
   /**
    * @type string
    */
-  title: string;
+  title: string
   /**
    * @type string
    */
-  description: string;
+  description: string
   /**
    * @type string
    */
-  imageUrl: string;
+  imageUrl: string
   /**
    * @type string
    */
-  videoUrl: string;
+  videoUrl: string
   /**
    * @type integer, int32
    */
-  durationMinutes: number;
+  durationMinutes: number
   /**
    * @type array
    */
-  categoryIds: number[];
+  categoryIds: number[]
   /**
    * @type array
    */
-  groupIds: number[];
-};
+  groupIds: number[]
+}

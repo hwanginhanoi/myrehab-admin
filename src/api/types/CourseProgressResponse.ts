@@ -7,41 +7,41 @@ export type CourseProgressResponse = {
   /**
    * @type integer | undefined, int64
    */
-  id?: number;
+  id?: number
   /**
    * @type integer | undefined, int64
    */
-  courseId?: number;
+  courseId?: number
   /**
    * @type string | undefined
    */
-  courseTitle?: string;
+  courseTitle?: string
   /**
    * @type integer | undefined, int32
    */
-  currentDayNumber?: number;
+  currentDayNumber?: number
   /**
    * @type integer | undefined, int32
    */
-  totalDays?: number;
+  totalDays?: number
   /**
    * @type boolean | undefined
    */
-  isCompleted?: boolean;
+  isCompleted?: boolean
   /**
    * @type string | undefined, date-time
    */
-  startedAt?: string;
+  startedAt?: string
   /**
    * @type string | undefined, date-time
    */
-  completedAt?: string;
+  completedAt?: string
   /**
    * @type string | undefined, date-time
    */
-  createdAt?: string;
+  createdAt?: string
   /**
    * @type string | undefined, date-time
    */
-  updatedAt?: string;
-};
+  updatedAt?: string
+}

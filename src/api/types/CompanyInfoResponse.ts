@@ -7,29 +7,29 @@ export type CompanyInfoResponse = {
   /**
    * @type integer | undefined, int64
    */
-  id?: number;
+  id?: number
   /**
    * @type integer | undefined, int64
    */
-  userId?: number;
+  userId?: number
   /**
    * @type string | undefined
    */
-  companyName?: string;
+  companyName?: string
   /**
    * @type string | undefined
    */
-  companyTaxNumber?: string;
+  companyTaxNumber?: string
   /**
    * @type string | undefined
    */
-  invoiceIssuanceAddress?: string;
+  invoiceIssuanceAddress?: string
   /**
    * @type string | undefined, date-time
    */
-  createdAt?: string;
+  createdAt?: string
   /**
    * @type string | undefined, date-time
    */
-  updatedAt?: string;
-};
+  updatedAt?: string
+}

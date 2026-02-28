@@ -3,8 +3,8 @@
  * Do not edit manually.
  */
 
-import { z } from "zod/v4";
+import { z } from 'zod/v4'
 
 export const refreshTokenRequestSchema = z.object({
   refreshToken: z.string(),
-});
+})

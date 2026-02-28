@@ -1,15 +1,33 @@
-'use client'
-
 import { z } from 'zod'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useQueryClient } from '@tanstack/react-query'
 import { Button } from '@/components/ui/button'
-import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from '@/components/ui/dialog'
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form'
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+} from '@/components/ui/dialog'
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
 import { Textarea } from '@/components/ui/textarea'
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select'
 import { PasswordInput } from '@/components/password-input'
 import { toast } from 'sonner'
 import { useCreateStaff, useUpdateStaff, type StaffResponse } from '@/api'
@@ -27,7 +45,11 @@ const formSchema = z
     password: z.string().optional(),
     fullName: z.string().min(1, 'Họ tên là bắt buộc'),
     phoneNumber: z.string().optional().or(z.literal('')),
-    description: z.string().max(500, 'Mô tả không vượt quá 500 ký tự').optional().or(z.literal('')),
+    description: z
+      .string()
+      .max(500, 'Mô tả không vượt quá 500 ký tự')
+      .optional()
+      .or(z.literal('')),
     staffType: z.enum(['DOCTOR', 'TRAINER', 'ADMIN', 'SUPER_ADMIN']),
     isEdit: z.boolean(),
   })
@@ -88,7 +110,9 @@ export function StaffActionDialog({
   const createMutation = useCreateStaff({
     mutation: {
       onSuccess: () => {
-        queryClient.invalidateQueries({ queryKey: [{ url: '/api/admin/staff' }] })
+        queryClient.invalidateQueries({
+          queryKey: [{ url: '/api/admin/staff' }],
+        })
         toast.success('Đã thêm nhân viên mới')
         form.reset()
         onOpenChange(false)
@@ -102,7 +126,9 @@ export function StaffActionDialog({
   const updateMutation = useUpdateStaff({
     mutation: {
       onSuccess: () => {
-        queryClient.invalidateQueries({ queryKey: [{ url: '/api/admin/staff' }] })
+        queryClient.invalidateQueries({
+          queryKey: [{ url: '/api/admin/staff' }],
+        })
         toast.success('Đã cập nhật thông tin nhân viên')
         form.reset()
         onOpenChange(false)
@@ -145,8 +171,8 @@ export function StaffActionDialog({
         onOpenChange(state)
       }}
     >
-      <DialogContent className='sm:max-w-lg'>
-        <DialogHeader className='text-start'>
+      <DialogContent className="sm:max-w-lg">
+        <DialogHeader className="text-start">
           <DialogTitle>
             {isEdit ? 'Chỉnh sửa nhân viên' : 'Thêm nhân viên mới'}
           </DialogTitle>
@@ -159,34 +185,34 @@ export function StaffActionDialog({
         </DialogHeader>
         <Form {...form}>
           <form
-            id='staff-form'
+            id="staff-form"
             onSubmit={form.handleSubmit(onSubmit)}
-            className='space-y-4'
+            className="space-y-4"
           >
             <FormField
               control={form.control}
-              name='email'
+              name="email"
               render={({ field }) => (
-                <FormItem className='grid grid-cols-6 items-center space-y-0 gap-x-4 gap-y-1'>
-                  <FormLabel className='col-span-2 text-end'>Email</FormLabel>
+                <FormItem className="grid grid-cols-6 items-center space-y-0 gap-x-4 gap-y-1">
+                  <FormLabel className="col-span-2 text-end">Email</FormLabel>
                   <FormControl>
                     <Input
-                      placeholder='example@domain.com'
-                      className='col-span-4'
+                      placeholder="example@domain.com"
+                      className="col-span-4"
                       disabled={isEdit}
                       {...field}
                     />
                   </FormControl>
-                  <FormMessage className='col-span-4 col-start-3' />
+                  <FormMessage className="col-span-4 col-start-3" />
                 </FormItem>
               )}
             />
             <FormField
               control={form.control}
-              name='staffType'
+              name="staffType"
               render={({ field }) => (
-                <FormItem className='grid grid-cols-6 items-center space-y-0 gap-x-4 gap-y-1'>
-                  <FormLabel className='col-span-2 text-end'>
+                <FormItem className="grid grid-cols-6 items-center space-y-0 gap-x-4 gap-y-1">
+                  <FormLabel className="col-span-2 text-end">
                     Loại nhân viên
                   </FormLabel>
                   <Select
@@ -195,8 +221,8 @@ export function StaffActionDialog({
                     disabled={isEdit}
                   >
                     <FormControl>
-                      <SelectTrigger className='col-span-4'>
-                        <SelectValue placeholder='Chọn loại nhân viên' />
+                      <SelectTrigger className="col-span-4">
+                        <SelectValue placeholder="Chọn loại nhân viên" />
                       </SelectTrigger>
                     </FormControl>
                     <SelectContent>
@@ -207,87 +233,87 @@ export function StaffActionDialog({
                       ))}
                     </SelectContent>
                   </Select>
-                  <FormMessage className='col-span-4 col-start-3' />
+                  <FormMessage className="col-span-4 col-start-3" />
                 </FormItem>
               )}
             />
             <FormField
               control={form.control}
-              name='fullName'
+              name="fullName"
               render={({ field }) => (
-                <FormItem className='grid grid-cols-6 items-center space-y-0 gap-x-4 gap-y-1'>
-                  <FormLabel className='col-span-2 text-end'>
+                <FormItem className="grid grid-cols-6 items-center space-y-0 gap-x-4 gap-y-1">
+                  <FormLabel className="col-span-2 text-end">
                     Họ và tên
                   </FormLabel>
                   <FormControl>
                     <Input
-                      placeholder='Nguyễn Văn A'
-                      className='col-span-4'
-                      autoComplete='off'
+                      placeholder="Nguyễn Văn A"
+                      className="col-span-4"
+                      autoComplete="off"
                       {...field}
                     />
                   </FormControl>
-                  <FormMessage className='col-span-4 col-start-3' />
+                  <FormMessage className="col-span-4 col-start-3" />
                 </FormItem>
               )}
             />
             <FormField
               control={form.control}
-              name='phoneNumber'
+              name="phoneNumber"
               render={({ field }) => (
-                <FormItem className='grid grid-cols-6 items-center space-y-0 gap-x-4 gap-y-1'>
-                  <FormLabel className='col-span-2 text-end'>
+                <FormItem className="grid grid-cols-6 items-center space-y-0 gap-x-4 gap-y-1">
+                  <FormLabel className="col-span-2 text-end">
                     Số điện thoại
                   </FormLabel>
                   <FormControl>
                     <Input
-                      placeholder='0912345678'
-                      className='col-span-4'
+                      placeholder="0912345678"
+                      className="col-span-4"
                       {...field}
                     />
                   </FormControl>
-                  <FormMessage className='col-span-4 col-start-3' />
+                  <FormMessage className="col-span-4 col-start-3" />
                 </FormItem>
               )}
             />
             <FormField
               control={form.control}
-              name='description'
+              name="description"
               render={({ field }) => (
-                <FormItem className='grid grid-cols-6 items-start space-y-0 gap-x-4 gap-y-1'>
-                  <FormLabel className='col-span-2 text-end pt-2'>
+                <FormItem className="grid grid-cols-6 items-start space-y-0 gap-x-4 gap-y-1">
+                  <FormLabel className="col-span-2 text-end pt-2">
                     Mô tả chung
                   </FormLabel>
                   <FormControl>
                     <Textarea
-                      placeholder='Mô tả về nhân viên...'
-                      className='col-span-4 resize-none'
+                      placeholder="Mô tả về nhân viên..."
+                      className="col-span-4 resize-none"
                       rows={3}
                       maxLength={500}
                       {...field}
                     />
                   </FormControl>
-                  <FormMessage className='col-span-4 col-start-3' />
+                  <FormMessage className="col-span-4 col-start-3" />
                 </FormItem>
               )}
             />
             {!isEdit && (
               <FormField
                 control={form.control}
-                name='password'
+                name="password"
                 render={({ field }) => (
-                  <FormItem className='grid grid-cols-6 items-center space-y-0 gap-x-4 gap-y-1'>
-                    <FormLabel className='col-span-2 text-end'>
+                  <FormItem className="grid grid-cols-6 items-center space-y-0 gap-x-4 gap-y-1">
+                    <FormLabel className="col-span-2 text-end">
                       Mật khẩu
                     </FormLabel>
                     <FormControl>
                       <PasswordInput
-                        placeholder='Ít nhất 8 ký tự'
-                        className='col-span-4'
+                        placeholder="Ít nhất 8 ký tự"
+                        className="col-span-4"
                         {...field}
                       />
                     </FormControl>
-                    <FormMessage className='col-span-4 col-start-3' />
+                    <FormMessage className="col-span-4 col-start-3" />
                   </FormItem>
                 )}
               />
@@ -296,8 +322,8 @@ export function StaffActionDialog({
         </Form>
         <DialogFooter>
           <Button
-            type='submit'
-            form='staff-form'
+            type="submit"
+            form="staff-form"
             disabled={createMutation.isPending || updateMutation.isPending}
           >
             {createMutation.isPending || updateMutation.isPending

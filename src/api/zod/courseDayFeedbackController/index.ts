@@ -3,12 +3,12 @@ export {
   checkFeedbackExists200Schema,
   checkFeedbackExists404Schema,
   checkFeedbackExistsQueryResponseSchema,
-} from "./checkFeedbackExistsSchema.ts";
+} from './checkFeedbackExistsSchema.ts'
 export {
   getMyFeedback200Schema,
   getMyFeedback404Schema,
   getMyFeedbackQueryResponseSchema,
-} from "./getMyFeedbackSchema.ts";
+} from './getMyFeedbackSchema.ts'
 export {
   submitFeedbackPathParamsSchema,
   submitFeedback201Schema,
@@ -17,4 +17,4 @@ export {
   submitFeedback409Schema,
   submitFeedbackMutationRequestSchema,
   submitFeedbackMutationResponseSchema,
-} from "./submitFeedbackSchema.ts";
+} from './submitFeedbackSchema.ts'

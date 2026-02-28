@@ -3,52 +3,58 @@ export {
   approveCourseRequest200Schema,
   approveCourseRequestMutationRequestSchema,
   approveCourseRequestMutationResponseSchema,
-} from "./approveCourseRequestSchema.ts";
+} from './approveCourseRequestSchema.ts'
 export {
   assignCourseToPatientPathParamsSchema,
   assignCourseToPatient200Schema,
   assignCourseToPatientMutationRequestSchema,
   assignCourseToPatientMutationResponseSchema,
-} from "./assignCourseToPatientSchema.ts";
+} from './assignCourseToPatientSchema.ts'
 export {
   createAndAssignCustomCoursePathParamsSchema,
   createAndAssignCustomCourse200Schema,
   createAndAssignCustomCourseMutationRequestSchema,
   createAndAssignCustomCourseMutationResponseSchema,
-} from "./createAndAssignCustomCourseSchema.ts";
+} from './createAndAssignCustomCourseSchema.ts'
 export {
   getCourseRequestsQueryParamsSchema,
   getCourseRequests200Schema,
   getCourseRequestsQueryResponseSchema,
-} from "./getCourseRequestsSchema.ts";
+} from './getCourseRequestsSchema.ts'
 export {
   getMyAssignedCoursesQueryParamsSchema,
   getMyAssignedCourses200Schema,
   getMyAssignedCoursesQueryResponseSchema,
-} from "./getMyAssignedCoursesSchema.ts";
+} from './getMyAssignedCoursesSchema.ts'
 export {
   getMyPatientsQueryParamsSchema,
   getMyPatients200Schema,
   getMyPatientsQueryResponseSchema,
-} from "./getMyPatientsSchema.ts";
+} from './getMyPatientsSchema.ts'
 export {
   getMyTrainersQueryParamsSchema,
   getMyTrainers200Schema,
   getMyTrainersQueryResponseSchema,
-} from "./getMyTrainersSchema.ts";
+} from './getMyTrainersSchema.ts'
 export {
   getPatientCoursesPathParamsSchema,
+  getPatientCoursesQueryParamsSchema,
   getPatientCourses200Schema,
   getPatientCoursesQueryResponseSchema,
-} from "./getPatientCoursesSchema.ts";
+} from './getPatientCoursesSchema.ts'
 export {
   rejectCourseRequestPathParamsSchema,
   rejectCourseRequest200Schema,
   rejectCourseRequestMutationRequestSchema,
   rejectCourseRequestMutationResponseSchema,
-} from "./rejectCourseRequestSchema.ts";
+} from './rejectCourseRequestSchema.ts'
 export {
   revokeCourseAssignmentPathParamsSchema,
   revokeCourseAssignment200Schema,
   revokeCourseAssignmentMutationResponseSchema,
-} from "./revokeCourseAssignmentSchema.ts";
+} from './revokeCourseAssignmentSchema.ts'
+export {
+  searchMyPatientsQueryParamsSchema,
+  searchMyPatients200Schema,
+  searchMyPatientsQueryResponseSchema,
+} from './searchMyPatientsSchema.ts'

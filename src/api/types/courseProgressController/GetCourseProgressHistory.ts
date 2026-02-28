@@ -3,25 +3,25 @@
  * Do not edit manually.
  */
 
-import type { CourseProgressHistoryResponse } from "../CourseProgressHistoryResponse.ts";
+import type { CourseProgressHistoryResponse } from '../CourseProgressHistoryResponse.ts'
 
 export type GetCourseProgressHistoryPathParams = {
   /**
    * @description Course ID to get history for
    * @type integer, int64
    */
-  courseId: number;
-};
+  courseId: number
+}
 
 /**
  * @description OK
  */
-export type GetCourseProgressHistory200 = CourseProgressHistoryResponse[];
+export type GetCourseProgressHistory200 = CourseProgressHistoryResponse[]
 
-export type GetCourseProgressHistoryQueryResponse = GetCourseProgressHistory200;
+export type GetCourseProgressHistoryQueryResponse = GetCourseProgressHistory200
 
 export type GetCourseProgressHistoryQuery = {
-  Response: GetCourseProgressHistory200;
-  PathParams: GetCourseProgressHistoryPathParams;
-  Errors: any;
-};
+  Response: GetCourseProgressHistory200
+  PathParams: GetCourseProgressHistoryPathParams
+  Errors: any
+}

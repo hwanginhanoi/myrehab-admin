@@ -3,23 +3,23 @@
  * Do not edit manually.
  */
 
-import fetch from "@/lib/api-client";
+import fetch from '@/lib/api-client'
 import type {
   RegisterMutationRequest,
   RegisterMutationResponse,
-} from "../../types/authenticationController/Register.ts";
-import type { RequestConfig, ResponseErrorConfig } from "@/lib/api-client";
+} from '../../types/authenticationController/Register.ts'
+import type { RequestConfig, ResponseErrorConfig } from '@/lib/api-client'
 import type {
   UseMutationOptions,
   UseMutationResult,
   QueryClient,
-} from "@tanstack/react-query";
-import { mutationOptions, useMutation } from "@tanstack/react-query";
+} from '@tanstack/react-query'
+import { mutationOptions, useMutation } from '@tanstack/react-query'
 
 export const registerMutationKey = () =>
-  [{ url: "/api/auth/user/register" }] as const;
+  [{ url: '/api/auth/user/register' }] as const
 
-export type RegisterMutationKey = ReturnType<typeof registerMutationKey>;
+export type RegisterMutationKey = ReturnType<typeof registerMutationKey>
 
 /**
  * @description Complete registration with user details and PIN using verification token from OTP verification
@@ -29,32 +29,32 @@ export type RegisterMutationKey = ReturnType<typeof registerMutationKey>;
 export async function register(
   data: RegisterMutationRequest,
   config: Partial<RequestConfig<RegisterMutationRequest>> & {
-    client?: typeof fetch;
-  } = {},
+    client?: typeof fetch
+  } = {}
 ) {
-  const { client: request = fetch, ...requestConfig } = config;
+  const { client: request = fetch, ...requestConfig } = config
 
-  const requestData = data;
+  const requestData = data
 
   const res = await request<
     RegisterMutationResponse,
     ResponseErrorConfig<Error>,
     RegisterMutationRequest
   >({
-    method: "POST",
+    method: 'POST',
     url: `/api/auth/user/register`,
     data: requestData,
     ...requestConfig,
-  });
-  return res.data;
+  })
+  return res.data
 }
 
 export function registerMutationOptions(
   config: Partial<RequestConfig<RegisterMutationRequest>> & {
-    client?: typeof fetch;
-  } = {},
+    client?: typeof fetch
+  } = {}
 ) {
-  const mutationKey = registerMutationKey();
+  const mutationKey = registerMutationKey()
   return mutationOptions<
     RegisterMutationResponse,
     ResponseErrorConfig<Error>,
@@ -63,9 +63,9 @@ export function registerMutationOptions(
   >({
     mutationKey,
     mutationFn: async ({ data }) => {
-      return register(data, config);
+      return register(data, config)
     },
-  });
+  })
 }
 
 /**
@@ -80,22 +80,22 @@ export function useRegister<TContext>(
       ResponseErrorConfig<Error>,
       { data: RegisterMutationRequest },
       TContext
-    > & { client?: QueryClient };
+    > & { client?: QueryClient }
     client?: Partial<RequestConfig<RegisterMutationRequest>> & {
-      client?: typeof fetch;
-    };
-  } = {},
+      client?: typeof fetch
+    }
+  } = {}
 ) {
-  const { mutation = {}, client: config = {} } = options ?? {};
-  const { client: queryClient, ...mutationOptions } = mutation;
-  const mutationKey = mutationOptions.mutationKey ?? registerMutationKey();
+  const { mutation = {}, client: config = {} } = options ?? {}
+  const { client: queryClient, ...mutationOptions } = mutation
+  const mutationKey = mutationOptions.mutationKey ?? registerMutationKey()
 
   const baseOptions = registerMutationOptions(config) as UseMutationOptions<
     RegisterMutationResponse,
     ResponseErrorConfig<Error>,
     { data: RegisterMutationRequest },
     TContext
-  >;
+  >
 
   return useMutation<
     RegisterMutationResponse,
@@ -108,11 +108,11 @@ export function useRegister<TContext>(
       mutationKey,
       ...mutationOptions,
     },
-    queryClient,
+    queryClient
   ) as UseMutationResult<
     RegisterMutationResponse,
     ResponseErrorConfig<Error>,
     { data: RegisterMutationRequest },
     TContext
-  >;
+  >
 }

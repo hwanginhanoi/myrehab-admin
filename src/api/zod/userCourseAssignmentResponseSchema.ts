@@ -3,7 +3,7 @@
  * Do not edit manually.
  */
 
-import { z } from "zod/v4";
+import { z } from 'zod/v4'
 
 export const userCourseAssignmentResponseSchema = z.object({
   id: z.optional(z.int()),
@@ -16,4 +16,4 @@ export const userCourseAssignmentResponseSchema = z.object({
   notes: z.optional(z.string()),
   hasStarted: z.optional(z.boolean()),
   isCompleted: z.optional(z.boolean()),
-});
+})

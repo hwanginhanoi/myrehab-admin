@@ -3,9 +3,9 @@
  * Do not edit manually.
  */
 
-import { z } from "zod/v4";
+import { z } from 'zod/v4'
 
 export const updateGroupRequestSchema = z.object({
   name: z.string(),
   description: z.optional(z.string()),
-});
+})

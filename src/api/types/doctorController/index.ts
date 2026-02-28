@@ -4,63 +4,70 @@ export type {
   ApproveCourseRequestMutationRequest,
   ApproveCourseRequestMutationResponse,
   ApproveCourseRequestMutation,
-} from "./ApproveCourseRequest.ts";
+} from './ApproveCourseRequest.ts'
 export type {
   AssignCourseToPatientPathParams,
   AssignCourseToPatient200,
   AssignCourseToPatientMutationRequest,
   AssignCourseToPatientMutationResponse,
   AssignCourseToPatientMutation,
-} from "./AssignCourseToPatient.ts";
+} from './AssignCourseToPatient.ts'
 export type {
   CreateAndAssignCustomCoursePathParams,
   CreateAndAssignCustomCourse200,
   CreateAndAssignCustomCourseMutationRequest,
   CreateAndAssignCustomCourseMutationResponse,
   CreateAndAssignCustomCourseMutation,
-} from "./CreateAndAssignCustomCourse.ts";
+} from './CreateAndAssignCustomCourse.ts'
 export type {
   GetCourseRequestsQueryParamsStatusEnumKey,
   GetCourseRequestsQueryParams,
   GetCourseRequests200,
   GetCourseRequestsQueryResponse,
   GetCourseRequestsQuery,
-} from "./GetCourseRequests.ts";
+} from './GetCourseRequests.ts'
 export type {
   GetMyAssignedCoursesQueryParams,
   GetMyAssignedCourses200,
   GetMyAssignedCoursesQueryResponse,
   GetMyAssignedCoursesQuery,
-} from "./GetMyAssignedCourses.ts";
+} from './GetMyAssignedCourses.ts'
 export type {
   GetMyPatientsQueryParams,
   GetMyPatients200,
   GetMyPatientsQueryResponse,
   GetMyPatientsQuery,
-} from "./GetMyPatients.ts";
+} from './GetMyPatients.ts'
 export type {
   GetMyTrainersQueryParams,
   GetMyTrainers200,
   GetMyTrainersQueryResponse,
   GetMyTrainersQuery,
-} from "./GetMyTrainers.ts";
+} from './GetMyTrainers.ts'
 export type {
   GetPatientCoursesPathParams,
+  GetPatientCoursesQueryParams,
   GetPatientCourses200,
   GetPatientCoursesQueryResponse,
   GetPatientCoursesQuery,
-} from "./GetPatientCourses.ts";
+} from './GetPatientCourses.ts'
 export type {
   RejectCourseRequestPathParams,
   RejectCourseRequest200,
   RejectCourseRequestMutationRequest,
   RejectCourseRequestMutationResponse,
   RejectCourseRequestMutation,
-} from "./RejectCourseRequest.ts";
+} from './RejectCourseRequest.ts'
 export type {
   RevokeCourseAssignmentPathParams,
   RevokeCourseAssignment200,
   RevokeCourseAssignmentMutationResponse,
   RevokeCourseAssignmentMutation,
-} from "./RevokeCourseAssignment.ts";
-export { getCourseRequestsQueryParamsStatusEnum } from "./GetCourseRequests.ts";
+} from './RevokeCourseAssignment.ts'
+export type {
+  SearchMyPatientsQueryParams,
+  SearchMyPatients200,
+  SearchMyPatientsQueryResponse,
+  SearchMyPatientsQuery,
+} from './SearchMyPatients.ts'
+export { getCourseRequestsQueryParamsStatusEnum } from './GetCourseRequests.ts'

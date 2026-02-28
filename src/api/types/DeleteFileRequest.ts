@@ -7,9 +7,9 @@ export type DeleteFileRequest = {
   /**
    * @type string
    */
-  objectKey: string;
+  objectKey: string
   /**
    * @type string
    */
-  category: string;
-};
+  category: string
+}

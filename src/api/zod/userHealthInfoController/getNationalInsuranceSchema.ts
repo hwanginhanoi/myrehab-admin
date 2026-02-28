@@ -3,20 +3,20 @@
  * Do not edit manually.
  */
 
-import { nationalHealthInsuranceResponseSchema } from "../nationalHealthInsuranceResponseSchema.ts";
-import { z } from "zod/v4";
+import { nationalHealthInsuranceResponseSchema } from '../nationalHealthInsuranceResponseSchema.ts'
+import { z } from 'zod/v4'
 
 export const getNationalInsurancePathParamsSchema = z.object({
-  userId: z.coerce.number().int().describe("User ID"),
-});
+  userId: z.coerce.number().int().describe('User ID'),
+})
 
 /**
  * @description OK
  */
 export const getNationalInsurance200Schema = z.lazy(
-  () => nationalHealthInsuranceResponseSchema,
-);
+  () => nationalHealthInsuranceResponseSchema
+)
 
 export const getNationalInsuranceQueryResponseSchema = z.lazy(
-  () => getNationalInsurance200Schema,
-);
+  () => getNationalInsurance200Schema
+)

@@ -3,9 +3,9 @@
  * Do not edit manually.
  */
 
-import { z } from "zod/v4";
+import { z } from 'zod/v4'
 
 export const checkPhoneResponseSchema = z.object({
   exists: z.optional(z.boolean()),
   message: z.optional(z.string()),
-});
+})

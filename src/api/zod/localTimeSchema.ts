@@ -3,11 +3,11 @@
  * Do not edit manually.
  */
 
-import { z } from "zod/v4";
+import { z } from 'zod/v4'
 
 export const localTimeSchema = z.object({
   hour: z.optional(z.int()),
   minute: z.optional(z.int()),
   second: z.optional(z.int()),
   nano: z.optional(z.int()),
-});
+})

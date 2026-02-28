@@ -7,17 +7,17 @@ export type UpdateExercisePackageRequest = {
   /**
    * @type string
    */
-  title: string;
+  title: string
   /**
    * @type string
    */
-  description: string;
+  description: string
   /**
    * @type string | undefined
    */
-  imageUrl?: string;
+  imageUrl?: string
   /**
    * @type array
    */
-  exerciseIds: number[];
-};
+  exerciseIds: number[]
+}

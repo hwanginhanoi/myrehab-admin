@@ -3,19 +3,19 @@
  * Do not edit manually.
  */
 
-import type { DayExerciseDto } from "./DayExerciseDto.ts";
+import type { DayExerciseDto } from './DayExerciseDto.ts'
 
 export type CourseDayDto = {
   /**
    * @type integer, int32
    */
-  dayNumber: number;
+  dayNumber: number
   /**
    * @type string | undefined
    */
-  description?: string;
+  description?: string
   /**
    * @type array
    */
-  exercises: DayExerciseDto[];
-};
+  exercises: DayExerciseDto[]
+}

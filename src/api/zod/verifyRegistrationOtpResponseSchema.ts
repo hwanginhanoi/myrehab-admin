@@ -3,11 +3,11 @@
  * Do not edit manually.
  */
 
-import { z } from "zod/v4";
+import { z } from 'zod/v4'
 
 export const verifyRegistrationOtpResponseSchema = z.object({
   verificationToken: z.optional(z.string()),
   message: z.optional(z.string()),
   expiresInSeconds: z.optional(z.int()),
   phoneNumber: z.optional(z.string()),
-});
+})

@@ -3,28 +3,27 @@
  * Do not edit manually.
  */
 
-import fetch from "@/lib/api-client";
+import fetch from '@/lib/api-client'
 import type {
   GetAllCategoriesQueryResponse,
   GetAllCategoriesQueryParams,
-} from "../../types/exerciseCategoriesController/GetAllCategories.ts";
-import type { RequestConfig, ResponseErrorConfig } from "@/lib/api-client";
+} from '../../types/exerciseCategoriesController/GetAllCategories.ts'
+import type { RequestConfig, ResponseErrorConfig } from '@/lib/api-client'
 import type {
   QueryKey,
   QueryClient,
   UseSuspenseQueryOptions,
   UseSuspenseQueryResult,
-} from "@tanstack/react-query";
-import { queryOptions, useSuspenseQuery } from "@tanstack/react-query";
+} from '@tanstack/react-query'
+import { queryOptions, useSuspenseQuery } from '@tanstack/react-query'
 
 export const getAllCategoriesSuspenseQueryKey = (
-  params: GetAllCategoriesQueryParams,
-) =>
-  [{ url: "/api/exercise-categories" }, ...(params ? [params] : [])] as const;
+  params: GetAllCategoriesQueryParams
+) => [{ url: '/api/exercise-categories' }, ...(params ? [params] : [])] as const
 
 export type GetAllCategoriesSuspenseQueryKey = ReturnType<
   typeof getAllCategoriesSuspenseQueryKey
->;
+>
 
 /**
  * @description Retrieve exercise categories with pagination and optional filters. Can filter by type and/or search by name. Both parameters are optional.
@@ -33,28 +32,28 @@ export type GetAllCategoriesSuspenseQueryKey = ReturnType<
  */
 export async function getAllCategoriesSuspense(
   params: GetAllCategoriesQueryParams,
-  config: Partial<RequestConfig> & { client?: typeof fetch } = {},
+  config: Partial<RequestConfig> & { client?: typeof fetch } = {}
 ) {
-  const { client: request = fetch, ...requestConfig } = config;
+  const { client: request = fetch, ...requestConfig } = config
 
   const res = await request<
     GetAllCategoriesQueryResponse,
     ResponseErrorConfig<Error>,
     unknown
   >({
-    method: "GET",
+    method: 'GET',
     url: `/api/exercise-categories`,
     params,
     ...requestConfig,
-  });
-  return res.data;
+  })
+  return res.data
 }
 
 export function getAllCategoriesSuspenseQueryOptions(
   params: GetAllCategoriesQueryParams,
-  config: Partial<RequestConfig> & { client?: typeof fetch } = {},
+  config: Partial<RequestConfig> & { client?: typeof fetch } = {}
 ) {
-  const queryKey = getAllCategoriesSuspenseQueryKey(params);
+  const queryKey = getAllCategoriesSuspenseQueryKey(params)
   return queryOptions<
     GetAllCategoriesQueryResponse,
     ResponseErrorConfig<Error>,
@@ -64,10 +63,10 @@ export function getAllCategoriesSuspenseQueryOptions(
     enabled: !!params,
     queryKey,
     queryFn: async ({ signal }) => {
-      config.signal = signal;
-      return getAllCategoriesSuspense(params, config);
+      config.signal = signal
+      return getAllCategoriesSuspense(params, config)
     },
-  });
+  })
 }
 
 /**
@@ -88,14 +87,14 @@ export function useGetAllCategoriesSuspense<
         TData,
         TQueryKey
       >
-    > & { client?: QueryClient };
-    client?: Partial<RequestConfig> & { client?: typeof fetch };
-  } = {},
+    > & { client?: QueryClient }
+    client?: Partial<RequestConfig> & { client?: typeof fetch }
+  } = {}
 ) {
-  const { query: queryConfig = {}, client: config = {} } = options ?? {};
-  const { client: queryClient, ...queryOptions } = queryConfig;
+  const { query: queryConfig = {}, client: config = {} } = options ?? {}
+  const { client: queryClient, ...queryOptions } = queryConfig
   const queryKey =
-    queryOptions?.queryKey ?? getAllCategoriesSuspenseQueryKey(params);
+    queryOptions?.queryKey ?? getAllCategoriesSuspenseQueryKey(params)
 
   const query = useSuspenseQuery(
     {
@@ -103,12 +102,12 @@ export function useGetAllCategoriesSuspense<
       queryKey,
       ...queryOptions,
     } as unknown as UseSuspenseQueryOptions,
-    queryClient,
+    queryClient
   ) as UseSuspenseQueryResult<TData, ResponseErrorConfig<Error>> & {
-    queryKey: TQueryKey;
-  };
+    queryKey: TQueryKey
+  }
 
-  query.queryKey = queryKey as TQueryKey;
+  query.queryKey = queryKey as TQueryKey
 
-  return query;
+  return query
 }

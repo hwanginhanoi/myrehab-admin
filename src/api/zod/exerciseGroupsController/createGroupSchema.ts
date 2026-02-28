@@ -3,19 +3,19 @@
  * Do not edit manually.
  */
 
-import { createGroupRequestSchema } from "../createGroupRequestSchema.ts";
-import { groupResponseSchema } from "../groupResponseSchema.ts";
-import { z } from "zod/v4";
+import { createGroupRequestSchema } from '../createGroupRequestSchema.ts'
+import { groupResponseSchema } from '../groupResponseSchema.ts'
+import { z } from 'zod/v4'
 
 /**
  * @description OK
  */
-export const createGroup200Schema = z.lazy(() => groupResponseSchema);
+export const createGroup200Schema = z.lazy(() => groupResponseSchema)
 
 export const createGroupMutationRequestSchema = z.lazy(
-  () => createGroupRequestSchema,
-);
+  () => createGroupRequestSchema
+)
 
 export const createGroupMutationResponseSchema = z.lazy(
-  () => createGroup200Schema,
-);
+  () => createGroup200Schema
+)

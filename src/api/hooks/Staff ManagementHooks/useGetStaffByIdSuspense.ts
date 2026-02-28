@@ -3,27 +3,27 @@
  * Do not edit manually.
  */
 
-import fetch from "@/lib/api-client";
+import fetch from '@/lib/api-client'
 import type {
   GetStaffByIdQueryResponse,
   GetStaffByIdPathParams,
-} from "../../types/staffManagementController/GetStaffById.ts";
-import type { RequestConfig, ResponseErrorConfig } from "@/lib/api-client";
+} from '../../types/staffManagementController/GetStaffById.ts'
+import type { RequestConfig, ResponseErrorConfig } from '@/lib/api-client'
 import type {
   QueryKey,
   QueryClient,
   UseSuspenseQueryOptions,
   UseSuspenseQueryResult,
-} from "@tanstack/react-query";
-import { queryOptions, useSuspenseQuery } from "@tanstack/react-query";
+} from '@tanstack/react-query'
+import { queryOptions, useSuspenseQuery } from '@tanstack/react-query'
 
 export const getStaffByIdSuspenseQueryKey = (
-  id: GetStaffByIdPathParams["id"],
-) => [{ url: "/api/admin/staff/:id", params: { id: id } }] as const;
+  id: GetStaffByIdPathParams['id']
+) => [{ url: '/api/admin/staff/:id', params: { id: id } }] as const
 
 export type GetStaffByIdSuspenseQueryKey = ReturnType<
   typeof getStaffByIdSuspenseQueryKey
->;
+>
 
 /**
  * @description Retrieve a specific staff member's details
@@ -31,24 +31,24 @@ export type GetStaffByIdSuspenseQueryKey = ReturnType<
  * {@link /api/admin/staff/:id}
  */
 export async function getStaffByIdSuspense(
-  id: GetStaffByIdPathParams["id"],
-  config: Partial<RequestConfig> & { client?: typeof fetch } = {},
+  id: GetStaffByIdPathParams['id'],
+  config: Partial<RequestConfig> & { client?: typeof fetch } = {}
 ) {
-  const { client: request = fetch, ...requestConfig } = config;
+  const { client: request = fetch, ...requestConfig } = config
 
   const res = await request<
     GetStaffByIdQueryResponse,
     ResponseErrorConfig<Error>,
     unknown
-  >({ method: "GET", url: `/api/admin/staff/${id}`, ...requestConfig });
-  return res.data;
+  >({ method: 'GET', url: `/api/admin/staff/${id}`, ...requestConfig })
+  return res.data
 }
 
 export function getStaffByIdSuspenseQueryOptions(
-  id: GetStaffByIdPathParams["id"],
-  config: Partial<RequestConfig> & { client?: typeof fetch } = {},
+  id: GetStaffByIdPathParams['id'],
+  config: Partial<RequestConfig> & { client?: typeof fetch } = {}
 ) {
-  const queryKey = getStaffByIdSuspenseQueryKey(id);
+  const queryKey = getStaffByIdSuspenseQueryKey(id)
   return queryOptions<
     GetStaffByIdQueryResponse,
     ResponseErrorConfig<Error>,
@@ -58,10 +58,10 @@ export function getStaffByIdSuspenseQueryOptions(
     enabled: !!id,
     queryKey,
     queryFn: async ({ signal }) => {
-      config.signal = signal;
-      return getStaffByIdSuspense(id, config);
+      config.signal = signal
+      return getStaffByIdSuspense(id, config)
     },
-  });
+  })
 }
 
 /**
@@ -73,7 +73,7 @@ export function useGetStaffByIdSuspense<
   TData = GetStaffByIdQueryResponse,
   TQueryKey extends QueryKey = GetStaffByIdSuspenseQueryKey,
 >(
-  id: GetStaffByIdPathParams["id"],
+  id: GetStaffByIdPathParams['id'],
   options: {
     query?: Partial<
       UseSuspenseQueryOptions<
@@ -82,13 +82,13 @@ export function useGetStaffByIdSuspense<
         TData,
         TQueryKey
       >
-    > & { client?: QueryClient };
-    client?: Partial<RequestConfig> & { client?: typeof fetch };
-  } = {},
+    > & { client?: QueryClient }
+    client?: Partial<RequestConfig> & { client?: typeof fetch }
+  } = {}
 ) {
-  const { query: queryConfig = {}, client: config = {} } = options ?? {};
-  const { client: queryClient, ...queryOptions } = queryConfig;
-  const queryKey = queryOptions?.queryKey ?? getStaffByIdSuspenseQueryKey(id);
+  const { query: queryConfig = {}, client: config = {} } = options ?? {}
+  const { client: queryClient, ...queryOptions } = queryConfig
+  const queryKey = queryOptions?.queryKey ?? getStaffByIdSuspenseQueryKey(id)
 
   const query = useSuspenseQuery(
     {
@@ -96,12 +96,12 @@ export function useGetStaffByIdSuspense<
       queryKey,
       ...queryOptions,
     } as unknown as UseSuspenseQueryOptions,
-    queryClient,
+    queryClient
   ) as UseSuspenseQueryResult<TData, ResponseErrorConfig<Error>> & {
-    queryKey: TQueryKey;
-  };
+    queryKey: TQueryKey
+  }
 
-  query.queryKey = queryKey as TQueryKey;
+  query.queryKey = queryKey as TQueryKey
 
-  return query;
+  return query
 }

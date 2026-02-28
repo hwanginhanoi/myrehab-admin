@@ -9,6 +9,8 @@ function NationalInsuranceRoute() {
   return <NationalInsuranceSection data={data} isLoading={isLoading} />
 }
 
-export const Route = createFileRoute('/_authenticated/users/$id/national-insurance')({
+export const Route = createFileRoute(
+  '/_authenticated/users/$id/national-insurance'
+)({
   component: NationalInsuranceRoute,
 })

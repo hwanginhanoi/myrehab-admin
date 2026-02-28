@@ -3,34 +3,34 @@
  * Do not edit manually.
  */
 
-import type { Pageable } from "../Pageable.ts";
-import type { PagedModel } from "../PagedModel.ts";
+import type { Pageable } from '../Pageable.ts'
+import type { PagedModel } from '../PagedModel.ts'
 
 export type GetDoctorPatientsPathParams = {
   /**
    * @description Doctor ID
    * @type integer, int64
    */
-  doctorId: number;
-};
+  doctorId: number
+}
 
 export type GetDoctorPatientsQueryParams = {
   /**
    * @type object
    */
-  pageable: Pageable;
-};
+  pageable: Pageable
+}
 
 /**
  * @description OK
  */
-export type GetDoctorPatients200 = PagedModel;
+export type GetDoctorPatients200 = PagedModel
 
-export type GetDoctorPatientsQueryResponse = GetDoctorPatients200;
+export type GetDoctorPatientsQueryResponse = GetDoctorPatients200
 
 export type GetDoctorPatientsQuery = {
-  Response: GetDoctorPatients200;
-  PathParams: GetDoctorPatientsPathParams;
-  QueryParams: GetDoctorPatientsQueryParams;
-  Errors: any;
-};
+  Response: GetDoctorPatients200
+  PathParams: GetDoctorPatientsPathParams
+  QueryParams: GetDoctorPatientsQueryParams
+  Errors: any
+}

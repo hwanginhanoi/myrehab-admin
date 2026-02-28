@@ -17,8 +17,10 @@ export function TrainerDetail() {
   // Handle error states
   if (error) {
     return (
-      <div className='flex flex-col items-center justify-center h-64 space-y-4'>
-        <p className='text-lg font-semibold text-destructive'>Không tìm thấy huấn luyện viên</p>
+      <div className="flex flex-col items-center justify-center h-64 space-y-4">
+        <p className="text-lg font-semibold text-destructive">
+          Không tìm thấy huấn luyện viên
+        </p>
         <Button
           onClick={() =>
             navigate({
@@ -26,7 +28,7 @@ export function TrainerDetail() {
             })
           }
         >
-          <ChevronLeft className='mr-2 h-4 w-4' />
+          <ChevronLeft className="mr-2 h-4 w-4" />
           Quay lại danh sách nhân viên
         </Button>
       </div>
@@ -36,8 +38,8 @@ export function TrainerDetail() {
   // Check if the staff member is actually a trainer
   if (trainer && trainer.staffType !== 'TRAINER') {
     return (
-      <div className='flex flex-col items-center justify-center h-64 space-y-4'>
-        <p className='text-lg font-semibold text-destructive'>
+      <div className="flex flex-col items-center justify-center h-64 space-y-4">
+        <p className="text-lg font-semibold text-destructive">
           Nhân viên này không phải là huấn luyện viên
         </p>
         <Button
@@ -47,7 +49,7 @@ export function TrainerDetail() {
             })
           }
         >
-          <ChevronLeft className='mr-2 h-4 w-4' />
+          <ChevronLeft className="mr-2 h-4 w-4" />
           Quay lại danh sách nhân viên
         </Button>
       </div>
@@ -70,42 +72,50 @@ export function TrainerDetail() {
   return (
     <>
       {/* Breadcrumb Navigation */}
-      <div className='flex items-center gap-2 text-sm text-muted-foreground'>
+      <div className="flex items-center gap-2 text-sm text-muted-foreground">
         <Button
-          variant='ghost'
-          size='sm'
+          variant="ghost"
+          size="sm"
           onClick={() =>
             navigate({
               to: '/staff',
             })
           }
-          className='h-8 gap-1'
+          className="h-8 gap-1"
         >
-          <ChevronLeft className='h-4 w-4' />
+          <ChevronLeft className="h-4 w-4" />
           Nhân viên
         </Button>
         <span>/</span>
-        <span className='text-foreground font-medium'>Chi tiết huấn luyện viên</span>
+        <span className="text-foreground font-medium">
+          Chi tiết huấn luyện viên
+        </span>
       </div>
 
       {/* Page Header */}
-      <div className='space-y-0.5'>
-        <h1 className='text-2xl font-bold tracking-tight md:text-3xl'>
-          {isLoading ? 'Đang tải...' : trainer?.fullName || 'Chi tiết Huấn luyện viên'}
+      <div className="space-y-0.5">
+        <h1 className="text-2xl font-bold tracking-tight md:text-3xl">
+          {isLoading
+            ? 'Đang tải...'
+            : trainer?.fullName || 'Chi tiết Huấn luyện viên'}
         </h1>
-        <p className='text-muted-foreground'>
+        <p className="text-muted-foreground">
           Xem và quản lý thông tin huấn luyện viên.
         </p>
       </div>
 
-      <Separator className='my-4 lg:my-6' />
+      <Separator className="my-4 lg:my-6" />
 
       {/* Content with Sidebar */}
-      <div className='flex flex-1 flex-col space-y-2 overflow-hidden md:space-y-2 lg:flex-row lg:space-y-0 lg:space-x-12'>
-        <aside className='top-0 lg:sticky lg:w-1/5'>
-          <TrainerSidebarNav items={sidebarNavItems} trainerId={trainerId} mode={route.useSearch().mode} />
+      <div className="flex flex-1 flex-col space-y-2 overflow-hidden md:space-y-2 lg:flex-row lg:space-y-0 lg:space-x-12">
+        <aside className="top-0 lg:sticky lg:w-1/5">
+          <TrainerSidebarNav
+            items={sidebarNavItems}
+            trainerId={trainerId}
+            mode={route.useSearch().mode}
+          />
         </aside>
-        <div className='flex w-full overflow-y-hidden p-1'>
+        <div className="flex w-full overflow-y-hidden p-1">
           <Outlet />
         </div>
       </div>

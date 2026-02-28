@@ -3,25 +3,25 @@
  * Do not edit manually.
  */
 
-import fetch from "@/lib/api-client";
+import fetch from '@/lib/api-client'
 import type {
   RemovePatientFromDoctorMutationResponse,
   RemovePatientFromDoctorPathParams,
-} from "../../types/patientManagementController/RemovePatientFromDoctor.ts";
-import type { RequestConfig, ResponseErrorConfig } from "@/lib/api-client";
+} from '../../types/patientManagementController/RemovePatientFromDoctor.ts'
+import type { RequestConfig, ResponseErrorConfig } from '@/lib/api-client'
 import type {
   UseMutationOptions,
   UseMutationResult,
   QueryClient,
-} from "@tanstack/react-query";
-import { mutationOptions, useMutation } from "@tanstack/react-query";
+} from '@tanstack/react-query'
+import { mutationOptions, useMutation } from '@tanstack/react-query'
 
 export const removePatientFromDoctorMutationKey = () =>
-  [{ url: "/api/admin/doctors/:doctorId/patients/:userId" }] as const;
+  [{ url: '/api/admin/doctors/:doctorId/patients/:userId' }] as const
 
 export type RemovePatientFromDoctorMutationKey = ReturnType<
   typeof removePatientFromDoctorMutationKey
->;
+>
 
 /**
  * @description Remove a patient assignment from a doctor
@@ -29,42 +29,42 @@ export type RemovePatientFromDoctorMutationKey = ReturnType<
  * {@link /api/admin/doctors/:doctorId/patients/:userId}
  */
 export async function removePatientFromDoctor(
-  doctorId: RemovePatientFromDoctorPathParams["doctorId"],
-  userId: RemovePatientFromDoctorPathParams["userId"],
-  config: Partial<RequestConfig> & { client?: typeof fetch } = {},
+  doctorId: RemovePatientFromDoctorPathParams['doctorId'],
+  userId: RemovePatientFromDoctorPathParams['userId'],
+  config: Partial<RequestConfig> & { client?: typeof fetch } = {}
 ) {
-  const { client: request = fetch, ...requestConfig } = config;
+  const { client: request = fetch, ...requestConfig } = config
 
   const res = await request<
     RemovePatientFromDoctorMutationResponse,
     ResponseErrorConfig<Error>,
     unknown
   >({
-    method: "DELETE",
+    method: 'DELETE',
     url: `/api/admin/doctors/${doctorId}/patients/${userId}`,
     ...requestConfig,
-  });
-  return res.data;
+  })
+  return res.data
 }
 
 export function removePatientFromDoctorMutationOptions(
-  config: Partial<RequestConfig> & { client?: typeof fetch } = {},
+  config: Partial<RequestConfig> & { client?: typeof fetch } = {}
 ) {
-  const mutationKey = removePatientFromDoctorMutationKey();
+  const mutationKey = removePatientFromDoctorMutationKey()
   return mutationOptions<
     RemovePatientFromDoctorMutationResponse,
     ResponseErrorConfig<Error>,
     {
-      doctorId: RemovePatientFromDoctorPathParams["doctorId"];
-      userId: RemovePatientFromDoctorPathParams["userId"];
+      doctorId: RemovePatientFromDoctorPathParams['doctorId']
+      userId: RemovePatientFromDoctorPathParams['userId']
     },
     typeof mutationKey
   >({
     mutationKey,
     mutationFn: async ({ doctorId, userId }) => {
-      return removePatientFromDoctor(doctorId, userId, config);
+      return removePatientFromDoctor(doctorId, userId, config)
     },
-  });
+  })
 }
 
 /**
@@ -78,37 +78,37 @@ export function useRemovePatientFromDoctor<TContext>(
       RemovePatientFromDoctorMutationResponse,
       ResponseErrorConfig<Error>,
       {
-        doctorId: RemovePatientFromDoctorPathParams["doctorId"];
-        userId: RemovePatientFromDoctorPathParams["userId"];
+        doctorId: RemovePatientFromDoctorPathParams['doctorId']
+        userId: RemovePatientFromDoctorPathParams['userId']
       },
       TContext
-    > & { client?: QueryClient };
-    client?: Partial<RequestConfig> & { client?: typeof fetch };
-  } = {},
+    > & { client?: QueryClient }
+    client?: Partial<RequestConfig> & { client?: typeof fetch }
+  } = {}
 ) {
-  const { mutation = {}, client: config = {} } = options ?? {};
-  const { client: queryClient, ...mutationOptions } = mutation;
+  const { mutation = {}, client: config = {} } = options ?? {}
+  const { client: queryClient, ...mutationOptions } = mutation
   const mutationKey =
-    mutationOptions.mutationKey ?? removePatientFromDoctorMutationKey();
+    mutationOptions.mutationKey ?? removePatientFromDoctorMutationKey()
 
   const baseOptions = removePatientFromDoctorMutationOptions(
-    config,
+    config
   ) as UseMutationOptions<
     RemovePatientFromDoctorMutationResponse,
     ResponseErrorConfig<Error>,
     {
-      doctorId: RemovePatientFromDoctorPathParams["doctorId"];
-      userId: RemovePatientFromDoctorPathParams["userId"];
+      doctorId: RemovePatientFromDoctorPathParams['doctorId']
+      userId: RemovePatientFromDoctorPathParams['userId']
     },
     TContext
-  >;
+  >
 
   return useMutation<
     RemovePatientFromDoctorMutationResponse,
     ResponseErrorConfig<Error>,
     {
-      doctorId: RemovePatientFromDoctorPathParams["doctorId"];
-      userId: RemovePatientFromDoctorPathParams["userId"];
+      doctorId: RemovePatientFromDoctorPathParams['doctorId']
+      userId: RemovePatientFromDoctorPathParams['userId']
     },
     TContext
   >(
@@ -117,14 +117,14 @@ export function useRemovePatientFromDoctor<TContext>(
       mutationKey,
       ...mutationOptions,
     },
-    queryClient,
+    queryClient
   ) as UseMutationResult<
     RemovePatientFromDoctorMutationResponse,
     ResponseErrorConfig<Error>,
     {
-      doctorId: RemovePatientFromDoctorPathParams["doctorId"];
-      userId: RemovePatientFromDoctorPathParams["userId"];
+      doctorId: RemovePatientFromDoctorPathParams['doctorId']
+      userId: RemovePatientFromDoctorPathParams['userId']
     },
     TContext
-  >;
+  >
 }

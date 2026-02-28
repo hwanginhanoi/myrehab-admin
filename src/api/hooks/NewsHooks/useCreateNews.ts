@@ -3,22 +3,22 @@
  * Do not edit manually.
  */
 
-import fetch from "@/lib/api-client";
+import fetch from '@/lib/api-client'
 import type {
   CreateNewsMutationRequest,
   CreateNewsMutationResponse,
-} from "../../types/newsController/CreateNews.ts";
-import type { RequestConfig, ResponseErrorConfig } from "@/lib/api-client";
+} from '../../types/newsController/CreateNews.ts'
+import type { RequestConfig, ResponseErrorConfig } from '@/lib/api-client'
 import type {
   UseMutationOptions,
   UseMutationResult,
   QueryClient,
-} from "@tanstack/react-query";
-import { mutationOptions, useMutation } from "@tanstack/react-query";
+} from '@tanstack/react-query'
+import { mutationOptions, useMutation } from '@tanstack/react-query'
 
-export const createNewsMutationKey = () => [{ url: "/api/news" }] as const;
+export const createNewsMutationKey = () => [{ url: '/api/news' }] as const
 
-export type CreateNewsMutationKey = ReturnType<typeof createNewsMutationKey>;
+export type CreateNewsMutationKey = ReturnType<typeof createNewsMutationKey>
 
 /**
  * @description Create a new news article. Requires news:create permission.
@@ -28,27 +28,27 @@ export type CreateNewsMutationKey = ReturnType<typeof createNewsMutationKey>;
 export async function createNews(
   data: CreateNewsMutationRequest,
   config: Partial<RequestConfig<CreateNewsMutationRequest>> & {
-    client?: typeof fetch;
-  } = {},
+    client?: typeof fetch
+  } = {}
 ) {
-  const { client: request = fetch, ...requestConfig } = config;
+  const { client: request = fetch, ...requestConfig } = config
 
-  const requestData = data;
+  const requestData = data
 
   const res = await request<
     CreateNewsMutationResponse,
     ResponseErrorConfig<Error>,
     CreateNewsMutationRequest
-  >({ method: "POST", url: `/api/news`, data: requestData, ...requestConfig });
-  return res.data;
+  >({ method: 'POST', url: `/api/news`, data: requestData, ...requestConfig })
+  return res.data
 }
 
 export function createNewsMutationOptions(
   config: Partial<RequestConfig<CreateNewsMutationRequest>> & {
-    client?: typeof fetch;
-  } = {},
+    client?: typeof fetch
+  } = {}
 ) {
-  const mutationKey = createNewsMutationKey();
+  const mutationKey = createNewsMutationKey()
   return mutationOptions<
     CreateNewsMutationResponse,
     ResponseErrorConfig<Error>,
@@ -57,9 +57,9 @@ export function createNewsMutationOptions(
   >({
     mutationKey,
     mutationFn: async ({ data }) => {
-      return createNews(data, config);
+      return createNews(data, config)
     },
-  });
+  })
 }
 
 /**
@@ -74,22 +74,22 @@ export function useCreateNews<TContext>(
       ResponseErrorConfig<Error>,
       { data: CreateNewsMutationRequest },
       TContext
-    > & { client?: QueryClient };
+    > & { client?: QueryClient }
     client?: Partial<RequestConfig<CreateNewsMutationRequest>> & {
-      client?: typeof fetch;
-    };
-  } = {},
+      client?: typeof fetch
+    }
+  } = {}
 ) {
-  const { mutation = {}, client: config = {} } = options ?? {};
-  const { client: queryClient, ...mutationOptions } = mutation;
-  const mutationKey = mutationOptions.mutationKey ?? createNewsMutationKey();
+  const { mutation = {}, client: config = {} } = options ?? {}
+  const { client: queryClient, ...mutationOptions } = mutation
+  const mutationKey = mutationOptions.mutationKey ?? createNewsMutationKey()
 
   const baseOptions = createNewsMutationOptions(config) as UseMutationOptions<
     CreateNewsMutationResponse,
     ResponseErrorConfig<Error>,
     { data: CreateNewsMutationRequest },
     TContext
-  >;
+  >
 
   return useMutation<
     CreateNewsMutationResponse,
@@ -102,11 +102,11 @@ export function useCreateNews<TContext>(
       mutationKey,
       ...mutationOptions,
     },
-    queryClient,
+    queryClient
   ) as UseMutationResult<
     CreateNewsMutationResponse,
     ResponseErrorConfig<Error>,
     { data: CreateNewsMutationRequest },
     TContext
-  >;
+  >
 }

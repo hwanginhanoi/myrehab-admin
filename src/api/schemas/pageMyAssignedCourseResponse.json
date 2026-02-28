@@ -1,0 +1,63 @@
+{
+  "type": "object",
+  "properties": {
+    "content": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "userCourseId": { "type": "integer", "format": "int64" },
+          "courseId": { "type": "integer", "format": "int64" },
+          "courseTitle": { "type": "string" },
+          "courseDescription": { "type": "string" },
+          "durationDays": { "type": "integer", "format": "int32" },
+          "assignedByDoctorName": { "type": "string" },
+          "assignedAt": { "type": "string", "format": "date-time" },
+          "notes": { "type": "string" },
+          "canStart": { "type": "boolean" },
+          "hasStarted": { "type": "boolean" },
+          "isCompleted": { "type": "boolean" }
+        },
+        "x-readme-ref-name": "MyAssignedCourseResponse"
+      }
+    },
+    "pageable": {
+      "type": "object",
+      "properties": {
+        "unpaged": { "type": "boolean" },
+        "sort": {
+          "type": "object",
+          "properties": {
+            "unsorted": { "type": "boolean" },
+            "sorted": { "type": "boolean" },
+            "empty": { "type": "boolean" }
+          },
+          "x-readme-ref-name": "SortObject"
+        },
+        "paged": { "type": "boolean" },
+        "pageNumber": { "type": "integer", "format": "int32" },
+        "pageSize": { "type": "integer", "format": "int32" },
+        "offset": { "type": "integer", "format": "int64" }
+      },
+      "x-readme-ref-name": "PageableObject"
+    },
+    "totalElements": { "type": "integer", "format": "int64" },
+    "totalPages": { "type": "integer", "format": "int32" },
+    "last": { "type": "boolean" },
+    "sort": {
+      "type": "object",
+      "properties": {
+        "unsorted": { "type": "boolean" },
+        "sorted": { "type": "boolean" },
+        "empty": { "type": "boolean" }
+      },
+      "x-readme-ref-name": "SortObject"
+    },
+    "first": { "type": "boolean" },
+    "numberOfElements": { "type": "integer", "format": "int32" },
+    "size": { "type": "integer", "format": "int32" },
+    "number": { "type": "integer", "format": "int32" },
+    "empty": { "type": "boolean" }
+  },
+  "x-readme-ref-name": "PageMyAssignedCourseResponse"
+}

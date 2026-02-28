@@ -23,28 +23,28 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from '@/components/ui/popover'
-import { useGetAllExercises, useGetAllCategories, useGetAllGroups, type ExerciseResponse, type CategoryResponse, type GroupResponse } from '@/api'
+import {
+  useGetAllExercises,
+  useGetAllCategories,
+  type ExerciseResponse,
+  type CategoryResponse,
+} from '@/api'
 import { cn } from '@/lib/utils'
 
 type ExerciseLibraryPanelProps = {
   onAddExercise?: (exercise: ExerciseResponse) => void
 }
 
-export function ExerciseLibraryPanel({ onAddExercise }: ExerciseLibraryPanelProps) {
+export function ExerciseLibraryPanel({
+  onAddExercise,
+}: ExerciseLibraryPanelProps) {
   const [searchQuery, setSearchQuery] = useState('')
   const [page, setPage] = useState(0)
   const [selectedCategoryIds, setSelectedCategoryIds] = useState<string[]>([])
-  const [selectedGroupIds, setSelectedGroupIds] = useState<string[]>([])
   const pageSize = 10
 
-  // Fetch categories and groups for filters
+  // Fetch categories for filters
   const { data: categoriesResponse } = useGetAllCategories({
-    pageable: {
-      page: 0,
-      size: 10000,
-    },
-  })
-  const { data: groupsResponse } = useGetAllGroups({
     pageable: {
       page: 0,
       size: 10000,
@@ -77,26 +77,15 @@ export function ExerciseLibraryPanel({ onAddExercise }: ExerciseLibraryPanelProp
     }))
   }, [categoriesResponse])
 
-  const groupOptions = useMemo(() => {
-    const groups = (groupsResponse?.content || []) as GroupResponse[]
-    return [
-      {
-        label: 'Kho bài tập',
-        options: groups.map((group: GroupResponse) => ({
-          label: group.name || '',
-          value: String(group.id),
-        })),
-      },
-    ]
-  }, [groupsResponse])
-
   // Fetch exercises
   const { data: exercisesResponse, isLoading } = useGetAllExercises(
     {
       pageable: { page, size: pageSize },
       query: searchQuery || undefined,
-      categoryIds: selectedCategoryIds.length > 0 ? selectedCategoryIds.map(Number) : undefined,
-      groupIds: selectedGroupIds.length > 0 ? selectedGroupIds.map(Number) : undefined,
+      categoryIds:
+        selectedCategoryIds.length > 0
+          ? selectedCategoryIds.map(Number)
+          : undefined,
     },
     {
       query: {
@@ -111,24 +100,24 @@ export function ExerciseLibraryPanel({ onAddExercise }: ExerciseLibraryPanelProp
   return (
     <Card>
       <CardHeader>
-        <CardTitle className='text-base'>Thư viện bài tập</CardTitle>
+        <CardTitle className="text-base">Thư viện bài tập</CardTitle>
       </CardHeader>
-      <CardContent className='space-y-4'>
+      <CardContent className="space-y-4">
         {/* Search */}
         <Input
-          placeholder='Tìm kiếm bài tập...'
+          placeholder="Tìm kiếm bài tập..."
           value={searchQuery}
           onChange={(e) => {
             setSearchQuery(e.target.value)
             setPage(0)
           }}
-          className='h-8 w-full'
+          className="h-8 w-full"
         />
 
         {/* Filters */}
-        <div className='flex flex-wrap gap-2'>
+        <div className="flex flex-wrap gap-2">
           <FilterButton
-            title='Danh mục'
+            title="Danh mục"
             groups={categoryGroups}
             selectedValues={selectedCategoryIds}
             onChange={(values) => {
@@ -136,54 +125,52 @@ export function ExerciseLibraryPanel({ onAddExercise }: ExerciseLibraryPanelProp
               setPage(0)
             }}
           />
-          <FilterButton
-            title='Kho bài tập'
-            groups={groupOptions}
-            selectedValues={selectedGroupIds}
-            onChange={(values) => {
-              setSelectedGroupIds(values)
-              setPage(0)
-            }}
-          />
         </div>
 
         {/* Exercise List */}
-        <ScrollArea className='h-[500px] pr-4'>
+        <ScrollArea className="h-[500px] pr-4">
           {isLoading ? (
-            <div className='flex items-center justify-center h-32'>
-              <p className='text-sm text-muted-foreground'>Đang tải...</p>
+            <div className="flex items-center justify-center h-32">
+              <p className="text-sm text-muted-foreground">Đang tải...</p>
             </div>
           ) : exercises.length > 0 ? (
-            <div className='space-y-2'>
+            <div className="space-y-2">
               {exercises.map((exercise) => (
-                <LibraryExerciseCard key={exercise.id} exercise={exercise} onAdd={onAddExercise} />
+                <LibraryExerciseCard
+                  key={exercise.id}
+                  exercise={exercise}
+                  onAdd={onAddExercise}
+                />
               ))}
             </div>
           ) : (
-            <div className='flex items-center justify-center h-32'>
-              <p className='text-sm text-muted-foreground'>
-                {searchQuery ? 'Không tìm thấy bài tập' : 'Không có bài tập khả dụng'}
+            <div className="flex items-center justify-center h-32">
+              <p className="text-sm text-muted-foreground">
+                {searchQuery
+                  ? 'Không tìm thấy bài tập'
+                  : 'Không có bài tập khả dụng'}
               </p>
             </div>
           )}
         </ScrollArea>
 
         {/* Pagination */}
-        <div className='flex items-center justify-between pt-2 border-t'>
+        <div className="flex items-center justify-between pt-2 border-t">
           <Button
-            size='sm'
-            variant='outline'
+            size="sm"
+            variant="outline"
             onClick={() => setPage((p) => Math.max(0, p - 1))}
             disabled={page === 0 || totalPages === 0}
           >
             Trước
           </Button>
-          <span className='text-sm text-muted-foreground'>
-            Trang {totalPages === 0 ? 0 : page + 1} / {totalPages === 0 ? 0 : totalPages}
+          <span className="text-sm text-muted-foreground">
+            Trang {totalPages === 0 ? 0 : page + 1} /{' '}
+            {totalPages === 0 ? 0 : totalPages}
           </span>
           <Button
-            size='sm'
-            variant='outline'
+            size="sm"
+            variant="outline"
             onClick={() => setPage((p) => Math.min(totalPages - 1, p + 1))}
             disabled={page >= totalPages - 1 || totalPages === 0}
           >
@@ -222,25 +209,27 @@ function LibraryExerciseCard({ exercise }: LibraryExerciseCardProps) {
         <img
           src={exercise.imageUrl}
           alt={exercise.title || ''}
-          className='w-12 h-12 rounded object-cover'
+          className="w-12 h-12 rounded object-cover"
         />
       )}
 
       {/* Exercise info */}
-      <div className='flex-1 min-w-0'>
-        <p className='font-medium text-sm truncate'>{exercise.title}</p>
+      <div className="flex-1 min-w-0">
+        <p className="font-medium text-sm truncate">{exercise.title}</p>
         {exercise.durationMinutes && (
-          <p className='text-xs text-muted-foreground'>{exercise.durationMinutes} phút</p>
+          <p className="text-xs text-muted-foreground">
+            {exercise.durationMinutes} phút
+          </p>
         )}
         {exercise.categories && exercise.categories.length > 0 && (
-          <div className='flex flex-wrap gap-1 mt-1'>
+          <div className="flex flex-wrap gap-1 mt-1">
             {exercise.categories.slice(0, 2).map((category) => (
-              <Badge key={category.id} variant='outline' className='text-xs'>
+              <Badge key={category.id} variant="outline" className="text-xs">
                 {category.name}
               </Badge>
             ))}
             {exercise.categories.length > 2 && (
-              <Badge variant='outline' className='text-xs'>
+              <Badge variant="outline" className="text-xs">
                 +{exercise.categories.length - 2}
               </Badge>
             )}
@@ -267,25 +256,36 @@ type FilterButtonProps = {
   onChange: (values: string[]) => void
 }
 
-function FilterButton({ title, groups, selectedValues, onChange }: FilterButtonProps) {
+function FilterButton({
+  title,
+  groups,
+  selectedValues,
+  onChange,
+}: FilterButtonProps) {
   const [open, setOpen] = useState(false)
   const selectedSet = new Set(selectedValues)
 
   return (
     <Popover open={open} onOpenChange={setOpen} modal={false}>
       <PopoverTrigger asChild>
-        <Button variant='outline' size='sm' className='h-8 border-dashed'>
-          <PlusCircledIcon className='size-4' />
+        <Button variant="outline" size="sm" className="h-8 border-dashed">
+          <PlusCircledIcon className="size-4" />
           {title}
           {selectedValues.length > 0 && (
             <>
-              <Separator orientation='vertical' className='mx-2 h-4' />
-              <Badge variant='secondary' className='rounded-sm px-1 font-normal lg:hidden'>
+              <Separator orientation="vertical" className="mx-2 h-4" />
+              <Badge
+                variant="secondary"
+                className="rounded-sm px-1 font-normal lg:hidden"
+              >
                 {selectedValues.length}
               </Badge>
-              <div className='hidden space-x-1 lg:flex'>
+              <div className="hidden space-x-1 lg:flex">
                 {selectedValues.length > 2 ? (
-                  <Badge variant='secondary' className='rounded-sm px-1 font-normal'>
+                  <Badge
+                    variant="secondary"
+                    className="rounded-sm px-1 font-normal"
+                  >
                     {selectedValues.length} selected
                   </Badge>
                 ) : (
@@ -295,9 +295,9 @@ function FilterButton({ title, groups, selectedValues, onChange }: FilterButtonP
                     .slice(0, 2)
                     .map((option) => (
                       <Badge
-                        variant='secondary'
+                        variant="secondary"
                         key={option.value}
-                        className='rounded-sm px-1 font-normal'
+                        className="rounded-sm px-1 font-normal"
                       >
                         {option.label}
                       </Badge>
@@ -308,7 +308,7 @@ function FilterButton({ title, groups, selectedValues, onChange }: FilterButtonP
           )}
         </Button>
       </PopoverTrigger>
-      <PopoverContent className='w-[250px] p-0' align='start'>
+      <PopoverContent className="w-[250px] p-0" align="start">
         <Command>
           <CommandInput placeholder={title} />
           <CommandList>
@@ -336,7 +336,7 @@ function FilterButton({ title, groups, selectedValues, onChange }: FilterButtonP
                               : 'opacity-50 [&_svg]:invisible'
                           )}
                         >
-                          <CheckIcon className='h-4 w-4' />
+                          <CheckIcon className="h-4 w-4" />
                         </div>
                         <span>{option.label}</span>
                       </CommandItem>
@@ -350,7 +350,10 @@ function FilterButton({ title, groups, selectedValues, onChange }: FilterButtonP
               <>
                 <CommandSeparator />
                 <CommandGroup>
-                  <CommandItem onSelect={() => onChange([])} className='justify-center text-center'>
+                  <CommandItem
+                    onSelect={() => onChange([])}
+                    className="justify-center text-center"
+                  >
                     Xóa tất cả
                   </CommandItem>
                 </CommandGroup>

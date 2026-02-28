@@ -13,8 +13,12 @@ export function AdminPermissionSection({
 }: AdminPermissionSectionProps) {
   return (
     <AdminContentSection
-      title='Quản lý Quyền'
-      desc={readOnly ? 'Xem quyền truy cập và thao tác của quản trị viên trong hệ thống.' : 'Quản lý quyền truy cập và thao tác của quản trị viên trong hệ thống.'}
+      title="Quản lý Quyền"
+      desc={
+        readOnly
+          ? 'Xem quyền truy cập và thao tác của quản trị viên trong hệ thống.'
+          : 'Quản lý quyền truy cập và thao tác của quản trị viên trong hệ thống.'
+      }
       fullWidth
     >
       <StaffPermissionForm staff={admin} readOnly={readOnly} />

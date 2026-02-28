@@ -3,25 +3,23 @@
  * Do not edit manually.
  */
 
-import fetch from "@/lib/api-client";
+import fetch from '@/lib/api-client'
 import type {
   RefreshTokenMutationRequest,
   RefreshTokenMutationResponse,
-} from "../../types/authenticationController/RefreshToken.ts";
-import type { RequestConfig, ResponseErrorConfig } from "@/lib/api-client";
+} from '../../types/authenticationController/RefreshToken.ts'
+import type { RequestConfig, ResponseErrorConfig } from '@/lib/api-client'
 import type {
   UseMutationOptions,
   UseMutationResult,
   QueryClient,
-} from "@tanstack/react-query";
-import { mutationOptions, useMutation } from "@tanstack/react-query";
+} from '@tanstack/react-query'
+import { mutationOptions, useMutation } from '@tanstack/react-query'
 
 export const refreshTokenMutationKey = () =>
-  [{ url: "/api/auth/refresh-token" }] as const;
+  [{ url: '/api/auth/refresh-token' }] as const
 
-export type RefreshTokenMutationKey = ReturnType<
-  typeof refreshTokenMutationKey
->;
+export type RefreshTokenMutationKey = ReturnType<typeof refreshTokenMutationKey>
 
 /**
  * @description Generate new access and refresh tokens using a valid refresh token. Mobile users only. Old refresh token is automatically revoked.
@@ -31,32 +29,32 @@ export type RefreshTokenMutationKey = ReturnType<
 export async function refreshToken(
   data: RefreshTokenMutationRequest,
   config: Partial<RequestConfig<RefreshTokenMutationRequest>> & {
-    client?: typeof fetch;
-  } = {},
+    client?: typeof fetch
+  } = {}
 ) {
-  const { client: request = fetch, ...requestConfig } = config;
+  const { client: request = fetch, ...requestConfig } = config
 
-  const requestData = data;
+  const requestData = data
 
   const res = await request<
     RefreshTokenMutationResponse,
     ResponseErrorConfig<Error>,
     RefreshTokenMutationRequest
   >({
-    method: "POST",
+    method: 'POST',
     url: `/api/auth/refresh-token`,
     data: requestData,
     ...requestConfig,
-  });
-  return res.data;
+  })
+  return res.data
 }
 
 export function refreshTokenMutationOptions(
   config: Partial<RequestConfig<RefreshTokenMutationRequest>> & {
-    client?: typeof fetch;
-  } = {},
+    client?: typeof fetch
+  } = {}
 ) {
-  const mutationKey = refreshTokenMutationKey();
+  const mutationKey = refreshTokenMutationKey()
   return mutationOptions<
     RefreshTokenMutationResponse,
     ResponseErrorConfig<Error>,
@@ -65,9 +63,9 @@ export function refreshTokenMutationOptions(
   >({
     mutationKey,
     mutationFn: async ({ data }) => {
-      return refreshToken(data, config);
+      return refreshToken(data, config)
     },
-  });
+  })
 }
 
 /**
@@ -82,22 +80,22 @@ export function useRefreshToken<TContext>(
       ResponseErrorConfig<Error>,
       { data: RefreshTokenMutationRequest },
       TContext
-    > & { client?: QueryClient };
+    > & { client?: QueryClient }
     client?: Partial<RequestConfig<RefreshTokenMutationRequest>> & {
-      client?: typeof fetch;
-    };
-  } = {},
+      client?: typeof fetch
+    }
+  } = {}
 ) {
-  const { mutation = {}, client: config = {} } = options ?? {};
-  const { client: queryClient, ...mutationOptions } = mutation;
-  const mutationKey = mutationOptions.mutationKey ?? refreshTokenMutationKey();
+  const { mutation = {}, client: config = {} } = options ?? {}
+  const { client: queryClient, ...mutationOptions } = mutation
+  const mutationKey = mutationOptions.mutationKey ?? refreshTokenMutationKey()
 
   const baseOptions = refreshTokenMutationOptions(config) as UseMutationOptions<
     RefreshTokenMutationResponse,
     ResponseErrorConfig<Error>,
     { data: RefreshTokenMutationRequest },
     TContext
-  >;
+  >
 
   return useMutation<
     RefreshTokenMutationResponse,
@@ -110,11 +108,11 @@ export function useRefreshToken<TContext>(
       mutationKey,
       ...mutationOptions,
     },
-    queryClient,
+    queryClient
   ) as UseMutationResult<
     RefreshTokenMutationResponse,
     ResponseErrorConfig<Error>,
     { data: RefreshTokenMutationRequest },
     TContext
-  >;
+  >
 }

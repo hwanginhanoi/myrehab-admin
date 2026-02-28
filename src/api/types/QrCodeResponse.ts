@@ -7,29 +7,29 @@ export type QrCodeResponse = {
   /**
    * @type string | undefined
    */
-  qrCodeUrl?: string;
+  qrCodeUrl?: string
   /**
    * @type string | undefined
    */
-  qrCodeDataUrl?: string;
+  qrCodeDataUrl?: string
   /**
    * @type string | undefined
    */
-  paymentCode?: string;
+  paymentCode?: string
   /**
    * @type string | undefined
    */
-  accountNumber?: string;
+  accountNumber?: string
   /**
    * @type string | undefined
    */
-  accountName?: string;
+  accountName?: string
   /**
    * @type string | undefined
    */
-  bankCode?: string;
+  bankCode?: string
   /**
    * @type string | undefined
    */
-  instruction?: string;
-};
+  instruction?: string
+}

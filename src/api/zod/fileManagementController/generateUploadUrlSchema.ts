@@ -3,21 +3,21 @@
  * Do not edit manually.
  */
 
-import { generateUploadUrlRequestSchema } from "../generateUploadUrlRequestSchema.ts";
-import { presignedUrlResponseSchema } from "../presignedUrlResponseSchema.ts";
-import { z } from "zod/v4";
+import { generateUploadUrlRequestSchema } from '../generateUploadUrlRequestSchema.ts'
+import { presignedUrlResponseSchema } from '../presignedUrlResponseSchema.ts'
+import { z } from 'zod/v4'
 
 /**
  * @description OK
  */
 export const generateUploadUrl200Schema = z.lazy(
-  () => presignedUrlResponseSchema,
-);
+  () => presignedUrlResponseSchema
+)
 
 export const generateUploadUrlMutationRequestSchema = z.lazy(
-  () => generateUploadUrlRequestSchema,
-);
+  () => generateUploadUrlRequestSchema
+)
 
 export const generateUploadUrlMutationResponseSchema = z.lazy(
-  () => generateUploadUrl200Schema,
-);
+  () => generateUploadUrl200Schema
+)

@@ -3,25 +3,25 @@
  * Do not edit manually.
  */
 
-import fetch from "@/lib/api-client";
+import fetch from '@/lib/api-client'
 import type {
   CreateExercisePackageMutationRequest,
   CreateExercisePackageMutationResponse,
-} from "../../types/exercisePackagesController/CreateExercisePackage.ts";
-import type { RequestConfig, ResponseErrorConfig } from "@/lib/api-client";
+} from '../../types/exercisePackagesController/CreateExercisePackage.ts'
+import type { RequestConfig, ResponseErrorConfig } from '@/lib/api-client'
 import type {
   UseMutationOptions,
   UseMutationResult,
   QueryClient,
-} from "@tanstack/react-query";
-import { mutationOptions, useMutation } from "@tanstack/react-query";
+} from '@tanstack/react-query'
+import { mutationOptions, useMutation } from '@tanstack/react-query'
 
 export const createExercisePackageMutationKey = () =>
-  [{ url: "/api/exercise-packages" }] as const;
+  [{ url: '/api/exercise-packages' }] as const
 
 export type CreateExercisePackageMutationKey = ReturnType<
   typeof createExercisePackageMutationKey
->;
+>
 
 /**
  * @description Create a new exercise package with title, description, optional image, and exercises
@@ -31,32 +31,32 @@ export type CreateExercisePackageMutationKey = ReturnType<
 export async function createExercisePackage(
   data: CreateExercisePackageMutationRequest,
   config: Partial<RequestConfig<CreateExercisePackageMutationRequest>> & {
-    client?: typeof fetch;
-  } = {},
+    client?: typeof fetch
+  } = {}
 ) {
-  const { client: request = fetch, ...requestConfig } = config;
+  const { client: request = fetch, ...requestConfig } = config
 
-  const requestData = data;
+  const requestData = data
 
   const res = await request<
     CreateExercisePackageMutationResponse,
     ResponseErrorConfig<Error>,
     CreateExercisePackageMutationRequest
   >({
-    method: "POST",
+    method: 'POST',
     url: `/api/exercise-packages`,
     data: requestData,
     ...requestConfig,
-  });
-  return res.data;
+  })
+  return res.data
 }
 
 export function createExercisePackageMutationOptions(
   config: Partial<RequestConfig<CreateExercisePackageMutationRequest>> & {
-    client?: typeof fetch;
-  } = {},
+    client?: typeof fetch
+  } = {}
 ) {
-  const mutationKey = createExercisePackageMutationKey();
+  const mutationKey = createExercisePackageMutationKey()
   return mutationOptions<
     CreateExercisePackageMutationResponse,
     ResponseErrorConfig<Error>,
@@ -65,9 +65,9 @@ export function createExercisePackageMutationOptions(
   >({
     mutationKey,
     mutationFn: async ({ data }) => {
-      return createExercisePackage(data, config);
+      return createExercisePackage(data, config)
     },
-  });
+  })
 }
 
 /**
@@ -82,25 +82,25 @@ export function useCreateExercisePackage<TContext>(
       ResponseErrorConfig<Error>,
       { data: CreateExercisePackageMutationRequest },
       TContext
-    > & { client?: QueryClient };
+    > & { client?: QueryClient }
     client?: Partial<RequestConfig<CreateExercisePackageMutationRequest>> & {
-      client?: typeof fetch;
-    };
-  } = {},
+      client?: typeof fetch
+    }
+  } = {}
 ) {
-  const { mutation = {}, client: config = {} } = options ?? {};
-  const { client: queryClient, ...mutationOptions } = mutation;
+  const { mutation = {}, client: config = {} } = options ?? {}
+  const { client: queryClient, ...mutationOptions } = mutation
   const mutationKey =
-    mutationOptions.mutationKey ?? createExercisePackageMutationKey();
+    mutationOptions.mutationKey ?? createExercisePackageMutationKey()
 
   const baseOptions = createExercisePackageMutationOptions(
-    config,
+    config
   ) as UseMutationOptions<
     CreateExercisePackageMutationResponse,
     ResponseErrorConfig<Error>,
     { data: CreateExercisePackageMutationRequest },
     TContext
-  >;
+  >
 
   return useMutation<
     CreateExercisePackageMutationResponse,
@@ -113,11 +113,11 @@ export function useCreateExercisePackage<TContext>(
       mutationKey,
       ...mutationOptions,
     },
-    queryClient,
+    queryClient
   ) as UseMutationResult<
     CreateExercisePackageMutationResponse,
     ResponseErrorConfig<Error>,
     { data: CreateExercisePackageMutationRequest },
     TContext
-  >;
+  >
 }

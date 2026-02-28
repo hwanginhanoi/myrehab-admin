@@ -3,26 +3,26 @@
  * Do not edit manually.
  */
 
-import fetch from "@/lib/api-client";
+import fetch from '@/lib/api-client'
 import type {
   GetAllNewsQueryResponse,
   GetAllNewsQueryParams,
-} from "../../types/newsController/GetAllNews.ts";
-import type { RequestConfig, ResponseErrorConfig } from "@/lib/api-client";
+} from '../../types/newsController/GetAllNews.ts'
+import type { RequestConfig, ResponseErrorConfig } from '@/lib/api-client'
 import type {
   QueryKey,
   QueryClient,
   UseSuspenseQueryOptions,
   UseSuspenseQueryResult,
-} from "@tanstack/react-query";
-import { queryOptions, useSuspenseQuery } from "@tanstack/react-query";
+} from '@tanstack/react-query'
+import { queryOptions, useSuspenseQuery } from '@tanstack/react-query'
 
 export const getAllNewsSuspenseQueryKey = (params: GetAllNewsQueryParams) =>
-  [{ url: "/api/news" }, ...(params ? [params] : [])] as const;
+  [{ url: '/api/news' }, ...(params ? [params] : [])] as const
 
 export type GetAllNewsSuspenseQueryKey = ReturnType<
   typeof getAllNewsSuspenseQueryKey
->;
+>
 
 /**
  * @description Retrieve a paginated list of news with optional status, category, and title filtering. Use query params: ?status=PUBLISHED&category=HEALTH_TIPS&title=exercise&page=0&size=10&sort=createdAt,desc
@@ -31,23 +31,23 @@ export type GetAllNewsSuspenseQueryKey = ReturnType<
  */
 export async function getAllNewsSuspense(
   params: GetAllNewsQueryParams,
-  config: Partial<RequestConfig> & { client?: typeof fetch } = {},
+  config: Partial<RequestConfig> & { client?: typeof fetch } = {}
 ) {
-  const { client: request = fetch, ...requestConfig } = config;
+  const { client: request = fetch, ...requestConfig } = config
 
   const res = await request<
     GetAllNewsQueryResponse,
     ResponseErrorConfig<Error>,
     unknown
-  >({ method: "GET", url: `/api/news`, params, ...requestConfig });
-  return res.data;
+  >({ method: 'GET', url: `/api/news`, params, ...requestConfig })
+  return res.data
 }
 
 export function getAllNewsSuspenseQueryOptions(
   params: GetAllNewsQueryParams,
-  config: Partial<RequestConfig> & { client?: typeof fetch } = {},
+  config: Partial<RequestConfig> & { client?: typeof fetch } = {}
 ) {
-  const queryKey = getAllNewsSuspenseQueryKey(params);
+  const queryKey = getAllNewsSuspenseQueryKey(params)
   return queryOptions<
     GetAllNewsQueryResponse,
     ResponseErrorConfig<Error>,
@@ -57,10 +57,10 @@ export function getAllNewsSuspenseQueryOptions(
     enabled: !!params,
     queryKey,
     queryFn: async ({ signal }) => {
-      config.signal = signal;
-      return getAllNewsSuspense(params, config);
+      config.signal = signal
+      return getAllNewsSuspense(params, config)
     },
-  });
+  })
 }
 
 /**
@@ -81,13 +81,13 @@ export function useGetAllNewsSuspense<
         TData,
         TQueryKey
       >
-    > & { client?: QueryClient };
-    client?: Partial<RequestConfig> & { client?: typeof fetch };
-  } = {},
+    > & { client?: QueryClient }
+    client?: Partial<RequestConfig> & { client?: typeof fetch }
+  } = {}
 ) {
-  const { query: queryConfig = {}, client: config = {} } = options ?? {};
-  const { client: queryClient, ...queryOptions } = queryConfig;
-  const queryKey = queryOptions?.queryKey ?? getAllNewsSuspenseQueryKey(params);
+  const { query: queryConfig = {}, client: config = {} } = options ?? {}
+  const { client: queryClient, ...queryOptions } = queryConfig
+  const queryKey = queryOptions?.queryKey ?? getAllNewsSuspenseQueryKey(params)
 
   const query = useSuspenseQuery(
     {
@@ -95,12 +95,12 @@ export function useGetAllNewsSuspense<
       queryKey,
       ...queryOptions,
     } as unknown as UseSuspenseQueryOptions,
-    queryClient,
+    queryClient
   ) as UseSuspenseQueryResult<TData, ResponseErrorConfig<Error>> & {
-    queryKey: TQueryKey;
-  };
+    queryKey: TQueryKey
+  }
 
-  query.queryKey = queryKey as TQueryKey;
+  query.queryKey = queryKey as TQueryKey
 
-  return query;
+  return query
 }

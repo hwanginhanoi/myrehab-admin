@@ -8,24 +8,23 @@ export type RemovePatientFromDoctorPathParams = {
    * @description Doctor ID
    * @type integer, int64
    */
-  doctorId: number;
+  doctorId: number
   /**
    * @description User ID
    * @type integer, int64
    */
-  userId: number;
-};
+  userId: number
+}
 
 /**
  * @description OK
  */
-export type RemovePatientFromDoctor200 = any;
+export type RemovePatientFromDoctor200 = any
 
-export type RemovePatientFromDoctorMutationResponse =
-  RemovePatientFromDoctor200;
+export type RemovePatientFromDoctorMutationResponse = RemovePatientFromDoctor200
 
 export type RemovePatientFromDoctorMutation = {
-  Response: RemovePatientFromDoctor200;
-  PathParams: RemovePatientFromDoctorPathParams;
-  Errors: any;
-};
+  Response: RemovePatientFromDoctor200
+  PathParams: RemovePatientFromDoctorPathParams
+  Errors: any
+}

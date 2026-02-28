@@ -3,19 +3,19 @@
  * Do not edit manually.
  */
 
-import { dayContentResponseSchema } from "../dayContentResponseSchema.ts";
-import { z } from "zod/v4";
+import { dayContentResponseSchema } from '../dayContentResponseSchema.ts'
+import { z } from 'zod/v4'
 
 export const getDayContentPathParamsSchema = z.object({
-  courseId: z.coerce.number().int().describe("Course ID"),
-  dayNumber: z.coerce.number().int().describe("Day number (1-based)"),
-});
+  courseId: z.coerce.number().int().describe('Course ID'),
+  dayNumber: z.coerce.number().int().describe('Day number (1-based)'),
+})
 
 /**
  * @description OK
  */
-export const getDayContent200Schema = z.lazy(() => dayContentResponseSchema);
+export const getDayContent200Schema = z.lazy(() => dayContentResponseSchema)
 
 export const getDayContentQueryResponseSchema = z.lazy(
-  () => getDayContent200Schema,
-);
+  () => getDayContent200Schema
+)

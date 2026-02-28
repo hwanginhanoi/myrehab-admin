@@ -7,17 +7,17 @@ export type PageMetadata = {
   /**
    * @type integer | undefined, int64
    */
-  size?: number;
+  size?: number
   /**
    * @type integer | undefined, int64
    */
-  number?: number;
+  number?: number
   /**
    * @type integer | undefined, int64
    */
-  totalElements?: number;
+  totalElements?: number
   /**
    * @type integer | undefined, int64
    */
-  totalPages?: number;
-};
+  totalPages?: number
+}

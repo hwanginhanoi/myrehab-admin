@@ -3,10 +3,10 @@
  * Do not edit manually.
  */
 
-import { z } from "zod/v4";
+import { z } from 'zod/v4'
 
 export const pageableSchema = z.object({
   page: z.optional(z.int().min(0)),
   size: z.optional(z.int().min(1)),
   sort: z.optional(z.array(z.string())),
-});
+})

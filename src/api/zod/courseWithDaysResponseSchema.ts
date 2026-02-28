@@ -3,8 +3,8 @@
  * Do not edit manually.
  */
 
-import { courseDaySummaryDtoSchema } from "./courseDaySummaryDtoSchema.ts";
-import { z } from "zod/v4";
+import { courseDayDetailDtoSchema } from './courseDayDetailDtoSchema.ts'
+import { z } from 'zod/v4'
 
 export const courseWithDaysResponseSchema = z.object({
   id: z.optional(z.int()),
@@ -14,8 +14,8 @@ export const courseWithDaysResponseSchema = z.object({
   durationDays: z.optional(z.int()),
   isActive: z.optional(z.boolean()),
   get days() {
-    return z.array(courseDaySummaryDtoSchema).optional();
+    return z.array(courseDayDetailDtoSchema).optional()
   },
   createdAt: z.optional(z.string().datetime()),
   updatedAt: z.optional(z.string().datetime()),
-});
+})

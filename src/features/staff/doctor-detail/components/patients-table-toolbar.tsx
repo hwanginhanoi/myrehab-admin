@@ -8,7 +8,7 @@ type PatientsTableToolbarProps = {
 
 export function PatientsTableToolbar({ table }: PatientsTableToolbarProps) {
   return (
-    <div className='flex items-center justify-end'>
+    <div className="flex items-center justify-end">
       <DataTableViewOptions table={table} />
     </div>
   )

@@ -3,28 +3,28 @@
  * Do not edit manually.
  */
 
-import type { AppointmentResponse } from "../AppointmentResponse.ts";
-import type { ResolveDisputeRequest } from "../ResolveDisputeRequest.ts";
+import type { AppointmentResponse } from '../AppointmentResponse.ts'
+import type { ResolveDisputeRequest } from '../ResolveDisputeRequest.ts'
 
 export type ResolveDisputePathParams = {
   /**
    * @type integer, int64
    */
-  id: number;
-};
+  id: number
+}
 
 /**
  * @description OK
  */
-export type ResolveDispute200 = AppointmentResponse;
+export type ResolveDispute200 = AppointmentResponse
 
-export type ResolveDisputeMutationRequest = ResolveDisputeRequest;
+export type ResolveDisputeMutationRequest = ResolveDisputeRequest
 
-export type ResolveDisputeMutationResponse = ResolveDispute200;
+export type ResolveDisputeMutationResponse = ResolveDispute200
 
 export type ResolveDisputeMutation = {
-  Response: ResolveDispute200;
-  Request: ResolveDisputeMutationRequest;
-  PathParams: ResolveDisputePathParams;
-  Errors: any;
-};
+  Response: ResolveDispute200
+  Request: ResolveDisputeMutationRequest
+  PathParams: ResolveDisputePathParams
+  Errors: any
+}

@@ -3,26 +3,26 @@
  * Do not edit manually.
  */
 
-import fetch from "@/lib/api-client";
+import fetch from '@/lib/api-client'
 import type {
   ConfirmAppointmentMutationRequest,
   ConfirmAppointmentMutationResponse,
   ConfirmAppointmentPathParams,
-} from "../../types/appointmentsController/ConfirmAppointment.ts";
-import type { RequestConfig, ResponseErrorConfig } from "@/lib/api-client";
+} from '../../types/appointmentsController/ConfirmAppointment.ts'
+import type { RequestConfig, ResponseErrorConfig } from '@/lib/api-client'
 import type {
   UseMutationOptions,
   UseMutationResult,
   QueryClient,
-} from "@tanstack/react-query";
-import { mutationOptions, useMutation } from "@tanstack/react-query";
+} from '@tanstack/react-query'
+import { mutationOptions, useMutation } from '@tanstack/react-query'
 
 export const confirmAppointmentMutationKey = () =>
-  [{ url: "/api/appointments/:id/confirm" }] as const;
+  [{ url: '/api/appointments/:id/confirm' }] as const
 
 export type ConfirmAppointmentMutationKey = ReturnType<
   typeof confirmAppointmentMutationKey
->;
+>
 
 /**
  * @description Doctor or admin confirms a pending appointment
@@ -30,49 +30,49 @@ export type ConfirmAppointmentMutationKey = ReturnType<
  * {@link /api/appointments/:id/confirm}
  */
 export async function confirmAppointment(
-  id: ConfirmAppointmentPathParams["id"],
+  id: ConfirmAppointmentPathParams['id'],
   data?: ConfirmAppointmentMutationRequest,
   config: Partial<RequestConfig<ConfirmAppointmentMutationRequest>> & {
-    client?: typeof fetch;
-  } = {},
+    client?: typeof fetch
+  } = {}
 ) {
-  const { client: request = fetch, ...requestConfig } = config;
+  const { client: request = fetch, ...requestConfig } = config
 
-  const requestData = data;
+  const requestData = data
 
   const res = await request<
     ConfirmAppointmentMutationResponse,
     ResponseErrorConfig<Error>,
     ConfirmAppointmentMutationRequest
   >({
-    method: "POST",
+    method: 'POST',
     url: `/api/appointments/${id}/confirm`,
     data: requestData,
     ...requestConfig,
-  });
-  return res.data;
+  })
+  return res.data
 }
 
 export function confirmAppointmentMutationOptions(
   config: Partial<RequestConfig<ConfirmAppointmentMutationRequest>> & {
-    client?: typeof fetch;
-  } = {},
+    client?: typeof fetch
+  } = {}
 ) {
-  const mutationKey = confirmAppointmentMutationKey();
+  const mutationKey = confirmAppointmentMutationKey()
   return mutationOptions<
     ConfirmAppointmentMutationResponse,
     ResponseErrorConfig<Error>,
     {
-      id: ConfirmAppointmentPathParams["id"];
-      data?: ConfirmAppointmentMutationRequest;
+      id: ConfirmAppointmentPathParams['id']
+      data?: ConfirmAppointmentMutationRequest
     },
     typeof mutationKey
   >({
     mutationKey,
     mutationFn: async ({ id, data }) => {
-      return confirmAppointment(id, data, config);
+      return confirmAppointment(id, data, config)
     },
-  });
+  })
 }
 
 /**
@@ -86,39 +86,39 @@ export function useConfirmAppointment<TContext>(
       ConfirmAppointmentMutationResponse,
       ResponseErrorConfig<Error>,
       {
-        id: ConfirmAppointmentPathParams["id"];
-        data?: ConfirmAppointmentMutationRequest;
+        id: ConfirmAppointmentPathParams['id']
+        data?: ConfirmAppointmentMutationRequest
       },
       TContext
-    > & { client?: QueryClient };
+    > & { client?: QueryClient }
     client?: Partial<RequestConfig<ConfirmAppointmentMutationRequest>> & {
-      client?: typeof fetch;
-    };
-  } = {},
+      client?: typeof fetch
+    }
+  } = {}
 ) {
-  const { mutation = {}, client: config = {} } = options ?? {};
-  const { client: queryClient, ...mutationOptions } = mutation;
+  const { mutation = {}, client: config = {} } = options ?? {}
+  const { client: queryClient, ...mutationOptions } = mutation
   const mutationKey =
-    mutationOptions.mutationKey ?? confirmAppointmentMutationKey();
+    mutationOptions.mutationKey ?? confirmAppointmentMutationKey()
 
   const baseOptions = confirmAppointmentMutationOptions(
-    config,
+    config
   ) as UseMutationOptions<
     ConfirmAppointmentMutationResponse,
     ResponseErrorConfig<Error>,
     {
-      id: ConfirmAppointmentPathParams["id"];
-      data?: ConfirmAppointmentMutationRequest;
+      id: ConfirmAppointmentPathParams['id']
+      data?: ConfirmAppointmentMutationRequest
     },
     TContext
-  >;
+  >
 
   return useMutation<
     ConfirmAppointmentMutationResponse,
     ResponseErrorConfig<Error>,
     {
-      id: ConfirmAppointmentPathParams["id"];
-      data?: ConfirmAppointmentMutationRequest;
+      id: ConfirmAppointmentPathParams['id']
+      data?: ConfirmAppointmentMutationRequest
     },
     TContext
   >(
@@ -127,14 +127,14 @@ export function useConfirmAppointment<TContext>(
       mutationKey,
       ...mutationOptions,
     },
-    queryClient,
+    queryClient
   ) as UseMutationResult<
     ConfirmAppointmentMutationResponse,
     ResponseErrorConfig<Error>,
     {
-      id: ConfirmAppointmentPathParams["id"];
-      data?: ConfirmAppointmentMutationRequest;
+      id: ConfirmAppointmentPathParams['id']
+      data?: ConfirmAppointmentMutationRequest
     },
     TContext
-  >;
+  >
 }

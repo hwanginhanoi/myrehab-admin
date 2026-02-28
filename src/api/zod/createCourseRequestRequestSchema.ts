@@ -3,13 +3,13 @@
  * Do not edit manually.
  */
 
-import { courseDetailsRequestSchema } from "./courseDetailsRequestSchema.ts";
-import { z } from "zod/v4";
+import { courseDetailsRequestSchema } from './courseDetailsRequestSchema.ts'
+import { z } from 'zod/v4'
 
 export const createCourseRequestRequestSchema = z.object({
   patientId: z.int(),
   get courseDetails() {
-    return courseDetailsRequestSchema;
+    return courseDetailsRequestSchema
   },
   trainerNotes: z.optional(z.string().min(0).max(1000)),
-});
+})

@@ -1,15 +1,34 @@
-'use client'
-
-import { useReducer, useCallback, useEffect } from 'react'
-import { useNavigate } from '@tanstack/react-router'
+import { useReducer, useCallback, useEffect, useMemo } from 'react'
 import { useQueryClient } from '@tanstack/react-query'
+import { useRouter } from '@tanstack/react-router'
 import { ArrowLeft, ArrowRight, Check } from 'lucide-react'
 import { Button } from '@/components/ui/button'
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
+import { Skeleton } from '@/components/ui/skeleton'
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select'
 import { toast } from 'sonner'
-import { useCreateAndAssignCustomCourse, type UserResponse } from '@/api'
+import {
+  useCreateAndAssignCustomCourse,
+  useGetAllStaff,
+  useGetUserById,
+  type UserResponse,
+  type StaffResponse,
+} from '@/api'
+import { useAuthStore } from '@/stores/auth-store'
 import { CourseCustomizationSection } from './course-customization-section'
 
 // Types
@@ -36,6 +55,7 @@ type AssignmentState = {
   courseDescription: string
   customizedDays: Map<number, DayWithExercises>
   notes: string
+  assigningDoctorId: number | null
   currentStep: 1 | 2 | 3
   daysInitialized: boolean
 }
@@ -44,28 +64,50 @@ type AssignmentAction =
   | { type: 'SELECT_PATIENT'; payload: UserResponse }
   | { type: 'SET_COURSE_NAME'; payload: string }
   | { type: 'SET_COURSE_DESCRIPTION'; payload: string }
+  | { type: 'SET_ASSIGNING_DOCTOR_ID'; payload: number | null }
   | { type: 'INITIALIZE_DAYS' }
   | { type: 'ADD_DAY' }
   | { type: 'DELETE_DAY'; payload: number }
   | { type: 'DUPLICATE_DAY'; payload: number }
-  | { type: 'ADD_EXERCISE_TO_DAY'; payload: { dayNumber: number; exercise: CustomExercise } }
+  | {
+      type: 'ADD_EXERCISE_TO_DAY'
+      payload: { dayNumber: number; exercise: CustomExercise }
+    }
   | {
       type: 'MOVE_EXERCISE'
-      payload: { exerciseId: string; fromDay: number; toDay: number; newIndex: number }
+      payload: {
+        exerciseId: string
+        fromDay: number
+        toDay: number
+        newIndex: number
+      }
     }
-  | { type: 'REMOVE_EXERCISE'; payload: { dayNumber: number; exerciseId: string } }
+  | {
+      type: 'REMOVE_EXERCISE'
+      payload: { dayNumber: number; exerciseId: string }
+    }
   | {
       type: 'UPDATE_EXERCISE'
-      payload: { dayNumber: number; exerciseId: string; updates: Partial<CustomExercise> }
+      payload: {
+        dayNumber: number
+        exerciseId: string
+        updates: Partial<CustomExercise>
+      }
     }
-  | { type: 'REORDER_EXERCISES'; payload: { dayNumber: number; exercises: CustomExercise[] } }
+  | {
+      type: 'REORDER_EXERCISES'
+      payload: { dayNumber: number; exercises: CustomExercise[] }
+    }
   | { type: 'SET_NOTES'; payload: string }
   | { type: 'NEXT_STEP' }
   | { type: 'PREVIOUS_STEP' }
   | { type: 'RESET' }
 
 // Reducer
-function assignmentReducer(state: AssignmentState, action: AssignmentAction): AssignmentState {
+function assignmentReducer(
+  state: AssignmentState,
+  action: AssignmentAction
+): AssignmentState {
   switch (action.type) {
     case 'SELECT_PATIENT':
       return { ...state, selectedPatient: action.payload }
@@ -75,6 +117,9 @@ function assignmentReducer(state: AssignmentState, action: AssignmentAction): As
 
     case 'SET_COURSE_DESCRIPTION':
       return { ...state, courseDescription: action.payload }
+
+    case 'SET_ASSIGNING_DOCTOR_ID':
+      return { ...state, assigningDoctorId: action.payload }
 
     case 'INITIALIZE_DAYS': {
       // Initialize with 1 day
@@ -104,7 +149,9 @@ function assignmentReducer(state: AssignmentState, action: AssignmentAction): As
 
       // Rebuild map with renumbered days
       let newDayNumber = 1
-      for (const [dayNum, day] of Array.from(state.customizedDays.entries()).sort(([a], [b]) => a - b)) {
+      for (const [dayNum, day] of Array.from(
+        state.customizedDays.entries()
+      ).sort(([a], [b]) => a - b)) {
         if (dayNum !== dayToDelete) {
           newDays.set(newDayNumber, {
             ...day,
@@ -147,7 +194,9 @@ function assignmentReducer(state: AssignmentState, action: AssignmentAction): As
       if (!day) return state
 
       // Check if exercise already exists in this day
-      const exists = day.exercises.some((ex) => ex.exerciseId === exercise.exerciseId)
+      const exists = day.exercises.some(
+        (ex) => ex.exerciseId === exercise.exerciseId
+      )
       if (exists) {
         // Don't show toast here - will be handled by the component
         return state
@@ -171,12 +220,17 @@ function assignmentReducer(state: AssignmentState, action: AssignmentAction): As
       if (!sourceDay || !targetDay) return state
 
       // Find and remove from source
-      const exerciseIndex = sourceDay.exercises.findIndex((ex) => ex.id === exerciseId)
+      const exerciseIndex = sourceDay.exercises.findIndex(
+        (ex) => ex.id === exerciseId
+      )
       if (exerciseIndex === -1) return state
 
       // Check if exercise already exists in target day BEFORE removing from source
       if (fromDay !== toDay) {
-        const exists = targetDay.exercises.some((ex) => ex.exerciseId === sourceDay.exercises[exerciseIndex].exerciseId)
+        const exists = targetDay.exercises.some(
+          (ex) =>
+            ex.exerciseId === sourceDay.exercises[exerciseIndex].exerciseId
+        )
         if (exists) {
           // Don't remove from source, just show warning
           toast.warning('Bài tập này đã có trong ngày đích')
@@ -228,10 +282,15 @@ function assignmentReducer(state: AssignmentState, action: AssignmentAction): As
 
       if (!day) return state
 
-      const exerciseIndex = day.exercises.findIndex((ex) => ex.id === exerciseId)
+      const exerciseIndex = day.exercises.findIndex(
+        (ex) => ex.id === exerciseId
+      )
       if (exerciseIndex === -1) return state
 
-      day.exercises[exerciseIndex] = { ...day.exercises[exerciseIndex], ...updates }
+      day.exercises[exerciseIndex] = {
+        ...day.exercises[exerciseIndex],
+        ...updates,
+      }
       newDays.set(dayNumber, { ...day })
 
       return { ...state, customizedDays: newDays }
@@ -245,7 +304,10 @@ function assignmentReducer(state: AssignmentState, action: AssignmentAction): As
       if (!day) return state
 
       // Update exercises with new order (1-based index)
-      const reorderedExercises = exercises.map((ex, idx) => ({ ...ex, orderInDay: idx + 1 }))
+      const reorderedExercises = exercises.map((ex, idx) => ({
+        ...ex,
+        orderInDay: idx + 1,
+      }))
       newDays.set(dayNumber, { ...day, exercises: reorderedExercises })
 
       return { ...state, customizedDays: newDays }
@@ -264,7 +326,12 @@ function assignmentReducer(state: AssignmentState, action: AssignmentAction): As
           description: undefined,
           exercises: [],
         })
-        return { ...state, currentStep: nextStep, customizedDays: daysMap, daysInitialized: true }
+        return {
+          ...state,
+          currentStep: nextStep,
+          customizedDays: daysMap,
+          daysInitialized: true,
+        }
       }
       return { ...state, currentStep: nextStep }
     }
@@ -290,6 +357,7 @@ const initialState: AssignmentState = {
   courseDescription: '',
   customizedDays: new Map(),
   notes: '',
+  assigningDoctorId: null,
   currentStep: 1,
   daysInitialized: false,
 }
@@ -297,14 +365,51 @@ const initialState: AssignmentState = {
 // Main Component
 type CourseAssignmentScreenProps = {
   preSelectedPatientId?: number
+  preSelectedDoctorId?: number
+  preSelectedPatientName?: string
 }
 
-export function CourseAssignmentScreen({ preSelectedPatientId }: CourseAssignmentScreenProps) {
+export function CourseAssignmentScreen({
+  preSelectedPatientId,
+  preSelectedDoctorId,
+  preSelectedPatientName,
+}: CourseAssignmentScreenProps) {
   const [state, dispatch] = useReducer(assignmentReducer, initialState)
-  const navigate = useNavigate()
   const queryClient = useQueryClient()
+  const router = useRouter()
+  const { userType } = useAuthStore()
+  const isAdmin = userType === 'SUPER_ADMIN' || userType === 'ADMIN'
 
-  // Set patient ID on mount
+  // If doctorId is provided, we don't need to show the selector
+  const showDoctorSelector = isAdmin && !preSelectedDoctorId
+
+  // Fetch patient details for display
+  const { data: patientData } = useGetUserById(preSelectedPatientId!, {
+    query: { enabled: !!preSelectedPatientId },
+  })
+
+  // Fetch doctors for admin users
+  const { data: staffData } = useGetAllStaff(
+    {
+      pageable: { page: 0, size: 100 },
+      staffType: 'DOCTOR' as const,
+    },
+    {
+      query: {
+        enabled: isAdmin,
+      },
+    }
+  )
+
+  const doctorOptions = useMemo(() => {
+    if (!staffData?.content) return []
+    return (staffData.content as StaffResponse[]).map((staff) => ({
+      id: staff.id,
+      name: staff.fullName || staff.email || 'Unknown',
+    }))
+  }, [staffData])
+
+  // Set patient ID and doctor ID on mount
   useEffect(() => {
     if (preSelectedPatientId && !state.selectedPatient) {
       // Create a minimal patient object with just the ID
@@ -316,6 +421,16 @@ export function CourseAssignmentScreen({ preSelectedPatientId }: CourseAssignmen
     }
   }, [preSelectedPatientId, state.selectedPatient])
 
+  // Auto-set doctor ID if provided
+  useEffect(() => {
+    if (preSelectedDoctorId && !state.assigningDoctorId) {
+      dispatch({
+        type: 'SET_ASSIGNING_DOCTOR_ID',
+        payload: preSelectedDoctorId,
+      })
+    }
+  }, [preSelectedDoctorId, state.assigningDoctorId])
+
   // Mutation
   const assignMutation = useCreateAndAssignCustomCourse({
     mutation: {
@@ -324,10 +439,18 @@ export function CourseAssignmentScreen({ preSelectedPatientId }: CourseAssignmen
           queryKey: [{ url: '/api/doctors/patients' }],
         })
         toast.success('Đã tạo và gán khóa học thành công')
-        navigate({ to: '/staff' as never })
+        router.history.back()
       },
       onError: (error) => {
-        toast.error('Tạo khóa học thất bại: ' + error.message)
+        // Check for specific error about staff members
+        const errorMessage = error.message || ''
+        if (errorMessage.includes('Cannot assign courses to staff members')) {
+          toast.error(
+            'Không thể gán khóa học cho nhân viên. Vui lòng chọn một bệnh nhân (không phải DOCTOR, TRAINER, ADMIN).'
+          )
+        } else {
+          toast.error('Tạo khóa học thất bại: ' + errorMessage)
+        }
       },
     },
   })
@@ -337,6 +460,8 @@ export function CourseAssignmentScreen({ preSelectedPatientId }: CourseAssignmen
     if (state.currentStep === 1) {
       if (!state.selectedPatient) return 'Không tìm thấy bệnh nhân'
       if (!state.courseName.trim()) return 'Vui lòng nhập tên khóa học'
+      if (showDoctorSelector && !state.assigningDoctorId)
+        return 'Vui lòng chọn bác sĩ phân công'
     }
 
     if (state.currentStep === 2) {
@@ -353,7 +478,7 @@ export function CourseAssignmentScreen({ preSelectedPatientId }: CourseAssignmen
     }
 
     return null
-  }, [state])
+  }, [state, showDoctorSelector])
 
   // Handlers
   const handleNext = () => {
@@ -402,25 +527,30 @@ export function CourseAssignmentScreen({ preSelectedPatientId }: CourseAssignmen
         description: state.courseDescription,
         durationDays: state.customizedDays.size,
         notes: state.notes || undefined,
+        assigningDoctorId: state.assigningDoctorId || undefined,
         courseDays,
       },
     })
   }
 
   const handleCancel = () => {
-    navigate({ to: '/staff' as never })
+    router.history.back()
   }
 
   return (
-    <div className='flex flex-col h-full'>
+    <div className="flex flex-col h-full">
       {/* Header with Figma-style buttons */}
-      <div className='mb-6'>
-        <div className='flex items-center justify-between mb-4'>
-          <h1 className='text-3xl font-bold tracking-tight'>Tạo lộ trình</h1>
-          <div className='flex items-center gap-2'>
+      <div className="mb-6">
+        <div className="flex items-center justify-between mb-4">
+          <h1 className="text-3xl font-bold tracking-tight">Tạo lộ trình</h1>
+          <div className="flex items-center gap-2">
             {state.currentStep > 1 && (
-              <Button variant='outline' onClick={handlePrevious} className='gap-2'>
-                <ArrowLeft className='h-4 w-4' />
+              <Button
+                variant="outline"
+                onClick={handlePrevious}
+                className="gap-2"
+              >
+                <ArrowLeft className="h-4 w-4" />
                 Trang trước
               </Button>
             )}
@@ -428,17 +558,17 @@ export function CourseAssignmentScreen({ preSelectedPatientId }: CourseAssignmen
               <Button
                 onClick={handleSubmit}
                 disabled={assignMutation.isPending}
-                className='gap-2'
+                className="gap-2"
               >
                 Tạo lộ trình
                 {assignMutation.isPending ? (
-                  <div className='h-4 w-4 animate-spin rounded-full border-2 border-current border-t-transparent' />
+                  <div className="h-4 w-4 animate-spin rounded-full border-2 border-current border-t-transparent" />
                 ) : (
-                  <Check className='h-4 w-4' />
+                  <Check className="h-4 w-4" />
                 )}
               </Button>
             )}
-            <Button variant='outline' onClick={handleCancel}>
+            <Button variant="outline" onClick={handleCancel}>
               Huỷ
             </Button>
           </div>
@@ -446,28 +576,45 @@ export function CourseAssignmentScreen({ preSelectedPatientId }: CourseAssignmen
       </div>
 
       {/* Stepper */}
-      <div className='flex items-center justify-center mb-8'>
-        <div className='flex items-center gap-4'>
-          <StepIndicator number={1} label='Thông tin' active={state.currentStep === 1} completed={state.currentStep > 1} />
-          <div className='w-12 h-0.5 bg-border' />
-          <StepIndicator number={2} label='Tùy chỉnh' active={state.currentStep === 2} completed={state.currentStep > 2} />
-          <div className='w-12 h-0.5 bg-border' />
-          <StepIndicator number={3} label='Xác nhận' active={state.currentStep === 3} completed={false} />
+      <div className="flex items-center justify-center mb-8">
+        <div className="flex items-center gap-4">
+          <StepIndicator
+            number={1}
+            label="Thông tin"
+            active={state.currentStep === 1}
+            completed={state.currentStep > 1}
+          />
+          <div className="w-12 h-0.5 bg-border" />
+          <StepIndicator
+            number={2}
+            label="Tùy chỉnh"
+            active={state.currentStep === 2}
+            completed={state.currentStep > 2}
+          />
+          <div className="w-12 h-0.5 bg-border" />
+          <StepIndicator
+            number={3}
+            label="Xác nhận"
+            active={state.currentStep === 3}
+            completed={false}
+          />
         </div>
       </div>
 
       {/* Content */}
-      <div className='flex-1 overflow-auto mb-6'>
+      <div className="flex-1 overflow-auto mb-6">
         {state.currentStep === 1 && (
-          <Card className='max-w-2xl mx-auto'>
+          <Card className="max-w-2xl mx-auto">
             <CardHeader>
               <CardTitle>Thông tin khóa học</CardTitle>
               <CardDescription>
                 {state.selectedPatient ? (
                   <>
-                    Tạo khóa học cho bệnh nhân ID:{' '}
-                    <span className='font-medium text-foreground'>
-                      #{state.selectedPatient.fullName}
+                    Tạo khóa học cho bệnh nhân:{' '}
+                    <span className="font-medium text-foreground">
+                      {patientData?.fullName ??
+                        preSelectedPatientName ??
+                        `#${state.selectedPatient.id}`}
                     </span>
                   </>
                 ) : (
@@ -475,25 +622,67 @@ export function CourseAssignmentScreen({ preSelectedPatientId }: CourseAssignmen
                 )}
               </CardDescription>
             </CardHeader>
-            <CardContent className='space-y-4'>
-              <div className='space-y-2'>
-                <Label htmlFor='courseName'>Tên khóa học *</Label>
+            <CardContent className="space-y-4">
+              {showDoctorSelector && (
+                <div className="space-y-2">
+                  <Label htmlFor="assigningDoctor">Bác sĩ phân công *</Label>
+                  <Select
+                    value={state.assigningDoctorId?.toString() || ''}
+                    onValueChange={(value) =>
+                      dispatch({
+                        type: 'SET_ASSIGNING_DOCTOR_ID',
+                        payload: value ? Number(value) : null,
+                      })
+                    }
+                  >
+                    <SelectTrigger id="assigningDoctor">
+                      <SelectValue placeholder="Chọn bác sĩ..." />
+                    </SelectTrigger>
+                    <SelectContent>
+                      {doctorOptions.map((doctor) => (
+                        <SelectItem
+                          key={doctor.id}
+                          value={doctor.id!.toString()}
+                        >
+                          {doctor.name}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                  <p className="text-sm text-muted-foreground">
+                    Chọn bác sĩ sẽ được ghi nhận là người phân công khóa học này
+                  </p>
+                </div>
+              )}
+
+              <div className="space-y-2">
+                <Label htmlFor="courseName">Tên khóa học *</Label>
                 <Input
-                  id='courseName'
-                  placeholder='Nhập tên khóa học...'
+                  id="courseName"
+                  placeholder="Nhập tên khóa học..."
                   value={state.courseName}
-                  onChange={(e) => dispatch({ type: 'SET_COURSE_NAME', payload: e.target.value })}
+                  onChange={(e) =>
+                    dispatch({
+                      type: 'SET_COURSE_NAME',
+                      payload: e.target.value,
+                    })
+                  }
                 />
               </div>
 
-              <div className='space-y-2'>
-                <Label htmlFor='courseDescription'>Mô tả khóa học</Label>
+              <div className="space-y-2">
+                <Label htmlFor="courseDescription">Mô tả khóa học</Label>
                 <textarea
-                  id='courseDescription'
-                  placeholder='Nhập mô tả về khóa học...'
+                  id="courseDescription"
+                  placeholder="Nhập mô tả về khóa học..."
                   value={state.courseDescription}
-                  onChange={(e) => dispatch({ type: 'SET_COURSE_DESCRIPTION', payload: e.target.value })}
-                  className='w-full min-h-[100px] p-3 border rounded-md resize-none focus:outline-none focus:ring-2 focus:ring-ring'
+                  onChange={(e) =>
+                    dispatch({
+                      type: 'SET_COURSE_DESCRIPTION',
+                      payload: e.target.value,
+                    })
+                  }
+                  className="w-full min-h-[100px] p-3 border rounded-md resize-none focus:outline-none focus:ring-2 focus:ring-ring"
                 />
               </div>
             </CardContent>
@@ -515,17 +704,19 @@ export function CourseAssignmentScreen({ preSelectedPatientId }: CourseAssignmen
             courseDescription={state.courseDescription}
             customizedDays={state.customizedDays}
             notes={state.notes}
-            onNotesChange={(notes) => dispatch({ type: 'SET_NOTES', payload: notes })}
+            onNotesChange={(notes) =>
+              dispatch({ type: 'SET_NOTES', payload: notes })
+            }
           />
         )}
       </div>
 
       {/* Footer Actions */}
-      <div className='flex items-center justify-end pt-4 border-t gap-2'>
+      <div className="flex items-center justify-end pt-4 border-t gap-2">
         {state.currentStep < 3 && (
-          <Button onClick={handleNext} className='gap-2'>
+          <Button onClick={handleNext} className="gap-2">
             Tiếp theo
-            <ArrowRight className='h-4 w-4' />
+            <ArrowRight className="h-4 w-4" />
           </Button>
         )}
       </div>
@@ -541,9 +732,14 @@ type StepIndicatorProps = {
   completed: boolean
 }
 
-function StepIndicator({ number, label, active, completed }: StepIndicatorProps) {
+function StepIndicator({
+  number,
+  label,
+  active,
+  completed,
+}: StepIndicatorProps) {
   return (
-    <div className='flex flex-col items-center gap-2'>
+    <div className="flex flex-col items-center gap-2">
       <div
         className={`flex items-center justify-center w-10 h-10 rounded-full border-2 font-semibold transition-colors ${
           active
@@ -553,9 +749,13 @@ function StepIndicator({ number, label, active, completed }: StepIndicatorProps)
               : 'border-muted-foreground text-muted-foreground'
         }`}
       >
-        {completed ? <Check className='h-5 w-5' /> : number}
+        {completed ? <Check className="h-5 w-5" /> : number}
       </div>
-      <span className={`text-sm ${active ? 'font-medium' : 'text-muted-foreground'}`}>{label}</span>
+      <span
+        className={`text-sm ${active ? 'font-medium' : 'text-muted-foreground'}`}
+      >
+        {label}
+      </span>
     </div>
   )
 }
@@ -578,30 +778,62 @@ function AssignmentReview({
   notes,
   onNotesChange,
 }: AssignmentReviewProps) {
+  const { data: fullPatient, isLoading: patientLoading } = useGetUserById(
+    patient.id!
+  )
+
   const totalExercises = Array.from(customizedDays.values()).reduce(
     (sum, day) => sum + day.exercises.length,
     0
   )
 
   return (
-    <div className='space-y-6'>
+    <div className="space-y-6">
       <Card>
         <CardHeader>
           <CardTitle>Thông tin bệnh nhân</CardTitle>
         </CardHeader>
         <CardContent>
-          <div className='space-y-2'>
-            <div className='flex justify-between'>
-              <span className='text-muted-foreground'>ID:</span>
-              <span className='font-medium'>{patient.id}</span>
+          <div className="space-y-2">
+            <div className="flex justify-between">
+              <span className="text-muted-foreground">Họ và tên:</span>
+              {patientLoading ? (
+                <Skeleton className="h-4 w-32" />
+              ) : (
+                <span className="font-medium">
+                  {fullPatient?.fullName || 'N/A'}
+                </span>
+              )}
             </div>
-            <div className='flex justify-between'>
-              <span className='text-muted-foreground'>Số điện thoại:</span>
-              <span className='font-medium'>{patient.phoneNumber || 'N/A'}</span>
+            <div className="flex justify-between">
+              <span className="text-muted-foreground">Số điện thoại:</span>
+              {patientLoading ? (
+                <Skeleton className="h-4 w-32" />
+              ) : (
+                <span className="font-medium">
+                  {fullPatient?.phoneNumber || 'N/A'}
+                </span>
+              )}
             </div>
-            <div className='flex justify-between'>
-              <span className='text-muted-foreground'>Email:</span>
-              <span className='font-medium'>{patient.email || 'N/A'}</span>
+            <div className="flex justify-between">
+              <span className="text-muted-foreground">Giới tính:</span>
+              {patientLoading ? (
+                <Skeleton className="h-4 w-20" />
+              ) : (
+                <span className="font-medium">
+                  {fullPatient?.gender || 'N/A'}
+                </span>
+              )}
+            </div>
+            <div className="flex justify-between">
+              <span className="text-muted-foreground">Ngày sinh:</span>
+              {patientLoading ? (
+                <Skeleton className="h-4 w-28" />
+              ) : (
+                <span className="font-medium">
+                  {fullPatient?.dateOfBirth || 'N/A'}
+                </span>
+              )}
             </div>
           </div>
         </CardContent>
@@ -612,24 +844,24 @@ function AssignmentReview({
           <CardTitle>Thông tin khóa học</CardTitle>
         </CardHeader>
         <CardContent>
-          <div className='space-y-2'>
-            <div className='flex justify-between'>
-              <span className='text-muted-foreground'>Tên khóa học:</span>
-              <span className='font-medium'>{courseName}</span>
+          <div className="space-y-2">
+            <div className="flex justify-between">
+              <span className="text-muted-foreground">Tên khóa học:</span>
+              <span className="font-medium">{courseName}</span>
             </div>
             {courseDescription && (
-              <div className='flex flex-col gap-1'>
-                <span className='text-muted-foreground'>Mô tả:</span>
-                <span className='font-medium text-sm'>{courseDescription}</span>
+              <div className="flex flex-col gap-1">
+                <span className="text-muted-foreground">Mô tả:</span>
+                <span className="font-medium text-sm">{courseDescription}</span>
               </div>
             )}
-            <div className='flex justify-between'>
-              <span className='text-muted-foreground'>Số ngày:</span>
-              <span className='font-medium'>{customizedDays.size}</span>
+            <div className="flex justify-between">
+              <span className="text-muted-foreground">Số ngày:</span>
+              <span className="font-medium">{customizedDays.size}</span>
             </div>
-            <div className='flex justify-between'>
-              <span className='text-muted-foreground'>Tổng số bài tập:</span>
-              <span className='font-medium'>{totalExercises}</span>
+            <div className="flex justify-between">
+              <span className="text-muted-foreground">Tổng số bài tập:</span>
+              <span className="font-medium">{totalExercises}</span>
             </div>
           </div>
         </CardContent>
@@ -638,20 +870,23 @@ function AssignmentReview({
       <Card>
         <CardHeader>
           <CardTitle>Tùy chỉnh theo ngày</CardTitle>
-          <CardDescription>Xem lại bài tập đã tùy chỉnh cho từng ngày</CardDescription>
+          <CardDescription>
+            Xem lại bài tập đã tùy chỉnh cho từng ngày
+          </CardDescription>
         </CardHeader>
         <CardContent>
-          <div className='space-y-4'>
+          <div className="space-y-4">
             {Array.from(customizedDays.entries()).map(([dayNum, day]) => (
-              <div key={dayNum} className='border rounded-lg p-4'>
-                <h4 className='font-medium mb-2'>
+              <div key={dayNum} className="border rounded-lg p-4">
+                <h4 className="font-medium mb-2">
                   Ngày {dayNum} ({day.exercises.length} bài tập)
                 </h4>
-                <ul className='space-y-1 text-sm'>
+                <ul className="space-y-1 text-sm">
                   {day.exercises.map((exercise, idx) => (
-                    <li key={exercise.id} className='text-muted-foreground'>
+                    <li key={exercise.id} className="text-muted-foreground">
                       {idx + 1}. {exercise.exerciseTitle}
-                      {exercise.customRepetitions && ` - ${exercise.customRepetitions} lần lặp`}
+                      {exercise.customRepetitions &&
+                        ` - ${exercise.customRepetitions} lần lặp`}
                       {exercise.customSets && ` - ${exercise.customSets} set`}
                     </li>
                   ))}
@@ -668,8 +903,8 @@ function AssignmentReview({
         </CardHeader>
         <CardContent>
           <textarea
-            className='w-full min-h-[100px] p-3 border rounded-md'
-            placeholder='Nhập ghi chú về việc gán khóa học này...'
+            className="w-full min-h-[100px] p-3 border rounded-md"
+            placeholder="Nhập ghi chú về việc gán khóa học này..."
             value={notes}
             onChange={(e) => onNotesChange(e.target.value)}
           />

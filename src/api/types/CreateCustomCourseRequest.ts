@@ -3,27 +3,31 @@
  * Do not edit manually.
  */
 
-import type { CourseDayDto } from "./CourseDayDto.ts";
+import type { CourseDayDto } from './CourseDayDto.ts'
 
 export type CreateCustomCourseRequest = {
   /**
    * @type string
    */
-  title: string;
+  title: string
   /**
    * @type string
    */
-  description: string;
+  description: string
   /**
    * @type integer, int32
    */
-  durationDays: number;
+  durationDays: number
   /**
    * @type string | undefined
    */
-  notes?: string;
+  notes?: string
+  /**
+   * @type integer | undefined, int64
+   */
+  assigningDoctorId?: number
   /**
    * @type array
    */
-  courseDays: CourseDayDto[];
-};
+  courseDays: CourseDayDto[]
+}

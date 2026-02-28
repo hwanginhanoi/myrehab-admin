@@ -3,9 +3,9 @@
  * Do not edit manually.
  */
 
-import { z } from "zod/v4";
+import { z } from 'zod/v4'
 
 export const upsertNationalHealthInsuranceRequestSchema = z.object({
-  insuranceNumber: z.optional(z.string()),
-  placeOfRegistration: z.optional(z.string()),
-});
+  insuranceNumber: z.optional(z.string().min(0).max(50)),
+  placeOfRegistration: z.optional(z.string().min(0).max(200)),
+})

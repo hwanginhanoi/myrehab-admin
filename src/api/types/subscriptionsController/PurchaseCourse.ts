@@ -3,20 +3,20 @@
  * Do not edit manually.
  */
 
-import type { PurchaseCourseRequest } from "../PurchaseCourseRequest.ts";
-import type { SubscriptionResponse } from "../SubscriptionResponse.ts";
+import type { PurchaseCourseRequest } from '../PurchaseCourseRequest.ts'
+import type { SubscriptionResponse } from '../SubscriptionResponse.ts'
 
 /**
  * @description OK
  */
-export type PurchaseCourse200 = SubscriptionResponse;
+export type PurchaseCourse200 = SubscriptionResponse
 
-export type PurchaseCourseMutationRequest = PurchaseCourseRequest;
+export type PurchaseCourseMutationRequest = PurchaseCourseRequest
 
-export type PurchaseCourseMutationResponse = PurchaseCourse200;
+export type PurchaseCourseMutationResponse = PurchaseCourse200
 
 export type PurchaseCourseMutation = {
-  Response: PurchaseCourse200;
-  Request: PurchaseCourseMutationRequest;
-  Errors: any;
-};
+  Response: PurchaseCourse200
+  Request: PurchaseCourseMutationRequest
+  Errors: any
+}

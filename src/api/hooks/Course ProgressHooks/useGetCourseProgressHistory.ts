@@ -3,33 +3,33 @@
  * Do not edit manually.
  */
 
-import fetch from "@/lib/api-client";
+import fetch from '@/lib/api-client'
 import type {
   GetCourseProgressHistoryQueryResponse,
   GetCourseProgressHistoryPathParams,
-} from "../../types/courseProgressController/GetCourseProgressHistory.ts";
-import type { RequestConfig, ResponseErrorConfig } from "@/lib/api-client";
+} from '../../types/courseProgressController/GetCourseProgressHistory.ts'
+import type { RequestConfig, ResponseErrorConfig } from '@/lib/api-client'
 import type {
   QueryKey,
   QueryClient,
   QueryObserverOptions,
   UseQueryResult,
-} from "@tanstack/react-query";
-import { queryOptions, useQuery } from "@tanstack/react-query";
+} from '@tanstack/react-query'
+import { queryOptions, useQuery } from '@tanstack/react-query'
 
 export const getCourseProgressHistoryQueryKey = (
-  courseId: GetCourseProgressHistoryPathParams["courseId"],
+  courseId: GetCourseProgressHistoryPathParams['courseId']
 ) =>
   [
     {
-      url: "/api/course-progress/courses/:courseId/history",
+      url: '/api/course-progress/courses/:courseId/history',
       params: { courseId: courseId },
     },
-  ] as const;
+  ] as const
 
 export type GetCourseProgressHistoryQueryKey = ReturnType<
   typeof getCourseProgressHistoryQueryKey
->;
+>
 
 /**
  * @description Retrieve all attempts for a specific course by the authenticated user. Shows how many times the user started this course and the outcome of each attempt. Includes attempt numbers and progress percentages for each try.
@@ -37,28 +37,28 @@ export type GetCourseProgressHistoryQueryKey = ReturnType<
  * {@link /api/course-progress/courses/:courseId/history}
  */
 export async function getCourseProgressHistory(
-  courseId: GetCourseProgressHistoryPathParams["courseId"],
-  config: Partial<RequestConfig> & { client?: typeof fetch } = {},
+  courseId: GetCourseProgressHistoryPathParams['courseId'],
+  config: Partial<RequestConfig> & { client?: typeof fetch } = {}
 ) {
-  const { client: request = fetch, ...requestConfig } = config;
+  const { client: request = fetch, ...requestConfig } = config
 
   const res = await request<
     GetCourseProgressHistoryQueryResponse,
     ResponseErrorConfig<Error>,
     unknown
   >({
-    method: "GET",
+    method: 'GET',
     url: `/api/course-progress/courses/${courseId}/history`,
     ...requestConfig,
-  });
-  return res.data;
+  })
+  return res.data
 }
 
 export function getCourseProgressHistoryQueryOptions(
-  courseId: GetCourseProgressHistoryPathParams["courseId"],
-  config: Partial<RequestConfig> & { client?: typeof fetch } = {},
+  courseId: GetCourseProgressHistoryPathParams['courseId'],
+  config: Partial<RequestConfig> & { client?: typeof fetch } = {}
 ) {
-  const queryKey = getCourseProgressHistoryQueryKey(courseId);
+  const queryKey = getCourseProgressHistoryQueryKey(courseId)
   return queryOptions<
     GetCourseProgressHistoryQueryResponse,
     ResponseErrorConfig<Error>,
@@ -68,10 +68,10 @@ export function getCourseProgressHistoryQueryOptions(
     enabled: !!courseId,
     queryKey,
     queryFn: async ({ signal }) => {
-      config.signal = signal;
-      return getCourseProgressHistory(courseId, config);
+      config.signal = signal
+      return getCourseProgressHistory(courseId, config)
     },
-  });
+  })
 }
 
 /**
@@ -84,7 +84,7 @@ export function useGetCourseProgressHistory<
   TQueryData = GetCourseProgressHistoryQueryResponse,
   TQueryKey extends QueryKey = GetCourseProgressHistoryQueryKey,
 >(
-  courseId: GetCourseProgressHistoryPathParams["courseId"],
+  courseId: GetCourseProgressHistoryPathParams['courseId'],
   options: {
     query?: Partial<
       QueryObserverOptions<
@@ -94,14 +94,14 @@ export function useGetCourseProgressHistory<
         TQueryData,
         TQueryKey
       >
-    > & { client?: QueryClient };
-    client?: Partial<RequestConfig> & { client?: typeof fetch };
-  } = {},
+    > & { client?: QueryClient }
+    client?: Partial<RequestConfig> & { client?: typeof fetch }
+  } = {}
 ) {
-  const { query: queryConfig = {}, client: config = {} } = options ?? {};
-  const { client: queryClient, ...queryOptions } = queryConfig;
+  const { query: queryConfig = {}, client: config = {} } = options ?? {}
+  const { client: queryClient, ...queryOptions } = queryConfig
   const queryKey =
-    queryOptions?.queryKey ?? getCourseProgressHistoryQueryKey(courseId);
+    queryOptions?.queryKey ?? getCourseProgressHistoryQueryKey(courseId)
 
   const query = useQuery(
     {
@@ -109,12 +109,12 @@ export function useGetCourseProgressHistory<
       queryKey,
       ...queryOptions,
     } as unknown as QueryObserverOptions,
-    queryClient,
+    queryClient
   ) as UseQueryResult<TData, ResponseErrorConfig<Error>> & {
-    queryKey: TQueryKey;
-  };
+    queryKey: TQueryKey
+  }
 
-  query.queryKey = queryKey as TQueryKey;
+  query.queryKey = queryKey as TQueryKey
 
-  return query;
+  return query
 }

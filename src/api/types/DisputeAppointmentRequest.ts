@@ -7,5 +7,5 @@ export type DisputeAppointmentRequest = {
   /**
    * @type string
    */
-  disputeNotes: string;
-};
+  disputeNotes: string
+}

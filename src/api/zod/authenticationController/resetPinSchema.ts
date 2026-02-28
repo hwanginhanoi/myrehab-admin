@@ -3,16 +3,14 @@
  * Do not edit manually.
  */
 
-import { resetPinRequestSchema } from "../resetPinRequestSchema.ts";
-import { z } from "zod/v4";
+import { resetPinRequestSchema } from '../resetPinRequestSchema.ts'
+import { z } from 'zod/v4'
 
 /**
  * @description OK
  */
-export const resetPin200Schema = z.object({});
+export const resetPin200Schema = z.object({})
 
-export const resetPinMutationRequestSchema = z.lazy(
-  () => resetPinRequestSchema,
-);
+export const resetPinMutationRequestSchema = z.lazy(() => resetPinRequestSchema)
 
-export const resetPinMutationResponseSchema = z.lazy(() => resetPin200Schema);
+export const resetPinMutationResponseSchema = z.lazy(() => resetPin200Schema)

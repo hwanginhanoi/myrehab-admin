@@ -7,33 +7,33 @@ export type DoctorPatientResponse = {
   /**
    * @type integer | undefined, int64
    */
-  id?: number;
+  id?: number
   /**
    * @type integer | undefined, int64
    */
-  doctorId?: number;
+  doctorId?: number
   /**
    * @type string | undefined
    */
-  doctorName?: string;
+  doctorName?: string
   /**
    * @type integer | undefined, int64
    */
-  userId?: number;
+  userId?: number
   /**
    * @type string | undefined
    */
-  userPhoneNumber?: string;
+  userPhoneNumber?: string
   /**
    * @type string | undefined, date-time
    */
-  assignedAt?: string;
+  assignedAt?: string
   /**
    * @type integer | undefined, int64
    */
-  assignedByAdminId?: number;
+  assignedByAdminId?: number
   /**
    * @type string | undefined
    */
-  notes?: string;
-};
+  notes?: string
+}

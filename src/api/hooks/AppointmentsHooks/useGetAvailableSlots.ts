@@ -3,31 +3,31 @@
  * Do not edit manually.
  */
 
-import fetch from "@/lib/api-client";
+import fetch from '@/lib/api-client'
 import type {
   GetAvailableSlotsQueryResponse,
   GetAvailableSlotsQueryParams,
-} from "../../types/appointmentsController/GetAvailableSlots.ts";
-import type { RequestConfig, ResponseErrorConfig } from "@/lib/api-client";
+} from '../../types/appointmentsController/GetAvailableSlots.ts'
+import type { RequestConfig, ResponseErrorConfig } from '@/lib/api-client'
 import type {
   QueryKey,
   QueryClient,
   QueryObserverOptions,
   UseQueryResult,
-} from "@tanstack/react-query";
-import { queryOptions, useQuery } from "@tanstack/react-query";
+} from '@tanstack/react-query'
+import { queryOptions, useQuery } from '@tanstack/react-query'
 
 export const getAvailableSlotsQueryKey = (
-  params: GetAvailableSlotsQueryParams,
+  params: GetAvailableSlotsQueryParams
 ) =>
   [
-    { url: "/api/appointments/available-slots" },
+    { url: '/api/appointments/available-slots' },
     ...(params ? [params] : []),
-  ] as const;
+  ] as const
 
 export type GetAvailableSlotsQueryKey = ReturnType<
   typeof getAvailableSlotsQueryKey
->;
+>
 
 /**
  * @description Get available time slots for a given date, optionally filtered by doctor
@@ -36,28 +36,28 @@ export type GetAvailableSlotsQueryKey = ReturnType<
  */
 export async function getAvailableSlots(
   params: GetAvailableSlotsQueryParams,
-  config: Partial<RequestConfig> & { client?: typeof fetch } = {},
+  config: Partial<RequestConfig> & { client?: typeof fetch } = {}
 ) {
-  const { client: request = fetch, ...requestConfig } = config;
+  const { client: request = fetch, ...requestConfig } = config
 
   const res = await request<
     GetAvailableSlotsQueryResponse,
     ResponseErrorConfig<Error>,
     unknown
   >({
-    method: "GET",
+    method: 'GET',
     url: `/api/appointments/available-slots`,
     params,
     ...requestConfig,
-  });
-  return res.data;
+  })
+  return res.data
 }
 
 export function getAvailableSlotsQueryOptions(
   params: GetAvailableSlotsQueryParams,
-  config: Partial<RequestConfig> & { client?: typeof fetch } = {},
+  config: Partial<RequestConfig> & { client?: typeof fetch } = {}
 ) {
-  const queryKey = getAvailableSlotsQueryKey(params);
+  const queryKey = getAvailableSlotsQueryKey(params)
   return queryOptions<
     GetAvailableSlotsQueryResponse,
     ResponseErrorConfig<Error>,
@@ -67,10 +67,10 @@ export function getAvailableSlotsQueryOptions(
     enabled: !!params,
     queryKey,
     queryFn: async ({ signal }) => {
-      config.signal = signal;
-      return getAvailableSlots(params, config);
+      config.signal = signal
+      return getAvailableSlots(params, config)
     },
-  });
+  })
 }
 
 /**
@@ -93,13 +93,13 @@ export function useGetAvailableSlots<
         TQueryData,
         TQueryKey
       >
-    > & { client?: QueryClient };
-    client?: Partial<RequestConfig> & { client?: typeof fetch };
-  } = {},
+    > & { client?: QueryClient }
+    client?: Partial<RequestConfig> & { client?: typeof fetch }
+  } = {}
 ) {
-  const { query: queryConfig = {}, client: config = {} } = options ?? {};
-  const { client: queryClient, ...queryOptions } = queryConfig;
-  const queryKey = queryOptions?.queryKey ?? getAvailableSlotsQueryKey(params);
+  const { query: queryConfig = {}, client: config = {} } = options ?? {}
+  const { client: queryClient, ...queryOptions } = queryConfig
+  const queryKey = queryOptions?.queryKey ?? getAvailableSlotsQueryKey(params)
 
   const query = useQuery(
     {
@@ -107,12 +107,12 @@ export function useGetAvailableSlots<
       queryKey,
       ...queryOptions,
     } as unknown as QueryObserverOptions,
-    queryClient,
+    queryClient
   ) as UseQueryResult<TData, ResponseErrorConfig<Error>> & {
-    queryKey: TQueryKey;
-  };
+    queryKey: TQueryKey
+  }
 
-  query.queryKey = queryKey as TQueryKey;
+  query.queryKey = queryKey as TQueryKey
 
-  return query;
+  return query
 }

@@ -3,16 +3,16 @@
  * Do not edit manually.
  */
 
-import { localTimeSchema } from "./localTimeSchema.ts";
-import { z } from "zod/v4";
+import { localTimeSchema } from './localTimeSchema.ts'
+import { z } from 'zod/v4'
 
 export const availableSlotResponseSchema = z.object({
   date: z.optional(z.iso.date()),
   get startTime() {
-    return localTimeSchema.optional();
+    return localTimeSchema.optional()
   },
   get endTime() {
-    return localTimeSchema.optional();
+    return localTimeSchema.optional()
   },
   available: z.optional(z.boolean()),
-});
+})

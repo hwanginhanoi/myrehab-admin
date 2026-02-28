@@ -7,9 +7,9 @@ export type AssignPatientToDoctorRequest = {
   /**
    * @type integer, int64
    */
-  userId: number;
+  userId: number
   /**
    * @type string | undefined
    */
-  notes?: string;
-};
+  notes?: string
+}

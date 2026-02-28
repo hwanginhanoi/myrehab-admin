@@ -3,24 +3,24 @@
  * Do not edit manually.
  */
 
-import fetch from "@/lib/api-client";
+import fetch from '@/lib/api-client'
 import type {
   GetVideoTokenQueryResponse,
   GetVideoTokenPathParams,
-} from "../../types/appointmentsController/GetVideoToken.ts";
-import type { RequestConfig, ResponseErrorConfig } from "@/lib/api-client";
+} from '../../types/appointmentsController/GetVideoToken.ts'
+import type { RequestConfig, ResponseErrorConfig } from '@/lib/api-client'
 import type {
   QueryKey,
   QueryClient,
   QueryObserverOptions,
   UseQueryResult,
-} from "@tanstack/react-query";
-import { queryOptions, useQuery } from "@tanstack/react-query";
+} from '@tanstack/react-query'
+import { queryOptions, useQuery } from '@tanstack/react-query'
 
-export const getVideoTokenQueryKey = (id: GetVideoTokenPathParams["id"]) =>
-  [{ url: "/api/appointments/:id/video-token", params: { id: id } }] as const;
+export const getVideoTokenQueryKey = (id: GetVideoTokenPathParams['id']) =>
+  [{ url: '/api/appointments/:id/video-token', params: { id: id } }] as const
 
-export type GetVideoTokenQueryKey = ReturnType<typeof getVideoTokenQueryKey>;
+export type GetVideoTokenQueryKey = ReturnType<typeof getVideoTokenQueryKey>
 
 /**
  * @description Generate an Agora RTC token for a confirmed appointment's video call
@@ -28,28 +28,28 @@ export type GetVideoTokenQueryKey = ReturnType<typeof getVideoTokenQueryKey>;
  * {@link /api/appointments/:id/video-token}
  */
 export async function getVideoToken(
-  id: GetVideoTokenPathParams["id"],
-  config: Partial<RequestConfig> & { client?: typeof fetch } = {},
+  id: GetVideoTokenPathParams['id'],
+  config: Partial<RequestConfig> & { client?: typeof fetch } = {}
 ) {
-  const { client: request = fetch, ...requestConfig } = config;
+  const { client: request = fetch, ...requestConfig } = config
 
   const res = await request<
     GetVideoTokenQueryResponse,
     ResponseErrorConfig<Error>,
     unknown
   >({
-    method: "GET",
+    method: 'GET',
     url: `/api/appointments/${id}/video-token`,
     ...requestConfig,
-  });
-  return res.data;
+  })
+  return res.data
 }
 
 export function getVideoTokenQueryOptions(
-  id: GetVideoTokenPathParams["id"],
-  config: Partial<RequestConfig> & { client?: typeof fetch } = {},
+  id: GetVideoTokenPathParams['id'],
+  config: Partial<RequestConfig> & { client?: typeof fetch } = {}
 ) {
-  const queryKey = getVideoTokenQueryKey(id);
+  const queryKey = getVideoTokenQueryKey(id)
   return queryOptions<
     GetVideoTokenQueryResponse,
     ResponseErrorConfig<Error>,
@@ -59,10 +59,10 @@ export function getVideoTokenQueryOptions(
     enabled: !!id,
     queryKey,
     queryFn: async ({ signal }) => {
-      config.signal = signal;
-      return getVideoToken(id, config);
+      config.signal = signal
+      return getVideoToken(id, config)
     },
-  });
+  })
 }
 
 /**
@@ -75,7 +75,7 @@ export function useGetVideoToken<
   TQueryData = GetVideoTokenQueryResponse,
   TQueryKey extends QueryKey = GetVideoTokenQueryKey,
 >(
-  id: GetVideoTokenPathParams["id"],
+  id: GetVideoTokenPathParams['id'],
   options: {
     query?: Partial<
       QueryObserverOptions<
@@ -85,13 +85,13 @@ export function useGetVideoToken<
         TQueryData,
         TQueryKey
       >
-    > & { client?: QueryClient };
-    client?: Partial<RequestConfig> & { client?: typeof fetch };
-  } = {},
+    > & { client?: QueryClient }
+    client?: Partial<RequestConfig> & { client?: typeof fetch }
+  } = {}
 ) {
-  const { query: queryConfig = {}, client: config = {} } = options ?? {};
-  const { client: queryClient, ...queryOptions } = queryConfig;
-  const queryKey = queryOptions?.queryKey ?? getVideoTokenQueryKey(id);
+  const { query: queryConfig = {}, client: config = {} } = options ?? {}
+  const { client: queryClient, ...queryOptions } = queryConfig
+  const queryKey = queryOptions?.queryKey ?? getVideoTokenQueryKey(id)
 
   const query = useQuery(
     {
@@ -99,12 +99,12 @@ export function useGetVideoToken<
       queryKey,
       ...queryOptions,
     } as unknown as QueryObserverOptions,
-    queryClient,
+    queryClient
   ) as UseQueryResult<TData, ResponseErrorConfig<Error>> & {
-    queryKey: TQueryKey;
-  };
+    queryKey: TQueryKey
+  }
 
-  query.queryKey = queryKey as TQueryKey;
+  query.queryKey = queryKey as TQueryKey
 
-  return query;
+  return query
 }

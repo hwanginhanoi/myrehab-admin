@@ -3,24 +3,24 @@
  * Do not edit manually.
  */
 
-import fetch from "@/lib/api-client";
+import fetch from '@/lib/api-client'
 import type {
   GetGroupByIdQueryResponse,
   GetGroupByIdPathParams,
-} from "../../types/exerciseGroupsController/GetGroupById.ts";
-import type { RequestConfig, ResponseErrorConfig } from "@/lib/api-client";
+} from '../../types/exerciseGroupsController/GetGroupById.ts'
+import type { RequestConfig, ResponseErrorConfig } from '@/lib/api-client'
 import type {
   QueryKey,
   QueryClient,
   QueryObserverOptions,
   UseQueryResult,
-} from "@tanstack/react-query";
-import { queryOptions, useQuery } from "@tanstack/react-query";
+} from '@tanstack/react-query'
+import { queryOptions, useQuery } from '@tanstack/react-query'
 
-export const getGroupByIdQueryKey = (id: GetGroupByIdPathParams["id"]) =>
-  [{ url: "/api/exercise-groups/:id", params: { id: id } }] as const;
+export const getGroupByIdQueryKey = (id: GetGroupByIdPathParams['id']) =>
+  [{ url: '/api/exercise-groups/:id', params: { id: id } }] as const
 
-export type GetGroupByIdQueryKey = ReturnType<typeof getGroupByIdQueryKey>;
+export type GetGroupByIdQueryKey = ReturnType<typeof getGroupByIdQueryKey>
 
 /**
  * @description Retrieve a specific exercise group by its ID. User must have access to this group.
@@ -28,24 +28,24 @@ export type GetGroupByIdQueryKey = ReturnType<typeof getGroupByIdQueryKey>;
  * {@link /api/exercise-groups/:id}
  */
 export async function getGroupById(
-  id: GetGroupByIdPathParams["id"],
-  config: Partial<RequestConfig> & { client?: typeof fetch } = {},
+  id: GetGroupByIdPathParams['id'],
+  config: Partial<RequestConfig> & { client?: typeof fetch } = {}
 ) {
-  const { client: request = fetch, ...requestConfig } = config;
+  const { client: request = fetch, ...requestConfig } = config
 
   const res = await request<
     GetGroupByIdQueryResponse,
     ResponseErrorConfig<Error>,
     unknown
-  >({ method: "GET", url: `/api/exercise-groups/${id}`, ...requestConfig });
-  return res.data;
+  >({ method: 'GET', url: `/api/exercise-groups/${id}`, ...requestConfig })
+  return res.data
 }
 
 export function getGroupByIdQueryOptions(
-  id: GetGroupByIdPathParams["id"],
-  config: Partial<RequestConfig> & { client?: typeof fetch } = {},
+  id: GetGroupByIdPathParams['id'],
+  config: Partial<RequestConfig> & { client?: typeof fetch } = {}
 ) {
-  const queryKey = getGroupByIdQueryKey(id);
+  const queryKey = getGroupByIdQueryKey(id)
   return queryOptions<
     GetGroupByIdQueryResponse,
     ResponseErrorConfig<Error>,
@@ -55,10 +55,10 @@ export function getGroupByIdQueryOptions(
     enabled: !!id,
     queryKey,
     queryFn: async ({ signal }) => {
-      config.signal = signal;
-      return getGroupById(id, config);
+      config.signal = signal
+      return getGroupById(id, config)
     },
-  });
+  })
 }
 
 /**
@@ -71,7 +71,7 @@ export function useGetGroupById<
   TQueryData = GetGroupByIdQueryResponse,
   TQueryKey extends QueryKey = GetGroupByIdQueryKey,
 >(
-  id: GetGroupByIdPathParams["id"],
+  id: GetGroupByIdPathParams['id'],
   options: {
     query?: Partial<
       QueryObserverOptions<
@@ -81,13 +81,13 @@ export function useGetGroupById<
         TQueryData,
         TQueryKey
       >
-    > & { client?: QueryClient };
-    client?: Partial<RequestConfig> & { client?: typeof fetch };
-  } = {},
+    > & { client?: QueryClient }
+    client?: Partial<RequestConfig> & { client?: typeof fetch }
+  } = {}
 ) {
-  const { query: queryConfig = {}, client: config = {} } = options ?? {};
-  const { client: queryClient, ...queryOptions } = queryConfig;
-  const queryKey = queryOptions?.queryKey ?? getGroupByIdQueryKey(id);
+  const { query: queryConfig = {}, client: config = {} } = options ?? {}
+  const { client: queryClient, ...queryOptions } = queryConfig
+  const queryKey = queryOptions?.queryKey ?? getGroupByIdQueryKey(id)
 
   const query = useQuery(
     {
@@ -95,12 +95,12 @@ export function useGetGroupById<
       queryKey,
       ...queryOptions,
     } as unknown as QueryObserverOptions,
-    queryClient,
+    queryClient
   ) as UseQueryResult<TData, ResponseErrorConfig<Error>> & {
-    queryKey: TQueryKey;
-  };
+    queryKey: TQueryKey
+  }
 
-  query.queryKey = queryKey as TQueryKey;
+  query.queryKey = queryKey as TQueryKey
 
-  return query;
+  return query
 }

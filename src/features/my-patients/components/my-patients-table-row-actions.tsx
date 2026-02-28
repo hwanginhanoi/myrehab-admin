@@ -1,6 +1,6 @@
 import { DotsHorizontalIcon } from '@radix-ui/react-icons'
 import { type Row } from '@tanstack/react-table'
-import { Eye, BookOpen } from 'lucide-react'
+import { Eye, BookOpen, Route } from 'lucide-react'
 import { useNavigate } from '@tanstack/react-router'
 import { type DoctorPatientResponse } from '@/api'
 import { Button } from '@/components/ui/button'
@@ -18,23 +18,25 @@ type MyPatientsTableRowActionsProps = {
   row: Row<DoctorPatientResponse>
 }
 
-export function MyPatientsTableRowActions({ row }: MyPatientsTableRowActionsProps) {
+export function MyPatientsTableRowActions({
+  row,
+}: MyPatientsTableRowActionsProps) {
   const { setOpen, setCurrentPatient } = useMyPatients()
   const navigate = useNavigate()
 
   return (
-    <div className='flex justify-end'>
+    <div className="flex justify-end">
       <DropdownMenu modal={false}>
         <DropdownMenuTrigger asChild>
           <Button
-            variant='ghost'
-            className='data-[state=open]:bg-muted flex h-8 w-8 p-0'
+            variant="ghost"
+            className="data-[state=open]:bg-muted flex h-8 w-8 p-0"
           >
-            <DotsHorizontalIcon className='h-4 w-4' />
-            <span className='sr-only'>Mở menu</span>
+            <DotsHorizontalIcon className="h-4 w-4" />
+            <span className="sr-only">Mở menu</span>
           </Button>
         </DropdownMenuTrigger>
-        <DropdownMenuContent align='end' className='w-[180px]'>
+        <DropdownMenuContent align="end" className="w-[180px]">
           <DropdownMenuItem
             onClick={() => {
               setCurrentPatient(row.original)
@@ -50,8 +52,29 @@ export function MyPatientsTableRowActions({ row }: MyPatientsTableRowActionsProp
           <DropdownMenuItem
             onClick={() => {
               navigate({
-                to: '/courses/assign',
+                to: '/course-assignments',
                 search: { patientId: row.original.userId },
+              })
+            }}
+          >
+            Xem lộ trình
+            <DropdownMenuShortcut>
+              <Route size={16} />
+            </DropdownMenuShortcut>
+          </DropdownMenuItem>
+          <DropdownMenuSeparator />
+          <DropdownMenuItem
+            onClick={() => {
+              // fullName exists at runtime (API returns UserResponse fields) but isn't on DoctorPatientResponse type
+              const patientName = (
+                row.original as DoctorPatientResponse & { fullName?: string }
+              ).fullName
+              navigate({
+                to: '/courses/assign',
+                search: {
+                  patientId: row.original.userId,
+                  ...(patientName && { patientName }),
+                },
               })
             }}
           >

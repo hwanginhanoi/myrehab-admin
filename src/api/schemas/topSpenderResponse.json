@@ -1,0 +1,13 @@
+{
+  "type": "object",
+  "properties": {
+    "rank": { "type": "integer", "format": "int32" },
+    "userId": { "type": "integer", "format": "int64" },
+    "userName": { "type": "string" },
+    "phoneNumber": { "type": "string" },
+    "totalSpent": { "type": "integer", "format": "int64" },
+    "transactionCount": { "type": "integer", "format": "int64" },
+    "lastTransactionDate": { "type": "string", "format": "date-time" }
+  },
+  "x-readme-ref-name": "TopSpenderResponse"
+}

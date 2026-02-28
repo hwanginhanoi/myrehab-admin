@@ -6,8 +6,15 @@ import { Main } from '@/components/layout/main'
 import { ProfileDropdown } from '@/components/profile-dropdown'
 import { Search } from '@/components/search'
 import { ThemeSwitch } from '@/components/theme-switch'
-import { useGetMyPatients, type DoctorPatientResponse, type GetMyPatientsQueryParams } from '@/api'
-import { MyPatientsProvider, useMyPatients } from './components/my-patients-provider'
+import {
+  useGetMyPatients,
+  type DoctorPatientResponse,
+  type GetMyPatientsQueryParams,
+} from '@/api'
+import {
+  MyPatientsProvider,
+  useMyPatients,
+} from './components/my-patients-provider'
 import { MyPatientsTable } from './components/my-patients-table'
 import { PatientPreviewDialog } from './components/patient-preview-dialog'
 
@@ -46,24 +53,26 @@ function MyPatientsContent() {
     <>
       <Header fixed>
         <Search />
-        <div className='ms-auto flex items-center space-x-4'>
+        <div className="ms-auto flex items-center space-x-4">
           <ThemeSwitch />
           <ConfigDrawer />
           <ProfileDropdown />
         </div>
       </Header>
-      <Main className='flex flex-1 flex-col gap-4 sm:gap-6'>
-        <div className='flex flex-wrap items-end justify-between gap-2'>
+      <Main className="flex flex-1 flex-col gap-4 sm:gap-6">
+        <div className="flex flex-wrap items-end justify-between gap-2">
           <div>
-            <h2 className='text-2xl font-bold tracking-tight'>Bệnh nhân của tôi</h2>
-            <p className='text-muted-foreground'>
+            <h2 className="text-2xl font-bold tracking-tight">
+              Bệnh nhân của tôi
+            </h2>
+            <p className="text-muted-foreground">
               Quản lý danh sách bệnh nhân được phân công.
             </p>
           </div>
         </div>
         {isLoading ? (
-          <div className='flex h-64 items-center justify-center'>
-            <span className='text-muted-foreground'>Đang tải...</span>
+          <div className="flex h-64 items-center justify-center">
+            <span className="text-muted-foreground">Đang tải...</span>
           </div>
         ) : (
           <MyPatientsTable

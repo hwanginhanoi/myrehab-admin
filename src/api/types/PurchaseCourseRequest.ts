@@ -4,20 +4,20 @@
  */
 
 export const purchaseCourseRequestSubscriptionTypeEnum = {
-  MONTHLY: "MONTHLY",
-  YEARLY: "YEARLY",
-} as const;
+  MONTHLY: 'MONTHLY',
+  YEARLY: 'YEARLY',
+} as const
 
 export type PurchaseCourseRequestSubscriptionTypeEnumKey =
-  (typeof purchaseCourseRequestSubscriptionTypeEnum)[keyof typeof purchaseCourseRequestSubscriptionTypeEnum];
+  (typeof purchaseCourseRequestSubscriptionTypeEnum)[keyof typeof purchaseCourseRequestSubscriptionTypeEnum]
 
 export type PurchaseCourseRequest = {
   /**
    * @type integer, int64
    */
-  userCourseId: number;
+  userCourseId: number
   /**
    * @type string
    */
-  subscriptionType: PurchaseCourseRequestSubscriptionTypeEnumKey;
-};
+  subscriptionType: PurchaseCourseRequestSubscriptionTypeEnumKey
+}

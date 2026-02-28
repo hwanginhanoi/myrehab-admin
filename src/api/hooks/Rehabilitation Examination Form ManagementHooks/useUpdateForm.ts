@@ -3,24 +3,24 @@
  * Do not edit manually.
  */
 
-import fetch from "@/lib/api-client";
+import fetch from '@/lib/api-client'
 import type {
   UpdateFormMutationRequest,
   UpdateFormMutationResponse,
   UpdateFormPathParams,
-} from "../../types/rehabilitationExaminationFormManagementController/UpdateForm.ts";
-import type { RequestConfig, ResponseErrorConfig } from "@/lib/api-client";
+} from '../../types/rehabilitationExaminationFormManagementController/UpdateForm.ts'
+import type { RequestConfig, ResponseErrorConfig } from '@/lib/api-client'
 import type {
   UseMutationOptions,
   UseMutationResult,
   QueryClient,
-} from "@tanstack/react-query";
-import { mutationOptions, useMutation } from "@tanstack/react-query";
+} from '@tanstack/react-query'
+import { mutationOptions, useMutation } from '@tanstack/react-query'
 
 export const updateFormMutationKey = () =>
-  [{ url: "/api/rehabilitation-examination-forms/:id" }] as const;
+  [{ url: '/api/rehabilitation-examination-forms/:id' }] as const
 
-export type UpdateFormMutationKey = ReturnType<typeof updateFormMutationKey>;
+export type UpdateFormMutationKey = ReturnType<typeof updateFormMutationKey>
 
 /**
  * @description Update an existing rehabilitation examination form. Requires rehab_forms:update permission.
@@ -28,46 +28,46 @@ export type UpdateFormMutationKey = ReturnType<typeof updateFormMutationKey>;
  * {@link /api/rehabilitation-examination-forms/:id}
  */
 export async function updateForm(
-  id: UpdateFormPathParams["id"],
+  id: UpdateFormPathParams['id'],
   data: UpdateFormMutationRequest,
   config: Partial<RequestConfig<UpdateFormMutationRequest>> & {
-    client?: typeof fetch;
-  } = {},
+    client?: typeof fetch
+  } = {}
 ) {
-  const { client: request = fetch, ...requestConfig } = config;
+  const { client: request = fetch, ...requestConfig } = config
 
-  const requestData = data;
+  const requestData = data
 
   const res = await request<
     UpdateFormMutationResponse,
     ResponseErrorConfig<Error>,
     UpdateFormMutationRequest
   >({
-    method: "PUT",
+    method: 'PUT',
     url: `/api/rehabilitation-examination-forms/${id}`,
     data: requestData,
     ...requestConfig,
-  });
-  return res.data;
+  })
+  return res.data
 }
 
 export function updateFormMutationOptions(
   config: Partial<RequestConfig<UpdateFormMutationRequest>> & {
-    client?: typeof fetch;
-  } = {},
+    client?: typeof fetch
+  } = {}
 ) {
-  const mutationKey = updateFormMutationKey();
+  const mutationKey = updateFormMutationKey()
   return mutationOptions<
     UpdateFormMutationResponse,
     ResponseErrorConfig<Error>,
-    { id: UpdateFormPathParams["id"]; data: UpdateFormMutationRequest },
+    { id: UpdateFormPathParams['id']; data: UpdateFormMutationRequest },
     typeof mutationKey
   >({
     mutationKey,
     mutationFn: async ({ id, data }) => {
-      return updateForm(id, data, config);
+      return updateForm(id, data, config)
     },
-  });
+  })
 }
 
 /**
@@ -80,29 +80,29 @@ export function useUpdateForm<TContext>(
     mutation?: UseMutationOptions<
       UpdateFormMutationResponse,
       ResponseErrorConfig<Error>,
-      { id: UpdateFormPathParams["id"]; data: UpdateFormMutationRequest },
+      { id: UpdateFormPathParams['id']; data: UpdateFormMutationRequest },
       TContext
-    > & { client?: QueryClient };
+    > & { client?: QueryClient }
     client?: Partial<RequestConfig<UpdateFormMutationRequest>> & {
-      client?: typeof fetch;
-    };
-  } = {},
+      client?: typeof fetch
+    }
+  } = {}
 ) {
-  const { mutation = {}, client: config = {} } = options ?? {};
-  const { client: queryClient, ...mutationOptions } = mutation;
-  const mutationKey = mutationOptions.mutationKey ?? updateFormMutationKey();
+  const { mutation = {}, client: config = {} } = options ?? {}
+  const { client: queryClient, ...mutationOptions } = mutation
+  const mutationKey = mutationOptions.mutationKey ?? updateFormMutationKey()
 
   const baseOptions = updateFormMutationOptions(config) as UseMutationOptions<
     UpdateFormMutationResponse,
     ResponseErrorConfig<Error>,
-    { id: UpdateFormPathParams["id"]; data: UpdateFormMutationRequest },
+    { id: UpdateFormPathParams['id']; data: UpdateFormMutationRequest },
     TContext
-  >;
+  >
 
   return useMutation<
     UpdateFormMutationResponse,
     ResponseErrorConfig<Error>,
-    { id: UpdateFormPathParams["id"]; data: UpdateFormMutationRequest },
+    { id: UpdateFormPathParams['id']; data: UpdateFormMutationRequest },
     TContext
   >(
     {
@@ -110,11 +110,11 @@ export function useUpdateForm<TContext>(
       mutationKey,
       ...mutationOptions,
     },
-    queryClient,
+    queryClient
   ) as UseMutationResult<
     UpdateFormMutationResponse,
     ResponseErrorConfig<Error>,
-    { id: UpdateFormPathParams["id"]; data: UpdateFormMutationRequest },
+    { id: UpdateFormPathParams['id']; data: UpdateFormMutationRequest },
     TContext
-  >;
+  >
 }

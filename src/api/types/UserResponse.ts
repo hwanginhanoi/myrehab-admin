@@ -7,45 +7,45 @@ export type UserResponse = {
   /**
    * @type integer | undefined, int64
    */
-  id?: number;
+  id?: number
   /**
    * @type string | undefined
    */
-  fullName?: string;
+  fullName?: string
   /**
    * @type string | undefined
    */
-  gender?: string;
+  gender?: string
   /**
    * @type string | undefined, date
    */
-  dateOfBirth?: string;
+  dateOfBirth?: string
   /**
    * @type string | undefined
    */
-  phoneNumber?: string;
+  phoneNumber?: string
   /**
    * @type string | undefined
    */
-  email?: string;
+  email?: string
   /**
    * @type boolean | undefined
    */
-  enabled?: boolean;
+  enabled?: boolean
   /**
    * @type boolean | undefined
    */
-  otpVerified?: boolean;
+  otpVerified?: boolean
   /**
    * @type integer | undefined, int64
    */
-  balance?: number;
+  balance?: number
   /**
    * @type string | undefined, date-time
    */
-  createdAt?: string;
+  createdAt?: string
   /**
    * @type string | undefined, date-time
    */
-  updatedAt?: string;
-};
+  updatedAt?: string
+}

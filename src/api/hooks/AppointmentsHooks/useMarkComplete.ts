@@ -3,25 +3,23 @@
  * Do not edit manually.
  */
 
-import fetch from "@/lib/api-client";
+import fetch from '@/lib/api-client'
 import type {
   MarkCompleteMutationResponse,
   MarkCompletePathParams,
-} from "../../types/appointmentsController/MarkComplete.ts";
-import type { RequestConfig, ResponseErrorConfig } from "@/lib/api-client";
+} from '../../types/appointmentsController/MarkComplete.ts'
+import type { RequestConfig, ResponseErrorConfig } from '@/lib/api-client'
 import type {
   UseMutationOptions,
   UseMutationResult,
   QueryClient,
-} from "@tanstack/react-query";
-import { mutationOptions, useMutation } from "@tanstack/react-query";
+} from '@tanstack/react-query'
+import { mutationOptions, useMutation } from '@tanstack/react-query'
 
 export const markCompleteMutationKey = () =>
-  [{ url: "/api/appointments/:id/complete" }] as const;
+  [{ url: '/api/appointments/:id/complete' }] as const
 
-export type MarkCompleteMutationKey = ReturnType<
-  typeof markCompleteMutationKey
->;
+export type MarkCompleteMutationKey = ReturnType<typeof markCompleteMutationKey>
 
 /**
  * @description Doctor marks the appointment as completed
@@ -29,38 +27,38 @@ export type MarkCompleteMutationKey = ReturnType<
  * {@link /api/appointments/:id/complete}
  */
 export async function markComplete(
-  id: MarkCompletePathParams["id"],
-  config: Partial<RequestConfig> & { client?: typeof fetch } = {},
+  id: MarkCompletePathParams['id'],
+  config: Partial<RequestConfig> & { client?: typeof fetch } = {}
 ) {
-  const { client: request = fetch, ...requestConfig } = config;
+  const { client: request = fetch, ...requestConfig } = config
 
   const res = await request<
     MarkCompleteMutationResponse,
     ResponseErrorConfig<Error>,
     unknown
   >({
-    method: "POST",
+    method: 'POST',
     url: `/api/appointments/${id}/complete`,
     ...requestConfig,
-  });
-  return res.data;
+  })
+  return res.data
 }
 
 export function markCompleteMutationOptions(
-  config: Partial<RequestConfig> & { client?: typeof fetch } = {},
+  config: Partial<RequestConfig> & { client?: typeof fetch } = {}
 ) {
-  const mutationKey = markCompleteMutationKey();
+  const mutationKey = markCompleteMutationKey()
   return mutationOptions<
     MarkCompleteMutationResponse,
     ResponseErrorConfig<Error>,
-    { id: MarkCompletePathParams["id"] },
+    { id: MarkCompletePathParams['id'] },
     typeof mutationKey
   >({
     mutationKey,
     mutationFn: async ({ id }) => {
-      return markComplete(id, config);
+      return markComplete(id, config)
     },
-  });
+  })
 }
 
 /**
@@ -73,27 +71,27 @@ export function useMarkComplete<TContext>(
     mutation?: UseMutationOptions<
       MarkCompleteMutationResponse,
       ResponseErrorConfig<Error>,
-      { id: MarkCompletePathParams["id"] },
+      { id: MarkCompletePathParams['id'] },
       TContext
-    > & { client?: QueryClient };
-    client?: Partial<RequestConfig> & { client?: typeof fetch };
-  } = {},
+    > & { client?: QueryClient }
+    client?: Partial<RequestConfig> & { client?: typeof fetch }
+  } = {}
 ) {
-  const { mutation = {}, client: config = {} } = options ?? {};
-  const { client: queryClient, ...mutationOptions } = mutation;
-  const mutationKey = mutationOptions.mutationKey ?? markCompleteMutationKey();
+  const { mutation = {}, client: config = {} } = options ?? {}
+  const { client: queryClient, ...mutationOptions } = mutation
+  const mutationKey = mutationOptions.mutationKey ?? markCompleteMutationKey()
 
   const baseOptions = markCompleteMutationOptions(config) as UseMutationOptions<
     MarkCompleteMutationResponse,
     ResponseErrorConfig<Error>,
-    { id: MarkCompletePathParams["id"] },
+    { id: MarkCompletePathParams['id'] },
     TContext
-  >;
+  >
 
   return useMutation<
     MarkCompleteMutationResponse,
     ResponseErrorConfig<Error>,
-    { id: MarkCompletePathParams["id"] },
+    { id: MarkCompletePathParams['id'] },
     TContext
   >(
     {
@@ -101,11 +99,11 @@ export function useMarkComplete<TContext>(
       mutationKey,
       ...mutationOptions,
     },
-    queryClient,
+    queryClient
   ) as UseMutationResult<
     MarkCompleteMutationResponse,
     ResponseErrorConfig<Error>,
-    { id: MarkCompletePathParams["id"] },
+    { id: MarkCompletePathParams['id'] },
     TContext
-  >;
+  >
 }

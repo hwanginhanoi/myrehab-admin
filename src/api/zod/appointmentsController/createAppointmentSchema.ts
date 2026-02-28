@@ -3,21 +3,21 @@
  * Do not edit manually.
  */
 
-import { appointmentResponseSchema } from "../appointmentResponseSchema.ts";
-import { createAppointmentRequestSchema } from "../createAppointmentRequestSchema.ts";
-import { z } from "zod/v4";
+import { appointmentResponseSchema } from '../appointmentResponseSchema.ts'
+import { createAppointmentRequestSchema } from '../createAppointmentRequestSchema.ts'
+import { z } from 'zod/v4'
 
 /**
  * @description OK
  */
 export const createAppointment200Schema = z.lazy(
-  () => appointmentResponseSchema,
-);
+  () => appointmentResponseSchema
+)
 
 export const createAppointmentMutationRequestSchema = z.lazy(
-  () => createAppointmentRequestSchema,
-);
+  () => createAppointmentRequestSchema
+)
 
 export const createAppointmentMutationResponseSchema = z.lazy(
-  () => createAppointment200Schema,
-);
+  () => createAppointment200Schema
+)

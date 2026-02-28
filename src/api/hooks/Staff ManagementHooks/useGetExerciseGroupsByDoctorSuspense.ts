@@ -3,33 +3,33 @@
  * Do not edit manually.
  */
 
-import fetch from "@/lib/api-client";
+import fetch from '@/lib/api-client'
 import type {
   GetExerciseGroupsByDoctorQueryResponse,
   GetExerciseGroupsByDoctorPathParams,
-} from "../../types/staffManagementController/GetExerciseGroupsByDoctor.ts";
-import type { RequestConfig, ResponseErrorConfig } from "@/lib/api-client";
+} from '../../types/staffManagementController/GetExerciseGroupsByDoctor.ts'
+import type { RequestConfig, ResponseErrorConfig } from '@/lib/api-client'
 import type {
   QueryKey,
   QueryClient,
   UseSuspenseQueryOptions,
   UseSuspenseQueryResult,
-} from "@tanstack/react-query";
-import { queryOptions, useSuspenseQuery } from "@tanstack/react-query";
+} from '@tanstack/react-query'
+import { queryOptions, useSuspenseQuery } from '@tanstack/react-query'
 
 export const getExerciseGroupsByDoctorSuspenseQueryKey = (
-  doctorId: GetExerciseGroupsByDoctorPathParams["doctorId"],
+  doctorId: GetExerciseGroupsByDoctorPathParams['doctorId']
 ) =>
   [
     {
-      url: "/api/admin/staff/doctors/:doctorId/exercise-groups",
+      url: '/api/admin/staff/doctors/:doctorId/exercise-groups',
       params: { doctorId: doctorId },
     },
-  ] as const;
+  ] as const
 
 export type GetExerciseGroupsByDoctorSuspenseQueryKey = ReturnType<
   typeof getExerciseGroupsByDoctorSuspenseQueryKey
->;
+>
 
 /**
  * @description List all exercise groups assigned to a specific doctor
@@ -37,28 +37,28 @@ export type GetExerciseGroupsByDoctorSuspenseQueryKey = ReturnType<
  * {@link /api/admin/staff/doctors/:doctorId/exercise-groups}
  */
 export async function getExerciseGroupsByDoctorSuspense(
-  doctorId: GetExerciseGroupsByDoctorPathParams["doctorId"],
-  config: Partial<RequestConfig> & { client?: typeof fetch } = {},
+  doctorId: GetExerciseGroupsByDoctorPathParams['doctorId'],
+  config: Partial<RequestConfig> & { client?: typeof fetch } = {}
 ) {
-  const { client: request = fetch, ...requestConfig } = config;
+  const { client: request = fetch, ...requestConfig } = config
 
   const res = await request<
     GetExerciseGroupsByDoctorQueryResponse,
     ResponseErrorConfig<Error>,
     unknown
   >({
-    method: "GET",
+    method: 'GET',
     url: `/api/admin/staff/doctors/${doctorId}/exercise-groups`,
     ...requestConfig,
-  });
-  return res.data;
+  })
+  return res.data
 }
 
 export function getExerciseGroupsByDoctorSuspenseQueryOptions(
-  doctorId: GetExerciseGroupsByDoctorPathParams["doctorId"],
-  config: Partial<RequestConfig> & { client?: typeof fetch } = {},
+  doctorId: GetExerciseGroupsByDoctorPathParams['doctorId'],
+  config: Partial<RequestConfig> & { client?: typeof fetch } = {}
 ) {
-  const queryKey = getExerciseGroupsByDoctorSuspenseQueryKey(doctorId);
+  const queryKey = getExerciseGroupsByDoctorSuspenseQueryKey(doctorId)
   return queryOptions<
     GetExerciseGroupsByDoctorQueryResponse,
     ResponseErrorConfig<Error>,
@@ -68,10 +68,10 @@ export function getExerciseGroupsByDoctorSuspenseQueryOptions(
     enabled: !!doctorId,
     queryKey,
     queryFn: async ({ signal }) => {
-      config.signal = signal;
-      return getExerciseGroupsByDoctorSuspense(doctorId, config);
+      config.signal = signal
+      return getExerciseGroupsByDoctorSuspense(doctorId, config)
     },
-  });
+  })
 }
 
 /**
@@ -83,7 +83,7 @@ export function useGetExerciseGroupsByDoctorSuspense<
   TData = GetExerciseGroupsByDoctorQueryResponse,
   TQueryKey extends QueryKey = GetExerciseGroupsByDoctorSuspenseQueryKey,
 >(
-  doctorId: GetExerciseGroupsByDoctorPathParams["doctorId"],
+  doctorId: GetExerciseGroupsByDoctorPathParams['doctorId'],
   options: {
     query?: Partial<
       UseSuspenseQueryOptions<
@@ -92,15 +92,15 @@ export function useGetExerciseGroupsByDoctorSuspense<
         TData,
         TQueryKey
       >
-    > & { client?: QueryClient };
-    client?: Partial<RequestConfig> & { client?: typeof fetch };
-  } = {},
+    > & { client?: QueryClient }
+    client?: Partial<RequestConfig> & { client?: typeof fetch }
+  } = {}
 ) {
-  const { query: queryConfig = {}, client: config = {} } = options ?? {};
-  const { client: queryClient, ...queryOptions } = queryConfig;
+  const { query: queryConfig = {}, client: config = {} } = options ?? {}
+  const { client: queryClient, ...queryOptions } = queryConfig
   const queryKey =
     queryOptions?.queryKey ??
-    getExerciseGroupsByDoctorSuspenseQueryKey(doctorId);
+    getExerciseGroupsByDoctorSuspenseQueryKey(doctorId)
 
   const query = useSuspenseQuery(
     {
@@ -108,12 +108,12 @@ export function useGetExerciseGroupsByDoctorSuspense<
       queryKey,
       ...queryOptions,
     } as unknown as UseSuspenseQueryOptions,
-    queryClient,
+    queryClient
   ) as UseSuspenseQueryResult<TData, ResponseErrorConfig<Error>> & {
-    queryKey: TQueryKey;
-  };
+    queryKey: TQueryKey
+  }
 
-  query.queryKey = queryKey as TQueryKey;
+  query.queryKey = queryKey as TQueryKey
 
-  return query;
+  return query
 }

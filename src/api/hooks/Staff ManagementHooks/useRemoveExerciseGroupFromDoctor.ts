@@ -3,27 +3,27 @@
  * Do not edit manually.
  */
 
-import fetch from "@/lib/api-client";
+import fetch from '@/lib/api-client'
 import type {
   RemoveExerciseGroupFromDoctorMutationResponse,
   RemoveExerciseGroupFromDoctorPathParams,
-} from "../../types/staffManagementController/RemoveExerciseGroupFromDoctor.ts";
-import type { RequestConfig, ResponseErrorConfig } from "@/lib/api-client";
+} from '../../types/staffManagementController/RemoveExerciseGroupFromDoctor.ts'
+import type { RequestConfig, ResponseErrorConfig } from '@/lib/api-client'
 import type {
   UseMutationOptions,
   UseMutationResult,
   QueryClient,
-} from "@tanstack/react-query";
-import { mutationOptions, useMutation } from "@tanstack/react-query";
+} from '@tanstack/react-query'
+import { mutationOptions, useMutation } from '@tanstack/react-query'
 
 export const removeExerciseGroupFromDoctorMutationKey = () =>
   [
-    { url: "/api/admin/staff/doctors/:doctorId/exercise-groups/:groupId" },
-  ] as const;
+    { url: '/api/admin/staff/doctors/:doctorId/exercise-groups/:groupId' },
+  ] as const
 
 export type RemoveExerciseGroupFromDoctorMutationKey = ReturnType<
   typeof removeExerciseGroupFromDoctorMutationKey
->;
+>
 
 /**
  * @description Remove an exercise group assignment from a doctor
@@ -31,42 +31,42 @@ export type RemoveExerciseGroupFromDoctorMutationKey = ReturnType<
  * {@link /api/admin/staff/doctors/:doctorId/exercise-groups/:groupId}
  */
 export async function removeExerciseGroupFromDoctor(
-  doctorId: RemoveExerciseGroupFromDoctorPathParams["doctorId"],
-  groupId: RemoveExerciseGroupFromDoctorPathParams["groupId"],
-  config: Partial<RequestConfig> & { client?: typeof fetch } = {},
+  doctorId: RemoveExerciseGroupFromDoctorPathParams['doctorId'],
+  groupId: RemoveExerciseGroupFromDoctorPathParams['groupId'],
+  config: Partial<RequestConfig> & { client?: typeof fetch } = {}
 ) {
-  const { client: request = fetch, ...requestConfig } = config;
+  const { client: request = fetch, ...requestConfig } = config
 
   const res = await request<
     RemoveExerciseGroupFromDoctorMutationResponse,
     ResponseErrorConfig<Error>,
     unknown
   >({
-    method: "DELETE",
+    method: 'DELETE',
     url: `/api/admin/staff/doctors/${doctorId}/exercise-groups/${groupId}`,
     ...requestConfig,
-  });
-  return res.data;
+  })
+  return res.data
 }
 
 export function removeExerciseGroupFromDoctorMutationOptions(
-  config: Partial<RequestConfig> & { client?: typeof fetch } = {},
+  config: Partial<RequestConfig> & { client?: typeof fetch } = {}
 ) {
-  const mutationKey = removeExerciseGroupFromDoctorMutationKey();
+  const mutationKey = removeExerciseGroupFromDoctorMutationKey()
   return mutationOptions<
     RemoveExerciseGroupFromDoctorMutationResponse,
     ResponseErrorConfig<Error>,
     {
-      doctorId: RemoveExerciseGroupFromDoctorPathParams["doctorId"];
-      groupId: RemoveExerciseGroupFromDoctorPathParams["groupId"];
+      doctorId: RemoveExerciseGroupFromDoctorPathParams['doctorId']
+      groupId: RemoveExerciseGroupFromDoctorPathParams['groupId']
     },
     typeof mutationKey
   >({
     mutationKey,
     mutationFn: async ({ doctorId, groupId }) => {
-      return removeExerciseGroupFromDoctor(doctorId, groupId, config);
+      return removeExerciseGroupFromDoctor(doctorId, groupId, config)
     },
-  });
+  })
 }
 
 /**
@@ -80,37 +80,37 @@ export function useRemoveExerciseGroupFromDoctor<TContext>(
       RemoveExerciseGroupFromDoctorMutationResponse,
       ResponseErrorConfig<Error>,
       {
-        doctorId: RemoveExerciseGroupFromDoctorPathParams["doctorId"];
-        groupId: RemoveExerciseGroupFromDoctorPathParams["groupId"];
+        doctorId: RemoveExerciseGroupFromDoctorPathParams['doctorId']
+        groupId: RemoveExerciseGroupFromDoctorPathParams['groupId']
       },
       TContext
-    > & { client?: QueryClient };
-    client?: Partial<RequestConfig> & { client?: typeof fetch };
-  } = {},
+    > & { client?: QueryClient }
+    client?: Partial<RequestConfig> & { client?: typeof fetch }
+  } = {}
 ) {
-  const { mutation = {}, client: config = {} } = options ?? {};
-  const { client: queryClient, ...mutationOptions } = mutation;
+  const { mutation = {}, client: config = {} } = options ?? {}
+  const { client: queryClient, ...mutationOptions } = mutation
   const mutationKey =
-    mutationOptions.mutationKey ?? removeExerciseGroupFromDoctorMutationKey();
+    mutationOptions.mutationKey ?? removeExerciseGroupFromDoctorMutationKey()
 
   const baseOptions = removeExerciseGroupFromDoctorMutationOptions(
-    config,
+    config
   ) as UseMutationOptions<
     RemoveExerciseGroupFromDoctorMutationResponse,
     ResponseErrorConfig<Error>,
     {
-      doctorId: RemoveExerciseGroupFromDoctorPathParams["doctorId"];
-      groupId: RemoveExerciseGroupFromDoctorPathParams["groupId"];
+      doctorId: RemoveExerciseGroupFromDoctorPathParams['doctorId']
+      groupId: RemoveExerciseGroupFromDoctorPathParams['groupId']
     },
     TContext
-  >;
+  >
 
   return useMutation<
     RemoveExerciseGroupFromDoctorMutationResponse,
     ResponseErrorConfig<Error>,
     {
-      doctorId: RemoveExerciseGroupFromDoctorPathParams["doctorId"];
-      groupId: RemoveExerciseGroupFromDoctorPathParams["groupId"];
+      doctorId: RemoveExerciseGroupFromDoctorPathParams['doctorId']
+      groupId: RemoveExerciseGroupFromDoctorPathParams['groupId']
     },
     TContext
   >(
@@ -119,14 +119,14 @@ export function useRemoveExerciseGroupFromDoctor<TContext>(
       mutationKey,
       ...mutationOptions,
     },
-    queryClient,
+    queryClient
   ) as UseMutationResult<
     RemoveExerciseGroupFromDoctorMutationResponse,
     ResponseErrorConfig<Error>,
     {
-      doctorId: RemoveExerciseGroupFromDoctorPathParams["doctorId"];
-      groupId: RemoveExerciseGroupFromDoctorPathParams["groupId"];
+      doctorId: RemoveExerciseGroupFromDoctorPathParams['doctorId']
+      groupId: RemoveExerciseGroupFromDoctorPathParams['groupId']
     },
     TContext
-  >;
+  >
 }

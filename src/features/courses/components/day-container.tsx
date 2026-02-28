@@ -1,12 +1,19 @@
-'use client'
-
 import { SortableContext, verticalListSortingStrategy } from '@dnd-kit/sortable'
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { GripVertical, Copy, Trash2 } from 'lucide-react'
 import { ExerciseCardDraggable } from './exercise-card-draggable'
 import { EmptyDayPlaceholder } from './empty-day-placeholder'
-import type { DayWithExercises, CustomExercise } from './course-assignment-screen'
+import type {
+  DayWithExercises,
+  CustomExercise,
+} from './course-assignment-screen'
 
 type DayContainerProps = {
   day: DayWithExercises
@@ -17,45 +24,56 @@ type DayContainerProps = {
   canDelete: boolean
 }
 
-export function DayContainer({ day, onEditExercise, onRemoveExercise, onDeleteDay, onDuplicateDay, canDelete }: DayContainerProps) {
+export function DayContainer({
+  day,
+  onEditExercise,
+  onRemoveExercise,
+  onDeleteDay,
+  onDuplicateDay,
+  canDelete,
+}: DayContainerProps) {
   return (
-    <Card className='min-h-[200px]'>
-      <CardHeader className='pb-3'>
-        <div className='flex items-center gap-3'>
-          <GripVertical className='h-5 w-5 text-muted-foreground cursor-grab' />
-          <div className='flex-1'>
-            <CardTitle className='text-xl font-bold'>Ngày {day.dayNumber}</CardTitle>
+    <Card className="min-h-[200px]">
+      <CardHeader className="pb-3">
+        <div className="flex items-center gap-3">
+          <GripVertical className="h-5 w-5 text-muted-foreground cursor-grab" />
+          <div className="flex-1">
+            <CardTitle className="text-xl font-bold">
+              Ngày {day.dayNumber}
+            </CardTitle>
             {day.description && (
-              <CardDescription className='mt-1'>{day.description}</CardDescription>
+              <CardDescription className="mt-1">
+                {day.description}
+              </CardDescription>
             )}
           </div>
           {/* Action buttons */}
-          <div className='flex items-center gap-2'>
+          <div className="flex items-center gap-2">
             <Button
-              variant='ghost'
-              size='sm'
+              variant="ghost"
+              size="sm"
               onClick={() => onDuplicateDay(day.dayNumber)}
-              className='h-8 w-8 p-0'
-              title='Nhân bản ngày'
+              className="h-8 w-8 p-0"
+              title="Nhân bản ngày"
             >
-              <Copy className='h-4 w-4' />
+              <Copy className="h-4 w-4" />
             </Button>
             {canDelete && (
               <Button
-                variant='ghost'
-                size='sm'
+                variant="ghost"
+                size="sm"
                 onClick={() => onDeleteDay(day.dayNumber)}
-                className='h-8 w-8 p-0 hover:bg-destructive/10 hover:text-destructive'
-                title='Xóa ngày'
+                className="h-8 w-8 p-0 hover:bg-destructive/10 hover:text-destructive"
+                title="Xóa ngày"
               >
-                <Trash2 className='h-4 w-4' />
+                <Trash2 className="h-4 w-4" />
               </Button>
             )}
           </div>
         </div>
       </CardHeader>
-      <CardContent className='space-y-4'>
-        <div className='space-y-3'>
+      <CardContent className="space-y-4">
+        <div className="space-y-3">
           {day.exercises.length === 0 ? (
             <EmptyDayPlaceholder dayNumber={day.dayNumber} />
           ) : (
@@ -64,7 +82,7 @@ export function DayContainer({ day, onEditExercise, onRemoveExercise, onDeleteDa
                 items={day.exercises.map((ex) => ex.id)}
                 strategy={verticalListSortingStrategy}
               >
-                <div className='space-y-2'>
+                <div className="space-y-2">
                   {day.exercises.map((exercise, index) => (
                     <ExerciseCardDraggable
                       key={exercise.id}
@@ -72,7 +90,9 @@ export function DayContainer({ day, onEditExercise, onRemoveExercise, onDeleteDa
                       index={index}
                       dayNumber={day.dayNumber}
                       onEdit={onEditExercise}
-                      onRemove={(exerciseId) => onRemoveExercise(day.dayNumber, exerciseId)}
+                      onRemove={(exerciseId) =>
+                        onRemoveExercise(day.dayNumber, exerciseId)
+                      }
                     />
                   ))}
                 </div>

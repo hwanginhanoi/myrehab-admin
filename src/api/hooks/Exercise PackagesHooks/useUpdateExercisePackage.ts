@@ -3,26 +3,26 @@
  * Do not edit manually.
  */
 
-import fetch from "@/lib/api-client";
+import fetch from '@/lib/api-client'
 import type {
   UpdateExercisePackageMutationRequest,
   UpdateExercisePackageMutationResponse,
   UpdateExercisePackagePathParams,
-} from "../../types/exercisePackagesController/UpdateExercisePackage.ts";
-import type { RequestConfig, ResponseErrorConfig } from "@/lib/api-client";
+} from '../../types/exercisePackagesController/UpdateExercisePackage.ts'
+import type { RequestConfig, ResponseErrorConfig } from '@/lib/api-client'
 import type {
   UseMutationOptions,
   UseMutationResult,
   QueryClient,
-} from "@tanstack/react-query";
-import { mutationOptions, useMutation } from "@tanstack/react-query";
+} from '@tanstack/react-query'
+import { mutationOptions, useMutation } from '@tanstack/react-query'
 
 export const updateExercisePackageMutationKey = () =>
-  [{ url: "/api/exercise-packages/:id" }] as const;
+  [{ url: '/api/exercise-packages/:id' }] as const
 
 export type UpdateExercisePackageMutationKey = ReturnType<
   typeof updateExercisePackageMutationKey
->;
+>
 
 /**
  * @description Update an existing exercise package
@@ -30,49 +30,49 @@ export type UpdateExercisePackageMutationKey = ReturnType<
  * {@link /api/exercise-packages/:id}
  */
 export async function updateExercisePackage(
-  id: UpdateExercisePackagePathParams["id"],
+  id: UpdateExercisePackagePathParams['id'],
   data: UpdateExercisePackageMutationRequest,
   config: Partial<RequestConfig<UpdateExercisePackageMutationRequest>> & {
-    client?: typeof fetch;
-  } = {},
+    client?: typeof fetch
+  } = {}
 ) {
-  const { client: request = fetch, ...requestConfig } = config;
+  const { client: request = fetch, ...requestConfig } = config
 
-  const requestData = data;
+  const requestData = data
 
   const res = await request<
     UpdateExercisePackageMutationResponse,
     ResponseErrorConfig<Error>,
     UpdateExercisePackageMutationRequest
   >({
-    method: "PUT",
+    method: 'PUT',
     url: `/api/exercise-packages/${id}`,
     data: requestData,
     ...requestConfig,
-  });
-  return res.data;
+  })
+  return res.data
 }
 
 export function updateExercisePackageMutationOptions(
   config: Partial<RequestConfig<UpdateExercisePackageMutationRequest>> & {
-    client?: typeof fetch;
-  } = {},
+    client?: typeof fetch
+  } = {}
 ) {
-  const mutationKey = updateExercisePackageMutationKey();
+  const mutationKey = updateExercisePackageMutationKey()
   return mutationOptions<
     UpdateExercisePackageMutationResponse,
     ResponseErrorConfig<Error>,
     {
-      id: UpdateExercisePackagePathParams["id"];
-      data: UpdateExercisePackageMutationRequest;
+      id: UpdateExercisePackagePathParams['id']
+      data: UpdateExercisePackageMutationRequest
     },
     typeof mutationKey
   >({
     mutationKey,
     mutationFn: async ({ id, data }) => {
-      return updateExercisePackage(id, data, config);
+      return updateExercisePackage(id, data, config)
     },
-  });
+  })
 }
 
 /**
@@ -86,39 +86,39 @@ export function useUpdateExercisePackage<TContext>(
       UpdateExercisePackageMutationResponse,
       ResponseErrorConfig<Error>,
       {
-        id: UpdateExercisePackagePathParams["id"];
-        data: UpdateExercisePackageMutationRequest;
+        id: UpdateExercisePackagePathParams['id']
+        data: UpdateExercisePackageMutationRequest
       },
       TContext
-    > & { client?: QueryClient };
+    > & { client?: QueryClient }
     client?: Partial<RequestConfig<UpdateExercisePackageMutationRequest>> & {
-      client?: typeof fetch;
-    };
-  } = {},
+      client?: typeof fetch
+    }
+  } = {}
 ) {
-  const { mutation = {}, client: config = {} } = options ?? {};
-  const { client: queryClient, ...mutationOptions } = mutation;
+  const { mutation = {}, client: config = {} } = options ?? {}
+  const { client: queryClient, ...mutationOptions } = mutation
   const mutationKey =
-    mutationOptions.mutationKey ?? updateExercisePackageMutationKey();
+    mutationOptions.mutationKey ?? updateExercisePackageMutationKey()
 
   const baseOptions = updateExercisePackageMutationOptions(
-    config,
+    config
   ) as UseMutationOptions<
     UpdateExercisePackageMutationResponse,
     ResponseErrorConfig<Error>,
     {
-      id: UpdateExercisePackagePathParams["id"];
-      data: UpdateExercisePackageMutationRequest;
+      id: UpdateExercisePackagePathParams['id']
+      data: UpdateExercisePackageMutationRequest
     },
     TContext
-  >;
+  >
 
   return useMutation<
     UpdateExercisePackageMutationResponse,
     ResponseErrorConfig<Error>,
     {
-      id: UpdateExercisePackagePathParams["id"];
-      data: UpdateExercisePackageMutationRequest;
+      id: UpdateExercisePackagePathParams['id']
+      data: UpdateExercisePackageMutationRequest
     },
     TContext
   >(
@@ -127,14 +127,14 @@ export function useUpdateExercisePackage<TContext>(
       mutationKey,
       ...mutationOptions,
     },
-    queryClient,
+    queryClient
   ) as UseMutationResult<
     UpdateExercisePackageMutationResponse,
     ResponseErrorConfig<Error>,
     {
-      id: UpdateExercisePackagePathParams["id"];
-      data: UpdateExercisePackageMutationRequest;
+      id: UpdateExercisePackagePathParams['id']
+      data: UpdateExercisePackageMutationRequest
     },
     TContext
-  >;
+  >
 }

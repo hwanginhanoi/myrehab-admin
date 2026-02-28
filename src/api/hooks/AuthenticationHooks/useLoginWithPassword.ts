@@ -3,25 +3,25 @@
  * Do not edit manually.
  */
 
-import fetch from "@/lib/api-client";
+import fetch from '@/lib/api-client'
 import type {
   LoginWithPasswordMutationRequest,
   LoginWithPasswordMutationResponse,
-} from "../../types/authenticationController/LoginWithPassword.ts";
-import type { RequestConfig, ResponseErrorConfig } from "@/lib/api-client";
+} from '../../types/authenticationController/LoginWithPassword.ts'
+import type { RequestConfig, ResponseErrorConfig } from '@/lib/api-client'
 import type {
   UseMutationOptions,
   UseMutationResult,
   QueryClient,
-} from "@tanstack/react-query";
-import { mutationOptions, useMutation } from "@tanstack/react-query";
+} from '@tanstack/react-query'
+import { mutationOptions, useMutation } from '@tanstack/react-query'
 
 export const loginWithPasswordMutationKey = () =>
-  [{ url: "/api/auth/staff/login" }] as const;
+  [{ url: '/api/auth/staff/login' }] as const
 
 export type LoginWithPasswordMutationKey = ReturnType<
   typeof loginWithPasswordMutationKey
->;
+>
 
 /**
  * @description Authenticate staff (Doctor, Admin, SuperAdmin, Trainer) using email and password. Returns access token only (no refresh token).
@@ -31,32 +31,32 @@ export type LoginWithPasswordMutationKey = ReturnType<
 export async function loginWithPassword(
   data: LoginWithPasswordMutationRequest,
   config: Partial<RequestConfig<LoginWithPasswordMutationRequest>> & {
-    client?: typeof fetch;
-  } = {},
+    client?: typeof fetch
+  } = {}
 ) {
-  const { client: request = fetch, ...requestConfig } = config;
+  const { client: request = fetch, ...requestConfig } = config
 
-  const requestData = data;
+  const requestData = data
 
   const res = await request<
     LoginWithPasswordMutationResponse,
     ResponseErrorConfig<Error>,
     LoginWithPasswordMutationRequest
   >({
-    method: "POST",
+    method: 'POST',
     url: `/api/auth/staff/login`,
     data: requestData,
     ...requestConfig,
-  });
-  return res.data;
+  })
+  return res.data
 }
 
 export function loginWithPasswordMutationOptions(
   config: Partial<RequestConfig<LoginWithPasswordMutationRequest>> & {
-    client?: typeof fetch;
-  } = {},
+    client?: typeof fetch
+  } = {}
 ) {
-  const mutationKey = loginWithPasswordMutationKey();
+  const mutationKey = loginWithPasswordMutationKey()
   return mutationOptions<
     LoginWithPasswordMutationResponse,
     ResponseErrorConfig<Error>,
@@ -65,9 +65,9 @@ export function loginWithPasswordMutationOptions(
   >({
     mutationKey,
     mutationFn: async ({ data }) => {
-      return loginWithPassword(data, config);
+      return loginWithPassword(data, config)
     },
-  });
+  })
 }
 
 /**
@@ -82,25 +82,25 @@ export function useLoginWithPassword<TContext>(
       ResponseErrorConfig<Error>,
       { data: LoginWithPasswordMutationRequest },
       TContext
-    > & { client?: QueryClient };
+    > & { client?: QueryClient }
     client?: Partial<RequestConfig<LoginWithPasswordMutationRequest>> & {
-      client?: typeof fetch;
-    };
-  } = {},
+      client?: typeof fetch
+    }
+  } = {}
 ) {
-  const { mutation = {}, client: config = {} } = options ?? {};
-  const { client: queryClient, ...mutationOptions } = mutation;
+  const { mutation = {}, client: config = {} } = options ?? {}
+  const { client: queryClient, ...mutationOptions } = mutation
   const mutationKey =
-    mutationOptions.mutationKey ?? loginWithPasswordMutationKey();
+    mutationOptions.mutationKey ?? loginWithPasswordMutationKey()
 
   const baseOptions = loginWithPasswordMutationOptions(
-    config,
+    config
   ) as UseMutationOptions<
     LoginWithPasswordMutationResponse,
     ResponseErrorConfig<Error>,
     { data: LoginWithPasswordMutationRequest },
     TContext
-  >;
+  >
 
   return useMutation<
     LoginWithPasswordMutationResponse,
@@ -113,11 +113,11 @@ export function useLoginWithPassword<TContext>(
       mutationKey,
       ...mutationOptions,
     },
-    queryClient,
+    queryClient
   ) as UseMutationResult<
     LoginWithPasswordMutationResponse,
     ResponseErrorConfig<Error>,
     { data: LoginWithPasswordMutationRequest },
     TContext
-  >;
+  >
 }

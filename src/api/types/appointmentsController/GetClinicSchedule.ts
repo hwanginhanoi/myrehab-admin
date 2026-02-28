@@ -3,16 +3,16 @@
  * Do not edit manually.
  */
 
-import type { ClinicScheduleResponse } from "../ClinicScheduleResponse.ts";
+import type { ClinicScheduleResponse } from '../ClinicScheduleResponse.ts'
 
 /**
  * @description OK
  */
-export type GetClinicSchedule200 = ClinicScheduleResponse[];
+export type GetClinicSchedule200 = ClinicScheduleResponse[]
 
-export type GetClinicScheduleQueryResponse = GetClinicSchedule200;
+export type GetClinicScheduleQueryResponse = GetClinicSchedule200
 
 export type GetClinicScheduleQuery = {
-  Response: GetClinicSchedule200;
-  Errors: any;
-};
+  Response: GetClinicSchedule200
+  Errors: any
+}

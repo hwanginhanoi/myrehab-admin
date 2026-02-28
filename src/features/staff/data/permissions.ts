@@ -100,8 +100,14 @@ export const DOCTOR_PERMISSION_CATEGORIES: PermissionCategory[] = [
     description: 'Quyền xem và quản lý thông tin bệnh nhân',
     permissions: [
       { id: ALL_PERMISSIONS.PATIENTS_VIEW, label: 'Xem danh sách bệnh nhân' },
-      { id: ALL_PERMISSIONS.PATIENTS_VIEW_DETAILS, label: 'Xem chi tiết bệnh nhân' },
-      { id: ALL_PERMISSIONS.PATIENTS_VIEW_COURSES, label: 'Xem khóa học của bệnh nhân' },
+      {
+        id: ALL_PERMISSIONS.PATIENTS_VIEW_DETAILS,
+        label: 'Xem chi tiết bệnh nhân',
+      },
+      {
+        id: ALL_PERMISSIONS.PATIENTS_VIEW_COURSES,
+        label: 'Xem khóa học của bệnh nhân',
+      },
     ],
   },
   {
@@ -131,16 +137,17 @@ export const DOCTOR_PERMISSION_CATEGORIES: PermissionCategory[] = [
     title: 'Theo dõi Tiến trình',
     description: 'Quyền xem tiến trình của bệnh nhân',
     permissions: [
-      { id: ALL_PERMISSIONS.COURSE_PROGRESS_VIEW, label: 'Xem tiến trình khóa học' },
+      {
+        id: ALL_PERMISSIONS.COURSE_PROGRESS_VIEW,
+        label: 'Xem tiến trình khóa học',
+      },
     ],
   },
   {
     id: 'files',
     title: 'Quản lý File',
     description: 'Quyền quản lý file và tài liệu',
-    permissions: [
-      { id: ALL_PERMISSIONS.FILES_UPLOAD, label: 'Tải lên file' },
-    ],
+    permissions: [{ id: ALL_PERMISSIONS.FILES_UPLOAD, label: 'Tải lên file' }],
   },
   {
     id: 'rehab_forms',
@@ -162,8 +169,14 @@ export const TRAINER_PERMISSION_CATEGORIES: PermissionCategory[] = [
     description: 'Quyền xem thông tin bệnh nhân',
     permissions: [
       { id: ALL_PERMISSIONS.PATIENTS_VIEW, label: 'Xem danh sách bệnh nhân' },
-      { id: ALL_PERMISSIONS.PATIENTS_VIEW_DETAILS, label: 'Xem chi tiết bệnh nhân' },
-      { id: ALL_PERMISSIONS.PATIENTS_VIEW_COURSES, label: 'Xem khóa học của bệnh nhân' },
+      {
+        id: ALL_PERMISSIONS.PATIENTS_VIEW_DETAILS,
+        label: 'Xem chi tiết bệnh nhân',
+      },
+      {
+        id: ALL_PERMISSIONS.PATIENTS_VIEW_COURSES,
+        label: 'Xem khóa học của bệnh nhân',
+      },
     ],
   },
   {
@@ -209,8 +222,14 @@ export const TRAINER_PERMISSION_CATEGORIES: PermissionCategory[] = [
     title: 'Theo dõi Tiến trình',
     description: 'Quyền quản lý tiến trình',
     permissions: [
-      { id: ALL_PERMISSIONS.COURSE_PROGRESS_VIEW, label: 'Xem tiến trình khóa học' },
-      { id: ALL_PERMISSIONS.COURSE_PROGRESS_MANAGE, label: 'Quản lý tiến trình' },
+      {
+        id: ALL_PERMISSIONS.COURSE_PROGRESS_VIEW,
+        label: 'Xem tiến trình khóa học',
+      },
+      {
+        id: ALL_PERMISSIONS.COURSE_PROGRESS_MANAGE,
+        label: 'Quản lý tiến trình',
+      },
     ],
   },
   {
@@ -255,7 +274,10 @@ export const ADMIN_PERMISSION_CATEGORIES: PermissionCategory[] = [
       { id: ALL_PERMISSIONS.STAFF_UPDATE, label: 'Cập nhật nhân viên' },
       { id: ALL_PERMISSIONS.STAFF_ENABLE, label: 'Kích hoạt nhân viên' },
       { id: ALL_PERMISSIONS.STAFF_DISABLE, label: 'Vô hiệu hóa nhân viên' },
-      { id: ALL_PERMISSIONS.STAFF_ASSIGN_TRAINER, label: 'Gán huấn luyện viên' },
+      {
+        id: ALL_PERMISSIONS.STAFF_ASSIGN_TRAINER,
+        label: 'Gán huấn luyện viên',
+      },
       { id: ALL_PERMISSIONS.STAFF_ASSIGN_GROUPS, label: 'Gán nhóm' },
     ],
   },
@@ -265,10 +287,22 @@ export const ADMIN_PERMISSION_CATEGORIES: PermissionCategory[] = [
     description: 'Quyền quản lý thông tin bệnh nhân',
     permissions: [
       { id: ALL_PERMISSIONS.PATIENTS_VIEW, label: 'Xem danh sách bệnh nhân' },
-      { id: ALL_PERMISSIONS.PATIENTS_VIEW_DETAILS, label: 'Xem chi tiết bệnh nhân' },
-      { id: ALL_PERMISSIONS.PATIENTS_VIEW_COURSES, label: 'Xem khóa học của bệnh nhân' },
-      { id: ALL_PERMISSIONS.PATIENTS_ASSIGN_DOCTOR, label: 'Gán bác sĩ cho bệnh nhân' },
-      { id: ALL_PERMISSIONS.PATIENTS_REMOVE_DOCTOR, label: 'Xóa bác sĩ khỏi bệnh nhân' },
+      {
+        id: ALL_PERMISSIONS.PATIENTS_VIEW_DETAILS,
+        label: 'Xem chi tiết bệnh nhân',
+      },
+      {
+        id: ALL_PERMISSIONS.PATIENTS_VIEW_COURSES,
+        label: 'Xem khóa học của bệnh nhân',
+      },
+      {
+        id: ALL_PERMISSIONS.PATIENTS_ASSIGN_DOCTOR,
+        label: 'Gán bác sĩ cho bệnh nhân',
+      },
+      {
+        id: ALL_PERMISSIONS.PATIENTS_REMOVE_DOCTOR,
+        label: 'Xóa bác sĩ khỏi bệnh nhân',
+      },
     ],
   },
   {
@@ -288,7 +322,10 @@ export const ADMIN_PERMISSION_CATEGORIES: PermissionCategory[] = [
     permissions: [
       { id: ALL_PERMISSIONS.EXERCISE_GROUPS_VIEW, label: 'Xem nhóm bài tập' },
       { id: ALL_PERMISSIONS.EXERCISE_GROUPS_CREATE, label: 'Tạo nhóm bài tập' },
-      { id: ALL_PERMISSIONS.EXERCISE_GROUPS_UPDATE, label: 'Cập nhật nhóm bài tập' },
+      {
+        id: ALL_PERMISSIONS.EXERCISE_GROUPS_UPDATE,
+        label: 'Cập nhật nhóm bài tập',
+      },
     ],
   },
   {
@@ -328,8 +365,14 @@ export const ADMIN_PERMISSION_CATEGORIES: PermissionCategory[] = [
     title: 'Theo dõi Tiến trình',
     description: 'Quyền quản lý tiến trình',
     permissions: [
-      { id: ALL_PERMISSIONS.COURSE_PROGRESS_VIEW, label: 'Xem tiến trình khóa học' },
-      { id: ALL_PERMISSIONS.COURSE_PROGRESS_MANAGE, label: 'Quản lý tiến trình' },
+      {
+        id: ALL_PERMISSIONS.COURSE_PROGRESS_VIEW,
+        label: 'Xem tiến trình khóa học',
+      },
+      {
+        id: ALL_PERMISSIONS.COURSE_PROGRESS_MANAGE,
+        label: 'Quản lý tiến trình',
+      },
     ],
   },
   {
@@ -340,7 +383,10 @@ export const ADMIN_PERMISSION_CATEGORIES: PermissionCategory[] = [
       { id: ALL_PERMISSIONS.BALANCE_VIEW, label: 'Xem số dư' },
       { id: ALL_PERMISSIONS.BALANCE_ADD, label: 'Nạp tiền' },
       { id: ALL_PERMISSIONS.TRANSACTIONS_VIEW, label: 'Xem giao dịch' },
-      { id: ALL_PERMISSIONS.TRANSACTIONS_VIEW_ALL, label: 'Xem tất cả giao dịch' },
+      {
+        id: ALL_PERMISSIONS.TRANSACTIONS_VIEW_ALL,
+        label: 'Xem tất cả giao dịch',
+      },
     ],
   },
   {
@@ -349,7 +395,10 @@ export const ADMIN_PERMISSION_CATEGORIES: PermissionCategory[] = [
     description: 'Quyền quản lý đăng ký',
     permissions: [
       { id: ALL_PERMISSIONS.SUBSCRIPTIONS_VIEW, label: 'Xem đăng ký' },
-      { id: ALL_PERMISSIONS.SUBSCRIPTIONS_VIEW_ALL, label: 'Xem tất cả đăng ký' },
+      {
+        id: ALL_PERMISSIONS.SUBSCRIPTIONS_VIEW_ALL,
+        label: 'Xem tất cả đăng ký',
+      },
       { id: ALL_PERMISSIONS.SUBSCRIPTIONS_MANAGE, label: 'Quản lý đăng ký' },
     ],
   },
@@ -397,7 +446,9 @@ export function getRequiredPermissionsByStaffType(staffType: string): string[] {
 }
 
 // Helper to get permission categories by staff type
-export function getPermissionCategoriesByStaffType(staffType: string): PermissionCategory[] {
+export function getPermissionCategoriesByStaffType(
+  staffType: string
+): PermissionCategory[] {
   switch (staffType) {
     case 'DOCTOR':
       return DOCTOR_PERMISSION_CATEGORIES

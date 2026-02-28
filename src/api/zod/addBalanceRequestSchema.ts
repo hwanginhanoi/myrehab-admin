@@ -3,10 +3,10 @@
  * Do not edit manually.
  */
 
-import { z } from "zod/v4";
+import { z } from 'zod/v4'
 
 export const addBalanceRequestSchema = z.object({
   userId: z.int(),
   amount: z.int(),
   description: z.optional(z.string()),
-});
+})

@@ -7,9 +7,9 @@ export type CreateGroupRequest = {
   /**
    * @type string
    */
-  name: string;
+  name: string
   /**
    * @type string | undefined
    */
-  description?: string;
-};
+  description?: string
+}

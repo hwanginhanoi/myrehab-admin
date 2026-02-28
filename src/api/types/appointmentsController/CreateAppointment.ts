@@ -3,20 +3,20 @@
  * Do not edit manually.
  */
 
-import type { AppointmentResponse } from "../AppointmentResponse.ts";
-import type { CreateAppointmentRequest } from "../CreateAppointmentRequest.ts";
+import type { AppointmentResponse } from '../AppointmentResponse.ts'
+import type { CreateAppointmentRequest } from '../CreateAppointmentRequest.ts'
 
 /**
  * @description OK
  */
-export type CreateAppointment200 = AppointmentResponse;
+export type CreateAppointment200 = AppointmentResponse
 
-export type CreateAppointmentMutationRequest = CreateAppointmentRequest;
+export type CreateAppointmentMutationRequest = CreateAppointmentRequest
 
-export type CreateAppointmentMutationResponse = CreateAppointment200;
+export type CreateAppointmentMutationResponse = CreateAppointment200
 
 export type CreateAppointmentMutation = {
-  Response: CreateAppointment200;
-  Request: CreateAppointmentMutationRequest;
-  Errors: any;
-};
+  Response: CreateAppointment200
+  Request: CreateAppointmentMutationRequest
+  Errors: any
+}

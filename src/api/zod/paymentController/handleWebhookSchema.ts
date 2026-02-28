@@ -3,19 +3,19 @@
  * Do not edit manually.
  */
 
-import { sepayWebhookPayloadSchema } from "../sepayWebhookPayloadSchema.ts";
-import { webhookResponseSchema } from "../webhookResponseSchema.ts";
-import { z } from "zod/v4";
+import { sepayWebhookPayloadSchema } from '../sepayWebhookPayloadSchema.ts'
+import { webhookResponseSchema } from '../webhookResponseSchema.ts'
+import { z } from 'zod/v4'
 
 /**
  * @description OK
  */
-export const handleWebhook200Schema = z.lazy(() => webhookResponseSchema);
+export const handleWebhook200Schema = z.lazy(() => webhookResponseSchema)
 
 export const handleWebhookMutationRequestSchema = z.lazy(
-  () => sepayWebhookPayloadSchema,
-);
+  () => sepayWebhookPayloadSchema
+)
 
 export const handleWebhookMutationResponseSchema = z.lazy(
-  () => handleWebhook200Schema,
-);
+  () => handleWebhook200Schema
+)

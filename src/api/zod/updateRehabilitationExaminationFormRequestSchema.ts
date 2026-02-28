@@ -3,7 +3,7 @@
  * Do not edit manually.
  */
 
-import { z } from "zod/v4";
+import { z } from 'zod/v4'
 
 export const updateRehabilitationExaminationFormRequestSchema = z.object({
   patientName: z.string(),
@@ -37,4 +37,4 @@ export const updateRehabilitationExaminationFormRequestSchema = z.object({
   weight: z.optional(z.number()),
   bmi: z.optional(z.number()),
   rehabilitationMethods: z.optional(z.string()),
-});
+})

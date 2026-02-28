@@ -3,29 +3,29 @@
  * Do not edit manually.
  */
 
-import type { RehabilitationExaminationFormResponse } from "../RehabilitationExaminationFormResponse.ts";
-import type { UpdateRehabilitationExaminationFormRequest } from "../UpdateRehabilitationExaminationFormRequest.ts";
+import type { RehabilitationExaminationFormResponse } from '../RehabilitationExaminationFormResponse.ts'
+import type { UpdateRehabilitationExaminationFormRequest } from '../UpdateRehabilitationExaminationFormRequest.ts'
 
 export type UpdateFormPathParams = {
   /**
    * @type integer, int64
    */
-  id: number;
-};
+  id: number
+}
 
 /**
  * @description OK
  */
-export type UpdateForm200 = RehabilitationExaminationFormResponse;
+export type UpdateForm200 = RehabilitationExaminationFormResponse
 
 export type UpdateFormMutationRequest =
-  UpdateRehabilitationExaminationFormRequest;
+  UpdateRehabilitationExaminationFormRequest
 
-export type UpdateFormMutationResponse = UpdateForm200;
+export type UpdateFormMutationResponse = UpdateForm200
 
 export type UpdateFormMutation = {
-  Response: UpdateForm200;
-  Request: UpdateFormMutationRequest;
-  PathParams: UpdateFormPathParams;
-  Errors: any;
-};
+  Response: UpdateForm200
+  Request: UpdateFormMutationRequest
+  PathParams: UpdateFormPathParams
+  Errors: any
+}

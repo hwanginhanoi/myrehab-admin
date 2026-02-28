@@ -3,25 +3,25 @@
  * Do not edit manually.
  */
 
-import fetch from "@/lib/api-client";
+import fetch from '@/lib/api-client'
 import type {
   PurchaseCourseMutationRequest,
   PurchaseCourseMutationResponse,
-} from "../../types/subscriptionsController/PurchaseCourse.ts";
-import type { RequestConfig, ResponseErrorConfig } from "@/lib/api-client";
+} from '../../types/subscriptionsController/PurchaseCourse.ts'
+import type { RequestConfig, ResponseErrorConfig } from '@/lib/api-client'
 import type {
   UseMutationOptions,
   UseMutationResult,
   QueryClient,
-} from "@tanstack/react-query";
-import { mutationOptions, useMutation } from "@tanstack/react-query";
+} from '@tanstack/react-query'
+import { mutationOptions, useMutation } from '@tanstack/react-query'
 
 export const purchaseCourseMutationKey = () =>
-  [{ url: "/api/subscriptions/course/purchase" }] as const;
+  [{ url: '/api/subscriptions/course/purchase' }] as const
 
 export type PurchaseCourseMutationKey = ReturnType<
   typeof purchaseCourseMutationKey
->;
+>
 
 /**
  * @description Purchase a subscription for an assigned course (monthly or yearly)
@@ -31,32 +31,32 @@ export type PurchaseCourseMutationKey = ReturnType<
 export async function purchaseCourse(
   data: PurchaseCourseMutationRequest,
   config: Partial<RequestConfig<PurchaseCourseMutationRequest>> & {
-    client?: typeof fetch;
-  } = {},
+    client?: typeof fetch
+  } = {}
 ) {
-  const { client: request = fetch, ...requestConfig } = config;
+  const { client: request = fetch, ...requestConfig } = config
 
-  const requestData = data;
+  const requestData = data
 
   const res = await request<
     PurchaseCourseMutationResponse,
     ResponseErrorConfig<Error>,
     PurchaseCourseMutationRequest
   >({
-    method: "POST",
+    method: 'POST',
     url: `/api/subscriptions/course/purchase`,
     data: requestData,
     ...requestConfig,
-  });
-  return res.data;
+  })
+  return res.data
 }
 
 export function purchaseCourseMutationOptions(
   config: Partial<RequestConfig<PurchaseCourseMutationRequest>> & {
-    client?: typeof fetch;
-  } = {},
+    client?: typeof fetch
+  } = {}
 ) {
-  const mutationKey = purchaseCourseMutationKey();
+  const mutationKey = purchaseCourseMutationKey()
   return mutationOptions<
     PurchaseCourseMutationResponse,
     ResponseErrorConfig<Error>,
@@ -65,9 +65,9 @@ export function purchaseCourseMutationOptions(
   >({
     mutationKey,
     mutationFn: async ({ data }) => {
-      return purchaseCourse(data, config);
+      return purchaseCourse(data, config)
     },
-  });
+  })
 }
 
 /**
@@ -82,25 +82,24 @@ export function usePurchaseCourse<TContext>(
       ResponseErrorConfig<Error>,
       { data: PurchaseCourseMutationRequest },
       TContext
-    > & { client?: QueryClient };
+    > & { client?: QueryClient }
     client?: Partial<RequestConfig<PurchaseCourseMutationRequest>> & {
-      client?: typeof fetch;
-    };
-  } = {},
+      client?: typeof fetch
+    }
+  } = {}
 ) {
-  const { mutation = {}, client: config = {} } = options ?? {};
-  const { client: queryClient, ...mutationOptions } = mutation;
-  const mutationKey =
-    mutationOptions.mutationKey ?? purchaseCourseMutationKey();
+  const { mutation = {}, client: config = {} } = options ?? {}
+  const { client: queryClient, ...mutationOptions } = mutation
+  const mutationKey = mutationOptions.mutationKey ?? purchaseCourseMutationKey()
 
   const baseOptions = purchaseCourseMutationOptions(
-    config,
+    config
   ) as UseMutationOptions<
     PurchaseCourseMutationResponse,
     ResponseErrorConfig<Error>,
     { data: PurchaseCourseMutationRequest },
     TContext
-  >;
+  >
 
   return useMutation<
     PurchaseCourseMutationResponse,
@@ -113,11 +112,11 @@ export function usePurchaseCourse<TContext>(
       mutationKey,
       ...mutationOptions,
     },
-    queryClient,
+    queryClient
   ) as UseMutationResult<
     PurchaseCourseMutationResponse,
     ResponseErrorConfig<Error>,
     { data: PurchaseCourseMutationRequest },
     TContext
-  >;
+  >
 }

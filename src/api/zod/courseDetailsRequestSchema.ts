@@ -3,14 +3,14 @@
  * Do not edit manually.
  */
 
-import { courseDayRequestSchema } from "./courseDayRequestSchema.ts";
-import { z } from "zod/v4";
+import { courseDayRequestSchema } from './courseDayRequestSchema.ts'
+import { z } from 'zod/v4'
 
 export const courseDetailsRequestSchema = z.object({
   courseName: z.string().min(1).max(200),
   description: z.optional(z.string().min(0).max(1000)),
   durationDays: z.int(),
   get days() {
-    return z.array(courseDayRequestSchema).min(1).max(2147483647);
+    return z.array(courseDayRequestSchema).min(1).max(2147483647)
   },
-});
+})

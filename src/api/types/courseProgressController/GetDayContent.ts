@@ -3,30 +3,30 @@
  * Do not edit manually.
  */
 
-import type { DayContentResponse } from "../DayContentResponse.ts";
+import type { DayContentResponse } from '../DayContentResponse.ts'
 
 export type GetDayContentPathParams = {
   /**
    * @description Course ID
    * @type integer, int64
    */
-  courseId: number;
+  courseId: number
   /**
    * @description Day number (1-based)
    * @type integer, int32
    */
-  dayNumber: number;
-};
+  dayNumber: number
+}
 
 /**
  * @description OK
  */
-export type GetDayContent200 = DayContentResponse;
+export type GetDayContent200 = DayContentResponse
 
-export type GetDayContentQueryResponse = GetDayContent200;
+export type GetDayContentQueryResponse = GetDayContent200
 
 export type GetDayContentQuery = {
-  Response: GetDayContent200;
-  PathParams: GetDayContentPathParams;
-  Errors: any;
-};
+  Response: GetDayContent200
+  PathParams: GetDayContentPathParams
+  Errors: any
+}

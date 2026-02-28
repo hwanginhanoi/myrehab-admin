@@ -3,15 +3,15 @@
  * Do not edit manually.
  */
 
-import type { StaffResponse } from "../StaffResponse.ts";
+import type { StaffResponse } from '../StaffResponse.ts'
 
 export type GetAvailableTrainersForDoctorPathParams = {
   /**
    * @description Doctor ID
    * @type integer, int64
    */
-  doctorId: number;
-};
+  doctorId: number
+}
 
 export type GetAvailableTrainersForDoctorQueryParams = {
   /**
@@ -19,25 +19,25 @@ export type GetAvailableTrainersForDoctorQueryParams = {
    * @default true
    * @type boolean | undefined
    */
-  enabled?: boolean;
+  enabled?: boolean
   /**
    * @description Search by fullName or email (case-insensitive)
    * @type string | undefined
    */
-  query?: string;
-};
+  query?: string
+}
 
 /**
  * @description OK
  */
-export type GetAvailableTrainersForDoctor200 = StaffResponse[];
+export type GetAvailableTrainersForDoctor200 = StaffResponse[]
 
 export type GetAvailableTrainersForDoctorQueryResponse =
-  GetAvailableTrainersForDoctor200;
+  GetAvailableTrainersForDoctor200
 
 export type GetAvailableTrainersForDoctorQuery = {
-  Response: GetAvailableTrainersForDoctor200;
-  PathParams: GetAvailableTrainersForDoctorPathParams;
-  QueryParams: GetAvailableTrainersForDoctorQueryParams;
-  Errors: any;
-};
+  Response: GetAvailableTrainersForDoctor200
+  PathParams: GetAvailableTrainersForDoctorPathParams
+  QueryParams: GetAvailableTrainersForDoctorQueryParams
+  Errors: any
+}

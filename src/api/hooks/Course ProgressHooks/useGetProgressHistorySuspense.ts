@@ -3,23 +3,31 @@
  * Do not edit manually.
  */
 
-import fetch from "@/lib/api-client";
-import type { GetProgressHistoryQueryResponse } from "../../types/courseProgressController/GetProgressHistory.ts";
-import type { RequestConfig, ResponseErrorConfig } from "@/lib/api-client";
+import fetch from '@/lib/api-client'
+import type {
+  GetProgressHistoryQueryResponse,
+  GetProgressHistoryQueryParams,
+} from '../../types/courseProgressController/GetProgressHistory.ts'
+import type { RequestConfig, ResponseErrorConfig } from '@/lib/api-client'
 import type {
   QueryKey,
   QueryClient,
   UseSuspenseQueryOptions,
   UseSuspenseQueryResult,
-} from "@tanstack/react-query";
-import { queryOptions, useSuspenseQuery } from "@tanstack/react-query";
+} from '@tanstack/react-query'
+import { queryOptions, useSuspenseQuery } from '@tanstack/react-query'
 
-export const getProgressHistorySuspenseQueryKey = () =>
-  [{ url: "/api/course-progress/history" }] as const;
+export const getProgressHistorySuspenseQueryKey = (
+  params: GetProgressHistoryQueryParams
+) =>
+  [
+    { url: '/api/course-progress/history' },
+    ...(params ? [params] : []),
+  ] as const
 
 export type GetProgressHistorySuspenseQueryKey = ReturnType<
   typeof getProgressHistorySuspenseQueryKey
->;
+>
 
 /**
  * @description Retrieve all progress records (active and archived) for the authenticated user. Includes completed courses, restarted attempts, and expired subscriptions. Useful for viewing complete rehabilitation journey.
@@ -27,34 +35,42 @@ export type GetProgressHistorySuspenseQueryKey = ReturnType<
  * {@link /api/course-progress/history}
  */
 export async function getProgressHistorySuspense(
-  config: Partial<RequestConfig> & { client?: typeof fetch } = {},
+  params: GetProgressHistoryQueryParams,
+  config: Partial<RequestConfig> & { client?: typeof fetch } = {}
 ) {
-  const { client: request = fetch, ...requestConfig } = config;
+  const { client: request = fetch, ...requestConfig } = config
 
   const res = await request<
     GetProgressHistoryQueryResponse,
     ResponseErrorConfig<Error>,
     unknown
-  >({ method: "GET", url: `/api/course-progress/history`, ...requestConfig });
-  return res.data;
+  >({
+    method: 'GET',
+    url: `/api/course-progress/history`,
+    params,
+    ...requestConfig,
+  })
+  return res.data
 }
 
 export function getProgressHistorySuspenseQueryOptions(
-  config: Partial<RequestConfig> & { client?: typeof fetch } = {},
+  params: GetProgressHistoryQueryParams,
+  config: Partial<RequestConfig> & { client?: typeof fetch } = {}
 ) {
-  const queryKey = getProgressHistorySuspenseQueryKey();
+  const queryKey = getProgressHistorySuspenseQueryKey(params)
   return queryOptions<
     GetProgressHistoryQueryResponse,
     ResponseErrorConfig<Error>,
     GetProgressHistoryQueryResponse,
     typeof queryKey
   >({
+    enabled: !!params,
     queryKey,
     queryFn: async ({ signal }) => {
-      config.signal = signal;
-      return getProgressHistorySuspense(config);
+      config.signal = signal
+      return getProgressHistorySuspense(params, config)
     },
-  });
+  })
 }
 
 /**
@@ -66,6 +82,7 @@ export function useGetProgressHistorySuspense<
   TData = GetProgressHistoryQueryResponse,
   TQueryKey extends QueryKey = GetProgressHistorySuspenseQueryKey,
 >(
+  params: GetProgressHistoryQueryParams,
   options: {
     query?: Partial<
       UseSuspenseQueryOptions<
@@ -74,27 +91,27 @@ export function useGetProgressHistorySuspense<
         TData,
         TQueryKey
       >
-    > & { client?: QueryClient };
-    client?: Partial<RequestConfig> & { client?: typeof fetch };
-  } = {},
+    > & { client?: QueryClient }
+    client?: Partial<RequestConfig> & { client?: typeof fetch }
+  } = {}
 ) {
-  const { query: queryConfig = {}, client: config = {} } = options ?? {};
-  const { client: queryClient, ...queryOptions } = queryConfig;
+  const { query: queryConfig = {}, client: config = {} } = options ?? {}
+  const { client: queryClient, ...queryOptions } = queryConfig
   const queryKey =
-    queryOptions?.queryKey ?? getProgressHistorySuspenseQueryKey();
+    queryOptions?.queryKey ?? getProgressHistorySuspenseQueryKey(params)
 
   const query = useSuspenseQuery(
     {
-      ...getProgressHistorySuspenseQueryOptions(config),
+      ...getProgressHistorySuspenseQueryOptions(params, config),
       queryKey,
       ...queryOptions,
     } as unknown as UseSuspenseQueryOptions,
-    queryClient,
+    queryClient
   ) as UseSuspenseQueryResult<TData, ResponseErrorConfig<Error>> & {
-    queryKey: TQueryKey;
-  };
+    queryKey: TQueryKey
+  }
 
-  query.queryKey = queryKey as TQueryKey;
+  query.queryKey = queryKey as TQueryKey
 
-  return query;
+  return query
 }

@@ -7,5 +7,5 @@ export type StartCourseRequest = {
   /**
    * @type integer, int64
    */
-  courseId: number;
-};
+  courseId: number
+}

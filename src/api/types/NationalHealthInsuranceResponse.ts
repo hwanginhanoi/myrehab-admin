@@ -7,25 +7,25 @@ export type NationalHealthInsuranceResponse = {
   /**
    * @type integer | undefined, int64
    */
-  id?: number;
+  id?: number
   /**
    * @type integer | undefined, int64
    */
-  userId?: number;
+  userId?: number
   /**
    * @type string | undefined
    */
-  insuranceNumber?: string;
+  insuranceNumber?: string
   /**
    * @type string | undefined
    */
-  placeOfRegistration?: string;
+  placeOfRegistration?: string
   /**
    * @type string | undefined, date-time
    */
-  createdAt?: string;
+  createdAt?: string
   /**
    * @type string | undefined, date-time
    */
-  updatedAt?: string;
-};
+  updatedAt?: string
+}

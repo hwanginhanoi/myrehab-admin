@@ -3,44 +3,44 @@
  * Do not edit manually.
  */
 
-import type { LocalTime } from "./LocalTime.ts";
+import type { LocalTime } from './LocalTime.ts'
 
 export const clinicScheduleResponseDayOfWeekEnum = {
-  MONDAY: "MONDAY",
-  TUESDAY: "TUESDAY",
-  WEDNESDAY: "WEDNESDAY",
-  THURSDAY: "THURSDAY",
-  FRIDAY: "FRIDAY",
-  SATURDAY: "SATURDAY",
-  SUNDAY: "SUNDAY",
-} as const;
+  MONDAY: 'MONDAY',
+  TUESDAY: 'TUESDAY',
+  WEDNESDAY: 'WEDNESDAY',
+  THURSDAY: 'THURSDAY',
+  FRIDAY: 'FRIDAY',
+  SATURDAY: 'SATURDAY',
+  SUNDAY: 'SUNDAY',
+} as const
 
 export type ClinicScheduleResponseDayOfWeekEnumKey =
-  (typeof clinicScheduleResponseDayOfWeekEnum)[keyof typeof clinicScheduleResponseDayOfWeekEnum];
+  (typeof clinicScheduleResponseDayOfWeekEnum)[keyof typeof clinicScheduleResponseDayOfWeekEnum]
 
 export type ClinicScheduleResponse = {
   /**
    * @type integer | undefined, int64
    */
-  id?: number;
+  id?: number
   /**
    * @type string | undefined
    */
-  dayOfWeek?: ClinicScheduleResponseDayOfWeekEnumKey;
+  dayOfWeek?: ClinicScheduleResponseDayOfWeekEnumKey
   /**
    * @type boolean | undefined
    */
-  isOpen?: boolean;
+  isOpen?: boolean
   /**
    * @type object | undefined
    */
-  openingTime?: LocalTime;
+  openingTime?: LocalTime
   /**
    * @type object | undefined
    */
-  closingTime?: LocalTime;
+  closingTime?: LocalTime
   /**
    * @type integer | undefined, int32
    */
-  slotDurationMinutes?: number;
-};
+  slotDurationMinutes?: number
+}

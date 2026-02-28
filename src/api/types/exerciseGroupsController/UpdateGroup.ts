@@ -3,29 +3,29 @@
  * Do not edit manually.
  */
 
-import type { GroupResponse } from "../GroupResponse.ts";
-import type { UpdateGroupRequest } from "../UpdateGroupRequest.ts";
+import type { GroupResponse } from '../GroupResponse.ts'
+import type { UpdateGroupRequest } from '../UpdateGroupRequest.ts'
 
 export type UpdateGroupPathParams = {
   /**
    * @description Group ID
    * @type integer, int64
    */
-  id: number;
-};
+  id: number
+}
 
 /**
  * @description OK
  */
-export type UpdateGroup200 = GroupResponse;
+export type UpdateGroup200 = GroupResponse
 
-export type UpdateGroupMutationRequest = UpdateGroupRequest;
+export type UpdateGroupMutationRequest = UpdateGroupRequest
 
-export type UpdateGroupMutationResponse = UpdateGroup200;
+export type UpdateGroupMutationResponse = UpdateGroup200
 
 export type UpdateGroupMutation = {
-  Response: UpdateGroup200;
-  Request: UpdateGroupMutationRequest;
-  PathParams: UpdateGroupPathParams;
-  Errors: any;
-};
+  Response: UpdateGroup200
+  Request: UpdateGroupMutationRequest
+  PathParams: UpdateGroupPathParams
+  Errors: any
+}

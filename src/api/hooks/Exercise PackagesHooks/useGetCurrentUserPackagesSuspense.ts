@@ -3,28 +3,28 @@
  * Do not edit manually.
  */
 
-import fetch from "@/lib/api-client";
+import fetch from '@/lib/api-client'
 import type {
   GetCurrentUserPackagesQueryResponse,
   GetCurrentUserPackagesQueryParams,
-} from "../../types/exercisePackagesController/GetCurrentUserPackages.ts";
-import type { RequestConfig, ResponseErrorConfig } from "@/lib/api-client";
+} from '../../types/exercisePackagesController/GetCurrentUserPackages.ts'
+import type { RequestConfig, ResponseErrorConfig } from '@/lib/api-client'
 import type {
   QueryKey,
   QueryClient,
   UseSuspenseQueryOptions,
   UseSuspenseQueryResult,
-} from "@tanstack/react-query";
-import { queryOptions, useSuspenseQuery } from "@tanstack/react-query";
+} from '@tanstack/react-query'
+import { queryOptions, useSuspenseQuery } from '@tanstack/react-query'
 
 export const getCurrentUserPackagesSuspenseQueryKey = (
-  params: GetCurrentUserPackagesQueryParams,
+  params: GetCurrentUserPackagesQueryParams
 ) =>
-  [{ url: "/api/exercise-packages/me" }, ...(params ? [params] : [])] as const;
+  [{ url: '/api/exercise-packages/me' }, ...(params ? [params] : [])] as const
 
 export type GetCurrentUserPackagesSuspenseQueryKey = ReturnType<
   typeof getCurrentUserPackagesSuspenseQueryKey
->;
+>
 
 /**
  * @description Retrieve all exercise packages that the current user has active subscriptions for, including subscription details (expiry date, subscription type, purchase date). Also includes current pricing information (monthlyPrice and yearlyPrice in VND) for renewal reference.
@@ -33,28 +33,28 @@ export type GetCurrentUserPackagesSuspenseQueryKey = ReturnType<
  */
 export async function getCurrentUserPackagesSuspense(
   params: GetCurrentUserPackagesQueryParams,
-  config: Partial<RequestConfig> & { client?: typeof fetch } = {},
+  config: Partial<RequestConfig> & { client?: typeof fetch } = {}
 ) {
-  const { client: request = fetch, ...requestConfig } = config;
+  const { client: request = fetch, ...requestConfig } = config
 
   const res = await request<
     GetCurrentUserPackagesQueryResponse,
     ResponseErrorConfig<Error>,
     unknown
   >({
-    method: "GET",
+    method: 'GET',
     url: `/api/exercise-packages/me`,
     params,
     ...requestConfig,
-  });
-  return res.data;
+  })
+  return res.data
 }
 
 export function getCurrentUserPackagesSuspenseQueryOptions(
   params: GetCurrentUserPackagesQueryParams,
-  config: Partial<RequestConfig> & { client?: typeof fetch } = {},
+  config: Partial<RequestConfig> & { client?: typeof fetch } = {}
 ) {
-  const queryKey = getCurrentUserPackagesSuspenseQueryKey(params);
+  const queryKey = getCurrentUserPackagesSuspenseQueryKey(params)
   return queryOptions<
     GetCurrentUserPackagesQueryResponse,
     ResponseErrorConfig<Error>,
@@ -64,10 +64,10 @@ export function getCurrentUserPackagesSuspenseQueryOptions(
     enabled: !!params,
     queryKey,
     queryFn: async ({ signal }) => {
-      config.signal = signal;
-      return getCurrentUserPackagesSuspense(params, config);
+      config.signal = signal
+      return getCurrentUserPackagesSuspense(params, config)
     },
-  });
+  })
 }
 
 /**
@@ -88,14 +88,14 @@ export function useGetCurrentUserPackagesSuspense<
         TData,
         TQueryKey
       >
-    > & { client?: QueryClient };
-    client?: Partial<RequestConfig> & { client?: typeof fetch };
-  } = {},
+    > & { client?: QueryClient }
+    client?: Partial<RequestConfig> & { client?: typeof fetch }
+  } = {}
 ) {
-  const { query: queryConfig = {}, client: config = {} } = options ?? {};
-  const { client: queryClient, ...queryOptions } = queryConfig;
+  const { query: queryConfig = {}, client: config = {} } = options ?? {}
+  const { client: queryClient, ...queryOptions } = queryConfig
   const queryKey =
-    queryOptions?.queryKey ?? getCurrentUserPackagesSuspenseQueryKey(params);
+    queryOptions?.queryKey ?? getCurrentUserPackagesSuspenseQueryKey(params)
 
   const query = useSuspenseQuery(
     {
@@ -103,12 +103,12 @@ export function useGetCurrentUserPackagesSuspense<
       queryKey,
       ...queryOptions,
     } as unknown as UseSuspenseQueryOptions,
-    queryClient,
+    queryClient
   ) as UseSuspenseQueryResult<TData, ResponseErrorConfig<Error>> & {
-    queryKey: TQueryKey;
-  };
+    queryKey: TQueryKey
+  }
 
-  query.queryKey = queryKey as TQueryKey;
+  query.queryKey = queryKey as TQueryKey
 
-  return query;
+  return query
 }

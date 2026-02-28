@@ -3,20 +3,20 @@
  * Do not edit manually.
  */
 
-import { courseWithDaysResponseSchema } from "../courseWithDaysResponseSchema.ts";
-import { z } from "zod/v4";
+import { courseWithDaysResponseSchema } from '../courseWithDaysResponseSchema.ts'
+import { z } from 'zod/v4'
 
 export const getCourseStructurePathParamsSchema = z.object({
-  courseId: z.coerce.number().int().describe("Course ID"),
-});
+  courseId: z.coerce.number().int().describe('Course ID'),
+})
 
 /**
  * @description OK
  */
 export const getCourseStructure200Schema = z.lazy(
-  () => courseWithDaysResponseSchema,
-);
+  () => courseWithDaysResponseSchema
+)
 
 export const getCourseStructureQueryResponseSchema = z.lazy(
-  () => getCourseStructure200Schema,
-);
+  () => getCourseStructure200Schema
+)

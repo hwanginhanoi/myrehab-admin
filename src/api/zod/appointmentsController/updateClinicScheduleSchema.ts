@@ -3,21 +3,21 @@
  * Do not edit manually.
  */
 
-import { clinicScheduleResponseSchema } from "../clinicScheduleResponseSchema.ts";
-import { updateClinicScheduleRequestSchema } from "../updateClinicScheduleRequestSchema.ts";
-import { z } from "zod/v4";
+import { clinicScheduleResponseSchema } from '../clinicScheduleResponseSchema.ts'
+import { updateClinicScheduleRequestSchema } from '../updateClinicScheduleRequestSchema.ts'
+import { z } from 'zod/v4'
 
 /**
  * @description OK
  */
 export const updateClinicSchedule200Schema = z.lazy(
-  () => clinicScheduleResponseSchema,
-);
+  () => clinicScheduleResponseSchema
+)
 
 export const updateClinicScheduleMutationRequestSchema = z.lazy(
-  () => updateClinicScheduleRequestSchema,
-);
+  () => updateClinicScheduleRequestSchema
+)
 
 export const updateClinicScheduleMutationResponseSchema = z.lazy(
-  () => updateClinicSchedule200Schema,
-);
+  () => updateClinicSchedule200Schema
+)

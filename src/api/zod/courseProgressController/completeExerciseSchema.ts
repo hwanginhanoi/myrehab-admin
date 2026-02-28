@@ -3,20 +3,20 @@
  * Do not edit manually.
  */
 
-import { exerciseCompletionResponseSchema } from "../exerciseCompletionResponseSchema.ts";
-import { z } from "zod/v4";
+import { exerciseCompletionResponseSchema } from '../exerciseCompletionResponseSchema.ts'
+import { z } from 'zod/v4'
 
 export const completeExercisePathParamsSchema = z.object({
-  dayExerciseId: z.coerce.number().int().describe("Day Exercise ID"),
-});
+  dayExerciseId: z.coerce.number().int().describe('Day Exercise ID'),
+})
 
 /**
  * @description OK
  */
 export const completeExercise200Schema = z.lazy(
-  () => exerciseCompletionResponseSchema,
-);
+  () => exerciseCompletionResponseSchema
+)
 
 export const completeExerciseMutationResponseSchema = z.lazy(
-  () => completeExercise200Schema,
-);
+  () => completeExercise200Schema
+)

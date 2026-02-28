@@ -4,41 +4,41 @@
  */
 
 export const updateNewsRequestStatusEnum = {
-  DRAFT: "DRAFT",
-  PUBLISHED: "PUBLISHED",
-  ARCHIVED: "ARCHIVED",
-} as const;
+  DRAFT: 'DRAFT',
+  PUBLISHED: 'PUBLISHED',
+  ARCHIVED: 'ARCHIVED',
+} as const
 
 export type UpdateNewsRequestStatusEnumKey =
-  (typeof updateNewsRequestStatusEnum)[keyof typeof updateNewsRequestStatusEnum];
+  (typeof updateNewsRequestStatusEnum)[keyof typeof updateNewsRequestStatusEnum]
 
 export type UpdateNewsRequest = {
   /**
    * @type string
    */
-  title: string;
+  title: string
   /**
    * @type string
    */
-  content: string;
+  content: string
   /**
    * @type string | undefined
    */
-  summary?: string;
+  summary?: string
   /**
    * @type string | undefined
    */
-  thumbnailUrl?: string;
+  thumbnailUrl?: string
   /**
    * @type integer | undefined, int64
    */
-  authorId?: number;
+  authorId?: number
   /**
    * @type string
    */
-  status: UpdateNewsRequestStatusEnumKey;
+  status: UpdateNewsRequestStatusEnumKey
   /**
    * @type string | undefined
    */
-  category?: string;
-};
+  category?: string
+}

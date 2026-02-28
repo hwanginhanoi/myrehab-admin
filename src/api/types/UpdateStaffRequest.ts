@@ -3,10 +3,10 @@
  * Do not edit manually.
  */
 
-import type { UpdateAdminRequest } from "./UpdateAdminRequest.ts";
-import type { UpdateDoctorRequest } from "./UpdateDoctorRequest.ts";
-import type { UpdateSuperAdminRequest } from "./UpdateSuperAdminRequest.ts";
-import type { UpdateTrainerRequest } from "./UpdateTrainerRequest.ts";
+import type { UpdateAdminRequest } from './UpdateAdminRequest.ts'
+import type { UpdateDoctorRequest } from './UpdateDoctorRequest.ts'
+import type { UpdateSuperAdminRequest } from './UpdateSuperAdminRequest.ts'
+import type { UpdateTrainerRequest } from './UpdateTrainerRequest.ts'
 
 /**
  * @description Base update request for staff
@@ -17,126 +17,126 @@ export type UpdateStaffRequest =
        * @description Staff type discriminator
        * @type string
        */
-      staffType: "DOCTOR";
+      staffType: 'DOCTOR'
       /**
        * @description Staff email address
        * @type string
        */
-      email: string;
+      email: string
       /**
        * @description Staff full name
        * @type string
        */
-      fullName: string;
+      fullName: string
       /**
        * @description Staff phone number
        * @type string | undefined
        */
-      phoneNumber?: string;
+      phoneNumber?: string
       /**
        * @description Staff description or bio
        * @type string | undefined
        */
-      description?: string;
+      description?: string
       /**
        * @description List of permission codes assigned to this staff member
        * @type array | undefined
        */
-      permissions?: string[];
+      permissions?: string[]
     })
   | (UpdateTrainerRequest & {
       /**
        * @description Staff type discriminator
        * @type string
        */
-      staffType: "TRAINER";
+      staffType: 'TRAINER'
       /**
        * @description Staff email address
        * @type string
        */
-      email: string;
+      email: string
       /**
        * @description Staff full name
        * @type string
        */
-      fullName: string;
+      fullName: string
       /**
        * @description Staff phone number
        * @type string | undefined
        */
-      phoneNumber?: string;
+      phoneNumber?: string
       /**
        * @description Staff description or bio
        * @type string | undefined
        */
-      description?: string;
+      description?: string
       /**
        * @description List of permission codes assigned to this staff member
        * @type array | undefined
        */
-      permissions?: string[];
+      permissions?: string[]
     })
   | (UpdateAdminRequest & {
       /**
        * @description Staff type discriminator
        * @type string
        */
-      staffType: "ADMIN";
+      staffType: 'ADMIN'
       /**
        * @description Staff email address
        * @type string
        */
-      email: string;
+      email: string
       /**
        * @description Staff full name
        * @type string
        */
-      fullName: string;
+      fullName: string
       /**
        * @description Staff phone number
        * @type string | undefined
        */
-      phoneNumber?: string;
+      phoneNumber?: string
       /**
        * @description Staff description or bio
        * @type string | undefined
        */
-      description?: string;
+      description?: string
       /**
        * @description List of permission codes assigned to this staff member
        * @type array | undefined
        */
-      permissions?: string[];
+      permissions?: string[]
     })
   | (UpdateSuperAdminRequest & {
       /**
        * @description Staff type discriminator
        * @type string
        */
-      staffType: "SUPER_ADMIN";
+      staffType: 'SUPER_ADMIN'
       /**
        * @description Staff email address
        * @type string
        */
-      email: string;
+      email: string
       /**
        * @description Staff full name
        * @type string
        */
-      fullName: string;
+      fullName: string
       /**
        * @description Staff phone number
        * @type string | undefined
        */
-      phoneNumber?: string;
+      phoneNumber?: string
       /**
        * @description Staff description or bio
        * @type string | undefined
        */
-      description?: string;
+      description?: string
       /**
        * @description List of permission codes assigned to this staff member
        * @type array | undefined
        */
-      permissions?: string[];
-    });
+      permissions?: string[]
+    })

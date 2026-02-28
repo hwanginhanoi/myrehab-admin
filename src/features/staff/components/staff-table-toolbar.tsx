@@ -2,7 +2,10 @@ import { Cross2Icon } from '@radix-ui/react-icons'
 import { type Table } from '@tanstack/react-table'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
-import { DataTableFacetedFilter, DataTableViewOptions } from '@/components/server-data-table'
+import {
+  DataTableFacetedFilter,
+  DataTableViewOptions,
+} from '@/components/server-data-table'
 import type { StaffResponse } from '@/api'
 import { staffRoles, staffStatuses } from '../data/staff-roles'
 
@@ -15,28 +18,28 @@ export function StaffTableToolbar({ table }: StaffTableToolbarProps) {
     table.getState().columnFilters.length > 0 || table.getState().globalFilter
 
   return (
-    <div className='flex items-center justify-between'>
-      <div className='flex flex-1 flex-col-reverse items-start gap-y-2 sm:flex-row sm:items-center sm:space-x-2'>
+    <div className="flex items-center justify-between">
+      <div className="flex flex-1 flex-col-reverse items-start gap-y-2 sm:flex-row sm:items-center sm:space-x-2">
         {/* Search by name or email */}
         <Input
-          placeholder='Tìm kiếm theo tên hoặc email...'
+          placeholder="Tìm kiếm theo tên hoặc email..."
           value={(table.getColumn('query')?.getFilterValue() as string) ?? ''}
           onChange={(event) =>
             table.getColumn('query')?.setFilterValue(event.target.value)
           }
-          className='h-8 w-[150px] lg:w-[300px]'
+          className="h-8 w-[150px] lg:w-[300px]"
         />
 
         {/* Staff type and status filters */}
-        <div className='flex gap-x-2'>
+        <div className="flex gap-x-2">
           <DataTableFacetedFilter
             column={table.getColumn('staffTypeFilter')}
-            title='Vai trò'
+            title="Vai trò"
             options={staffRoles}
           />
           <DataTableFacetedFilter
             column={table.getColumn('statusFilter')}
-            title='Trạng thái'
+            title="Trạng thái"
             options={staffStatuses}
           />
         </div>
@@ -44,15 +47,15 @@ export function StaffTableToolbar({ table }: StaffTableToolbarProps) {
         {/* Reset filters button */}
         {isFiltered && (
           <Button
-            variant='ghost'
+            variant="ghost"
             onClick={() => {
               table.resetColumnFilters()
               table.setGlobalFilter('')
             }}
-            className='h-8 px-2 lg:px-3'
+            className="h-8 px-2 lg:px-3"
           >
             Reset
-            <Cross2Icon className='ms-2 h-4 w-4' />
+            <Cross2Icon className="ms-2 h-4 w-4" />
           </Button>
         )}
       </div>

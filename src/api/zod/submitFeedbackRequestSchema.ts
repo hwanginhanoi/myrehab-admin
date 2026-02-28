@@ -3,7 +3,7 @@
  * Do not edit manually.
  */
 
-import { z } from "zod/v4";
+import { z } from 'zod/v4'
 
 export const submitFeedbackRequestSchema = z.object({
   completionPercentage: z.int().min(0).max(100),
@@ -13,4 +13,4 @@ export const submitFeedbackRequestSchema = z.object({
   hardestExercise: z.optional(z.string().min(0).max(500)),
   hardestExerciseReason: z.optional(z.string().min(0).max(2000)),
   generalNotes: z.optional(z.string().min(0).max(2000)),
-});
+})

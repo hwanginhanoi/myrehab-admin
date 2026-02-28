@@ -3,21 +3,21 @@
  * Do not edit manually.
  */
 
-import type { CourseDetailsRequest } from "./CourseDetailsRequest.ts";
+import type { CourseDetailsRequest } from './CourseDetailsRequest.ts'
 
 export type CreateCourseRequestRequest = {
   /**
    * @type integer, int64
    */
-  patientId: number;
+  patientId: number
   /**
    * @type object
    */
-  courseDetails: CourseDetailsRequest;
+  courseDetails: CourseDetailsRequest
   /**
    * @minLength 0
    * @maxLength 1000
    * @type string | undefined
    */
-  trainerNotes?: string;
-};
+  trainerNotes?: string
+}

@@ -3,23 +3,23 @@
  * Do not edit manually.
  */
 
-import { staffResponseSchema } from "../staffResponseSchema.ts";
-import { updateStaffRequestSchema } from "../updateStaffRequestSchema.ts";
-import { z } from "zod/v4";
+import { staffResponseSchema } from '../staffResponseSchema.ts'
+import { updateStaffRequestSchema } from '../updateStaffRequestSchema.ts'
+import { z } from 'zod/v4'
 
 export const updateStaffPathParamsSchema = z.object({
-  id: z.coerce.number().int().describe("Staff ID"),
-});
+  id: z.coerce.number().int().describe('Staff ID'),
+})
 
 /**
  * @description OK
  */
-export const updateStaff200Schema = z.lazy(() => staffResponseSchema);
+export const updateStaff200Schema = z.lazy(() => staffResponseSchema)
 
 export const updateStaffMutationRequestSchema = z
   .lazy(() => updateStaffRequestSchema)
-  .describe("Base update request for staff");
+  .describe('Base update request for staff')
 
 export const updateStaffMutationResponseSchema = z.lazy(
-  () => updateStaff200Schema,
-);
+  () => updateStaff200Schema
+)

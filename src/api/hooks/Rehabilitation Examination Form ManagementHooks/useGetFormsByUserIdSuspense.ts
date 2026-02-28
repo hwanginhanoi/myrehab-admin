@@ -3,36 +3,36 @@
  * Do not edit manually.
  */
 
-import fetch from "@/lib/api-client";
+import fetch from '@/lib/api-client'
 import type {
   GetFormsByUserIdQueryResponse,
   GetFormsByUserIdPathParams,
   GetFormsByUserIdQueryParams,
-} from "../../types/rehabilitationExaminationFormManagementController/GetFormsByUserId.ts";
-import type { RequestConfig, ResponseErrorConfig } from "@/lib/api-client";
+} from '../../types/rehabilitationExaminationFormManagementController/GetFormsByUserId.ts'
+import type { RequestConfig, ResponseErrorConfig } from '@/lib/api-client'
 import type {
   QueryKey,
   QueryClient,
   UseSuspenseQueryOptions,
   UseSuspenseQueryResult,
-} from "@tanstack/react-query";
-import { queryOptions, useSuspenseQuery } from "@tanstack/react-query";
+} from '@tanstack/react-query'
+import { queryOptions, useSuspenseQuery } from '@tanstack/react-query'
 
 export const getFormsByUserIdSuspenseQueryKey = (
-  userId: GetFormsByUserIdPathParams["userId"],
-  params: GetFormsByUserIdQueryParams,
+  userId: GetFormsByUserIdPathParams['userId'],
+  params: GetFormsByUserIdQueryParams
 ) =>
   [
     {
-      url: "/api/rehabilitation-examination-forms/user/:userId",
+      url: '/api/rehabilitation-examination-forms/user/:userId',
       params: { userId: userId },
     },
     ...(params ? [params] : []),
-  ] as const;
+  ] as const
 
 export type GetFormsByUserIdSuspenseQueryKey = ReturnType<
   typeof getFormsByUserIdSuspenseQueryKey
->;
+>
 
 /**
  * @description Retrieve paginated rehabilitation examination forms for a specific user
@@ -40,31 +40,31 @@ export type GetFormsByUserIdSuspenseQueryKey = ReturnType<
  * {@link /api/rehabilitation-examination-forms/user/:userId}
  */
 export async function getFormsByUserIdSuspense(
-  userId: GetFormsByUserIdPathParams["userId"],
+  userId: GetFormsByUserIdPathParams['userId'],
   params: GetFormsByUserIdQueryParams,
-  config: Partial<RequestConfig> & { client?: typeof fetch } = {},
+  config: Partial<RequestConfig> & { client?: typeof fetch } = {}
 ) {
-  const { client: request = fetch, ...requestConfig } = config;
+  const { client: request = fetch, ...requestConfig } = config
 
   const res = await request<
     GetFormsByUserIdQueryResponse,
     ResponseErrorConfig<Error>,
     unknown
   >({
-    method: "GET",
+    method: 'GET',
     url: `/api/rehabilitation-examination-forms/user/${userId}`,
     params,
     ...requestConfig,
-  });
-  return res.data;
+  })
+  return res.data
 }
 
 export function getFormsByUserIdSuspenseQueryOptions(
-  userId: GetFormsByUserIdPathParams["userId"],
+  userId: GetFormsByUserIdPathParams['userId'],
   params: GetFormsByUserIdQueryParams,
-  config: Partial<RequestConfig> & { client?: typeof fetch } = {},
+  config: Partial<RequestConfig> & { client?: typeof fetch } = {}
 ) {
-  const queryKey = getFormsByUserIdSuspenseQueryKey(userId, params);
+  const queryKey = getFormsByUserIdSuspenseQueryKey(userId, params)
   return queryOptions<
     GetFormsByUserIdQueryResponse,
     ResponseErrorConfig<Error>,
@@ -74,10 +74,10 @@ export function getFormsByUserIdSuspenseQueryOptions(
     enabled: !!(userId && params),
     queryKey,
     queryFn: async ({ signal }) => {
-      config.signal = signal;
-      return getFormsByUserIdSuspense(userId, params, config);
+      config.signal = signal
+      return getFormsByUserIdSuspense(userId, params, config)
     },
-  });
+  })
 }
 
 /**
@@ -89,7 +89,7 @@ export function useGetFormsByUserIdSuspense<
   TData = GetFormsByUserIdQueryResponse,
   TQueryKey extends QueryKey = GetFormsByUserIdSuspenseQueryKey,
 >(
-  userId: GetFormsByUserIdPathParams["userId"],
+  userId: GetFormsByUserIdPathParams['userId'],
   params: GetFormsByUserIdQueryParams,
   options: {
     query?: Partial<
@@ -99,14 +99,14 @@ export function useGetFormsByUserIdSuspense<
         TData,
         TQueryKey
       >
-    > & { client?: QueryClient };
-    client?: Partial<RequestConfig> & { client?: typeof fetch };
-  } = {},
+    > & { client?: QueryClient }
+    client?: Partial<RequestConfig> & { client?: typeof fetch }
+  } = {}
 ) {
-  const { query: queryConfig = {}, client: config = {} } = options ?? {};
-  const { client: queryClient, ...queryOptions } = queryConfig;
+  const { query: queryConfig = {}, client: config = {} } = options ?? {}
+  const { client: queryClient, ...queryOptions } = queryConfig
   const queryKey =
-    queryOptions?.queryKey ?? getFormsByUserIdSuspenseQueryKey(userId, params);
+    queryOptions?.queryKey ?? getFormsByUserIdSuspenseQueryKey(userId, params)
 
   const query = useSuspenseQuery(
     {
@@ -114,12 +114,12 @@ export function useGetFormsByUserIdSuspense<
       queryKey,
       ...queryOptions,
     } as unknown as UseSuspenseQueryOptions,
-    queryClient,
+    queryClient
   ) as UseSuspenseQueryResult<TData, ResponseErrorConfig<Error>> & {
-    queryKey: TQueryKey;
-  };
+    queryKey: TQueryKey
+  }
 
-  query.queryKey = queryKey as TQueryKey;
+  query.queryKey = queryKey as TQueryKey
 
-  return query;
+  return query
 }

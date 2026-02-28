@@ -3,25 +3,25 @@
  * Do not edit manually.
  */
 
-import { pageableSchema } from "../pageableSchema.ts";
-import { pagedModelSchema } from "../pagedModelSchema.ts";
-import { z } from "zod/v4";
+import { pageableSchema } from '../pageableSchema.ts'
+import { pagedModelSchema } from '../pagedModelSchema.ts'
+import { z } from 'zod/v4'
 
 export const getFormsByUserIdPathParamsSchema = z.object({
   userId: z.coerce.number().int(),
-});
+})
 
 export const getFormsByUserIdQueryParamsSchema = z.object({
   get pageable() {
-    return pageableSchema;
+    return pageableSchema
   },
-});
+})
 
 /**
  * @description OK
  */
-export const getFormsByUserId200Schema = z.lazy(() => pagedModelSchema);
+export const getFormsByUserId200Schema = z.lazy(() => pagedModelSchema)
 
 export const getFormsByUserIdQueryResponseSchema = z.lazy(
-  () => getFormsByUserId200Schema,
-);
+  () => getFormsByUserId200Schema
+)

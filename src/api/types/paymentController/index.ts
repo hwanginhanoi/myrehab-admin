@@ -2,10 +2,10 @@ export type {
   GetMyQrCode200,
   GetMyQrCodeQueryResponse,
   GetMyQrCodeQuery,
-} from "./GetMyQrCode.ts";
+} from './GetMyQrCode.ts'
 export type {
   HandleWebhook200,
   HandleWebhookMutationRequest,
   HandleWebhookMutationResponse,
   HandleWebhookMutation,
-} from "./HandleWebhook.ts";
+} from './HandleWebhook.ts'

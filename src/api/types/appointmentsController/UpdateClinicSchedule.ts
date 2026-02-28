@@ -3,20 +3,20 @@
  * Do not edit manually.
  */
 
-import type { ClinicScheduleResponse } from "../ClinicScheduleResponse.ts";
-import type { UpdateClinicScheduleRequest } from "../UpdateClinicScheduleRequest.ts";
+import type { ClinicScheduleResponse } from '../ClinicScheduleResponse.ts'
+import type { UpdateClinicScheduleRequest } from '../UpdateClinicScheduleRequest.ts'
 
 /**
  * @description OK
  */
-export type UpdateClinicSchedule200 = ClinicScheduleResponse;
+export type UpdateClinicSchedule200 = ClinicScheduleResponse
 
-export type UpdateClinicScheduleMutationRequest = UpdateClinicScheduleRequest;
+export type UpdateClinicScheduleMutationRequest = UpdateClinicScheduleRequest
 
-export type UpdateClinicScheduleMutationResponse = UpdateClinicSchedule200;
+export type UpdateClinicScheduleMutationResponse = UpdateClinicSchedule200
 
 export type UpdateClinicScheduleMutation = {
-  Response: UpdateClinicSchedule200;
-  Request: UpdateClinicScheduleMutationRequest;
-  Errors: any;
-};
+  Response: UpdateClinicSchedule200
+  Request: UpdateClinicScheduleMutationRequest
+  Errors: any
+}

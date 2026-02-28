@@ -10,8 +10,8 @@ export function CategoriesPrimaryButtons() {
   if (!hasPermission('categories:create')) return null
 
   return (
-    <div className='flex gap-2'>
-      <Button className='space-x-1' onClick={() => setOpen('add')}>
+    <div className="flex gap-2">
+      <Button className="space-x-1" onClick={() => setOpen('add')}>
         <span>Thêm danh mục</span> <Plus size={18} />
       </Button>
     </div>

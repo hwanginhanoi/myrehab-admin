@@ -3,36 +3,36 @@
  * Do not edit manually.
  */
 
-import fetch from "@/lib/api-client";
+import fetch from '@/lib/api-client'
 import type {
   GetAvailableTrainersForDoctorQueryResponse,
   GetAvailableTrainersForDoctorPathParams,
   GetAvailableTrainersForDoctorQueryParams,
-} from "../../types/staffManagementController/GetAvailableTrainersForDoctor.ts";
-import type { RequestConfig, ResponseErrorConfig } from "@/lib/api-client";
+} from '../../types/staffManagementController/GetAvailableTrainersForDoctor.ts'
+import type { RequestConfig, ResponseErrorConfig } from '@/lib/api-client'
 import type {
   QueryKey,
   QueryClient,
   QueryObserverOptions,
   UseQueryResult,
-} from "@tanstack/react-query";
-import { queryOptions, useQuery } from "@tanstack/react-query";
+} from '@tanstack/react-query'
+import { queryOptions, useQuery } from '@tanstack/react-query'
 
 export const getAvailableTrainersForDoctorQueryKey = (
-  doctorId: GetAvailableTrainersForDoctorPathParams["doctorId"],
-  params?: GetAvailableTrainersForDoctorQueryParams,
+  doctorId: GetAvailableTrainersForDoctorPathParams['doctorId'],
+  params?: GetAvailableTrainersForDoctorQueryParams
 ) =>
   [
     {
-      url: "/api/admin/staff/doctors/:doctorId/available-trainers",
+      url: '/api/admin/staff/doctors/:doctorId/available-trainers',
       params: { doctorId: doctorId },
     },
     ...(params ? [params] : []),
-  ] as const;
+  ] as const
 
 export type GetAvailableTrainersForDoctorQueryKey = ReturnType<
   typeof getAvailableTrainersForDoctorQueryKey
->;
+>
 
 /**
  * @description Returns the 5 closest matching trainers who are available to be assigned to a specific doctor. Includes trainers who are either unassigned or assigned to a different doctor. Results are sorted alphabetically by full name. No pagination - always returns max 5 results.
@@ -40,31 +40,31 @@ export type GetAvailableTrainersForDoctorQueryKey = ReturnType<
  * {@link /api/admin/staff/doctors/:doctorId/available-trainers}
  */
 export async function getAvailableTrainersForDoctor(
-  doctorId: GetAvailableTrainersForDoctorPathParams["doctorId"],
+  doctorId: GetAvailableTrainersForDoctorPathParams['doctorId'],
   params?: GetAvailableTrainersForDoctorQueryParams,
-  config: Partial<RequestConfig> & { client?: typeof fetch } = {},
+  config: Partial<RequestConfig> & { client?: typeof fetch } = {}
 ) {
-  const { client: request = fetch, ...requestConfig } = config;
+  const { client: request = fetch, ...requestConfig } = config
 
   const res = await request<
     GetAvailableTrainersForDoctorQueryResponse,
     ResponseErrorConfig<Error>,
     unknown
   >({
-    method: "GET",
+    method: 'GET',
     url: `/api/admin/staff/doctors/${doctorId}/available-trainers`,
     params,
     ...requestConfig,
-  });
-  return res.data;
+  })
+  return res.data
 }
 
 export function getAvailableTrainersForDoctorQueryOptions(
-  doctorId: GetAvailableTrainersForDoctorPathParams["doctorId"],
+  doctorId: GetAvailableTrainersForDoctorPathParams['doctorId'],
   params?: GetAvailableTrainersForDoctorQueryParams,
-  config: Partial<RequestConfig> & { client?: typeof fetch } = {},
+  config: Partial<RequestConfig> & { client?: typeof fetch } = {}
 ) {
-  const queryKey = getAvailableTrainersForDoctorQueryKey(doctorId, params);
+  const queryKey = getAvailableTrainersForDoctorQueryKey(doctorId, params)
   return queryOptions<
     GetAvailableTrainersForDoctorQueryResponse,
     ResponseErrorConfig<Error>,
@@ -74,10 +74,10 @@ export function getAvailableTrainersForDoctorQueryOptions(
     enabled: !!doctorId,
     queryKey,
     queryFn: async ({ signal }) => {
-      config.signal = signal;
-      return getAvailableTrainersForDoctor(doctorId, params, config);
+      config.signal = signal
+      return getAvailableTrainersForDoctor(doctorId, params, config)
     },
-  });
+  })
 }
 
 /**
@@ -90,7 +90,7 @@ export function useGetAvailableTrainersForDoctor<
   TQueryData = GetAvailableTrainersForDoctorQueryResponse,
   TQueryKey extends QueryKey = GetAvailableTrainersForDoctorQueryKey,
 >(
-  doctorId: GetAvailableTrainersForDoctorPathParams["doctorId"],
+  doctorId: GetAvailableTrainersForDoctorPathParams['doctorId'],
   params?: GetAvailableTrainersForDoctorQueryParams,
   options: {
     query?: Partial<
@@ -101,15 +101,15 @@ export function useGetAvailableTrainersForDoctor<
         TQueryData,
         TQueryKey
       >
-    > & { client?: QueryClient };
-    client?: Partial<RequestConfig> & { client?: typeof fetch };
-  } = {},
+    > & { client?: QueryClient }
+    client?: Partial<RequestConfig> & { client?: typeof fetch }
+  } = {}
 ) {
-  const { query: queryConfig = {}, client: config = {} } = options ?? {};
-  const { client: queryClient, ...queryOptions } = queryConfig;
+  const { query: queryConfig = {}, client: config = {} } = options ?? {}
+  const { client: queryClient, ...queryOptions } = queryConfig
   const queryKey =
     queryOptions?.queryKey ??
-    getAvailableTrainersForDoctorQueryKey(doctorId, params);
+    getAvailableTrainersForDoctorQueryKey(doctorId, params)
 
   const query = useQuery(
     {
@@ -117,12 +117,12 @@ export function useGetAvailableTrainersForDoctor<
       queryKey,
       ...queryOptions,
     } as unknown as QueryObserverOptions,
-    queryClient,
+    queryClient
   ) as UseQueryResult<TData, ResponseErrorConfig<Error>> & {
-    queryKey: TQueryKey;
-  };
+    queryKey: TQueryKey
+  }
 
-  query.queryKey = queryKey as TQueryKey;
+  query.queryKey = queryKey as TQueryKey
 
-  return query;
+  return query
 }

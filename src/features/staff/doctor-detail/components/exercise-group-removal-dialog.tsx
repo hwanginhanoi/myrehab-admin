@@ -59,25 +59,28 @@ export function ExerciseGroupRemovalDialog({
           <AlertDialogTitle>Xác nhận xóa nhóm bài tập</AlertDialogTitle>
           <AlertDialogDescription>
             Bạn có chắc chắn muốn xóa nhóm bài tập{' '}
-            <span className='font-semibold text-foreground'>
+            <span className="font-semibold text-foreground">
               {group?.name || 'này'}
             </span>{' '}
-            khỏi bác sĩ này? Nhóm bài tập sẽ không còn được liên kết với bác sĩ này nữa.
+            khỏi bác sĩ này? Nhóm bài tập sẽ không còn được liên kết với bác sĩ
+            này nữa.
           </AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>
-          <AlertDialogCancel disabled={removeMutation.isPending}>Hủy</AlertDialogCancel>
+          <AlertDialogCancel disabled={removeMutation.isPending}>
+            Hủy
+          </AlertDialogCancel>
           <AlertDialogAction
             onClick={(e) => {
               e.preventDefault()
               handleRemove()
             }}
             disabled={removeMutation.isPending}
-            className='bg-destructive text-destructive-foreground hover:bg-destructive/90'
+            className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
           >
             {removeMutation.isPending ? (
               <>
-                <Loader2 className='mr-2 h-4 w-4 animate-spin' />
+                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
                 Đang xóa...
               </>
             ) : (

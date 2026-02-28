@@ -3,23 +3,23 @@
  * Do not edit manually.
  */
 
-import fetch from "@/lib/api-client";
+import fetch from '@/lib/api-client'
 import type {
   StartCourseMutationRequest,
   StartCourseMutationResponse,
-} from "../../types/courseProgressController/StartCourse.ts";
-import type { RequestConfig, ResponseErrorConfig } from "@/lib/api-client";
+} from '../../types/courseProgressController/StartCourse.ts'
+import type { RequestConfig, ResponseErrorConfig } from '@/lib/api-client'
 import type {
   UseMutationOptions,
   UseMutationResult,
   QueryClient,
-} from "@tanstack/react-query";
-import { mutationOptions, useMutation } from "@tanstack/react-query";
+} from '@tanstack/react-query'
+import { mutationOptions, useMutation } from '@tanstack/react-query'
 
 export const startCourseMutationKey = () =>
-  [{ url: "/api/course-progress/start" }] as const;
+  [{ url: '/api/course-progress/start' }] as const
 
-export type StartCourseMutationKey = ReturnType<typeof startCourseMutationKey>;
+export type StartCourseMutationKey = ReturnType<typeof startCourseMutationKey>
 
 /**
  * @description Start a new course or restart an existing incomplete course. If user has incomplete progress, it will be deleted and replaced with new progress starting at Day 1.
@@ -29,32 +29,32 @@ export type StartCourseMutationKey = ReturnType<typeof startCourseMutationKey>;
 export async function startCourse(
   data: StartCourseMutationRequest,
   config: Partial<RequestConfig<StartCourseMutationRequest>> & {
-    client?: typeof fetch;
-  } = {},
+    client?: typeof fetch
+  } = {}
 ) {
-  const { client: request = fetch, ...requestConfig } = config;
+  const { client: request = fetch, ...requestConfig } = config
 
-  const requestData = data;
+  const requestData = data
 
   const res = await request<
     StartCourseMutationResponse,
     ResponseErrorConfig<Error>,
     StartCourseMutationRequest
   >({
-    method: "POST",
+    method: 'POST',
     url: `/api/course-progress/start`,
     data: requestData,
     ...requestConfig,
-  });
-  return res.data;
+  })
+  return res.data
 }
 
 export function startCourseMutationOptions(
   config: Partial<RequestConfig<StartCourseMutationRequest>> & {
-    client?: typeof fetch;
-  } = {},
+    client?: typeof fetch
+  } = {}
 ) {
-  const mutationKey = startCourseMutationKey();
+  const mutationKey = startCourseMutationKey()
   return mutationOptions<
     StartCourseMutationResponse,
     ResponseErrorConfig<Error>,
@@ -63,9 +63,9 @@ export function startCourseMutationOptions(
   >({
     mutationKey,
     mutationFn: async ({ data }) => {
-      return startCourse(data, config);
+      return startCourse(data, config)
     },
-  });
+  })
 }
 
 /**
@@ -80,22 +80,22 @@ export function useStartCourse<TContext>(
       ResponseErrorConfig<Error>,
       { data: StartCourseMutationRequest },
       TContext
-    > & { client?: QueryClient };
+    > & { client?: QueryClient }
     client?: Partial<RequestConfig<StartCourseMutationRequest>> & {
-      client?: typeof fetch;
-    };
-  } = {},
+      client?: typeof fetch
+    }
+  } = {}
 ) {
-  const { mutation = {}, client: config = {} } = options ?? {};
-  const { client: queryClient, ...mutationOptions } = mutation;
-  const mutationKey = mutationOptions.mutationKey ?? startCourseMutationKey();
+  const { mutation = {}, client: config = {} } = options ?? {}
+  const { client: queryClient, ...mutationOptions } = mutation
+  const mutationKey = mutationOptions.mutationKey ?? startCourseMutationKey()
 
   const baseOptions = startCourseMutationOptions(config) as UseMutationOptions<
     StartCourseMutationResponse,
     ResponseErrorConfig<Error>,
     { data: StartCourseMutationRequest },
     TContext
-  >;
+  >
 
   return useMutation<
     StartCourseMutationResponse,
@@ -108,11 +108,11 @@ export function useStartCourse<TContext>(
       mutationKey,
       ...mutationOptions,
     },
-    queryClient,
+    queryClient
   ) as UseMutationResult<
     StartCourseMutationResponse,
     ResponseErrorConfig<Error>,
     { data: StartCourseMutationRequest },
     TContext
-  >;
+  >
 }

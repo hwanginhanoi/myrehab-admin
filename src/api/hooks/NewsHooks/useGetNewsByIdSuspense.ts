@@ -3,26 +3,26 @@
  * Do not edit manually.
  */
 
-import fetch from "@/lib/api-client";
+import fetch from '@/lib/api-client'
 import type {
   GetNewsByIdQueryResponse,
   GetNewsByIdPathParams,
-} from "../../types/newsController/GetNewsById.ts";
-import type { RequestConfig, ResponseErrorConfig } from "@/lib/api-client";
+} from '../../types/newsController/GetNewsById.ts'
+import type { RequestConfig, ResponseErrorConfig } from '@/lib/api-client'
 import type {
   QueryKey,
   QueryClient,
   UseSuspenseQueryOptions,
   UseSuspenseQueryResult,
-} from "@tanstack/react-query";
-import { queryOptions, useSuspenseQuery } from "@tanstack/react-query";
+} from '@tanstack/react-query'
+import { queryOptions, useSuspenseQuery } from '@tanstack/react-query'
 
-export const getNewsByIdSuspenseQueryKey = (id: GetNewsByIdPathParams["id"]) =>
-  [{ url: "/api/news/:id", params: { id: id } }] as const;
+export const getNewsByIdSuspenseQueryKey = (id: GetNewsByIdPathParams['id']) =>
+  [{ url: '/api/news/:id', params: { id: id } }] as const
 
 export type GetNewsByIdSuspenseQueryKey = ReturnType<
   typeof getNewsByIdSuspenseQueryKey
->;
+>
 
 /**
  * @description Retrieve a specific news article by its ID
@@ -30,24 +30,24 @@ export type GetNewsByIdSuspenseQueryKey = ReturnType<
  * {@link /api/news/:id}
  */
 export async function getNewsByIdSuspense(
-  id: GetNewsByIdPathParams["id"],
-  config: Partial<RequestConfig> & { client?: typeof fetch } = {},
+  id: GetNewsByIdPathParams['id'],
+  config: Partial<RequestConfig> & { client?: typeof fetch } = {}
 ) {
-  const { client: request = fetch, ...requestConfig } = config;
+  const { client: request = fetch, ...requestConfig } = config
 
   const res = await request<
     GetNewsByIdQueryResponse,
     ResponseErrorConfig<Error>,
     unknown
-  >({ method: "GET", url: `/api/news/${id}`, ...requestConfig });
-  return res.data;
+  >({ method: 'GET', url: `/api/news/${id}`, ...requestConfig })
+  return res.data
 }
 
 export function getNewsByIdSuspenseQueryOptions(
-  id: GetNewsByIdPathParams["id"],
-  config: Partial<RequestConfig> & { client?: typeof fetch } = {},
+  id: GetNewsByIdPathParams['id'],
+  config: Partial<RequestConfig> & { client?: typeof fetch } = {}
 ) {
-  const queryKey = getNewsByIdSuspenseQueryKey(id);
+  const queryKey = getNewsByIdSuspenseQueryKey(id)
   return queryOptions<
     GetNewsByIdQueryResponse,
     ResponseErrorConfig<Error>,
@@ -57,10 +57,10 @@ export function getNewsByIdSuspenseQueryOptions(
     enabled: !!id,
     queryKey,
     queryFn: async ({ signal }) => {
-      config.signal = signal;
-      return getNewsByIdSuspense(id, config);
+      config.signal = signal
+      return getNewsByIdSuspense(id, config)
     },
-  });
+  })
 }
 
 /**
@@ -72,7 +72,7 @@ export function useGetNewsByIdSuspense<
   TData = GetNewsByIdQueryResponse,
   TQueryKey extends QueryKey = GetNewsByIdSuspenseQueryKey,
 >(
-  id: GetNewsByIdPathParams["id"],
+  id: GetNewsByIdPathParams['id'],
   options: {
     query?: Partial<
       UseSuspenseQueryOptions<
@@ -81,13 +81,13 @@ export function useGetNewsByIdSuspense<
         TData,
         TQueryKey
       >
-    > & { client?: QueryClient };
-    client?: Partial<RequestConfig> & { client?: typeof fetch };
-  } = {},
+    > & { client?: QueryClient }
+    client?: Partial<RequestConfig> & { client?: typeof fetch }
+  } = {}
 ) {
-  const { query: queryConfig = {}, client: config = {} } = options ?? {};
-  const { client: queryClient, ...queryOptions } = queryConfig;
-  const queryKey = queryOptions?.queryKey ?? getNewsByIdSuspenseQueryKey(id);
+  const { query: queryConfig = {}, client: config = {} } = options ?? {}
+  const { client: queryClient, ...queryOptions } = queryConfig
+  const queryKey = queryOptions?.queryKey ?? getNewsByIdSuspenseQueryKey(id)
 
   const query = useSuspenseQuery(
     {
@@ -95,12 +95,12 @@ export function useGetNewsByIdSuspense<
       queryKey,
       ...queryOptions,
     } as unknown as UseSuspenseQueryOptions,
-    queryClient,
+    queryClient
   ) as UseSuspenseQueryResult<TData, ResponseErrorConfig<Error>> & {
-    queryKey: TQueryKey;
-  };
+    queryKey: TQueryKey
+  }
 
-  query.queryKey = queryKey as TQueryKey;
+  query.queryKey = queryKey as TQueryKey
 
-  return query;
+  return query
 }

@@ -7,5 +7,5 @@ export type CancelAppointmentRequest = {
   /**
    * @type string | undefined
    */
-  cancellationReason?: string;
-};
+  cancellationReason?: string
+}

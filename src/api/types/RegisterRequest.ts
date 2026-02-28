@@ -7,26 +7,26 @@ export type RegisterRequest = {
   /**
    * @type string
    */
-  fullName: string;
+  fullName: string
   /**
    * @pattern ^(Male|Female|Other)$
    * @type string
    */
-  gender: string;
+  gender: string
   /**
    * @type string, date
    */
-  dateOfBirth: string;
+  dateOfBirth: string
   /**
    * @pattern ^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$
    * @type string
    */
-  verificationToken: string;
+  verificationToken: string
   /**
    * @minLength 6
    * @maxLength 6
    * @pattern ^\d{6}$
    * @type string
    */
-  pin: string;
-};
+  pin: string
+}

@@ -12,16 +12,18 @@ function AdminPermissionsRoute() {
 
   if (isLoading) {
     return (
-      <div className='flex items-center justify-center h-32'>
-        <p className='text-muted-foreground'>Đang tải...</p>
+      <div className="flex items-center justify-center h-32">
+        <p className="text-muted-foreground">Đang tải...</p>
       </div>
     )
   }
 
   if (error || !admin) {
     return (
-      <div className='flex items-center justify-center h-32'>
-        <p className='text-destructive'>Không thể tải thông tin quản trị viên</p>
+      <div className="flex items-center justify-center h-32">
+        <p className="text-destructive">
+          Không thể tải thông tin quản trị viên
+        </p>
       </div>
     )
   }

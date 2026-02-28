@@ -3,29 +3,29 @@
  * Do not edit manually.
  */
 
-import type { ExerciseResponse } from "../ExerciseResponse.ts";
-import type { UpdateExerciseRequest } from "../UpdateExerciseRequest.ts";
+import type { ExerciseResponse } from '../ExerciseResponse.ts'
+import type { UpdateExerciseRequest } from '../UpdateExerciseRequest.ts'
 
 export type UpdateExercisePathParams = {
   /**
    * @description Exercise ID
    * @type integer, int64
    */
-  id: number;
-};
+  id: number
+}
 
 /**
  * @description OK
  */
-export type UpdateExercise200 = ExerciseResponse;
+export type UpdateExercise200 = ExerciseResponse
 
-export type UpdateExerciseMutationRequest = UpdateExerciseRequest;
+export type UpdateExerciseMutationRequest = UpdateExerciseRequest
 
-export type UpdateExerciseMutationResponse = UpdateExercise200;
+export type UpdateExerciseMutationResponse = UpdateExercise200
 
 export type UpdateExerciseMutation = {
-  Response: UpdateExercise200;
-  Request: UpdateExerciseMutationRequest;
-  PathParams: UpdateExercisePathParams;
-  Errors: any;
-};
+  Response: UpdateExercise200
+  Request: UpdateExerciseMutationRequest
+  PathParams: UpdateExercisePathParams
+  Errors: any
+}

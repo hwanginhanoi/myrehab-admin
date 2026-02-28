@@ -3,35 +3,35 @@
  * Do not edit manually.
  */
 
-import type { Pageable } from "../Pageable.ts";
-import type { PagedModel } from "../PagedModel.ts";
+import type { Pageable } from '../Pageable.ts'
+import type { PagedModel } from '../PagedModel.ts'
 
 export type GetAllUsersQueryParams = {
   /**
    * @description Filter by gender (e.g., Male, Female, Other)
    * @type string | undefined
    */
-  gender?: string;
+  gender?: string
   /**
    * @description Search by name, phone number, or email (case-insensitive)
    * @type string | undefined
    */
-  query?: string;
+  query?: string
   /**
    * @type object
    */
-  pageable: Pageable;
-};
+  pageable: Pageable
+}
 
 /**
  * @description OK
  */
-export type GetAllUsers200 = PagedModel;
+export type GetAllUsers200 = PagedModel
 
-export type GetAllUsersQueryResponse = GetAllUsers200;
+export type GetAllUsersQueryResponse = GetAllUsers200
 
 export type GetAllUsersQuery = {
-  Response: GetAllUsers200;
-  QueryParams: GetAllUsersQueryParams;
-  Errors: any;
-};
+  Response: GetAllUsers200
+  QueryParams: GetAllUsersQueryParams
+  Errors: any
+}

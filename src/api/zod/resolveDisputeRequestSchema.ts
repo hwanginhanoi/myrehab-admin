@@ -3,9 +3,9 @@
  * Do not edit manually.
  */
 
-import { z } from "zod/v4";
+import { z } from 'zod/v4'
 
 export const resolveDisputeRequestSchema = z.object({
-  resolution: z.enum(["APPROVE_DOCTOR", "REFUND_PATIENT"]),
+  resolution: z.enum(['APPROVE_DOCTOR', 'REFUND_PATIENT']),
   resolutionNotes: z.optional(z.string()),
-});
+})

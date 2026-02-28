@@ -3,7 +3,7 @@
  * Do not edit manually.
  */
 
-import { z } from "zod/v4";
+import { z } from 'zod/v4'
 
 export const courseAssignmentRequestResponseSchema = z.object({
   id: z.optional(z.int()),
@@ -15,10 +15,10 @@ export const courseAssignmentRequestResponseSchema = z.object({
   patientName: z.optional(z.string()),
   courseDetails: z.optional(z.object({}).catchall(z.object({}))),
   trainerNotes: z.optional(z.string()),
-  status: z.optional(z.enum(["PENDING", "APPROVED", "REJECTED"])),
+  status: z.optional(z.enum(['PENDING', 'APPROVED', 'REJECTED'])),
   doctorNotes: z.optional(z.string()),
   reviewedAt: z.optional(z.string().datetime()),
   createdAt: z.optional(z.string().datetime()),
   updatedAt: z.optional(z.string().datetime()),
   userCourseId: z.optional(z.int()),
-});
+})

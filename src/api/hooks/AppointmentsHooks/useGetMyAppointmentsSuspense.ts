@@ -3,31 +3,31 @@
  * Do not edit manually.
  */
 
-import fetch from "@/lib/api-client";
+import fetch from '@/lib/api-client'
 import type {
   GetMyAppointmentsQueryResponse,
   GetMyAppointmentsQueryParams,
-} from "../../types/appointmentsController/GetMyAppointments.ts";
-import type { RequestConfig, ResponseErrorConfig } from "@/lib/api-client";
+} from '../../types/appointmentsController/GetMyAppointments.ts'
+import type { RequestConfig, ResponseErrorConfig } from '@/lib/api-client'
 import type {
   QueryKey,
   QueryClient,
   UseSuspenseQueryOptions,
   UseSuspenseQueryResult,
-} from "@tanstack/react-query";
-import { queryOptions, useSuspenseQuery } from "@tanstack/react-query";
+} from '@tanstack/react-query'
+import { queryOptions, useSuspenseQuery } from '@tanstack/react-query'
 
 export const getMyAppointmentsSuspenseQueryKey = (
-  params: GetMyAppointmentsQueryParams,
+  params: GetMyAppointmentsQueryParams
 ) =>
   [
-    { url: "/api/appointments/my-appointments" },
+    { url: '/api/appointments/my-appointments' },
     ...(params ? [params] : []),
-  ] as const;
+  ] as const
 
 export type GetMyAppointmentsSuspenseQueryKey = ReturnType<
   typeof getMyAppointmentsSuspenseQueryKey
->;
+>
 
 /**
  * @description List all appointments for the authenticated patient
@@ -36,28 +36,28 @@ export type GetMyAppointmentsSuspenseQueryKey = ReturnType<
  */
 export async function getMyAppointmentsSuspense(
   params: GetMyAppointmentsQueryParams,
-  config: Partial<RequestConfig> & { client?: typeof fetch } = {},
+  config: Partial<RequestConfig> & { client?: typeof fetch } = {}
 ) {
-  const { client: request = fetch, ...requestConfig } = config;
+  const { client: request = fetch, ...requestConfig } = config
 
   const res = await request<
     GetMyAppointmentsQueryResponse,
     ResponseErrorConfig<Error>,
     unknown
   >({
-    method: "GET",
+    method: 'GET',
     url: `/api/appointments/my-appointments`,
     params,
     ...requestConfig,
-  });
-  return res.data;
+  })
+  return res.data
 }
 
 export function getMyAppointmentsSuspenseQueryOptions(
   params: GetMyAppointmentsQueryParams,
-  config: Partial<RequestConfig> & { client?: typeof fetch } = {},
+  config: Partial<RequestConfig> & { client?: typeof fetch } = {}
 ) {
-  const queryKey = getMyAppointmentsSuspenseQueryKey(params);
+  const queryKey = getMyAppointmentsSuspenseQueryKey(params)
   return queryOptions<
     GetMyAppointmentsQueryResponse,
     ResponseErrorConfig<Error>,
@@ -67,10 +67,10 @@ export function getMyAppointmentsSuspenseQueryOptions(
     enabled: !!params,
     queryKey,
     queryFn: async ({ signal }) => {
-      config.signal = signal;
-      return getMyAppointmentsSuspense(params, config);
+      config.signal = signal
+      return getMyAppointmentsSuspense(params, config)
     },
-  });
+  })
 }
 
 /**
@@ -91,14 +91,14 @@ export function useGetMyAppointmentsSuspense<
         TData,
         TQueryKey
       >
-    > & { client?: QueryClient };
-    client?: Partial<RequestConfig> & { client?: typeof fetch };
-  } = {},
+    > & { client?: QueryClient }
+    client?: Partial<RequestConfig> & { client?: typeof fetch }
+  } = {}
 ) {
-  const { query: queryConfig = {}, client: config = {} } = options ?? {};
-  const { client: queryClient, ...queryOptions } = queryConfig;
+  const { query: queryConfig = {}, client: config = {} } = options ?? {}
+  const { client: queryClient, ...queryOptions } = queryConfig
   const queryKey =
-    queryOptions?.queryKey ?? getMyAppointmentsSuspenseQueryKey(params);
+    queryOptions?.queryKey ?? getMyAppointmentsSuspenseQueryKey(params)
 
   const query = useSuspenseQuery(
     {
@@ -106,12 +106,12 @@ export function useGetMyAppointmentsSuspense<
       queryKey,
       ...queryOptions,
     } as unknown as UseSuspenseQueryOptions,
-    queryClient,
+    queryClient
   ) as UseSuspenseQueryResult<TData, ResponseErrorConfig<Error>> & {
-    queryKey: TQueryKey;
-  };
+    queryKey: TQueryKey
+  }
 
-  query.queryKey = queryKey as TQueryKey;
+  query.queryKey = queryKey as TQueryKey
 
-  return query;
+  return query
 }

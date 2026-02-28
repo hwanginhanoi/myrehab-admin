@@ -3,27 +3,27 @@
  * Do not edit manually.
  */
 
-import fetch from "@/lib/api-client";
+import fetch from '@/lib/api-client'
 import type {
   GetExerciseByIdQueryResponse,
   GetExerciseByIdPathParams,
-} from "../../types/exercisesController/GetExerciseById.ts";
-import type { RequestConfig, ResponseErrorConfig } from "@/lib/api-client";
+} from '../../types/exercisesController/GetExerciseById.ts'
+import type { RequestConfig, ResponseErrorConfig } from '@/lib/api-client'
 import type {
   QueryKey,
   QueryClient,
   UseSuspenseQueryOptions,
   UseSuspenseQueryResult,
-} from "@tanstack/react-query";
-import { queryOptions, useSuspenseQuery } from "@tanstack/react-query";
+} from '@tanstack/react-query'
+import { queryOptions, useSuspenseQuery } from '@tanstack/react-query'
 
 export const getExerciseByIdSuspenseQueryKey = (
-  id: GetExerciseByIdPathParams["id"],
-) => [{ url: "/api/exercises/:id", params: { id: id } }] as const;
+  id: GetExerciseByIdPathParams['id']
+) => [{ url: '/api/exercises/:id', params: { id: id } }] as const
 
 export type GetExerciseByIdSuspenseQueryKey = ReturnType<
   typeof getExerciseByIdSuspenseQueryKey
->;
+>
 
 /**
  * @description Retrieve a specific exercise. User must have access through exercise groups.
@@ -31,24 +31,24 @@ export type GetExerciseByIdSuspenseQueryKey = ReturnType<
  * {@link /api/exercises/:id}
  */
 export async function getExerciseByIdSuspense(
-  id: GetExerciseByIdPathParams["id"],
-  config: Partial<RequestConfig> & { client?: typeof fetch } = {},
+  id: GetExerciseByIdPathParams['id'],
+  config: Partial<RequestConfig> & { client?: typeof fetch } = {}
 ) {
-  const { client: request = fetch, ...requestConfig } = config;
+  const { client: request = fetch, ...requestConfig } = config
 
   const res = await request<
     GetExerciseByIdQueryResponse,
     ResponseErrorConfig<Error>,
     unknown
-  >({ method: "GET", url: `/api/exercises/${id}`, ...requestConfig });
-  return res.data;
+  >({ method: 'GET', url: `/api/exercises/${id}`, ...requestConfig })
+  return res.data
 }
 
 export function getExerciseByIdSuspenseQueryOptions(
-  id: GetExerciseByIdPathParams["id"],
-  config: Partial<RequestConfig> & { client?: typeof fetch } = {},
+  id: GetExerciseByIdPathParams['id'],
+  config: Partial<RequestConfig> & { client?: typeof fetch } = {}
 ) {
-  const queryKey = getExerciseByIdSuspenseQueryKey(id);
+  const queryKey = getExerciseByIdSuspenseQueryKey(id)
   return queryOptions<
     GetExerciseByIdQueryResponse,
     ResponseErrorConfig<Error>,
@@ -58,10 +58,10 @@ export function getExerciseByIdSuspenseQueryOptions(
     enabled: !!id,
     queryKey,
     queryFn: async ({ signal }) => {
-      config.signal = signal;
-      return getExerciseByIdSuspense(id, config);
+      config.signal = signal
+      return getExerciseByIdSuspense(id, config)
     },
-  });
+  })
 }
 
 /**
@@ -73,7 +73,7 @@ export function useGetExerciseByIdSuspense<
   TData = GetExerciseByIdQueryResponse,
   TQueryKey extends QueryKey = GetExerciseByIdSuspenseQueryKey,
 >(
-  id: GetExerciseByIdPathParams["id"],
+  id: GetExerciseByIdPathParams['id'],
   options: {
     query?: Partial<
       UseSuspenseQueryOptions<
@@ -82,14 +82,13 @@ export function useGetExerciseByIdSuspense<
         TData,
         TQueryKey
       >
-    > & { client?: QueryClient };
-    client?: Partial<RequestConfig> & { client?: typeof fetch };
-  } = {},
+    > & { client?: QueryClient }
+    client?: Partial<RequestConfig> & { client?: typeof fetch }
+  } = {}
 ) {
-  const { query: queryConfig = {}, client: config = {} } = options ?? {};
-  const { client: queryClient, ...queryOptions } = queryConfig;
-  const queryKey =
-    queryOptions?.queryKey ?? getExerciseByIdSuspenseQueryKey(id);
+  const { query: queryConfig = {}, client: config = {} } = options ?? {}
+  const { client: queryClient, ...queryOptions } = queryConfig
+  const queryKey = queryOptions?.queryKey ?? getExerciseByIdSuspenseQueryKey(id)
 
   const query = useSuspenseQuery(
     {
@@ -97,12 +96,12 @@ export function useGetExerciseByIdSuspense<
       queryKey,
       ...queryOptions,
     } as unknown as UseSuspenseQueryOptions,
-    queryClient,
+    queryClient
   ) as UseSuspenseQueryResult<TData, ResponseErrorConfig<Error>> & {
-    queryKey: TQueryKey;
-  };
+    queryKey: TQueryKey
+  }
 
-  query.queryKey = queryKey as TQueryKey;
+  query.queryKey = queryKey as TQueryKey
 
-  return query;
+  return query
 }

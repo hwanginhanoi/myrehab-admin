@@ -3,19 +3,19 @@
  * Do not edit manually.
  */
 
-import { courseMetadataDtoSchema } from "./courseMetadataDtoSchema.ts";
-import { dayExerciseItemResponseSchema } from "./dayExerciseItemResponseSchema.ts";
-import { z } from "zod/v4";
+import { courseMetadataDtoSchema } from './courseMetadataDtoSchema.ts'
+import { dayExerciseItemResponseSchema } from './dayExerciseItemResponseSchema.ts'
+import { z } from 'zod/v4'
 
 export const dayContentResponseSchema = z.object({
   get course() {
-    return courseMetadataDtoSchema.optional();
+    return courseMetadataDtoSchema.optional()
   },
   dayNumber: z.optional(z.int()),
   dayDescription: z.optional(z.string()),
   get exercises() {
-    return z.array(dayExerciseItemResponseSchema).optional();
+    return z.array(dayExerciseItemResponseSchema).optional()
   },
   totalExercises: z.optional(z.int()),
   completedExercises: z.optional(z.int()),
-});
+})

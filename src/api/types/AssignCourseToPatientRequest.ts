@@ -7,9 +7,13 @@ export type AssignCourseToPatientRequest = {
   /**
    * @type integer, int64
    */
-  courseId: number;
+  courseId: number
   /**
    * @type string | undefined
    */
-  notes?: string;
-};
+  notes?: string
+  /**
+   * @type integer | undefined, int64
+   */
+  assigningDoctorId?: number
+}

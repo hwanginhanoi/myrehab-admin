@@ -3,32 +3,32 @@
  * Do not edit manually.
  */
 
-import type { CourseMetadataDto } from "./CourseMetadataDto.ts";
-import type { DayExerciseItemResponse } from "./DayExerciseItemResponse.ts";
+import type { CourseMetadataDto } from './CourseMetadataDto.ts'
+import type { DayExerciseItemResponse } from './DayExerciseItemResponse.ts'
 
 export type DayContentResponse = {
   /**
    * @type object | undefined
    */
-  course?: CourseMetadataDto;
+  course?: CourseMetadataDto
   /**
    * @type integer | undefined, int32
    */
-  dayNumber?: number;
+  dayNumber?: number
   /**
    * @type string | undefined
    */
-  dayDescription?: string;
+  dayDescription?: string
   /**
    * @type array | undefined
    */
-  exercises?: DayExerciseItemResponse[];
+  exercises?: DayExerciseItemResponse[]
   /**
    * @type integer | undefined, int32
    */
-  totalExercises?: number;
+  totalExercises?: number
   /**
    * @type integer | undefined, int32
    */
-  completedExercises?: number;
-};
+  completedExercises?: number
+}

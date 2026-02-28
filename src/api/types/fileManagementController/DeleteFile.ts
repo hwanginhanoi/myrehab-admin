@@ -3,20 +3,20 @@
  * Do not edit manually.
  */
 
-import type { DeleteFileRequest } from "../DeleteFileRequest.ts";
-import type { FileDeleteResponse } from "../FileDeleteResponse.ts";
+import type { DeleteFileRequest } from '../DeleteFileRequest.ts'
+import type { FileDeleteResponse } from '../FileDeleteResponse.ts'
 
 /**
  * @description OK
  */
-export type DeleteFile200 = FileDeleteResponse;
+export type DeleteFile200 = FileDeleteResponse
 
-export type DeleteFileMutationRequest = DeleteFileRequest;
+export type DeleteFileMutationRequest = DeleteFileRequest
 
-export type DeleteFileMutationResponse = DeleteFile200;
+export type DeleteFileMutationResponse = DeleteFile200
 
 export type DeleteFileMutation = {
-  Response: DeleteFile200;
-  Request: DeleteFileMutationRequest;
-  Errors: any;
-};
+  Response: DeleteFile200
+  Request: DeleteFileMutationRequest
+  Errors: any
+}

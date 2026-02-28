@@ -3,25 +3,25 @@
  * Do not edit manually.
  */
 
-import type { GroupResponse } from "../GroupResponse.ts";
+import type { GroupResponse } from '../GroupResponse.ts'
 
 export type GetGroupByIdPathParams = {
   /**
    * @description Group ID
    * @type integer, int64
    */
-  id: number;
-};
+  id: number
+}
 
 /**
  * @description OK
  */
-export type GetGroupById200 = GroupResponse;
+export type GetGroupById200 = GroupResponse
 
-export type GetGroupByIdQueryResponse = GetGroupById200;
+export type GetGroupByIdQueryResponse = GetGroupById200
 
 export type GetGroupByIdQuery = {
-  Response: GetGroupById200;
-  PathParams: GetGroupByIdPathParams;
-  Errors: any;
-};
+  Response: GetGroupById200
+  PathParams: GetGroupByIdPathParams
+  Errors: any
+}

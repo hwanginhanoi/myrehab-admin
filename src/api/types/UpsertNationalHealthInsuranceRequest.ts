@@ -5,11 +5,15 @@
 
 export type UpsertNationalHealthInsuranceRequest = {
   /**
+   * @minLength 0
+   * @maxLength 50
    * @type string | undefined
    */
-  insuranceNumber?: string;
+  insuranceNumber?: string
   /**
+   * @minLength 0
+   * @maxLength 200
    * @type string | undefined
    */
-  placeOfRegistration?: string;
-};
+  placeOfRegistration?: string
+}

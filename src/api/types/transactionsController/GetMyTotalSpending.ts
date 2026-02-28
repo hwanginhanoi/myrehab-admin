@@ -3,16 +3,16 @@
  * Do not edit manually.
  */
 
-import type { SpendingSummaryResponse } from "../SpendingSummaryResponse.ts";
+import type { SpendingSummaryResponse } from '../SpendingSummaryResponse.ts'
 
 /**
  * @description OK
  */
-export type GetMyTotalSpending200 = SpendingSummaryResponse;
+export type GetMyTotalSpending200 = SpendingSummaryResponse
 
-export type GetMyTotalSpendingQueryResponse = GetMyTotalSpending200;
+export type GetMyTotalSpendingQueryResponse = GetMyTotalSpending200
 
 export type GetMyTotalSpendingQuery = {
-  Response: GetMyTotalSpending200;
-  Errors: any;
-};
+  Response: GetMyTotalSpending200
+  Errors: any
+}

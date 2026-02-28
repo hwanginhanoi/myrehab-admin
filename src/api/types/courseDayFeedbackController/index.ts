@@ -4,13 +4,13 @@ export type {
   CheckFeedbackExists404,
   CheckFeedbackExistsQueryResponse,
   CheckFeedbackExistsQuery,
-} from "./CheckFeedbackExists.ts";
+} from './CheckFeedbackExists.ts'
 export type {
   GetMyFeedback200,
   GetMyFeedback404,
   GetMyFeedbackQueryResponse,
   GetMyFeedbackQuery,
-} from "./GetMyFeedback.ts";
+} from './GetMyFeedback.ts'
 export type {
   SubmitFeedbackPathParams,
   SubmitFeedback201,
@@ -20,4 +20,4 @@ export type {
   SubmitFeedbackMutationRequest,
   SubmitFeedbackMutationResponse,
   SubmitFeedbackMutation,
-} from "./SubmitFeedback.ts";
+} from './SubmitFeedback.ts'

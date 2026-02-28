@@ -3,20 +3,20 @@
  * Do not edit manually.
  */
 
-import { appointmentResponseSchema } from "../appointmentResponseSchema.ts";
-import { z } from "zod/v4";
+import { appointmentResponseSchema } from '../appointmentResponseSchema.ts'
+import { z } from 'zod/v4'
 
 export const confirmCompletionPathParamsSchema = z.object({
   id: z.coerce.number().int(),
-});
+})
 
 /**
  * @description OK
  */
 export const confirmCompletion200Schema = z.lazy(
-  () => appointmentResponseSchema,
-);
+  () => appointmentResponseSchema
+)
 
 export const confirmCompletionMutationResponseSchema = z.lazy(
-  () => confirmCompletion200Schema,
-);
+  () => confirmCompletion200Schema
+)

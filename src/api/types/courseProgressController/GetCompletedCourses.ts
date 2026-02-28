@@ -3,16 +3,25 @@
  * Do not edit manually.
  */
 
-import type { CourseProgressHistoryResponse } from "../CourseProgressHistoryResponse.ts";
+import type { Pageable } from '../Pageable.ts'
+import type { PagedModel } from '../PagedModel.ts'
+
+export type GetCompletedCoursesQueryParams = {
+  /**
+   * @type object
+   */
+  pageable: Pageable
+}
 
 /**
  * @description OK
  */
-export type GetCompletedCourses200 = CourseProgressHistoryResponse[];
+export type GetCompletedCourses200 = PagedModel
 
-export type GetCompletedCoursesQueryResponse = GetCompletedCourses200;
+export type GetCompletedCoursesQueryResponse = GetCompletedCourses200
 
 export type GetCompletedCoursesQuery = {
-  Response: GetCompletedCourses200;
-  Errors: any;
-};
+  Response: GetCompletedCourses200
+  QueryParams: GetCompletedCoursesQueryParams
+  Errors: any
+}

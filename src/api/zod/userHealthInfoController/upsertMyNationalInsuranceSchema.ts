@@ -3,21 +3,21 @@
  * Do not edit manually.
  */
 
-import { nationalHealthInsuranceResponseSchema } from "../nationalHealthInsuranceResponseSchema.ts";
-import { upsertNationalHealthInsuranceRequestSchema } from "../upsertNationalHealthInsuranceRequestSchema.ts";
-import { z } from "zod/v4";
+import { nationalHealthInsuranceResponseSchema } from '../nationalHealthInsuranceResponseSchema.ts'
+import { upsertNationalHealthInsuranceRequestSchema } from '../upsertNationalHealthInsuranceRequestSchema.ts'
+import { z } from 'zod/v4'
 
 /**
  * @description OK
  */
 export const upsertMyNationalInsurance200Schema = z.lazy(
-  () => nationalHealthInsuranceResponseSchema,
-);
+  () => nationalHealthInsuranceResponseSchema
+)
 
 export const upsertMyNationalInsuranceMutationRequestSchema = z.lazy(
-  () => upsertNationalHealthInsuranceRequestSchema,
-);
+  () => upsertNationalHealthInsuranceRequestSchema
+)
 
 export const upsertMyNationalInsuranceMutationResponseSchema = z.lazy(
-  () => upsertMyNationalInsurance200Schema,
-);
+  () => upsertMyNationalInsurance200Schema
+)

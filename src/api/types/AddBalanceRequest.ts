@@ -7,13 +7,13 @@ export type AddBalanceRequest = {
   /**
    * @type integer, int64
    */
-  userId: number;
+  userId: number
   /**
    * @type integer, int64
    */
-  amount: number;
+  amount: number
   /**
    * @type string | undefined
    */
-  description?: string;
-};
+  description?: string
+}

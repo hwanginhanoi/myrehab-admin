@@ -7,41 +7,41 @@ export type UserCourseAssignmentResponse = {
   /**
    * @type integer | undefined, int64
    */
-  id?: number;
+  id?: number
   /**
    * @type integer | undefined, int64
    */
-  userId?: number;
+  userId?: number
   /**
    * @type string | undefined
    */
-  userPhoneNumber?: string;
+  userPhoneNumber?: string
   /**
    * @type integer | undefined, int64
    */
-  courseId?: number;
+  courseId?: number
   /**
    * @type string | undefined
    */
-  courseTitle?: string;
+  courseTitle?: string
   /**
    * @type integer | undefined, int32
    */
-  courseDurationDays?: number;
+  courseDurationDays?: number
   /**
    * @type string | undefined, date-time
    */
-  assignedAt?: string;
+  assignedAt?: string
   /**
    * @type string | undefined
    */
-  notes?: string;
+  notes?: string
   /**
    * @type boolean | undefined
    */
-  hasStarted?: boolean;
+  hasStarted?: boolean
   /**
    * @type boolean | undefined
    */
-  isCompleted?: boolean;
-};
+  isCompleted?: boolean
+}

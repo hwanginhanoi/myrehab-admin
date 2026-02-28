@@ -3,18 +3,18 @@
  * Do not edit manually.
  */
 
-import { z } from "zod/v4";
+import { z } from 'zod/v4'
 
 export const removePatientFromDoctorPathParamsSchema = z.object({
-  doctorId: z.coerce.number().int().describe("Doctor ID"),
-  userId: z.coerce.number().int().describe("User ID"),
-});
+  doctorId: z.coerce.number().int().describe('Doctor ID'),
+  userId: z.coerce.number().int().describe('User ID'),
+})
 
 /**
  * @description OK
  */
-export const removePatientFromDoctor200Schema = z.any();
+export const removePatientFromDoctor200Schema = z.any()
 
 export const removePatientFromDoctorMutationResponseSchema = z.lazy(
-  () => removePatientFromDoctor200Schema,
-);
+  () => removePatientFromDoctor200Schema
+)

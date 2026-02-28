@@ -3,24 +3,24 @@
  * Do not edit manually.
  */
 
-import fetch from "@/lib/api-client";
+import fetch from '@/lib/api-client'
 import type {
   GetAllNewsQueryResponse,
   GetAllNewsQueryParams,
-} from "../../types/newsController/GetAllNews.ts";
-import type { RequestConfig, ResponseErrorConfig } from "@/lib/api-client";
+} from '../../types/newsController/GetAllNews.ts'
+import type { RequestConfig, ResponseErrorConfig } from '@/lib/api-client'
 import type {
   QueryKey,
   QueryClient,
   QueryObserverOptions,
   UseQueryResult,
-} from "@tanstack/react-query";
-import { queryOptions, useQuery } from "@tanstack/react-query";
+} from '@tanstack/react-query'
+import { queryOptions, useQuery } from '@tanstack/react-query'
 
 export const getAllNewsQueryKey = (params: GetAllNewsQueryParams) =>
-  [{ url: "/api/news" }, ...(params ? [params] : [])] as const;
+  [{ url: '/api/news' }, ...(params ? [params] : [])] as const
 
-export type GetAllNewsQueryKey = ReturnType<typeof getAllNewsQueryKey>;
+export type GetAllNewsQueryKey = ReturnType<typeof getAllNewsQueryKey>
 
 /**
  * @description Retrieve a paginated list of news with optional status, category, and title filtering. Use query params: ?status=PUBLISHED&category=HEALTH_TIPS&title=exercise&page=0&size=10&sort=createdAt,desc
@@ -29,23 +29,23 @@ export type GetAllNewsQueryKey = ReturnType<typeof getAllNewsQueryKey>;
  */
 export async function getAllNews(
   params: GetAllNewsQueryParams,
-  config: Partial<RequestConfig> & { client?: typeof fetch } = {},
+  config: Partial<RequestConfig> & { client?: typeof fetch } = {}
 ) {
-  const { client: request = fetch, ...requestConfig } = config;
+  const { client: request = fetch, ...requestConfig } = config
 
   const res = await request<
     GetAllNewsQueryResponse,
     ResponseErrorConfig<Error>,
     unknown
-  >({ method: "GET", url: `/api/news`, params, ...requestConfig });
-  return res.data;
+  >({ method: 'GET', url: `/api/news`, params, ...requestConfig })
+  return res.data
 }
 
 export function getAllNewsQueryOptions(
   params: GetAllNewsQueryParams,
-  config: Partial<RequestConfig> & { client?: typeof fetch } = {},
+  config: Partial<RequestConfig> & { client?: typeof fetch } = {}
 ) {
-  const queryKey = getAllNewsQueryKey(params);
+  const queryKey = getAllNewsQueryKey(params)
   return queryOptions<
     GetAllNewsQueryResponse,
     ResponseErrorConfig<Error>,
@@ -55,10 +55,10 @@ export function getAllNewsQueryOptions(
     enabled: !!params,
     queryKey,
     queryFn: async ({ signal }) => {
-      config.signal = signal;
-      return getAllNews(params, config);
+      config.signal = signal
+      return getAllNews(params, config)
     },
-  });
+  })
 }
 
 /**
@@ -81,13 +81,13 @@ export function useGetAllNews<
         TQueryData,
         TQueryKey
       >
-    > & { client?: QueryClient };
-    client?: Partial<RequestConfig> & { client?: typeof fetch };
-  } = {},
+    > & { client?: QueryClient }
+    client?: Partial<RequestConfig> & { client?: typeof fetch }
+  } = {}
 ) {
-  const { query: queryConfig = {}, client: config = {} } = options ?? {};
-  const { client: queryClient, ...queryOptions } = queryConfig;
-  const queryKey = queryOptions?.queryKey ?? getAllNewsQueryKey(params);
+  const { query: queryConfig = {}, client: config = {} } = options ?? {}
+  const { client: queryClient, ...queryOptions } = queryConfig
+  const queryKey = queryOptions?.queryKey ?? getAllNewsQueryKey(params)
 
   const query = useQuery(
     {
@@ -95,12 +95,12 @@ export function useGetAllNews<
       queryKey,
       ...queryOptions,
     } as unknown as QueryObserverOptions,
-    queryClient,
+    queryClient
   ) as UseQueryResult<TData, ResponseErrorConfig<Error>> & {
-    queryKey: TQueryKey;
-  };
+    queryKey: TQueryKey
+  }
 
-  query.queryKey = queryKey as TQueryKey;
+  query.queryKey = queryKey as TQueryKey
 
-  return query;
+  return query
 }

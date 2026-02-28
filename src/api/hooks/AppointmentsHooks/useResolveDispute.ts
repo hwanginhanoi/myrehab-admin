@@ -3,26 +3,26 @@
  * Do not edit manually.
  */
 
-import fetch from "@/lib/api-client";
+import fetch from '@/lib/api-client'
 import type {
   ResolveDisputeMutationRequest,
   ResolveDisputeMutationResponse,
   ResolveDisputePathParams,
-} from "../../types/appointmentsController/ResolveDispute.ts";
-import type { RequestConfig, ResponseErrorConfig } from "@/lib/api-client";
+} from '../../types/appointmentsController/ResolveDispute.ts'
+import type { RequestConfig, ResponseErrorConfig } from '@/lib/api-client'
 import type {
   UseMutationOptions,
   UseMutationResult,
   QueryClient,
-} from "@tanstack/react-query";
-import { mutationOptions, useMutation } from "@tanstack/react-query";
+} from '@tanstack/react-query'
+import { mutationOptions, useMutation } from '@tanstack/react-query'
 
 export const resolveDisputeMutationKey = () =>
-  [{ url: "/api/appointments/:id/resolve-dispute" }] as const;
+  [{ url: '/api/appointments/:id/resolve-dispute' }] as const
 
 export type ResolveDisputeMutationKey = ReturnType<
   typeof resolveDisputeMutationKey
->;
+>
 
 /**
  * @description Admin resolves a disputed appointment
@@ -30,46 +30,46 @@ export type ResolveDisputeMutationKey = ReturnType<
  * {@link /api/appointments/:id/resolve-dispute}
  */
 export async function resolveDispute(
-  id: ResolveDisputePathParams["id"],
+  id: ResolveDisputePathParams['id'],
   data: ResolveDisputeMutationRequest,
   config: Partial<RequestConfig<ResolveDisputeMutationRequest>> & {
-    client?: typeof fetch;
-  } = {},
+    client?: typeof fetch
+  } = {}
 ) {
-  const { client: request = fetch, ...requestConfig } = config;
+  const { client: request = fetch, ...requestConfig } = config
 
-  const requestData = data;
+  const requestData = data
 
   const res = await request<
     ResolveDisputeMutationResponse,
     ResponseErrorConfig<Error>,
     ResolveDisputeMutationRequest
   >({
-    method: "POST",
+    method: 'POST',
     url: `/api/appointments/${id}/resolve-dispute`,
     data: requestData,
     ...requestConfig,
-  });
-  return res.data;
+  })
+  return res.data
 }
 
 export function resolveDisputeMutationOptions(
   config: Partial<RequestConfig<ResolveDisputeMutationRequest>> & {
-    client?: typeof fetch;
-  } = {},
+    client?: typeof fetch
+  } = {}
 ) {
-  const mutationKey = resolveDisputeMutationKey();
+  const mutationKey = resolveDisputeMutationKey()
   return mutationOptions<
     ResolveDisputeMutationResponse,
     ResponseErrorConfig<Error>,
-    { id: ResolveDisputePathParams["id"]; data: ResolveDisputeMutationRequest },
+    { id: ResolveDisputePathParams['id']; data: ResolveDisputeMutationRequest },
     typeof mutationKey
   >({
     mutationKey,
     mutationFn: async ({ id, data }) => {
-      return resolveDispute(id, data, config);
+      return resolveDispute(id, data, config)
     },
-  });
+  })
 }
 
 /**
@@ -83,34 +83,33 @@ export function useResolveDispute<TContext>(
       ResolveDisputeMutationResponse,
       ResponseErrorConfig<Error>,
       {
-        id: ResolveDisputePathParams["id"];
-        data: ResolveDisputeMutationRequest;
+        id: ResolveDisputePathParams['id']
+        data: ResolveDisputeMutationRequest
       },
       TContext
-    > & { client?: QueryClient };
+    > & { client?: QueryClient }
     client?: Partial<RequestConfig<ResolveDisputeMutationRequest>> & {
-      client?: typeof fetch;
-    };
-  } = {},
+      client?: typeof fetch
+    }
+  } = {}
 ) {
-  const { mutation = {}, client: config = {} } = options ?? {};
-  const { client: queryClient, ...mutationOptions } = mutation;
-  const mutationKey =
-    mutationOptions.mutationKey ?? resolveDisputeMutationKey();
+  const { mutation = {}, client: config = {} } = options ?? {}
+  const { client: queryClient, ...mutationOptions } = mutation
+  const mutationKey = mutationOptions.mutationKey ?? resolveDisputeMutationKey()
 
   const baseOptions = resolveDisputeMutationOptions(
-    config,
+    config
   ) as UseMutationOptions<
     ResolveDisputeMutationResponse,
     ResponseErrorConfig<Error>,
-    { id: ResolveDisputePathParams["id"]; data: ResolveDisputeMutationRequest },
+    { id: ResolveDisputePathParams['id']; data: ResolveDisputeMutationRequest },
     TContext
-  >;
+  >
 
   return useMutation<
     ResolveDisputeMutationResponse,
     ResponseErrorConfig<Error>,
-    { id: ResolveDisputePathParams["id"]; data: ResolveDisputeMutationRequest },
+    { id: ResolveDisputePathParams['id']; data: ResolveDisputeMutationRequest },
     TContext
   >(
     {
@@ -118,11 +117,11 @@ export function useResolveDispute<TContext>(
       mutationKey,
       ...mutationOptions,
     },
-    queryClient,
+    queryClient
   ) as UseMutationResult<
     ResolveDisputeMutationResponse,
     ResponseErrorConfig<Error>,
-    { id: ResolveDisputePathParams["id"]; data: ResolveDisputeMutationRequest },
+    { id: ResolveDisputePathParams['id']; data: ResolveDisputeMutationRequest },
     TContext
-  >;
+  >
 }

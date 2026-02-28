@@ -3,23 +3,23 @@
  * Do not edit manually.
  */
 
-import fetch from "@/lib/api-client";
-import type { GetPendingPurchasesQueryResponse } from "../../types/subscriptionsController/GetPendingPurchases.ts";
-import type { RequestConfig, ResponseErrorConfig } from "@/lib/api-client";
+import fetch from '@/lib/api-client'
+import type { GetPendingPurchasesQueryResponse } from '../../types/subscriptionsController/GetPendingPurchases.ts'
+import type { RequestConfig, ResponseErrorConfig } from '@/lib/api-client'
 import type {
   QueryKey,
   QueryClient,
   QueryObserverOptions,
   UseQueryResult,
-} from "@tanstack/react-query";
-import { queryOptions, useQuery } from "@tanstack/react-query";
+} from '@tanstack/react-query'
+import { queryOptions, useQuery } from '@tanstack/react-query'
 
 export const getPendingPurchasesQueryKey = () =>
-  [{ url: "/api/subscriptions/pending-purchases" }] as const;
+  [{ url: '/api/subscriptions/pending-purchases' }] as const
 
 export type GetPendingPurchasesQueryKey = ReturnType<
   typeof getPendingPurchasesQueryKey
->;
+>
 
 /**
  * @description Retrieve all courses assigned by doctors that are pending purchase
@@ -27,26 +27,26 @@ export type GetPendingPurchasesQueryKey = ReturnType<
  * {@link /api/subscriptions/pending-purchases}
  */
 export async function getPendingPurchases(
-  config: Partial<RequestConfig> & { client?: typeof fetch } = {},
+  config: Partial<RequestConfig> & { client?: typeof fetch } = {}
 ) {
-  const { client: request = fetch, ...requestConfig } = config;
+  const { client: request = fetch, ...requestConfig } = config
 
   const res = await request<
     GetPendingPurchasesQueryResponse,
     ResponseErrorConfig<Error>,
     unknown
   >({
-    method: "GET",
+    method: 'GET',
     url: `/api/subscriptions/pending-purchases`,
     ...requestConfig,
-  });
-  return res.data;
+  })
+  return res.data
 }
 
 export function getPendingPurchasesQueryOptions(
-  config: Partial<RequestConfig> & { client?: typeof fetch } = {},
+  config: Partial<RequestConfig> & { client?: typeof fetch } = {}
 ) {
-  const queryKey = getPendingPurchasesQueryKey();
+  const queryKey = getPendingPurchasesQueryKey()
   return queryOptions<
     GetPendingPurchasesQueryResponse,
     ResponseErrorConfig<Error>,
@@ -55,10 +55,10 @@ export function getPendingPurchasesQueryOptions(
   >({
     queryKey,
     queryFn: async ({ signal }) => {
-      config.signal = signal;
-      return getPendingPurchases(config);
+      config.signal = signal
+      return getPendingPurchases(config)
     },
-  });
+  })
 }
 
 /**
@@ -80,13 +80,13 @@ export function useGetPendingPurchases<
         TQueryData,
         TQueryKey
       >
-    > & { client?: QueryClient };
-    client?: Partial<RequestConfig> & { client?: typeof fetch };
-  } = {},
+    > & { client?: QueryClient }
+    client?: Partial<RequestConfig> & { client?: typeof fetch }
+  } = {}
 ) {
-  const { query: queryConfig = {}, client: config = {} } = options ?? {};
-  const { client: queryClient, ...queryOptions } = queryConfig;
-  const queryKey = queryOptions?.queryKey ?? getPendingPurchasesQueryKey();
+  const { query: queryConfig = {}, client: config = {} } = options ?? {}
+  const { client: queryClient, ...queryOptions } = queryConfig
+  const queryKey = queryOptions?.queryKey ?? getPendingPurchasesQueryKey()
 
   const query = useQuery(
     {
@@ -94,12 +94,12 @@ export function useGetPendingPurchases<
       queryKey,
       ...queryOptions,
     } as unknown as QueryObserverOptions,
-    queryClient,
+    queryClient
   ) as UseQueryResult<TData, ResponseErrorConfig<Error>> & {
-    queryKey: TQueryKey;
-  };
+    queryKey: TQueryKey
+  }
 
-  query.queryKey = queryKey as TQueryKey;
+  query.queryKey = queryKey as TQueryKey
 
-  return query;
+  return query
 }

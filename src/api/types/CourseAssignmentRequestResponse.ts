@@ -4,75 +4,75 @@
  */
 
 export const courseAssignmentRequestResponseStatusEnum = {
-  PENDING: "PENDING",
-  APPROVED: "APPROVED",
-  REJECTED: "REJECTED",
-} as const;
+  PENDING: 'PENDING',
+  APPROVED: 'APPROVED',
+  REJECTED: 'REJECTED',
+} as const
 
 export type CourseAssignmentRequestResponseStatusEnumKey =
-  (typeof courseAssignmentRequestResponseStatusEnum)[keyof typeof courseAssignmentRequestResponseStatusEnum];
+  (typeof courseAssignmentRequestResponseStatusEnum)[keyof typeof courseAssignmentRequestResponseStatusEnum]
 
 export type CourseAssignmentRequestResponse = {
   /**
    * @type integer | undefined, int64
    */
-  id?: number;
+  id?: number
   /**
    * @type integer | undefined, int64
    */
-  trainerId?: number;
+  trainerId?: number
   /**
    * @type string | undefined
    */
-  trainerName?: string;
+  trainerName?: string
   /**
    * @type integer | undefined, int64
    */
-  doctorId?: number;
+  doctorId?: number
   /**
    * @type string | undefined
    */
-  doctorName?: string;
+  doctorName?: string
   /**
    * @type integer | undefined, int64
    */
-  patientId?: number;
+  patientId?: number
   /**
    * @type string | undefined
    */
-  patientName?: string;
+  patientName?: string
   /**
    * @type object | undefined
    */
   courseDetails?: {
-    [key: string]: object;
-  };
+    [key: string]: object
+  }
   /**
    * @type string | undefined
    */
-  trainerNotes?: string;
+  trainerNotes?: string
   /**
    * @type string | undefined
    */
-  status?: CourseAssignmentRequestResponseStatusEnumKey;
+  status?: CourseAssignmentRequestResponseStatusEnumKey
   /**
    * @type string | undefined
    */
-  doctorNotes?: string;
+  doctorNotes?: string
   /**
    * @type string | undefined, date-time
    */
-  reviewedAt?: string;
+  reviewedAt?: string
   /**
    * @type string | undefined, date-time
    */
-  createdAt?: string;
+  createdAt?: string
   /**
    * @type string | undefined, date-time
    */
-  updatedAt?: string;
+  updatedAt?: string
   /**
    * @type integer | undefined, int64
    */
-  userCourseId?: number;
-};
+  userCourseId?: number
+}

@@ -3,26 +3,26 @@
  * Do not edit manually.
  */
 
-import fetch from "@/lib/api-client";
+import fetch from '@/lib/api-client'
 import type {
   RejectAppointmentMutationRequest,
   RejectAppointmentMutationResponse,
   RejectAppointmentPathParams,
-} from "../../types/appointmentsController/RejectAppointment.ts";
-import type { RequestConfig, ResponseErrorConfig } from "@/lib/api-client";
+} from '../../types/appointmentsController/RejectAppointment.ts'
+import type { RequestConfig, ResponseErrorConfig } from '@/lib/api-client'
 import type {
   UseMutationOptions,
   UseMutationResult,
   QueryClient,
-} from "@tanstack/react-query";
-import { mutationOptions, useMutation } from "@tanstack/react-query";
+} from '@tanstack/react-query'
+import { mutationOptions, useMutation } from '@tanstack/react-query'
 
 export const rejectAppointmentMutationKey = () =>
-  [{ url: "/api/appointments/:id/reject" }] as const;
+  [{ url: '/api/appointments/:id/reject' }] as const
 
 export type RejectAppointmentMutationKey = ReturnType<
   typeof rejectAppointmentMutationKey
->;
+>
 
 /**
  * @description Doctor or admin rejects a pending appointment with automatic refund
@@ -30,49 +30,49 @@ export type RejectAppointmentMutationKey = ReturnType<
  * {@link /api/appointments/:id/reject}
  */
 export async function rejectAppointment(
-  id: RejectAppointmentPathParams["id"],
+  id: RejectAppointmentPathParams['id'],
   data: RejectAppointmentMutationRequest,
   config: Partial<RequestConfig<RejectAppointmentMutationRequest>> & {
-    client?: typeof fetch;
-  } = {},
+    client?: typeof fetch
+  } = {}
 ) {
-  const { client: request = fetch, ...requestConfig } = config;
+  const { client: request = fetch, ...requestConfig } = config
 
-  const requestData = data;
+  const requestData = data
 
   const res = await request<
     RejectAppointmentMutationResponse,
     ResponseErrorConfig<Error>,
     RejectAppointmentMutationRequest
   >({
-    method: "POST",
+    method: 'POST',
     url: `/api/appointments/${id}/reject`,
     data: requestData,
     ...requestConfig,
-  });
-  return res.data;
+  })
+  return res.data
 }
 
 export function rejectAppointmentMutationOptions(
   config: Partial<RequestConfig<RejectAppointmentMutationRequest>> & {
-    client?: typeof fetch;
-  } = {},
+    client?: typeof fetch
+  } = {}
 ) {
-  const mutationKey = rejectAppointmentMutationKey();
+  const mutationKey = rejectAppointmentMutationKey()
   return mutationOptions<
     RejectAppointmentMutationResponse,
     ResponseErrorConfig<Error>,
     {
-      id: RejectAppointmentPathParams["id"];
-      data: RejectAppointmentMutationRequest;
+      id: RejectAppointmentPathParams['id']
+      data: RejectAppointmentMutationRequest
     },
     typeof mutationKey
   >({
     mutationKey,
     mutationFn: async ({ id, data }) => {
-      return rejectAppointment(id, data, config);
+      return rejectAppointment(id, data, config)
     },
-  });
+  })
 }
 
 /**
@@ -86,39 +86,39 @@ export function useRejectAppointment<TContext>(
       RejectAppointmentMutationResponse,
       ResponseErrorConfig<Error>,
       {
-        id: RejectAppointmentPathParams["id"];
-        data: RejectAppointmentMutationRequest;
+        id: RejectAppointmentPathParams['id']
+        data: RejectAppointmentMutationRequest
       },
       TContext
-    > & { client?: QueryClient };
+    > & { client?: QueryClient }
     client?: Partial<RequestConfig<RejectAppointmentMutationRequest>> & {
-      client?: typeof fetch;
-    };
-  } = {},
+      client?: typeof fetch
+    }
+  } = {}
 ) {
-  const { mutation = {}, client: config = {} } = options ?? {};
-  const { client: queryClient, ...mutationOptions } = mutation;
+  const { mutation = {}, client: config = {} } = options ?? {}
+  const { client: queryClient, ...mutationOptions } = mutation
   const mutationKey =
-    mutationOptions.mutationKey ?? rejectAppointmentMutationKey();
+    mutationOptions.mutationKey ?? rejectAppointmentMutationKey()
 
   const baseOptions = rejectAppointmentMutationOptions(
-    config,
+    config
   ) as UseMutationOptions<
     RejectAppointmentMutationResponse,
     ResponseErrorConfig<Error>,
     {
-      id: RejectAppointmentPathParams["id"];
-      data: RejectAppointmentMutationRequest;
+      id: RejectAppointmentPathParams['id']
+      data: RejectAppointmentMutationRequest
     },
     TContext
-  >;
+  >
 
   return useMutation<
     RejectAppointmentMutationResponse,
     ResponseErrorConfig<Error>,
     {
-      id: RejectAppointmentPathParams["id"];
-      data: RejectAppointmentMutationRequest;
+      id: RejectAppointmentPathParams['id']
+      data: RejectAppointmentMutationRequest
     },
     TContext
   >(
@@ -127,14 +127,14 @@ export function useRejectAppointment<TContext>(
       mutationKey,
       ...mutationOptions,
     },
-    queryClient,
+    queryClient
   ) as UseMutationResult<
     RejectAppointmentMutationResponse,
     ResponseErrorConfig<Error>,
     {
-      id: RejectAppointmentPathParams["id"];
-      data: RejectAppointmentMutationRequest;
+      id: RejectAppointmentPathParams['id']
+      data: RejectAppointmentMutationRequest
     },
     TContext
-  >;
+  >
 }

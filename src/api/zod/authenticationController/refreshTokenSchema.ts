@@ -3,19 +3,19 @@
  * Do not edit manually.
  */
 
-import { refreshTokenRequestSchema } from "../refreshTokenRequestSchema.ts";
-import { userAuthResponseSchema } from "../userAuthResponseSchema.ts";
-import { z } from "zod/v4";
+import { refreshTokenRequestSchema } from '../refreshTokenRequestSchema.ts'
+import { userAuthResponseSchema } from '../userAuthResponseSchema.ts'
+import { z } from 'zod/v4'
 
 /**
  * @description OK
  */
-export const refreshToken200Schema = z.lazy(() => userAuthResponseSchema);
+export const refreshToken200Schema = z.lazy(() => userAuthResponseSchema)
 
 export const refreshTokenMutationRequestSchema = z.lazy(
-  () => refreshTokenRequestSchema,
-);
+  () => refreshTokenRequestSchema
+)
 
 export const refreshTokenMutationResponseSchema = z.lazy(
-  () => refreshToken200Schema,
-);
+  () => refreshToken200Schema
+)

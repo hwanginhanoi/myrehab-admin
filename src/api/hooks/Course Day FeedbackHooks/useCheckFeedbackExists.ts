@@ -3,34 +3,34 @@
  * Do not edit manually.
  */
 
-import fetch from "@/lib/api-client";
+import fetch from '@/lib/api-client'
 import type {
   CheckFeedbackExistsQueryResponse,
   CheckFeedbackExistsPathParams,
   CheckFeedbackExists404,
-} from "../../types/courseDayFeedbackController/CheckFeedbackExists.ts";
-import type { RequestConfig, ResponseErrorConfig } from "@/lib/api-client";
+} from '../../types/courseDayFeedbackController/CheckFeedbackExists.ts'
+import type { RequestConfig, ResponseErrorConfig } from '@/lib/api-client'
 import type {
   QueryKey,
   QueryClient,
   QueryObserverOptions,
   UseQueryResult,
-} from "@tanstack/react-query";
-import { queryOptions, useQuery } from "@tanstack/react-query";
+} from '@tanstack/react-query'
+import { queryOptions, useQuery } from '@tanstack/react-query'
 
 export const checkFeedbackExistsQueryKey = (
-  courseDayId: CheckFeedbackExistsPathParams["courseDayId"],
+  courseDayId: CheckFeedbackExistsPathParams['courseDayId']
 ) =>
   [
     {
-      url: "/api/course-progress/days/:courseDayId/feedback/exists",
+      url: '/api/course-progress/days/:courseDayId/feedback/exists',
       params: { courseDayId: courseDayId },
     },
-  ] as const;
+  ] as const
 
 export type CheckFeedbackExistsQueryKey = ReturnType<
   typeof checkFeedbackExistsQueryKey
->;
+>
 
 /**
  * @description Check whether the user has already submitted feedback for a specific course day. Returns existence flag and feedback ID if it exists.
@@ -38,28 +38,28 @@ export type CheckFeedbackExistsQueryKey = ReturnType<
  * {@link /api/course-progress/days/:courseDayId/feedback/exists}
  */
 export async function checkFeedbackExists(
-  courseDayId: CheckFeedbackExistsPathParams["courseDayId"],
-  config: Partial<RequestConfig> & { client?: typeof fetch } = {},
+  courseDayId: CheckFeedbackExistsPathParams['courseDayId'],
+  config: Partial<RequestConfig> & { client?: typeof fetch } = {}
 ) {
-  const { client: request = fetch, ...requestConfig } = config;
+  const { client: request = fetch, ...requestConfig } = config
 
   const res = await request<
     CheckFeedbackExistsQueryResponse,
     ResponseErrorConfig<CheckFeedbackExists404>,
     unknown
   >({
-    method: "GET",
+    method: 'GET',
     url: `/api/course-progress/days/${courseDayId}/feedback/exists`,
     ...requestConfig,
-  });
-  return res.data;
+  })
+  return res.data
 }
 
 export function checkFeedbackExistsQueryOptions(
-  courseDayId: CheckFeedbackExistsPathParams["courseDayId"],
-  config: Partial<RequestConfig> & { client?: typeof fetch } = {},
+  courseDayId: CheckFeedbackExistsPathParams['courseDayId'],
+  config: Partial<RequestConfig> & { client?: typeof fetch } = {}
 ) {
-  const queryKey = checkFeedbackExistsQueryKey(courseDayId);
+  const queryKey = checkFeedbackExistsQueryKey(courseDayId)
   return queryOptions<
     CheckFeedbackExistsQueryResponse,
     ResponseErrorConfig<CheckFeedbackExists404>,
@@ -69,10 +69,10 @@ export function checkFeedbackExistsQueryOptions(
     enabled: !!courseDayId,
     queryKey,
     queryFn: async ({ signal }) => {
-      config.signal = signal;
-      return checkFeedbackExists(courseDayId, config);
+      config.signal = signal
+      return checkFeedbackExists(courseDayId, config)
     },
-  });
+  })
 }
 
 /**
@@ -85,7 +85,7 @@ export function useCheckFeedbackExists<
   TQueryData = CheckFeedbackExistsQueryResponse,
   TQueryKey extends QueryKey = CheckFeedbackExistsQueryKey,
 >(
-  courseDayId: CheckFeedbackExistsPathParams["courseDayId"],
+  courseDayId: CheckFeedbackExistsPathParams['courseDayId'],
   options: {
     query?: Partial<
       QueryObserverOptions<
@@ -95,14 +95,14 @@ export function useCheckFeedbackExists<
         TQueryData,
         TQueryKey
       >
-    > & { client?: QueryClient };
-    client?: Partial<RequestConfig> & { client?: typeof fetch };
-  } = {},
+    > & { client?: QueryClient }
+    client?: Partial<RequestConfig> & { client?: typeof fetch }
+  } = {}
 ) {
-  const { query: queryConfig = {}, client: config = {} } = options ?? {};
-  const { client: queryClient, ...queryOptions } = queryConfig;
+  const { query: queryConfig = {}, client: config = {} } = options ?? {}
+  const { client: queryClient, ...queryOptions } = queryConfig
   const queryKey =
-    queryOptions?.queryKey ?? checkFeedbackExistsQueryKey(courseDayId);
+    queryOptions?.queryKey ?? checkFeedbackExistsQueryKey(courseDayId)
 
   const query = useQuery(
     {
@@ -110,12 +110,12 @@ export function useCheckFeedbackExists<
       queryKey,
       ...queryOptions,
     } as unknown as QueryObserverOptions,
-    queryClient,
+    queryClient
   ) as UseQueryResult<TData, ResponseErrorConfig<CheckFeedbackExists404>> & {
-    queryKey: TQueryKey;
-  };
+    queryKey: TQueryKey
+  }
 
-  query.queryKey = queryKey as TQueryKey;
+  query.queryKey = queryKey as TQueryKey
 
-  return query;
+  return query
 }

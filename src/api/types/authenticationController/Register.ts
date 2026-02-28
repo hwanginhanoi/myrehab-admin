@@ -3,20 +3,20 @@
  * Do not edit manually.
  */
 
-import type { RegisterRequest } from "../RegisterRequest.ts";
-import type { UserAuthResponse } from "../UserAuthResponse.ts";
+import type { RegisterRequest } from '../RegisterRequest.ts'
+import type { UserAuthResponse } from '../UserAuthResponse.ts'
 
 /**
  * @description OK
  */
-export type Register200 = UserAuthResponse;
+export type Register200 = UserAuthResponse
 
-export type RegisterMutationRequest = RegisterRequest;
+export type RegisterMutationRequest = RegisterRequest
 
-export type RegisterMutationResponse = Register200;
+export type RegisterMutationResponse = Register200
 
 export type RegisterMutation = {
-  Response: Register200;
-  Request: RegisterMutationRequest;
-  Errors: any;
-};
+  Response: Register200
+  Request: RegisterMutationRequest
+  Errors: any
+}

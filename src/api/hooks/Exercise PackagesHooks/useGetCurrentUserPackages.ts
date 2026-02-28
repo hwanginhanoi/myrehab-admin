@@ -3,28 +3,28 @@
  * Do not edit manually.
  */
 
-import fetch from "@/lib/api-client";
+import fetch from '@/lib/api-client'
 import type {
   GetCurrentUserPackagesQueryResponse,
   GetCurrentUserPackagesQueryParams,
-} from "../../types/exercisePackagesController/GetCurrentUserPackages.ts";
-import type { RequestConfig, ResponseErrorConfig } from "@/lib/api-client";
+} from '../../types/exercisePackagesController/GetCurrentUserPackages.ts'
+import type { RequestConfig, ResponseErrorConfig } from '@/lib/api-client'
 import type {
   QueryKey,
   QueryClient,
   QueryObserverOptions,
   UseQueryResult,
-} from "@tanstack/react-query";
-import { queryOptions, useQuery } from "@tanstack/react-query";
+} from '@tanstack/react-query'
+import { queryOptions, useQuery } from '@tanstack/react-query'
 
 export const getCurrentUserPackagesQueryKey = (
-  params: GetCurrentUserPackagesQueryParams,
+  params: GetCurrentUserPackagesQueryParams
 ) =>
-  [{ url: "/api/exercise-packages/me" }, ...(params ? [params] : [])] as const;
+  [{ url: '/api/exercise-packages/me' }, ...(params ? [params] : [])] as const
 
 export type GetCurrentUserPackagesQueryKey = ReturnType<
   typeof getCurrentUserPackagesQueryKey
->;
+>
 
 /**
  * @description Retrieve all exercise packages that the current user has active subscriptions for, including subscription details (expiry date, subscription type, purchase date). Also includes current pricing information (monthlyPrice and yearlyPrice in VND) for renewal reference.
@@ -33,28 +33,28 @@ export type GetCurrentUserPackagesQueryKey = ReturnType<
  */
 export async function getCurrentUserPackages(
   params: GetCurrentUserPackagesQueryParams,
-  config: Partial<RequestConfig> & { client?: typeof fetch } = {},
+  config: Partial<RequestConfig> & { client?: typeof fetch } = {}
 ) {
-  const { client: request = fetch, ...requestConfig } = config;
+  const { client: request = fetch, ...requestConfig } = config
 
   const res = await request<
     GetCurrentUserPackagesQueryResponse,
     ResponseErrorConfig<Error>,
     unknown
   >({
-    method: "GET",
+    method: 'GET',
     url: `/api/exercise-packages/me`,
     params,
     ...requestConfig,
-  });
-  return res.data;
+  })
+  return res.data
 }
 
 export function getCurrentUserPackagesQueryOptions(
   params: GetCurrentUserPackagesQueryParams,
-  config: Partial<RequestConfig> & { client?: typeof fetch } = {},
+  config: Partial<RequestConfig> & { client?: typeof fetch } = {}
 ) {
-  const queryKey = getCurrentUserPackagesQueryKey(params);
+  const queryKey = getCurrentUserPackagesQueryKey(params)
   return queryOptions<
     GetCurrentUserPackagesQueryResponse,
     ResponseErrorConfig<Error>,
@@ -64,10 +64,10 @@ export function getCurrentUserPackagesQueryOptions(
     enabled: !!params,
     queryKey,
     queryFn: async ({ signal }) => {
-      config.signal = signal;
-      return getCurrentUserPackages(params, config);
+      config.signal = signal
+      return getCurrentUserPackages(params, config)
     },
-  });
+  })
 }
 
 /**
@@ -90,14 +90,14 @@ export function useGetCurrentUserPackages<
         TQueryData,
         TQueryKey
       >
-    > & { client?: QueryClient };
-    client?: Partial<RequestConfig> & { client?: typeof fetch };
-  } = {},
+    > & { client?: QueryClient }
+    client?: Partial<RequestConfig> & { client?: typeof fetch }
+  } = {}
 ) {
-  const { query: queryConfig = {}, client: config = {} } = options ?? {};
-  const { client: queryClient, ...queryOptions } = queryConfig;
+  const { query: queryConfig = {}, client: config = {} } = options ?? {}
+  const { client: queryClient, ...queryOptions } = queryConfig
   const queryKey =
-    queryOptions?.queryKey ?? getCurrentUserPackagesQueryKey(params);
+    queryOptions?.queryKey ?? getCurrentUserPackagesQueryKey(params)
 
   const query = useQuery(
     {
@@ -105,12 +105,12 @@ export function useGetCurrentUserPackages<
       queryKey,
       ...queryOptions,
     } as unknown as QueryObserverOptions,
-    queryClient,
+    queryClient
   ) as UseQueryResult<TData, ResponseErrorConfig<Error>> & {
-    queryKey: TQueryKey;
-  };
+    queryKey: TQueryKey
+  }
 
-  query.queryKey = queryKey as TQueryKey;
+  query.queryKey = queryKey as TQueryKey
 
-  return query;
+  return query
 }

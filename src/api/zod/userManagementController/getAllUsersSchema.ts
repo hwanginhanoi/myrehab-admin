@@ -3,29 +3,27 @@
  * Do not edit manually.
  */
 
-import { pageableSchema } from "../pageableSchema.ts";
-import { pagedModelSchema } from "../pagedModelSchema.ts";
-import { z } from "zod/v4";
+import { pageableSchema } from '../pageableSchema.ts'
+import { pagedModelSchema } from '../pagedModelSchema.ts'
+import { z } from 'zod/v4'
 
 export const getAllUsersQueryParamsSchema = z.object({
   gender: z.optional(
-    z.string().describe("Filter by gender (e.g., Male, Female, Other)"),
+    z.string().describe('Filter by gender (e.g., Male, Female, Other)')
   ),
   query: z.optional(
     z
       .string()
-      .describe("Search by name, phone number, or email (case-insensitive)"),
+      .describe('Search by name, phone number, or email (case-insensitive)')
   ),
   get pageable() {
-    return pageableSchema;
+    return pageableSchema
   },
-});
+})
 
 /**
  * @description OK
  */
-export const getAllUsers200Schema = z.lazy(() => pagedModelSchema);
+export const getAllUsers200Schema = z.lazy(() => pagedModelSchema)
 
-export const getAllUsersQueryResponseSchema = z.lazy(
-  () => getAllUsers200Schema,
-);
+export const getAllUsersQueryResponseSchema = z.lazy(() => getAllUsers200Schema)

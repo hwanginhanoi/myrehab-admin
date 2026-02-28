@@ -3,43 +3,43 @@
  * Do not edit manually.
  */
 
-import type { CourseDaySummaryDto } from "./CourseDaySummaryDto.ts";
+import type { CourseDayDetailDto } from './CourseDayDetailDto.ts'
 
 export type CourseWithDaysResponse = {
   /**
    * @type integer | undefined, int64
    */
-  id?: number;
+  id?: number
   /**
    * @type integer | undefined, int64
    */
-  userId?: number;
+  userId?: number
   /**
    * @type string | undefined
    */
-  title?: string;
+  title?: string
   /**
    * @type string | undefined
    */
-  description?: string;
+  description?: string
   /**
    * @type integer | undefined, int32
    */
-  durationDays?: number;
+  durationDays?: number
   /**
    * @type boolean | undefined
    */
-  isActive?: boolean;
+  isActive?: boolean
   /**
    * @type array | undefined
    */
-  days?: CourseDaySummaryDto[];
+  days?: CourseDayDetailDto[]
   /**
    * @type string | undefined, date-time
    */
-  createdAt?: string;
+  createdAt?: string
   /**
    * @type string | undefined, date-time
    */
-  updatedAt?: string;
-};
+  updatedAt?: string
+}

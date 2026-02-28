@@ -3,39 +3,39 @@
  * Do not edit manually.
  */
 
-import type { Pageable } from "../Pageable.ts";
-import type { PagedModel } from "../PagedModel.ts";
+import type { Pageable } from '../Pageable.ts'
+import type { PagedModel } from '../PagedModel.ts'
 
 export const getCourseRequestsQueryParamsStatusEnum = {
-  PENDING: "PENDING",
-  APPROVED: "APPROVED",
-  REJECTED: "REJECTED",
-} as const;
+  PENDING: 'PENDING',
+  APPROVED: 'APPROVED',
+  REJECTED: 'REJECTED',
+} as const
 
 export type GetCourseRequestsQueryParamsStatusEnumKey =
-  (typeof getCourseRequestsQueryParamsStatusEnum)[keyof typeof getCourseRequestsQueryParamsStatusEnum];
+  (typeof getCourseRequestsQueryParamsStatusEnum)[keyof typeof getCourseRequestsQueryParamsStatusEnum]
 
 export type GetCourseRequestsQueryParams = {
   /**
    * @description Filter by request status (PENDING, APPROVED, REJECTED)
    * @type string | undefined
    */
-  status?: GetCourseRequestsQueryParamsStatusEnumKey;
+  status?: GetCourseRequestsQueryParamsStatusEnumKey
   /**
    * @type object
    */
-  pageable: Pageable;
-};
+  pageable: Pageable
+}
 
 /**
  * @description OK
  */
-export type GetCourseRequests200 = PagedModel;
+export type GetCourseRequests200 = PagedModel
 
-export type GetCourseRequestsQueryResponse = GetCourseRequests200;
+export type GetCourseRequestsQueryResponse = GetCourseRequests200
 
 export type GetCourseRequestsQuery = {
-  Response: GetCourseRequests200;
-  QueryParams: GetCourseRequestsQueryParams;
-  Errors: any;
-};
+  Response: GetCourseRequests200
+  QueryParams: GetCourseRequestsQueryParams
+  Errors: any
+}

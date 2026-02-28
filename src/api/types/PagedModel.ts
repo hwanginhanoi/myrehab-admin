@@ -3,15 +3,15 @@
  * Do not edit manually.
  */
 
-import type { PageMetadata } from "./PageMetadata.ts";
+import type { PageMetadata } from './PageMetadata.ts'
 
 export type PagedModel = {
   /**
    * @type array | undefined
    */
-  content?: object[];
+  content?: object[]
   /**
    * @type object | undefined
    */
-  page?: PageMetadata;
-};
+  page?: PageMetadata
+}

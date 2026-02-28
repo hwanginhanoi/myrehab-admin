@@ -3,26 +3,26 @@
  * Do not edit manually.
  */
 
-import fetch from "@/lib/api-client";
+import fetch from '@/lib/api-client'
 import type {
   GetFormByIdQueryResponse,
   GetFormByIdPathParams,
-} from "../../types/rehabilitationExaminationFormManagementController/GetFormById.ts";
-import type { RequestConfig, ResponseErrorConfig } from "@/lib/api-client";
+} from '../../types/rehabilitationExaminationFormManagementController/GetFormById.ts'
+import type { RequestConfig, ResponseErrorConfig } from '@/lib/api-client'
 import type {
   QueryKey,
   QueryClient,
   QueryObserverOptions,
   UseQueryResult,
-} from "@tanstack/react-query";
-import { queryOptions, useQuery } from "@tanstack/react-query";
+} from '@tanstack/react-query'
+import { queryOptions, useQuery } from '@tanstack/react-query'
 
-export const getFormByIdQueryKey = (id: GetFormByIdPathParams["id"]) =>
+export const getFormByIdQueryKey = (id: GetFormByIdPathParams['id']) =>
   [
-    { url: "/api/rehabilitation-examination-forms/:id", params: { id: id } },
-  ] as const;
+    { url: '/api/rehabilitation-examination-forms/:id', params: { id: id } },
+  ] as const
 
-export type GetFormByIdQueryKey = ReturnType<typeof getFormByIdQueryKey>;
+export type GetFormByIdQueryKey = ReturnType<typeof getFormByIdQueryKey>
 
 /**
  * @description Retrieve a specific rehabilitation examination form by its ID. Patients can only view their own forms. Admins and Doctors can view any form.
@@ -30,28 +30,28 @@ export type GetFormByIdQueryKey = ReturnType<typeof getFormByIdQueryKey>;
  * {@link /api/rehabilitation-examination-forms/:id}
  */
 export async function getFormById(
-  id: GetFormByIdPathParams["id"],
-  config: Partial<RequestConfig> & { client?: typeof fetch } = {},
+  id: GetFormByIdPathParams['id'],
+  config: Partial<RequestConfig> & { client?: typeof fetch } = {}
 ) {
-  const { client: request = fetch, ...requestConfig } = config;
+  const { client: request = fetch, ...requestConfig } = config
 
   const res = await request<
     GetFormByIdQueryResponse,
     ResponseErrorConfig<Error>,
     unknown
   >({
-    method: "GET",
+    method: 'GET',
     url: `/api/rehabilitation-examination-forms/${id}`,
     ...requestConfig,
-  });
-  return res.data;
+  })
+  return res.data
 }
 
 export function getFormByIdQueryOptions(
-  id: GetFormByIdPathParams["id"],
-  config: Partial<RequestConfig> & { client?: typeof fetch } = {},
+  id: GetFormByIdPathParams['id'],
+  config: Partial<RequestConfig> & { client?: typeof fetch } = {}
 ) {
-  const queryKey = getFormByIdQueryKey(id);
+  const queryKey = getFormByIdQueryKey(id)
   return queryOptions<
     GetFormByIdQueryResponse,
     ResponseErrorConfig<Error>,
@@ -61,10 +61,10 @@ export function getFormByIdQueryOptions(
     enabled: !!id,
     queryKey,
     queryFn: async ({ signal }) => {
-      config.signal = signal;
-      return getFormById(id, config);
+      config.signal = signal
+      return getFormById(id, config)
     },
-  });
+  })
 }
 
 /**
@@ -77,7 +77,7 @@ export function useGetFormById<
   TQueryData = GetFormByIdQueryResponse,
   TQueryKey extends QueryKey = GetFormByIdQueryKey,
 >(
-  id: GetFormByIdPathParams["id"],
+  id: GetFormByIdPathParams['id'],
   options: {
     query?: Partial<
       QueryObserverOptions<
@@ -87,13 +87,13 @@ export function useGetFormById<
         TQueryData,
         TQueryKey
       >
-    > & { client?: QueryClient };
-    client?: Partial<RequestConfig> & { client?: typeof fetch };
-  } = {},
+    > & { client?: QueryClient }
+    client?: Partial<RequestConfig> & { client?: typeof fetch }
+  } = {}
 ) {
-  const { query: queryConfig = {}, client: config = {} } = options ?? {};
-  const { client: queryClient, ...queryOptions } = queryConfig;
-  const queryKey = queryOptions?.queryKey ?? getFormByIdQueryKey(id);
+  const { query: queryConfig = {}, client: config = {} } = options ?? {}
+  const { client: queryClient, ...queryOptions } = queryConfig
+  const queryKey = queryOptions?.queryKey ?? getFormByIdQueryKey(id)
 
   const query = useQuery(
     {
@@ -101,12 +101,12 @@ export function useGetFormById<
       queryKey,
       ...queryOptions,
     } as unknown as QueryObserverOptions,
-    queryClient,
+    queryClient
   ) as UseQueryResult<TData, ResponseErrorConfig<Error>> & {
-    queryKey: TQueryKey;
-  };
+    queryKey: TQueryKey
+  }
 
-  query.queryKey = queryKey as TQueryKey;
+  query.queryKey = queryKey as TQueryKey
 
-  return query;
+  return query
 }

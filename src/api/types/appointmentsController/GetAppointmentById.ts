@@ -3,24 +3,24 @@
  * Do not edit manually.
  */
 
-import type { AppointmentResponse } from "../AppointmentResponse.ts";
+import type { AppointmentResponse } from '../AppointmentResponse.ts'
 
 export type GetAppointmentByIdPathParams = {
   /**
    * @type integer, int64
    */
-  id: number;
-};
+  id: number
+}
 
 /**
  * @description OK
  */
-export type GetAppointmentById200 = AppointmentResponse;
+export type GetAppointmentById200 = AppointmentResponse
 
-export type GetAppointmentByIdQueryResponse = GetAppointmentById200;
+export type GetAppointmentByIdQueryResponse = GetAppointmentById200
 
 export type GetAppointmentByIdQuery = {
-  Response: GetAppointmentById200;
-  PathParams: GetAppointmentByIdPathParams;
-  Errors: any;
-};
+  Response: GetAppointmentById200
+  PathParams: GetAppointmentByIdPathParams
+  Errors: any
+}

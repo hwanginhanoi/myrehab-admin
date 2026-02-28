@@ -3,17 +3,17 @@
  * Do not edit manually.
  */
 
-import { z } from "zod/v4";
+import { z } from 'zod/v4'
 
 export const subscriptionResponseSchema = z.object({
   id: z.optional(z.int()),
   contentType: z.optional(z.string()),
   contentId: z.optional(z.int()),
   contentTitle: z.optional(z.string()),
-  subscriptionType: z.optional(z.enum(["MONTHLY", "YEARLY"])),
+  subscriptionType: z.optional(z.enum(['MONTHLY', 'YEARLY'])),
   pricePaid: z.optional(z.int()),
   purchasedAt: z.optional(z.string().datetime()),
   expiresAt: z.optional(z.string().datetime()),
   isActive: z.optional(z.boolean()),
   isExpired: z.optional(z.boolean()),
-});
+})

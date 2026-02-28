@@ -3,26 +3,26 @@
  * Do not edit manually.
  */
 
-import fetch from "@/lib/api-client";
+import fetch from '@/lib/api-client'
 import type {
   ApproveCourseRequestMutationRequest,
   ApproveCourseRequestMutationResponse,
   ApproveCourseRequestPathParams,
-} from "../../types/doctorController/ApproveCourseRequest.ts";
-import type { RequestConfig, ResponseErrorConfig } from "@/lib/api-client";
+} from '../../types/doctorController/ApproveCourseRequest.ts'
+import type { RequestConfig, ResponseErrorConfig } from '@/lib/api-client'
 import type {
   UseMutationOptions,
   UseMutationResult,
   QueryClient,
-} from "@tanstack/react-query";
-import { mutationOptions, useMutation } from "@tanstack/react-query";
+} from '@tanstack/react-query'
+import { mutationOptions, useMutation } from '@tanstack/react-query'
 
 export const approveCourseRequestMutationKey = () =>
-  [{ url: "/api/doctors/course-requests/:id/approve" }] as const;
+  [{ url: '/api/doctors/course-requests/:id/approve' }] as const
 
 export type ApproveCourseRequestMutationKey = ReturnType<
   typeof approveCourseRequestMutationKey
->;
+>
 
 /**
  * @description Approve a course assignment request from a trainer, creating the course and assigning it to the patient
@@ -30,49 +30,49 @@ export type ApproveCourseRequestMutationKey = ReturnType<
  * {@link /api/doctors/course-requests/:id/approve}
  */
 export async function approveCourseRequest(
-  id: ApproveCourseRequestPathParams["id"],
+  id: ApproveCourseRequestPathParams['id'],
   data?: ApproveCourseRequestMutationRequest,
   config: Partial<RequestConfig<ApproveCourseRequestMutationRequest>> & {
-    client?: typeof fetch;
-  } = {},
+    client?: typeof fetch
+  } = {}
 ) {
-  const { client: request = fetch, ...requestConfig } = config;
+  const { client: request = fetch, ...requestConfig } = config
 
-  const requestData = data;
+  const requestData = data
 
   const res = await request<
     ApproveCourseRequestMutationResponse,
     ResponseErrorConfig<Error>,
     ApproveCourseRequestMutationRequest
   >({
-    method: "POST",
+    method: 'POST',
     url: `/api/doctors/course-requests/${id}/approve`,
     data: requestData,
     ...requestConfig,
-  });
-  return res.data;
+  })
+  return res.data
 }
 
 export function approveCourseRequestMutationOptions(
   config: Partial<RequestConfig<ApproveCourseRequestMutationRequest>> & {
-    client?: typeof fetch;
-  } = {},
+    client?: typeof fetch
+  } = {}
 ) {
-  const mutationKey = approveCourseRequestMutationKey();
+  const mutationKey = approveCourseRequestMutationKey()
   return mutationOptions<
     ApproveCourseRequestMutationResponse,
     ResponseErrorConfig<Error>,
     {
-      id: ApproveCourseRequestPathParams["id"];
-      data?: ApproveCourseRequestMutationRequest;
+      id: ApproveCourseRequestPathParams['id']
+      data?: ApproveCourseRequestMutationRequest
     },
     typeof mutationKey
   >({
     mutationKey,
     mutationFn: async ({ id, data }) => {
-      return approveCourseRequest(id, data, config);
+      return approveCourseRequest(id, data, config)
     },
-  });
+  })
 }
 
 /**
@@ -86,39 +86,39 @@ export function useApproveCourseRequest<TContext>(
       ApproveCourseRequestMutationResponse,
       ResponseErrorConfig<Error>,
       {
-        id: ApproveCourseRequestPathParams["id"];
-        data?: ApproveCourseRequestMutationRequest;
+        id: ApproveCourseRequestPathParams['id']
+        data?: ApproveCourseRequestMutationRequest
       },
       TContext
-    > & { client?: QueryClient };
+    > & { client?: QueryClient }
     client?: Partial<RequestConfig<ApproveCourseRequestMutationRequest>> & {
-      client?: typeof fetch;
-    };
-  } = {},
+      client?: typeof fetch
+    }
+  } = {}
 ) {
-  const { mutation = {}, client: config = {} } = options ?? {};
-  const { client: queryClient, ...mutationOptions } = mutation;
+  const { mutation = {}, client: config = {} } = options ?? {}
+  const { client: queryClient, ...mutationOptions } = mutation
   const mutationKey =
-    mutationOptions.mutationKey ?? approveCourseRequestMutationKey();
+    mutationOptions.mutationKey ?? approveCourseRequestMutationKey()
 
   const baseOptions = approveCourseRequestMutationOptions(
-    config,
+    config
   ) as UseMutationOptions<
     ApproveCourseRequestMutationResponse,
     ResponseErrorConfig<Error>,
     {
-      id: ApproveCourseRequestPathParams["id"];
-      data?: ApproveCourseRequestMutationRequest;
+      id: ApproveCourseRequestPathParams['id']
+      data?: ApproveCourseRequestMutationRequest
     },
     TContext
-  >;
+  >
 
   return useMutation<
     ApproveCourseRequestMutationResponse,
     ResponseErrorConfig<Error>,
     {
-      id: ApproveCourseRequestPathParams["id"];
-      data?: ApproveCourseRequestMutationRequest;
+      id: ApproveCourseRequestPathParams['id']
+      data?: ApproveCourseRequestMutationRequest
     },
     TContext
   >(
@@ -127,14 +127,14 @@ export function useApproveCourseRequest<TContext>(
       mutationKey,
       ...mutationOptions,
     },
-    queryClient,
+    queryClient
   ) as UseMutationResult<
     ApproveCourseRequestMutationResponse,
     ResponseErrorConfig<Error>,
     {
-      id: ApproveCourseRequestPathParams["id"];
-      data?: ApproveCourseRequestMutationRequest;
+      id: ApproveCourseRequestPathParams['id']
+      data?: ApproveCourseRequestMutationRequest
     },
     TContext
-  >;
+  >
 }

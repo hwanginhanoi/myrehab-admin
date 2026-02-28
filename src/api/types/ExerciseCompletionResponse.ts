@@ -7,21 +7,13 @@ export type ExerciseCompletionResponse = {
   /**
    * @type integer | undefined, int64
    */
-  dayExerciseId?: number;
+  dayExerciseId?: number
   /**
    * @type boolean | undefined
    */
-  isCompleted?: boolean;
-  /**
-   * @type boolean | undefined
-   */
-  dayUnlocked?: boolean;
-  /**
-   * @type integer | undefined, int32
-   */
-  nextDayNumber?: number;
+  isCompleted?: boolean
   /**
    * @type string | undefined
    */
-  message?: string;
-};
+  message?: string
+}

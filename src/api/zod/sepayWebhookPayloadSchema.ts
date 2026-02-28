@@ -3,7 +3,7 @@
  * Do not edit manually.
  */
 
-import { z } from "zod/v4";
+import { z } from 'zod/v4'
 
 export const sepayWebhookPayloadSchema = z.object({
   id: z.int(),
@@ -18,4 +18,4 @@ export const sepayWebhookPayloadSchema = z.object({
   subAccount: z.optional(z.string()),
   referenceCode: z.optional(z.string()),
   description: z.optional(z.string()),
-});
+})

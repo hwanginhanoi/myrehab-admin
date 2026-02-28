@@ -7,5 +7,5 @@ export type RejectAppointmentRequest = {
   /**
    * @type string
    */
-  rejectionReason: string;
-};
+  rejectionReason: string
+}

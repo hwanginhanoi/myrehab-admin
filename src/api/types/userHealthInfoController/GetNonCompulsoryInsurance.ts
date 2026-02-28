@@ -3,26 +3,26 @@
  * Do not edit manually.
  */
 
-import type { NonCompulsoryHealthInsuranceResponse } from "../NonCompulsoryHealthInsuranceResponse.ts";
+import type { NonCompulsoryHealthInsuranceResponse } from '../NonCompulsoryHealthInsuranceResponse.ts'
 
 export type GetNonCompulsoryInsurancePathParams = {
   /**
    * @description User ID
    * @type integer, int64
    */
-  userId: number;
-};
+  userId: number
+}
 
 /**
  * @description OK
  */
-export type GetNonCompulsoryInsurance200 = NonCompulsoryHealthInsuranceResponse;
+export type GetNonCompulsoryInsurance200 = NonCompulsoryHealthInsuranceResponse
 
 export type GetNonCompulsoryInsuranceQueryResponse =
-  GetNonCompulsoryInsurance200;
+  GetNonCompulsoryInsurance200
 
 export type GetNonCompulsoryInsuranceQuery = {
-  Response: GetNonCompulsoryInsurance200;
-  PathParams: GetNonCompulsoryInsurancePathParams;
-  Errors: any;
-};
+  Response: GetNonCompulsoryInsurance200
+  PathParams: GetNonCompulsoryInsurancePathParams
+  Errors: any
+}

@@ -3,23 +3,29 @@ export type {
   CreateExerciseMutationRequest,
   CreateExerciseMutationResponse,
   CreateExerciseMutation,
-} from "./CreateExercise.ts";
+} from './CreateExercise.ts'
 export type {
   GetAllExercisesQueryParams,
   GetAllExercises200,
   GetAllExercisesQueryResponse,
   GetAllExercisesQuery,
-} from "./GetAllExercises.ts";
+} from './GetAllExercises.ts'
 export type {
   GetExerciseByIdPathParams,
   GetExerciseById200,
   GetExerciseByIdQueryResponse,
   GetExerciseByIdQuery,
-} from "./GetExerciseById.ts";
+} from './GetExerciseById.ts'
+export type {
+  GetVideoUrlPathParams,
+  GetVideoUrl200,
+  GetVideoUrlQueryResponse,
+  GetVideoUrlQuery,
+} from './GetVideoUrl.ts'
 export type {
   UpdateExercisePathParams,
   UpdateExercise200,
   UpdateExerciseMutationRequest,
   UpdateExerciseMutationResponse,
   UpdateExerciseMutation,
-} from "./UpdateExercise.ts";
+} from './UpdateExercise.ts'

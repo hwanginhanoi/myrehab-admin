@@ -3,36 +3,36 @@
  * Do not edit manually.
  */
 
-import fetch from "@/lib/api-client";
+import fetch from '@/lib/api-client'
 import type {
   GetDoctorPatientsQueryResponse,
   GetDoctorPatientsPathParams,
   GetDoctorPatientsQueryParams,
-} from "../../types/patientManagementController/GetDoctorPatients.ts";
-import type { RequestConfig, ResponseErrorConfig } from "@/lib/api-client";
+} from '../../types/patientManagementController/GetDoctorPatients.ts'
+import type { RequestConfig, ResponseErrorConfig } from '@/lib/api-client'
 import type {
   QueryKey,
   QueryClient,
   QueryObserverOptions,
   UseQueryResult,
-} from "@tanstack/react-query";
-import { queryOptions, useQuery } from "@tanstack/react-query";
+} from '@tanstack/react-query'
+import { queryOptions, useQuery } from '@tanstack/react-query'
 
 export const getDoctorPatientsQueryKey = (
-  doctorId: GetDoctorPatientsPathParams["doctorId"],
-  params: GetDoctorPatientsQueryParams,
+  doctorId: GetDoctorPatientsPathParams['doctorId'],
+  params: GetDoctorPatientsQueryParams
 ) =>
   [
     {
-      url: "/api/admin/doctors/:doctorId/patients",
+      url: '/api/admin/doctors/:doctorId/patients',
       params: { doctorId: doctorId },
     },
     ...(params ? [params] : []),
-  ] as const;
+  ] as const
 
 export type GetDoctorPatientsQueryKey = ReturnType<
   typeof getDoctorPatientsQueryKey
->;
+>
 
 /**
  * @description Get all patients assigned to a doctor
@@ -40,31 +40,31 @@ export type GetDoctorPatientsQueryKey = ReturnType<
  * {@link /api/admin/doctors/:doctorId/patients}
  */
 export async function getDoctorPatients(
-  doctorId: GetDoctorPatientsPathParams["doctorId"],
+  doctorId: GetDoctorPatientsPathParams['doctorId'],
   params: GetDoctorPatientsQueryParams,
-  config: Partial<RequestConfig> & { client?: typeof fetch } = {},
+  config: Partial<RequestConfig> & { client?: typeof fetch } = {}
 ) {
-  const { client: request = fetch, ...requestConfig } = config;
+  const { client: request = fetch, ...requestConfig } = config
 
   const res = await request<
     GetDoctorPatientsQueryResponse,
     ResponseErrorConfig<Error>,
     unknown
   >({
-    method: "GET",
+    method: 'GET',
     url: `/api/admin/doctors/${doctorId}/patients`,
     params,
     ...requestConfig,
-  });
-  return res.data;
+  })
+  return res.data
 }
 
 export function getDoctorPatientsQueryOptions(
-  doctorId: GetDoctorPatientsPathParams["doctorId"],
+  doctorId: GetDoctorPatientsPathParams['doctorId'],
   params: GetDoctorPatientsQueryParams,
-  config: Partial<RequestConfig> & { client?: typeof fetch } = {},
+  config: Partial<RequestConfig> & { client?: typeof fetch } = {}
 ) {
-  const queryKey = getDoctorPatientsQueryKey(doctorId, params);
+  const queryKey = getDoctorPatientsQueryKey(doctorId, params)
   return queryOptions<
     GetDoctorPatientsQueryResponse,
     ResponseErrorConfig<Error>,
@@ -74,10 +74,10 @@ export function getDoctorPatientsQueryOptions(
     enabled: !!(doctorId && params),
     queryKey,
     queryFn: async ({ signal }) => {
-      config.signal = signal;
-      return getDoctorPatients(doctorId, params, config);
+      config.signal = signal
+      return getDoctorPatients(doctorId, params, config)
     },
-  });
+  })
 }
 
 /**
@@ -90,7 +90,7 @@ export function useGetDoctorPatients<
   TQueryData = GetDoctorPatientsQueryResponse,
   TQueryKey extends QueryKey = GetDoctorPatientsQueryKey,
 >(
-  doctorId: GetDoctorPatientsPathParams["doctorId"],
+  doctorId: GetDoctorPatientsPathParams['doctorId'],
   params: GetDoctorPatientsQueryParams,
   options: {
     query?: Partial<
@@ -101,14 +101,14 @@ export function useGetDoctorPatients<
         TQueryData,
         TQueryKey
       >
-    > & { client?: QueryClient };
-    client?: Partial<RequestConfig> & { client?: typeof fetch };
-  } = {},
+    > & { client?: QueryClient }
+    client?: Partial<RequestConfig> & { client?: typeof fetch }
+  } = {}
 ) {
-  const { query: queryConfig = {}, client: config = {} } = options ?? {};
-  const { client: queryClient, ...queryOptions } = queryConfig;
+  const { query: queryConfig = {}, client: config = {} } = options ?? {}
+  const { client: queryClient, ...queryOptions } = queryConfig
   const queryKey =
-    queryOptions?.queryKey ?? getDoctorPatientsQueryKey(doctorId, params);
+    queryOptions?.queryKey ?? getDoctorPatientsQueryKey(doctorId, params)
 
   const query = useQuery(
     {
@@ -116,12 +116,12 @@ export function useGetDoctorPatients<
       queryKey,
       ...queryOptions,
     } as unknown as QueryObserverOptions,
-    queryClient,
+    queryClient
   ) as UseQueryResult<TData, ResponseErrorConfig<Error>> & {
-    queryKey: TQueryKey;
-  };
+    queryKey: TQueryKey
+  }
 
-  query.queryKey = queryKey as TQueryKey;
+  query.queryKey = queryKey as TQueryKey
 
-  return query;
+  return query
 }

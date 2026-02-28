@@ -3,27 +3,27 @@
  * Do not edit manually.
  */
 
-import fetch from "@/lib/api-client";
+import fetch from '@/lib/api-client'
 import type {
   GetAllExercisePackagesQueryResponse,
   GetAllExercisePackagesQueryParams,
-} from "../../types/exercisePackagesController/GetAllExercisePackages.ts";
-import type { RequestConfig, ResponseErrorConfig } from "@/lib/api-client";
+} from '../../types/exercisePackagesController/GetAllExercisePackages.ts'
+import type { RequestConfig, ResponseErrorConfig } from '@/lib/api-client'
 import type {
   QueryKey,
   QueryClient,
   QueryObserverOptions,
   UseQueryResult,
-} from "@tanstack/react-query";
-import { queryOptions, useQuery } from "@tanstack/react-query";
+} from '@tanstack/react-query'
+import { queryOptions, useQuery } from '@tanstack/react-query'
 
 export const getAllExercisePackagesQueryKey = (
-  params: GetAllExercisePackagesQueryParams,
-) => [{ url: "/api/exercise-packages" }, ...(params ? [params] : [])] as const;
+  params: GetAllExercisePackagesQueryParams
+) => [{ url: '/api/exercise-packages' }, ...(params ? [params] : [])] as const
 
 export type GetAllExercisePackagesQueryKey = ReturnType<
   typeof getAllExercisePackagesQueryKey
->;
+>
 
 /**
  * @description Retrieve exercise packages with pagination and optional search query. Search is performed on package title (case-insensitive). Examples: ?page=0&size=20 | ?query=beginner
@@ -32,23 +32,23 @@ export type GetAllExercisePackagesQueryKey = ReturnType<
  */
 export async function getAllExercisePackages(
   params: GetAllExercisePackagesQueryParams,
-  config: Partial<RequestConfig> & { client?: typeof fetch } = {},
+  config: Partial<RequestConfig> & { client?: typeof fetch } = {}
 ) {
-  const { client: request = fetch, ...requestConfig } = config;
+  const { client: request = fetch, ...requestConfig } = config
 
   const res = await request<
     GetAllExercisePackagesQueryResponse,
     ResponseErrorConfig<Error>,
     unknown
-  >({ method: "GET", url: `/api/exercise-packages`, params, ...requestConfig });
-  return res.data;
+  >({ method: 'GET', url: `/api/exercise-packages`, params, ...requestConfig })
+  return res.data
 }
 
 export function getAllExercisePackagesQueryOptions(
   params: GetAllExercisePackagesQueryParams,
-  config: Partial<RequestConfig> & { client?: typeof fetch } = {},
+  config: Partial<RequestConfig> & { client?: typeof fetch } = {}
 ) {
-  const queryKey = getAllExercisePackagesQueryKey(params);
+  const queryKey = getAllExercisePackagesQueryKey(params)
   return queryOptions<
     GetAllExercisePackagesQueryResponse,
     ResponseErrorConfig<Error>,
@@ -58,10 +58,10 @@ export function getAllExercisePackagesQueryOptions(
     enabled: !!params,
     queryKey,
     queryFn: async ({ signal }) => {
-      config.signal = signal;
-      return getAllExercisePackages(params, config);
+      config.signal = signal
+      return getAllExercisePackages(params, config)
     },
-  });
+  })
 }
 
 /**
@@ -84,14 +84,14 @@ export function useGetAllExercisePackages<
         TQueryData,
         TQueryKey
       >
-    > & { client?: QueryClient };
-    client?: Partial<RequestConfig> & { client?: typeof fetch };
-  } = {},
+    > & { client?: QueryClient }
+    client?: Partial<RequestConfig> & { client?: typeof fetch }
+  } = {}
 ) {
-  const { query: queryConfig = {}, client: config = {} } = options ?? {};
-  const { client: queryClient, ...queryOptions } = queryConfig;
+  const { query: queryConfig = {}, client: config = {} } = options ?? {}
+  const { client: queryClient, ...queryOptions } = queryConfig
   const queryKey =
-    queryOptions?.queryKey ?? getAllExercisePackagesQueryKey(params);
+    queryOptions?.queryKey ?? getAllExercisePackagesQueryKey(params)
 
   const query = useQuery(
     {
@@ -99,12 +99,12 @@ export function useGetAllExercisePackages<
       queryKey,
       ...queryOptions,
     } as unknown as QueryObserverOptions,
-    queryClient,
+    queryClient
   ) as UseQueryResult<TData, ResponseErrorConfig<Error>> & {
-    queryKey: TQueryKey;
-  };
+    queryKey: TQueryKey
+  }
 
-  query.queryKey = queryKey as TQueryKey;
+  query.queryKey = queryKey as TQueryKey
 
-  return query;
+  return query
 }

@@ -3,80 +3,80 @@
  * Do not edit manually.
  */
 
-import fetch from "@/lib/api-client";
+import fetch from '@/lib/api-client'
 import type {
   CreateAndAssignCustomCourseMutationRequest,
   CreateAndAssignCustomCourseMutationResponse,
   CreateAndAssignCustomCoursePathParams,
-} from "../../types/doctorController/CreateAndAssignCustomCourse.ts";
-import type { RequestConfig, ResponseErrorConfig } from "@/lib/api-client";
+} from '../../types/doctorController/CreateAndAssignCustomCourse.ts'
+import type { RequestConfig, ResponseErrorConfig } from '@/lib/api-client'
 import type {
   UseMutationOptions,
   UseMutationResult,
   QueryClient,
-} from "@tanstack/react-query";
-import { mutationOptions, useMutation } from "@tanstack/react-query";
+} from '@tanstack/react-query'
+import { mutationOptions, useMutation } from '@tanstack/react-query'
 
 export const createAndAssignCustomCourseMutationKey = () =>
-  [{ url: "/api/doctors/patients/:userId/custom-courses" }] as const;
+  [{ url: '/api/doctors/patients/:userId/custom-courses' }] as const
 
 export type CreateAndAssignCustomCourseMutationKey = ReturnType<
   typeof createAndAssignCustomCourseMutationKey
->;
+>
 
 /**
- * @description Create a personalized course for a specific patient and assign it with PENDING_PURCHASE status
+ * @description Create a personalized course for a specific patient and assign it with PENDING_PURCHASE status.For DOCTORS: The course will be assigned by you to your patient.For SUPER_ADMIN/ADMIN: You must specify 'assigningDoctorId' in the request body to indicate which doctor is assigning the course.
  * @summary Create custom course and assign to patient
  * {@link /api/doctors/patients/:userId/custom-courses}
  */
 export async function createAndAssignCustomCourse(
-  userId: CreateAndAssignCustomCoursePathParams["userId"],
+  userId: CreateAndAssignCustomCoursePathParams['userId'],
   data: CreateAndAssignCustomCourseMutationRequest,
   config: Partial<RequestConfig<CreateAndAssignCustomCourseMutationRequest>> & {
-    client?: typeof fetch;
-  } = {},
+    client?: typeof fetch
+  } = {}
 ) {
-  const { client: request = fetch, ...requestConfig } = config;
+  const { client: request = fetch, ...requestConfig } = config
 
-  const requestData = data;
+  const requestData = data
 
   const res = await request<
     CreateAndAssignCustomCourseMutationResponse,
     ResponseErrorConfig<Error>,
     CreateAndAssignCustomCourseMutationRequest
   >({
-    method: "POST",
+    method: 'POST',
     url: `/api/doctors/patients/${userId}/custom-courses`,
     data: requestData,
     ...requestConfig,
-  });
-  return res.data;
+  })
+  return res.data
 }
 
 export function createAndAssignCustomCourseMutationOptions(
   config: Partial<RequestConfig<CreateAndAssignCustomCourseMutationRequest>> & {
-    client?: typeof fetch;
-  } = {},
+    client?: typeof fetch
+  } = {}
 ) {
-  const mutationKey = createAndAssignCustomCourseMutationKey();
+  const mutationKey = createAndAssignCustomCourseMutationKey()
   return mutationOptions<
     CreateAndAssignCustomCourseMutationResponse,
     ResponseErrorConfig<Error>,
     {
-      userId: CreateAndAssignCustomCoursePathParams["userId"];
-      data: CreateAndAssignCustomCourseMutationRequest;
+      userId: CreateAndAssignCustomCoursePathParams['userId']
+      data: CreateAndAssignCustomCourseMutationRequest
     },
     typeof mutationKey
   >({
     mutationKey,
     mutationFn: async ({ userId, data }) => {
-      return createAndAssignCustomCourse(userId, data, config);
+      return createAndAssignCustomCourse(userId, data, config)
     },
-  });
+  })
 }
 
 /**
- * @description Create a personalized course for a specific patient and assign it with PENDING_PURCHASE status
+ * @description Create a personalized course for a specific patient and assign it with PENDING_PURCHASE status.For DOCTORS: The course will be assigned by you to your patient.For SUPER_ADMIN/ADMIN: You must specify 'assigningDoctorId' in the request body to indicate which doctor is assigning the course.
  * @summary Create custom course and assign to patient
  * {@link /api/doctors/patients/:userId/custom-courses}
  */
@@ -86,39 +86,39 @@ export function useCreateAndAssignCustomCourse<TContext>(
       CreateAndAssignCustomCourseMutationResponse,
       ResponseErrorConfig<Error>,
       {
-        userId: CreateAndAssignCustomCoursePathParams["userId"];
-        data: CreateAndAssignCustomCourseMutationRequest;
+        userId: CreateAndAssignCustomCoursePathParams['userId']
+        data: CreateAndAssignCustomCourseMutationRequest
       },
       TContext
-    > & { client?: QueryClient };
+    > & { client?: QueryClient }
     client?: Partial<
       RequestConfig<CreateAndAssignCustomCourseMutationRequest>
-    > & { client?: typeof fetch };
-  } = {},
+    > & { client?: typeof fetch }
+  } = {}
 ) {
-  const { mutation = {}, client: config = {} } = options ?? {};
-  const { client: queryClient, ...mutationOptions } = mutation;
+  const { mutation = {}, client: config = {} } = options ?? {}
+  const { client: queryClient, ...mutationOptions } = mutation
   const mutationKey =
-    mutationOptions.mutationKey ?? createAndAssignCustomCourseMutationKey();
+    mutationOptions.mutationKey ?? createAndAssignCustomCourseMutationKey()
 
   const baseOptions = createAndAssignCustomCourseMutationOptions(
-    config,
+    config
   ) as UseMutationOptions<
     CreateAndAssignCustomCourseMutationResponse,
     ResponseErrorConfig<Error>,
     {
-      userId: CreateAndAssignCustomCoursePathParams["userId"];
-      data: CreateAndAssignCustomCourseMutationRequest;
+      userId: CreateAndAssignCustomCoursePathParams['userId']
+      data: CreateAndAssignCustomCourseMutationRequest
     },
     TContext
-  >;
+  >
 
   return useMutation<
     CreateAndAssignCustomCourseMutationResponse,
     ResponseErrorConfig<Error>,
     {
-      userId: CreateAndAssignCustomCoursePathParams["userId"];
-      data: CreateAndAssignCustomCourseMutationRequest;
+      userId: CreateAndAssignCustomCoursePathParams['userId']
+      data: CreateAndAssignCustomCourseMutationRequest
     },
     TContext
   >(
@@ -127,14 +127,14 @@ export function useCreateAndAssignCustomCourse<TContext>(
       mutationKey,
       ...mutationOptions,
     },
-    queryClient,
+    queryClient
   ) as UseMutationResult<
     CreateAndAssignCustomCourseMutationResponse,
     ResponseErrorConfig<Error>,
     {
-      userId: CreateAndAssignCustomCoursePathParams["userId"];
-      data: CreateAndAssignCustomCourseMutationRequest;
+      userId: CreateAndAssignCustomCoursePathParams['userId']
+      data: CreateAndAssignCustomCourseMutationRequest
     },
     TContext
-  >;
+  >
 }

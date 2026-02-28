@@ -42,20 +42,22 @@ export function DataTableSingleSelectFilter<TData, TValue>({
 }: DataTableSingleSelectFilterProps<TData, TValue>) {
   const selectedValue = column?.getFilterValue() as string | undefined
 
-  const selectedOption = options.find((option) => option.value === selectedValue)
+  const selectedOption = options.find(
+    (option) => option.value === selectedValue
+  )
 
   return (
     <Popover modal={false}>
       <PopoverTrigger asChild>
-        <Button variant='outline' size='sm' className='h-8 border-dashed'>
-          <CircleIcon className='size-4' />
+        <Button variant="outline" size="sm" className="h-8 border-dashed">
+          <CircleIcon className="size-4" />
           {title}
           {selectedOption && (
             <>
-              <Separator orientation='vertical' className='mx-2 h-4' />
+              <Separator orientation="vertical" className="mx-2 h-4" />
               <Badge
-                variant='secondary'
-                className='rounded-sm px-1 font-normal'
+                variant="secondary"
+                className="rounded-sm px-1 font-normal"
               >
                 {selectedOption.label}
               </Badge>
@@ -63,7 +65,7 @@ export function DataTableSingleSelectFilter<TData, TValue>({
           )}
         </Button>
       </PopoverTrigger>
-      <PopoverContent className='w-[200px] p-0' align='start'>
+      <PopoverContent className="w-[200px] p-0" align="start">
         <Command>
           <CommandInput placeholder={title} />
           <CommandList>
@@ -87,17 +89,15 @@ export function DataTableSingleSelectFilter<TData, TValue>({
                     <div
                       className={cn(
                         'border-primary flex size-4 items-center justify-center rounded-full border',
-                        isSelected
-                          ? 'bg-primary'
-                          : 'opacity-50'
+                        isSelected ? 'bg-primary' : 'opacity-50'
                       )}
                     >
                       {isSelected && (
-                        <div className='size-2 rounded-full bg-primary-foreground' />
+                        <div className="size-2 rounded-full bg-primary-foreground" />
                       )}
                     </div>
                     {option.icon && (
-                      <option.icon className='text-muted-foreground size-4' />
+                      <option.icon className="text-muted-foreground size-4" />
                     )}
                     <span>{option.label}</span>
                   </CommandItem>
@@ -110,7 +110,7 @@ export function DataTableSingleSelectFilter<TData, TValue>({
                 <CommandGroup>
                   <CommandItem
                     onSelect={() => column?.setFilterValue(undefined)}
-                    className='justify-center text-center'
+                    className="justify-center text-center"
                   >
                     Clear filters
                   </CommandItem>

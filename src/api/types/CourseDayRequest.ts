@@ -3,15 +3,15 @@
  * Do not edit manually.
  */
 
-import type { ExerciseItemRequest } from "./ExerciseItemRequest.ts";
+import type { ExerciseItemRequest } from './ExerciseItemRequest.ts'
 
 export type CourseDayRequest = {
   /**
    * @type integer, int32
    */
-  dayNumber: number;
+  dayNumber: number
   /**
    * @type array
    */
-  exercises: ExerciseItemRequest[];
-};
+  exercises: ExerciseItemRequest[]
+}

@@ -3,9 +3,9 @@
  * Do not edit manually.
  */
 
-import { z } from "zod/v4";
+import { z } from 'zod/v4'
 
 export const assignDoctorRequestSchema = z.object({
   doctorId: z.int(),
   adminNotes: z.optional(z.string()),
-});
+})

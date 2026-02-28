@@ -7,141 +7,141 @@ export type RehabilitationExaminationFormResponse = {
   /**
    * @type integer | undefined, int64
    */
-  id?: number;
+  id?: number
   /**
    * @type integer | undefined, int64
    */
-  userId?: number;
+  userId?: number
   /**
    * @type string | undefined
    */
-  patientName?: string;
+  patientName?: string
   /**
    * @type string | undefined, date
    */
-  dateOfBirth?: string;
+  dateOfBirth?: string
   /**
    * @type integer | undefined, int32
    */
-  age?: number;
+  age?: number
   /**
    * @type string | undefined
    */
-  gender?: string;
+  gender?: string
   /**
    * @type string | undefined
    */
-  ethnicity?: string;
+  ethnicity?: string
   /**
    * @type string | undefined
    */
-  job?: string;
+  job?: string
   /**
    * @type string | undefined
    */
-  address?: string;
+  address?: string
   /**
    * @type string | undefined
    */
-  contactPerson?: string;
+  contactPerson?: string
   /**
    * @type string | undefined
    */
-  phoneNumber?: string;
+  phoneNumber?: string
   /**
    * @type string | undefined, date
    */
-  examinationDate?: string;
+  examinationDate?: string
   /**
    * @type string | undefined
    */
-  chiefComplain?: string;
+  chiefComplain?: string
   /**
    * @type string | undefined
    */
-  historyOfPresentIllness?: string;
+  historyOfPresentIllness?: string
   /**
    * @type string | undefined
    */
-  pastMedicalHistory?: string;
+  pastMedicalHistory?: string
   /**
    * @type string | undefined
    */
-  allergies?: string;
+  allergies?: string
   /**
    * @type string | undefined
    */
-  medicalHistory?: string;
+  medicalHistory?: string
   /**
    * @type string | undefined
    */
-  surgicalHistory?: string;
+  surgicalHistory?: string
   /**
    * @type string | undefined
    */
-  medicationHistory?: string;
+  medicationHistory?: string
   /**
    * @type string | undefined
    */
-  familyHistory?: string;
+  familyHistory?: string
   /**
    * @type string | undefined
    */
-  rehabilitationExamination?: string;
+  rehabilitationExamination?: string
   /**
    * @type string | undefined
    */
-  laboratoryTestingAndImaging?: string;
+  laboratoryTestingAndImaging?: string
   /**
    * @type string | undefined
    */
-  diagnosis?: string;
+  diagnosis?: string
   /**
    * @type string | undefined
    */
-  interventionObjectives?: string;
+  interventionObjectives?: string
   /**
    * @type string | undefined
    */
-  therapyCourse?: string;
+  therapyCourse?: string
   /**
    * @type string | undefined
    */
-  pulse?: string;
+  pulse?: string
   /**
    * @type string | undefined
    */
-  temperature?: string;
+  temperature?: string
   /**
    * @type string | undefined
    */
-  bloodPressure?: string;
+  bloodPressure?: string
   /**
    * @type string | undefined
    */
-  breathingRate?: string;
+  breathingRate?: string
   /**
    * @type number | undefined
    */
-  height?: number;
+  height?: number
   /**
    * @type number | undefined
    */
-  weight?: number;
+  weight?: number
   /**
    * @type number | undefined
    */
-  bmi?: number;
+  bmi?: number
   /**
    * @type string | undefined
    */
-  rehabilitationMethods?: string;
+  rehabilitationMethods?: string
   /**
    * @type string | undefined, date-time
    */
-  createdAt?: string;
+  createdAt?: string
   /**
    * @type string | undefined, date-time
    */
-  updatedAt?: string;
-};
+  updatedAt?: string
+}

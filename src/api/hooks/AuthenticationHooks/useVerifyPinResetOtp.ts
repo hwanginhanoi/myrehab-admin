@@ -3,25 +3,25 @@
  * Do not edit manually.
  */
 
-import fetch from "@/lib/api-client";
+import fetch from '@/lib/api-client'
 import type {
   VerifyPinResetOtpMutationRequest,
   VerifyPinResetOtpMutationResponse,
-} from "../../types/authenticationController/VerifyPinResetOtp.ts";
-import type { RequestConfig, ResponseErrorConfig } from "@/lib/api-client";
+} from '../../types/authenticationController/VerifyPinResetOtp.ts'
+import type { RequestConfig, ResponseErrorConfig } from '@/lib/api-client'
 import type {
   UseMutationOptions,
   UseMutationResult,
   QueryClient,
-} from "@tanstack/react-query";
-import { mutationOptions, useMutation } from "@tanstack/react-query";
+} from '@tanstack/react-query'
+import { mutationOptions, useMutation } from '@tanstack/react-query'
 
 export const verifyPinResetOtpMutationKey = () =>
-  [{ url: "/api/auth/user/verify-pin-reset-otp" }] as const;
+  [{ url: '/api/auth/user/verify-pin-reset-otp' }] as const
 
 export type VerifyPinResetOtpMutationKey = ReturnType<
   typeof verifyPinResetOtpMutationKey
->;
+>
 
 /**
  * @description Verify OTP and receive verification token valid for 5 minutes to reset PIN
@@ -31,32 +31,32 @@ export type VerifyPinResetOtpMutationKey = ReturnType<
 export async function verifyPinResetOtp(
   data: VerifyPinResetOtpMutationRequest,
   config: Partial<RequestConfig<VerifyPinResetOtpMutationRequest>> & {
-    client?: typeof fetch;
-  } = {},
+    client?: typeof fetch
+  } = {}
 ) {
-  const { client: request = fetch, ...requestConfig } = config;
+  const { client: request = fetch, ...requestConfig } = config
 
-  const requestData = data;
+  const requestData = data
 
   const res = await request<
     VerifyPinResetOtpMutationResponse,
     ResponseErrorConfig<Error>,
     VerifyPinResetOtpMutationRequest
   >({
-    method: "POST",
+    method: 'POST',
     url: `/api/auth/user/verify-pin-reset-otp`,
     data: requestData,
     ...requestConfig,
-  });
-  return res.data;
+  })
+  return res.data
 }
 
 export function verifyPinResetOtpMutationOptions(
   config: Partial<RequestConfig<VerifyPinResetOtpMutationRequest>> & {
-    client?: typeof fetch;
-  } = {},
+    client?: typeof fetch
+  } = {}
 ) {
-  const mutationKey = verifyPinResetOtpMutationKey();
+  const mutationKey = verifyPinResetOtpMutationKey()
   return mutationOptions<
     VerifyPinResetOtpMutationResponse,
     ResponseErrorConfig<Error>,
@@ -65,9 +65,9 @@ export function verifyPinResetOtpMutationOptions(
   >({
     mutationKey,
     mutationFn: async ({ data }) => {
-      return verifyPinResetOtp(data, config);
+      return verifyPinResetOtp(data, config)
     },
-  });
+  })
 }
 
 /**
@@ -82,25 +82,25 @@ export function useVerifyPinResetOtp<TContext>(
       ResponseErrorConfig<Error>,
       { data: VerifyPinResetOtpMutationRequest },
       TContext
-    > & { client?: QueryClient };
+    > & { client?: QueryClient }
     client?: Partial<RequestConfig<VerifyPinResetOtpMutationRequest>> & {
-      client?: typeof fetch;
-    };
-  } = {},
+      client?: typeof fetch
+    }
+  } = {}
 ) {
-  const { mutation = {}, client: config = {} } = options ?? {};
-  const { client: queryClient, ...mutationOptions } = mutation;
+  const { mutation = {}, client: config = {} } = options ?? {}
+  const { client: queryClient, ...mutationOptions } = mutation
   const mutationKey =
-    mutationOptions.mutationKey ?? verifyPinResetOtpMutationKey();
+    mutationOptions.mutationKey ?? verifyPinResetOtpMutationKey()
 
   const baseOptions = verifyPinResetOtpMutationOptions(
-    config,
+    config
   ) as UseMutationOptions<
     VerifyPinResetOtpMutationResponse,
     ResponseErrorConfig<Error>,
     { data: VerifyPinResetOtpMutationRequest },
     TContext
-  >;
+  >
 
   return useMutation<
     VerifyPinResetOtpMutationResponse,
@@ -113,11 +113,11 @@ export function useVerifyPinResetOtp<TContext>(
       mutationKey,
       ...mutationOptions,
     },
-    queryClient,
+    queryClient
   ) as UseMutationResult<
     VerifyPinResetOtpMutationResponse,
     ResponseErrorConfig<Error>,
     { data: VerifyPinResetOtpMutationRequest },
     TContext
-  >;
+  >
 }

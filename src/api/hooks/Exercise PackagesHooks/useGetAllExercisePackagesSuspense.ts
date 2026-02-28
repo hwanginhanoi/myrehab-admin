@@ -3,27 +3,27 @@
  * Do not edit manually.
  */
 
-import fetch from "@/lib/api-client";
+import fetch from '@/lib/api-client'
 import type {
   GetAllExercisePackagesQueryResponse,
   GetAllExercisePackagesQueryParams,
-} from "../../types/exercisePackagesController/GetAllExercisePackages.ts";
-import type { RequestConfig, ResponseErrorConfig } from "@/lib/api-client";
+} from '../../types/exercisePackagesController/GetAllExercisePackages.ts'
+import type { RequestConfig, ResponseErrorConfig } from '@/lib/api-client'
 import type {
   QueryKey,
   QueryClient,
   UseSuspenseQueryOptions,
   UseSuspenseQueryResult,
-} from "@tanstack/react-query";
-import { queryOptions, useSuspenseQuery } from "@tanstack/react-query";
+} from '@tanstack/react-query'
+import { queryOptions, useSuspenseQuery } from '@tanstack/react-query'
 
 export const getAllExercisePackagesSuspenseQueryKey = (
-  params: GetAllExercisePackagesQueryParams,
-) => [{ url: "/api/exercise-packages" }, ...(params ? [params] : [])] as const;
+  params: GetAllExercisePackagesQueryParams
+) => [{ url: '/api/exercise-packages' }, ...(params ? [params] : [])] as const
 
 export type GetAllExercisePackagesSuspenseQueryKey = ReturnType<
   typeof getAllExercisePackagesSuspenseQueryKey
->;
+>
 
 /**
  * @description Retrieve exercise packages with pagination and optional search query. Search is performed on package title (case-insensitive). Examples: ?page=0&size=20 | ?query=beginner
@@ -32,23 +32,23 @@ export type GetAllExercisePackagesSuspenseQueryKey = ReturnType<
  */
 export async function getAllExercisePackagesSuspense(
   params: GetAllExercisePackagesQueryParams,
-  config: Partial<RequestConfig> & { client?: typeof fetch } = {},
+  config: Partial<RequestConfig> & { client?: typeof fetch } = {}
 ) {
-  const { client: request = fetch, ...requestConfig } = config;
+  const { client: request = fetch, ...requestConfig } = config
 
   const res = await request<
     GetAllExercisePackagesQueryResponse,
     ResponseErrorConfig<Error>,
     unknown
-  >({ method: "GET", url: `/api/exercise-packages`, params, ...requestConfig });
-  return res.data;
+  >({ method: 'GET', url: `/api/exercise-packages`, params, ...requestConfig })
+  return res.data
 }
 
 export function getAllExercisePackagesSuspenseQueryOptions(
   params: GetAllExercisePackagesQueryParams,
-  config: Partial<RequestConfig> & { client?: typeof fetch } = {},
+  config: Partial<RequestConfig> & { client?: typeof fetch } = {}
 ) {
-  const queryKey = getAllExercisePackagesSuspenseQueryKey(params);
+  const queryKey = getAllExercisePackagesSuspenseQueryKey(params)
   return queryOptions<
     GetAllExercisePackagesQueryResponse,
     ResponseErrorConfig<Error>,
@@ -58,10 +58,10 @@ export function getAllExercisePackagesSuspenseQueryOptions(
     enabled: !!params,
     queryKey,
     queryFn: async ({ signal }) => {
-      config.signal = signal;
-      return getAllExercisePackagesSuspense(params, config);
+      config.signal = signal
+      return getAllExercisePackagesSuspense(params, config)
     },
-  });
+  })
 }
 
 /**
@@ -82,14 +82,14 @@ export function useGetAllExercisePackagesSuspense<
         TData,
         TQueryKey
       >
-    > & { client?: QueryClient };
-    client?: Partial<RequestConfig> & { client?: typeof fetch };
-  } = {},
+    > & { client?: QueryClient }
+    client?: Partial<RequestConfig> & { client?: typeof fetch }
+  } = {}
 ) {
-  const { query: queryConfig = {}, client: config = {} } = options ?? {};
-  const { client: queryClient, ...queryOptions } = queryConfig;
+  const { query: queryConfig = {}, client: config = {} } = options ?? {}
+  const { client: queryClient, ...queryOptions } = queryConfig
   const queryKey =
-    queryOptions?.queryKey ?? getAllExercisePackagesSuspenseQueryKey(params);
+    queryOptions?.queryKey ?? getAllExercisePackagesSuspenseQueryKey(params)
 
   const query = useSuspenseQuery(
     {
@@ -97,12 +97,12 @@ export function useGetAllExercisePackagesSuspense<
       queryKey,
       ...queryOptions,
     } as unknown as UseSuspenseQueryOptions,
-    queryClient,
+    queryClient
   ) as UseSuspenseQueryResult<TData, ResponseErrorConfig<Error>> & {
-    queryKey: TQueryKey;
-  };
+    queryKey: TQueryKey
+  }
 
-  query.queryKey = queryKey as TQueryKey;
+  query.queryKey = queryKey as TQueryKey
 
-  return query;
+  return query
 }

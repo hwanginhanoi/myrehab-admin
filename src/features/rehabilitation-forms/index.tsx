@@ -24,7 +24,10 @@ export function RehabilitationForms() {
 
   // Build query params for getAllForms
   const queryParams = useMemo(() => {
-    const params: { pageable: { page: number; size: number }; patientName?: string } = {
+    const params: {
+      pageable: { page: number; size: number }
+      patientName?: string
+    } = {
       pageable: {
         page: page - 1, // Convert to 0-indexed for API
         size: pageSize,
@@ -48,26 +51,28 @@ export function RehabilitationForms() {
     <>
       <Header fixed>
         <Search />
-        <div className='ms-auto flex items-center space-x-4'>
+        <div className="ms-auto flex items-center space-x-4">
           <ThemeSwitch />
           <ConfigDrawer />
           <ProfileDropdown />
         </div>
       </Header>
 
-      <Main className='flex flex-1 flex-col gap-4 sm:gap-6'>
-        <div className='flex flex-wrap items-end justify-between gap-2'>
+      <Main className="flex flex-1 flex-col gap-4 sm:gap-6">
+        <div className="flex flex-wrap items-end justify-between gap-2">
           <div>
-            <h2 className='text-2xl font-bold tracking-tight'>Phiếu khám phục hồi chức năng</h2>
-            <p className='text-muted-foreground'>
+            <h2 className="text-2xl font-bold tracking-tight">
+              Phiếu khám phục hồi chức năng
+            </h2>
+            <p className="text-muted-foreground">
               Quản lý phiếu khám phục hồi chức năng của bệnh nhân.
             </p>
           </div>
           <RehabilitationFormsPrimaryButtons />
         </div>
         {isLoading ? (
-          <div className='flex items-center justify-center h-64'>
-            <p className='text-muted-foreground'>Đang tải...</p>
+          <div className="flex items-center justify-center h-64">
+            <p className="text-muted-foreground">Đang tải...</p>
           </div>
         ) : (
           <RehabilitationFormsTable

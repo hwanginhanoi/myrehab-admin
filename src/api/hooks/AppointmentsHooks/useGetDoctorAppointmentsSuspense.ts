@@ -3,31 +3,31 @@
  * Do not edit manually.
  */
 
-import fetch from "@/lib/api-client";
+import fetch from '@/lib/api-client'
 import type {
   GetDoctorAppointmentsQueryResponse,
   GetDoctorAppointmentsQueryParams,
-} from "../../types/appointmentsController/GetDoctorAppointments.ts";
-import type { RequestConfig, ResponseErrorConfig } from "@/lib/api-client";
+} from '../../types/appointmentsController/GetDoctorAppointments.ts'
+import type { RequestConfig, ResponseErrorConfig } from '@/lib/api-client'
 import type {
   QueryKey,
   QueryClient,
   UseSuspenseQueryOptions,
   UseSuspenseQueryResult,
-} from "@tanstack/react-query";
-import { queryOptions, useSuspenseQuery } from "@tanstack/react-query";
+} from '@tanstack/react-query'
+import { queryOptions, useSuspenseQuery } from '@tanstack/react-query'
 
 export const getDoctorAppointmentsSuspenseQueryKey = (
-  params: GetDoctorAppointmentsQueryParams,
+  params: GetDoctorAppointmentsQueryParams
 ) =>
   [
-    { url: "/api/appointments/doctor/my-appointments" },
+    { url: '/api/appointments/doctor/my-appointments' },
     ...(params ? [params] : []),
-  ] as const;
+  ] as const
 
 export type GetDoctorAppointmentsSuspenseQueryKey = ReturnType<
   typeof getDoctorAppointmentsSuspenseQueryKey
->;
+>
 
 /**
  * @description List all appointments assigned to the authenticated doctor
@@ -36,28 +36,28 @@ export type GetDoctorAppointmentsSuspenseQueryKey = ReturnType<
  */
 export async function getDoctorAppointmentsSuspense(
   params: GetDoctorAppointmentsQueryParams,
-  config: Partial<RequestConfig> & { client?: typeof fetch } = {},
+  config: Partial<RequestConfig> & { client?: typeof fetch } = {}
 ) {
-  const { client: request = fetch, ...requestConfig } = config;
+  const { client: request = fetch, ...requestConfig } = config
 
   const res = await request<
     GetDoctorAppointmentsQueryResponse,
     ResponseErrorConfig<Error>,
     unknown
   >({
-    method: "GET",
+    method: 'GET',
     url: `/api/appointments/doctor/my-appointments`,
     params,
     ...requestConfig,
-  });
-  return res.data;
+  })
+  return res.data
 }
 
 export function getDoctorAppointmentsSuspenseQueryOptions(
   params: GetDoctorAppointmentsQueryParams,
-  config: Partial<RequestConfig> & { client?: typeof fetch } = {},
+  config: Partial<RequestConfig> & { client?: typeof fetch } = {}
 ) {
-  const queryKey = getDoctorAppointmentsSuspenseQueryKey(params);
+  const queryKey = getDoctorAppointmentsSuspenseQueryKey(params)
   return queryOptions<
     GetDoctorAppointmentsQueryResponse,
     ResponseErrorConfig<Error>,
@@ -67,10 +67,10 @@ export function getDoctorAppointmentsSuspenseQueryOptions(
     enabled: !!params,
     queryKey,
     queryFn: async ({ signal }) => {
-      config.signal = signal;
-      return getDoctorAppointmentsSuspense(params, config);
+      config.signal = signal
+      return getDoctorAppointmentsSuspense(params, config)
     },
-  });
+  })
 }
 
 /**
@@ -91,14 +91,14 @@ export function useGetDoctorAppointmentsSuspense<
         TData,
         TQueryKey
       >
-    > & { client?: QueryClient };
-    client?: Partial<RequestConfig> & { client?: typeof fetch };
-  } = {},
+    > & { client?: QueryClient }
+    client?: Partial<RequestConfig> & { client?: typeof fetch }
+  } = {}
 ) {
-  const { query: queryConfig = {}, client: config = {} } = options ?? {};
-  const { client: queryClient, ...queryOptions } = queryConfig;
+  const { query: queryConfig = {}, client: config = {} } = options ?? {}
+  const { client: queryClient, ...queryOptions } = queryConfig
   const queryKey =
-    queryOptions?.queryKey ?? getDoctorAppointmentsSuspenseQueryKey(params);
+    queryOptions?.queryKey ?? getDoctorAppointmentsSuspenseQueryKey(params)
 
   const query = useSuspenseQuery(
     {
@@ -106,12 +106,12 @@ export function useGetDoctorAppointmentsSuspense<
       queryKey,
       ...queryOptions,
     } as unknown as UseSuspenseQueryOptions,
-    queryClient,
+    queryClient
   ) as UseSuspenseQueryResult<TData, ResponseErrorConfig<Error>> & {
-    queryKey: TQueryKey;
-  };
+    queryKey: TQueryKey
+  }
 
-  query.queryKey = queryKey as TQueryKey;
+  query.queryKey = queryKey as TQueryKey
 
-  return query;
+  return query
 }

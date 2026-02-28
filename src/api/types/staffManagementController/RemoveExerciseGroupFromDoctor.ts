@@ -8,24 +8,24 @@ export type RemoveExerciseGroupFromDoctorPathParams = {
    * @description Doctor ID
    * @type integer, int64
    */
-  doctorId: number;
+  doctorId: number
   /**
    * @description Exercise Group ID
    * @type integer, int64
    */
-  groupId: number;
-};
+  groupId: number
+}
 
 /**
  * @description OK
  */
-export type RemoveExerciseGroupFromDoctor200 = any;
+export type RemoveExerciseGroupFromDoctor200 = any
 
 export type RemoveExerciseGroupFromDoctorMutationResponse =
-  RemoveExerciseGroupFromDoctor200;
+  RemoveExerciseGroupFromDoctor200
 
 export type RemoveExerciseGroupFromDoctorMutation = {
-  Response: RemoveExerciseGroupFromDoctor200;
-  PathParams: RemoveExerciseGroupFromDoctorPathParams;
-  Errors: any;
-};
+  Response: RemoveExerciseGroupFromDoctor200
+  PathParams: RemoveExerciseGroupFromDoctorPathParams
+  Errors: any
+}

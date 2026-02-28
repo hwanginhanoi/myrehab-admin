@@ -3,16 +3,10 @@ export type {
   DeleteFileMutationRequest,
   DeleteFileMutationResponse,
   DeleteFileMutation,
-} from "./DeleteFile.ts";
-export type {
-  GenerateDownloadUrl200,
-  GenerateDownloadUrlMutationRequest,
-  GenerateDownloadUrlMutationResponse,
-  GenerateDownloadUrlMutation,
-} from "./GenerateDownloadUrl.ts";
+} from './DeleteFile.ts'
 export type {
   GenerateUploadUrl200,
   GenerateUploadUrlMutationRequest,
   GenerateUploadUrlMutationResponse,
   GenerateUploadUrlMutation,
-} from "./GenerateUploadUrl.ts";
+} from './GenerateUploadUrl.ts'

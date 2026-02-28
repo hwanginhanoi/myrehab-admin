@@ -4,10 +4,10 @@ import { useAuthStore } from '@/stores/auth-store'
 
 export const Route = createFileRoute('/_authenticated')({
   beforeLoad: async ({ location }) => {
-    const { auth } = useAuthStore.getState()
+    const { accessToken, user, reset } = useAuthStore.getState()
 
     // Check if user has valid token
-    if (!auth.accessToken) {
+    if (!accessToken) {
       throw redirect({
         to: '/login',
         search: () => ({
@@ -17,8 +17,8 @@ export const Route = createFileRoute('/_authenticated')({
     }
 
     // Check if token is expired
-    if (auth.user && auth.user.exp < Date.now()) {
-      auth.reset()
+    if (user && user.exp < Date.now()) {
+      reset()
       throw redirect({
         to: '/login',
         search: () => ({

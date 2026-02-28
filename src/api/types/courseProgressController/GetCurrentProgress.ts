@@ -3,16 +3,16 @@
  * Do not edit manually.
  */
 
-import type { CourseProgressResponse } from "../CourseProgressResponse.ts";
+import type { CourseProgressResponse } from '../CourseProgressResponse.ts'
 
 /**
  * @description OK
  */
-export type GetCurrentProgress200 = CourseProgressResponse;
+export type GetCurrentProgress200 = CourseProgressResponse
 
-export type GetCurrentProgressQueryResponse = GetCurrentProgress200;
+export type GetCurrentProgressQueryResponse = GetCurrentProgress200
 
 export type GetCurrentProgressQuery = {
-  Response: GetCurrentProgress200;
-  Errors: any;
-};
+  Response: GetCurrentProgress200
+  Errors: any
+}

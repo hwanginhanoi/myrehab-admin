@@ -6,7 +6,12 @@ import { Main } from '@/components/layout/main'
 import { ProfileDropdown } from '@/components/profile-dropdown'
 import { Search } from '@/components/search'
 import { ThemeSwitch } from '@/components/theme-switch'
-import { useGetAllExercises, useGetAllCategories, useGetAllGroups, type GetAllExercisesQueryParams } from '@/api'
+import {
+  useGetAllExercises,
+  useGetAllCategories,
+  useGetAllGroups,
+  type GetAllExercisesQueryParams,
+} from '@/api'
 import { ExercisesPrimaryButtons } from './components/exercises-primary-buttons'
 import { ExercisesTable } from './components/exercises-table'
 
@@ -43,15 +48,18 @@ export function Exercises() {
   const allGroups = groupsResponse?.content || []
 
   // Build query params with optional filters
-  const queryParams = useMemo<GetAllExercisesQueryParams>(() => ({
-    pageable: {
-      page: page - 1, // Convert to 0-indexed for API
-      size: pageSize,
-    },
-    ...(title && { query: title }),
-    ...(categoryIds && categoryIds.length > 0 && { categoryIds }),
-    ...(groupIds && groupIds.length > 0 && { groupIds }),
-  }), [page, pageSize, title, categoryIds, groupIds])
+  const queryParams = useMemo<GetAllExercisesQueryParams>(
+    () => ({
+      pageable: {
+        page: page - 1, // Convert to 0-indexed for API
+        size: pageSize,
+      },
+      ...(title && { query: title }),
+      ...(categoryIds && categoryIds.length > 0 && { categoryIds }),
+      ...(groupIds && groupIds.length > 0 && { groupIds }),
+    }),
+    [page, pageSize, title, categoryIds, groupIds]
+  )
 
   // Fetch exercises with server-side filtering and pagination
   const { data: response, isLoading } = useGetAllExercises(queryParams, {
@@ -67,26 +75,26 @@ export function Exercises() {
     <>
       <Header fixed>
         <Search />
-        <div className='ms-auto flex items-center space-x-4'>
+        <div className="ms-auto flex items-center space-x-4">
           <ThemeSwitch />
           <ConfigDrawer />
           <ProfileDropdown />
         </div>
       </Header>
 
-      <Main className='flex flex-1 flex-col gap-4 sm:gap-6'>
-        <div className='flex flex-wrap items-end justify-between gap-2'>
+      <Main className="flex flex-1 flex-col gap-4 sm:gap-6">
+        <div className="flex flex-wrap items-end justify-between gap-2">
           <div>
-            <h2 className='text-2xl font-bold tracking-tight'>Bài tập</h2>
-            <p className='text-muted-foreground'>
+            <h2 className="text-2xl font-bold tracking-tight">Bài tập</h2>
+            <p className="text-muted-foreground">
               Quản lý bài tập phục hồi chức năng.
             </p>
           </div>
           <ExercisesPrimaryButtons />
         </div>
         {isLoading ? (
-          <div className='flex items-center justify-center h-64'>
-            <p className='text-muted-foreground'>Đang tải...</p>
+          <div className="flex items-center justify-center h-64">
+            <p className="text-muted-foreground">Đang tải...</p>
           </div>
         ) : (
           <ExercisesTable

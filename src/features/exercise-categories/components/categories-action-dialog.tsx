@@ -1,5 +1,3 @@
-'use client'
-
 import { z } from 'zod'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
@@ -25,7 +23,11 @@ import { Input } from '@/components/ui/input'
 import { Textarea } from '@/components/ui/textarea'
 import { SelectDropdown } from '@/components/select-dropdown'
 import { categoryTypeOptions } from '@/lib/constants/category-type'
-import { type CategoryResponse, useCreateCategory, useUpdateCategory } from '@/api'
+import {
+  type CategoryResponse,
+  useCreateCategory,
+  useUpdateCategory,
+} from '@/api'
 import { toast } from 'sonner'
 
 const formSchema = z.object({
@@ -45,11 +47,11 @@ type CategoriesActionDialogProps = {
 }
 
 export function CategoriesActionDialog({
-   currentRow,
-   open,
-   onOpenChange,
-   mode,
- }: CategoriesActionDialogProps) {
+  currentRow,
+  open,
+  onOpenChange,
+  mode,
+}: CategoriesActionDialogProps) {
   const isEdit = mode === 'edit'
   const isView = mode === 'view'
 
@@ -57,19 +59,20 @@ export function CategoriesActionDialog({
 
   const form = useForm<CategoryForm>({
     resolver: zodResolver(formSchema),
-    defaultValues: isEdit || isView
+    defaultValues:
+      isEdit || isView
         ? {
-          name: currentRow?.name || '',
-          type: currentRow?.type || '',
-          description: currentRow?.description || '',
-          isEdit,
-        }
+            name: currentRow?.name || '',
+            type: currentRow?.type || '',
+            description: currentRow?.description || '',
+            isEdit,
+          }
         : {
-          name: '',
-          type: '',
-          description: '',
-          isEdit: false,
-        },
+            name: '',
+            type: '',
+            description: '',
+            isEdit: false,
+          },
   })
 
   const createMutation = useCreateCategory({
@@ -78,7 +81,9 @@ export function CategoriesActionDialog({
         toast.success('Tạo danh mục thành công')
         form.reset()
         onOpenChange(false)
-        queryClient.invalidateQueries({ queryKey: [{ url: '/api/exercise-categories' }] })
+        queryClient.invalidateQueries({
+          queryKey: [{ url: '/api/exercise-categories' }],
+        })
       },
       onError: (error) => {
         toast.error('Tạo danh mục thất bại: ' + error.message)
@@ -92,7 +97,9 @@ export function CategoriesActionDialog({
         toast.success('Cập nhật danh mục thành công')
         form.reset()
         onOpenChange(false)
-        queryClient.invalidateQueries({ queryKey: [{ url: '/api/exercise-categories' }] })
+        queryClient.invalidateQueries({
+          queryKey: [{ url: '/api/exercise-categories' }],
+        })
       },
       onError: (error) => {
         toast.error('Cập nhật danh mục thất bại: ' + error.message)
@@ -137,101 +144,101 @@ export function CategoriesActionDialog({
   }
 
   return (
-      <Dialog
-          open={open}
-          onOpenChange={(state) => {
-            form.reset()
-            onOpenChange(state)
-          }}
-      >
-        <DialogContent className='sm:max-w-3xl max-h-[85vh] overflow-y-auto'>
-          <DialogHeader className='text-start'>
-            <DialogTitle>{getTitle()}</DialogTitle>
-            <DialogDescription>{getDescription()}</DialogDescription>
-          </DialogHeader>
-          <Form {...form}>
-            <form
-                id='category-form'
-                onSubmit={form.handleSubmit(onSubmit)}
-                className='space-y-4'
+    <Dialog
+      open={open}
+      onOpenChange={(state) => {
+        form.reset()
+        onOpenChange(state)
+      }}
+    >
+      <DialogContent className="sm:max-w-3xl max-h-[85vh] overflow-y-auto">
+        <DialogHeader className="text-start">
+          <DialogTitle>{getTitle()}</DialogTitle>
+          <DialogDescription>{getDescription()}</DialogDescription>
+        </DialogHeader>
+        <Form {...form}>
+          <form
+            id="category-form"
+            onSubmit={form.handleSubmit(onSubmit)}
+            className="space-y-4"
+          >
+            <FormField
+              control={form.control}
+              name="name"
+              render={({ field }) => (
+                <FormItem className="grid grid-cols-6 items-center space-y-0 gap-x-4 gap-y-1">
+                  <FormLabel className="col-span-2 text-end">
+                    Tên danh mục
+                  </FormLabel>
+                  <FormControl>
+                    <Input
+                      placeholder="Nhập tên danh mục"
+                      className="col-span-4"
+                      disabled={isView}
+                      {...field}
+                    />
+                  </FormControl>
+                  <FormMessage className="col-span-4 col-start-3" />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="type"
+              render={({ field }) => (
+                <FormItem className="grid grid-cols-6 items-center space-y-0 gap-x-4 gap-y-1">
+                  <FormLabel className="col-span-2 text-end">
+                    Phân loại
+                  </FormLabel>
+                  <SelectDropdown
+                    defaultValue={field.value}
+                    onValueChange={field.onChange}
+                    placeholder="Chọn phân loại"
+                    className="col-span-4"
+                    disabled={isView}
+                    items={categoryTypeOptions}
+                  />
+                  <FormMessage className="col-span-4 col-start-3" />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="description"
+              render={({ field }) => (
+                <FormItem className="grid grid-cols-6 items-start space-y-0 gap-x-4 gap-y-1">
+                  <FormLabel className="col-span-2 text-end pt-2">
+                    Mô tả
+                  </FormLabel>
+                  <FormControl>
+                    <Textarea
+                      placeholder="Nhập mô tả danh mục"
+                      className="col-span-4 min-h-[100px]"
+                      disabled={isView}
+                      {...field}
+                    />
+                  </FormControl>
+                  <FormMessage className="col-span-4 col-start-3" />
+                </FormItem>
+              )}
+            />
+          </form>
+        </Form>
+        <DialogFooter>
+          {!isView && (
+            <Button
+              type="submit"
+              form="category-form"
+              disabled={createMutation.isPending || updateMutation.isPending}
             >
-              <FormField
-                  control={form.control}
-                  name='name'
-                  render={({ field }) => (
-                      <FormItem className='grid grid-cols-6 items-center space-y-0 gap-x-4 gap-y-1'>
-                        <FormLabel className='col-span-2 text-end'>
-                          Tên danh mục
-                        </FormLabel>
-                        <FormControl>
-                          <Input
-                              placeholder='Nhập tên danh mục'
-                              className='col-span-4'
-                              disabled={isView}
-                              {...field}
-                          />
-                        </FormControl>
-                        <FormMessage className='col-span-4 col-start-3' />
-                      </FormItem>
-                  )}
-              />
-              <FormField
-                  control={form.control}
-                  name='type'
-                  render={({ field }) => (
-                      <FormItem className='grid grid-cols-6 items-center space-y-0 gap-x-4 gap-y-1'>
-                        <FormLabel className='col-span-2 text-end'>Phân loại</FormLabel>
-                        <SelectDropdown
-                            defaultValue={field.value}
-                            onValueChange={field.onChange}
-                            placeholder='Chọn phân loại'
-                            className='col-span-4'
-                            disabled={isView}
-                            items={categoryTypeOptions}
-                        />
-                        <FormMessage className='col-span-4 col-start-3' />
-                      </FormItem>
-                  )}
-              />
-              <FormField
-                  control={form.control}
-                  name='description'
-                  render={({ field }) => (
-                      <FormItem className='grid grid-cols-6 items-start space-y-0 gap-x-4 gap-y-1'>
-                        <FormLabel className='col-span-2 text-end pt-2'>
-                          Mô tả
-                        </FormLabel>
-                        <FormControl>
-                          <Textarea
-                              placeholder='Nhập mô tả danh mục'
-                              className='col-span-4 min-h-[100px]'
-                              disabled={isView}
-                              {...field}
-                          />
-                        </FormControl>
-                        <FormMessage className='col-span-4 col-start-3' />
-                      </FormItem>
-                  )}
-              />
-            </form>
-          </Form>
-          <DialogFooter>
-            {!isView && (
-                <Button
-                    type='submit'
-                    form='category-form'
-                    disabled={createMutation.isPending || updateMutation.isPending}
-                >
-                  {createMutation.isPending || updateMutation.isPending ? 'Đang lưu...' : 'Lưu'}
-                </Button>
-            )}
-            {isView && (
-                <Button onClick={() => onOpenChange(false)}>
-                  Đóng
-                </Button>
-            )}
-          </DialogFooter>
-        </DialogContent>
-      </Dialog>
+              {createMutation.isPending || updateMutation.isPending
+                ? 'Đang lưu...'
+                : 'Lưu'}
+            </Button>
+          )}
+          {isView && <Button onClick={() => onOpenChange(false)}>Đóng</Button>}
+        </DialogFooter>
+      </DialogContent>
+    </Dialog>
   )
 }

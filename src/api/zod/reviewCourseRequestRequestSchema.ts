@@ -3,8 +3,8 @@
  * Do not edit manually.
  */
 
-import { z } from "zod/v4";
+import { z } from 'zod/v4'
 
 export const reviewCourseRequestRequestSchema = z.object({
   doctorNotes: z.optional(z.string().min(0).max(1000)),
-});
+})

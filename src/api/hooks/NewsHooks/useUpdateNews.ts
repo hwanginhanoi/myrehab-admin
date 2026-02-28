@@ -3,23 +3,23 @@
  * Do not edit manually.
  */
 
-import fetch from "@/lib/api-client";
+import fetch from '@/lib/api-client'
 import type {
   UpdateNewsMutationRequest,
   UpdateNewsMutationResponse,
   UpdateNewsPathParams,
-} from "../../types/newsController/UpdateNews.ts";
-import type { RequestConfig, ResponseErrorConfig } from "@/lib/api-client";
+} from '../../types/newsController/UpdateNews.ts'
+import type { RequestConfig, ResponseErrorConfig } from '@/lib/api-client'
 import type {
   UseMutationOptions,
   UseMutationResult,
   QueryClient,
-} from "@tanstack/react-query";
-import { mutationOptions, useMutation } from "@tanstack/react-query";
+} from '@tanstack/react-query'
+import { mutationOptions, useMutation } from '@tanstack/react-query'
 
-export const updateNewsMutationKey = () => [{ url: "/api/news/:id" }] as const;
+export const updateNewsMutationKey = () => [{ url: '/api/news/:id' }] as const
 
-export type UpdateNewsMutationKey = ReturnType<typeof updateNewsMutationKey>;
+export type UpdateNewsMutationKey = ReturnType<typeof updateNewsMutationKey>
 
 /**
  * @description Update an existing news article. Requires news:update permission.
@@ -27,46 +27,46 @@ export type UpdateNewsMutationKey = ReturnType<typeof updateNewsMutationKey>;
  * {@link /api/news/:id}
  */
 export async function updateNews(
-  id: UpdateNewsPathParams["id"],
+  id: UpdateNewsPathParams['id'],
   data: UpdateNewsMutationRequest,
   config: Partial<RequestConfig<UpdateNewsMutationRequest>> & {
-    client?: typeof fetch;
-  } = {},
+    client?: typeof fetch
+  } = {}
 ) {
-  const { client: request = fetch, ...requestConfig } = config;
+  const { client: request = fetch, ...requestConfig } = config
 
-  const requestData = data;
+  const requestData = data
 
   const res = await request<
     UpdateNewsMutationResponse,
     ResponseErrorConfig<Error>,
     UpdateNewsMutationRequest
   >({
-    method: "PUT",
+    method: 'PUT',
     url: `/api/news/${id}`,
     data: requestData,
     ...requestConfig,
-  });
-  return res.data;
+  })
+  return res.data
 }
 
 export function updateNewsMutationOptions(
   config: Partial<RequestConfig<UpdateNewsMutationRequest>> & {
-    client?: typeof fetch;
-  } = {},
+    client?: typeof fetch
+  } = {}
 ) {
-  const mutationKey = updateNewsMutationKey();
+  const mutationKey = updateNewsMutationKey()
   return mutationOptions<
     UpdateNewsMutationResponse,
     ResponseErrorConfig<Error>,
-    { id: UpdateNewsPathParams["id"]; data: UpdateNewsMutationRequest },
+    { id: UpdateNewsPathParams['id']; data: UpdateNewsMutationRequest },
     typeof mutationKey
   >({
     mutationKey,
     mutationFn: async ({ id, data }) => {
-      return updateNews(id, data, config);
+      return updateNews(id, data, config)
     },
-  });
+  })
 }
 
 /**
@@ -79,29 +79,29 @@ export function useUpdateNews<TContext>(
     mutation?: UseMutationOptions<
       UpdateNewsMutationResponse,
       ResponseErrorConfig<Error>,
-      { id: UpdateNewsPathParams["id"]; data: UpdateNewsMutationRequest },
+      { id: UpdateNewsPathParams['id']; data: UpdateNewsMutationRequest },
       TContext
-    > & { client?: QueryClient };
+    > & { client?: QueryClient }
     client?: Partial<RequestConfig<UpdateNewsMutationRequest>> & {
-      client?: typeof fetch;
-    };
-  } = {},
+      client?: typeof fetch
+    }
+  } = {}
 ) {
-  const { mutation = {}, client: config = {} } = options ?? {};
-  const { client: queryClient, ...mutationOptions } = mutation;
-  const mutationKey = mutationOptions.mutationKey ?? updateNewsMutationKey();
+  const { mutation = {}, client: config = {} } = options ?? {}
+  const { client: queryClient, ...mutationOptions } = mutation
+  const mutationKey = mutationOptions.mutationKey ?? updateNewsMutationKey()
 
   const baseOptions = updateNewsMutationOptions(config) as UseMutationOptions<
     UpdateNewsMutationResponse,
     ResponseErrorConfig<Error>,
-    { id: UpdateNewsPathParams["id"]; data: UpdateNewsMutationRequest },
+    { id: UpdateNewsPathParams['id']; data: UpdateNewsMutationRequest },
     TContext
-  >;
+  >
 
   return useMutation<
     UpdateNewsMutationResponse,
     ResponseErrorConfig<Error>,
-    { id: UpdateNewsPathParams["id"]; data: UpdateNewsMutationRequest },
+    { id: UpdateNewsPathParams['id']; data: UpdateNewsMutationRequest },
     TContext
   >(
     {
@@ -109,11 +109,11 @@ export function useUpdateNews<TContext>(
       mutationKey,
       ...mutationOptions,
     },
-    queryClient,
+    queryClient
   ) as UseMutationResult<
     UpdateNewsMutationResponse,
     ResponseErrorConfig<Error>,
-    { id: UpdateNewsPathParams["id"]; data: UpdateNewsMutationRequest },
+    { id: UpdateNewsPathParams['id']; data: UpdateNewsMutationRequest },
     TContext
-  >;
+  >
 }

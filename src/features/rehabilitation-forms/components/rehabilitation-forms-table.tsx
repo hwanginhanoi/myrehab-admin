@@ -28,7 +28,12 @@ type DataTableProps = {
   pageCount: number
 }
 
-export function RehabilitationFormsTable({ data, search, navigate, pageCount }: DataTableProps) {
+export function RehabilitationFormsTable({
+  data,
+  search,
+  navigate,
+  pageCount,
+}: DataTableProps) {
   const [rowSelection, setRowSelection] = useState({})
   const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({})
   const [sorting, setSorting] = useState<SortingState>([])
@@ -84,11 +89,11 @@ export function RehabilitationFormsTable({ data, search, navigate, pageCount }: 
       )}
     >
       <RehabilitationFormsTableToolbar table={table} />
-      <div className='overflow-hidden rounded-md border'>
+      <div className="overflow-hidden rounded-md border">
         <Table>
           <TableHeader>
             {table.getHeaderGroups().map((headerGroup) => (
-              <TableRow key={headerGroup.id} className='group/row'>
+              <TableRow key={headerGroup.id} className="group/row">
                 {headerGroup.headers.map((header) => {
                   return (
                     <TableHead
@@ -118,7 +123,7 @@ export function RehabilitationFormsTable({ data, search, navigate, pageCount }: 
                 <TableRow
                   key={row.id}
                   data-state={row.getIsSelected() && 'selected'}
-                  className='group/row'
+                  className="group/row"
                 >
                   {row.getVisibleCells().map((cell) => (
                     <TableCell
@@ -141,7 +146,7 @@ export function RehabilitationFormsTable({ data, search, navigate, pageCount }: 
               <TableRow>
                 <TableCell
                   colSpan={columns.length}
-                  className='h-24 text-center'
+                  className="h-24 text-center"
                 >
                   Không có dữ liệu.
                 </TableCell>
@@ -150,7 +155,7 @@ export function RehabilitationFormsTable({ data, search, navigate, pageCount }: 
           </TableBody>
         </Table>
       </div>
-      <DataTablePagination table={table} className='mt-auto' />
+      <DataTablePagination table={table} className="mt-auto" />
     </div>
   )
 }

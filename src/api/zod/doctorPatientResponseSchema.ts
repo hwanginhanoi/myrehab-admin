@@ -3,7 +3,7 @@
  * Do not edit manually.
  */
 
-import { z } from "zod/v4";
+import { z } from 'zod/v4'
 
 export const doctorPatientResponseSchema = z.object({
   id: z.optional(z.int()),
@@ -14,4 +14,4 @@ export const doctorPatientResponseSchema = z.object({
   assignedAt: z.optional(z.string().datetime()),
   assignedByAdminId: z.optional(z.int()),
   notes: z.optional(z.string()),
-});
+})

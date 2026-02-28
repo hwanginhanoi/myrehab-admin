@@ -3,7 +3,7 @@
  * Do not edit manually.
  */
 
-import { z } from "zod/v4";
+import { z } from 'zod/v4'
 
 export const userAuthResponseSchema = z.object({
   accessToken: z.optional(z.string()),
@@ -13,4 +13,4 @@ export const userAuthResponseSchema = z.object({
   userId: z.optional(z.int()),
   phoneNumber: z.optional(z.string()),
   fullName: z.optional(z.string()),
-});
+})

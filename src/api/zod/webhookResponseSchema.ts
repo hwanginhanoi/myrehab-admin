@@ -3,9 +3,9 @@
  * Do not edit manually.
  */
 
-import { z } from "zod/v4";
+import { z } from 'zod/v4'
 
 export const webhookResponseSchema = z.object({
   success: z.optional(z.boolean()),
   message: z.optional(z.string()),
-});
+})

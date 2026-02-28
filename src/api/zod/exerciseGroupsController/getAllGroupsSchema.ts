@@ -3,24 +3,24 @@
  * Do not edit manually.
  */
 
-import { pageableSchema } from "../pageableSchema.ts";
-import { pagedModelSchema } from "../pagedModelSchema.ts";
-import { z } from "zod/v4";
+import { pageableSchema } from '../pageableSchema.ts'
+import { pagedModelSchema } from '../pagedModelSchema.ts'
+import { z } from 'zod/v4'
 
 export const getAllGroupsQueryParamsSchema = z.object({
   query: z.optional(
-    z.string().describe("Search query for group name (case-insensitive)"),
+    z.string().describe('Search query for group name (case-insensitive)')
   ),
   get pageable() {
-    return pageableSchema;
+    return pageableSchema
   },
-});
+})
 
 /**
  * @description OK
  */
-export const getAllGroups200Schema = z.lazy(() => pagedModelSchema);
+export const getAllGroups200Schema = z.lazy(() => pagedModelSchema)
 
 export const getAllGroupsQueryResponseSchema = z.lazy(
-  () => getAllGroups200Schema,
-);
+  () => getAllGroups200Schema
+)

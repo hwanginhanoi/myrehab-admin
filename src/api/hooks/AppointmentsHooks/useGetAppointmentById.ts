@@ -3,27 +3,27 @@
  * Do not edit manually.
  */
 
-import fetch from "@/lib/api-client";
+import fetch from '@/lib/api-client'
 import type {
   GetAppointmentByIdQueryResponse,
   GetAppointmentByIdPathParams,
-} from "../../types/appointmentsController/GetAppointmentById.ts";
-import type { RequestConfig, ResponseErrorConfig } from "@/lib/api-client";
+} from '../../types/appointmentsController/GetAppointmentById.ts'
+import type { RequestConfig, ResponseErrorConfig } from '@/lib/api-client'
 import type {
   QueryKey,
   QueryClient,
   QueryObserverOptions,
   UseQueryResult,
-} from "@tanstack/react-query";
-import { queryOptions, useQuery } from "@tanstack/react-query";
+} from '@tanstack/react-query'
+import { queryOptions, useQuery } from '@tanstack/react-query'
 
 export const getAppointmentByIdQueryKey = (
-  id: GetAppointmentByIdPathParams["id"],
-) => [{ url: "/api/appointments/:id", params: { id: id } }] as const;
+  id: GetAppointmentByIdPathParams['id']
+) => [{ url: '/api/appointments/:id', params: { id: id } }] as const
 
 export type GetAppointmentByIdQueryKey = ReturnType<
   typeof getAppointmentByIdQueryKey
->;
+>
 
 /**
  * @description Get details of a specific appointment
@@ -31,24 +31,24 @@ export type GetAppointmentByIdQueryKey = ReturnType<
  * {@link /api/appointments/:id}
  */
 export async function getAppointmentById(
-  id: GetAppointmentByIdPathParams["id"],
-  config: Partial<RequestConfig> & { client?: typeof fetch } = {},
+  id: GetAppointmentByIdPathParams['id'],
+  config: Partial<RequestConfig> & { client?: typeof fetch } = {}
 ) {
-  const { client: request = fetch, ...requestConfig } = config;
+  const { client: request = fetch, ...requestConfig } = config
 
   const res = await request<
     GetAppointmentByIdQueryResponse,
     ResponseErrorConfig<Error>,
     unknown
-  >({ method: "GET", url: `/api/appointments/${id}`, ...requestConfig });
-  return res.data;
+  >({ method: 'GET', url: `/api/appointments/${id}`, ...requestConfig })
+  return res.data
 }
 
 export function getAppointmentByIdQueryOptions(
-  id: GetAppointmentByIdPathParams["id"],
-  config: Partial<RequestConfig> & { client?: typeof fetch } = {},
+  id: GetAppointmentByIdPathParams['id'],
+  config: Partial<RequestConfig> & { client?: typeof fetch } = {}
 ) {
-  const queryKey = getAppointmentByIdQueryKey(id);
+  const queryKey = getAppointmentByIdQueryKey(id)
   return queryOptions<
     GetAppointmentByIdQueryResponse,
     ResponseErrorConfig<Error>,
@@ -58,10 +58,10 @@ export function getAppointmentByIdQueryOptions(
     enabled: !!id,
     queryKey,
     queryFn: async ({ signal }) => {
-      config.signal = signal;
-      return getAppointmentById(id, config);
+      config.signal = signal
+      return getAppointmentById(id, config)
     },
-  });
+  })
 }
 
 /**
@@ -74,7 +74,7 @@ export function useGetAppointmentById<
   TQueryData = GetAppointmentByIdQueryResponse,
   TQueryKey extends QueryKey = GetAppointmentByIdQueryKey,
 >(
-  id: GetAppointmentByIdPathParams["id"],
+  id: GetAppointmentByIdPathParams['id'],
   options: {
     query?: Partial<
       QueryObserverOptions<
@@ -84,13 +84,13 @@ export function useGetAppointmentById<
         TQueryData,
         TQueryKey
       >
-    > & { client?: QueryClient };
-    client?: Partial<RequestConfig> & { client?: typeof fetch };
-  } = {},
+    > & { client?: QueryClient }
+    client?: Partial<RequestConfig> & { client?: typeof fetch }
+  } = {}
 ) {
-  const { query: queryConfig = {}, client: config = {} } = options ?? {};
-  const { client: queryClient, ...queryOptions } = queryConfig;
-  const queryKey = queryOptions?.queryKey ?? getAppointmentByIdQueryKey(id);
+  const { query: queryConfig = {}, client: config = {} } = options ?? {}
+  const { client: queryClient, ...queryOptions } = queryConfig
+  const queryKey = queryOptions?.queryKey ?? getAppointmentByIdQueryKey(id)
 
   const query = useQuery(
     {
@@ -98,12 +98,12 @@ export function useGetAppointmentById<
       queryKey,
       ...queryOptions,
     } as unknown as QueryObserverOptions,
-    queryClient,
+    queryClient
   ) as UseQueryResult<TData, ResponseErrorConfig<Error>> & {
-    queryKey: TQueryKey;
-  };
+    queryKey: TQueryKey
+  }
 
-  query.queryKey = queryKey as TQueryKey;
+  query.queryKey = queryKey as TQueryKey
 
-  return query;
+  return query
 }

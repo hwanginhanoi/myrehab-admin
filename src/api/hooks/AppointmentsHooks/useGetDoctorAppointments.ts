@@ -3,31 +3,31 @@
  * Do not edit manually.
  */
 
-import fetch from "@/lib/api-client";
+import fetch from '@/lib/api-client'
 import type {
   GetDoctorAppointmentsQueryResponse,
   GetDoctorAppointmentsQueryParams,
-} from "../../types/appointmentsController/GetDoctorAppointments.ts";
-import type { RequestConfig, ResponseErrorConfig } from "@/lib/api-client";
+} from '../../types/appointmentsController/GetDoctorAppointments.ts'
+import type { RequestConfig, ResponseErrorConfig } from '@/lib/api-client'
 import type {
   QueryKey,
   QueryClient,
   QueryObserverOptions,
   UseQueryResult,
-} from "@tanstack/react-query";
-import { queryOptions, useQuery } from "@tanstack/react-query";
+} from '@tanstack/react-query'
+import { queryOptions, useQuery } from '@tanstack/react-query'
 
 export const getDoctorAppointmentsQueryKey = (
-  params: GetDoctorAppointmentsQueryParams,
+  params: GetDoctorAppointmentsQueryParams
 ) =>
   [
-    { url: "/api/appointments/doctor/my-appointments" },
+    { url: '/api/appointments/doctor/my-appointments' },
     ...(params ? [params] : []),
-  ] as const;
+  ] as const
 
 export type GetDoctorAppointmentsQueryKey = ReturnType<
   typeof getDoctorAppointmentsQueryKey
->;
+>
 
 /**
  * @description List all appointments assigned to the authenticated doctor
@@ -36,28 +36,28 @@ export type GetDoctorAppointmentsQueryKey = ReturnType<
  */
 export async function getDoctorAppointments(
   params: GetDoctorAppointmentsQueryParams,
-  config: Partial<RequestConfig> & { client?: typeof fetch } = {},
+  config: Partial<RequestConfig> & { client?: typeof fetch } = {}
 ) {
-  const { client: request = fetch, ...requestConfig } = config;
+  const { client: request = fetch, ...requestConfig } = config
 
   const res = await request<
     GetDoctorAppointmentsQueryResponse,
     ResponseErrorConfig<Error>,
     unknown
   >({
-    method: "GET",
+    method: 'GET',
     url: `/api/appointments/doctor/my-appointments`,
     params,
     ...requestConfig,
-  });
-  return res.data;
+  })
+  return res.data
 }
 
 export function getDoctorAppointmentsQueryOptions(
   params: GetDoctorAppointmentsQueryParams,
-  config: Partial<RequestConfig> & { client?: typeof fetch } = {},
+  config: Partial<RequestConfig> & { client?: typeof fetch } = {}
 ) {
-  const queryKey = getDoctorAppointmentsQueryKey(params);
+  const queryKey = getDoctorAppointmentsQueryKey(params)
   return queryOptions<
     GetDoctorAppointmentsQueryResponse,
     ResponseErrorConfig<Error>,
@@ -67,10 +67,10 @@ export function getDoctorAppointmentsQueryOptions(
     enabled: !!params,
     queryKey,
     queryFn: async ({ signal }) => {
-      config.signal = signal;
-      return getDoctorAppointments(params, config);
+      config.signal = signal
+      return getDoctorAppointments(params, config)
     },
-  });
+  })
 }
 
 /**
@@ -93,14 +93,14 @@ export function useGetDoctorAppointments<
         TQueryData,
         TQueryKey
       >
-    > & { client?: QueryClient };
-    client?: Partial<RequestConfig> & { client?: typeof fetch };
-  } = {},
+    > & { client?: QueryClient }
+    client?: Partial<RequestConfig> & { client?: typeof fetch }
+  } = {}
 ) {
-  const { query: queryConfig = {}, client: config = {} } = options ?? {};
-  const { client: queryClient, ...queryOptions } = queryConfig;
+  const { query: queryConfig = {}, client: config = {} } = options ?? {}
+  const { client: queryClient, ...queryOptions } = queryConfig
   const queryKey =
-    queryOptions?.queryKey ?? getDoctorAppointmentsQueryKey(params);
+    queryOptions?.queryKey ?? getDoctorAppointmentsQueryKey(params)
 
   const query = useQuery(
     {
@@ -108,12 +108,12 @@ export function useGetDoctorAppointments<
       queryKey,
       ...queryOptions,
     } as unknown as QueryObserverOptions,
-    queryClient,
+    queryClient
   ) as UseQueryResult<TData, ResponseErrorConfig<Error>> & {
-    queryKey: TQueryKey;
-  };
+    queryKey: TQueryKey
+  }
 
-  query.queryKey = queryKey as TQueryKey;
+  query.queryKey = queryKey as TQueryKey
 
-  return query;
+  return query
 }

@@ -3,26 +3,26 @@
  * Do not edit manually.
  */
 
-import fetch from "@/lib/api-client";
+import fetch from '@/lib/api-client'
 import type {
   GetAllUsersQueryResponse,
   GetAllUsersQueryParams,
-} from "../../types/userManagementController/GetAllUsers.ts";
-import type { RequestConfig, ResponseErrorConfig } from "@/lib/api-client";
+} from '../../types/userManagementController/GetAllUsers.ts'
+import type { RequestConfig, ResponseErrorConfig } from '@/lib/api-client'
 import type {
   QueryKey,
   QueryClient,
   UseSuspenseQueryOptions,
   UseSuspenseQueryResult,
-} from "@tanstack/react-query";
-import { queryOptions, useSuspenseQuery } from "@tanstack/react-query";
+} from '@tanstack/react-query'
+import { queryOptions, useSuspenseQuery } from '@tanstack/react-query'
 
 export const getAllUsersSuspenseQueryKey = (params: GetAllUsersQueryParams) =>
-  [{ url: "/api/users" }, ...(params ? [params] : [])] as const;
+  [{ url: '/api/users' }, ...(params ? [params] : [])] as const
 
 export type GetAllUsersSuspenseQueryKey = ReturnType<
   typeof getAllUsersSuspenseQueryKey
->;
+>
 
 /**
  * @description Retrieve users with optional filtering by gender and search query (case-insensitive on name, phone, email). Supports pagination.
@@ -31,23 +31,23 @@ export type GetAllUsersSuspenseQueryKey = ReturnType<
  */
 export async function getAllUsersSuspense(
   params: GetAllUsersQueryParams,
-  config: Partial<RequestConfig> & { client?: typeof fetch } = {},
+  config: Partial<RequestConfig> & { client?: typeof fetch } = {}
 ) {
-  const { client: request = fetch, ...requestConfig } = config;
+  const { client: request = fetch, ...requestConfig } = config
 
   const res = await request<
     GetAllUsersQueryResponse,
     ResponseErrorConfig<Error>,
     unknown
-  >({ method: "GET", url: `/api/users`, params, ...requestConfig });
-  return res.data;
+  >({ method: 'GET', url: `/api/users`, params, ...requestConfig })
+  return res.data
 }
 
 export function getAllUsersSuspenseQueryOptions(
   params: GetAllUsersQueryParams,
-  config: Partial<RequestConfig> & { client?: typeof fetch } = {},
+  config: Partial<RequestConfig> & { client?: typeof fetch } = {}
 ) {
-  const queryKey = getAllUsersSuspenseQueryKey(params);
+  const queryKey = getAllUsersSuspenseQueryKey(params)
   return queryOptions<
     GetAllUsersQueryResponse,
     ResponseErrorConfig<Error>,
@@ -57,10 +57,10 @@ export function getAllUsersSuspenseQueryOptions(
     enabled: !!params,
     queryKey,
     queryFn: async ({ signal }) => {
-      config.signal = signal;
-      return getAllUsersSuspense(params, config);
+      config.signal = signal
+      return getAllUsersSuspense(params, config)
     },
-  });
+  })
 }
 
 /**
@@ -81,14 +81,13 @@ export function useGetAllUsersSuspense<
         TData,
         TQueryKey
       >
-    > & { client?: QueryClient };
-    client?: Partial<RequestConfig> & { client?: typeof fetch };
-  } = {},
+    > & { client?: QueryClient }
+    client?: Partial<RequestConfig> & { client?: typeof fetch }
+  } = {}
 ) {
-  const { query: queryConfig = {}, client: config = {} } = options ?? {};
-  const { client: queryClient, ...queryOptions } = queryConfig;
-  const queryKey =
-    queryOptions?.queryKey ?? getAllUsersSuspenseQueryKey(params);
+  const { query: queryConfig = {}, client: config = {} } = options ?? {}
+  const { client: queryClient, ...queryOptions } = queryConfig
+  const queryKey = queryOptions?.queryKey ?? getAllUsersSuspenseQueryKey(params)
 
   const query = useSuspenseQuery(
     {
@@ -96,12 +95,12 @@ export function useGetAllUsersSuspense<
       queryKey,
       ...queryOptions,
     } as unknown as UseSuspenseQueryOptions,
-    queryClient,
+    queryClient
   ) as UseSuspenseQueryResult<TData, ResponseErrorConfig<Error>> & {
-    queryKey: TQueryKey;
-  };
+    queryKey: TQueryKey
+  }
 
-  query.queryKey = queryKey as TQueryKey;
+  query.queryKey = queryKey as TQueryKey
 
-  return query;
+  return query
 }

@@ -3,23 +3,23 @@
  * Do not edit manually.
  */
 
-import fetch from "@/lib/api-client";
-import type { GetClinicScheduleQueryResponse } from "../../types/appointmentsController/GetClinicSchedule.ts";
-import type { RequestConfig, ResponseErrorConfig } from "@/lib/api-client";
+import fetch from '@/lib/api-client'
+import type { GetClinicScheduleQueryResponse } from '../../types/appointmentsController/GetClinicSchedule.ts'
+import type { RequestConfig, ResponseErrorConfig } from '@/lib/api-client'
 import type {
   QueryKey,
   QueryClient,
   UseSuspenseQueryOptions,
   UseSuspenseQueryResult,
-} from "@tanstack/react-query";
-import { queryOptions, useSuspenseQuery } from "@tanstack/react-query";
+} from '@tanstack/react-query'
+import { queryOptions, useSuspenseQuery } from '@tanstack/react-query'
 
 export const getClinicScheduleSuspenseQueryKey = () =>
-  [{ url: "/api/appointments/clinic-schedule" }] as const;
+  [{ url: '/api/appointments/clinic-schedule' }] as const
 
 export type GetClinicScheduleSuspenseQueryKey = ReturnType<
   typeof getClinicScheduleSuspenseQueryKey
->;
+>
 
 /**
  * @description View clinic operating hours for all days
@@ -27,26 +27,26 @@ export type GetClinicScheduleSuspenseQueryKey = ReturnType<
  * {@link /api/appointments/clinic-schedule}
  */
 export async function getClinicScheduleSuspense(
-  config: Partial<RequestConfig> & { client?: typeof fetch } = {},
+  config: Partial<RequestConfig> & { client?: typeof fetch } = {}
 ) {
-  const { client: request = fetch, ...requestConfig } = config;
+  const { client: request = fetch, ...requestConfig } = config
 
   const res = await request<
     GetClinicScheduleQueryResponse,
     ResponseErrorConfig<Error>,
     unknown
   >({
-    method: "GET",
+    method: 'GET',
     url: `/api/appointments/clinic-schedule`,
     ...requestConfig,
-  });
-  return res.data;
+  })
+  return res.data
 }
 
 export function getClinicScheduleSuspenseQueryOptions(
-  config: Partial<RequestConfig> & { client?: typeof fetch } = {},
+  config: Partial<RequestConfig> & { client?: typeof fetch } = {}
 ) {
-  const queryKey = getClinicScheduleSuspenseQueryKey();
+  const queryKey = getClinicScheduleSuspenseQueryKey()
   return queryOptions<
     GetClinicScheduleQueryResponse,
     ResponseErrorConfig<Error>,
@@ -55,10 +55,10 @@ export function getClinicScheduleSuspenseQueryOptions(
   >({
     queryKey,
     queryFn: async ({ signal }) => {
-      config.signal = signal;
-      return getClinicScheduleSuspense(config);
+      config.signal = signal
+      return getClinicScheduleSuspense(config)
     },
-  });
+  })
 }
 
 /**
@@ -78,14 +78,13 @@ export function useGetClinicScheduleSuspense<
         TData,
         TQueryKey
       >
-    > & { client?: QueryClient };
-    client?: Partial<RequestConfig> & { client?: typeof fetch };
-  } = {},
+    > & { client?: QueryClient }
+    client?: Partial<RequestConfig> & { client?: typeof fetch }
+  } = {}
 ) {
-  const { query: queryConfig = {}, client: config = {} } = options ?? {};
-  const { client: queryClient, ...queryOptions } = queryConfig;
-  const queryKey =
-    queryOptions?.queryKey ?? getClinicScheduleSuspenseQueryKey();
+  const { query: queryConfig = {}, client: config = {} } = options ?? {}
+  const { client: queryClient, ...queryOptions } = queryConfig
+  const queryKey = queryOptions?.queryKey ?? getClinicScheduleSuspenseQueryKey()
 
   const query = useSuspenseQuery(
     {
@@ -93,12 +92,12 @@ export function useGetClinicScheduleSuspense<
       queryKey,
       ...queryOptions,
     } as unknown as UseSuspenseQueryOptions,
-    queryClient,
+    queryClient
   ) as UseSuspenseQueryResult<TData, ResponseErrorConfig<Error>> & {
-    queryKey: TQueryKey;
-  };
+    queryKey: TQueryKey
+  }
 
-  query.queryKey = queryKey as TQueryKey;
+  query.queryKey = queryKey as TQueryKey
 
-  return query;
+  return query
 }

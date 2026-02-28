@@ -3,23 +3,23 @@
  * Do not edit manually.
  */
 
-import type { LocalTime } from "./LocalTime.ts";
+import type { LocalTime } from './LocalTime.ts'
 
 export type CreateAppointmentRequest = {
   /**
    * @type string, date
    */
-  appointmentDate: string;
+  appointmentDate: string
   /**
    * @type object
    */
-  startTime: LocalTime;
+  startTime: LocalTime
   /**
    * @type integer | undefined, int64
    */
-  doctorId?: number;
+  doctorId?: number
   /**
    * @type string | undefined
    */
-  patientNotes?: string;
-};
+  patientNotes?: string
+}

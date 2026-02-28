@@ -7,13 +7,13 @@ export type ExerciseItemRequest = {
   /**
    * @type integer, int64
    */
-  exerciseId: number;
+  exerciseId: number
   /**
    * @type integer, int32
    */
-  repetitions: number;
+  repetitions: number
   /**
    * @type integer, int32
    */
-  sets: number;
-};
+  sets: number
+}

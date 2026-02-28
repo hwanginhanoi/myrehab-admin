@@ -3,16 +3,53 @@
  * Do not edit manually.
  */
 
-import type { MyAssignedCourseResponse } from "../MyAssignedCourseResponse.ts";
+import type { PageMyAssignedCourseResponse } from '../PageMyAssignedCourseResponse.ts'
+
+export const getMyAssignedCourses1QueryParamsStatusEnum = {
+  PENDING_PURCHASE: 'PENDING_PURCHASE',
+  ACTIVE: 'ACTIVE',
+  COMPLETED: 'COMPLETED',
+} as const
+
+export type GetMyAssignedCourses1QueryParamsStatusEnumKey =
+  (typeof getMyAssignedCourses1QueryParamsStatusEnum)[keyof typeof getMyAssignedCourses1QueryParamsStatusEnum]
+
+export type GetMyAssignedCourses1QueryParams = {
+  /**
+   * @description Filter by course status
+   * @type string | undefined
+   */
+  status?: GetMyAssignedCourses1QueryParamsStatusEnumKey
+  /**
+   * @description Zero-based page index (0..N)
+   * @minLength 0
+   * @default 0
+   * @type integer | undefined
+   */
+  page?: number
+  /**
+   * @description The size of the page to be returned
+   * @minLength 1
+   * @default 20
+   * @type integer | undefined
+   */
+  size?: number
+  /**
+   * @description Sorting criteria in the format: property,(asc|desc). Default sort order is ascending. Multiple sort criteria are supported.
+   * @type array | undefined
+   */
+  sort?: string[]
+}
 
 /**
  * @description OK
  */
-export type GetMyAssignedCourses1200 = MyAssignedCourseResponse[];
+export type GetMyAssignedCourses1200 = PageMyAssignedCourseResponse
 
-export type GetMyAssignedCourses1QueryResponse = GetMyAssignedCourses1200;
+export type GetMyAssignedCourses1QueryResponse = GetMyAssignedCourses1200
 
 export type GetMyAssignedCourses1Query = {
-  Response: GetMyAssignedCourses1200;
-  Errors: any;
-};
+  Response: GetMyAssignedCourses1200
+  QueryParams: GetMyAssignedCourses1QueryParams
+  Errors: any
+}

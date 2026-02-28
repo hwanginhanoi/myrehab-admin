@@ -3,12 +3,12 @@
  * Do not edit manually.
  */
 
-import { pageMetadataSchema } from "./pageMetadataSchema.ts";
-import { z } from "zod/v4";
+import { pageMetadataSchema } from './pageMetadataSchema.ts'
+import { z } from 'zod/v4'
 
 export const pagedModelSchema = z.object({
   content: z.optional(z.array(z.object({}))),
   get page() {
-    return pageMetadataSchema.optional();
+    return pageMetadataSchema.optional()
   },
-});
+})

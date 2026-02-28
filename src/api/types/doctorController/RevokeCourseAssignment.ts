@@ -8,18 +8,18 @@ export type RevokeCourseAssignmentPathParams = {
    * @description User Course ID
    * @type integer, int64
    */
-  userCourseId: number;
-};
+  userCourseId: number
+}
 
 /**
  * @description OK
  */
-export type RevokeCourseAssignment200 = any;
+export type RevokeCourseAssignment200 = any
 
-export type RevokeCourseAssignmentMutationResponse = RevokeCourseAssignment200;
+export type RevokeCourseAssignmentMutationResponse = RevokeCourseAssignment200
 
 export type RevokeCourseAssignmentMutation = {
-  Response: RevokeCourseAssignment200;
-  PathParams: RevokeCourseAssignmentPathParams;
-  Errors: any;
-};
+  Response: RevokeCourseAssignment200
+  PathParams: RevokeCourseAssignmentPathParams
+  Errors: any
+}

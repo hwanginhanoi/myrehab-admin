@@ -3,16 +3,16 @@
  * Do not edit manually.
  */
 
-import { spendingSummaryResponseSchema } from "../spendingSummaryResponseSchema.ts";
-import { z } from "zod/v4";
+import { spendingSummaryResponseSchema } from '../spendingSummaryResponseSchema.ts'
+import { z } from 'zod/v4'
 
 /**
  * @description OK
  */
 export const getMyTotalSpending200Schema = z.lazy(
-  () => spendingSummaryResponseSchema,
-);
+  () => spendingSummaryResponseSchema
+)
 
 export const getMyTotalSpendingQueryResponseSchema = z.lazy(
-  () => getMyTotalSpending200Schema,
-);
+  () => getMyTotalSpending200Schema
+)

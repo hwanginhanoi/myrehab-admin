@@ -7,17 +7,17 @@ export type LocalTime = {
   /**
    * @type integer | undefined, int32
    */
-  hour?: number;
+  hour?: number
   /**
    * @type integer | undefined, int32
    */
-  minute?: number;
+  minute?: number
   /**
    * @type integer | undefined, int32
    */
-  second?: number;
+  second?: number
   /**
    * @type integer | undefined, int32
    */
-  nano?: number;
-};
+  nano?: number
+}

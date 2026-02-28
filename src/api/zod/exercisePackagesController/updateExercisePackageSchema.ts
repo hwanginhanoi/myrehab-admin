@@ -3,25 +3,25 @@
  * Do not edit manually.
  */
 
-import { exercisePackageResponseSchema } from "../exercisePackageResponseSchema.ts";
-import { updateExercisePackageRequestSchema } from "../updateExercisePackageRequestSchema.ts";
-import { z } from "zod/v4";
+import { exercisePackageResponseSchema } from '../exercisePackageResponseSchema.ts'
+import { updateExercisePackageRequestSchema } from '../updateExercisePackageRequestSchema.ts'
+import { z } from 'zod/v4'
 
 export const updateExercisePackagePathParamsSchema = z.object({
-  id: z.coerce.number().int().describe("Exercise Package ID"),
-});
+  id: z.coerce.number().int().describe('Exercise Package ID'),
+})
 
 /**
  * @description OK
  */
 export const updateExercisePackage200Schema = z.lazy(
-  () => exercisePackageResponseSchema,
-);
+  () => exercisePackageResponseSchema
+)
 
 export const updateExercisePackageMutationRequestSchema = z.lazy(
-  () => updateExercisePackageRequestSchema,
-);
+  () => updateExercisePackageRequestSchema
+)
 
 export const updateExercisePackageMutationResponseSchema = z.lazy(
-  () => updateExercisePackage200Schema,
-);
+  () => updateExercisePackage200Schema
+)

@@ -3,25 +3,25 @@
  * Do not edit manually.
  */
 
-import fetch from "@/lib/api-client";
+import fetch from '@/lib/api-client'
 import type {
   RequestPinResetMutationRequest,
   RequestPinResetMutationResponse,
-} from "../../types/authenticationController/RequestPinReset.ts";
-import type { RequestConfig, ResponseErrorConfig } from "@/lib/api-client";
+} from '../../types/authenticationController/RequestPinReset.ts'
+import type { RequestConfig, ResponseErrorConfig } from '@/lib/api-client'
 import type {
   UseMutationOptions,
   UseMutationResult,
   QueryClient,
-} from "@tanstack/react-query";
-import { mutationOptions, useMutation } from "@tanstack/react-query";
+} from '@tanstack/react-query'
+import { mutationOptions, useMutation } from '@tanstack/react-query'
 
 export const requestPinResetMutationKey = () =>
-  [{ url: "/api/auth/user/request-pin-reset" }] as const;
+  [{ url: '/api/auth/user/request-pin-reset' }] as const
 
 export type RequestPinResetMutationKey = ReturnType<
   typeof requestPinResetMutationKey
->;
+>
 
 /**
  * @description Send OTP to registered phone number to initiate PIN reset process
@@ -31,32 +31,32 @@ export type RequestPinResetMutationKey = ReturnType<
 export async function requestPinReset(
   data: RequestPinResetMutationRequest,
   config: Partial<RequestConfig<RequestPinResetMutationRequest>> & {
-    client?: typeof fetch;
-  } = {},
+    client?: typeof fetch
+  } = {}
 ) {
-  const { client: request = fetch, ...requestConfig } = config;
+  const { client: request = fetch, ...requestConfig } = config
 
-  const requestData = data;
+  const requestData = data
 
   const res = await request<
     RequestPinResetMutationResponse,
     ResponseErrorConfig<Error>,
     RequestPinResetMutationRequest
   >({
-    method: "POST",
+    method: 'POST',
     url: `/api/auth/user/request-pin-reset`,
     data: requestData,
     ...requestConfig,
-  });
-  return res.data;
+  })
+  return res.data
 }
 
 export function requestPinResetMutationOptions(
   config: Partial<RequestConfig<RequestPinResetMutationRequest>> & {
-    client?: typeof fetch;
-  } = {},
+    client?: typeof fetch
+  } = {}
 ) {
-  const mutationKey = requestPinResetMutationKey();
+  const mutationKey = requestPinResetMutationKey()
   return mutationOptions<
     RequestPinResetMutationResponse,
     ResponseErrorConfig<Error>,
@@ -65,9 +65,9 @@ export function requestPinResetMutationOptions(
   >({
     mutationKey,
     mutationFn: async ({ data }) => {
-      return requestPinReset(data, config);
+      return requestPinReset(data, config)
     },
-  });
+  })
 }
 
 /**
@@ -82,25 +82,25 @@ export function useRequestPinReset<TContext>(
       ResponseErrorConfig<Error>,
       { data: RequestPinResetMutationRequest },
       TContext
-    > & { client?: QueryClient };
+    > & { client?: QueryClient }
     client?: Partial<RequestConfig<RequestPinResetMutationRequest>> & {
-      client?: typeof fetch;
-    };
-  } = {},
+      client?: typeof fetch
+    }
+  } = {}
 ) {
-  const { mutation = {}, client: config = {} } = options ?? {};
-  const { client: queryClient, ...mutationOptions } = mutation;
+  const { mutation = {}, client: config = {} } = options ?? {}
+  const { client: queryClient, ...mutationOptions } = mutation
   const mutationKey =
-    mutationOptions.mutationKey ?? requestPinResetMutationKey();
+    mutationOptions.mutationKey ?? requestPinResetMutationKey()
 
   const baseOptions = requestPinResetMutationOptions(
-    config,
+    config
   ) as UseMutationOptions<
     RequestPinResetMutationResponse,
     ResponseErrorConfig<Error>,
     { data: RequestPinResetMutationRequest },
     TContext
-  >;
+  >
 
   return useMutation<
     RequestPinResetMutationResponse,
@@ -113,11 +113,11 @@ export function useRequestPinReset<TContext>(
       mutationKey,
       ...mutationOptions,
     },
-    queryClient,
+    queryClient
   ) as UseMutationResult<
     RequestPinResetMutationResponse,
     ResponseErrorConfig<Error>,
     { data: RequestPinResetMutationRequest },
     TContext
-  >;
+  >
 }

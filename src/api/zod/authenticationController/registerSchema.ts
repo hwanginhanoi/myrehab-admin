@@ -3,17 +3,15 @@
  * Do not edit manually.
  */
 
-import { registerRequestSchema } from "../registerRequestSchema.ts";
-import { userAuthResponseSchema } from "../userAuthResponseSchema.ts";
-import { z } from "zod/v4";
+import { registerRequestSchema } from '../registerRequestSchema.ts'
+import { userAuthResponseSchema } from '../userAuthResponseSchema.ts'
+import { z } from 'zod/v4'
 
 /**
  * @description OK
  */
-export const register200Schema = z.lazy(() => userAuthResponseSchema);
+export const register200Schema = z.lazy(() => userAuthResponseSchema)
 
-export const registerMutationRequestSchema = z.lazy(
-  () => registerRequestSchema,
-);
+export const registerMutationRequestSchema = z.lazy(() => registerRequestSchema)
 
-export const registerMutationResponseSchema = z.lazy(() => register200Schema);
+export const registerMutationResponseSchema = z.lazy(() => register200Schema)

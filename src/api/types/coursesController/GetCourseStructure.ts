@@ -3,25 +3,25 @@
  * Do not edit manually.
  */
 
-import type { CourseWithDaysResponse } from "../CourseWithDaysResponse.ts";
+import type { CourseWithDaysResponse } from '../CourseWithDaysResponse.ts'
 
 export type GetCourseStructurePathParams = {
   /**
    * @description Course ID
    * @type integer, int64
    */
-  courseId: number;
-};
+  courseId: number
+}
 
 /**
  * @description OK
  */
-export type GetCourseStructure200 = CourseWithDaysResponse;
+export type GetCourseStructure200 = CourseWithDaysResponse
 
-export type GetCourseStructureQueryResponse = GetCourseStructure200;
+export type GetCourseStructureQueryResponse = GetCourseStructure200
 
 export type GetCourseStructureQuery = {
-  Response: GetCourseStructure200;
-  PathParams: GetCourseStructurePathParams;
-  Errors: any;
-};
+  Response: GetCourseStructure200
+  PathParams: GetCourseStructurePathParams
+  Errors: any
+}

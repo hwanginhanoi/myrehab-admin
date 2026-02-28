@@ -3,7 +3,7 @@
  * Do not edit manually.
  */
 
-import { z } from "zod/v4";
+import { z } from 'zod/v4'
 
 export const courseProgressResponseSchema = z.object({
   id: z.optional(z.int()),
@@ -16,4 +16,4 @@ export const courseProgressResponseSchema = z.object({
   completedAt: z.optional(z.string().datetime()),
   createdAt: z.optional(z.string().datetime()),
   updatedAt: z.optional(z.string().datetime()),
-});
+})

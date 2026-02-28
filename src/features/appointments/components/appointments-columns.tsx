@@ -9,18 +9,18 @@ export const appointmentsColumns: ColumnDef<AppointmentResponse>[] = [
   {
     accessorKey: 'id',
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title='ID' />
+      <DataTableColumnHeader column={column} title="ID" />
     ),
-    cell: ({ row }) => <div className='w-10'>#{row.getValue('id')}</div>,
+    cell: ({ row }) => <div className="w-10">#{row.getValue('id')}</div>,
     enableHiding: false,
   },
   {
     accessorKey: 'userName',
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title='Bệnh nhân' />
+      <DataTableColumnHeader column={column} title="Bệnh nhân" />
     ),
     cell: ({ row }) => (
-      <div className='max-w-32 truncate font-medium'>
+      <div className="max-w-32 truncate font-medium">
         {row.getValue('userName') || '-'}
       </div>
     ),
@@ -28,10 +28,10 @@ export const appointmentsColumns: ColumnDef<AppointmentResponse>[] = [
   {
     accessorKey: 'doctorName',
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title='Bác sĩ' />
+      <DataTableColumnHeader column={column} title="Bác sĩ" />
     ),
     cell: ({ row }) => (
-      <div className='max-w-32 truncate'>
+      <div className="max-w-32 truncate">
         {row.getValue('doctorName') || 'Chưa phân công'}
       </div>
     ),
@@ -39,18 +39,19 @@ export const appointmentsColumns: ColumnDef<AppointmentResponse>[] = [
   {
     accessorKey: 'appointmentDate',
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title='Ngày' />
+      <DataTableColumnHeader column={column} title="Ngày" />
     ),
     cell: ({ row }) => <div>{row.getValue('appointmentDate') || '-'}</div>,
   },
   {
     id: 'time',
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title='Thời gian' />
+      <DataTableColumnHeader column={column} title="Thời gian" />
     ),
     cell: ({ row }) => (
       <div>
-        {formatLocalTime(row.original.startTime)} - {formatLocalTime(row.original.endTime)}
+        {formatLocalTime(row.original.startTime)} -{' '}
+        {formatLocalTime(row.original.endTime)}
       </div>
     ),
     enableSorting: false,
@@ -58,9 +59,11 @@ export const appointmentsColumns: ColumnDef<AppointmentResponse>[] = [
   {
     accessorKey: 'status',
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title='Trạng thái' />
+      <DataTableColumnHeader column={column} title="Trạng thái" />
     ),
-    cell: ({ row }) => <AppointmentStatusBadge status={row.getValue('status')} />,
+    cell: ({ row }) => (
+      <AppointmentStatusBadge status={row.getValue('status')} />
+    ),
     filterFn: (row, id, value) => {
       return Array.isArray(value) && value.includes(row.getValue(id))
     },
@@ -68,7 +71,7 @@ export const appointmentsColumns: ColumnDef<AppointmentResponse>[] = [
   {
     accessorKey: 'fee',
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title='Phí' />
+      <DataTableColumnHeader column={column} title="Phí" />
     ),
     cell: ({ row }) => <div>{formatCurrency(row.getValue('fee'))}</div>,
   },

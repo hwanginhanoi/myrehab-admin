@@ -3,48 +3,44 @@
  * Do not edit manually.
  */
 
-import type { CategoryResponse } from "./CategoryResponse.ts";
-import type { GroupResponse } from "./GroupResponse.ts";
+import type { CategoryResponse } from './CategoryResponse.ts'
+import type { GroupResponse } from './GroupResponse.ts'
 
 export type ExerciseResponse = {
   /**
    * @type integer | undefined, int64
    */
-  id?: number;
+  id?: number
   /**
    * @type string | undefined
    */
-  title?: string;
+  title?: string
   /**
    * @type string | undefined
    */
-  description?: string;
+  description?: string
   /**
    * @type string | undefined
    */
-  imageUrl?: string;
-  /**
-   * @type string | undefined
-   */
-  videoUrl?: string;
+  imageUrl?: string
   /**
    * @type integer | undefined, int32
    */
-  durationMinutes?: number;
+  durationMinutes?: number
   /**
    * @type array | undefined
    */
-  categories?: CategoryResponse[];
+  categories?: CategoryResponse[]
   /**
    * @type array | undefined
    */
-  groups?: GroupResponse[];
+  groups?: GroupResponse[]
   /**
    * @type string | undefined, date-time
    */
-  createdAt?: string;
+  createdAt?: string
   /**
    * @type string | undefined, date-time
    */
-  updatedAt?: string;
-};
+  updatedAt?: string
+}

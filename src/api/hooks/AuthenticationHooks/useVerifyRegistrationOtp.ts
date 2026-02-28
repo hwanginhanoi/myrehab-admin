@@ -3,25 +3,25 @@
  * Do not edit manually.
  */
 
-import fetch from "@/lib/api-client";
+import fetch from '@/lib/api-client'
 import type {
   VerifyRegistrationOtpMutationRequest,
   VerifyRegistrationOtpMutationResponse,
-} from "../../types/authenticationController/VerifyRegistrationOtp.ts";
-import type { RequestConfig, ResponseErrorConfig } from "@/lib/api-client";
+} from '../../types/authenticationController/VerifyRegistrationOtp.ts'
+import type { RequestConfig, ResponseErrorConfig } from '@/lib/api-client'
 import type {
   UseMutationOptions,
   UseMutationResult,
   QueryClient,
-} from "@tanstack/react-query";
-import { mutationOptions, useMutation } from "@tanstack/react-query";
+} from '@tanstack/react-query'
+import { mutationOptions, useMutation } from '@tanstack/react-query'
 
 export const verifyRegistrationOtpMutationKey = () =>
-  [{ url: "/api/auth/user/verify-registration-otp" }] as const;
+  [{ url: '/api/auth/user/verify-registration-otp' }] as const
 
 export type VerifyRegistrationOtpMutationKey = ReturnType<
   typeof verifyRegistrationOtpMutationKey
->;
+>
 
 /**
  * @description Verify OTP and receive verification token valid for 5 minutes
@@ -31,32 +31,32 @@ export type VerifyRegistrationOtpMutationKey = ReturnType<
 export async function verifyRegistrationOtp(
   data: VerifyRegistrationOtpMutationRequest,
   config: Partial<RequestConfig<VerifyRegistrationOtpMutationRequest>> & {
-    client?: typeof fetch;
-  } = {},
+    client?: typeof fetch
+  } = {}
 ) {
-  const { client: request = fetch, ...requestConfig } = config;
+  const { client: request = fetch, ...requestConfig } = config
 
-  const requestData = data;
+  const requestData = data
 
   const res = await request<
     VerifyRegistrationOtpMutationResponse,
     ResponseErrorConfig<Error>,
     VerifyRegistrationOtpMutationRequest
   >({
-    method: "POST",
+    method: 'POST',
     url: `/api/auth/user/verify-registration-otp`,
     data: requestData,
     ...requestConfig,
-  });
-  return res.data;
+  })
+  return res.data
 }
 
 export function verifyRegistrationOtpMutationOptions(
   config: Partial<RequestConfig<VerifyRegistrationOtpMutationRequest>> & {
-    client?: typeof fetch;
-  } = {},
+    client?: typeof fetch
+  } = {}
 ) {
-  const mutationKey = verifyRegistrationOtpMutationKey();
+  const mutationKey = verifyRegistrationOtpMutationKey()
   return mutationOptions<
     VerifyRegistrationOtpMutationResponse,
     ResponseErrorConfig<Error>,
@@ -65,9 +65,9 @@ export function verifyRegistrationOtpMutationOptions(
   >({
     mutationKey,
     mutationFn: async ({ data }) => {
-      return verifyRegistrationOtp(data, config);
+      return verifyRegistrationOtp(data, config)
     },
-  });
+  })
 }
 
 /**
@@ -82,25 +82,25 @@ export function useVerifyRegistrationOtp<TContext>(
       ResponseErrorConfig<Error>,
       { data: VerifyRegistrationOtpMutationRequest },
       TContext
-    > & { client?: QueryClient };
+    > & { client?: QueryClient }
     client?: Partial<RequestConfig<VerifyRegistrationOtpMutationRequest>> & {
-      client?: typeof fetch;
-    };
-  } = {},
+      client?: typeof fetch
+    }
+  } = {}
 ) {
-  const { mutation = {}, client: config = {} } = options ?? {};
-  const { client: queryClient, ...mutationOptions } = mutation;
+  const { mutation = {}, client: config = {} } = options ?? {}
+  const { client: queryClient, ...mutationOptions } = mutation
   const mutationKey =
-    mutationOptions.mutationKey ?? verifyRegistrationOtpMutationKey();
+    mutationOptions.mutationKey ?? verifyRegistrationOtpMutationKey()
 
   const baseOptions = verifyRegistrationOtpMutationOptions(
-    config,
+    config
   ) as UseMutationOptions<
     VerifyRegistrationOtpMutationResponse,
     ResponseErrorConfig<Error>,
     { data: VerifyRegistrationOtpMutationRequest },
     TContext
-  >;
+  >
 
   return useMutation<
     VerifyRegistrationOtpMutationResponse,
@@ -113,11 +113,11 @@ export function useVerifyRegistrationOtp<TContext>(
       mutationKey,
       ...mutationOptions,
     },
-    queryClient,
+    queryClient
   ) as UseMutationResult<
     VerifyRegistrationOtpMutationResponse,
     ResponseErrorConfig<Error>,
     { data: VerifyRegistrationOtpMutationRequest },
     TContext
-  >;
+  >
 }

@@ -3,23 +3,23 @@
  * Do not edit manually.
  */
 
-import { newsResponseSchema } from "../newsResponseSchema.ts";
-import { updateNewsRequestSchema } from "../updateNewsRequestSchema.ts";
-import { z } from "zod/v4";
+import { newsResponseSchema } from '../newsResponseSchema.ts'
+import { updateNewsRequestSchema } from '../updateNewsRequestSchema.ts'
+import { z } from 'zod/v4'
 
 export const updateNewsPathParamsSchema = z.object({
   id: z.coerce.number().int(),
-});
+})
 
 /**
  * @description OK
  */
-export const updateNews200Schema = z.lazy(() => newsResponseSchema);
+export const updateNews200Schema = z.lazy(() => newsResponseSchema)
 
 export const updateNewsMutationRequestSchema = z.lazy(
-  () => updateNewsRequestSchema,
-);
+  () => updateNewsRequestSchema
+)
 
 export const updateNewsMutationResponseSchema = z.lazy(
-  () => updateNews200Schema,
-);
+  () => updateNews200Schema
+)

@@ -3,26 +3,26 @@
  * Do not edit manually.
  */
 
-import fetch from "@/lib/api-client";
+import fetch from '@/lib/api-client'
 import type {
   DisputeAppointmentMutationRequest,
   DisputeAppointmentMutationResponse,
   DisputeAppointmentPathParams,
-} from "../../types/appointmentsController/DisputeAppointment.ts";
-import type { RequestConfig, ResponseErrorConfig } from "@/lib/api-client";
+} from '../../types/appointmentsController/DisputeAppointment.ts'
+import type { RequestConfig, ResponseErrorConfig } from '@/lib/api-client'
 import type {
   UseMutationOptions,
   UseMutationResult,
   QueryClient,
-} from "@tanstack/react-query";
-import { mutationOptions, useMutation } from "@tanstack/react-query";
+} from '@tanstack/react-query'
+import { mutationOptions, useMutation } from '@tanstack/react-query'
 
 export const disputeAppointmentMutationKey = () =>
-  [{ url: "/api/appointments/:id/dispute" }] as const;
+  [{ url: '/api/appointments/:id/dispute' }] as const
 
 export type DisputeAppointmentMutationKey = ReturnType<
   typeof disputeAppointmentMutationKey
->;
+>
 
 /**
  * @description Patient disputes appointment completion within 24-hour window
@@ -30,49 +30,49 @@ export type DisputeAppointmentMutationKey = ReturnType<
  * {@link /api/appointments/:id/dispute}
  */
 export async function disputeAppointment(
-  id: DisputeAppointmentPathParams["id"],
+  id: DisputeAppointmentPathParams['id'],
   data: DisputeAppointmentMutationRequest,
   config: Partial<RequestConfig<DisputeAppointmentMutationRequest>> & {
-    client?: typeof fetch;
-  } = {},
+    client?: typeof fetch
+  } = {}
 ) {
-  const { client: request = fetch, ...requestConfig } = config;
+  const { client: request = fetch, ...requestConfig } = config
 
-  const requestData = data;
+  const requestData = data
 
   const res = await request<
     DisputeAppointmentMutationResponse,
     ResponseErrorConfig<Error>,
     DisputeAppointmentMutationRequest
   >({
-    method: "POST",
+    method: 'POST',
     url: `/api/appointments/${id}/dispute`,
     data: requestData,
     ...requestConfig,
-  });
-  return res.data;
+  })
+  return res.data
 }
 
 export function disputeAppointmentMutationOptions(
   config: Partial<RequestConfig<DisputeAppointmentMutationRequest>> & {
-    client?: typeof fetch;
-  } = {},
+    client?: typeof fetch
+  } = {}
 ) {
-  const mutationKey = disputeAppointmentMutationKey();
+  const mutationKey = disputeAppointmentMutationKey()
   return mutationOptions<
     DisputeAppointmentMutationResponse,
     ResponseErrorConfig<Error>,
     {
-      id: DisputeAppointmentPathParams["id"];
-      data: DisputeAppointmentMutationRequest;
+      id: DisputeAppointmentPathParams['id']
+      data: DisputeAppointmentMutationRequest
     },
     typeof mutationKey
   >({
     mutationKey,
     mutationFn: async ({ id, data }) => {
-      return disputeAppointment(id, data, config);
+      return disputeAppointment(id, data, config)
     },
-  });
+  })
 }
 
 /**
@@ -86,39 +86,39 @@ export function useDisputeAppointment<TContext>(
       DisputeAppointmentMutationResponse,
       ResponseErrorConfig<Error>,
       {
-        id: DisputeAppointmentPathParams["id"];
-        data: DisputeAppointmentMutationRequest;
+        id: DisputeAppointmentPathParams['id']
+        data: DisputeAppointmentMutationRequest
       },
       TContext
-    > & { client?: QueryClient };
+    > & { client?: QueryClient }
     client?: Partial<RequestConfig<DisputeAppointmentMutationRequest>> & {
-      client?: typeof fetch;
-    };
-  } = {},
+      client?: typeof fetch
+    }
+  } = {}
 ) {
-  const { mutation = {}, client: config = {} } = options ?? {};
-  const { client: queryClient, ...mutationOptions } = mutation;
+  const { mutation = {}, client: config = {} } = options ?? {}
+  const { client: queryClient, ...mutationOptions } = mutation
   const mutationKey =
-    mutationOptions.mutationKey ?? disputeAppointmentMutationKey();
+    mutationOptions.mutationKey ?? disputeAppointmentMutationKey()
 
   const baseOptions = disputeAppointmentMutationOptions(
-    config,
+    config
   ) as UseMutationOptions<
     DisputeAppointmentMutationResponse,
     ResponseErrorConfig<Error>,
     {
-      id: DisputeAppointmentPathParams["id"];
-      data: DisputeAppointmentMutationRequest;
+      id: DisputeAppointmentPathParams['id']
+      data: DisputeAppointmentMutationRequest
     },
     TContext
-  >;
+  >
 
   return useMutation<
     DisputeAppointmentMutationResponse,
     ResponseErrorConfig<Error>,
     {
-      id: DisputeAppointmentPathParams["id"];
-      data: DisputeAppointmentMutationRequest;
+      id: DisputeAppointmentPathParams['id']
+      data: DisputeAppointmentMutationRequest
     },
     TContext
   >(
@@ -127,14 +127,14 @@ export function useDisputeAppointment<TContext>(
       mutationKey,
       ...mutationOptions,
     },
-    queryClient,
+    queryClient
   ) as UseMutationResult<
     DisputeAppointmentMutationResponse,
     ResponseErrorConfig<Error>,
     {
-      id: DisputeAppointmentPathParams["id"];
-      data: DisputeAppointmentMutationRequest;
+      id: DisputeAppointmentPathParams['id']
+      data: DisputeAppointmentMutationRequest
     },
     TContext
-  >;
+  >
 }

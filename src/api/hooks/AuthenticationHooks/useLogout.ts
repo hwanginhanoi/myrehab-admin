@@ -3,22 +3,22 @@
  * Do not edit manually.
  */
 
-import fetch from "@/lib/api-client";
+import fetch from '@/lib/api-client'
 import type {
   LogoutMutationRequest,
   LogoutMutationResponse,
-} from "../../types/authenticationController/Logout.ts";
-import type { RequestConfig, ResponseErrorConfig } from "@/lib/api-client";
+} from '../../types/authenticationController/Logout.ts'
+import type { RequestConfig, ResponseErrorConfig } from '@/lib/api-client'
 import type {
   UseMutationOptions,
   UseMutationResult,
   QueryClient,
-} from "@tanstack/react-query";
-import { mutationOptions, useMutation } from "@tanstack/react-query";
+} from '@tanstack/react-query'
+import { mutationOptions, useMutation } from '@tanstack/react-query'
 
-export const logoutMutationKey = () => [{ url: "/api/auth/logout" }] as const;
+export const logoutMutationKey = () => [{ url: '/api/auth/logout' }] as const
 
-export type LogoutMutationKey = ReturnType<typeof logoutMutationKey>;
+export type LogoutMutationKey = ReturnType<typeof logoutMutationKey>
 
 /**
  * @description Revoke the provided refresh token. Mobile users only.
@@ -28,32 +28,32 @@ export type LogoutMutationKey = ReturnType<typeof logoutMutationKey>;
 export async function logout(
   data: LogoutMutationRequest,
   config: Partial<RequestConfig<LogoutMutationRequest>> & {
-    client?: typeof fetch;
-  } = {},
+    client?: typeof fetch
+  } = {}
 ) {
-  const { client: request = fetch, ...requestConfig } = config;
+  const { client: request = fetch, ...requestConfig } = config
 
-  const requestData = data;
+  const requestData = data
 
   const res = await request<
     LogoutMutationResponse,
     ResponseErrorConfig<Error>,
     LogoutMutationRequest
   >({
-    method: "POST",
+    method: 'POST',
     url: `/api/auth/logout`,
     data: requestData,
     ...requestConfig,
-  });
-  return res.data;
+  })
+  return res.data
 }
 
 export function logoutMutationOptions(
   config: Partial<RequestConfig<LogoutMutationRequest>> & {
-    client?: typeof fetch;
-  } = {},
+    client?: typeof fetch
+  } = {}
 ) {
-  const mutationKey = logoutMutationKey();
+  const mutationKey = logoutMutationKey()
   return mutationOptions<
     LogoutMutationResponse,
     ResponseErrorConfig<Error>,
@@ -62,9 +62,9 @@ export function logoutMutationOptions(
   >({
     mutationKey,
     mutationFn: async ({ data }) => {
-      return logout(data, config);
+      return logout(data, config)
     },
-  });
+  })
 }
 
 /**
@@ -79,22 +79,22 @@ export function useLogout<TContext>(
       ResponseErrorConfig<Error>,
       { data: LogoutMutationRequest },
       TContext
-    > & { client?: QueryClient };
+    > & { client?: QueryClient }
     client?: Partial<RequestConfig<LogoutMutationRequest>> & {
-      client?: typeof fetch;
-    };
-  } = {},
+      client?: typeof fetch
+    }
+  } = {}
 ) {
-  const { mutation = {}, client: config = {} } = options ?? {};
-  const { client: queryClient, ...mutationOptions } = mutation;
-  const mutationKey = mutationOptions.mutationKey ?? logoutMutationKey();
+  const { mutation = {}, client: config = {} } = options ?? {}
+  const { client: queryClient, ...mutationOptions } = mutation
+  const mutationKey = mutationOptions.mutationKey ?? logoutMutationKey()
 
   const baseOptions = logoutMutationOptions(config) as UseMutationOptions<
     LogoutMutationResponse,
     ResponseErrorConfig<Error>,
     { data: LogoutMutationRequest },
     TContext
-  >;
+  >
 
   return useMutation<
     LogoutMutationResponse,
@@ -107,11 +107,11 @@ export function useLogout<TContext>(
       mutationKey,
       ...mutationOptions,
     },
-    queryClient,
+    queryClient
   ) as UseMutationResult<
     LogoutMutationResponse,
     ResponseErrorConfig<Error>,
     { data: LogoutMutationRequest },
     TContext
-  >;
+  >
 }

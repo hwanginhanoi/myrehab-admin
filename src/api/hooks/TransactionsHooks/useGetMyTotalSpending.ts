@@ -3,23 +3,23 @@
  * Do not edit manually.
  */
 
-import fetch from "@/lib/api-client";
-import type { GetMyTotalSpendingQueryResponse } from "../../types/transactionsController/GetMyTotalSpending.ts";
-import type { RequestConfig, ResponseErrorConfig } from "@/lib/api-client";
+import fetch from '@/lib/api-client'
+import type { GetMyTotalSpendingQueryResponse } from '../../types/transactionsController/GetMyTotalSpending.ts'
+import type { RequestConfig, ResponseErrorConfig } from '@/lib/api-client'
 import type {
   QueryKey,
   QueryClient,
   QueryObserverOptions,
   UseQueryResult,
-} from "@tanstack/react-query";
-import { queryOptions, useQuery } from "@tanstack/react-query";
+} from '@tanstack/react-query'
+import { queryOptions, useQuery } from '@tanstack/react-query'
 
 export const getMyTotalSpendingQueryKey = () =>
-  [{ url: "/api/transactions/my-spending" }] as const;
+  [{ url: '/api/transactions/my-spending' }] as const
 
 export type GetMyTotalSpendingQueryKey = ReturnType<
   typeof getMyTotalSpendingQueryKey
->;
+>
 
 /**
  * @description Retrieve the total spending amount for the authenticated user
@@ -27,22 +27,22 @@ export type GetMyTotalSpendingQueryKey = ReturnType<
  * {@link /api/transactions/my-spending}
  */
 export async function getMyTotalSpending(
-  config: Partial<RequestConfig> & { client?: typeof fetch } = {},
+  config: Partial<RequestConfig> & { client?: typeof fetch } = {}
 ) {
-  const { client: request = fetch, ...requestConfig } = config;
+  const { client: request = fetch, ...requestConfig } = config
 
   const res = await request<
     GetMyTotalSpendingQueryResponse,
     ResponseErrorConfig<Error>,
     unknown
-  >({ method: "GET", url: `/api/transactions/my-spending`, ...requestConfig });
-  return res.data;
+  >({ method: 'GET', url: `/api/transactions/my-spending`, ...requestConfig })
+  return res.data
 }
 
 export function getMyTotalSpendingQueryOptions(
-  config: Partial<RequestConfig> & { client?: typeof fetch } = {},
+  config: Partial<RequestConfig> & { client?: typeof fetch } = {}
 ) {
-  const queryKey = getMyTotalSpendingQueryKey();
+  const queryKey = getMyTotalSpendingQueryKey()
   return queryOptions<
     GetMyTotalSpendingQueryResponse,
     ResponseErrorConfig<Error>,
@@ -51,10 +51,10 @@ export function getMyTotalSpendingQueryOptions(
   >({
     queryKey,
     queryFn: async ({ signal }) => {
-      config.signal = signal;
-      return getMyTotalSpending(config);
+      config.signal = signal
+      return getMyTotalSpending(config)
     },
-  });
+  })
 }
 
 /**
@@ -76,13 +76,13 @@ export function useGetMyTotalSpending<
         TQueryData,
         TQueryKey
       >
-    > & { client?: QueryClient };
-    client?: Partial<RequestConfig> & { client?: typeof fetch };
-  } = {},
+    > & { client?: QueryClient }
+    client?: Partial<RequestConfig> & { client?: typeof fetch }
+  } = {}
 ) {
-  const { query: queryConfig = {}, client: config = {} } = options ?? {};
-  const { client: queryClient, ...queryOptions } = queryConfig;
-  const queryKey = queryOptions?.queryKey ?? getMyTotalSpendingQueryKey();
+  const { query: queryConfig = {}, client: config = {} } = options ?? {}
+  const { client: queryClient, ...queryOptions } = queryConfig
+  const queryKey = queryOptions?.queryKey ?? getMyTotalSpendingQueryKey()
 
   const query = useQuery(
     {
@@ -90,12 +90,12 @@ export function useGetMyTotalSpending<
       queryKey,
       ...queryOptions,
     } as unknown as QueryObserverOptions,
-    queryClient,
+    queryClient
   ) as UseQueryResult<TData, ResponseErrorConfig<Error>> & {
-    queryKey: TQueryKey;
-  };
+    queryKey: TQueryKey
+  }
 
-  query.queryKey = queryKey as TQueryKey;
+  query.queryKey = queryKey as TQueryKey
 
-  return query;
+  return query
 }

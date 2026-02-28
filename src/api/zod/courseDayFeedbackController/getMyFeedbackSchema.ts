@@ -3,21 +3,21 @@
  * Do not edit manually.
  */
 
-import { feedbackResponseSchema } from "../feedbackResponseSchema.ts";
-import { z } from "zod/v4";
+import { feedbackResponseSchema } from '../feedbackResponseSchema.ts'
+import { z } from 'zod/v4'
 
 /**
  * @description Feedback list retrieved successfully
  */
-export const getMyFeedback200Schema = z.lazy(() => feedbackResponseSchema);
+export const getMyFeedback200Schema = z.lazy(() => feedbackResponseSchema)
 
 /**
  * @description No active course progress found
  */
 export const getMyFeedback404Schema = z.array(
-  z.lazy(() => feedbackResponseSchema),
-);
+  z.lazy(() => feedbackResponseSchema)
+)
 
 export const getMyFeedbackQueryResponseSchema = z.lazy(
-  () => getMyFeedback200Schema,
-);
+  () => getMyFeedback200Schema
+)

@@ -3,44 +3,44 @@
  * Do not edit manually.
  */
 
-import type { FeedbackResponse } from "../FeedbackResponse.ts";
-import type { SubmitFeedbackRequest } from "../SubmitFeedbackRequest.ts";
+import type { FeedbackResponse } from '../FeedbackResponse.ts'
+import type { SubmitFeedbackRequest } from '../SubmitFeedbackRequest.ts'
 
 export type SubmitFeedbackPathParams = {
   /**
    * @description Course Day ID
    * @type integer, int64
    */
-  courseDayId: number;
-};
+  courseDayId: number
+}
 
 /**
  * @description Feedback submitted successfully
  */
-export type SubmitFeedback201 = FeedbackResponse;
+export type SubmitFeedback201 = FeedbackResponse
 
 /**
  * @description Invalid feedback: day not complete, wrong day, or invalid data
  */
-export type SubmitFeedback400 = FeedbackResponse;
+export type SubmitFeedback400 = FeedbackResponse
 
 /**
  * @description Course day not found or no active course progress
  */
-export type SubmitFeedback404 = FeedbackResponse;
+export type SubmitFeedback404 = FeedbackResponse
 
 /**
  * @description Feedback already exists for this day
  */
-export type SubmitFeedback409 = FeedbackResponse;
+export type SubmitFeedback409 = FeedbackResponse
 
-export type SubmitFeedbackMutationRequest = SubmitFeedbackRequest;
+export type SubmitFeedbackMutationRequest = SubmitFeedbackRequest
 
-export type SubmitFeedbackMutationResponse = SubmitFeedback201;
+export type SubmitFeedbackMutationResponse = SubmitFeedback201
 
 export type SubmitFeedbackMutation = {
-  Response: SubmitFeedback201;
-  Request: SubmitFeedbackMutationRequest;
-  PathParams: SubmitFeedbackPathParams;
-  Errors: SubmitFeedback400 | SubmitFeedback404 | SubmitFeedback409;
-};
+  Response: SubmitFeedback201
+  Request: SubmitFeedbackMutationRequest
+  PathParams: SubmitFeedbackPathParams
+  Errors: SubmitFeedback400 | SubmitFeedback404 | SubmitFeedback409
+}

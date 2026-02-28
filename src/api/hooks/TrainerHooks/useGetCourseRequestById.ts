@@ -3,27 +3,27 @@
  * Do not edit manually.
  */
 
-import fetch from "@/lib/api-client";
+import fetch from '@/lib/api-client'
 import type {
   GetCourseRequestByIdQueryResponse,
   GetCourseRequestByIdPathParams,
-} from "../../types/trainerController/GetCourseRequestById.ts";
-import type { RequestConfig, ResponseErrorConfig } from "@/lib/api-client";
+} from '../../types/trainerController/GetCourseRequestById.ts'
+import type { RequestConfig, ResponseErrorConfig } from '@/lib/api-client'
 import type {
   QueryKey,
   QueryClient,
   QueryObserverOptions,
   UseQueryResult,
-} from "@tanstack/react-query";
-import { queryOptions, useQuery } from "@tanstack/react-query";
+} from '@tanstack/react-query'
+import { queryOptions, useQuery } from '@tanstack/react-query'
 
 export const getCourseRequestByIdQueryKey = (
-  id: GetCourseRequestByIdPathParams["id"],
-) => [{ url: "/api/trainer/course-requests/:id", params: { id: id } }] as const;
+  id: GetCourseRequestByIdPathParams['id']
+) => [{ url: '/api/trainer/course-requests/:id', params: { id: id } }] as const
 
 export type GetCourseRequestByIdQueryKey = ReturnType<
   typeof getCourseRequestByIdQueryKey
->;
+>
 
 /**
  * @description View detailed information about a specific course assignment request
@@ -31,28 +31,28 @@ export type GetCourseRequestByIdQueryKey = ReturnType<
  * {@link /api/trainer/course-requests/:id}
  */
 export async function getCourseRequestById(
-  id: GetCourseRequestByIdPathParams["id"],
-  config: Partial<RequestConfig> & { client?: typeof fetch } = {},
+  id: GetCourseRequestByIdPathParams['id'],
+  config: Partial<RequestConfig> & { client?: typeof fetch } = {}
 ) {
-  const { client: request = fetch, ...requestConfig } = config;
+  const { client: request = fetch, ...requestConfig } = config
 
   const res = await request<
     GetCourseRequestByIdQueryResponse,
     ResponseErrorConfig<Error>,
     unknown
   >({
-    method: "GET",
+    method: 'GET',
     url: `/api/trainer/course-requests/${id}`,
     ...requestConfig,
-  });
-  return res.data;
+  })
+  return res.data
 }
 
 export function getCourseRequestByIdQueryOptions(
-  id: GetCourseRequestByIdPathParams["id"],
-  config: Partial<RequestConfig> & { client?: typeof fetch } = {},
+  id: GetCourseRequestByIdPathParams['id'],
+  config: Partial<RequestConfig> & { client?: typeof fetch } = {}
 ) {
-  const queryKey = getCourseRequestByIdQueryKey(id);
+  const queryKey = getCourseRequestByIdQueryKey(id)
   return queryOptions<
     GetCourseRequestByIdQueryResponse,
     ResponseErrorConfig<Error>,
@@ -62,10 +62,10 @@ export function getCourseRequestByIdQueryOptions(
     enabled: !!id,
     queryKey,
     queryFn: async ({ signal }) => {
-      config.signal = signal;
-      return getCourseRequestById(id, config);
+      config.signal = signal
+      return getCourseRequestById(id, config)
     },
-  });
+  })
 }
 
 /**
@@ -78,7 +78,7 @@ export function useGetCourseRequestById<
   TQueryData = GetCourseRequestByIdQueryResponse,
   TQueryKey extends QueryKey = GetCourseRequestByIdQueryKey,
 >(
-  id: GetCourseRequestByIdPathParams["id"],
+  id: GetCourseRequestByIdPathParams['id'],
   options: {
     query?: Partial<
       QueryObserverOptions<
@@ -88,13 +88,13 @@ export function useGetCourseRequestById<
         TQueryData,
         TQueryKey
       >
-    > & { client?: QueryClient };
-    client?: Partial<RequestConfig> & { client?: typeof fetch };
-  } = {},
+    > & { client?: QueryClient }
+    client?: Partial<RequestConfig> & { client?: typeof fetch }
+  } = {}
 ) {
-  const { query: queryConfig = {}, client: config = {} } = options ?? {};
-  const { client: queryClient, ...queryOptions } = queryConfig;
-  const queryKey = queryOptions?.queryKey ?? getCourseRequestByIdQueryKey(id);
+  const { query: queryConfig = {}, client: config = {} } = options ?? {}
+  const { client: queryClient, ...queryOptions } = queryConfig
+  const queryKey = queryOptions?.queryKey ?? getCourseRequestByIdQueryKey(id)
 
   const query = useQuery(
     {
@@ -102,12 +102,12 @@ export function useGetCourseRequestById<
       queryKey,
       ...queryOptions,
     } as unknown as QueryObserverOptions,
-    queryClient,
+    queryClient
   ) as UseQueryResult<TData, ResponseErrorConfig<Error>> & {
-    queryKey: TQueryKey;
-  };
+    queryKey: TQueryKey
+  }
 
-  query.queryKey = queryKey as TQueryKey;
+  query.queryKey = queryKey as TQueryKey
 
-  return query;
+  return query
 }

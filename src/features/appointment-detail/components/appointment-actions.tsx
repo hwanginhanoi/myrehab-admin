@@ -25,8 +25,14 @@ export function AppointmentActions({ appointment }: AppointmentActionsProps) {
     mutation: {
       onSuccess: () => {
         toast.success('Đã xác nhận hoàn thành')
-        queryClient.invalidateQueries({ queryKey: [{ url: '/api/appointments/:id', params: { id: appointment.id } }] })
-        queryClient.invalidateQueries({ queryKey: [{ url: '/api/appointments/admin/all' }] })
+        queryClient.invalidateQueries({
+          queryKey: [
+            { url: '/api/appointments/:id', params: { id: appointment.id } },
+          ],
+        })
+        queryClient.invalidateQueries({
+          queryKey: [{ url: '/api/appointments/admin/all' }],
+        })
       },
       onError: () => {
         toast.error('Có lỗi xảy ra')
@@ -51,7 +57,7 @@ export function AppointmentActions({ appointment }: AppointmentActionsProps) {
         <CardHeader>
           <CardTitle>Hành động</CardTitle>
         </CardHeader>
-        <CardContent className='flex flex-wrap gap-2'>
+        <CardContent className="flex flex-wrap gap-2">
           {actions.map((action) => (
             <Button
               key={action}

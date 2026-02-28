@@ -2,35 +2,35 @@ export {
   createExercisePackage200Schema,
   createExercisePackageMutationRequestSchema,
   createExercisePackageMutationResponseSchema,
-} from "./createExercisePackageSchema.ts";
+} from './createExercisePackageSchema.ts'
 export {
   getAllExercisePackagesQueryParamsSchema,
   getAllExercisePackages200Schema,
   getAllExercisePackagesQueryResponseSchema,
-} from "./getAllExercisePackagesSchema.ts";
+} from './getAllExercisePackagesSchema.ts'
 export {
   getAvailablePackagesQueryParamsSchema,
   getAvailablePackages200Schema,
   getAvailablePackagesQueryResponseSchema,
-} from "./getAvailablePackagesSchema.ts";
+} from './getAvailablePackagesSchema.ts'
 export {
   getCurrentUserPackageByIdPathParamsSchema,
   getCurrentUserPackageById200Schema,
   getCurrentUserPackageByIdQueryResponseSchema,
-} from "./getCurrentUserPackageByIdSchema.ts";
+} from './getCurrentUserPackageByIdSchema.ts'
 export {
   getCurrentUserPackagesQueryParamsSchema,
   getCurrentUserPackages200Schema,
   getCurrentUserPackagesQueryResponseSchema,
-} from "./getCurrentUserPackagesSchema.ts";
+} from './getCurrentUserPackagesSchema.ts'
 export {
   getExercisePackageByIdPathParamsSchema,
   getExercisePackageById200Schema,
   getExercisePackageByIdQueryResponseSchema,
-} from "./getExercisePackageByIdSchema.ts";
+} from './getExercisePackageByIdSchema.ts'
 export {
   updateExercisePackagePathParamsSchema,
   updateExercisePackage200Schema,
   updateExercisePackageMutationRequestSchema,
   updateExercisePackageMutationResponseSchema,
-} from "./updateExercisePackageSchema.ts";
+} from './updateExercisePackageSchema.ts'

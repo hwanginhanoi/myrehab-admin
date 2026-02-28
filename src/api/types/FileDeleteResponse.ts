@@ -7,9 +7,9 @@ export type FileDeleteResponse = {
   /**
    * @type boolean | undefined
    */
-  success?: boolean;
+  success?: boolean
   /**
    * @type string | undefined
    */
-  message?: string;
-};
+  message?: string
+}

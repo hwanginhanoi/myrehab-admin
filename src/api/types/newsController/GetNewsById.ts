@@ -3,24 +3,24 @@
  * Do not edit manually.
  */
 
-import type { NewsResponse } from "../NewsResponse.ts";
+import type { NewsResponse } from '../NewsResponse.ts'
 
 export type GetNewsByIdPathParams = {
   /**
    * @type integer, int64
    */
-  id: number;
-};
+  id: number
+}
 
 /**
  * @description OK
  */
-export type GetNewsById200 = NewsResponse;
+export type GetNewsById200 = NewsResponse
 
-export type GetNewsByIdQueryResponse = GetNewsById200;
+export type GetNewsByIdQueryResponse = GetNewsById200
 
 export type GetNewsByIdQuery = {
-  Response: GetNewsById200;
-  PathParams: GetNewsByIdPathParams;
-  Errors: any;
-};
+  Response: GetNewsById200
+  PathParams: GetNewsByIdPathParams
+  Errors: any
+}

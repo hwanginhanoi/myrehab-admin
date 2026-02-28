@@ -3,19 +3,19 @@
  * Do not edit manually.
  */
 
-import { addBalanceRequestSchema } from "../addBalanceRequestSchema.ts";
-import { balanceResponseSchema } from "../balanceResponseSchema.ts";
-import { z } from "zod/v4";
+import { addBalanceRequestSchema } from '../addBalanceRequestSchema.ts'
+import { balanceResponseSchema } from '../balanceResponseSchema.ts'
+import { z } from 'zod/v4'
 
 /**
  * @description OK
  */
-export const addBalance200Schema = z.lazy(() => balanceResponseSchema);
+export const addBalance200Schema = z.lazy(() => balanceResponseSchema)
 
 export const addBalanceMutationRequestSchema = z.lazy(
-  () => addBalanceRequestSchema,
-);
+  () => addBalanceRequestSchema
+)
 
 export const addBalanceMutationResponseSchema = z.lazy(
-  () => addBalance200Schema,
-);
+  () => addBalance200Schema
+)

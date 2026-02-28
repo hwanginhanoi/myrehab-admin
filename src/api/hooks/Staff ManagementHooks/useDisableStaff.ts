@@ -3,25 +3,23 @@
  * Do not edit manually.
  */
 
-import fetch from "@/lib/api-client";
+import fetch from '@/lib/api-client'
 import type {
   DisableStaffMutationResponse,
   DisableStaffPathParams,
-} from "../../types/staffManagementController/DisableStaff.ts";
-import type { RequestConfig, ResponseErrorConfig } from "@/lib/api-client";
+} from '../../types/staffManagementController/DisableStaff.ts'
+import type { RequestConfig, ResponseErrorConfig } from '@/lib/api-client'
 import type {
   UseMutationOptions,
   UseMutationResult,
   QueryClient,
-} from "@tanstack/react-query";
-import { mutationOptions, useMutation } from "@tanstack/react-query";
+} from '@tanstack/react-query'
+import { mutationOptions, useMutation } from '@tanstack/react-query'
 
 export const disableStaffMutationKey = () =>
-  [{ url: "/api/admin/staff/:id/disable" }] as const;
+  [{ url: '/api/admin/staff/:id/disable' }] as const
 
-export type DisableStaffMutationKey = ReturnType<
-  typeof disableStaffMutationKey
->;
+export type DisableStaffMutationKey = ReturnType<typeof disableStaffMutationKey>
 
 /**
  * @description Disable a staff account. Cannot disable your own account.
@@ -29,38 +27,38 @@ export type DisableStaffMutationKey = ReturnType<
  * {@link /api/admin/staff/:id/disable}
  */
 export async function disableStaff(
-  id: DisableStaffPathParams["id"],
-  config: Partial<RequestConfig> & { client?: typeof fetch } = {},
+  id: DisableStaffPathParams['id'],
+  config: Partial<RequestConfig> & { client?: typeof fetch } = {}
 ) {
-  const { client: request = fetch, ...requestConfig } = config;
+  const { client: request = fetch, ...requestConfig } = config
 
   const res = await request<
     DisableStaffMutationResponse,
     ResponseErrorConfig<Error>,
     unknown
   >({
-    method: "PATCH",
+    method: 'PATCH',
     url: `/api/admin/staff/${id}/disable`,
     ...requestConfig,
-  });
-  return res.data;
+  })
+  return res.data
 }
 
 export function disableStaffMutationOptions(
-  config: Partial<RequestConfig> & { client?: typeof fetch } = {},
+  config: Partial<RequestConfig> & { client?: typeof fetch } = {}
 ) {
-  const mutationKey = disableStaffMutationKey();
+  const mutationKey = disableStaffMutationKey()
   return mutationOptions<
     DisableStaffMutationResponse,
     ResponseErrorConfig<Error>,
-    { id: DisableStaffPathParams["id"] },
+    { id: DisableStaffPathParams['id'] },
     typeof mutationKey
   >({
     mutationKey,
     mutationFn: async ({ id }) => {
-      return disableStaff(id, config);
+      return disableStaff(id, config)
     },
-  });
+  })
 }
 
 /**
@@ -73,27 +71,27 @@ export function useDisableStaff<TContext>(
     mutation?: UseMutationOptions<
       DisableStaffMutationResponse,
       ResponseErrorConfig<Error>,
-      { id: DisableStaffPathParams["id"] },
+      { id: DisableStaffPathParams['id'] },
       TContext
-    > & { client?: QueryClient };
-    client?: Partial<RequestConfig> & { client?: typeof fetch };
-  } = {},
+    > & { client?: QueryClient }
+    client?: Partial<RequestConfig> & { client?: typeof fetch }
+  } = {}
 ) {
-  const { mutation = {}, client: config = {} } = options ?? {};
-  const { client: queryClient, ...mutationOptions } = mutation;
-  const mutationKey = mutationOptions.mutationKey ?? disableStaffMutationKey();
+  const { mutation = {}, client: config = {} } = options ?? {}
+  const { client: queryClient, ...mutationOptions } = mutation
+  const mutationKey = mutationOptions.mutationKey ?? disableStaffMutationKey()
 
   const baseOptions = disableStaffMutationOptions(config) as UseMutationOptions<
     DisableStaffMutationResponse,
     ResponseErrorConfig<Error>,
-    { id: DisableStaffPathParams["id"] },
+    { id: DisableStaffPathParams['id'] },
     TContext
-  >;
+  >
 
   return useMutation<
     DisableStaffMutationResponse,
     ResponseErrorConfig<Error>,
-    { id: DisableStaffPathParams["id"] },
+    { id: DisableStaffPathParams['id'] },
     TContext
   >(
     {
@@ -101,11 +99,11 @@ export function useDisableStaff<TContext>(
       mutationKey,
       ...mutationOptions,
     },
-    queryClient,
+    queryClient
   ) as UseMutationResult<
     DisableStaffMutationResponse,
     ResponseErrorConfig<Error>,
-    { id: DisableStaffPathParams["id"] },
+    { id: DisableStaffPathParams['id'] },
     TContext
-  >;
+  >
 }

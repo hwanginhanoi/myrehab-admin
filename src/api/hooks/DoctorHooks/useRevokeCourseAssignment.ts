@@ -3,25 +3,25 @@
  * Do not edit manually.
  */
 
-import fetch from "@/lib/api-client";
+import fetch from '@/lib/api-client'
 import type {
   RevokeCourseAssignmentMutationResponse,
   RevokeCourseAssignmentPathParams,
-} from "../../types/doctorController/RevokeCourseAssignment.ts";
-import type { RequestConfig, ResponseErrorConfig } from "@/lib/api-client";
+} from '../../types/doctorController/RevokeCourseAssignment.ts'
+import type { RequestConfig, ResponseErrorConfig } from '@/lib/api-client'
 import type {
   UseMutationOptions,
   UseMutationResult,
   QueryClient,
-} from "@tanstack/react-query";
-import { mutationOptions, useMutation } from "@tanstack/react-query";
+} from '@tanstack/react-query'
+import { mutationOptions, useMutation } from '@tanstack/react-query'
 
 export const revokeCourseAssignmentMutationKey = () =>
-  [{ url: "/api/doctors/course-assignments/:userCourseId" }] as const;
+  [{ url: '/api/doctors/course-assignments/:userCourseId' }] as const
 
 export type RevokeCourseAssignmentMutationKey = ReturnType<
   typeof revokeCourseAssignmentMutationKey
->;
+>
 
 /**
  * @description Revoke a course assignment
@@ -29,38 +29,38 @@ export type RevokeCourseAssignmentMutationKey = ReturnType<
  * {@link /api/doctors/course-assignments/:userCourseId}
  */
 export async function revokeCourseAssignment(
-  userCourseId: RevokeCourseAssignmentPathParams["userCourseId"],
-  config: Partial<RequestConfig> & { client?: typeof fetch } = {},
+  userCourseId: RevokeCourseAssignmentPathParams['userCourseId'],
+  config: Partial<RequestConfig> & { client?: typeof fetch } = {}
 ) {
-  const { client: request = fetch, ...requestConfig } = config;
+  const { client: request = fetch, ...requestConfig } = config
 
   const res = await request<
     RevokeCourseAssignmentMutationResponse,
     ResponseErrorConfig<Error>,
     unknown
   >({
-    method: "DELETE",
+    method: 'DELETE',
     url: `/api/doctors/course-assignments/${userCourseId}`,
     ...requestConfig,
-  });
-  return res.data;
+  })
+  return res.data
 }
 
 export function revokeCourseAssignmentMutationOptions(
-  config: Partial<RequestConfig> & { client?: typeof fetch } = {},
+  config: Partial<RequestConfig> & { client?: typeof fetch } = {}
 ) {
-  const mutationKey = revokeCourseAssignmentMutationKey();
+  const mutationKey = revokeCourseAssignmentMutationKey()
   return mutationOptions<
     RevokeCourseAssignmentMutationResponse,
     ResponseErrorConfig<Error>,
-    { userCourseId: RevokeCourseAssignmentPathParams["userCourseId"] },
+    { userCourseId: RevokeCourseAssignmentPathParams['userCourseId'] },
     typeof mutationKey
   >({
     mutationKey,
     mutationFn: async ({ userCourseId }) => {
-      return revokeCourseAssignment(userCourseId, config);
+      return revokeCourseAssignment(userCourseId, config)
     },
-  });
+  })
 }
 
 /**
@@ -73,30 +73,30 @@ export function useRevokeCourseAssignment<TContext>(
     mutation?: UseMutationOptions<
       RevokeCourseAssignmentMutationResponse,
       ResponseErrorConfig<Error>,
-      { userCourseId: RevokeCourseAssignmentPathParams["userCourseId"] },
+      { userCourseId: RevokeCourseAssignmentPathParams['userCourseId'] },
       TContext
-    > & { client?: QueryClient };
-    client?: Partial<RequestConfig> & { client?: typeof fetch };
-  } = {},
+    > & { client?: QueryClient }
+    client?: Partial<RequestConfig> & { client?: typeof fetch }
+  } = {}
 ) {
-  const { mutation = {}, client: config = {} } = options ?? {};
-  const { client: queryClient, ...mutationOptions } = mutation;
+  const { mutation = {}, client: config = {} } = options ?? {}
+  const { client: queryClient, ...mutationOptions } = mutation
   const mutationKey =
-    mutationOptions.mutationKey ?? revokeCourseAssignmentMutationKey();
+    mutationOptions.mutationKey ?? revokeCourseAssignmentMutationKey()
 
   const baseOptions = revokeCourseAssignmentMutationOptions(
-    config,
+    config
   ) as UseMutationOptions<
     RevokeCourseAssignmentMutationResponse,
     ResponseErrorConfig<Error>,
-    { userCourseId: RevokeCourseAssignmentPathParams["userCourseId"] },
+    { userCourseId: RevokeCourseAssignmentPathParams['userCourseId'] },
     TContext
-  >;
+  >
 
   return useMutation<
     RevokeCourseAssignmentMutationResponse,
     ResponseErrorConfig<Error>,
-    { userCourseId: RevokeCourseAssignmentPathParams["userCourseId"] },
+    { userCourseId: RevokeCourseAssignmentPathParams['userCourseId'] },
     TContext
   >(
     {
@@ -104,11 +104,11 @@ export function useRevokeCourseAssignment<TContext>(
       mutationKey,
       ...mutationOptions,
     },
-    queryClient,
+    queryClient
   ) as UseMutationResult<
     RevokeCourseAssignmentMutationResponse,
     ResponseErrorConfig<Error>,
-    { userCourseId: RevokeCourseAssignmentPathParams["userCourseId"] },
+    { userCourseId: RevokeCourseAssignmentPathParams['userCourseId'] },
     TContext
-  >;
+  >
 }

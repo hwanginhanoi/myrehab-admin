@@ -3,26 +3,26 @@
  * Do not edit manually.
  */
 
-import fetch from "@/lib/api-client";
+import fetch from '@/lib/api-client'
 import type {
   GetAllCategoriesQueryResponse,
   GetAllCategoriesQueryParams,
-} from "../../types/exerciseCategoriesController/GetAllCategories.ts";
-import type { RequestConfig, ResponseErrorConfig } from "@/lib/api-client";
+} from '../../types/exerciseCategoriesController/GetAllCategories.ts'
+import type { RequestConfig, ResponseErrorConfig } from '@/lib/api-client'
 import type {
   QueryKey,
   QueryClient,
   QueryObserverOptions,
   UseQueryResult,
-} from "@tanstack/react-query";
-import { queryOptions, useQuery } from "@tanstack/react-query";
+} from '@tanstack/react-query'
+import { queryOptions, useQuery } from '@tanstack/react-query'
 
 export const getAllCategoriesQueryKey = (params: GetAllCategoriesQueryParams) =>
-  [{ url: "/api/exercise-categories" }, ...(params ? [params] : [])] as const;
+  [{ url: '/api/exercise-categories' }, ...(params ? [params] : [])] as const
 
 export type GetAllCategoriesQueryKey = ReturnType<
   typeof getAllCategoriesQueryKey
->;
+>
 
 /**
  * @description Retrieve exercise categories with pagination and optional filters. Can filter by type and/or search by name. Both parameters are optional.
@@ -31,28 +31,28 @@ export type GetAllCategoriesQueryKey = ReturnType<
  */
 export async function getAllCategories(
   params: GetAllCategoriesQueryParams,
-  config: Partial<RequestConfig> & { client?: typeof fetch } = {},
+  config: Partial<RequestConfig> & { client?: typeof fetch } = {}
 ) {
-  const { client: request = fetch, ...requestConfig } = config;
+  const { client: request = fetch, ...requestConfig } = config
 
   const res = await request<
     GetAllCategoriesQueryResponse,
     ResponseErrorConfig<Error>,
     unknown
   >({
-    method: "GET",
+    method: 'GET',
     url: `/api/exercise-categories`,
     params,
     ...requestConfig,
-  });
-  return res.data;
+  })
+  return res.data
 }
 
 export function getAllCategoriesQueryOptions(
   params: GetAllCategoriesQueryParams,
-  config: Partial<RequestConfig> & { client?: typeof fetch } = {},
+  config: Partial<RequestConfig> & { client?: typeof fetch } = {}
 ) {
-  const queryKey = getAllCategoriesQueryKey(params);
+  const queryKey = getAllCategoriesQueryKey(params)
   return queryOptions<
     GetAllCategoriesQueryResponse,
     ResponseErrorConfig<Error>,
@@ -62,10 +62,10 @@ export function getAllCategoriesQueryOptions(
     enabled: !!params,
     queryKey,
     queryFn: async ({ signal }) => {
-      config.signal = signal;
-      return getAllCategories(params, config);
+      config.signal = signal
+      return getAllCategories(params, config)
     },
-  });
+  })
 }
 
 /**
@@ -88,13 +88,13 @@ export function useGetAllCategories<
         TQueryData,
         TQueryKey
       >
-    > & { client?: QueryClient };
-    client?: Partial<RequestConfig> & { client?: typeof fetch };
-  } = {},
+    > & { client?: QueryClient }
+    client?: Partial<RequestConfig> & { client?: typeof fetch }
+  } = {}
 ) {
-  const { query: queryConfig = {}, client: config = {} } = options ?? {};
-  const { client: queryClient, ...queryOptions } = queryConfig;
-  const queryKey = queryOptions?.queryKey ?? getAllCategoriesQueryKey(params);
+  const { query: queryConfig = {}, client: config = {} } = options ?? {}
+  const { client: queryClient, ...queryOptions } = queryConfig
+  const queryKey = queryOptions?.queryKey ?? getAllCategoriesQueryKey(params)
 
   const query = useQuery(
     {
@@ -102,12 +102,12 @@ export function useGetAllCategories<
       queryKey,
       ...queryOptions,
     } as unknown as QueryObserverOptions,
-    queryClient,
+    queryClient
   ) as UseQueryResult<TData, ResponseErrorConfig<Error>> & {
-    queryKey: TQueryKey;
-  };
+    queryKey: TQueryKey
+  }
 
-  query.queryKey = queryKey as TQueryKey;
+  query.queryKey = queryKey as TQueryKey
 
-  return query;
+  return query
 }

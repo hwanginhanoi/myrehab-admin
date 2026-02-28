@@ -15,20 +15,20 @@ export const tasksColumns: ColumnDef<Task>[] = [
           table.getIsAllPageRowsSelected()
             ? true
             : table.getIsSomePageRowsSelected()
-            ? 'indeterminate'
-            : false
+              ? 'indeterminate'
+              : false
         }
         onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
-        aria-label='Select all'
-        className='translate-y-[2px]'
+        aria-label="Select all"
+        className="translate-y-[2px]"
       />
     ),
     cell: ({ row }) => (
       <Checkbox
         checked={row.getIsSelected()}
         onCheckedChange={(value) => row.toggleSelected(!!value)}
-        aria-label='Select row'
-        className='translate-y-[2px]'
+        aria-label="Select row"
+        className="translate-y-[2px]"
       />
     ),
     enableSorting: false,
@@ -37,25 +37,25 @@ export const tasksColumns: ColumnDef<Task>[] = [
   {
     accessorKey: 'id',
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title='Task' />
+      <DataTableColumnHeader column={column} title="Task" />
     ),
-    cell: ({ row }) => <div className='w-[80px]'>{row.getValue('id')}</div>,
+    cell: ({ row }) => <div className="w-[80px]">{row.getValue('id')}</div>,
     enableSorting: false,
     enableHiding: false,
   },
   {
     accessorKey: 'title',
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title='Title' />
+      <DataTableColumnHeader column={column} title="Title" />
     ),
     meta: { className: 'ps-1', tdClassName: 'ps-4' },
     cell: ({ row }) => {
       const label = labels.find((label) => label.value === row.original.label)
 
       return (
-        <div className='flex space-x-2'>
-          {label && <Badge variant='outline'>{label.label}</Badge>}
-          <span className='max-w-32 truncate font-medium sm:max-w-72 md:max-w-[31rem]'>
+        <div className="flex space-x-2">
+          {label && <Badge variant="outline">{label.label}</Badge>}
+          <span className="max-w-32 truncate font-medium sm:max-w-72 md:max-w-[31rem]">
             {row.getValue('title')}
           </span>
         </div>
@@ -65,7 +65,7 @@ export const tasksColumns: ColumnDef<Task>[] = [
   {
     accessorKey: 'status',
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title='Status' />
+      <DataTableColumnHeader column={column} title="Status" />
     ),
     meta: { className: 'ps-1', tdClassName: 'ps-4' },
     cell: ({ row }) => {
@@ -78,9 +78,9 @@ export const tasksColumns: ColumnDef<Task>[] = [
       }
 
       return (
-        <div className='flex w-[100px] items-center gap-2'>
+        <div className="flex w-[100px] items-center gap-2">
           {status.icon && (
-            <status.icon className='text-muted-foreground size-4' />
+            <status.icon className="text-muted-foreground size-4" />
           )}
           <span>{status.label}</span>
         </div>
@@ -93,7 +93,7 @@ export const tasksColumns: ColumnDef<Task>[] = [
   {
     accessorKey: 'priority',
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title='Priority' />
+      <DataTableColumnHeader column={column} title="Priority" />
     ),
     meta: { className: 'ps-1', tdClassName: 'ps-3' },
     cell: ({ row }) => {
@@ -106,9 +106,9 @@ export const tasksColumns: ColumnDef<Task>[] = [
       }
 
       return (
-        <div className='flex items-center gap-2'>
+        <div className="flex items-center gap-2">
           {priority.icon && (
-            <priority.icon className='text-muted-foreground size-4' />
+            <priority.icon className="text-muted-foreground size-4" />
           )}
           <span>{priority.label}</span>
         </div>

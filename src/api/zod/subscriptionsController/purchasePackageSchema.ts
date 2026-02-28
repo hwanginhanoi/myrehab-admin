@@ -3,21 +3,19 @@
  * Do not edit manually.
  */
 
-import { purchasePackageRequestSchema } from "../purchasePackageRequestSchema.ts";
-import { subscriptionResponseSchema } from "../subscriptionResponseSchema.ts";
-import { z } from "zod/v4";
+import { purchasePackageRequestSchema } from '../purchasePackageRequestSchema.ts'
+import { subscriptionResponseSchema } from '../subscriptionResponseSchema.ts'
+import { z } from 'zod/v4'
 
 /**
  * @description OK
  */
-export const purchasePackage200Schema = z.lazy(
-  () => subscriptionResponseSchema,
-);
+export const purchasePackage200Schema = z.lazy(() => subscriptionResponseSchema)
 
 export const purchasePackageMutationRequestSchema = z.lazy(
-  () => purchasePackageRequestSchema,
-);
+  () => purchasePackageRequestSchema
+)
 
 export const purchasePackageMutationResponseSchema = z.lazy(
-  () => purchasePackage200Schema,
-);
+  () => purchasePackage200Schema
+)

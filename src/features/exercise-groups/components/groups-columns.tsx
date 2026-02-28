@@ -9,10 +9,12 @@ export const groupsColumns: ColumnDef<GroupResponse>[] = [
   {
     accessorKey: 'name',
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title='Tên nhóm' />
+      <DataTableColumnHeader column={column} title="Tên nhóm" />
     ),
     cell: ({ row }) => (
-      <LongText className='max-w-48 ps-3 font-medium'>{row.getValue('name')}</LongText>
+      <LongText className="max-w-48 ps-3 font-medium">
+        {row.getValue('name')}
+      </LongText>
     ),
     meta: {
       className: cn(
@@ -25,10 +27,12 @@ export const groupsColumns: ColumnDef<GroupResponse>[] = [
   {
     accessorKey: 'description',
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title='Mô tả' />
+      <DataTableColumnHeader column={column} title="Mô tả" />
     ),
     cell: ({ row }) => (
-      <LongText className='max-w-96'>{row.getValue('description') || '-'}</LongText>
+      <LongText className="max-w-96">
+        {row.getValue('description') || '-'}
+      </LongText>
     ),
     enableSorting: false,
   },

@@ -1,5 +1,3 @@
-'use client'
-
 import { z } from 'zod'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
@@ -78,7 +76,10 @@ type RehabilitationFormComponentProps = {
   mode: 'create' | 'edit' | 'view'
 }
 
-export function RehabilitationFormComponent({ form: existingForm, mode }: RehabilitationFormComponentProps) {
+export function RehabilitationFormComponent({
+  form: existingForm,
+  mode,
+}: RehabilitationFormComponentProps) {
   const navigate = useNavigate()
   const queryClient = useQueryClient()
   const isView = mode === 'view'
@@ -102,7 +103,10 @@ export function RehabilitationFormComponent({ form: existingForm, mode }: Rehabi
   // Close search results when clicking outside
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
-      if (searchContainerRef.current && !searchContainerRef.current.contains(event.target as Node)) {
+      if (
+        searchContainerRef.current &&
+        !searchContainerRef.current.contains(event.target as Node)
+      ) {
         setShowSearchResults(false)
       }
     }
@@ -114,14 +118,15 @@ export function RehabilitationFormComponent({ form: existingForm, mode }: Rehabi
   }, [])
 
   // Fetch patients using the new search API
-  const { data: searchResults = [], isLoading: isSearching } = useSearchUsersByName(
-    { query: debouncedQuery || undefined },
-    {
-      query: {
-        enabled: debouncedQuery.length > 0 && !isView && !isEdit, // Only fetch in create mode when user types
-      },
-    }
-  )
+  const { data: searchResults = [], isLoading: isSearching } =
+    useSearchUsersByName(
+      { query: debouncedQuery || undefined },
+      {
+        query: {
+          enabled: debouncedQuery.length > 0 && !isView && !isEdit, // Only fetch in create mode when user types
+        },
+      }
+    )
 
   const form = useForm<RehabilitationFormType>({
     resolver: zodResolver(formSchema),
@@ -129,7 +134,9 @@ export function RehabilitationFormComponent({ form: existingForm, mode }: Rehabi
       ? {
           userId: existingForm.userId || 1,
           patientName: existingForm.patientName || '',
-          dateOfBirth: existingForm.dateOfBirth ? new Date(existingForm.dateOfBirth) : undefined,
+          dateOfBirth: existingForm.dateOfBirth
+            ? new Date(existingForm.dateOfBirth)
+            : undefined,
           age: existingForm.age || 0,
           gender: existingForm.gender || '',
           ethnicity: existingForm.ethnicity || '',
@@ -137,7 +144,9 @@ export function RehabilitationFormComponent({ form: existingForm, mode }: Rehabi
           address: existingForm.address || '',
           contactPerson: existingForm.contactPerson || '',
           phoneNumber: existingForm.phoneNumber || '',
-          examinationDate: existingForm.examinationDate ? new Date(existingForm.examinationDate) : undefined,
+          examinationDate: existingForm.examinationDate
+            ? new Date(existingForm.examinationDate)
+            : undefined,
           chiefComplain: existingForm.chiefComplain || '',
           historyOfPresentIllness: existingForm.historyOfPresentIllness || '',
           pastMedicalHistory: existingForm.pastMedicalHistory || '',
@@ -146,8 +155,10 @@ export function RehabilitationFormComponent({ form: existingForm, mode }: Rehabi
           surgicalHistory: existingForm.surgicalHistory || '',
           medicationHistory: existingForm.medicationHistory || '',
           familyHistory: existingForm.familyHistory || '',
-          rehabilitationExamination: existingForm.rehabilitationExamination || '',
-          laboratoryTestingAndImaging: existingForm.laboratoryTestingAndImaging || '',
+          rehabilitationExamination:
+            existingForm.rehabilitationExamination || '',
+          laboratoryTestingAndImaging:
+            existingForm.laboratoryTestingAndImaging || '',
           diagnosis: existingForm.diagnosis || '',
           interventionObjectives: existingForm.interventionObjectives || '',
           therapyCourse: existingForm.therapyCourse || '',
@@ -200,7 +211,9 @@ export function RehabilitationFormComponent({ form: existingForm, mode }: Rehabi
     mutation: {
       onSuccess: () => {
         toast.success('Tạo phiếu khám thành công')
-        void queryClient.invalidateQueries({ queryKey: [{ url: '/api/rehabilitation-examination-forms' }] })
+        void queryClient.invalidateQueries({
+          queryKey: [{ url: '/api/rehabilitation-examination-forms' }],
+        })
         void navigate({ to: '/rehabilitation-forms' })
       },
       onError: (error) => {
@@ -213,7 +226,9 @@ export function RehabilitationFormComponent({ form: existingForm, mode }: Rehabi
     mutation: {
       onSuccess: () => {
         toast.success('Cập nhật phiếu khám thành công')
-        void queryClient.invalidateQueries({ queryKey: [{ url: '/api/rehabilitation-examination-forms' }] })
+        void queryClient.invalidateQueries({
+          queryKey: [{ url: '/api/rehabilitation-examination-forms' }],
+        })
         void navigate({ to: '/rehabilitation-forms' })
       },
       onError: (error) => {
@@ -289,7 +304,10 @@ export function RehabilitationFormComponent({ form: existingForm, mode }: Rehabi
     let age = today.getFullYear() - birthDate.getFullYear()
     const monthDiff = today.getMonth() - birthDate.getMonth()
 
-    if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birthDate.getDate())) {
+    if (
+      monthDiff < 0 ||
+      (monthDiff === 0 && today.getDate() < birthDate.getDate())
+    ) {
       age--
     }
 
@@ -334,76 +352,80 @@ export function RehabilitationFormComponent({ form: existingForm, mode }: Rehabi
   }
 
   return (
-    <div className='space-y-6'>
+    <div className="space-y-6">
       <div>
-        <h2 className='text-2xl font-bold tracking-tight'>{getTitle()}</h2>
-        <p className='text-muted-foreground'>{getDescription()}</p>
+        <h2 className="text-2xl font-bold tracking-tight">{getTitle()}</h2>
+        <p className="text-muted-foreground">{getDescription()}</p>
       </div>
 
       <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)} className='space-y-6'>
+        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
           {/* Patient Information Section */}
-          <div className='space-y-4'>
-            <h3 className='text-lg font-semibold'>Thông tin bệnh nhân</h3>
+          <div className="space-y-4">
+            <h3 className="text-lg font-semibold">Thông tin bệnh nhân</h3>
             <Separator />
-            <div className='grid grid-cols-1 md:grid-cols-2 gap-6'>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               {/* User Search - only show in create mode */}
               {!isEdit && !isView && (
-                <FormItem className='md:col-span-2'>
+                <FormItem className="md:col-span-2">
                   <FormLabel>Chọn bệnh nhân</FormLabel>
-                  <div className='space-y-2'>
+                  <div className="space-y-2">
                     {/* Display selected user or show search input */}
                     {selectedUser ? (
-                      <div className='flex items-center justify-between p-3 bg-muted rounded-lg'>
-                        <div className='flex-1 min-w-0'>
-                          <p className='font-medium text-sm truncate'>
-                            {selectedUser.fullName || `Bệnh nhân #${selectedUser.id}`}
+                      <div className="flex items-center justify-between p-3 bg-muted rounded-lg">
+                        <div className="flex-1 min-w-0">
+                          <p className="font-medium text-sm truncate">
+                            {selectedUser.fullName ||
+                              `Bệnh nhân #${selectedUser.id}`}
                           </p>
-                          <p className='text-xs text-muted-foreground truncate'>
-                            {selectedUser.phoneNumber && `${selectedUser.phoneNumber} • `}
+                          <p className="text-xs text-muted-foreground truncate">
+                            {selectedUser.phoneNumber &&
+                              `${selectedUser.phoneNumber} • `}
                             {selectedUser.email || `ID: ${selectedUser.id}`}
                           </p>
                         </div>
                         <Button
-                          type='button'
-                          variant='ghost'
-                          size='sm'
+                          type="button"
+                          variant="ghost"
+                          size="sm"
                           onClick={handleClearSelection}
-                          className='shrink-0'
+                          className="shrink-0"
                         >
-                          <X className='h-4 w-4' />
+                          <X className="h-4 w-4" />
                         </Button>
                       </div>
                     ) : (
-                      <div className='relative' ref={searchContainerRef}>
-                        <div className='relative'>
-                          <Search className='absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground' />
+                      <div className="relative" ref={searchContainerRef}>
+                        <div className="relative">
+                          <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
                           <input
-                            type='text'
-                            placeholder='Tìm kiếm bệnh nhân theo tên, số điện thoại hoặc email...'
+                            type="text"
+                            placeholder="Tìm kiếm bệnh nhân theo tên, số điện thoại hoặc email..."
                             value={searchQuery}
                             onChange={(e) => {
                               setSearchQuery(e.target.value)
                               setShowSearchResults(true)
                             }}
                             onFocus={() => setShowSearchResults(true)}
-                            className='w-full h-10 pl-9 pr-3 bg-background border rounded-md text-sm outline-none focus:ring-2 focus:ring-ring transition-all'
+                            className="w-full h-10 pl-9 pr-3 bg-background border rounded-md text-sm outline-none focus:ring-2 focus:ring-ring transition-all"
                           />
                         </div>
 
                         {/* Search results dropdown */}
                         {showSearchResults && searchQuery && (
-                          <div className='absolute z-50 w-full mt-1 border rounded-md bg-popover shadow-md'>
+                          <div className="absolute z-50 w-full mt-1 border rounded-md bg-popover shadow-md">
                             {isSearching && (
-                              <div className='flex items-center justify-center py-8'>
-                                <Loader2 className='mr-2 h-4 w-4 animate-spin' />
-                                <p className='text-sm text-muted-foreground'>Đang tìm kiếm...</p>
+                              <div className="flex items-center justify-center py-8">
+                                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                                <p className="text-sm text-muted-foreground">
+                                  Đang tìm kiếm...
+                                </p>
                               </div>
                             )}
 
                             {!isSearching && searchResults.length === 0 && (
-                              <div className='flex items-center justify-center py-8'>
-                                <p className='text-sm text-muted-foreground'>
+                              <div className="flex items-center justify-center py-8">
+                                <p className="text-sm text-muted-foreground">
                                   Không tìm thấy bệnh nhân
                                 </p>
                               </div>
@@ -411,25 +433,27 @@ export function RehabilitationFormComponent({ form: existingForm, mode }: Rehabi
 
                             {!isSearching && searchResults.length > 0 && (
                               <>
-                                <div className='px-3 py-2 border-b bg-muted/30'>
-                                  <p className='text-xs text-muted-foreground'>
+                                <div className="px-3 py-2 border-b bg-muted/30">
+                                  <p className="text-xs text-muted-foreground">
                                     Hiển thị tối đa 5 kết quả
                                   </p>
                                 </div>
-                                <ScrollArea className='max-h-[280px]'>
-                                  <div className='p-2 space-y-1'>
+                                <ScrollArea className="max-h-[280px]">
+                                  <div className="p-2 space-y-1">
                                     {searchResults.map((user) => (
                                       <div
                                         key={user.id}
                                         onClick={() => handleUserSelect(user)}
-                                        className='flex items-center justify-between p-3 rounded-md cursor-pointer hover:bg-accent transition-colors'
+                                        className="flex items-center justify-between p-3 rounded-md cursor-pointer hover:bg-accent transition-colors"
                                       >
-                                        <div className='flex-1 min-w-0'>
-                                          <p className='font-medium text-sm truncate'>
-                                            {user.fullName || `Bệnh nhân #${user.id}`}
+                                        <div className="flex-1 min-w-0">
+                                          <p className="font-medium text-sm truncate">
+                                            {user.fullName ||
+                                              `Bệnh nhân #${user.id}`}
                                           </p>
-                                          <p className='text-xs text-muted-foreground truncate'>
-                                            {user.phoneNumber && `${user.phoneNumber} • `}
+                                          <p className="text-xs text-muted-foreground truncate">
+                                            {user.phoneNumber &&
+                                              `${user.phoneNumber} • `}
                                             {user.email || `ID: ${user.id}`}
                                           </p>
                                         </div>
@@ -449,13 +473,13 @@ export function RehabilitationFormComponent({ form: existingForm, mode }: Rehabi
 
               <FormField
                 control={form.control}
-                name='patientName'
+                name="patientName"
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>Tên bệnh nhân *</FormLabel>
                     <FormControl>
                       <Input
-                        placeholder='Nhập tên bệnh nhân'
+                        placeholder="Nhập tên bệnh nhân"
                         disabled={isView}
                         {...field}
                       />
@@ -467,15 +491,15 @@ export function RehabilitationFormComponent({ form: existingForm, mode }: Rehabi
 
               <FormField
                 control={form.control}
-                name='dateOfBirth'
+                name="dateOfBirth"
                 render={({ field }) => (
-                  <FormItem className='flex flex-col'>
+                  <FormItem className="flex flex-col">
                     <FormLabel>Ngày sinh *</FormLabel>
                     <FormControl>
                       <DatePicker
                         selected={field.value}
                         onSelect={field.onChange}
-                        placeholder='Chọn ngày sinh'
+                        placeholder="Chọn ngày sinh"
                       />
                     </FormControl>
                     <FormMessage />
@@ -485,14 +509,14 @@ export function RehabilitationFormComponent({ form: existingForm, mode }: Rehabi
 
               <FormField
                 control={form.control}
-                name='age'
+                name="age"
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>Tuổi *</FormLabel>
                     <FormControl>
                       <Input
-                        type='number'
-                        placeholder='Nhập tuổi'
+                        type="number"
+                        placeholder="Nhập tuổi"
                         disabled={isView}
                         {...field}
                         onChange={(e) => field.onChange(Number(e.target.value))}
@@ -506,13 +530,13 @@ export function RehabilitationFormComponent({ form: existingForm, mode }: Rehabi
 
               <FormField
                 control={form.control}
-                name='gender'
+                name="gender"
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>Giới tính</FormLabel>
                     <FormControl>
                       <Input
-                        placeholder='Nhập giới tính'
+                        placeholder="Nhập giới tính"
                         disabled={isView}
                         {...field}
                       />
@@ -524,13 +548,13 @@ export function RehabilitationFormComponent({ form: existingForm, mode }: Rehabi
 
               <FormField
                 control={form.control}
-                name='ethnicity'
+                name="ethnicity"
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>Dân tộc</FormLabel>
                     <FormControl>
                       <Input
-                        placeholder='Nhập dân tộc'
+                        placeholder="Nhập dân tộc"
                         disabled={isView}
                         {...field}
                       />
@@ -542,13 +566,13 @@ export function RehabilitationFormComponent({ form: existingForm, mode }: Rehabi
 
               <FormField
                 control={form.control}
-                name='job'
+                name="job"
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>Nghề nghiệp</FormLabel>
                     <FormControl>
                       <Input
-                        placeholder='Nhập nghề nghiệp'
+                        placeholder="Nhập nghề nghiệp"
                         disabled={isView}
                         {...field}
                       />
@@ -560,13 +584,13 @@ export function RehabilitationFormComponent({ form: existingForm, mode }: Rehabi
 
               <FormField
                 control={form.control}
-                name='address'
+                name="address"
                 render={({ field }) => (
-                  <FormItem className='md:col-span-2'>
+                  <FormItem className="md:col-span-2">
                     <FormLabel>Địa chỉ</FormLabel>
                     <FormControl>
                       <Input
-                        placeholder='Nhập địa chỉ'
+                        placeholder="Nhập địa chỉ"
                         disabled={isView}
                         {...field}
                       />
@@ -578,13 +602,13 @@ export function RehabilitationFormComponent({ form: existingForm, mode }: Rehabi
 
               <FormField
                 control={form.control}
-                name='contactPerson'
+                name="contactPerson"
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>Người liên hệ</FormLabel>
                     <FormControl>
                       <Input
-                        placeholder='Nhập tên người liên hệ'
+                        placeholder="Nhập tên người liên hệ"
                         disabled={isView}
                         {...field}
                       />
@@ -596,13 +620,13 @@ export function RehabilitationFormComponent({ form: existingForm, mode }: Rehabi
 
               <FormField
                 control={form.control}
-                name='phoneNumber'
+                name="phoneNumber"
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>Số điện thoại</FormLabel>
                     <FormControl>
                       <Input
-                        placeholder='Nhập số điện thoại'
+                        placeholder="Nhập số điện thoại"
                         disabled={isView}
                         {...field}
                       />
@@ -614,15 +638,15 @@ export function RehabilitationFormComponent({ form: existingForm, mode }: Rehabi
 
               <FormField
                 control={form.control}
-                name='examinationDate'
+                name="examinationDate"
                 render={({ field }) => (
-                  <FormItem className='flex flex-col'>
+                  <FormItem className="flex flex-col">
                     <FormLabel>Ngày khám *</FormLabel>
                     <FormControl>
                       <DatePicker
                         selected={field.value}
                         onSelect={field.onChange}
-                        placeholder='Chọn ngày khám'
+                        placeholder="Chọn ngày khám"
                       />
                     </FormControl>
                     <FormMessage />
@@ -633,19 +657,19 @@ export function RehabilitationFormComponent({ form: existingForm, mode }: Rehabi
           </div>
 
           {/* Vital Signs Section */}
-          <div className='space-y-4'>
-            <h3 className='text-lg font-semibold'>Sinh hiệu</h3>
+          <div className="space-y-4">
+            <h3 className="text-lg font-semibold">Sinh hiệu</h3>
             <Separator />
-            <div className='grid grid-cols-1 md:grid-cols-3 gap-6'>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               <FormField
                 control={form.control}
-                name='pulse'
+                name="pulse"
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>Mạch</FormLabel>
                     <FormControl>
                       <Input
-                        placeholder='Nhập mạch'
+                        placeholder="Nhập mạch"
                         disabled={isView}
                         {...field}
                       />
@@ -657,13 +681,13 @@ export function RehabilitationFormComponent({ form: existingForm, mode }: Rehabi
 
               <FormField
                 control={form.control}
-                name='temperature'
+                name="temperature"
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>Nhiệt độ</FormLabel>
                     <FormControl>
                       <Input
-                        placeholder='Nhập nhiệt độ'
+                        placeholder="Nhập nhiệt độ"
                         disabled={isView}
                         {...field}
                       />
@@ -675,13 +699,13 @@ export function RehabilitationFormComponent({ form: existingForm, mode }: Rehabi
 
               <FormField
                 control={form.control}
-                name='bloodPressure'
+                name="bloodPressure"
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>Huyết áp</FormLabel>
                     <FormControl>
                       <Input
-                        placeholder='Nhập huyết áp'
+                        placeholder="Nhập huyết áp"
                         disabled={isView}
                         {...field}
                       />
@@ -693,13 +717,13 @@ export function RehabilitationFormComponent({ form: existingForm, mode }: Rehabi
 
               <FormField
                 control={form.control}
-                name='breathingRate'
+                name="breathingRate"
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>Nhịp thở</FormLabel>
                     <FormControl>
                       <Input
-                        placeholder='Nhập nhịp thở'
+                        placeholder="Nhập nhịp thở"
                         disabled={isView}
                         {...field}
                       />
@@ -711,17 +735,21 @@ export function RehabilitationFormComponent({ form: existingForm, mode }: Rehabi
 
               <FormField
                 control={form.control}
-                name='height'
+                name="height"
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>Chiều cao (cm)</FormLabel>
                     <FormControl>
                       <Input
-                        type='number'
-                        placeholder='Nhập chiều cao'
+                        type="number"
+                        placeholder="Nhập chiều cao"
                         disabled={isView}
                         {...field}
-                        onChange={(e) => field.onChange(e.target.value ? Number(e.target.value) : undefined)}
+                        onChange={(e) =>
+                          field.onChange(
+                            e.target.value ? Number(e.target.value) : undefined
+                          )
+                        }
                         value={field.value ?? ''}
                       />
                     </FormControl>
@@ -732,17 +760,21 @@ export function RehabilitationFormComponent({ form: existingForm, mode }: Rehabi
 
               <FormField
                 control={form.control}
-                name='weight'
+                name="weight"
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>Cân nặng (kg)</FormLabel>
                     <FormControl>
                       <Input
-                        type='number'
-                        placeholder='Nhập cân nặng'
+                        type="number"
+                        placeholder="Nhập cân nặng"
                         disabled={isView}
                         {...field}
-                        onChange={(e) => field.onChange(e.target.value ? Number(e.target.value) : undefined)}
+                        onChange={(e) =>
+                          field.onChange(
+                            e.target.value ? Number(e.target.value) : undefined
+                          )
+                        }
                         value={field.value ?? ''}
                       />
                     </FormControl>
@@ -753,17 +785,21 @@ export function RehabilitationFormComponent({ form: existingForm, mode }: Rehabi
 
               <FormField
                 control={form.control}
-                name='bmi'
+                name="bmi"
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>BMI</FormLabel>
                     <FormControl>
                       <Input
-                        type='number'
-                        placeholder='Nhập BMI'
+                        type="number"
+                        placeholder="Nhập BMI"
                         disabled={isView}
                         {...field}
-                        onChange={(e) => field.onChange(e.target.value ? Number(e.target.value) : undefined)}
+                        onChange={(e) =>
+                          field.onChange(
+                            e.target.value ? Number(e.target.value) : undefined
+                          )
+                        }
                         value={field.value ?? ''}
                       />
                     </FormControl>
@@ -775,20 +811,20 @@ export function RehabilitationFormComponent({ form: existingForm, mode }: Rehabi
           </div>
 
           {/* Medical History Section */}
-          <div className='space-y-4'>
-            <h3 className='text-lg font-semibold'>Tiền sử bệnh</h3>
+          <div className="space-y-4">
+            <h3 className="text-lg font-semibold">Tiền sử bệnh</h3>
             <Separator />
-            <div className='space-y-6'>
+            <div className="space-y-6">
               <FormField
                 control={form.control}
-                name='chiefComplain'
+                name="chiefComplain"
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>Lý do khám</FormLabel>
                     <FormControl>
                       <Textarea
-                        placeholder='Nhập lý do khám'
-                        className='min-h-[100px]'
+                        placeholder="Nhập lý do khám"
+                        className="min-h-[100px]"
                         disabled={isView}
                         {...field}
                       />
@@ -800,14 +836,14 @@ export function RehabilitationFormComponent({ form: existingForm, mode }: Rehabi
 
               <FormField
                 control={form.control}
-                name='historyOfPresentIllness'
+                name="historyOfPresentIllness"
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>Quá trình bệnh lý</FormLabel>
                     <FormControl>
                       <Textarea
-                        placeholder='Nhập quá trình bệnh lý'
-                        className='min-h-[100px]'
+                        placeholder="Nhập quá trình bệnh lý"
+                        className="min-h-[100px]"
                         disabled={isView}
                         {...field}
                       />
@@ -819,14 +855,14 @@ export function RehabilitationFormComponent({ form: existingForm, mode }: Rehabi
 
               <FormField
                 control={form.control}
-                name='pastMedicalHistory'
+                name="pastMedicalHistory"
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>Tiền sử bệnh</FormLabel>
                     <FormControl>
                       <Textarea
-                        placeholder='Nhập tiền sử bệnh'
-                        className='min-h-[100px]'
+                        placeholder="Nhập tiền sử bệnh"
+                        className="min-h-[100px]"
                         disabled={isView}
                         {...field}
                       />
@@ -838,14 +874,14 @@ export function RehabilitationFormComponent({ form: existingForm, mode }: Rehabi
 
               <FormField
                 control={form.control}
-                name='allergies'
+                name="allergies"
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>Dị ứng</FormLabel>
                     <FormControl>
                       <Textarea
-                        placeholder='Nhập thông tin dị ứng'
-                        className='min-h-[100px]'
+                        placeholder="Nhập thông tin dị ứng"
+                        className="min-h-[100px]"
                         disabled={isView}
                         {...field}
                       />
@@ -857,14 +893,14 @@ export function RehabilitationFormComponent({ form: existingForm, mode }: Rehabi
 
               <FormField
                 control={form.control}
-                name='medicalHistory'
+                name="medicalHistory"
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>Tiền sử nội khoa</FormLabel>
                     <FormControl>
                       <Textarea
-                        placeholder='Nhập tiền sử nội khoa'
-                        className='min-h-[100px]'
+                        placeholder="Nhập tiền sử nội khoa"
+                        className="min-h-[100px]"
                         disabled={isView}
                         {...field}
                       />
@@ -876,14 +912,14 @@ export function RehabilitationFormComponent({ form: existingForm, mode }: Rehabi
 
               <FormField
                 control={form.control}
-                name='surgicalHistory'
+                name="surgicalHistory"
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>Tiền sử phẫu thuật</FormLabel>
                     <FormControl>
                       <Textarea
-                        placeholder='Nhập tiền sử phẫu thuật'
-                        className='min-h-[100px]'
+                        placeholder="Nhập tiền sử phẫu thuật"
+                        className="min-h-[100px]"
                         disabled={isView}
                         {...field}
                       />
@@ -895,14 +931,14 @@ export function RehabilitationFormComponent({ form: existingForm, mode }: Rehabi
 
               <FormField
                 control={form.control}
-                name='medicationHistory'
+                name="medicationHistory"
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>Tiền sử dùng thuốc</FormLabel>
                     <FormControl>
                       <Textarea
-                        placeholder='Nhập tiền sử dùng thuốc'
-                        className='min-h-[100px]'
+                        placeholder="Nhập tiền sử dùng thuốc"
+                        className="min-h-[100px]"
                         disabled={isView}
                         {...field}
                       />
@@ -914,14 +950,14 @@ export function RehabilitationFormComponent({ form: existingForm, mode }: Rehabi
 
               <FormField
                 control={form.control}
-                name='familyHistory'
+                name="familyHistory"
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>Tiền sử gia đình</FormLabel>
                     <FormControl>
                       <Textarea
-                        placeholder='Nhập tiền sử gia đình'
-                        className='min-h-[100px]'
+                        placeholder="Nhập tiền sử gia đình"
+                        className="min-h-[100px]"
                         disabled={isView}
                         {...field}
                       />
@@ -934,20 +970,20 @@ export function RehabilitationFormComponent({ form: existingForm, mode }: Rehabi
           </div>
 
           {/* Examination & Diagnosis Section */}
-          <div className='space-y-4'>
-            <h3 className='text-lg font-semibold'>Khám và chẩn đoán</h3>
+          <div className="space-y-4">
+            <h3 className="text-lg font-semibold">Khám và chẩn đoán</h3>
             <Separator />
-            <div className='space-y-6'>
+            <div className="space-y-6">
               <FormField
                 control={form.control}
-                name='rehabilitationExamination'
+                name="rehabilitationExamination"
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>Khám phục hồi chức năng</FormLabel>
                     <FormControl>
                       <Textarea
-                        placeholder='Nhập kết quả khám phục hồi chức năng'
-                        className='min-h-[120px]'
+                        placeholder="Nhập kết quả khám phục hồi chức năng"
+                        className="min-h-[120px]"
                         disabled={isView}
                         {...field}
                       />
@@ -959,14 +995,14 @@ export function RehabilitationFormComponent({ form: existingForm, mode }: Rehabi
 
               <FormField
                 control={form.control}
-                name='laboratoryTestingAndImaging'
+                name="laboratoryTestingAndImaging"
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>Xét nghiệm và chẩn đoán hình ảnh</FormLabel>
                     <FormControl>
                       <Textarea
-                        placeholder='Nhập kết quả xét nghiệm và chẩn đoán hình ảnh'
-                        className='min-h-[120px]'
+                        placeholder="Nhập kết quả xét nghiệm và chẩn đoán hình ảnh"
+                        className="min-h-[120px]"
                         disabled={isView}
                         {...field}
                       />
@@ -978,14 +1014,14 @@ export function RehabilitationFormComponent({ form: existingForm, mode }: Rehabi
 
               <FormField
                 control={form.control}
-                name='diagnosis'
+                name="diagnosis"
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>Chẩn đoán</FormLabel>
                     <FormControl>
                       <Textarea
-                        placeholder='Nhập chẩn đoán'
-                        className='min-h-[120px]'
+                        placeholder="Nhập chẩn đoán"
+                        className="min-h-[120px]"
                         disabled={isView}
                         {...field}
                       />
@@ -998,20 +1034,20 @@ export function RehabilitationFormComponent({ form: existingForm, mode }: Rehabi
           </div>
 
           {/* Treatment Plan Section */}
-          <div className='space-y-4'>
-            <h3 className='text-lg font-semibold'>Kế hoạch điều trị</h3>
+          <div className="space-y-4">
+            <h3 className="text-lg font-semibold">Kế hoạch điều trị</h3>
             <Separator />
-            <div className='space-y-6'>
+            <div className="space-y-6">
               <FormField
                 control={form.control}
-                name='interventionObjectives'
+                name="interventionObjectives"
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>Mục tiêu can thiệp</FormLabel>
                     <FormControl>
                       <Textarea
-                        placeholder='Nhập mục tiêu can thiệp'
-                        className='min-h-[120px]'
+                        placeholder="Nhập mục tiêu can thiệp"
+                        className="min-h-[120px]"
                         disabled={isView}
                         {...field}
                       />
@@ -1023,14 +1059,14 @@ export function RehabilitationFormComponent({ form: existingForm, mode }: Rehabi
 
               <FormField
                 control={form.control}
-                name='therapyCourse'
+                name="therapyCourse"
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>Liệu trình điều trị</FormLabel>
                     <FormControl>
                       <Textarea
-                        placeholder='Nhập liệu trình điều trị'
-                        className='min-h-[120px]'
+                        placeholder="Nhập liệu trình điều trị"
+                        className="min-h-[120px]"
                         disabled={isView}
                         {...field}
                       />
@@ -1042,14 +1078,14 @@ export function RehabilitationFormComponent({ form: existingForm, mode }: Rehabi
 
               <FormField
                 control={form.control}
-                name='rehabilitationMethods'
+                name="rehabilitationMethods"
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>Phương pháp phục hồi chức năng</FormLabel>
                     <FormControl>
                       <Textarea
-                        placeholder='Nhập phương pháp phục hồi chức năng'
-                        className='min-h-[120px]'
+                        placeholder="Nhập phương pháp phục hồi chức năng"
+                        className="min-h-[120px]"
                         disabled={isView}
                         {...field}
                       />
@@ -1061,17 +1097,17 @@ export function RehabilitationFormComponent({ form: existingForm, mode }: Rehabi
             </div>
           </div>
 
-          <div className='flex gap-3 justify-end pt-4'>
+          <div className="flex gap-3 justify-end pt-4">
             <Button
-              type='button'
-              variant='outline'
+              type="button"
+              variant="outline"
               onClick={() => navigate({ to: '/rehabilitation-forms' })}
             >
               {isView ? 'Đóng' : 'Hủy'}
             </Button>
             {!isView && (
               <Button
-                type='submit'
+                type="submit"
                 disabled={createMutation.isPending || updateMutation.isPending}
               >
                 {createMutation.isPending || updateMutation.isPending

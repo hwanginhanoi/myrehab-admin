@@ -3,27 +3,27 @@
  * Do not edit manually.
  */
 
-import fetch from "@/lib/api-client";
+import fetch from '@/lib/api-client'
 import type {
   GetDoctorPatients1QueryResponse,
   GetDoctorPatients1QueryParams,
-} from "../../types/trainerController/GetDoctorPatients1.ts";
-import type { RequestConfig, ResponseErrorConfig } from "@/lib/api-client";
+} from '../../types/trainerController/GetDoctorPatients1.ts'
+import type { RequestConfig, ResponseErrorConfig } from '@/lib/api-client'
 import type {
   QueryKey,
   QueryClient,
   UseSuspenseQueryOptions,
   UseSuspenseQueryResult,
-} from "@tanstack/react-query";
-import { queryOptions, useSuspenseQuery } from "@tanstack/react-query";
+} from '@tanstack/react-query'
+import { queryOptions, useSuspenseQuery } from '@tanstack/react-query'
 
 export const getDoctorPatients1SuspenseQueryKey = (
-  params: GetDoctorPatients1QueryParams,
-) => [{ url: "/api/trainer/patients" }, ...(params ? [params] : [])] as const;
+  params: GetDoctorPatients1QueryParams
+) => [{ url: '/api/trainer/patients' }, ...(params ? [params] : [])] as const
 
 export type GetDoctorPatients1SuspenseQueryKey = ReturnType<
   typeof getDoctorPatients1SuspenseQueryKey
->;
+>
 
 /**
  * @description View all patients assigned to the trainer's supervising doctor
@@ -32,23 +32,23 @@ export type GetDoctorPatients1SuspenseQueryKey = ReturnType<
  */
 export async function getDoctorPatients1Suspense(
   params: GetDoctorPatients1QueryParams,
-  config: Partial<RequestConfig> & { client?: typeof fetch } = {},
+  config: Partial<RequestConfig> & { client?: typeof fetch } = {}
 ) {
-  const { client: request = fetch, ...requestConfig } = config;
+  const { client: request = fetch, ...requestConfig } = config
 
   const res = await request<
     GetDoctorPatients1QueryResponse,
     ResponseErrorConfig<Error>,
     unknown
-  >({ method: "GET", url: `/api/trainer/patients`, params, ...requestConfig });
-  return res.data;
+  >({ method: 'GET', url: `/api/trainer/patients`, params, ...requestConfig })
+  return res.data
 }
 
 export function getDoctorPatients1SuspenseQueryOptions(
   params: GetDoctorPatients1QueryParams,
-  config: Partial<RequestConfig> & { client?: typeof fetch } = {},
+  config: Partial<RequestConfig> & { client?: typeof fetch } = {}
 ) {
-  const queryKey = getDoctorPatients1SuspenseQueryKey(params);
+  const queryKey = getDoctorPatients1SuspenseQueryKey(params)
   return queryOptions<
     GetDoctorPatients1QueryResponse,
     ResponseErrorConfig<Error>,
@@ -58,10 +58,10 @@ export function getDoctorPatients1SuspenseQueryOptions(
     enabled: !!params,
     queryKey,
     queryFn: async ({ signal }) => {
-      config.signal = signal;
-      return getDoctorPatients1Suspense(params, config);
+      config.signal = signal
+      return getDoctorPatients1Suspense(params, config)
     },
-  });
+  })
 }
 
 /**
@@ -82,14 +82,14 @@ export function useGetDoctorPatients1Suspense<
         TData,
         TQueryKey
       >
-    > & { client?: QueryClient };
-    client?: Partial<RequestConfig> & { client?: typeof fetch };
-  } = {},
+    > & { client?: QueryClient }
+    client?: Partial<RequestConfig> & { client?: typeof fetch }
+  } = {}
 ) {
-  const { query: queryConfig = {}, client: config = {} } = options ?? {};
-  const { client: queryClient, ...queryOptions } = queryConfig;
+  const { query: queryConfig = {}, client: config = {} } = options ?? {}
+  const { client: queryClient, ...queryOptions } = queryConfig
   const queryKey =
-    queryOptions?.queryKey ?? getDoctorPatients1SuspenseQueryKey(params);
+    queryOptions?.queryKey ?? getDoctorPatients1SuspenseQueryKey(params)
 
   const query = useSuspenseQuery(
     {
@@ -97,12 +97,12 @@ export function useGetDoctorPatients1Suspense<
       queryKey,
       ...queryOptions,
     } as unknown as UseSuspenseQueryOptions,
-    queryClient,
+    queryClient
   ) as UseSuspenseQueryResult<TData, ResponseErrorConfig<Error>> & {
-    queryKey: TQueryKey;
-  };
+    queryKey: TQueryKey
+  }
 
-  query.queryKey = queryKey as TQueryKey;
+  query.queryKey = queryKey as TQueryKey
 
-  return query;
+  return query
 }

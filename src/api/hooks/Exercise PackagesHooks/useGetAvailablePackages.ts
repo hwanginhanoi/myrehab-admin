@@ -3,31 +3,31 @@
  * Do not edit manually.
  */
 
-import fetch from "@/lib/api-client";
+import fetch from '@/lib/api-client'
 import type {
   GetAvailablePackagesQueryResponse,
   GetAvailablePackagesQueryParams,
-} from "../../types/exercisePackagesController/GetAvailablePackages.ts";
-import type { RequestConfig, ResponseErrorConfig } from "@/lib/api-client";
+} from '../../types/exercisePackagesController/GetAvailablePackages.ts'
+import type { RequestConfig, ResponseErrorConfig } from '@/lib/api-client'
 import type {
   QueryKey,
   QueryClient,
   QueryObserverOptions,
   UseQueryResult,
-} from "@tanstack/react-query";
-import { queryOptions, useQuery } from "@tanstack/react-query";
+} from '@tanstack/react-query'
+import { queryOptions, useQuery } from '@tanstack/react-query'
 
 export const getAvailablePackagesQueryKey = (
-  params: GetAvailablePackagesQueryParams,
+  params: GetAvailablePackagesQueryParams
 ) =>
   [
-    { url: "/api/exercise-packages/me/available" },
+    { url: '/api/exercise-packages/me/available' },
     ...(params ? [params] : []),
-  ] as const;
+  ] as const
 
 export type GetAvailablePackagesQueryKey = ReturnType<
   typeof getAvailablePackagesQueryKey
->;
+>
 
 /**
  * @description Retrieve exercise packages available for the current user to purchase. Excludes packages the user already has active subscriptions for. Each package includes pricing information (monthlyPrice and yearlyPrice in VND). Supports pagination and search by title. Examples: ?page=0&size=20 | ?query=shoulder
@@ -36,28 +36,28 @@ export type GetAvailablePackagesQueryKey = ReturnType<
  */
 export async function getAvailablePackages(
   params: GetAvailablePackagesQueryParams,
-  config: Partial<RequestConfig> & { client?: typeof fetch } = {},
+  config: Partial<RequestConfig> & { client?: typeof fetch } = {}
 ) {
-  const { client: request = fetch, ...requestConfig } = config;
+  const { client: request = fetch, ...requestConfig } = config
 
   const res = await request<
     GetAvailablePackagesQueryResponse,
     ResponseErrorConfig<Error>,
     unknown
   >({
-    method: "GET",
+    method: 'GET',
     url: `/api/exercise-packages/me/available`,
     params,
     ...requestConfig,
-  });
-  return res.data;
+  })
+  return res.data
 }
 
 export function getAvailablePackagesQueryOptions(
   params: GetAvailablePackagesQueryParams,
-  config: Partial<RequestConfig> & { client?: typeof fetch } = {},
+  config: Partial<RequestConfig> & { client?: typeof fetch } = {}
 ) {
-  const queryKey = getAvailablePackagesQueryKey(params);
+  const queryKey = getAvailablePackagesQueryKey(params)
   return queryOptions<
     GetAvailablePackagesQueryResponse,
     ResponseErrorConfig<Error>,
@@ -67,10 +67,10 @@ export function getAvailablePackagesQueryOptions(
     enabled: !!params,
     queryKey,
     queryFn: async ({ signal }) => {
-      config.signal = signal;
-      return getAvailablePackages(params, config);
+      config.signal = signal
+      return getAvailablePackages(params, config)
     },
-  });
+  })
 }
 
 /**
@@ -93,14 +93,14 @@ export function useGetAvailablePackages<
         TQueryData,
         TQueryKey
       >
-    > & { client?: QueryClient };
-    client?: Partial<RequestConfig> & { client?: typeof fetch };
-  } = {},
+    > & { client?: QueryClient }
+    client?: Partial<RequestConfig> & { client?: typeof fetch }
+  } = {}
 ) {
-  const { query: queryConfig = {}, client: config = {} } = options ?? {};
-  const { client: queryClient, ...queryOptions } = queryConfig;
+  const { query: queryConfig = {}, client: config = {} } = options ?? {}
+  const { client: queryClient, ...queryOptions } = queryConfig
   const queryKey =
-    queryOptions?.queryKey ?? getAvailablePackagesQueryKey(params);
+    queryOptions?.queryKey ?? getAvailablePackagesQueryKey(params)
 
   const query = useQuery(
     {
@@ -108,12 +108,12 @@ export function useGetAvailablePackages<
       queryKey,
       ...queryOptions,
     } as unknown as QueryObserverOptions,
-    queryClient,
+    queryClient
   ) as UseQueryResult<TData, ResponseErrorConfig<Error>> & {
-    queryKey: TQueryKey;
-  };
+    queryKey: TQueryKey
+  }
 
-  query.queryKey = queryKey as TQueryKey;
+  query.queryKey = queryKey as TQueryKey
 
-  return query;
+  return query
 }

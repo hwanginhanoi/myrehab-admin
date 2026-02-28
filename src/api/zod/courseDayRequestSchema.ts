@@ -3,12 +3,12 @@
  * Do not edit manually.
  */
 
-import { exerciseItemRequestSchema } from "./exerciseItemRequestSchema.ts";
-import { z } from "zod/v4";
+import { exerciseItemRequestSchema } from './exerciseItemRequestSchema.ts'
+import { z } from 'zod/v4'
 
 export const courseDayRequestSchema = z.object({
   dayNumber: z.int(),
   get exercises() {
-    return z.array(exerciseItemRequestSchema).min(1).max(2147483647);
+    return z.array(exerciseItemRequestSchema).min(1).max(2147483647)
   },
-});
+})

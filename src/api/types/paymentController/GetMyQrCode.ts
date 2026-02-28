@@ -3,16 +3,16 @@
  * Do not edit manually.
  */
 
-import type { QrCodeResponse } from "../QrCodeResponse.ts";
+import type { QrCodeResponse } from '../QrCodeResponse.ts'
 
 /**
  * @description OK
  */
-export type GetMyQrCode200 = QrCodeResponse;
+export type GetMyQrCode200 = QrCodeResponse
 
-export type GetMyQrCodeQueryResponse = GetMyQrCode200;
+export type GetMyQrCodeQueryResponse = GetMyQrCode200
 
 export type GetMyQrCodeQuery = {
-  Response: GetMyQrCode200;
-  Errors: any;
-};
+  Response: GetMyQrCode200
+  Errors: any
+}

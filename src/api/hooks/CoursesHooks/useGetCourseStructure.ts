@@ -3,28 +3,28 @@
  * Do not edit manually.
  */
 
-import fetch from "@/lib/api-client";
+import fetch from '@/lib/api-client'
 import type {
   GetCourseStructureQueryResponse,
   GetCourseStructurePathParams,
-} from "../../types/coursesController/GetCourseStructure.ts";
-import type { RequestConfig, ResponseErrorConfig } from "@/lib/api-client";
+} from '../../types/coursesController/GetCourseStructure.ts'
+import type { RequestConfig, ResponseErrorConfig } from '@/lib/api-client'
 import type {
   QueryKey,
   QueryClient,
   QueryObserverOptions,
   UseQueryResult,
-} from "@tanstack/react-query";
-import { queryOptions, useQuery } from "@tanstack/react-query";
+} from '@tanstack/react-query'
+import { queryOptions, useQuery } from '@tanstack/react-query'
 
 export const getCourseStructureQueryKey = (
-  courseId: GetCourseStructurePathParams["courseId"],
+  courseId: GetCourseStructurePathParams['courseId']
 ) =>
-  [{ url: "/api/courses/:courseId", params: { courseId: courseId } }] as const;
+  [{ url: '/api/courses/:courseId', params: { courseId: courseId } }] as const
 
 export type GetCourseStructureQueryKey = ReturnType<
   typeof getCourseStructureQueryKey
->;
+>
 
 /**
  * @description Get course details with all days and exercise counts
@@ -32,24 +32,24 @@ export type GetCourseStructureQueryKey = ReturnType<
  * {@link /api/courses/:courseId}
  */
 export async function getCourseStructure(
-  courseId: GetCourseStructurePathParams["courseId"],
-  config: Partial<RequestConfig> & { client?: typeof fetch } = {},
+  courseId: GetCourseStructurePathParams['courseId'],
+  config: Partial<RequestConfig> & { client?: typeof fetch } = {}
 ) {
-  const { client: request = fetch, ...requestConfig } = config;
+  const { client: request = fetch, ...requestConfig } = config
 
   const res = await request<
     GetCourseStructureQueryResponse,
     ResponseErrorConfig<Error>,
     unknown
-  >({ method: "GET", url: `/api/courses/${courseId}`, ...requestConfig });
-  return res.data;
+  >({ method: 'GET', url: `/api/courses/${courseId}`, ...requestConfig })
+  return res.data
 }
 
 export function getCourseStructureQueryOptions(
-  courseId: GetCourseStructurePathParams["courseId"],
-  config: Partial<RequestConfig> & { client?: typeof fetch } = {},
+  courseId: GetCourseStructurePathParams['courseId'],
+  config: Partial<RequestConfig> & { client?: typeof fetch } = {}
 ) {
-  const queryKey = getCourseStructureQueryKey(courseId);
+  const queryKey = getCourseStructureQueryKey(courseId)
   return queryOptions<
     GetCourseStructureQueryResponse,
     ResponseErrorConfig<Error>,
@@ -59,10 +59,10 @@ export function getCourseStructureQueryOptions(
     enabled: !!courseId,
     queryKey,
     queryFn: async ({ signal }) => {
-      config.signal = signal;
-      return getCourseStructure(courseId, config);
+      config.signal = signal
+      return getCourseStructure(courseId, config)
     },
-  });
+  })
 }
 
 /**
@@ -75,7 +75,7 @@ export function useGetCourseStructure<
   TQueryData = GetCourseStructureQueryResponse,
   TQueryKey extends QueryKey = GetCourseStructureQueryKey,
 >(
-  courseId: GetCourseStructurePathParams["courseId"],
+  courseId: GetCourseStructurePathParams['courseId'],
   options: {
     query?: Partial<
       QueryObserverOptions<
@@ -85,14 +85,14 @@ export function useGetCourseStructure<
         TQueryData,
         TQueryKey
       >
-    > & { client?: QueryClient };
-    client?: Partial<RequestConfig> & { client?: typeof fetch };
-  } = {},
+    > & { client?: QueryClient }
+    client?: Partial<RequestConfig> & { client?: typeof fetch }
+  } = {}
 ) {
-  const { query: queryConfig = {}, client: config = {} } = options ?? {};
-  const { client: queryClient, ...queryOptions } = queryConfig;
+  const { query: queryConfig = {}, client: config = {} } = options ?? {}
+  const { client: queryClient, ...queryOptions } = queryConfig
   const queryKey =
-    queryOptions?.queryKey ?? getCourseStructureQueryKey(courseId);
+    queryOptions?.queryKey ?? getCourseStructureQueryKey(courseId)
 
   const query = useQuery(
     {
@@ -100,12 +100,12 @@ export function useGetCourseStructure<
       queryKey,
       ...queryOptions,
     } as unknown as QueryObserverOptions,
-    queryClient,
+    queryClient
   ) as UseQueryResult<TData, ResponseErrorConfig<Error>> & {
-    queryKey: TQueryKey;
-  };
+    queryKey: TQueryKey
+  }
 
-  query.queryKey = queryKey as TQueryKey;
+  query.queryKey = queryKey as TQueryKey
 
-  return query;
+  return query
 }

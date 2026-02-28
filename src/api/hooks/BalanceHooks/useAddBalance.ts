@@ -3,23 +3,23 @@
  * Do not edit manually.
  */
 
-import fetch from "@/lib/api-client";
+import fetch from '@/lib/api-client'
 import type {
   AddBalanceMutationRequest,
   AddBalanceMutationResponse,
-} from "../../types/balanceController/AddBalance.ts";
-import type { RequestConfig, ResponseErrorConfig } from "@/lib/api-client";
+} from '../../types/balanceController/AddBalance.ts'
+import type { RequestConfig, ResponseErrorConfig } from '@/lib/api-client'
 import type {
   UseMutationOptions,
   UseMutationResult,
   QueryClient,
-} from "@tanstack/react-query";
-import { mutationOptions, useMutation } from "@tanstack/react-query";
+} from '@tanstack/react-query'
+import { mutationOptions, useMutation } from '@tanstack/react-query'
 
 export const addBalanceMutationKey = () =>
-  [{ url: "/api/balance/admin/add" }] as const;
+  [{ url: '/api/balance/admin/add' }] as const
 
-export type AddBalanceMutationKey = ReturnType<typeof addBalanceMutationKey>;
+export type AddBalanceMutationKey = ReturnType<typeof addBalanceMutationKey>
 
 /**
  * @description Admin operation to add balance to a specific user's account
@@ -29,32 +29,32 @@ export type AddBalanceMutationKey = ReturnType<typeof addBalanceMutationKey>;
 export async function addBalance(
   data: AddBalanceMutationRequest,
   config: Partial<RequestConfig<AddBalanceMutationRequest>> & {
-    client?: typeof fetch;
-  } = {},
+    client?: typeof fetch
+  } = {}
 ) {
-  const { client: request = fetch, ...requestConfig } = config;
+  const { client: request = fetch, ...requestConfig } = config
 
-  const requestData = data;
+  const requestData = data
 
   const res = await request<
     AddBalanceMutationResponse,
     ResponseErrorConfig<Error>,
     AddBalanceMutationRequest
   >({
-    method: "POST",
+    method: 'POST',
     url: `/api/balance/admin/add`,
     data: requestData,
     ...requestConfig,
-  });
-  return res.data;
+  })
+  return res.data
 }
 
 export function addBalanceMutationOptions(
   config: Partial<RequestConfig<AddBalanceMutationRequest>> & {
-    client?: typeof fetch;
-  } = {},
+    client?: typeof fetch
+  } = {}
 ) {
-  const mutationKey = addBalanceMutationKey();
+  const mutationKey = addBalanceMutationKey()
   return mutationOptions<
     AddBalanceMutationResponse,
     ResponseErrorConfig<Error>,
@@ -63,9 +63,9 @@ export function addBalanceMutationOptions(
   >({
     mutationKey,
     mutationFn: async ({ data }) => {
-      return addBalance(data, config);
+      return addBalance(data, config)
     },
-  });
+  })
 }
 
 /**
@@ -80,22 +80,22 @@ export function useAddBalance<TContext>(
       ResponseErrorConfig<Error>,
       { data: AddBalanceMutationRequest },
       TContext
-    > & { client?: QueryClient };
+    > & { client?: QueryClient }
     client?: Partial<RequestConfig<AddBalanceMutationRequest>> & {
-      client?: typeof fetch;
-    };
-  } = {},
+      client?: typeof fetch
+    }
+  } = {}
 ) {
-  const { mutation = {}, client: config = {} } = options ?? {};
-  const { client: queryClient, ...mutationOptions } = mutation;
-  const mutationKey = mutationOptions.mutationKey ?? addBalanceMutationKey();
+  const { mutation = {}, client: config = {} } = options ?? {}
+  const { client: queryClient, ...mutationOptions } = mutation
+  const mutationKey = mutationOptions.mutationKey ?? addBalanceMutationKey()
 
   const baseOptions = addBalanceMutationOptions(config) as UseMutationOptions<
     AddBalanceMutationResponse,
     ResponseErrorConfig<Error>,
     { data: AddBalanceMutationRequest },
     TContext
-  >;
+  >
 
   return useMutation<
     AddBalanceMutationResponse,
@@ -108,11 +108,11 @@ export function useAddBalance<TContext>(
       mutationKey,
       ...mutationOptions,
     },
-    queryClient,
+    queryClient
   ) as UseMutationResult<
     AddBalanceMutationResponse,
     ResponseErrorConfig<Error>,
     { data: AddBalanceMutationRequest },
     TContext
-  >;
+  >
 }

@@ -3,21 +3,21 @@
  * Do not edit manually.
  */
 
-import { companyInfoResponseSchema } from "../companyInfoResponseSchema.ts";
-import { upsertCompanyInfoRequestSchema } from "../upsertCompanyInfoRequestSchema.ts";
-import { z } from "zod/v4";
+import { companyInfoResponseSchema } from '../companyInfoResponseSchema.ts'
+import { upsertCompanyInfoRequestSchema } from '../upsertCompanyInfoRequestSchema.ts'
+import { z } from 'zod/v4'
 
 /**
  * @description OK
  */
 export const upsertMyCompanyInfo200Schema = z.lazy(
-  () => companyInfoResponseSchema,
-);
+  () => companyInfoResponseSchema
+)
 
 export const upsertMyCompanyInfoMutationRequestSchema = z.lazy(
-  () => upsertCompanyInfoRequestSchema,
-);
+  () => upsertCompanyInfoRequestSchema
+)
 
 export const upsertMyCompanyInfoMutationResponseSchema = z.lazy(
-  () => upsertMyCompanyInfo200Schema,
-);
+  () => upsertMyCompanyInfo200Schema
+)

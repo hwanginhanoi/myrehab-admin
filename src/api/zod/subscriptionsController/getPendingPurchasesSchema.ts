@@ -3,16 +3,16 @@
  * Do not edit manually.
  */
 
-import { pendingPurchaseResponseSchema } from "../pendingPurchaseResponseSchema.ts";
-import { z } from "zod/v4";
+import { pendingPurchaseResponseSchema } from '../pendingPurchaseResponseSchema.ts'
+import { z } from 'zod/v4'
 
 /**
  * @description OK
  */
 export const getPendingPurchases200Schema = z.array(
-  z.lazy(() => pendingPurchaseResponseSchema),
-);
+  z.lazy(() => pendingPurchaseResponseSchema)
+)
 
 export const getPendingPurchasesQueryResponseSchema = z.lazy(
-  () => getPendingPurchases200Schema,
-);
+  () => getPendingPurchases200Schema
+)

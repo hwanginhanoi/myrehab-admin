@@ -3,31 +3,31 @@
  * Do not edit manually.
  */
 
-import fetch from "@/lib/api-client";
+import fetch from '@/lib/api-client'
 import type {
   GetMyTransactionHistoryQueryResponse,
   GetMyTransactionHistoryQueryParams,
-} from "../../types/transactionsController/GetMyTransactionHistory.ts";
-import type { RequestConfig, ResponseErrorConfig } from "@/lib/api-client";
+} from '../../types/transactionsController/GetMyTransactionHistory.ts'
+import type { RequestConfig, ResponseErrorConfig } from '@/lib/api-client'
 import type {
   QueryKey,
   QueryClient,
   UseSuspenseQueryOptions,
   UseSuspenseQueryResult,
-} from "@tanstack/react-query";
-import { queryOptions, useSuspenseQuery } from "@tanstack/react-query";
+} from '@tanstack/react-query'
+import { queryOptions, useSuspenseQuery } from '@tanstack/react-query'
 
 export const getMyTransactionHistorySuspenseQueryKey = (
-  params?: GetMyTransactionHistoryQueryParams,
+  params: GetMyTransactionHistoryQueryParams
 ) =>
   [
-    { url: "/api/transactions/my-history" },
+    { url: '/api/transactions/my-history' },
     ...(params ? [params] : []),
-  ] as const;
+  ] as const
 
 export type GetMyTransactionHistorySuspenseQueryKey = ReturnType<
   typeof getMyTransactionHistorySuspenseQueryKey
->;
+>
 
 /**
  * @description Retrieve paginated transaction history for the authenticated user
@@ -35,41 +35,42 @@ export type GetMyTransactionHistorySuspenseQueryKey = ReturnType<
  * {@link /api/transactions/my-history}
  */
 export async function getMyTransactionHistorySuspense(
-  params?: GetMyTransactionHistoryQueryParams,
-  config: Partial<RequestConfig> & { client?: typeof fetch } = {},
+  params: GetMyTransactionHistoryQueryParams,
+  config: Partial<RequestConfig> & { client?: typeof fetch } = {}
 ) {
-  const { client: request = fetch, ...requestConfig } = config;
+  const { client: request = fetch, ...requestConfig } = config
 
   const res = await request<
     GetMyTransactionHistoryQueryResponse,
     ResponseErrorConfig<Error>,
     unknown
   >({
-    method: "GET",
+    method: 'GET',
     url: `/api/transactions/my-history`,
     params,
     ...requestConfig,
-  });
-  return res.data;
+  })
+  return res.data
 }
 
 export function getMyTransactionHistorySuspenseQueryOptions(
-  params?: GetMyTransactionHistoryQueryParams,
-  config: Partial<RequestConfig> & { client?: typeof fetch } = {},
+  params: GetMyTransactionHistoryQueryParams,
+  config: Partial<RequestConfig> & { client?: typeof fetch } = {}
 ) {
-  const queryKey = getMyTransactionHistorySuspenseQueryKey(params);
+  const queryKey = getMyTransactionHistorySuspenseQueryKey(params)
   return queryOptions<
     GetMyTransactionHistoryQueryResponse,
     ResponseErrorConfig<Error>,
     GetMyTransactionHistoryQueryResponse,
     typeof queryKey
   >({
+    enabled: !!params,
     queryKey,
     queryFn: async ({ signal }) => {
-      config.signal = signal;
-      return getMyTransactionHistorySuspense(params, config);
+      config.signal = signal
+      return getMyTransactionHistorySuspense(params, config)
     },
-  });
+  })
 }
 
 /**
@@ -81,7 +82,7 @@ export function useGetMyTransactionHistorySuspense<
   TData = GetMyTransactionHistoryQueryResponse,
   TQueryKey extends QueryKey = GetMyTransactionHistorySuspenseQueryKey,
 >(
-  params?: GetMyTransactionHistoryQueryParams,
+  params: GetMyTransactionHistoryQueryParams,
   options: {
     query?: Partial<
       UseSuspenseQueryOptions<
@@ -90,14 +91,14 @@ export function useGetMyTransactionHistorySuspense<
         TData,
         TQueryKey
       >
-    > & { client?: QueryClient };
-    client?: Partial<RequestConfig> & { client?: typeof fetch };
-  } = {},
+    > & { client?: QueryClient }
+    client?: Partial<RequestConfig> & { client?: typeof fetch }
+  } = {}
 ) {
-  const { query: queryConfig = {}, client: config = {} } = options ?? {};
-  const { client: queryClient, ...queryOptions } = queryConfig;
+  const { query: queryConfig = {}, client: config = {} } = options ?? {}
+  const { client: queryClient, ...queryOptions } = queryConfig
   const queryKey =
-    queryOptions?.queryKey ?? getMyTransactionHistorySuspenseQueryKey(params);
+    queryOptions?.queryKey ?? getMyTransactionHistorySuspenseQueryKey(params)
 
   const query = useSuspenseQuery(
     {
@@ -105,12 +106,12 @@ export function useGetMyTransactionHistorySuspense<
       queryKey,
       ...queryOptions,
     } as unknown as UseSuspenseQueryOptions,
-    queryClient,
+    queryClient
   ) as UseSuspenseQueryResult<TData, ResponseErrorConfig<Error>> & {
-    queryKey: TQueryKey;
-  };
+    queryKey: TQueryKey
+  }
 
-  query.queryKey = queryKey as TQueryKey;
+  query.queryKey = queryKey as TQueryKey
 
-  return query;
+  return query
 }

@@ -3,27 +3,27 @@
  * Do not edit manually.
  */
 
-import fetch from "@/lib/api-client";
+import fetch from '@/lib/api-client'
 import type {
   GetExercisePackageByIdQueryResponse,
   GetExercisePackageByIdPathParams,
-} from "../../types/exercisePackagesController/GetExercisePackageById.ts";
-import type { RequestConfig, ResponseErrorConfig } from "@/lib/api-client";
+} from '../../types/exercisePackagesController/GetExercisePackageById.ts'
+import type { RequestConfig, ResponseErrorConfig } from '@/lib/api-client'
 import type {
   QueryKey,
   QueryClient,
   UseSuspenseQueryOptions,
   UseSuspenseQueryResult,
-} from "@tanstack/react-query";
-import { queryOptions, useSuspenseQuery } from "@tanstack/react-query";
+} from '@tanstack/react-query'
+import { queryOptions, useSuspenseQuery } from '@tanstack/react-query'
 
 export const getExercisePackageByIdSuspenseQueryKey = (
-  id: GetExercisePackageByIdPathParams["id"],
-) => [{ url: "/api/exercise-packages/:id", params: { id: id } }] as const;
+  id: GetExercisePackageByIdPathParams['id']
+) => [{ url: '/api/exercise-packages/:id', params: { id: id } }] as const
 
 export type GetExercisePackageByIdSuspenseQueryKey = ReturnType<
   typeof getExercisePackageByIdSuspenseQueryKey
->;
+>
 
 /**
  * @description Retrieve a specific exercise package by its ID with full exercise details. For staff management purposes. Mobile users should use GET /me/{id} instead to get subscription status.
@@ -31,24 +31,24 @@ export type GetExercisePackageByIdSuspenseQueryKey = ReturnType<
  * {@link /api/exercise-packages/:id}
  */
 export async function getExercisePackageByIdSuspense(
-  id: GetExercisePackageByIdPathParams["id"],
-  config: Partial<RequestConfig> & { client?: typeof fetch } = {},
+  id: GetExercisePackageByIdPathParams['id'],
+  config: Partial<RequestConfig> & { client?: typeof fetch } = {}
 ) {
-  const { client: request = fetch, ...requestConfig } = config;
+  const { client: request = fetch, ...requestConfig } = config
 
   const res = await request<
     GetExercisePackageByIdQueryResponse,
     ResponseErrorConfig<Error>,
     unknown
-  >({ method: "GET", url: `/api/exercise-packages/${id}`, ...requestConfig });
-  return res.data;
+  >({ method: 'GET', url: `/api/exercise-packages/${id}`, ...requestConfig })
+  return res.data
 }
 
 export function getExercisePackageByIdSuspenseQueryOptions(
-  id: GetExercisePackageByIdPathParams["id"],
-  config: Partial<RequestConfig> & { client?: typeof fetch } = {},
+  id: GetExercisePackageByIdPathParams['id'],
+  config: Partial<RequestConfig> & { client?: typeof fetch } = {}
 ) {
-  const queryKey = getExercisePackageByIdSuspenseQueryKey(id);
+  const queryKey = getExercisePackageByIdSuspenseQueryKey(id)
   return queryOptions<
     GetExercisePackageByIdQueryResponse,
     ResponseErrorConfig<Error>,
@@ -58,10 +58,10 @@ export function getExercisePackageByIdSuspenseQueryOptions(
     enabled: !!id,
     queryKey,
     queryFn: async ({ signal }) => {
-      config.signal = signal;
-      return getExercisePackageByIdSuspense(id, config);
+      config.signal = signal
+      return getExercisePackageByIdSuspense(id, config)
     },
-  });
+  })
 }
 
 /**
@@ -73,7 +73,7 @@ export function useGetExercisePackageByIdSuspense<
   TData = GetExercisePackageByIdQueryResponse,
   TQueryKey extends QueryKey = GetExercisePackageByIdSuspenseQueryKey,
 >(
-  id: GetExercisePackageByIdPathParams["id"],
+  id: GetExercisePackageByIdPathParams['id'],
   options: {
     query?: Partial<
       UseSuspenseQueryOptions<
@@ -82,14 +82,14 @@ export function useGetExercisePackageByIdSuspense<
         TData,
         TQueryKey
       >
-    > & { client?: QueryClient };
-    client?: Partial<RequestConfig> & { client?: typeof fetch };
-  } = {},
+    > & { client?: QueryClient }
+    client?: Partial<RequestConfig> & { client?: typeof fetch }
+  } = {}
 ) {
-  const { query: queryConfig = {}, client: config = {} } = options ?? {};
-  const { client: queryClient, ...queryOptions } = queryConfig;
+  const { query: queryConfig = {}, client: config = {} } = options ?? {}
+  const { client: queryClient, ...queryOptions } = queryConfig
   const queryKey =
-    queryOptions?.queryKey ?? getExercisePackageByIdSuspenseQueryKey(id);
+    queryOptions?.queryKey ?? getExercisePackageByIdSuspenseQueryKey(id)
 
   const query = useSuspenseQuery(
     {
@@ -97,12 +97,12 @@ export function useGetExercisePackageByIdSuspense<
       queryKey,
       ...queryOptions,
     } as unknown as UseSuspenseQueryOptions,
-    queryClient,
+    queryClient
   ) as UseSuspenseQueryResult<TData, ResponseErrorConfig<Error>> & {
-    queryKey: TQueryKey;
-  };
+    queryKey: TQueryKey
+  }
 
-  query.queryKey = queryKey as TQueryKey;
+  query.queryKey = queryKey as TQueryKey
 
-  return query;
+  return query
 }

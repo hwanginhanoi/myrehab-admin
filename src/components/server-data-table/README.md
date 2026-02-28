@@ -7,6 +7,7 @@ These components are **reusable building blocks** for creating server-side data 
 Instead of using a generic `DataTableToolbar` with props, **create page-specific toolbars** for each table. This gives you full control over the layout, filters, and search fields.
 
 ### Reusable Building Blocks (in `server-data-table/`):
+
 - ✅ `DataTablePagination` - Pagination controls
 - ✅ `DataTableColumnHeader` - Sortable column headers
 - ✅ `DataTableFacetedFilter` - Filter dropdown component
@@ -15,6 +16,7 @@ Instead of using a generic `DataTableToolbar` with props, **create page-specific
 - 📝 `DataTableToolbar` - Generic toolbar (use as reference, create custom per page)
 
 ### Page-Specific Components (in each feature folder):
+
 - 🎯 `CategoriesTableToolbar` - Custom toolbar for categories
 - 🎯 `ExercisesTableToolbar` - Custom toolbar for exercises
 - 🎯 `GroupsTableToolbar` - Custom toolbar for groups
@@ -22,6 +24,7 @@ Instead of using a generic `DataTableToolbar` with props, **create page-specific
 ## Key Differences from Client-Side Data Table
 
 ### Server-Side (`server-data-table`)
+
 - ✅ All filtering, sorting, and pagination happen on the server
 - ✅ Table configuration uses `manualPagination`, `manualFiltering`, and `manualSorting`
 - ✅ Does NOT use `getFilteredRowModel()`, `getSortedRowModel()`, `getFacetedRowModel()`, or `getFacetedUniqueValues()`
@@ -30,6 +33,7 @@ Instead of using a generic `DataTableToolbar` with props, **create page-specific
 - ❌ No facet counts in filter dropdowns (would require loading all data)
 
 ### Client-Side (`data-table`)
+
 - Uses `getFilteredRowModel()`, `getSortedRowModel()`, etc.
 - All data is loaded at once and filtered/sorted in the browser
 - Shows facet counts in filter dropdowns
@@ -114,9 +118,7 @@ const {
     { columnId: 'name', searchKey: 'name', type: 'string' },
     { columnId: 'type', searchKey: 'type', type: 'array' },
   ],
-  sorting: [
-    { columnId: 'createdAt', searchKey: 'sort' },
-  ],
+  sorting: [{ columnId: 'createdAt', searchKey: 'sort' }],
 })
 ```
 
@@ -132,7 +134,7 @@ import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import {
   DataTableFacetedFilter,
-  DataTableViewOptions
+  DataTableViewOptions,
 } from '@/components/server-data-table'
 import { categoryTypeOptions } from '@/lib/constants/category-type'
 import type { CategoryResponse } from '@/api'
@@ -145,32 +147,34 @@ export function CategoriesTableToolbar({ table }: CategoriesTableToolbarProps) {
   const isFiltered = table.getState().columnFilters.length > 0
 
   return (
-    <div className='flex items-center justify-between'>
-      <div className='flex flex-1 items-center space-x-2'>
+    <div className="flex items-center justify-between">
+      <div className="flex flex-1 items-center space-x-2">
         {/* Custom search field */}
         <Input
-          placeholder='Search categories...'
+          placeholder="Search categories..."
           value={(table.getColumn('name')?.getFilterValue() as string) ?? ''}
-          onChange={(e) => table.getColumn('name')?.setFilterValue(e.target.value)}
-          className='h-8 w-[250px]'
+          onChange={(e) =>
+            table.getColumn('name')?.setFilterValue(e.target.value)
+          }
+          className="h-8 w-[250px]"
         />
 
         {/* Custom filters */}
         <DataTableFacetedFilter
           column={table.getColumn('type')}
-          title='Type'
+          title="Type"
           options={categoryTypeOptions}
         />
 
         {/* Reset button */}
         {isFiltered && (
           <Button
-            variant='ghost'
+            variant="ghost"
             onClick={() => table.resetColumnFilters()}
-            className='h-8 px-2'
+            className="h-8 px-2"
           >
             Reset
-            <Cross2Icon className='ms-2 h-4 w-4' />
+            <Cross2Icon className="ms-2 h-4 w-4" />
           </Button>
         )}
       </div>

@@ -57,15 +57,18 @@ export function UsersTable({
     ],
   })
 
-  const columns = useMemo(() => [
-    {
-      id: 'query',
-      header: () => null,
-      cell: () => null,
-      enableSorting: false,
-    },
-    ...usersColumns,
-  ], [])
+  const columns = useMemo(
+    () => [
+      {
+        id: 'query',
+        header: () => null,
+        cell: () => null,
+        enableSorting: false,
+      },
+      ...usersColumns,
+    ],
+    []
+  )
 
   const table = useReactTable({
     data,
@@ -98,11 +101,11 @@ export function UsersTable({
       )}
     >
       <UsersTableToolbar table={table} />
-      <div className='overflow-hidden rounded-md border'>
+      <div className="overflow-hidden rounded-md border">
         <Table>
           <TableHeader>
             {table.getHeaderGroups().map((headerGroup) => (
-              <TableRow key={headerGroup.id} className='group/row'>
+              <TableRow key={headerGroup.id} className="group/row">
                 {headerGroup.headers.map((header) => (
                   <TableHead
                     key={header.id}
@@ -130,7 +133,7 @@ export function UsersTable({
                 <TableRow
                   key={row.id}
                   data-state={row.getIsSelected() && 'selected'}
-                  className='group/row'
+                  className="group/row"
                 >
                   {row.getVisibleCells().map((cell) => (
                     <TableCell
@@ -153,7 +156,7 @@ export function UsersTable({
               <TableRow>
                 <TableCell
                   colSpan={columns.length}
-                  className='h-24 text-center'
+                  className="h-24 text-center"
                 >
                   Không có dữ liệu.
                 </TableCell>
@@ -162,7 +165,7 @@ export function UsersTable({
           </TableBody>
         </Table>
       </div>
-      <DataTablePagination table={table} className='mt-auto' />
+      <DataTablePagination table={table} className="mt-auto" />
     </div>
   )
 }

@@ -1,75 +1,85 @@
-export type { ApproveCourseRequestMutationKey } from "./useApproveCourseRequest.ts";
-export type { AssignCourseToPatientMutationKey } from "./useAssignCourseToPatient.ts";
-export type { CreateAndAssignCustomCourseMutationKey } from "./useCreateAndAssignCustomCourse.ts";
-export type { GetCourseRequestsQueryKey } from "./useGetCourseRequests.ts";
-export type { GetCourseRequestsSuspenseQueryKey } from "./useGetCourseRequestsSuspense.ts";
-export type { GetMyAssignedCoursesQueryKey } from "./useGetMyAssignedCourses.ts";
-export type { GetMyAssignedCoursesSuspenseQueryKey } from "./useGetMyAssignedCoursesSuspense.ts";
-export type { GetMyPatientsQueryKey } from "./useGetMyPatients.ts";
-export type { GetMyPatientsSuspenseQueryKey } from "./useGetMyPatientsSuspense.ts";
-export type { GetMyTrainersQueryKey } from "./useGetMyTrainers.ts";
-export type { GetMyTrainersSuspenseQueryKey } from "./useGetMyTrainersSuspense.ts";
-export type { GetPatientCoursesQueryKey } from "./useGetPatientCourses.ts";
-export type { GetPatientCoursesSuspenseQueryKey } from "./useGetPatientCoursesSuspense.ts";
-export type { RejectCourseRequestMutationKey } from "./useRejectCourseRequest.ts";
-export type { RevokeCourseAssignmentMutationKey } from "./useRevokeCourseAssignment.ts";
-export { approveCourseRequestMutationKey } from "./useApproveCourseRequest.ts";
-export { approveCourseRequest } from "./useApproveCourseRequest.ts";
-export { approveCourseRequestMutationOptions } from "./useApproveCourseRequest.ts";
-export { useApproveCourseRequest } from "./useApproveCourseRequest.ts";
-export { assignCourseToPatientMutationKey } from "./useAssignCourseToPatient.ts";
-export { assignCourseToPatient } from "./useAssignCourseToPatient.ts";
-export { assignCourseToPatientMutationOptions } from "./useAssignCourseToPatient.ts";
-export { useAssignCourseToPatient } from "./useAssignCourseToPatient.ts";
-export { createAndAssignCustomCourseMutationKey } from "./useCreateAndAssignCustomCourse.ts";
-export { createAndAssignCustomCourse } from "./useCreateAndAssignCustomCourse.ts";
-export { createAndAssignCustomCourseMutationOptions } from "./useCreateAndAssignCustomCourse.ts";
-export { useCreateAndAssignCustomCourse } from "./useCreateAndAssignCustomCourse.ts";
-export { getCourseRequestsQueryKey } from "./useGetCourseRequests.ts";
-export { getCourseRequests } from "./useGetCourseRequests.ts";
-export { getCourseRequestsQueryOptions } from "./useGetCourseRequests.ts";
-export { useGetCourseRequests } from "./useGetCourseRequests.ts";
-export { getCourseRequestsSuspenseQueryKey } from "./useGetCourseRequestsSuspense.ts";
-export { getCourseRequestsSuspense } from "./useGetCourseRequestsSuspense.ts";
-export { getCourseRequestsSuspenseQueryOptions } from "./useGetCourseRequestsSuspense.ts";
-export { useGetCourseRequestsSuspense } from "./useGetCourseRequestsSuspense.ts";
-export { getMyAssignedCoursesQueryKey } from "./useGetMyAssignedCourses.ts";
-export { getMyAssignedCourses } from "./useGetMyAssignedCourses.ts";
-export { getMyAssignedCoursesQueryOptions } from "./useGetMyAssignedCourses.ts";
-export { useGetMyAssignedCourses } from "./useGetMyAssignedCourses.ts";
-export { getMyAssignedCoursesSuspenseQueryKey } from "./useGetMyAssignedCoursesSuspense.ts";
-export { getMyAssignedCoursesSuspense } from "./useGetMyAssignedCoursesSuspense.ts";
-export { getMyAssignedCoursesSuspenseQueryOptions } from "./useGetMyAssignedCoursesSuspense.ts";
-export { useGetMyAssignedCoursesSuspense } from "./useGetMyAssignedCoursesSuspense.ts";
-export { getMyPatientsQueryKey } from "./useGetMyPatients.ts";
-export { getMyPatients } from "./useGetMyPatients.ts";
-export { getMyPatientsQueryOptions } from "./useGetMyPatients.ts";
-export { useGetMyPatients } from "./useGetMyPatients.ts";
-export { getMyPatientsSuspenseQueryKey } from "./useGetMyPatientsSuspense.ts";
-export { getMyPatientsSuspense } from "./useGetMyPatientsSuspense.ts";
-export { getMyPatientsSuspenseQueryOptions } from "./useGetMyPatientsSuspense.ts";
-export { useGetMyPatientsSuspense } from "./useGetMyPatientsSuspense.ts";
-export { getMyTrainersQueryKey } from "./useGetMyTrainers.ts";
-export { getMyTrainers } from "./useGetMyTrainers.ts";
-export { getMyTrainersQueryOptions } from "./useGetMyTrainers.ts";
-export { useGetMyTrainers } from "./useGetMyTrainers.ts";
-export { getMyTrainersSuspenseQueryKey } from "./useGetMyTrainersSuspense.ts";
-export { getMyTrainersSuspense } from "./useGetMyTrainersSuspense.ts";
-export { getMyTrainersSuspenseQueryOptions } from "./useGetMyTrainersSuspense.ts";
-export { useGetMyTrainersSuspense } from "./useGetMyTrainersSuspense.ts";
-export { getPatientCoursesQueryKey } from "./useGetPatientCourses.ts";
-export { getPatientCourses } from "./useGetPatientCourses.ts";
-export { getPatientCoursesQueryOptions } from "./useGetPatientCourses.ts";
-export { useGetPatientCourses } from "./useGetPatientCourses.ts";
-export { getPatientCoursesSuspenseQueryKey } from "./useGetPatientCoursesSuspense.ts";
-export { getPatientCoursesSuspense } from "./useGetPatientCoursesSuspense.ts";
-export { getPatientCoursesSuspenseQueryOptions } from "./useGetPatientCoursesSuspense.ts";
-export { useGetPatientCoursesSuspense } from "./useGetPatientCoursesSuspense.ts";
-export { rejectCourseRequestMutationKey } from "./useRejectCourseRequest.ts";
-export { rejectCourseRequest } from "./useRejectCourseRequest.ts";
-export { rejectCourseRequestMutationOptions } from "./useRejectCourseRequest.ts";
-export { useRejectCourseRequest } from "./useRejectCourseRequest.ts";
-export { revokeCourseAssignmentMutationKey } from "./useRevokeCourseAssignment.ts";
-export { revokeCourseAssignment } from "./useRevokeCourseAssignment.ts";
-export { revokeCourseAssignmentMutationOptions } from "./useRevokeCourseAssignment.ts";
-export { useRevokeCourseAssignment } from "./useRevokeCourseAssignment.ts";
+export type { ApproveCourseRequestMutationKey } from './useApproveCourseRequest.ts'
+export type { AssignCourseToPatientMutationKey } from './useAssignCourseToPatient.ts'
+export type { CreateAndAssignCustomCourseMutationKey } from './useCreateAndAssignCustomCourse.ts'
+export type { GetCourseRequestsQueryKey } from './useGetCourseRequests.ts'
+export type { GetCourseRequestsSuspenseQueryKey } from './useGetCourseRequestsSuspense.ts'
+export type { GetMyAssignedCoursesQueryKey } from './useGetMyAssignedCourses.ts'
+export type { GetMyAssignedCoursesSuspenseQueryKey } from './useGetMyAssignedCoursesSuspense.ts'
+export type { GetMyPatientsQueryKey } from './useGetMyPatients.ts'
+export type { GetMyPatientsSuspenseQueryKey } from './useGetMyPatientsSuspense.ts'
+export type { GetMyTrainersQueryKey } from './useGetMyTrainers.ts'
+export type { GetMyTrainersSuspenseQueryKey } from './useGetMyTrainersSuspense.ts'
+export type { GetPatientCoursesQueryKey } from './useGetPatientCourses.ts'
+export type { GetPatientCoursesSuspenseQueryKey } from './useGetPatientCoursesSuspense.ts'
+export type { RejectCourseRequestMutationKey } from './useRejectCourseRequest.ts'
+export type { RevokeCourseAssignmentMutationKey } from './useRevokeCourseAssignment.ts'
+export type { SearchMyPatientsQueryKey } from './useSearchMyPatients.ts'
+export type { SearchMyPatientsSuspenseQueryKey } from './useSearchMyPatientsSuspense.ts'
+export { approveCourseRequestMutationKey } from './useApproveCourseRequest.ts'
+export { approveCourseRequest } from './useApproveCourseRequest.ts'
+export { approveCourseRequestMutationOptions } from './useApproveCourseRequest.ts'
+export { useApproveCourseRequest } from './useApproveCourseRequest.ts'
+export { assignCourseToPatientMutationKey } from './useAssignCourseToPatient.ts'
+export { assignCourseToPatient } from './useAssignCourseToPatient.ts'
+export { assignCourseToPatientMutationOptions } from './useAssignCourseToPatient.ts'
+export { useAssignCourseToPatient } from './useAssignCourseToPatient.ts'
+export { createAndAssignCustomCourseMutationKey } from './useCreateAndAssignCustomCourse.ts'
+export { createAndAssignCustomCourse } from './useCreateAndAssignCustomCourse.ts'
+export { createAndAssignCustomCourseMutationOptions } from './useCreateAndAssignCustomCourse.ts'
+export { useCreateAndAssignCustomCourse } from './useCreateAndAssignCustomCourse.ts'
+export { getCourseRequestsQueryKey } from './useGetCourseRequests.ts'
+export { getCourseRequests } from './useGetCourseRequests.ts'
+export { getCourseRequestsQueryOptions } from './useGetCourseRequests.ts'
+export { useGetCourseRequests } from './useGetCourseRequests.ts'
+export { getCourseRequestsSuspenseQueryKey } from './useGetCourseRequestsSuspense.ts'
+export { getCourseRequestsSuspense } from './useGetCourseRequestsSuspense.ts'
+export { getCourseRequestsSuspenseQueryOptions } from './useGetCourseRequestsSuspense.ts'
+export { useGetCourseRequestsSuspense } from './useGetCourseRequestsSuspense.ts'
+export { getMyAssignedCoursesQueryKey } from './useGetMyAssignedCourses.ts'
+export { getMyAssignedCourses } from './useGetMyAssignedCourses.ts'
+export { getMyAssignedCoursesQueryOptions } from './useGetMyAssignedCourses.ts'
+export { useGetMyAssignedCourses } from './useGetMyAssignedCourses.ts'
+export { getMyAssignedCoursesSuspenseQueryKey } from './useGetMyAssignedCoursesSuspense.ts'
+export { getMyAssignedCoursesSuspense } from './useGetMyAssignedCoursesSuspense.ts'
+export { getMyAssignedCoursesSuspenseQueryOptions } from './useGetMyAssignedCoursesSuspense.ts'
+export { useGetMyAssignedCoursesSuspense } from './useGetMyAssignedCoursesSuspense.ts'
+export { getMyPatientsQueryKey } from './useGetMyPatients.ts'
+export { getMyPatients } from './useGetMyPatients.ts'
+export { getMyPatientsQueryOptions } from './useGetMyPatients.ts'
+export { useGetMyPatients } from './useGetMyPatients.ts'
+export { getMyPatientsSuspenseQueryKey } from './useGetMyPatientsSuspense.ts'
+export { getMyPatientsSuspense } from './useGetMyPatientsSuspense.ts'
+export { getMyPatientsSuspenseQueryOptions } from './useGetMyPatientsSuspense.ts'
+export { useGetMyPatientsSuspense } from './useGetMyPatientsSuspense.ts'
+export { getMyTrainersQueryKey } from './useGetMyTrainers.ts'
+export { getMyTrainers } from './useGetMyTrainers.ts'
+export { getMyTrainersQueryOptions } from './useGetMyTrainers.ts'
+export { useGetMyTrainers } from './useGetMyTrainers.ts'
+export { getMyTrainersSuspenseQueryKey } from './useGetMyTrainersSuspense.ts'
+export { getMyTrainersSuspense } from './useGetMyTrainersSuspense.ts'
+export { getMyTrainersSuspenseQueryOptions } from './useGetMyTrainersSuspense.ts'
+export { useGetMyTrainersSuspense } from './useGetMyTrainersSuspense.ts'
+export { getPatientCoursesQueryKey } from './useGetPatientCourses.ts'
+export { getPatientCourses } from './useGetPatientCourses.ts'
+export { getPatientCoursesQueryOptions } from './useGetPatientCourses.ts'
+export { useGetPatientCourses } from './useGetPatientCourses.ts'
+export { getPatientCoursesSuspenseQueryKey } from './useGetPatientCoursesSuspense.ts'
+export { getPatientCoursesSuspense } from './useGetPatientCoursesSuspense.ts'
+export { getPatientCoursesSuspenseQueryOptions } from './useGetPatientCoursesSuspense.ts'
+export { useGetPatientCoursesSuspense } from './useGetPatientCoursesSuspense.ts'
+export { rejectCourseRequestMutationKey } from './useRejectCourseRequest.ts'
+export { rejectCourseRequest } from './useRejectCourseRequest.ts'
+export { rejectCourseRequestMutationOptions } from './useRejectCourseRequest.ts'
+export { useRejectCourseRequest } from './useRejectCourseRequest.ts'
+export { revokeCourseAssignmentMutationKey } from './useRevokeCourseAssignment.ts'
+export { revokeCourseAssignment } from './useRevokeCourseAssignment.ts'
+export { revokeCourseAssignmentMutationOptions } from './useRevokeCourseAssignment.ts'
+export { useRevokeCourseAssignment } from './useRevokeCourseAssignment.ts'
+export { searchMyPatientsQueryKey } from './useSearchMyPatients.ts'
+export { searchMyPatients } from './useSearchMyPatients.ts'
+export { searchMyPatientsQueryOptions } from './useSearchMyPatients.ts'
+export { useSearchMyPatients } from './useSearchMyPatients.ts'
+export { searchMyPatientsSuspenseQueryKey } from './useSearchMyPatientsSuspense.ts'
+export { searchMyPatientsSuspense } from './useSearchMyPatientsSuspense.ts'
+export { searchMyPatientsSuspenseQueryOptions } from './useSearchMyPatientsSuspense.ts'
+export { useSearchMyPatientsSuspense } from './useSearchMyPatientsSuspense.ts'

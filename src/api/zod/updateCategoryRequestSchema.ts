@@ -3,16 +3,16 @@
  * Do not edit manually.
  */
 
-import { z } from "zod/v4";
+import { z } from 'zod/v4'
 
 export const updateCategoryRequestSchema = z.object({
   name: z.string(),
   description: z.optional(z.string()),
   type: z.enum([
-    "BODY_PART",
-    "HEALTH_CONDITION",
-    "EXERCISE_TYPE",
-    "EXERCISE_EQUIPMENTS",
-    "OTHERS",
+    'BODY_PART',
+    'HEALTH_CONDITION',
+    'EXERCISE_TYPE',
+    'EXERCISE_EQUIPMENTS',
+    'OTHERS',
   ]),
-});
+})

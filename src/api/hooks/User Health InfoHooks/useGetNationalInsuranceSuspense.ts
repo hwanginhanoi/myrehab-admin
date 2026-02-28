@@ -3,33 +3,33 @@
  * Do not edit manually.
  */
 
-import fetch from "@/lib/api-client";
+import fetch from '@/lib/api-client'
 import type {
   GetNationalInsuranceQueryResponse,
   GetNationalInsurancePathParams,
-} from "../../types/userHealthInfoController/GetNationalInsurance.ts";
-import type { RequestConfig, ResponseErrorConfig } from "@/lib/api-client";
+} from '../../types/userHealthInfoController/GetNationalInsurance.ts'
+import type { RequestConfig, ResponseErrorConfig } from '@/lib/api-client'
 import type {
   QueryKey,
   QueryClient,
   UseSuspenseQueryOptions,
   UseSuspenseQueryResult,
-} from "@tanstack/react-query";
-import { queryOptions, useSuspenseQuery } from "@tanstack/react-query";
+} from '@tanstack/react-query'
+import { queryOptions, useSuspenseQuery } from '@tanstack/react-query'
 
 export const getNationalInsuranceSuspenseQueryKey = (
-  userId: GetNationalInsurancePathParams["userId"],
+  userId: GetNationalInsurancePathParams['userId']
 ) =>
   [
     {
-      url: "/api/users/:userId/health-info/national-insurance",
+      url: '/api/users/:userId/health-info/national-insurance',
       params: { userId: userId },
     },
-  ] as const;
+  ] as const
 
 export type GetNationalInsuranceSuspenseQueryKey = ReturnType<
   typeof getNationalInsuranceSuspenseQueryKey
->;
+>
 
 /**
  * @description Admins can retrieve a user's national health insurance information
@@ -37,28 +37,28 @@ export type GetNationalInsuranceSuspenseQueryKey = ReturnType<
  * {@link /api/users/:userId/health-info/national-insurance}
  */
 export async function getNationalInsuranceSuspense(
-  userId: GetNationalInsurancePathParams["userId"],
-  config: Partial<RequestConfig> & { client?: typeof fetch } = {},
+  userId: GetNationalInsurancePathParams['userId'],
+  config: Partial<RequestConfig> & { client?: typeof fetch } = {}
 ) {
-  const { client: request = fetch, ...requestConfig } = config;
+  const { client: request = fetch, ...requestConfig } = config
 
   const res = await request<
     GetNationalInsuranceQueryResponse,
     ResponseErrorConfig<Error>,
     unknown
   >({
-    method: "GET",
+    method: 'GET',
     url: `/api/users/${userId}/health-info/national-insurance`,
     ...requestConfig,
-  });
-  return res.data;
+  })
+  return res.data
 }
 
 export function getNationalInsuranceSuspenseQueryOptions(
-  userId: GetNationalInsurancePathParams["userId"],
-  config: Partial<RequestConfig> & { client?: typeof fetch } = {},
+  userId: GetNationalInsurancePathParams['userId'],
+  config: Partial<RequestConfig> & { client?: typeof fetch } = {}
 ) {
-  const queryKey = getNationalInsuranceSuspenseQueryKey(userId);
+  const queryKey = getNationalInsuranceSuspenseQueryKey(userId)
   return queryOptions<
     GetNationalInsuranceQueryResponse,
     ResponseErrorConfig<Error>,
@@ -68,10 +68,10 @@ export function getNationalInsuranceSuspenseQueryOptions(
     enabled: !!userId,
     queryKey,
     queryFn: async ({ signal }) => {
-      config.signal = signal;
-      return getNationalInsuranceSuspense(userId, config);
+      config.signal = signal
+      return getNationalInsuranceSuspense(userId, config)
     },
-  });
+  })
 }
 
 /**
@@ -83,7 +83,7 @@ export function useGetNationalInsuranceSuspense<
   TData = GetNationalInsuranceQueryResponse,
   TQueryKey extends QueryKey = GetNationalInsuranceSuspenseQueryKey,
 >(
-  userId: GetNationalInsurancePathParams["userId"],
+  userId: GetNationalInsurancePathParams['userId'],
   options: {
     query?: Partial<
       UseSuspenseQueryOptions<
@@ -92,14 +92,14 @@ export function useGetNationalInsuranceSuspense<
         TData,
         TQueryKey
       >
-    > & { client?: QueryClient };
-    client?: Partial<RequestConfig> & { client?: typeof fetch };
-  } = {},
+    > & { client?: QueryClient }
+    client?: Partial<RequestConfig> & { client?: typeof fetch }
+  } = {}
 ) {
-  const { query: queryConfig = {}, client: config = {} } = options ?? {};
-  const { client: queryClient, ...queryOptions } = queryConfig;
+  const { query: queryConfig = {}, client: config = {} } = options ?? {}
+  const { client: queryClient, ...queryOptions } = queryConfig
   const queryKey =
-    queryOptions?.queryKey ?? getNationalInsuranceSuspenseQueryKey(userId);
+    queryOptions?.queryKey ?? getNationalInsuranceSuspenseQueryKey(userId)
 
   const query = useSuspenseQuery(
     {
@@ -107,12 +107,12 @@ export function useGetNationalInsuranceSuspense<
       queryKey,
       ...queryOptions,
     } as unknown as UseSuspenseQueryOptions,
-    queryClient,
+    queryClient
   ) as UseSuspenseQueryResult<TData, ResponseErrorConfig<Error>> & {
-    queryKey: TQueryKey;
-  };
+    queryKey: TQueryKey
+  }
 
-  query.queryKey = queryKey as TQueryKey;
+  query.queryKey = queryKey as TQueryKey
 
-  return query;
+  return query
 }

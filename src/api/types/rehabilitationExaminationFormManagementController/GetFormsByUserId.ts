@@ -3,33 +3,33 @@
  * Do not edit manually.
  */
 
-import type { Pageable } from "../Pageable.ts";
-import type { PagedModel } from "../PagedModel.ts";
+import type { Pageable } from '../Pageable.ts'
+import type { PagedModel } from '../PagedModel.ts'
 
 export type GetFormsByUserIdPathParams = {
   /**
    * @type integer, int64
    */
-  userId: number;
-};
+  userId: number
+}
 
 export type GetFormsByUserIdQueryParams = {
   /**
    * @type object
    */
-  pageable: Pageable;
-};
+  pageable: Pageable
+}
 
 /**
  * @description OK
  */
-export type GetFormsByUserId200 = PagedModel;
+export type GetFormsByUserId200 = PagedModel
 
-export type GetFormsByUserIdQueryResponse = GetFormsByUserId200;
+export type GetFormsByUserIdQueryResponse = GetFormsByUserId200
 
 export type GetFormsByUserIdQuery = {
-  Response: GetFormsByUserId200;
-  PathParams: GetFormsByUserIdPathParams;
-  QueryParams: GetFormsByUserIdQueryParams;
-  Errors: any;
-};
+  Response: GetFormsByUserId200
+  PathParams: GetFormsByUserIdPathParams
+  QueryParams: GetFormsByUserIdQueryParams
+  Errors: any
+}

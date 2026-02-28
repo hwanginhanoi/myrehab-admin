@@ -3,7 +3,7 @@
  * Do not edit manually.
  */
 
-import { z } from "zod/v4";
+import { z } from 'zod/v4'
 
 export const nonCompulsoryHealthInsuranceResponseSchema = z.object({
   id: z.optional(z.int()),
@@ -13,4 +13,4 @@ export const nonCompulsoryHealthInsuranceResponseSchema = z.object({
   expiryDate: z.optional(z.iso.date()),
   createdAt: z.optional(z.string().datetime()),
   updatedAt: z.optional(z.string().datetime()),
-});
+})

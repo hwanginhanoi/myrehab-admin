@@ -4,17 +4,17 @@ export type {
   AssignPatientToDoctorMutationRequest,
   AssignPatientToDoctorMutationResponse,
   AssignPatientToDoctorMutation,
-} from "./AssignPatientToDoctor.ts";
+} from './AssignPatientToDoctor.ts'
 export type {
   GetDoctorPatientsPathParams,
   GetDoctorPatientsQueryParams,
   GetDoctorPatients200,
   GetDoctorPatientsQueryResponse,
   GetDoctorPatientsQuery,
-} from "./GetDoctorPatients.ts";
+} from './GetDoctorPatients.ts'
 export type {
   RemovePatientFromDoctorPathParams,
   RemovePatientFromDoctor200,
   RemovePatientFromDoctorMutationResponse,
   RemovePatientFromDoctorMutation,
-} from "./RemovePatientFromDoctor.ts";
+} from './RemovePatientFromDoctor.ts'

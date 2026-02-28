@@ -3,18 +3,18 @@
  * Do not edit manually.
  */
 
-import { videoTokenResponseSchema } from "../videoTokenResponseSchema.ts";
-import { z } from "zod/v4";
+import { videoTokenResponseSchema } from '../videoTokenResponseSchema.ts'
+import { z } from 'zod/v4'
 
 export const getVideoTokenPathParamsSchema = z.object({
   id: z.coerce.number().int(),
-});
+})
 
 /**
  * @description OK
  */
-export const getVideoToken200Schema = z.lazy(() => videoTokenResponseSchema);
+export const getVideoToken200Schema = z.lazy(() => videoTokenResponseSchema)
 
 export const getVideoTokenQueryResponseSchema = z.lazy(
-  () => getVideoToken200Schema,
-);
+  () => getVideoToken200Schema
+)

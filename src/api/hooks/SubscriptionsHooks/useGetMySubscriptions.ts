@@ -3,23 +3,23 @@
  * Do not edit manually.
  */
 
-import fetch from "@/lib/api-client";
-import type { GetMySubscriptionsQueryResponse } from "../../types/subscriptionsController/GetMySubscriptions.ts";
-import type { RequestConfig, ResponseErrorConfig } from "@/lib/api-client";
+import fetch from '@/lib/api-client'
+import type { GetMySubscriptionsQueryResponse } from '../../types/subscriptionsController/GetMySubscriptions.ts'
+import type { RequestConfig, ResponseErrorConfig } from '@/lib/api-client'
 import type {
   QueryKey,
   QueryClient,
   QueryObserverOptions,
   UseQueryResult,
-} from "@tanstack/react-query";
-import { queryOptions, useQuery } from "@tanstack/react-query";
+} from '@tanstack/react-query'
+import { queryOptions, useQuery } from '@tanstack/react-query'
 
 export const getMySubscriptionsQueryKey = () =>
-  [{ url: "/api/subscriptions/my-subscriptions" }] as const;
+  [{ url: '/api/subscriptions/my-subscriptions' }] as const
 
 export type GetMySubscriptionsQueryKey = ReturnType<
   typeof getMySubscriptionsQueryKey
->;
+>
 
 /**
  * @description Retrieve all active subscriptions for the authenticated user
@@ -27,26 +27,26 @@ export type GetMySubscriptionsQueryKey = ReturnType<
  * {@link /api/subscriptions/my-subscriptions}
  */
 export async function getMySubscriptions(
-  config: Partial<RequestConfig> & { client?: typeof fetch } = {},
+  config: Partial<RequestConfig> & { client?: typeof fetch } = {}
 ) {
-  const { client: request = fetch, ...requestConfig } = config;
+  const { client: request = fetch, ...requestConfig } = config
 
   const res = await request<
     GetMySubscriptionsQueryResponse,
     ResponseErrorConfig<Error>,
     unknown
   >({
-    method: "GET",
+    method: 'GET',
     url: `/api/subscriptions/my-subscriptions`,
     ...requestConfig,
-  });
-  return res.data;
+  })
+  return res.data
 }
 
 export function getMySubscriptionsQueryOptions(
-  config: Partial<RequestConfig> & { client?: typeof fetch } = {},
+  config: Partial<RequestConfig> & { client?: typeof fetch } = {}
 ) {
-  const queryKey = getMySubscriptionsQueryKey();
+  const queryKey = getMySubscriptionsQueryKey()
   return queryOptions<
     GetMySubscriptionsQueryResponse,
     ResponseErrorConfig<Error>,
@@ -55,10 +55,10 @@ export function getMySubscriptionsQueryOptions(
   >({
     queryKey,
     queryFn: async ({ signal }) => {
-      config.signal = signal;
-      return getMySubscriptions(config);
+      config.signal = signal
+      return getMySubscriptions(config)
     },
-  });
+  })
 }
 
 /**
@@ -80,13 +80,13 @@ export function useGetMySubscriptions<
         TQueryData,
         TQueryKey
       >
-    > & { client?: QueryClient };
-    client?: Partial<RequestConfig> & { client?: typeof fetch };
-  } = {},
+    > & { client?: QueryClient }
+    client?: Partial<RequestConfig> & { client?: typeof fetch }
+  } = {}
 ) {
-  const { query: queryConfig = {}, client: config = {} } = options ?? {};
-  const { client: queryClient, ...queryOptions } = queryConfig;
-  const queryKey = queryOptions?.queryKey ?? getMySubscriptionsQueryKey();
+  const { query: queryConfig = {}, client: config = {} } = options ?? {}
+  const { client: queryClient, ...queryOptions } = queryConfig
+  const queryKey = queryOptions?.queryKey ?? getMySubscriptionsQueryKey()
 
   const query = useQuery(
     {
@@ -94,12 +94,12 @@ export function useGetMySubscriptions<
       queryKey,
       ...queryOptions,
     } as unknown as QueryObserverOptions,
-    queryClient,
+    queryClient
   ) as UseQueryResult<TData, ResponseErrorConfig<Error>> & {
-    queryKey: TQueryKey;
-  };
+    queryKey: TQueryKey
+  }
 
-  query.queryKey = queryKey as TQueryKey;
+  query.queryKey = queryKey as TQueryKey
 
-  return query;
+  return query
 }

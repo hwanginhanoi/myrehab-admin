@@ -3,18 +3,18 @@
  * Do not edit manually.
  */
 
-import { z } from "zod/v4";
+import { z } from 'zod/v4'
 
 export const assignExerciseGroupToDoctorPathParamsSchema = z.object({
-  doctorId: z.coerce.number().int().describe("Doctor ID"),
-  groupId: z.coerce.number().int().describe("Exercise Group ID"),
-});
+  doctorId: z.coerce.number().int().describe('Doctor ID'),
+  groupId: z.coerce.number().int().describe('Exercise Group ID'),
+})
 
 /**
  * @description OK
  */
-export const assignExerciseGroupToDoctor200Schema = z.any();
+export const assignExerciseGroupToDoctor200Schema = z.any()
 
 export const assignExerciseGroupToDoctorMutationResponseSchema = z.lazy(
-  () => assignExerciseGroupToDoctor200Schema,
-);
+  () => assignExerciseGroupToDoctor200Schema
+)

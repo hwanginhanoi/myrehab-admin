@@ -3,14 +3,14 @@
  * Do not edit manually.
  */
 
-import { localTimeSchema } from "./localTimeSchema.ts";
-import { z } from "zod/v4";
+import { localTimeSchema } from './localTimeSchema.ts'
+import { z } from 'zod/v4'
 
 export const createAppointmentRequestSchema = z.object({
   appointmentDate: z.iso.date(),
   get startTime() {
-    return localTimeSchema;
+    return localTimeSchema
   },
   doctorId: z.optional(z.int()),
   patientNotes: z.optional(z.string()),
-});
+})

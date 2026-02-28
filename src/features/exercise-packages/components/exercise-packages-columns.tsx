@@ -9,10 +9,12 @@ export const exercisePackagesColumns: ColumnDef<ExercisePackageResponse>[] = [
   {
     accessorKey: 'title',
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title='Tên gói bài tập' />
+      <DataTableColumnHeader column={column} title="Tên gói bài tập" />
     ),
     cell: ({ row }) => (
-      <LongText className='max-w-48 ps-3 font-medium'>{row.getValue('title')}</LongText>
+      <LongText className="max-w-48 ps-3 font-medium">
+        {row.getValue('title')}
+      </LongText>
     ),
     meta: {
       className: cn(
@@ -25,21 +27,21 @@ export const exercisePackagesColumns: ColumnDef<ExercisePackageResponse>[] = [
   {
     accessorKey: 'description',
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title='Mô tả' />
+      <DataTableColumnHeader column={column} title="Mô tả" />
     ),
     cell: ({ row }) => (
-      <LongText className='max-w-96'>{row.getValue('description') || '-'}</LongText>
+      <LongText className="max-w-96">
+        {row.getValue('description') || '-'}
+      </LongText>
     ),
     enableSorting: false,
   },
   {
     id: 'exerciseCount',
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title='Số bài tập' />
+      <DataTableColumnHeader column={column} title="Số bài tập" />
     ),
-    cell: ({ row }) => (
-      <div>{row.original.exerciseCount || 0}</div>
-    ),
+    cell: ({ row }) => <div>{row.original.exerciseCount || 0}</div>,
     enableSorting: false,
   },
   {

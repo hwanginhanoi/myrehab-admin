@@ -3,28 +3,28 @@
  * Do not edit manually.
  */
 
-import fetch from "@/lib/api-client";
+import fetch from '@/lib/api-client'
 import type {
   GetFormByIdQueryResponse,
   GetFormByIdPathParams,
-} from "../../types/rehabilitationExaminationFormManagementController/GetFormById.ts";
-import type { RequestConfig, ResponseErrorConfig } from "@/lib/api-client";
+} from '../../types/rehabilitationExaminationFormManagementController/GetFormById.ts'
+import type { RequestConfig, ResponseErrorConfig } from '@/lib/api-client'
 import type {
   QueryKey,
   QueryClient,
   UseSuspenseQueryOptions,
   UseSuspenseQueryResult,
-} from "@tanstack/react-query";
-import { queryOptions, useSuspenseQuery } from "@tanstack/react-query";
+} from '@tanstack/react-query'
+import { queryOptions, useSuspenseQuery } from '@tanstack/react-query'
 
-export const getFormByIdSuspenseQueryKey = (id: GetFormByIdPathParams["id"]) =>
+export const getFormByIdSuspenseQueryKey = (id: GetFormByIdPathParams['id']) =>
   [
-    { url: "/api/rehabilitation-examination-forms/:id", params: { id: id } },
-  ] as const;
+    { url: '/api/rehabilitation-examination-forms/:id', params: { id: id } },
+  ] as const
 
 export type GetFormByIdSuspenseQueryKey = ReturnType<
   typeof getFormByIdSuspenseQueryKey
->;
+>
 
 /**
  * @description Retrieve a specific rehabilitation examination form by its ID. Patients can only view their own forms. Admins and Doctors can view any form.
@@ -32,28 +32,28 @@ export type GetFormByIdSuspenseQueryKey = ReturnType<
  * {@link /api/rehabilitation-examination-forms/:id}
  */
 export async function getFormByIdSuspense(
-  id: GetFormByIdPathParams["id"],
-  config: Partial<RequestConfig> & { client?: typeof fetch } = {},
+  id: GetFormByIdPathParams['id'],
+  config: Partial<RequestConfig> & { client?: typeof fetch } = {}
 ) {
-  const { client: request = fetch, ...requestConfig } = config;
+  const { client: request = fetch, ...requestConfig } = config
 
   const res = await request<
     GetFormByIdQueryResponse,
     ResponseErrorConfig<Error>,
     unknown
   >({
-    method: "GET",
+    method: 'GET',
     url: `/api/rehabilitation-examination-forms/${id}`,
     ...requestConfig,
-  });
-  return res.data;
+  })
+  return res.data
 }
 
 export function getFormByIdSuspenseQueryOptions(
-  id: GetFormByIdPathParams["id"],
-  config: Partial<RequestConfig> & { client?: typeof fetch } = {},
+  id: GetFormByIdPathParams['id'],
+  config: Partial<RequestConfig> & { client?: typeof fetch } = {}
 ) {
-  const queryKey = getFormByIdSuspenseQueryKey(id);
+  const queryKey = getFormByIdSuspenseQueryKey(id)
   return queryOptions<
     GetFormByIdQueryResponse,
     ResponseErrorConfig<Error>,
@@ -63,10 +63,10 @@ export function getFormByIdSuspenseQueryOptions(
     enabled: !!id,
     queryKey,
     queryFn: async ({ signal }) => {
-      config.signal = signal;
-      return getFormByIdSuspense(id, config);
+      config.signal = signal
+      return getFormByIdSuspense(id, config)
     },
-  });
+  })
 }
 
 /**
@@ -78,7 +78,7 @@ export function useGetFormByIdSuspense<
   TData = GetFormByIdQueryResponse,
   TQueryKey extends QueryKey = GetFormByIdSuspenseQueryKey,
 >(
-  id: GetFormByIdPathParams["id"],
+  id: GetFormByIdPathParams['id'],
   options: {
     query?: Partial<
       UseSuspenseQueryOptions<
@@ -87,13 +87,13 @@ export function useGetFormByIdSuspense<
         TData,
         TQueryKey
       >
-    > & { client?: QueryClient };
-    client?: Partial<RequestConfig> & { client?: typeof fetch };
-  } = {},
+    > & { client?: QueryClient }
+    client?: Partial<RequestConfig> & { client?: typeof fetch }
+  } = {}
 ) {
-  const { query: queryConfig = {}, client: config = {} } = options ?? {};
-  const { client: queryClient, ...queryOptions } = queryConfig;
-  const queryKey = queryOptions?.queryKey ?? getFormByIdSuspenseQueryKey(id);
+  const { query: queryConfig = {}, client: config = {} } = options ?? {}
+  const { client: queryClient, ...queryOptions } = queryConfig
+  const queryKey = queryOptions?.queryKey ?? getFormByIdSuspenseQueryKey(id)
 
   const query = useSuspenseQuery(
     {
@@ -101,12 +101,12 @@ export function useGetFormByIdSuspense<
       queryKey,
       ...queryOptions,
     } as unknown as UseSuspenseQueryOptions,
-    queryClient,
+    queryClient
   ) as UseSuspenseQueryResult<TData, ResponseErrorConfig<Error>> & {
-    queryKey: TQueryKey;
-  };
+    queryKey: TQueryKey
+  }
 
-  query.queryKey = queryKey as TQueryKey;
+  query.queryKey = queryKey as TQueryKey
 
-  return query;
+  return query
 }

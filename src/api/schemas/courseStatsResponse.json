@@ -1,0 +1,14 @@
+{
+  "type": "object",
+  "properties": {
+    "courseId": { "type": "integer", "format": "int64" },
+    "courseTitle": { "type": "string" },
+    "totalAssigned": { "type": "integer", "format": "int64" },
+    "started": { "type": "integer", "format": "int64" },
+    "inProgress": { "type": "integer", "format": "int64" },
+    "completed": { "type": "integer", "format": "int64" },
+    "dropped": { "type": "integer", "format": "int64" },
+    "completionRate": { "type": "number", "format": "double" }
+  },
+  "x-readme-ref-name": "CourseStatsResponse"
+}

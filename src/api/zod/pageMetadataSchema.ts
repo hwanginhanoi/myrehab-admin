@@ -3,11 +3,11 @@
  * Do not edit manually.
  */
 
-import { z } from "zod/v4";
+import { z } from 'zod/v4'
 
 export const pageMetadataSchema = z.object({
   size: z.optional(z.int()),
   number: z.optional(z.int()),
   totalElements: z.optional(z.int()),
   totalPages: z.optional(z.int()),
-});
+})

@@ -3,20 +3,20 @@
  * Do not edit manually.
  */
 
-import type { LoginWithPasswordRequest } from "../LoginWithPasswordRequest.ts";
-import type { StaffAuthResponse } from "../StaffAuthResponse.ts";
+import type { LoginWithPasswordRequest } from '../LoginWithPasswordRequest.ts'
+import type { StaffAuthResponse } from '../StaffAuthResponse.ts'
 
 /**
  * @description OK
  */
-export type LoginWithPassword200 = StaffAuthResponse;
+export type LoginWithPassword200 = StaffAuthResponse
 
-export type LoginWithPasswordMutationRequest = LoginWithPasswordRequest;
+export type LoginWithPasswordMutationRequest = LoginWithPasswordRequest
 
-export type LoginWithPasswordMutationResponse = LoginWithPassword200;
+export type LoginWithPasswordMutationResponse = LoginWithPassword200
 
 export type LoginWithPasswordMutation = {
-  Response: LoginWithPassword200;
-  Request: LoginWithPasswordMutationRequest;
-  Errors: any;
-};
+  Response: LoginWithPassword200
+  Request: LoginWithPasswordMutationRequest
+  Errors: any
+}

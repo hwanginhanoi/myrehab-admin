@@ -3,29 +3,29 @@
  * Do not edit manually.
  */
 
-import type { Pageable } from "../Pageable.ts";
-import type { PagedModel } from "../PagedModel.ts";
+import type { Pageable } from '../Pageable.ts'
+import type { PagedModel } from '../PagedModel.ts'
 
 export type GetAllFormsQueryParams = {
   /**
    * @type string | undefined
    */
-  patientName?: string;
+  patientName?: string
   /**
    * @type object
    */
-  pageable: Pageable;
-};
+  pageable: Pageable
+}
 
 /**
  * @description OK
  */
-export type GetAllForms200 = PagedModel;
+export type GetAllForms200 = PagedModel
 
-export type GetAllFormsQueryResponse = GetAllForms200;
+export type GetAllFormsQueryResponse = GetAllForms200
 
 export type GetAllFormsQuery = {
-  Response: GetAllForms200;
-  QueryParams: GetAllFormsQueryParams;
-  Errors: any;
-};
+  Response: GetAllForms200
+  QueryParams: GetAllFormsQueryParams
+  Errors: any
+}

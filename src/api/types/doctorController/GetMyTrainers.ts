@@ -3,30 +3,30 @@
  * Do not edit manually.
  */
 
-import type { Pageable } from "../Pageable.ts";
-import type { PagedModel } from "../PagedModel.ts";
+import type { Pageable } from '../Pageable.ts'
+import type { PagedModel } from '../PagedModel.ts'
 
 export type GetMyTrainersQueryParams = {
   /**
    * @description Search by fullName or email (case-insensitive)
    * @type string | undefined
    */
-  query?: string;
+  query?: string
   /**
    * @type object
    */
-  pageable: Pageable;
-};
+  pageable: Pageable
+}
 
 /**
  * @description OK
  */
-export type GetMyTrainers200 = PagedModel;
+export type GetMyTrainers200 = PagedModel
 
-export type GetMyTrainersQueryResponse = GetMyTrainers200;
+export type GetMyTrainersQueryResponse = GetMyTrainers200
 
 export type GetMyTrainersQuery = {
-  Response: GetMyTrainers200;
-  QueryParams: GetMyTrainersQueryParams;
-  Errors: any;
-};
+  Response: GetMyTrainers200
+  QueryParams: GetMyTrainersQueryParams
+  Errors: any
+}

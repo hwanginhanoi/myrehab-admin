@@ -3,24 +3,24 @@
  * Do not edit manually.
  */
 
-import fetch from "@/lib/api-client";
+import fetch from '@/lib/api-client'
 import type {
   GetMyTrainersQueryResponse,
   GetMyTrainersQueryParams,
-} from "../../types/doctorController/GetMyTrainers.ts";
-import type { RequestConfig, ResponseErrorConfig } from "@/lib/api-client";
+} from '../../types/doctorController/GetMyTrainers.ts'
+import type { RequestConfig, ResponseErrorConfig } from '@/lib/api-client'
 import type {
   QueryKey,
   QueryClient,
   QueryObserverOptions,
   UseQueryResult,
-} from "@tanstack/react-query";
-import { queryOptions, useQuery } from "@tanstack/react-query";
+} from '@tanstack/react-query'
+import { queryOptions, useQuery } from '@tanstack/react-query'
 
 export const getMyTrainersQueryKey = (params: GetMyTrainersQueryParams) =>
-  [{ url: "/api/doctors/my-trainers" }, ...(params ? [params] : [])] as const;
+  [{ url: '/api/doctors/my-trainers' }, ...(params ? [params] : [])] as const
 
-export type GetMyTrainersQueryKey = ReturnType<typeof getMyTrainersQueryKey>;
+export type GetMyTrainersQueryKey = ReturnType<typeof getMyTrainersQueryKey>
 
 /**
  * @description Get all trainers assigned to the authenticated doctor
@@ -29,28 +29,28 @@ export type GetMyTrainersQueryKey = ReturnType<typeof getMyTrainersQueryKey>;
  */
 export async function getMyTrainers(
   params: GetMyTrainersQueryParams,
-  config: Partial<RequestConfig> & { client?: typeof fetch } = {},
+  config: Partial<RequestConfig> & { client?: typeof fetch } = {}
 ) {
-  const { client: request = fetch, ...requestConfig } = config;
+  const { client: request = fetch, ...requestConfig } = config
 
   const res = await request<
     GetMyTrainersQueryResponse,
     ResponseErrorConfig<Error>,
     unknown
   >({
-    method: "GET",
+    method: 'GET',
     url: `/api/doctors/my-trainers`,
     params,
     ...requestConfig,
-  });
-  return res.data;
+  })
+  return res.data
 }
 
 export function getMyTrainersQueryOptions(
   params: GetMyTrainersQueryParams,
-  config: Partial<RequestConfig> & { client?: typeof fetch } = {},
+  config: Partial<RequestConfig> & { client?: typeof fetch } = {}
 ) {
-  const queryKey = getMyTrainersQueryKey(params);
+  const queryKey = getMyTrainersQueryKey(params)
   return queryOptions<
     GetMyTrainersQueryResponse,
     ResponseErrorConfig<Error>,
@@ -60,10 +60,10 @@ export function getMyTrainersQueryOptions(
     enabled: !!params,
     queryKey,
     queryFn: async ({ signal }) => {
-      config.signal = signal;
-      return getMyTrainers(params, config);
+      config.signal = signal
+      return getMyTrainers(params, config)
     },
-  });
+  })
 }
 
 /**
@@ -86,13 +86,13 @@ export function useGetMyTrainers<
         TQueryData,
         TQueryKey
       >
-    > & { client?: QueryClient };
-    client?: Partial<RequestConfig> & { client?: typeof fetch };
-  } = {},
+    > & { client?: QueryClient }
+    client?: Partial<RequestConfig> & { client?: typeof fetch }
+  } = {}
 ) {
-  const { query: queryConfig = {}, client: config = {} } = options ?? {};
-  const { client: queryClient, ...queryOptions } = queryConfig;
-  const queryKey = queryOptions?.queryKey ?? getMyTrainersQueryKey(params);
+  const { query: queryConfig = {}, client: config = {} } = options ?? {}
+  const { client: queryClient, ...queryOptions } = queryConfig
+  const queryKey = queryOptions?.queryKey ?? getMyTrainersQueryKey(params)
 
   const query = useQuery(
     {
@@ -100,12 +100,12 @@ export function useGetMyTrainers<
       queryKey,
       ...queryOptions,
     } as unknown as QueryObserverOptions,
-    queryClient,
+    queryClient
   ) as UseQueryResult<TData, ResponseErrorConfig<Error>> & {
-    queryKey: TQueryKey;
-  };
+    queryKey: TQueryKey
+  }
 
-  query.queryKey = queryKey as TQueryKey;
+  query.queryKey = queryKey as TQueryKey
 
-  return query;
+  return query
 }

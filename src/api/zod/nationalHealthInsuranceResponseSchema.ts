@@ -3,7 +3,7 @@
  * Do not edit manually.
  */
 
-import { z } from "zod/v4";
+import { z } from 'zod/v4'
 
 export const nationalHealthInsuranceResponseSchema = z.object({
   id: z.optional(z.int()),
@@ -12,4 +12,4 @@ export const nationalHealthInsuranceResponseSchema = z.object({
   placeOfRegistration: z.optional(z.string()),
   createdAt: z.optional(z.string().datetime()),
   updatedAt: z.optional(z.string().datetime()),
-});
+})

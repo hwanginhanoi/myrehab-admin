@@ -3,31 +3,31 @@
  * Do not edit manually.
  */
 
-import fetch from "@/lib/api-client";
+import fetch from '@/lib/api-client'
 import type {
   GetAvailableSlotsQueryResponse,
   GetAvailableSlotsQueryParams,
-} from "../../types/appointmentsController/GetAvailableSlots.ts";
-import type { RequestConfig, ResponseErrorConfig } from "@/lib/api-client";
+} from '../../types/appointmentsController/GetAvailableSlots.ts'
+import type { RequestConfig, ResponseErrorConfig } from '@/lib/api-client'
 import type {
   QueryKey,
   QueryClient,
   UseSuspenseQueryOptions,
   UseSuspenseQueryResult,
-} from "@tanstack/react-query";
-import { queryOptions, useSuspenseQuery } from "@tanstack/react-query";
+} from '@tanstack/react-query'
+import { queryOptions, useSuspenseQuery } from '@tanstack/react-query'
 
 export const getAvailableSlotsSuspenseQueryKey = (
-  params: GetAvailableSlotsQueryParams,
+  params: GetAvailableSlotsQueryParams
 ) =>
   [
-    { url: "/api/appointments/available-slots" },
+    { url: '/api/appointments/available-slots' },
     ...(params ? [params] : []),
-  ] as const;
+  ] as const
 
 export type GetAvailableSlotsSuspenseQueryKey = ReturnType<
   typeof getAvailableSlotsSuspenseQueryKey
->;
+>
 
 /**
  * @description Get available time slots for a given date, optionally filtered by doctor
@@ -36,28 +36,28 @@ export type GetAvailableSlotsSuspenseQueryKey = ReturnType<
  */
 export async function getAvailableSlotsSuspense(
   params: GetAvailableSlotsQueryParams,
-  config: Partial<RequestConfig> & { client?: typeof fetch } = {},
+  config: Partial<RequestConfig> & { client?: typeof fetch } = {}
 ) {
-  const { client: request = fetch, ...requestConfig } = config;
+  const { client: request = fetch, ...requestConfig } = config
 
   const res = await request<
     GetAvailableSlotsQueryResponse,
     ResponseErrorConfig<Error>,
     unknown
   >({
-    method: "GET",
+    method: 'GET',
     url: `/api/appointments/available-slots`,
     params,
     ...requestConfig,
-  });
-  return res.data;
+  })
+  return res.data
 }
 
 export function getAvailableSlotsSuspenseQueryOptions(
   params: GetAvailableSlotsQueryParams,
-  config: Partial<RequestConfig> & { client?: typeof fetch } = {},
+  config: Partial<RequestConfig> & { client?: typeof fetch } = {}
 ) {
-  const queryKey = getAvailableSlotsSuspenseQueryKey(params);
+  const queryKey = getAvailableSlotsSuspenseQueryKey(params)
   return queryOptions<
     GetAvailableSlotsQueryResponse,
     ResponseErrorConfig<Error>,
@@ -67,10 +67,10 @@ export function getAvailableSlotsSuspenseQueryOptions(
     enabled: !!params,
     queryKey,
     queryFn: async ({ signal }) => {
-      config.signal = signal;
-      return getAvailableSlotsSuspense(params, config);
+      config.signal = signal
+      return getAvailableSlotsSuspense(params, config)
     },
-  });
+  })
 }
 
 /**
@@ -91,14 +91,14 @@ export function useGetAvailableSlotsSuspense<
         TData,
         TQueryKey
       >
-    > & { client?: QueryClient };
-    client?: Partial<RequestConfig> & { client?: typeof fetch };
-  } = {},
+    > & { client?: QueryClient }
+    client?: Partial<RequestConfig> & { client?: typeof fetch }
+  } = {}
 ) {
-  const { query: queryConfig = {}, client: config = {} } = options ?? {};
-  const { client: queryClient, ...queryOptions } = queryConfig;
+  const { query: queryConfig = {}, client: config = {} } = options ?? {}
+  const { client: queryClient, ...queryOptions } = queryConfig
   const queryKey =
-    queryOptions?.queryKey ?? getAvailableSlotsSuspenseQueryKey(params);
+    queryOptions?.queryKey ?? getAvailableSlotsSuspenseQueryKey(params)
 
   const query = useSuspenseQuery(
     {
@@ -106,12 +106,12 @@ export function useGetAvailableSlotsSuspense<
       queryKey,
       ...queryOptions,
     } as unknown as UseSuspenseQueryOptions,
-    queryClient,
+    queryClient
   ) as UseSuspenseQueryResult<TData, ResponseErrorConfig<Error>> & {
-    queryKey: TQueryKey;
-  };
+    queryKey: TQueryKey
+  }
 
-  query.queryKey = queryKey as TQueryKey;
+  query.queryKey = queryKey as TQueryKey
 
-  return query;
+  return query
 }

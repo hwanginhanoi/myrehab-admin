@@ -3,36 +3,36 @@
  * Do not edit manually.
  */
 
-import fetch from "@/lib/api-client";
+import fetch from '@/lib/api-client'
 import type {
   GetDoctorPatientsQueryResponse,
   GetDoctorPatientsPathParams,
   GetDoctorPatientsQueryParams,
-} from "../../types/patientManagementController/GetDoctorPatients.ts";
-import type { RequestConfig, ResponseErrorConfig } from "@/lib/api-client";
+} from '../../types/patientManagementController/GetDoctorPatients.ts'
+import type { RequestConfig, ResponseErrorConfig } from '@/lib/api-client'
 import type {
   QueryKey,
   QueryClient,
   UseSuspenseQueryOptions,
   UseSuspenseQueryResult,
-} from "@tanstack/react-query";
-import { queryOptions, useSuspenseQuery } from "@tanstack/react-query";
+} from '@tanstack/react-query'
+import { queryOptions, useSuspenseQuery } from '@tanstack/react-query'
 
 export const getDoctorPatientsSuspenseQueryKey = (
-  doctorId: GetDoctorPatientsPathParams["doctorId"],
-  params: GetDoctorPatientsQueryParams,
+  doctorId: GetDoctorPatientsPathParams['doctorId'],
+  params: GetDoctorPatientsQueryParams
 ) =>
   [
     {
-      url: "/api/admin/doctors/:doctorId/patients",
+      url: '/api/admin/doctors/:doctorId/patients',
       params: { doctorId: doctorId },
     },
     ...(params ? [params] : []),
-  ] as const;
+  ] as const
 
 export type GetDoctorPatientsSuspenseQueryKey = ReturnType<
   typeof getDoctorPatientsSuspenseQueryKey
->;
+>
 
 /**
  * @description Get all patients assigned to a doctor
@@ -40,31 +40,31 @@ export type GetDoctorPatientsSuspenseQueryKey = ReturnType<
  * {@link /api/admin/doctors/:doctorId/patients}
  */
 export async function getDoctorPatientsSuspense(
-  doctorId: GetDoctorPatientsPathParams["doctorId"],
+  doctorId: GetDoctorPatientsPathParams['doctorId'],
   params: GetDoctorPatientsQueryParams,
-  config: Partial<RequestConfig> & { client?: typeof fetch } = {},
+  config: Partial<RequestConfig> & { client?: typeof fetch } = {}
 ) {
-  const { client: request = fetch, ...requestConfig } = config;
+  const { client: request = fetch, ...requestConfig } = config
 
   const res = await request<
     GetDoctorPatientsQueryResponse,
     ResponseErrorConfig<Error>,
     unknown
   >({
-    method: "GET",
+    method: 'GET',
     url: `/api/admin/doctors/${doctorId}/patients`,
     params,
     ...requestConfig,
-  });
-  return res.data;
+  })
+  return res.data
 }
 
 export function getDoctorPatientsSuspenseQueryOptions(
-  doctorId: GetDoctorPatientsPathParams["doctorId"],
+  doctorId: GetDoctorPatientsPathParams['doctorId'],
   params: GetDoctorPatientsQueryParams,
-  config: Partial<RequestConfig> & { client?: typeof fetch } = {},
+  config: Partial<RequestConfig> & { client?: typeof fetch } = {}
 ) {
-  const queryKey = getDoctorPatientsSuspenseQueryKey(doctorId, params);
+  const queryKey = getDoctorPatientsSuspenseQueryKey(doctorId, params)
   return queryOptions<
     GetDoctorPatientsQueryResponse,
     ResponseErrorConfig<Error>,
@@ -74,10 +74,10 @@ export function getDoctorPatientsSuspenseQueryOptions(
     enabled: !!(doctorId && params),
     queryKey,
     queryFn: async ({ signal }) => {
-      config.signal = signal;
-      return getDoctorPatientsSuspense(doctorId, params, config);
+      config.signal = signal
+      return getDoctorPatientsSuspense(doctorId, params, config)
     },
-  });
+  })
 }
 
 /**
@@ -89,7 +89,7 @@ export function useGetDoctorPatientsSuspense<
   TData = GetDoctorPatientsQueryResponse,
   TQueryKey extends QueryKey = GetDoctorPatientsSuspenseQueryKey,
 >(
-  doctorId: GetDoctorPatientsPathParams["doctorId"],
+  doctorId: GetDoctorPatientsPathParams['doctorId'],
   params: GetDoctorPatientsQueryParams,
   options: {
     query?: Partial<
@@ -99,15 +99,15 @@ export function useGetDoctorPatientsSuspense<
         TData,
         TQueryKey
       >
-    > & { client?: QueryClient };
-    client?: Partial<RequestConfig> & { client?: typeof fetch };
-  } = {},
+    > & { client?: QueryClient }
+    client?: Partial<RequestConfig> & { client?: typeof fetch }
+  } = {}
 ) {
-  const { query: queryConfig = {}, client: config = {} } = options ?? {};
-  const { client: queryClient, ...queryOptions } = queryConfig;
+  const { query: queryConfig = {}, client: config = {} } = options ?? {}
+  const { client: queryClient, ...queryOptions } = queryConfig
   const queryKey =
     queryOptions?.queryKey ??
-    getDoctorPatientsSuspenseQueryKey(doctorId, params);
+    getDoctorPatientsSuspenseQueryKey(doctorId, params)
 
   const query = useSuspenseQuery(
     {
@@ -115,12 +115,12 @@ export function useGetDoctorPatientsSuspense<
       queryKey,
       ...queryOptions,
     } as unknown as UseSuspenseQueryOptions,
-    queryClient,
+    queryClient
   ) as UseSuspenseQueryResult<TData, ResponseErrorConfig<Error>> & {
-    queryKey: TQueryKey;
-  };
+    queryKey: TQueryKey
+  }
 
-  query.queryKey = queryKey as TQueryKey;
+  query.queryKey = queryKey as TQueryKey
 
-  return query;
+  return query
 }

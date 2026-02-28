@@ -3,20 +3,20 @@
  * Do not edit manually.
  */
 
-import type { VerifyPinResetOtpRequest } from "../VerifyPinResetOtpRequest.ts";
-import type { VerifyRegistrationOtpResponse } from "../VerifyRegistrationOtpResponse.ts";
+import type { VerifyPinResetOtpRequest } from '../VerifyPinResetOtpRequest.ts'
+import type { VerifyRegistrationOtpResponse } from '../VerifyRegistrationOtpResponse.ts'
 
 /**
  * @description OK
  */
-export type VerifyPinResetOtp200 = VerifyRegistrationOtpResponse;
+export type VerifyPinResetOtp200 = VerifyRegistrationOtpResponse
 
-export type VerifyPinResetOtpMutationRequest = VerifyPinResetOtpRequest;
+export type VerifyPinResetOtpMutationRequest = VerifyPinResetOtpRequest
 
-export type VerifyPinResetOtpMutationResponse = VerifyPinResetOtp200;
+export type VerifyPinResetOtpMutationResponse = VerifyPinResetOtp200
 
 export type VerifyPinResetOtpMutation = {
-  Response: VerifyPinResetOtp200;
-  Request: VerifyPinResetOtpMutationRequest;
-  Errors: any;
-};
+  Response: VerifyPinResetOtp200
+  Request: VerifyPinResetOtpMutationRequest
+  Errors: any
+}

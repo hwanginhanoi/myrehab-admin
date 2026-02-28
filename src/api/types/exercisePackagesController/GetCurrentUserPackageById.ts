@@ -3,27 +3,27 @@
  * Do not edit manually.
  */
 
-import type { ExercisePackageWithSubscriptionResponse } from "../ExercisePackageWithSubscriptionResponse.ts";
+import type { ExercisePackageDetailWithSubscriptionResponse } from '../ExercisePackageDetailWithSubscriptionResponse.ts'
 
 export type GetCurrentUserPackageByIdPathParams = {
   /**
    * @description Exercise Package ID
    * @type integer, int64
    */
-  id: number;
-};
+  id: number
+}
 
 /**
  * @description OK
  */
 export type GetCurrentUserPackageById200 =
-  ExercisePackageWithSubscriptionResponse;
+  ExercisePackageDetailWithSubscriptionResponse
 
 export type GetCurrentUserPackageByIdQueryResponse =
-  GetCurrentUserPackageById200;
+  GetCurrentUserPackageById200
 
 export type GetCurrentUserPackageByIdQuery = {
-  Response: GetCurrentUserPackageById200;
-  PathParams: GetCurrentUserPackageByIdPathParams;
-  Errors: any;
-};
+  Response: GetCurrentUserPackageById200
+  PathParams: GetCurrentUserPackageByIdPathParams
+  Errors: any
+}

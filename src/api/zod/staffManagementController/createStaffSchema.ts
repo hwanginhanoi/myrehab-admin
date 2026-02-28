@@ -3,19 +3,19 @@
  * Do not edit manually.
  */
 
-import { createStaffRequestSchema } from "../createStaffRequestSchema.ts";
-import { staffResponseSchema } from "../staffResponseSchema.ts";
-import { z } from "zod/v4";
+import { createStaffRequestSchema } from '../createStaffRequestSchema.ts'
+import { staffResponseSchema } from '../staffResponseSchema.ts'
+import { z } from 'zod/v4'
 
 /**
  * @description OK
  */
-export const createStaff200Schema = z.lazy(() => staffResponseSchema);
+export const createStaff200Schema = z.lazy(() => staffResponseSchema)
 
 export const createStaffMutationRequestSchema = z
   .lazy(() => createStaffRequestSchema)
-  .describe("Create request for staff - contains only Staff entity fields");
+  .describe('Create request for staff - contains only Staff entity fields')
 
 export const createStaffMutationResponseSchema = z.lazy(
-  () => createStaff200Schema,
-);
+  () => createStaff200Schema
+)

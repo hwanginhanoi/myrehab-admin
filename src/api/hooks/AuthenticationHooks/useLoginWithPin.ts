@@ -3,25 +3,23 @@
  * Do not edit manually.
  */
 
-import fetch from "@/lib/api-client";
+import fetch from '@/lib/api-client'
 import type {
   LoginWithPinMutationRequest,
   LoginWithPinMutationResponse,
-} from "../../types/authenticationController/LoginWithPin.ts";
-import type { RequestConfig, ResponseErrorConfig } from "@/lib/api-client";
+} from '../../types/authenticationController/LoginWithPin.ts'
+import type { RequestConfig, ResponseErrorConfig } from '@/lib/api-client'
 import type {
   UseMutationOptions,
   UseMutationResult,
   QueryClient,
-} from "@tanstack/react-query";
-import { mutationOptions, useMutation } from "@tanstack/react-query";
+} from '@tanstack/react-query'
+import { mutationOptions, useMutation } from '@tanstack/react-query'
 
 export const loginWithPinMutationKey = () =>
-  [{ url: "/api/auth/user/login-with-pin" }] as const;
+  [{ url: '/api/auth/user/login-with-pin' }] as const
 
-export type LoginWithPinMutationKey = ReturnType<
-  typeof loginWithPinMutationKey
->;
+export type LoginWithPinMutationKey = ReturnType<typeof loginWithPinMutationKey>
 
 /**
  * @description Authenticate mobile user using phone number and 6-digit PIN
@@ -31,32 +29,32 @@ export type LoginWithPinMutationKey = ReturnType<
 export async function loginWithPin(
   data: LoginWithPinMutationRequest,
   config: Partial<RequestConfig<LoginWithPinMutationRequest>> & {
-    client?: typeof fetch;
-  } = {},
+    client?: typeof fetch
+  } = {}
 ) {
-  const { client: request = fetch, ...requestConfig } = config;
+  const { client: request = fetch, ...requestConfig } = config
 
-  const requestData = data;
+  const requestData = data
 
   const res = await request<
     LoginWithPinMutationResponse,
     ResponseErrorConfig<Error>,
     LoginWithPinMutationRequest
   >({
-    method: "POST",
+    method: 'POST',
     url: `/api/auth/user/login-with-pin`,
     data: requestData,
     ...requestConfig,
-  });
-  return res.data;
+  })
+  return res.data
 }
 
 export function loginWithPinMutationOptions(
   config: Partial<RequestConfig<LoginWithPinMutationRequest>> & {
-    client?: typeof fetch;
-  } = {},
+    client?: typeof fetch
+  } = {}
 ) {
-  const mutationKey = loginWithPinMutationKey();
+  const mutationKey = loginWithPinMutationKey()
   return mutationOptions<
     LoginWithPinMutationResponse,
     ResponseErrorConfig<Error>,
@@ -65,9 +63,9 @@ export function loginWithPinMutationOptions(
   >({
     mutationKey,
     mutationFn: async ({ data }) => {
-      return loginWithPin(data, config);
+      return loginWithPin(data, config)
     },
-  });
+  })
 }
 
 /**
@@ -82,22 +80,22 @@ export function useLoginWithPin<TContext>(
       ResponseErrorConfig<Error>,
       { data: LoginWithPinMutationRequest },
       TContext
-    > & { client?: QueryClient };
+    > & { client?: QueryClient }
     client?: Partial<RequestConfig<LoginWithPinMutationRequest>> & {
-      client?: typeof fetch;
-    };
-  } = {},
+      client?: typeof fetch
+    }
+  } = {}
 ) {
-  const { mutation = {}, client: config = {} } = options ?? {};
-  const { client: queryClient, ...mutationOptions } = mutation;
-  const mutationKey = mutationOptions.mutationKey ?? loginWithPinMutationKey();
+  const { mutation = {}, client: config = {} } = options ?? {}
+  const { client: queryClient, ...mutationOptions } = mutation
+  const mutationKey = mutationOptions.mutationKey ?? loginWithPinMutationKey()
 
   const baseOptions = loginWithPinMutationOptions(config) as UseMutationOptions<
     LoginWithPinMutationResponse,
     ResponseErrorConfig<Error>,
     { data: LoginWithPinMutationRequest },
     TContext
-  >;
+  >
 
   return useMutation<
     LoginWithPinMutationResponse,
@@ -110,11 +108,11 @@ export function useLoginWithPin<TContext>(
       mutationKey,
       ...mutationOptions,
     },
-    queryClient,
+    queryClient
   ) as UseMutationResult<
     LoginWithPinMutationResponse,
     ResponseErrorConfig<Error>,
     { data: LoginWithPinMutationRequest },
     TContext
-  >;
+  >
 }

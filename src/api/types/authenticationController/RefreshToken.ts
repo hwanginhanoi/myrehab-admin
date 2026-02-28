@@ -3,20 +3,20 @@
  * Do not edit manually.
  */
 
-import type { RefreshTokenRequest } from "../RefreshTokenRequest.ts";
-import type { UserAuthResponse } from "../UserAuthResponse.ts";
+import type { RefreshTokenRequest } from '../RefreshTokenRequest.ts'
+import type { UserAuthResponse } from '../UserAuthResponse.ts'
 
 /**
  * @description OK
  */
-export type RefreshToken200 = UserAuthResponse;
+export type RefreshToken200 = UserAuthResponse
 
-export type RefreshTokenMutationRequest = RefreshTokenRequest;
+export type RefreshTokenMutationRequest = RefreshTokenRequest
 
-export type RefreshTokenMutationResponse = RefreshToken200;
+export type RefreshTokenMutationResponse = RefreshToken200
 
 export type RefreshTokenMutation = {
-  Response: RefreshToken200;
-  Request: RefreshTokenMutationRequest;
-  Errors: any;
-};
+  Response: RefreshToken200
+  Request: RefreshTokenMutationRequest
+  Errors: any
+}

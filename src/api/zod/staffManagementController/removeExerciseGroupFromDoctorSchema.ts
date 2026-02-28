@@ -3,18 +3,18 @@
  * Do not edit manually.
  */
 
-import { z } from "zod/v4";
+import { z } from 'zod/v4'
 
 export const removeExerciseGroupFromDoctorPathParamsSchema = z.object({
-  doctorId: z.coerce.number().int().describe("Doctor ID"),
-  groupId: z.coerce.number().int().describe("Exercise Group ID"),
-});
+  doctorId: z.coerce.number().int().describe('Doctor ID'),
+  groupId: z.coerce.number().int().describe('Exercise Group ID'),
+})
 
 /**
  * @description OK
  */
-export const removeExerciseGroupFromDoctor200Schema = z.any();
+export const removeExerciseGroupFromDoctor200Schema = z.any()
 
 export const removeExerciseGroupFromDoctorMutationResponseSchema = z.lazy(
-  () => removeExerciseGroupFromDoctor200Schema,
-);
+  () => removeExerciseGroupFromDoctor200Schema
+)

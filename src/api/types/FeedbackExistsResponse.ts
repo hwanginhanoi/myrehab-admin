@@ -7,9 +7,9 @@ export type FeedbackExistsResponse = {
   /**
    * @type boolean | undefined
    */
-  exists?: boolean;
+  exists?: boolean
   /**
    * @type integer | undefined, int64
    */
-  feedbackId?: number;
-};
+  feedbackId?: number
+}

@@ -3,23 +3,23 @@
  * Do not edit manually.
  */
 
-import fetch from "@/lib/api-client";
-import type { GetMyBalanceQueryResponse } from "../../types/balanceController/GetMyBalance.ts";
-import type { RequestConfig, ResponseErrorConfig } from "@/lib/api-client";
+import fetch from '@/lib/api-client'
+import type { GetMyBalanceQueryResponse } from '../../types/balanceController/GetMyBalance.ts'
+import type { RequestConfig, ResponseErrorConfig } from '@/lib/api-client'
 import type {
   QueryKey,
   QueryClient,
   UseSuspenseQueryOptions,
   UseSuspenseQueryResult,
-} from "@tanstack/react-query";
-import { queryOptions, useSuspenseQuery } from "@tanstack/react-query";
+} from '@tanstack/react-query'
+import { queryOptions, useSuspenseQuery } from '@tanstack/react-query'
 
 export const getMyBalanceSuspenseQueryKey = () =>
-  [{ url: "/api/balance/my-balance" }] as const;
+  [{ url: '/api/balance/my-balance' }] as const
 
 export type GetMyBalanceSuspenseQueryKey = ReturnType<
   typeof getMyBalanceSuspenseQueryKey
->;
+>
 
 /**
  * @description Retrieve the current balance for the authenticated user
@@ -27,22 +27,22 @@ export type GetMyBalanceSuspenseQueryKey = ReturnType<
  * {@link /api/balance/my-balance}
  */
 export async function getMyBalanceSuspense(
-  config: Partial<RequestConfig> & { client?: typeof fetch } = {},
+  config: Partial<RequestConfig> & { client?: typeof fetch } = {}
 ) {
-  const { client: request = fetch, ...requestConfig } = config;
+  const { client: request = fetch, ...requestConfig } = config
 
   const res = await request<
     GetMyBalanceQueryResponse,
     ResponseErrorConfig<Error>,
     unknown
-  >({ method: "GET", url: `/api/balance/my-balance`, ...requestConfig });
-  return res.data;
+  >({ method: 'GET', url: `/api/balance/my-balance`, ...requestConfig })
+  return res.data
 }
 
 export function getMyBalanceSuspenseQueryOptions(
-  config: Partial<RequestConfig> & { client?: typeof fetch } = {},
+  config: Partial<RequestConfig> & { client?: typeof fetch } = {}
 ) {
-  const queryKey = getMyBalanceSuspenseQueryKey();
+  const queryKey = getMyBalanceSuspenseQueryKey()
   return queryOptions<
     GetMyBalanceQueryResponse,
     ResponseErrorConfig<Error>,
@@ -51,10 +51,10 @@ export function getMyBalanceSuspenseQueryOptions(
   >({
     queryKey,
     queryFn: async ({ signal }) => {
-      config.signal = signal;
-      return getMyBalanceSuspense(config);
+      config.signal = signal
+      return getMyBalanceSuspense(config)
     },
-  });
+  })
 }
 
 /**
@@ -74,13 +74,13 @@ export function useGetMyBalanceSuspense<
         TData,
         TQueryKey
       >
-    > & { client?: QueryClient };
-    client?: Partial<RequestConfig> & { client?: typeof fetch };
-  } = {},
+    > & { client?: QueryClient }
+    client?: Partial<RequestConfig> & { client?: typeof fetch }
+  } = {}
 ) {
-  const { query: queryConfig = {}, client: config = {} } = options ?? {};
-  const { client: queryClient, ...queryOptions } = queryConfig;
-  const queryKey = queryOptions?.queryKey ?? getMyBalanceSuspenseQueryKey();
+  const { query: queryConfig = {}, client: config = {} } = options ?? {}
+  const { client: queryClient, ...queryOptions } = queryConfig
+  const queryKey = queryOptions?.queryKey ?? getMyBalanceSuspenseQueryKey()
 
   const query = useSuspenseQuery(
     {
@@ -88,12 +88,12 @@ export function useGetMyBalanceSuspense<
       queryKey,
       ...queryOptions,
     } as unknown as UseSuspenseQueryOptions,
-    queryClient,
+    queryClient
   ) as UseSuspenseQueryResult<TData, ResponseErrorConfig<Error>> & {
-    queryKey: TQueryKey;
-  };
+    queryKey: TQueryKey
+  }
 
-  query.queryKey = queryKey as TQueryKey;
+  query.queryKey = queryKey as TQueryKey
 
-  return query;
+  return query
 }

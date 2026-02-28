@@ -3,7 +3,7 @@
  * Do not edit manually.
  */
 
-import { z } from "zod/v4";
+import { z } from 'zod/v4'
 
 export const registerRequestSchema = z.object({
   fullName: z.string(),
@@ -12,11 +12,11 @@ export const registerRequestSchema = z.object({
   verificationToken: z
     .string()
     .regex(
-      /^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$/,
+      /^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$/
     ),
   pin: z
     .string()
     .min(6)
     .max(6)
     .regex(/^\d{6}$/),
-});
+})

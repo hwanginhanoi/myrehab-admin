@@ -3,28 +3,28 @@
  * Do not edit manually.
  */
 
-import fetch from "@/lib/api-client";
+import fetch from '@/lib/api-client'
 import type {
   GetAllTransactionHistoryQueryResponse,
   GetAllTransactionHistoryQueryParams,
-} from "../../types/transactionsController/GetAllTransactionHistory.ts";
-import type { RequestConfig, ResponseErrorConfig } from "@/lib/api-client";
+} from '../../types/transactionsController/GetAllTransactionHistory.ts'
+import type { RequestConfig, ResponseErrorConfig } from '@/lib/api-client'
 import type {
   QueryKey,
   QueryClient,
   QueryObserverOptions,
   UseQueryResult,
-} from "@tanstack/react-query";
-import { queryOptions, useQuery } from "@tanstack/react-query";
+} from '@tanstack/react-query'
+import { queryOptions, useQuery } from '@tanstack/react-query'
 
 export const getAllTransactionHistoryQueryKey = (
-  params: GetAllTransactionHistoryQueryParams,
+  params: GetAllTransactionHistoryQueryParams
 ) =>
-  [{ url: "/api/transactions/history" }, ...(params ? [params] : [])] as const;
+  [{ url: '/api/transactions/history' }, ...(params ? [params] : [])] as const
 
 export type GetAllTransactionHistoryQueryKey = ReturnType<
   typeof getAllTransactionHistoryQueryKey
->;
+>
 
 /**
  * @description Retrieve paginated transaction history across all users with optional filters. Search by user name or phone number (case-insensitive, partial match).
@@ -33,28 +33,28 @@ export type GetAllTransactionHistoryQueryKey = ReturnType<
  */
 export async function getAllTransactionHistory(
   params: GetAllTransactionHistoryQueryParams,
-  config: Partial<RequestConfig> & { client?: typeof fetch } = {},
+  config: Partial<RequestConfig> & { client?: typeof fetch } = {}
 ) {
-  const { client: request = fetch, ...requestConfig } = config;
+  const { client: request = fetch, ...requestConfig } = config
 
   const res = await request<
     GetAllTransactionHistoryQueryResponse,
     ResponseErrorConfig<Error>,
     unknown
   >({
-    method: "GET",
+    method: 'GET',
     url: `/api/transactions/history`,
     params,
     ...requestConfig,
-  });
-  return res.data;
+  })
+  return res.data
 }
 
 export function getAllTransactionHistoryQueryOptions(
   params: GetAllTransactionHistoryQueryParams,
-  config: Partial<RequestConfig> & { client?: typeof fetch } = {},
+  config: Partial<RequestConfig> & { client?: typeof fetch } = {}
 ) {
-  const queryKey = getAllTransactionHistoryQueryKey(params);
+  const queryKey = getAllTransactionHistoryQueryKey(params)
   return queryOptions<
     GetAllTransactionHistoryQueryResponse,
     ResponseErrorConfig<Error>,
@@ -64,10 +64,10 @@ export function getAllTransactionHistoryQueryOptions(
     enabled: !!params,
     queryKey,
     queryFn: async ({ signal }) => {
-      config.signal = signal;
-      return getAllTransactionHistory(params, config);
+      config.signal = signal
+      return getAllTransactionHistory(params, config)
     },
-  });
+  })
 }
 
 /**
@@ -90,14 +90,14 @@ export function useGetAllTransactionHistory<
         TQueryData,
         TQueryKey
       >
-    > & { client?: QueryClient };
-    client?: Partial<RequestConfig> & { client?: typeof fetch };
-  } = {},
+    > & { client?: QueryClient }
+    client?: Partial<RequestConfig> & { client?: typeof fetch }
+  } = {}
 ) {
-  const { query: queryConfig = {}, client: config = {} } = options ?? {};
-  const { client: queryClient, ...queryOptions } = queryConfig;
+  const { query: queryConfig = {}, client: config = {} } = options ?? {}
+  const { client: queryClient, ...queryOptions } = queryConfig
   const queryKey =
-    queryOptions?.queryKey ?? getAllTransactionHistoryQueryKey(params);
+    queryOptions?.queryKey ?? getAllTransactionHistoryQueryKey(params)
 
   const query = useQuery(
     {
@@ -105,12 +105,12 @@ export function useGetAllTransactionHistory<
       queryKey,
       ...queryOptions,
     } as unknown as QueryObserverOptions,
-    queryClient,
+    queryClient
   ) as UseQueryResult<TData, ResponseErrorConfig<Error>> & {
-    queryKey: TQueryKey;
-  };
+    queryKey: TQueryKey
+  }
 
-  query.queryKey = queryKey as TQueryKey;
+  query.queryKey = queryKey as TQueryKey
 
-  return query;
+  return query
 }

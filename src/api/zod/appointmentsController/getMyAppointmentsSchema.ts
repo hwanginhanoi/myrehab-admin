@@ -3,21 +3,21 @@
  * Do not edit manually.
  */
 
-import { pageableSchema } from "../pageableSchema.ts";
-import { pagedModelSchema } from "../pagedModelSchema.ts";
-import { z } from "zod/v4";
+import { pageableSchema } from '../pageableSchema.ts'
+import { pagedModelSchema } from '../pagedModelSchema.ts'
+import { z } from 'zod/v4'
 
 export const getMyAppointmentsQueryParamsSchema = z.object({
   get pageable() {
-    return pageableSchema;
+    return pageableSchema
   },
-});
+})
 
 /**
  * @description OK
  */
-export const getMyAppointments200Schema = z.lazy(() => pagedModelSchema);
+export const getMyAppointments200Schema = z.lazy(() => pagedModelSchema)
 
 export const getMyAppointmentsQueryResponseSchema = z.lazy(
-  () => getMyAppointments200Schema,
-);
+  () => getMyAppointments200Schema
+)

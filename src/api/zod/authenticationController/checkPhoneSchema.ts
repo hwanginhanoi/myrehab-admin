@@ -3,19 +3,19 @@
  * Do not edit manually.
  */
 
-import { checkPhoneRequestSchema } from "../checkPhoneRequestSchema.ts";
-import { checkPhoneResponseSchema } from "../checkPhoneResponseSchema.ts";
-import { z } from "zod/v4";
+import { checkPhoneRequestSchema } from '../checkPhoneRequestSchema.ts'
+import { checkPhoneResponseSchema } from '../checkPhoneResponseSchema.ts'
+import { z } from 'zod/v4'
 
 /**
  * @description OK
  */
-export const checkPhone200Schema = z.lazy(() => checkPhoneResponseSchema);
+export const checkPhone200Schema = z.lazy(() => checkPhoneResponseSchema)
 
 export const checkPhoneMutationRequestSchema = z.lazy(
-  () => checkPhoneRequestSchema,
-);
+  () => checkPhoneRequestSchema
+)
 
 export const checkPhoneMutationResponseSchema = z.lazy(
-  () => checkPhone200Schema,
-);
+  () => checkPhone200Schema
+)

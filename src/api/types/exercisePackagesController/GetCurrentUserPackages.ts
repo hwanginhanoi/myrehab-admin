@@ -3,25 +3,25 @@
  * Do not edit manually.
  */
 
-import type { Pageable } from "../Pageable.ts";
-import type { PagedModel } from "../PagedModel.ts";
+import type { Pageable } from '../Pageable.ts'
+import type { PagedModel } from '../PagedModel.ts'
 
 export type GetCurrentUserPackagesQueryParams = {
   /**
    * @type object
    */
-  pageable: Pageable;
-};
+  pageable: Pageable
+}
 
 /**
  * @description OK
  */
-export type GetCurrentUserPackages200 = PagedModel;
+export type GetCurrentUserPackages200 = PagedModel
 
-export type GetCurrentUserPackagesQueryResponse = GetCurrentUserPackages200;
+export type GetCurrentUserPackagesQueryResponse = GetCurrentUserPackages200
 
 export type GetCurrentUserPackagesQuery = {
-  Response: GetCurrentUserPackages200;
-  QueryParams: GetCurrentUserPackagesQueryParams;
-  Errors: any;
-};
+  Response: GetCurrentUserPackages200
+  QueryParams: GetCurrentUserPackagesQueryParams
+  Errors: any
+}

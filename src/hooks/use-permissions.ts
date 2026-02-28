@@ -1,10 +1,10 @@
 import { useAuthStore } from '@/stores/auth-store'
 
 export function usePermissions() {
-  const { auth } = useAuthStore()
+  const { userType, user } = useAuthStore()
 
-  const isSuperAdmin = auth.userType === 'SUPER_ADMIN'
-  const permissions = auth.user?.role ?? []
+  const isSuperAdmin = userType === 'SUPER_ADMIN'
+  const permissions = user?.role ?? []
 
   const hasPermission = (permission: string): boolean => {
     if (isSuperAdmin) return true

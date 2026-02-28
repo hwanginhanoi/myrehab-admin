@@ -7,29 +7,29 @@ export type UserAuthResponse = {
   /**
    * @type string | undefined
    */
-  accessToken?: string;
+  accessToken?: string
   /**
    * @type string | undefined
    */
-  refreshToken?: string;
+  refreshToken?: string
   /**
    * @type string | undefined
    */
-  tokenType?: string;
+  tokenType?: string
   /**
    * @type integer | undefined, int64
    */
-  expiresIn?: number;
+  expiresIn?: number
   /**
    * @type integer | undefined, int64
    */
-  userId?: number;
+  userId?: number
   /**
    * @type string | undefined
    */
-  phoneNumber?: string;
+  phoneNumber?: string
   /**
    * @type string | undefined
    */
-  fullName?: string;
-};
+  fullName?: string
+}

@@ -3,7 +3,7 @@
  * Do not edit manually.
  */
 
-import { z } from "zod/v4";
+import { z } from 'zod/v4'
 
 export const loginWithPinRequestSchema = z.object({
   phoneNumber: z.string().regex(/^\+?[1-9]\d{1,14}$/),
@@ -12,4 +12,4 @@ export const loginWithPinRequestSchema = z.object({
     .min(6)
     .max(6)
     .regex(/^\d{6}$/),
-});
+})

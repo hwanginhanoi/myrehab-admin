@@ -3,20 +3,20 @@
  * Do not edit manually.
  */
 
-import type { CreateExercisePackageRequest } from "../CreateExercisePackageRequest.ts";
-import type { ExercisePackageResponse } from "../ExercisePackageResponse.ts";
+import type { CreateExercisePackageRequest } from '../CreateExercisePackageRequest.ts'
+import type { ExercisePackageResponse } from '../ExercisePackageResponse.ts'
 
 /**
  * @description OK
  */
-export type CreateExercisePackage200 = ExercisePackageResponse;
+export type CreateExercisePackage200 = ExercisePackageResponse
 
-export type CreateExercisePackageMutationRequest = CreateExercisePackageRequest;
+export type CreateExercisePackageMutationRequest = CreateExercisePackageRequest
 
-export type CreateExercisePackageMutationResponse = CreateExercisePackage200;
+export type CreateExercisePackageMutationResponse = CreateExercisePackage200
 
 export type CreateExercisePackageMutation = {
-  Response: CreateExercisePackage200;
-  Request: CreateExercisePackageMutationRequest;
-  Errors: any;
-};
+  Response: CreateExercisePackage200
+  Request: CreateExercisePackageMutationRequest
+  Errors: any
+}

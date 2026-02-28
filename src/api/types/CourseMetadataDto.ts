@@ -7,13 +7,13 @@ export type CourseMetadataDto = {
   /**
    * @type integer | undefined, int64
    */
-  id?: number;
+  id?: number
   /**
    * @type string | undefined
    */
-  title?: string;
+  title?: string
   /**
    * @type integer | undefined, int32
    */
-  totalDays?: number;
-};
+  totalDays?: number
+}

@@ -3,24 +3,24 @@
  * Do not edit manually.
  */
 
-import fetch from "@/lib/api-client";
+import fetch from '@/lib/api-client'
 import type {
   GetUserByIdQueryResponse,
   GetUserByIdPathParams,
-} from "../../types/userManagementController/GetUserById.ts";
-import type { RequestConfig, ResponseErrorConfig } from "@/lib/api-client";
+} from '../../types/userManagementController/GetUserById.ts'
+import type { RequestConfig, ResponseErrorConfig } from '@/lib/api-client'
 import type {
   QueryKey,
   QueryClient,
   QueryObserverOptions,
   UseQueryResult,
-} from "@tanstack/react-query";
-import { queryOptions, useQuery } from "@tanstack/react-query";
+} from '@tanstack/react-query'
+import { queryOptions, useQuery } from '@tanstack/react-query'
 
-export const getUserByIdQueryKey = (userId: GetUserByIdPathParams["userId"]) =>
-  [{ url: "/api/users/:userId", params: { userId: userId } }] as const;
+export const getUserByIdQueryKey = (userId: GetUserByIdPathParams['userId']) =>
+  [{ url: '/api/users/:userId', params: { userId: userId } }] as const
 
-export type GetUserByIdQueryKey = ReturnType<typeof getUserByIdQueryKey>;
+export type GetUserByIdQueryKey = ReturnType<typeof getUserByIdQueryKey>
 
 /**
  * @description Retrieve a specific user's information by their ID
@@ -28,24 +28,24 @@ export type GetUserByIdQueryKey = ReturnType<typeof getUserByIdQueryKey>;
  * {@link /api/users/:userId}
  */
 export async function getUserById(
-  userId: GetUserByIdPathParams["userId"],
-  config: Partial<RequestConfig> & { client?: typeof fetch } = {},
+  userId: GetUserByIdPathParams['userId'],
+  config: Partial<RequestConfig> & { client?: typeof fetch } = {}
 ) {
-  const { client: request = fetch, ...requestConfig } = config;
+  const { client: request = fetch, ...requestConfig } = config
 
   const res = await request<
     GetUserByIdQueryResponse,
     ResponseErrorConfig<Error>,
     unknown
-  >({ method: "GET", url: `/api/users/${userId}`, ...requestConfig });
-  return res.data;
+  >({ method: 'GET', url: `/api/users/${userId}`, ...requestConfig })
+  return res.data
 }
 
 export function getUserByIdQueryOptions(
-  userId: GetUserByIdPathParams["userId"],
-  config: Partial<RequestConfig> & { client?: typeof fetch } = {},
+  userId: GetUserByIdPathParams['userId'],
+  config: Partial<RequestConfig> & { client?: typeof fetch } = {}
 ) {
-  const queryKey = getUserByIdQueryKey(userId);
+  const queryKey = getUserByIdQueryKey(userId)
   return queryOptions<
     GetUserByIdQueryResponse,
     ResponseErrorConfig<Error>,
@@ -55,10 +55,10 @@ export function getUserByIdQueryOptions(
     enabled: !!userId,
     queryKey,
     queryFn: async ({ signal }) => {
-      config.signal = signal;
-      return getUserById(userId, config);
+      config.signal = signal
+      return getUserById(userId, config)
     },
-  });
+  })
 }
 
 /**
@@ -71,7 +71,7 @@ export function useGetUserById<
   TQueryData = GetUserByIdQueryResponse,
   TQueryKey extends QueryKey = GetUserByIdQueryKey,
 >(
-  userId: GetUserByIdPathParams["userId"],
+  userId: GetUserByIdPathParams['userId'],
   options: {
     query?: Partial<
       QueryObserverOptions<
@@ -81,13 +81,13 @@ export function useGetUserById<
         TQueryData,
         TQueryKey
       >
-    > & { client?: QueryClient };
-    client?: Partial<RequestConfig> & { client?: typeof fetch };
-  } = {},
+    > & { client?: QueryClient }
+    client?: Partial<RequestConfig> & { client?: typeof fetch }
+  } = {}
 ) {
-  const { query: queryConfig = {}, client: config = {} } = options ?? {};
-  const { client: queryClient, ...queryOptions } = queryConfig;
-  const queryKey = queryOptions?.queryKey ?? getUserByIdQueryKey(userId);
+  const { query: queryConfig = {}, client: config = {} } = options ?? {}
+  const { client: queryClient, ...queryOptions } = queryConfig
+  const queryKey = queryOptions?.queryKey ?? getUserByIdQueryKey(userId)
 
   const query = useQuery(
     {
@@ -95,12 +95,12 @@ export function useGetUserById<
       queryKey,
       ...queryOptions,
     } as unknown as QueryObserverOptions,
-    queryClient,
+    queryClient
   ) as UseQueryResult<TData, ResponseErrorConfig<Error>> & {
-    queryKey: TQueryKey;
-  };
+    queryKey: TQueryKey
+  }
 
-  query.queryKey = queryKey as TQueryKey;
+  query.queryKey = queryKey as TQueryKey
 
-  return query;
+  return query
 }

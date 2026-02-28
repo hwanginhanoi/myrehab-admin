@@ -3,16 +3,16 @@
  * Do not edit manually.
  */
 
-import type { SubscriptionResponse } from "../SubscriptionResponse.ts";
+import type { SubscriptionResponse } from '../SubscriptionResponse.ts'
 
 /**
  * @description OK
  */
-export type GetMySubscriptions200 = SubscriptionResponse[];
+export type GetMySubscriptions200 = SubscriptionResponse[]
 
-export type GetMySubscriptionsQueryResponse = GetMySubscriptions200;
+export type GetMySubscriptionsQueryResponse = GetMySubscriptions200
 
 export type GetMySubscriptionsQuery = {
-  Response: GetMySubscriptions200;
-  Errors: any;
-};
+  Response: GetMySubscriptions200
+  Errors: any
+}

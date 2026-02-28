@@ -3,29 +3,29 @@
  * Do not edit manually.
  */
 
-import type { AssignPatientToDoctorRequest } from "../AssignPatientToDoctorRequest.ts";
-import type { DoctorPatientResponse } from "../DoctorPatientResponse.ts";
+import type { AssignPatientToDoctorRequest } from '../AssignPatientToDoctorRequest.ts'
+import type { DoctorPatientResponse } from '../DoctorPatientResponse.ts'
 
 export type AssignPatientToDoctorPathParams = {
   /**
    * @description Doctor ID
    * @type integer, int64
    */
-  doctorId: number;
-};
+  doctorId: number
+}
 
 /**
  * @description OK
  */
-export type AssignPatientToDoctor200 = DoctorPatientResponse;
+export type AssignPatientToDoctor200 = DoctorPatientResponse
 
-export type AssignPatientToDoctorMutationRequest = AssignPatientToDoctorRequest;
+export type AssignPatientToDoctorMutationRequest = AssignPatientToDoctorRequest
 
-export type AssignPatientToDoctorMutationResponse = AssignPatientToDoctor200;
+export type AssignPatientToDoctorMutationResponse = AssignPatientToDoctor200
 
 export type AssignPatientToDoctorMutation = {
-  Response: AssignPatientToDoctor200;
-  Request: AssignPatientToDoctorMutationRequest;
-  PathParams: AssignPatientToDoctorPathParams;
-  Errors: any;
-};
+  Response: AssignPatientToDoctor200
+  Request: AssignPatientToDoctorMutationRequest
+  PathParams: AssignPatientToDoctorPathParams
+  Errors: any
+}

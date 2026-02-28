@@ -3,23 +3,23 @@
  * Do not edit manually.
  */
 
-import fetch from "@/lib/api-client";
-import type { GetCurrentProgressQueryResponse } from "../../types/courseProgressController/GetCurrentProgress.ts";
-import type { RequestConfig, ResponseErrorConfig } from "@/lib/api-client";
+import fetch from '@/lib/api-client'
+import type { GetCurrentProgressQueryResponse } from '../../types/courseProgressController/GetCurrentProgress.ts'
+import type { RequestConfig, ResponseErrorConfig } from '@/lib/api-client'
 import type {
   QueryKey,
   QueryClient,
   QueryObserverOptions,
   UseQueryResult,
-} from "@tanstack/react-query";
-import { queryOptions, useQuery } from "@tanstack/react-query";
+} from '@tanstack/react-query'
+import { queryOptions, useQuery } from '@tanstack/react-query'
 
 export const getCurrentProgressQueryKey = () =>
-  [{ url: "/api/course-progress/my-current" }] as const;
+  [{ url: '/api/course-progress/my-current' }] as const
 
 export type GetCurrentProgressQueryKey = ReturnType<
   typeof getCurrentProgressQueryKey
->;
+>
 
 /**
  * @description Retrieve the user's current active course progress. Returns 404 if no active course is found.
@@ -27,26 +27,22 @@ export type GetCurrentProgressQueryKey = ReturnType<
  * {@link /api/course-progress/my-current}
  */
 export async function getCurrentProgress(
-  config: Partial<RequestConfig> & { client?: typeof fetch } = {},
+  config: Partial<RequestConfig> & { client?: typeof fetch } = {}
 ) {
-  const { client: request = fetch, ...requestConfig } = config;
+  const { client: request = fetch, ...requestConfig } = config
 
   const res = await request<
     GetCurrentProgressQueryResponse,
     ResponseErrorConfig<Error>,
     unknown
-  >({
-    method: "GET",
-    url: `/api/course-progress/my-current`,
-    ...requestConfig,
-  });
-  return res.data;
+  >({ method: 'GET', url: `/api/course-progress/my-current`, ...requestConfig })
+  return res.data
 }
 
 export function getCurrentProgressQueryOptions(
-  config: Partial<RequestConfig> & { client?: typeof fetch } = {},
+  config: Partial<RequestConfig> & { client?: typeof fetch } = {}
 ) {
-  const queryKey = getCurrentProgressQueryKey();
+  const queryKey = getCurrentProgressQueryKey()
   return queryOptions<
     GetCurrentProgressQueryResponse,
     ResponseErrorConfig<Error>,
@@ -55,10 +51,10 @@ export function getCurrentProgressQueryOptions(
   >({
     queryKey,
     queryFn: async ({ signal }) => {
-      config.signal = signal;
-      return getCurrentProgress(config);
+      config.signal = signal
+      return getCurrentProgress(config)
     },
-  });
+  })
 }
 
 /**
@@ -80,13 +76,13 @@ export function useGetCurrentProgress<
         TQueryData,
         TQueryKey
       >
-    > & { client?: QueryClient };
-    client?: Partial<RequestConfig> & { client?: typeof fetch };
-  } = {},
+    > & { client?: QueryClient }
+    client?: Partial<RequestConfig> & { client?: typeof fetch }
+  } = {}
 ) {
-  const { query: queryConfig = {}, client: config = {} } = options ?? {};
-  const { client: queryClient, ...queryOptions } = queryConfig;
-  const queryKey = queryOptions?.queryKey ?? getCurrentProgressQueryKey();
+  const { query: queryConfig = {}, client: config = {} } = options ?? {}
+  const { client: queryClient, ...queryOptions } = queryConfig
+  const queryKey = queryOptions?.queryKey ?? getCurrentProgressQueryKey()
 
   const query = useQuery(
     {
@@ -94,12 +90,12 @@ export function useGetCurrentProgress<
       queryKey,
       ...queryOptions,
     } as unknown as QueryObserverOptions,
-    queryClient,
+    queryClient
   ) as UseQueryResult<TData, ResponseErrorConfig<Error>> & {
-    queryKey: TQueryKey;
-  };
+    queryKey: TQueryKey
+  }
 
-  query.queryKey = queryKey as TQueryKey;
+  query.queryKey = queryKey as TQueryKey
 
-  return query;
+  return query
 }

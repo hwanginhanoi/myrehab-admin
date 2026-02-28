@@ -11,9 +11,17 @@ function DoctorProfileRoute() {
     return null
   }
 
-  return <DoctorProfileSection doctor={doctor} isLoading={isLoading} readOnly={mode === 'view'} />
+  return (
+    <DoctorProfileSection
+      doctor={doctor}
+      isLoading={isLoading}
+      readOnly={mode === 'view'}
+    />
+  )
 }
 
-export const Route = createFileRoute('/_authenticated/staff/doctors/$doctorId/')({
+export const Route = createFileRoute(
+  '/_authenticated/staff/doctors/$doctorId/'
+)({
   component: DoctorProfileRoute,
 })

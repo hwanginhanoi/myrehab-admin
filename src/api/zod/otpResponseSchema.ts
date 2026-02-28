@@ -3,10 +3,10 @@
  * Do not edit manually.
  */
 
-import { z } from "zod/v4";
+import { z } from 'zod/v4'
 
 export const otpResponseSchema = z.object({
   message: z.optional(z.string()),
   otpId: z.optional(z.string()),
   expiresInSeconds: z.optional(z.int()),
-});
+})

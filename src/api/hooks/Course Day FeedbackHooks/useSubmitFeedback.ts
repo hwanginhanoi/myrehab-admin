@@ -3,7 +3,7 @@
  * Do not edit manually.
  */
 
-import fetch from "@/lib/api-client";
+import fetch from '@/lib/api-client'
 import type {
   SubmitFeedbackMutationRequest,
   SubmitFeedbackMutationResponse,
@@ -11,21 +11,21 @@ import type {
   SubmitFeedback400,
   SubmitFeedback404,
   SubmitFeedback409,
-} from "../../types/courseDayFeedbackController/SubmitFeedback.ts";
-import type { RequestConfig, ResponseErrorConfig } from "@/lib/api-client";
+} from '../../types/courseDayFeedbackController/SubmitFeedback.ts'
+import type { RequestConfig, ResponseErrorConfig } from '@/lib/api-client'
 import type {
   UseMutationOptions,
   UseMutationResult,
   QueryClient,
-} from "@tanstack/react-query";
-import { mutationOptions, useMutation } from "@tanstack/react-query";
+} from '@tanstack/react-query'
+import { mutationOptions, useMutation } from '@tanstack/react-query'
 
 export const submitFeedbackMutationKey = () =>
-  [{ url: "/api/course-progress/days/:courseDayId/feedback" }] as const;
+  [{ url: '/api/course-progress/days/:courseDayId/feedback' }] as const
 
 export type SubmitFeedbackMutationKey = ReturnType<
   typeof submitFeedbackMutationKey
->;
+>
 
 /**
  * @description Allows users to provide detailed feedback after completing all exercises in a course day. Users can only submit feedback for the day they just completed (currentDayNumber - 1). Once they move to the next day, the feedback window for the previous day closes. Feedback includes completion percentage, effort level, pain tracking, hardest exercise, and general notes.
@@ -33,15 +33,15 @@ export type SubmitFeedbackMutationKey = ReturnType<
  * {@link /api/course-progress/days/:courseDayId/feedback}
  */
 export async function submitFeedback(
-  courseDayId: SubmitFeedbackPathParams["courseDayId"],
+  courseDayId: SubmitFeedbackPathParams['courseDayId'],
   data: SubmitFeedbackMutationRequest,
   config: Partial<RequestConfig<SubmitFeedbackMutationRequest>> & {
-    client?: typeof fetch;
-  } = {},
+    client?: typeof fetch
+  } = {}
 ) {
-  const { client: request = fetch, ...requestConfig } = config;
+  const { client: request = fetch, ...requestConfig } = config
 
-  const requestData = data;
+  const requestData = data
 
   const res = await request<
     SubmitFeedbackMutationResponse,
@@ -50,36 +50,36 @@ export async function submitFeedback(
     >,
     SubmitFeedbackMutationRequest
   >({
-    method: "POST",
+    method: 'POST',
     url: `/api/course-progress/days/${courseDayId}/feedback`,
     data: requestData,
     ...requestConfig,
-  });
-  return res.data;
+  })
+  return res.data
 }
 
 export function submitFeedbackMutationOptions(
   config: Partial<RequestConfig<SubmitFeedbackMutationRequest>> & {
-    client?: typeof fetch;
-  } = {},
+    client?: typeof fetch
+  } = {}
 ) {
-  const mutationKey = submitFeedbackMutationKey();
+  const mutationKey = submitFeedbackMutationKey()
   return mutationOptions<
     SubmitFeedbackMutationResponse,
     ResponseErrorConfig<
       SubmitFeedback400 | SubmitFeedback404 | SubmitFeedback409
     >,
     {
-      courseDayId: SubmitFeedbackPathParams["courseDayId"];
-      data: SubmitFeedbackMutationRequest;
+      courseDayId: SubmitFeedbackPathParams['courseDayId']
+      data: SubmitFeedbackMutationRequest
     },
     typeof mutationKey
   >({
     mutationKey,
     mutationFn: async ({ courseDayId, data }) => {
-      return submitFeedback(courseDayId, data, config);
+      return submitFeedback(courseDayId, data, config)
     },
-  });
+  })
 }
 
 /**
@@ -95,34 +95,33 @@ export function useSubmitFeedback<TContext>(
         SubmitFeedback400 | SubmitFeedback404 | SubmitFeedback409
       >,
       {
-        courseDayId: SubmitFeedbackPathParams["courseDayId"];
-        data: SubmitFeedbackMutationRequest;
+        courseDayId: SubmitFeedbackPathParams['courseDayId']
+        data: SubmitFeedbackMutationRequest
       },
       TContext
-    > & { client?: QueryClient };
+    > & { client?: QueryClient }
     client?: Partial<RequestConfig<SubmitFeedbackMutationRequest>> & {
-      client?: typeof fetch;
-    };
-  } = {},
+      client?: typeof fetch
+    }
+  } = {}
 ) {
-  const { mutation = {}, client: config = {} } = options ?? {};
-  const { client: queryClient, ...mutationOptions } = mutation;
-  const mutationKey =
-    mutationOptions.mutationKey ?? submitFeedbackMutationKey();
+  const { mutation = {}, client: config = {} } = options ?? {}
+  const { client: queryClient, ...mutationOptions } = mutation
+  const mutationKey = mutationOptions.mutationKey ?? submitFeedbackMutationKey()
 
   const baseOptions = submitFeedbackMutationOptions(
-    config,
+    config
   ) as UseMutationOptions<
     SubmitFeedbackMutationResponse,
     ResponseErrorConfig<
       SubmitFeedback400 | SubmitFeedback404 | SubmitFeedback409
     >,
     {
-      courseDayId: SubmitFeedbackPathParams["courseDayId"];
-      data: SubmitFeedbackMutationRequest;
+      courseDayId: SubmitFeedbackPathParams['courseDayId']
+      data: SubmitFeedbackMutationRequest
     },
     TContext
-  >;
+  >
 
   return useMutation<
     SubmitFeedbackMutationResponse,
@@ -130,8 +129,8 @@ export function useSubmitFeedback<TContext>(
       SubmitFeedback400 | SubmitFeedback404 | SubmitFeedback409
     >,
     {
-      courseDayId: SubmitFeedbackPathParams["courseDayId"];
-      data: SubmitFeedbackMutationRequest;
+      courseDayId: SubmitFeedbackPathParams['courseDayId']
+      data: SubmitFeedbackMutationRequest
     },
     TContext
   >(
@@ -140,16 +139,16 @@ export function useSubmitFeedback<TContext>(
       mutationKey,
       ...mutationOptions,
     },
-    queryClient,
+    queryClient
   ) as UseMutationResult<
     SubmitFeedbackMutationResponse,
     ResponseErrorConfig<
       SubmitFeedback400 | SubmitFeedback404 | SubmitFeedback409
     >,
     {
-      courseDayId: SubmitFeedbackPathParams["courseDayId"];
-      data: SubmitFeedbackMutationRequest;
+      courseDayId: SubmitFeedbackPathParams['courseDayId']
+      data: SubmitFeedbackMutationRequest
     },
     TContext
-  >;
+  >
 }

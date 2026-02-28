@@ -3,19 +3,19 @@
  * Do not edit manually.
  */
 
-import type { ResetPinRequest } from "../ResetPinRequest.ts";
+import type { ResetPinRequest } from '../ResetPinRequest.ts'
 
 /**
  * @description OK
  */
-export type ResetPin200 = object;
+export type ResetPin200 = object
 
-export type ResetPinMutationRequest = ResetPinRequest;
+export type ResetPinMutationRequest = ResetPinRequest
 
-export type ResetPinMutationResponse = ResetPin200;
+export type ResetPinMutationResponse = ResetPin200
 
 export type ResetPinMutation = {
-  Response: ResetPin200;
-  Request: ResetPinMutationRequest;
-  Errors: any;
-};
+  Response: ResetPin200
+  Request: ResetPinMutationRequest
+  Errors: any
+}

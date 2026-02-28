@@ -44,7 +44,11 @@ type TrainerProfileFormProps = {
   readOnly?: boolean
 }
 
-export function TrainerProfileForm({ trainer, isLoading, readOnly }: TrainerProfileFormProps) {
+export function TrainerProfileForm({
+  trainer,
+  isLoading,
+  readOnly,
+}: TrainerProfileFormProps) {
   const queryClient = useQueryClient()
 
   const form = useForm<TrainerProfileFormValues>({
@@ -61,12 +65,18 @@ export function TrainerProfileForm({ trainer, isLoading, readOnly }: TrainerProf
   const updateMutation = useUpdateStaff({
     mutation: {
       onSuccess: () => {
-        queryClient.invalidateQueries({ queryKey: [{ url: '/api/admin/staff' }] })
-        queryClient.invalidateQueries({ queryKey: [{ url: `/api/admin/staff/${trainer.id}` }] })
+        queryClient.invalidateQueries({
+          queryKey: [{ url: '/api/admin/staff' }],
+        })
+        queryClient.invalidateQueries({
+          queryKey: [{ url: `/api/admin/staff/${trainer.id}` }],
+        })
         toast.success('Đã cập nhật thông tin huấn luyện viên')
       },
       onError: (error) => {
-        toast.error(error.message || 'Không thể cập nhật thông tin huấn luyện viên')
+        toast.error(
+          error.message || 'Không thể cập nhật thông tin huấn luyện viên'
+        )
       },
     },
   })
@@ -88,26 +98,27 @@ export function TrainerProfileForm({ trainer, isLoading, readOnly }: TrainerProf
 
   if (isLoading) {
     return (
-      <div className='flex items-center justify-center h-64'>
-        <p className='text-sm text-muted-foreground'>Đang tải...</p>
+      <div className="flex items-center justify-center h-64">
+        <p className="text-sm text-muted-foreground">Đang tải...</p>
       </div>
     )
   }
 
   return (
     <Form {...form}>
-      <form
-        onSubmit={form.handleSubmit(onSubmit)}
-        className='space-y-8'
-      >
+      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
         <FormField
           control={form.control}
-          name='fullName'
+          name="fullName"
           render={({ field }) => (
             <FormItem>
               <FormLabel>Họ và tên</FormLabel>
               <FormControl>
-                <Input placeholder='Nguyễn Văn A' disabled={readOnly} {...field} />
+                <Input
+                  placeholder="Nguyễn Văn A"
+                  disabled={readOnly}
+                  {...field}
+                />
               </FormControl>
               <FormDescription>
                 Tên đầy đủ của huấn luyện viên sẽ hiển thị trên hệ thống.
@@ -119,12 +130,17 @@ export function TrainerProfileForm({ trainer, isLoading, readOnly }: TrainerProf
 
         <FormField
           control={form.control}
-          name='email'
+          name="email"
           render={({ field }) => (
             <FormItem>
               <FormLabel>Email</FormLabel>
               <FormControl>
-                <Input type='email' placeholder='trainer@example.com' disabled {...field} />
+                <Input
+                  type="email"
+                  placeholder="trainer@example.com"
+                  disabled
+                  {...field}
+                />
               </FormControl>
               <FormDescription>
                 Địa chỉ email để liên hệ và đăng nhập hệ thống.
@@ -136,12 +152,16 @@ export function TrainerProfileForm({ trainer, isLoading, readOnly }: TrainerProf
 
         <FormField
           control={form.control}
-          name='phoneNumber'
+          name="phoneNumber"
           render={({ field }) => (
             <FormItem>
               <FormLabel>Số điện thoại</FormLabel>
               <FormControl>
-                <Input placeholder='0912345678' disabled={readOnly} {...field} />
+                <Input
+                  placeholder="0912345678"
+                  disabled={readOnly}
+                  {...field}
+                />
               </FormControl>
               <FormDescription>
                 Số điện thoại liên hệ của huấn luyện viên.
@@ -153,14 +173,14 @@ export function TrainerProfileForm({ trainer, isLoading, readOnly }: TrainerProf
 
         <FormField
           control={form.control}
-          name='description'
+          name="description"
           render={({ field }) => (
             <FormItem>
               <FormLabel>Mô tả</FormLabel>
               <FormControl>
                 <Textarea
-                  placeholder='Mô tả ngắn về huấn luyện viên...'
-                  className='resize-none'
+                  placeholder="Mô tả ngắn về huấn luyện viên..."
+                  className="resize-none"
                   rows={4}
                   disabled={readOnly}
                   {...field}
@@ -174,12 +194,13 @@ export function TrainerProfileForm({ trainer, isLoading, readOnly }: TrainerProf
           )}
         />
 
-        <div className='space-y-4 pt-4 border-t'>
-          <div className='flex items-center justify-between'>
+        <div className="space-y-4 pt-4 border-t">
+          <div className="flex items-center justify-between">
             <div>
-              <p className='text-sm font-medium'>Trạng thái tài khoản</p>
-              <p className='text-sm text-muted-foreground'>
-                Tài khoản hiện đang {trainer.enabled ? 'hoạt động' : 'vô hiệu hóa'}
+              <p className="text-sm font-medium">Trạng thái tài khoản</p>
+              <p className="text-sm text-muted-foreground">
+                Tài khoản hiện đang{' '}
+                {trainer.enabled ? 'hoạt động' : 'vô hiệu hóa'}
               </p>
             </div>
             <Badge variant={trainer.enabled ? 'default' : 'secondary'}>
@@ -189,8 +210,8 @@ export function TrainerProfileForm({ trainer, isLoading, readOnly }: TrainerProf
 
           {trainer.createdAt && (
             <div>
-              <p className='text-sm font-medium'>Ngày tạo</p>
-              <p className='text-sm text-muted-foreground'>
+              <p className="text-sm font-medium">Ngày tạo</p>
+              <p className="text-sm text-muted-foreground">
                 {new Date(trainer.createdAt).toLocaleDateString('vi-VN', {
                   year: 'numeric',
                   month: 'long',
@@ -204,7 +225,7 @@ export function TrainerProfileForm({ trainer, isLoading, readOnly }: TrainerProf
         </div>
 
         {!readOnly && (
-          <Button type='submit' disabled={updateMutation.isPending}>
+          <Button type="submit" disabled={updateMutation.isPending}>
             {updateMutation.isPending ? 'Đang lưu...' : 'Cập nhật thông tin'}
           </Button>
         )}

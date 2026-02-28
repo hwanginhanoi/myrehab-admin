@@ -3,25 +3,25 @@
  * Do not edit manually.
  */
 
-import fetch from "@/lib/api-client";
+import fetch from '@/lib/api-client'
 import type {
   CreateCategoryMutationRequest,
   CreateCategoryMutationResponse,
-} from "../../types/exerciseCategoriesController/CreateCategory.ts";
-import type { RequestConfig, ResponseErrorConfig } from "@/lib/api-client";
+} from '../../types/exerciseCategoriesController/CreateCategory.ts'
+import type { RequestConfig, ResponseErrorConfig } from '@/lib/api-client'
 import type {
   UseMutationOptions,
   UseMutationResult,
   QueryClient,
-} from "@tanstack/react-query";
-import { mutationOptions, useMutation } from "@tanstack/react-query";
+} from '@tanstack/react-query'
+import { mutationOptions, useMutation } from '@tanstack/react-query'
 
 export const createCategoryMutationKey = () =>
-  [{ url: "/api/exercise-categories" }] as const;
+  [{ url: '/api/exercise-categories' }] as const
 
 export type CreateCategoryMutationKey = ReturnType<
   typeof createCategoryMutationKey
->;
+>
 
 /**
  * @description Create a new exercise category with name, description, and type
@@ -31,32 +31,32 @@ export type CreateCategoryMutationKey = ReturnType<
 export async function createCategory(
   data: CreateCategoryMutationRequest,
   config: Partial<RequestConfig<CreateCategoryMutationRequest>> & {
-    client?: typeof fetch;
-  } = {},
+    client?: typeof fetch
+  } = {}
 ) {
-  const { client: request = fetch, ...requestConfig } = config;
+  const { client: request = fetch, ...requestConfig } = config
 
-  const requestData = data;
+  const requestData = data
 
   const res = await request<
     CreateCategoryMutationResponse,
     ResponseErrorConfig<Error>,
     CreateCategoryMutationRequest
   >({
-    method: "POST",
+    method: 'POST',
     url: `/api/exercise-categories`,
     data: requestData,
     ...requestConfig,
-  });
-  return res.data;
+  })
+  return res.data
 }
 
 export function createCategoryMutationOptions(
   config: Partial<RequestConfig<CreateCategoryMutationRequest>> & {
-    client?: typeof fetch;
-  } = {},
+    client?: typeof fetch
+  } = {}
 ) {
-  const mutationKey = createCategoryMutationKey();
+  const mutationKey = createCategoryMutationKey()
   return mutationOptions<
     CreateCategoryMutationResponse,
     ResponseErrorConfig<Error>,
@@ -65,9 +65,9 @@ export function createCategoryMutationOptions(
   >({
     mutationKey,
     mutationFn: async ({ data }) => {
-      return createCategory(data, config);
+      return createCategory(data, config)
     },
-  });
+  })
 }
 
 /**
@@ -82,25 +82,24 @@ export function useCreateCategory<TContext>(
       ResponseErrorConfig<Error>,
       { data: CreateCategoryMutationRequest },
       TContext
-    > & { client?: QueryClient };
+    > & { client?: QueryClient }
     client?: Partial<RequestConfig<CreateCategoryMutationRequest>> & {
-      client?: typeof fetch;
-    };
-  } = {},
+      client?: typeof fetch
+    }
+  } = {}
 ) {
-  const { mutation = {}, client: config = {} } = options ?? {};
-  const { client: queryClient, ...mutationOptions } = mutation;
-  const mutationKey =
-    mutationOptions.mutationKey ?? createCategoryMutationKey();
+  const { mutation = {}, client: config = {} } = options ?? {}
+  const { client: queryClient, ...mutationOptions } = mutation
+  const mutationKey = mutationOptions.mutationKey ?? createCategoryMutationKey()
 
   const baseOptions = createCategoryMutationOptions(
-    config,
+    config
   ) as UseMutationOptions<
     CreateCategoryMutationResponse,
     ResponseErrorConfig<Error>,
     { data: CreateCategoryMutationRequest },
     TContext
-  >;
+  >
 
   return useMutation<
     CreateCategoryMutationResponse,
@@ -113,11 +112,11 @@ export function useCreateCategory<TContext>(
       mutationKey,
       ...mutationOptions,
     },
-    queryClient,
+    queryClient
   ) as UseMutationResult<
     CreateCategoryMutationResponse,
     ResponseErrorConfig<Error>,
     { data: CreateCategoryMutationRequest },
     TContext
-  >;
+  >
 }

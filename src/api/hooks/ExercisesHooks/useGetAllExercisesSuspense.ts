@@ -3,27 +3,27 @@
  * Do not edit manually.
  */
 
-import fetch from "@/lib/api-client";
+import fetch from '@/lib/api-client'
 import type {
   GetAllExercisesQueryResponse,
   GetAllExercisesQueryParams,
-} from "../../types/exercisesController/GetAllExercises.ts";
-import type { RequestConfig, ResponseErrorConfig } from "@/lib/api-client";
+} from '../../types/exercisesController/GetAllExercises.ts'
+import type { RequestConfig, ResponseErrorConfig } from '@/lib/api-client'
 import type {
   QueryKey,
   QueryClient,
   UseSuspenseQueryOptions,
   UseSuspenseQueryResult,
-} from "@tanstack/react-query";
-import { queryOptions, useSuspenseQuery } from "@tanstack/react-query";
+} from '@tanstack/react-query'
+import { queryOptions, useSuspenseQuery } from '@tanstack/react-query'
 
 export const getAllExercisesSuspenseQueryKey = (
-  params: GetAllExercisesQueryParams,
-) => [{ url: "/api/exercises" }, ...(params ? [params] : [])] as const;
+  params: GetAllExercisesQueryParams
+) => [{ url: '/api/exercises' }, ...(params ? [params] : [])] as const
 
 export type GetAllExercisesSuspenseQueryKey = ReturnType<
   typeof getAllExercisesSuspenseQueryKey
->;
+>
 
 /**
  * @description Retrieve exercises with pagination and optional filters. Returns only exercises the user has access to through their assigned groups.
@@ -32,23 +32,23 @@ export type GetAllExercisesSuspenseQueryKey = ReturnType<
  */
 export async function getAllExercisesSuspense(
   params: GetAllExercisesQueryParams,
-  config: Partial<RequestConfig> & { client?: typeof fetch } = {},
+  config: Partial<RequestConfig> & { client?: typeof fetch } = {}
 ) {
-  const { client: request = fetch, ...requestConfig } = config;
+  const { client: request = fetch, ...requestConfig } = config
 
   const res = await request<
     GetAllExercisesQueryResponse,
     ResponseErrorConfig<Error>,
     unknown
-  >({ method: "GET", url: `/api/exercises`, params, ...requestConfig });
-  return res.data;
+  >({ method: 'GET', url: `/api/exercises`, params, ...requestConfig })
+  return res.data
 }
 
 export function getAllExercisesSuspenseQueryOptions(
   params: GetAllExercisesQueryParams,
-  config: Partial<RequestConfig> & { client?: typeof fetch } = {},
+  config: Partial<RequestConfig> & { client?: typeof fetch } = {}
 ) {
-  const queryKey = getAllExercisesSuspenseQueryKey(params);
+  const queryKey = getAllExercisesSuspenseQueryKey(params)
   return queryOptions<
     GetAllExercisesQueryResponse,
     ResponseErrorConfig<Error>,
@@ -58,10 +58,10 @@ export function getAllExercisesSuspenseQueryOptions(
     enabled: !!params,
     queryKey,
     queryFn: async ({ signal }) => {
-      config.signal = signal;
-      return getAllExercisesSuspense(params, config);
+      config.signal = signal
+      return getAllExercisesSuspense(params, config)
     },
-  });
+  })
 }
 
 /**
@@ -82,14 +82,14 @@ export function useGetAllExercisesSuspense<
         TData,
         TQueryKey
       >
-    > & { client?: QueryClient };
-    client?: Partial<RequestConfig> & { client?: typeof fetch };
-  } = {},
+    > & { client?: QueryClient }
+    client?: Partial<RequestConfig> & { client?: typeof fetch }
+  } = {}
 ) {
-  const { query: queryConfig = {}, client: config = {} } = options ?? {};
-  const { client: queryClient, ...queryOptions } = queryConfig;
+  const { query: queryConfig = {}, client: config = {} } = options ?? {}
+  const { client: queryClient, ...queryOptions } = queryConfig
   const queryKey =
-    queryOptions?.queryKey ?? getAllExercisesSuspenseQueryKey(params);
+    queryOptions?.queryKey ?? getAllExercisesSuspenseQueryKey(params)
 
   const query = useSuspenseQuery(
     {
@@ -97,12 +97,12 @@ export function useGetAllExercisesSuspense<
       queryKey,
       ...queryOptions,
     } as unknown as UseSuspenseQueryOptions,
-    queryClient,
+    queryClient
   ) as UseSuspenseQueryResult<TData, ResponseErrorConfig<Error>> & {
-    queryKey: TQueryKey;
-  };
+    queryKey: TQueryKey
+  }
 
-  query.queryKey = queryKey as TQueryKey;
+  query.queryKey = queryKey as TQueryKey
 
-  return query;
+  return query
 }

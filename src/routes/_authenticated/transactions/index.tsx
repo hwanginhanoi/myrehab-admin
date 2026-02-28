@@ -13,8 +13,7 @@ const transactionsSearchSchema = z.object({
 
 export const Route = createFileRoute('/_authenticated/transactions/')({
   beforeLoad: async () => {
-    const { auth } = useAuthStore.getState()
-    const userType = auth.userType
+    const { userType } = useAuthStore.getState()
 
     if (userType !== 'SUPER_ADMIN') {
       throw redirect({

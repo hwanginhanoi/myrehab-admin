@@ -3,27 +3,27 @@
  * Do not edit manually.
  */
 
-import fetch from "@/lib/api-client";
+import fetch from '@/lib/api-client'
 import type {
   AssignExerciseGroupToDoctorMutationResponse,
   AssignExerciseGroupToDoctorPathParams,
-} from "../../types/staffManagementController/AssignExerciseGroupToDoctor.ts";
-import type { RequestConfig, ResponseErrorConfig } from "@/lib/api-client";
+} from '../../types/staffManagementController/AssignExerciseGroupToDoctor.ts'
+import type { RequestConfig, ResponseErrorConfig } from '@/lib/api-client'
 import type {
   UseMutationOptions,
   UseMutationResult,
   QueryClient,
-} from "@tanstack/react-query";
-import { mutationOptions, useMutation } from "@tanstack/react-query";
+} from '@tanstack/react-query'
+import { mutationOptions, useMutation } from '@tanstack/react-query'
 
 export const assignExerciseGroupToDoctorMutationKey = () =>
   [
-    { url: "/api/admin/staff/doctors/:doctorId/exercise-groups/:groupId" },
-  ] as const;
+    { url: '/api/admin/staff/doctors/:doctorId/exercise-groups/:groupId' },
+  ] as const
 
 export type AssignExerciseGroupToDoctorMutationKey = ReturnType<
   typeof assignExerciseGroupToDoctorMutationKey
->;
+>
 
 /**
  * @description Assign an exercise group to a doctor for access
@@ -31,42 +31,42 @@ export type AssignExerciseGroupToDoctorMutationKey = ReturnType<
  * {@link /api/admin/staff/doctors/:doctorId/exercise-groups/:groupId}
  */
 export async function assignExerciseGroupToDoctor(
-  doctorId: AssignExerciseGroupToDoctorPathParams["doctorId"],
-  groupId: AssignExerciseGroupToDoctorPathParams["groupId"],
-  config: Partial<RequestConfig> & { client?: typeof fetch } = {},
+  doctorId: AssignExerciseGroupToDoctorPathParams['doctorId'],
+  groupId: AssignExerciseGroupToDoctorPathParams['groupId'],
+  config: Partial<RequestConfig> & { client?: typeof fetch } = {}
 ) {
-  const { client: request = fetch, ...requestConfig } = config;
+  const { client: request = fetch, ...requestConfig } = config
 
   const res = await request<
     AssignExerciseGroupToDoctorMutationResponse,
     ResponseErrorConfig<Error>,
     unknown
   >({
-    method: "POST",
+    method: 'POST',
     url: `/api/admin/staff/doctors/${doctorId}/exercise-groups/${groupId}`,
     ...requestConfig,
-  });
-  return res.data;
+  })
+  return res.data
 }
 
 export function assignExerciseGroupToDoctorMutationOptions(
-  config: Partial<RequestConfig> & { client?: typeof fetch } = {},
+  config: Partial<RequestConfig> & { client?: typeof fetch } = {}
 ) {
-  const mutationKey = assignExerciseGroupToDoctorMutationKey();
+  const mutationKey = assignExerciseGroupToDoctorMutationKey()
   return mutationOptions<
     AssignExerciseGroupToDoctorMutationResponse,
     ResponseErrorConfig<Error>,
     {
-      doctorId: AssignExerciseGroupToDoctorPathParams["doctorId"];
-      groupId: AssignExerciseGroupToDoctorPathParams["groupId"];
+      doctorId: AssignExerciseGroupToDoctorPathParams['doctorId']
+      groupId: AssignExerciseGroupToDoctorPathParams['groupId']
     },
     typeof mutationKey
   >({
     mutationKey,
     mutationFn: async ({ doctorId, groupId }) => {
-      return assignExerciseGroupToDoctor(doctorId, groupId, config);
+      return assignExerciseGroupToDoctor(doctorId, groupId, config)
     },
-  });
+  })
 }
 
 /**
@@ -80,37 +80,37 @@ export function useAssignExerciseGroupToDoctor<TContext>(
       AssignExerciseGroupToDoctorMutationResponse,
       ResponseErrorConfig<Error>,
       {
-        doctorId: AssignExerciseGroupToDoctorPathParams["doctorId"];
-        groupId: AssignExerciseGroupToDoctorPathParams["groupId"];
+        doctorId: AssignExerciseGroupToDoctorPathParams['doctorId']
+        groupId: AssignExerciseGroupToDoctorPathParams['groupId']
       },
       TContext
-    > & { client?: QueryClient };
-    client?: Partial<RequestConfig> & { client?: typeof fetch };
-  } = {},
+    > & { client?: QueryClient }
+    client?: Partial<RequestConfig> & { client?: typeof fetch }
+  } = {}
 ) {
-  const { mutation = {}, client: config = {} } = options ?? {};
-  const { client: queryClient, ...mutationOptions } = mutation;
+  const { mutation = {}, client: config = {} } = options ?? {}
+  const { client: queryClient, ...mutationOptions } = mutation
   const mutationKey =
-    mutationOptions.mutationKey ?? assignExerciseGroupToDoctorMutationKey();
+    mutationOptions.mutationKey ?? assignExerciseGroupToDoctorMutationKey()
 
   const baseOptions = assignExerciseGroupToDoctorMutationOptions(
-    config,
+    config
   ) as UseMutationOptions<
     AssignExerciseGroupToDoctorMutationResponse,
     ResponseErrorConfig<Error>,
     {
-      doctorId: AssignExerciseGroupToDoctorPathParams["doctorId"];
-      groupId: AssignExerciseGroupToDoctorPathParams["groupId"];
+      doctorId: AssignExerciseGroupToDoctorPathParams['doctorId']
+      groupId: AssignExerciseGroupToDoctorPathParams['groupId']
     },
     TContext
-  >;
+  >
 
   return useMutation<
     AssignExerciseGroupToDoctorMutationResponse,
     ResponseErrorConfig<Error>,
     {
-      doctorId: AssignExerciseGroupToDoctorPathParams["doctorId"];
-      groupId: AssignExerciseGroupToDoctorPathParams["groupId"];
+      doctorId: AssignExerciseGroupToDoctorPathParams['doctorId']
+      groupId: AssignExerciseGroupToDoctorPathParams['groupId']
     },
     TContext
   >(
@@ -119,14 +119,14 @@ export function useAssignExerciseGroupToDoctor<TContext>(
       mutationKey,
       ...mutationOptions,
     },
-    queryClient,
+    queryClient
   ) as UseMutationResult<
     AssignExerciseGroupToDoctorMutationResponse,
     ResponseErrorConfig<Error>,
     {
-      doctorId: AssignExerciseGroupToDoctorPathParams["doctorId"];
-      groupId: AssignExerciseGroupToDoctorPathParams["groupId"];
+      doctorId: AssignExerciseGroupToDoctorPathParams['doctorId']
+      groupId: AssignExerciseGroupToDoctorPathParams['groupId']
     },
     TContext
-  >;
+  >
 }

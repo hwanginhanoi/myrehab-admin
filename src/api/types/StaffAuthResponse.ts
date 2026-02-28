@@ -7,29 +7,29 @@ export type StaffAuthResponse = {
   /**
    * @type string | undefined
    */
-  accessToken?: string;
+  accessToken?: string
   /**
    * @type string | undefined
    */
-  tokenType?: string;
+  tokenType?: string
   /**
    * @type integer | undefined, int64
    */
-  expiresIn?: number;
+  expiresIn?: number
   /**
    * @type string | undefined
    */
-  userType?: string;
+  userType?: string
   /**
    * @type integer | undefined, int64
    */
-  staffId?: number;
+  staffId?: number
   /**
    * @type string | undefined
    */
-  email?: string;
+  email?: string
   /**
    * @type array | undefined
    */
-  permissions?: string[];
-};
+  permissions?: string[]
+}

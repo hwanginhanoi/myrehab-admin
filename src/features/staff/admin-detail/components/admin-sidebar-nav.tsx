@@ -14,14 +14,20 @@ type AdminSidebarNavProps = {
   mode?: 'view' | 'edit'
 }
 
-export function AdminSidebarNav({ items, adminId, mode }: AdminSidebarNavProps) {
+export function AdminSidebarNav({
+  items,
+  adminId,
+  mode,
+}: AdminSidebarNavProps) {
   const { pathname } = useLocation()
 
   return (
-    <nav className='flex space-x-2 lg:flex-col lg:space-y-1 lg:space-x-0'>
+    <nav className="flex space-x-2 lg:flex-col lg:space-y-1 lg:space-x-0">
       {items.map((item) => {
-        const isActive = pathname === item.href ||
-          (item.href !== `/staff/admins/${adminId}` && pathname.startsWith(item.href))
+        const isActive =
+          pathname === item.href ||
+          (item.href !== `/staff/admins/${adminId}` &&
+            pathname.startsWith(item.href))
 
         return (
           <Link

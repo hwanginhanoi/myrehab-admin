@@ -3,7 +3,7 @@
  * Do not edit manually.
  */
 
-import { z } from "zod/v4";
+import { z } from 'zod/v4'
 
 /**
  * @description Update request for Doctor staff
@@ -11,12 +11,12 @@ import { z } from "zod/v4";
 export const updateDoctorRequestSchema = z
   .object({
     specialization: z.optional(
-      z.string().describe("Doctor's medical specialization"),
+      z.string().describe("Doctor's medical specialization")
     ),
-    email: z.string().describe("Staff email address"),
-    fullName: z.string().describe("Staff full name"),
+    email: z.string().describe('Staff email address'),
+    fullName: z.string().describe('Staff full name'),
     staffType: z
-      .enum(["DOCTOR", "TRAINER", "ADMIN", "SUPER_ADMIN"])
-      .describe("Staff type discriminator"),
+      .enum(['DOCTOR', 'TRAINER', 'ADMIN', 'SUPER_ADMIN'])
+      .describe('Staff type discriminator'),
   })
-  .describe("Update request for Doctor staff");
+  .describe('Update request for Doctor staff')

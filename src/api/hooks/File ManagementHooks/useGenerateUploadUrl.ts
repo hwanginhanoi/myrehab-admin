@@ -3,25 +3,25 @@
  * Do not edit manually.
  */
 
-import fetch from "@/lib/api-client";
+import fetch from '@/lib/api-client'
 import type {
   GenerateUploadUrlMutationRequest,
   GenerateUploadUrlMutationResponse,
-} from "../../types/fileManagementController/GenerateUploadUrl.ts";
-import type { RequestConfig, ResponseErrorConfig } from "@/lib/api-client";
+} from '../../types/fileManagementController/GenerateUploadUrl.ts'
+import type { RequestConfig, ResponseErrorConfig } from '@/lib/api-client'
 import type {
   UseMutationOptions,
   UseMutationResult,
   QueryClient,
-} from "@tanstack/react-query";
-import { mutationOptions, useMutation } from "@tanstack/react-query";
+} from '@tanstack/react-query'
+import { mutationOptions, useMutation } from '@tanstack/react-query'
 
 export const generateUploadUrlMutationKey = () =>
-  [{ url: "/api/files/presigned-upload-url" }] as const;
+  [{ url: '/api/files/presigned-upload-url' }] as const
 
 export type GenerateUploadUrlMutationKey = ReturnType<
   typeof generateUploadUrlMutationKey
->;
+>
 
 /**
  * @description Generate a temporary URL that allows direct upload to MinIO. The client should use PUT request to upload the file to the returned URL. Valid categories: exercise-image, exercise-video, exercise-package-image, course-image, course-video, profile-image, news-image
@@ -31,32 +31,32 @@ export type GenerateUploadUrlMutationKey = ReturnType<
 export async function generateUploadUrl(
   data: GenerateUploadUrlMutationRequest,
   config: Partial<RequestConfig<GenerateUploadUrlMutationRequest>> & {
-    client?: typeof fetch;
-  } = {},
+    client?: typeof fetch
+  } = {}
 ) {
-  const { client: request = fetch, ...requestConfig } = config;
+  const { client: request = fetch, ...requestConfig } = config
 
-  const requestData = data;
+  const requestData = data
 
   const res = await request<
     GenerateUploadUrlMutationResponse,
     ResponseErrorConfig<Error>,
     GenerateUploadUrlMutationRequest
   >({
-    method: "POST",
+    method: 'POST',
     url: `/api/files/presigned-upload-url`,
     data: requestData,
     ...requestConfig,
-  });
-  return res.data;
+  })
+  return res.data
 }
 
 export function generateUploadUrlMutationOptions(
   config: Partial<RequestConfig<GenerateUploadUrlMutationRequest>> & {
-    client?: typeof fetch;
-  } = {},
+    client?: typeof fetch
+  } = {}
 ) {
-  const mutationKey = generateUploadUrlMutationKey();
+  const mutationKey = generateUploadUrlMutationKey()
   return mutationOptions<
     GenerateUploadUrlMutationResponse,
     ResponseErrorConfig<Error>,
@@ -65,9 +65,9 @@ export function generateUploadUrlMutationOptions(
   >({
     mutationKey,
     mutationFn: async ({ data }) => {
-      return generateUploadUrl(data, config);
+      return generateUploadUrl(data, config)
     },
-  });
+  })
 }
 
 /**
@@ -82,25 +82,25 @@ export function useGenerateUploadUrl<TContext>(
       ResponseErrorConfig<Error>,
       { data: GenerateUploadUrlMutationRequest },
       TContext
-    > & { client?: QueryClient };
+    > & { client?: QueryClient }
     client?: Partial<RequestConfig<GenerateUploadUrlMutationRequest>> & {
-      client?: typeof fetch;
-    };
-  } = {},
+      client?: typeof fetch
+    }
+  } = {}
 ) {
-  const { mutation = {}, client: config = {} } = options ?? {};
-  const { client: queryClient, ...mutationOptions } = mutation;
+  const { mutation = {}, client: config = {} } = options ?? {}
+  const { client: queryClient, ...mutationOptions } = mutation
   const mutationKey =
-    mutationOptions.mutationKey ?? generateUploadUrlMutationKey();
+    mutationOptions.mutationKey ?? generateUploadUrlMutationKey()
 
   const baseOptions = generateUploadUrlMutationOptions(
-    config,
+    config
   ) as UseMutationOptions<
     GenerateUploadUrlMutationResponse,
     ResponseErrorConfig<Error>,
     { data: GenerateUploadUrlMutationRequest },
     TContext
-  >;
+  >
 
   return useMutation<
     GenerateUploadUrlMutationResponse,
@@ -113,11 +113,11 @@ export function useGenerateUploadUrl<TContext>(
       mutationKey,
       ...mutationOptions,
     },
-    queryClient,
+    queryClient
   ) as UseMutationResult<
     GenerateUploadUrlMutationResponse,
     ResponseErrorConfig<Error>,
     { data: GenerateUploadUrlMutationRequest },
     TContext
-  >;
+  >
 }

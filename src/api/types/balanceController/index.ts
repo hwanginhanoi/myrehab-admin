@@ -3,9 +3,9 @@ export type {
   AddBalanceMutationRequest,
   AddBalanceMutationResponse,
   AddBalanceMutation,
-} from "./AddBalance.ts";
+} from './AddBalance.ts'
 export type {
   GetMyBalance200,
   GetMyBalanceQueryResponse,
   GetMyBalanceQuery,
-} from "./GetMyBalance.ts";
+} from './GetMyBalance.ts'

@@ -3,27 +3,27 @@
  * Do not edit manually.
  */
 
-import fetch from "@/lib/api-client";
+import fetch from '@/lib/api-client'
 import type {
   SearchUsersByNameQueryResponse,
   SearchUsersByNameQueryParams,
-} from "../../types/userManagementController/SearchUsersByName.ts";
-import type { RequestConfig, ResponseErrorConfig } from "@/lib/api-client";
+} from '../../types/userManagementController/SearchUsersByName.ts'
+import type { RequestConfig, ResponseErrorConfig } from '@/lib/api-client'
 import type {
   QueryKey,
   QueryClient,
   QueryObserverOptions,
   UseQueryResult,
-} from "@tanstack/react-query";
-import { queryOptions, useQuery } from "@tanstack/react-query";
+} from '@tanstack/react-query'
+import { queryOptions, useQuery } from '@tanstack/react-query'
 
 export const searchUsersByNameQueryKey = (
-  params?: SearchUsersByNameQueryParams,
-) => [{ url: "/api/users/search" }, ...(params ? [params] : [])] as const;
+  params?: SearchUsersByNameQueryParams
+) => [{ url: '/api/users/search' }, ...(params ? [params] : [])] as const
 
 export type SearchUsersByNameQueryKey = ReturnType<
   typeof searchUsersByNameQueryKey
->;
+>
 
 /**
  * @description Returns the 5 closest matching users based on name, phone number, or email. Results are sorted alphabetically by full name. No pagination - always returns max 5 results.
@@ -32,23 +32,23 @@ export type SearchUsersByNameQueryKey = ReturnType<
  */
 export async function searchUsersByName(
   params?: SearchUsersByNameQueryParams,
-  config: Partial<RequestConfig> & { client?: typeof fetch } = {},
+  config: Partial<RequestConfig> & { client?: typeof fetch } = {}
 ) {
-  const { client: request = fetch, ...requestConfig } = config;
+  const { client: request = fetch, ...requestConfig } = config
 
   const res = await request<
     SearchUsersByNameQueryResponse,
     ResponseErrorConfig<Error>,
     unknown
-  >({ method: "GET", url: `/api/users/search`, params, ...requestConfig });
-  return res.data;
+  >({ method: 'GET', url: `/api/users/search`, params, ...requestConfig })
+  return res.data
 }
 
 export function searchUsersByNameQueryOptions(
   params?: SearchUsersByNameQueryParams,
-  config: Partial<RequestConfig> & { client?: typeof fetch } = {},
+  config: Partial<RequestConfig> & { client?: typeof fetch } = {}
 ) {
-  const queryKey = searchUsersByNameQueryKey(params);
+  const queryKey = searchUsersByNameQueryKey(params)
   return queryOptions<
     SearchUsersByNameQueryResponse,
     ResponseErrorConfig<Error>,
@@ -57,10 +57,10 @@ export function searchUsersByNameQueryOptions(
   >({
     queryKey,
     queryFn: async ({ signal }) => {
-      config.signal = signal;
-      return searchUsersByName(params, config);
+      config.signal = signal
+      return searchUsersByName(params, config)
     },
-  });
+  })
 }
 
 /**
@@ -83,13 +83,13 @@ export function useSearchUsersByName<
         TQueryData,
         TQueryKey
       >
-    > & { client?: QueryClient };
-    client?: Partial<RequestConfig> & { client?: typeof fetch };
-  } = {},
+    > & { client?: QueryClient }
+    client?: Partial<RequestConfig> & { client?: typeof fetch }
+  } = {}
 ) {
-  const { query: queryConfig = {}, client: config = {} } = options ?? {};
-  const { client: queryClient, ...queryOptions } = queryConfig;
-  const queryKey = queryOptions?.queryKey ?? searchUsersByNameQueryKey(params);
+  const { query: queryConfig = {}, client: config = {} } = options ?? {}
+  const { client: queryClient, ...queryOptions } = queryConfig
+  const queryKey = queryOptions?.queryKey ?? searchUsersByNameQueryKey(params)
 
   const query = useQuery(
     {
@@ -97,12 +97,12 @@ export function useSearchUsersByName<
       queryKey,
       ...queryOptions,
     } as unknown as QueryObserverOptions,
-    queryClient,
+    queryClient
   ) as UseQueryResult<TData, ResponseErrorConfig<Error>> & {
-    queryKey: TQueryKey;
-  };
+    queryKey: TQueryKey
+  }
 
-  query.queryKey = queryKey as TQueryKey;
+  query.queryKey = queryKey as TQueryKey
 
-  return query;
+  return query
 }

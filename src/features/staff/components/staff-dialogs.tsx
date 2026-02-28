@@ -7,7 +7,7 @@ export function StaffDialogs() {
   return (
     <>
       <StaffActionDialog
-        key='staff-add'
+        key="staff-add"
         open={open === 'add'}
         onOpenChange={() => setOpen(null)}
       />

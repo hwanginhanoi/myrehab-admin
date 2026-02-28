@@ -3,23 +3,23 @@
  * Do not edit manually.
  */
 
-import fetch from "@/lib/api-client";
+import fetch from '@/lib/api-client'
 import type {
   CheckPhoneMutationRequest,
   CheckPhoneMutationResponse,
-} from "../../types/authenticationController/CheckPhone.ts";
-import type { RequestConfig, ResponseErrorConfig } from "@/lib/api-client";
+} from '../../types/authenticationController/CheckPhone.ts'
+import type { RequestConfig, ResponseErrorConfig } from '@/lib/api-client'
 import type {
   UseMutationOptions,
   UseMutationResult,
   QueryClient,
-} from "@tanstack/react-query";
-import { mutationOptions, useMutation } from "@tanstack/react-query";
+} from '@tanstack/react-query'
+import { mutationOptions, useMutation } from '@tanstack/react-query'
 
 export const checkPhoneMutationKey = () =>
-  [{ url: "/api/auth/user/check-phone" }] as const;
+  [{ url: '/api/auth/user/check-phone' }] as const
 
-export type CheckPhoneMutationKey = ReturnType<typeof checkPhoneMutationKey>;
+export type CheckPhoneMutationKey = ReturnType<typeof checkPhoneMutationKey>
 
 /**
  * @description Verify if a phone number is already registered in the system
@@ -29,32 +29,32 @@ export type CheckPhoneMutationKey = ReturnType<typeof checkPhoneMutationKey>;
 export async function checkPhone(
   data: CheckPhoneMutationRequest,
   config: Partial<RequestConfig<CheckPhoneMutationRequest>> & {
-    client?: typeof fetch;
-  } = {},
+    client?: typeof fetch
+  } = {}
 ) {
-  const { client: request = fetch, ...requestConfig } = config;
+  const { client: request = fetch, ...requestConfig } = config
 
-  const requestData = data;
+  const requestData = data
 
   const res = await request<
     CheckPhoneMutationResponse,
     ResponseErrorConfig<Error>,
     CheckPhoneMutationRequest
   >({
-    method: "POST",
+    method: 'POST',
     url: `/api/auth/user/check-phone`,
     data: requestData,
     ...requestConfig,
-  });
-  return res.data;
+  })
+  return res.data
 }
 
 export function checkPhoneMutationOptions(
   config: Partial<RequestConfig<CheckPhoneMutationRequest>> & {
-    client?: typeof fetch;
-  } = {},
+    client?: typeof fetch
+  } = {}
 ) {
-  const mutationKey = checkPhoneMutationKey();
+  const mutationKey = checkPhoneMutationKey()
   return mutationOptions<
     CheckPhoneMutationResponse,
     ResponseErrorConfig<Error>,
@@ -63,9 +63,9 @@ export function checkPhoneMutationOptions(
   >({
     mutationKey,
     mutationFn: async ({ data }) => {
-      return checkPhone(data, config);
+      return checkPhone(data, config)
     },
-  });
+  })
 }
 
 /**
@@ -80,22 +80,22 @@ export function useCheckPhone<TContext>(
       ResponseErrorConfig<Error>,
       { data: CheckPhoneMutationRequest },
       TContext
-    > & { client?: QueryClient };
+    > & { client?: QueryClient }
     client?: Partial<RequestConfig<CheckPhoneMutationRequest>> & {
-      client?: typeof fetch;
-    };
-  } = {},
+      client?: typeof fetch
+    }
+  } = {}
 ) {
-  const { mutation = {}, client: config = {} } = options ?? {};
-  const { client: queryClient, ...mutationOptions } = mutation;
-  const mutationKey = mutationOptions.mutationKey ?? checkPhoneMutationKey();
+  const { mutation = {}, client: config = {} } = options ?? {}
+  const { client: queryClient, ...mutationOptions } = mutation
+  const mutationKey = mutationOptions.mutationKey ?? checkPhoneMutationKey()
 
   const baseOptions = checkPhoneMutationOptions(config) as UseMutationOptions<
     CheckPhoneMutationResponse,
     ResponseErrorConfig<Error>,
     { data: CheckPhoneMutationRequest },
     TContext
-  >;
+  >
 
   return useMutation<
     CheckPhoneMutationResponse,
@@ -108,11 +108,11 @@ export function useCheckPhone<TContext>(
       mutationKey,
       ...mutationOptions,
     },
-    queryClient,
+    queryClient
   ) as UseMutationResult<
     CheckPhoneMutationResponse,
     ResponseErrorConfig<Error>,
     { data: CheckPhoneMutationRequest },
     TContext
-  >;
+  >
 }

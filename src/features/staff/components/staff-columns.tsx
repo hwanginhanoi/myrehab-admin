@@ -11,10 +11,10 @@ export const staffColumns: ColumnDef<StaffResponse>[] = [
   {
     accessorKey: 'fullName',
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title='Họ và tên' />
+      <DataTableColumnHeader column={column} title="Họ và tên" />
     ),
     cell: ({ row }) => (
-      <div className='ps-3 font-medium'>{row.getValue('fullName')}</div>
+      <div className="ps-3 font-medium">{row.getValue('fullName')}</div>
     ),
     meta: {
       className: cn(
@@ -27,7 +27,7 @@ export const staffColumns: ColumnDef<StaffResponse>[] = [
   {
     accessorKey: 'email',
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title='Email' />
+      <DataTableColumnHeader column={column} title="Email" />
     ),
     cell: ({ row }) => <div>{row.getValue('email')}</div>,
     enableSorting: false,
@@ -35,7 +35,7 @@ export const staffColumns: ColumnDef<StaffResponse>[] = [
   {
     accessorKey: 'staffType',
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title='Vai trò' />
+      <DataTableColumnHeader column={column} title="Vai trò" />
     ),
     cell: ({ row }) => {
       const staffType = row.getValue('staffType') as string
@@ -46,11 +46,11 @@ export const staffColumns: ColumnDef<StaffResponse>[] = [
       }
 
       return (
-        <div className='flex items-center gap-x-2'>
+        <div className="flex items-center gap-x-2">
           {role.icon && (
-            <role.icon size={16} className='text-muted-foreground' />
+            <role.icon size={16} className="text-muted-foreground" />
           )}
-          <span className='text-sm'>{role.label}</span>
+          <span className="text-sm">{role.label}</span>
         </div>
       )
     },
@@ -63,15 +63,15 @@ export const staffColumns: ColumnDef<StaffResponse>[] = [
   {
     accessorKey: 'enabled',
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title='Trạng thái' />
+      <DataTableColumnHeader column={column} title="Trạng thái" />
     ),
     cell: ({ row }) => {
       const enabled = row.getValue('enabled') as boolean
       const status = enabled ? 'active' : 'inactive'
       const badgeColor = statusColors.get(status)
       return (
-        <div className='flex space-x-2'>
-          <Badge variant='outline' className={cn('capitalize', badgeColor)}>
+        <div className="flex space-x-2">
+          <Badge variant="outline" className={cn('capitalize', badgeColor)}>
             {enabled ? 'Hoạt động' : 'Vô hiệu hóa'}
           </Badge>
         </div>
@@ -88,7 +88,7 @@ export const staffColumns: ColumnDef<StaffResponse>[] = [
   {
     accessorKey: 'createdAt',
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title='Ngày tạo' />
+      <DataTableColumnHeader column={column} title="Ngày tạo" />
     ),
     cell: ({ row }) => {
       const date = row.getValue('createdAt') as string

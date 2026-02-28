@@ -3,30 +3,30 @@
  * Do not edit manually.
  */
 
-import type { FeedbackExistsResponse } from "../FeedbackExistsResponse.ts";
+import type { FeedbackExistsResponse } from '../FeedbackExistsResponse.ts'
 
 export type CheckFeedbackExistsPathParams = {
   /**
    * @description Course Day ID
    * @type integer, int64
    */
-  courseDayId: number;
-};
+  courseDayId: number
+}
 
 /**
  * @description Check completed successfully
  */
-export type CheckFeedbackExists200 = FeedbackExistsResponse;
+export type CheckFeedbackExists200 = FeedbackExistsResponse
 
 /**
  * @description No active course progress found
  */
-export type CheckFeedbackExists404 = FeedbackExistsResponse;
+export type CheckFeedbackExists404 = FeedbackExistsResponse
 
-export type CheckFeedbackExistsQueryResponse = CheckFeedbackExists200;
+export type CheckFeedbackExistsQueryResponse = CheckFeedbackExists200
 
 export type CheckFeedbackExistsQuery = {
-  Response: CheckFeedbackExists200;
-  PathParams: CheckFeedbackExistsPathParams;
-  Errors: CheckFeedbackExists404;
-};
+  Response: CheckFeedbackExists200
+  PathParams: CheckFeedbackExistsPathParams
+  Errors: CheckFeedbackExists404
+}

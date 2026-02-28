@@ -3,10 +3,10 @@
  * Do not edit manually.
  */
 
-import { z } from "zod/v4";
+import { z } from 'zod/v4'
 
 export const exerciseItemRequestSchema = z.object({
   exerciseId: z.int(),
   repetitions: z.int(),
   sets: z.int(),
-});
+})

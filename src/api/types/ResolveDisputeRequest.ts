@@ -4,20 +4,20 @@
  */
 
 export const resolveDisputeRequestResolutionEnum = {
-  APPROVE_DOCTOR: "APPROVE_DOCTOR",
-  REFUND_PATIENT: "REFUND_PATIENT",
-} as const;
+  APPROVE_DOCTOR: 'APPROVE_DOCTOR',
+  REFUND_PATIENT: 'REFUND_PATIENT',
+} as const
 
 export type ResolveDisputeRequestResolutionEnumKey =
-  (typeof resolveDisputeRequestResolutionEnum)[keyof typeof resolveDisputeRequestResolutionEnum];
+  (typeof resolveDisputeRequestResolutionEnum)[keyof typeof resolveDisputeRequestResolutionEnum]
 
 export type ResolveDisputeRequest = {
   /**
    * @type string
    */
-  resolution: ResolveDisputeRequestResolutionEnumKey;
+  resolution: ResolveDisputeRequestResolutionEnumKey
   /**
    * @type string | undefined
    */
-  resolutionNotes?: string;
-};
+  resolutionNotes?: string
+}

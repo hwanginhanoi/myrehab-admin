@@ -3,25 +3,25 @@
  * Do not edit manually.
  */
 
-import fetch from "@/lib/api-client";
+import fetch from '@/lib/api-client'
 import type {
   CreateCourseRequestMutationRequest,
   CreateCourseRequestMutationResponse,
-} from "../../types/trainerController/CreateCourseRequest.ts";
-import type { RequestConfig, ResponseErrorConfig } from "@/lib/api-client";
+} from '../../types/trainerController/CreateCourseRequest.ts'
+import type { RequestConfig, ResponseErrorConfig } from '@/lib/api-client'
 import type {
   UseMutationOptions,
   UseMutationResult,
   QueryClient,
-} from "@tanstack/react-query";
-import { mutationOptions, useMutation } from "@tanstack/react-query";
+} from '@tanstack/react-query'
+import { mutationOptions, useMutation } from '@tanstack/react-query'
 
 export const createCourseRequestMutationKey = () =>
-  [{ url: "/api/trainer/course-requests" }] as const;
+  [{ url: '/api/trainer/course-requests' }] as const
 
 export type CreateCourseRequestMutationKey = ReturnType<
   typeof createCourseRequestMutationKey
->;
+>
 
 /**
  * @description Trainer creates a custom course assignment request for a patient, pending doctor approval
@@ -31,32 +31,32 @@ export type CreateCourseRequestMutationKey = ReturnType<
 export async function createCourseRequest(
   data: CreateCourseRequestMutationRequest,
   config: Partial<RequestConfig<CreateCourseRequestMutationRequest>> & {
-    client?: typeof fetch;
-  } = {},
+    client?: typeof fetch
+  } = {}
 ) {
-  const { client: request = fetch, ...requestConfig } = config;
+  const { client: request = fetch, ...requestConfig } = config
 
-  const requestData = data;
+  const requestData = data
 
   const res = await request<
     CreateCourseRequestMutationResponse,
     ResponseErrorConfig<Error>,
     CreateCourseRequestMutationRequest
   >({
-    method: "POST",
+    method: 'POST',
     url: `/api/trainer/course-requests`,
     data: requestData,
     ...requestConfig,
-  });
-  return res.data;
+  })
+  return res.data
 }
 
 export function createCourseRequestMutationOptions(
   config: Partial<RequestConfig<CreateCourseRequestMutationRequest>> & {
-    client?: typeof fetch;
-  } = {},
+    client?: typeof fetch
+  } = {}
 ) {
-  const mutationKey = createCourseRequestMutationKey();
+  const mutationKey = createCourseRequestMutationKey()
   return mutationOptions<
     CreateCourseRequestMutationResponse,
     ResponseErrorConfig<Error>,
@@ -65,9 +65,9 @@ export function createCourseRequestMutationOptions(
   >({
     mutationKey,
     mutationFn: async ({ data }) => {
-      return createCourseRequest(data, config);
+      return createCourseRequest(data, config)
     },
-  });
+  })
 }
 
 /**
@@ -82,25 +82,25 @@ export function useCreateCourseRequest<TContext>(
       ResponseErrorConfig<Error>,
       { data: CreateCourseRequestMutationRequest },
       TContext
-    > & { client?: QueryClient };
+    > & { client?: QueryClient }
     client?: Partial<RequestConfig<CreateCourseRequestMutationRequest>> & {
-      client?: typeof fetch;
-    };
-  } = {},
+      client?: typeof fetch
+    }
+  } = {}
 ) {
-  const { mutation = {}, client: config = {} } = options ?? {};
-  const { client: queryClient, ...mutationOptions } = mutation;
+  const { mutation = {}, client: config = {} } = options ?? {}
+  const { client: queryClient, ...mutationOptions } = mutation
   const mutationKey =
-    mutationOptions.mutationKey ?? createCourseRequestMutationKey();
+    mutationOptions.mutationKey ?? createCourseRequestMutationKey()
 
   const baseOptions = createCourseRequestMutationOptions(
-    config,
+    config
   ) as UseMutationOptions<
     CreateCourseRequestMutationResponse,
     ResponseErrorConfig<Error>,
     { data: CreateCourseRequestMutationRequest },
     TContext
-  >;
+  >
 
   return useMutation<
     CreateCourseRequestMutationResponse,
@@ -113,11 +113,11 @@ export function useCreateCourseRequest<TContext>(
       mutationKey,
       ...mutationOptions,
     },
-    queryClient,
+    queryClient
   ) as UseMutationResult<
     CreateCourseRequestMutationResponse,
     ResponseErrorConfig<Error>,
     { data: CreateCourseRequestMutationRequest },
     TContext
-  >;
+  >
 }

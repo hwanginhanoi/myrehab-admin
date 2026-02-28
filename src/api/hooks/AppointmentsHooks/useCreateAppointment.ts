@@ -3,25 +3,25 @@
  * Do not edit manually.
  */
 
-import fetch from "@/lib/api-client";
+import fetch from '@/lib/api-client'
 import type {
   CreateAppointmentMutationRequest,
   CreateAppointmentMutationResponse,
-} from "../../types/appointmentsController/CreateAppointment.ts";
-import type { RequestConfig, ResponseErrorConfig } from "@/lib/api-client";
+} from '../../types/appointmentsController/CreateAppointment.ts'
+import type { RequestConfig, ResponseErrorConfig } from '@/lib/api-client'
 import type {
   UseMutationOptions,
   UseMutationResult,
   QueryClient,
-} from "@tanstack/react-query";
-import { mutationOptions, useMutation } from "@tanstack/react-query";
+} from '@tanstack/react-query'
+import { mutationOptions, useMutation } from '@tanstack/react-query'
 
 export const createAppointmentMutationKey = () =>
-  [{ url: "/api/appointments" }] as const;
+  [{ url: '/api/appointments' }] as const
 
 export type CreateAppointmentMutationKey = ReturnType<
   typeof createAppointmentMutationKey
->;
+>
 
 /**
  * @description Patient books an appointment, deducting 200,000 VND from balance
@@ -31,32 +31,32 @@ export type CreateAppointmentMutationKey = ReturnType<
 export async function createAppointment(
   data: CreateAppointmentMutationRequest,
   config: Partial<RequestConfig<CreateAppointmentMutationRequest>> & {
-    client?: typeof fetch;
-  } = {},
+    client?: typeof fetch
+  } = {}
 ) {
-  const { client: request = fetch, ...requestConfig } = config;
+  const { client: request = fetch, ...requestConfig } = config
 
-  const requestData = data;
+  const requestData = data
 
   const res = await request<
     CreateAppointmentMutationResponse,
     ResponseErrorConfig<Error>,
     CreateAppointmentMutationRequest
   >({
-    method: "POST",
+    method: 'POST',
     url: `/api/appointments`,
     data: requestData,
     ...requestConfig,
-  });
-  return res.data;
+  })
+  return res.data
 }
 
 export function createAppointmentMutationOptions(
   config: Partial<RequestConfig<CreateAppointmentMutationRequest>> & {
-    client?: typeof fetch;
-  } = {},
+    client?: typeof fetch
+  } = {}
 ) {
-  const mutationKey = createAppointmentMutationKey();
+  const mutationKey = createAppointmentMutationKey()
   return mutationOptions<
     CreateAppointmentMutationResponse,
     ResponseErrorConfig<Error>,
@@ -65,9 +65,9 @@ export function createAppointmentMutationOptions(
   >({
     mutationKey,
     mutationFn: async ({ data }) => {
-      return createAppointment(data, config);
+      return createAppointment(data, config)
     },
-  });
+  })
 }
 
 /**
@@ -82,25 +82,25 @@ export function useCreateAppointment<TContext>(
       ResponseErrorConfig<Error>,
       { data: CreateAppointmentMutationRequest },
       TContext
-    > & { client?: QueryClient };
+    > & { client?: QueryClient }
     client?: Partial<RequestConfig<CreateAppointmentMutationRequest>> & {
-      client?: typeof fetch;
-    };
-  } = {},
+      client?: typeof fetch
+    }
+  } = {}
 ) {
-  const { mutation = {}, client: config = {} } = options ?? {};
-  const { client: queryClient, ...mutationOptions } = mutation;
+  const { mutation = {}, client: config = {} } = options ?? {}
+  const { client: queryClient, ...mutationOptions } = mutation
   const mutationKey =
-    mutationOptions.mutationKey ?? createAppointmentMutationKey();
+    mutationOptions.mutationKey ?? createAppointmentMutationKey()
 
   const baseOptions = createAppointmentMutationOptions(
-    config,
+    config
   ) as UseMutationOptions<
     CreateAppointmentMutationResponse,
     ResponseErrorConfig<Error>,
     { data: CreateAppointmentMutationRequest },
     TContext
-  >;
+  >
 
   return useMutation<
     CreateAppointmentMutationResponse,
@@ -113,11 +113,11 @@ export function useCreateAppointment<TContext>(
       mutationKey,
       ...mutationOptions,
     },
-    queryClient,
+    queryClient
   ) as UseMutationResult<
     CreateAppointmentMutationResponse,
     ResponseErrorConfig<Error>,
     { data: CreateAppointmentMutationRequest },
     TContext
-  >;
+  >
 }

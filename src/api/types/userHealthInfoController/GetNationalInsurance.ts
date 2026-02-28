@@ -3,25 +3,25 @@
  * Do not edit manually.
  */
 
-import type { NationalHealthInsuranceResponse } from "../NationalHealthInsuranceResponse.ts";
+import type { NationalHealthInsuranceResponse } from '../NationalHealthInsuranceResponse.ts'
 
 export type GetNationalInsurancePathParams = {
   /**
    * @description User ID
    * @type integer, int64
    */
-  userId: number;
-};
+  userId: number
+}
 
 /**
  * @description OK
  */
-export type GetNationalInsurance200 = NationalHealthInsuranceResponse;
+export type GetNationalInsurance200 = NationalHealthInsuranceResponse
 
-export type GetNationalInsuranceQueryResponse = GetNationalInsurance200;
+export type GetNationalInsuranceQueryResponse = GetNationalInsurance200
 
 export type GetNationalInsuranceQuery = {
-  Response: GetNationalInsurance200;
-  PathParams: GetNationalInsurancePathParams;
-  Errors: any;
-};
+  Response: GetNationalInsurance200
+  PathParams: GetNationalInsurancePathParams
+  Errors: any
+}

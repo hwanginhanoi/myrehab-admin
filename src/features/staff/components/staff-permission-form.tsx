@@ -1,5 +1,3 @@
-'use client'
-
 import { useCallback, useEffect, useMemo } from 'react'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
@@ -9,10 +7,17 @@ import { toast } from 'sonner'
 import { Button } from '@/components/ui/button'
 import { Switch } from '@/components/ui/switch'
 import { Form, FormControl, FormField, FormItem } from '@/components/ui/form'
-import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible'
+import {
+  Collapsible,
+  CollapsibleContent,
+  CollapsibleTrigger,
+} from '@/components/ui/collapsible'
 import { ChevronDown } from 'lucide-react'
 import { useUpdateStaff, type StaffResponse } from '@/api'
-import { getPermissionCategoriesByStaffType, getRequiredPermissionsByStaffType } from '../data/permissions'
+import {
+  getPermissionCategoriesByStaffType,
+  getRequiredPermissionsByStaffType,
+} from '../data/permissions'
 import { cn } from '@/lib/utils'
 
 const formSchema = z.object({
@@ -26,7 +31,10 @@ type StaffPermissionFormProps = {
   readOnly?: boolean
 }
 
-export function StaffPermissionForm({ staff, readOnly }: StaffPermissionFormProps) {
+export function StaffPermissionForm({
+  staff,
+  readOnly,
+}: StaffPermissionFormProps) {
   const queryClient = useQueryClient()
   const permissionCategories = useMemo(
     () => getPermissionCategoriesByStaffType(staff.staffType || ''),
@@ -38,11 +46,14 @@ export function StaffPermissionForm({ staff, readOnly }: StaffPermissionFormProp
   )
 
   // Merge required permissions into the given list
-  const ensureRequiredPermissions = useCallback((permissions: string[]) => {
-    const set = new Set(permissions)
-    for (const p of requiredPermissions) set.add(p)
-    return Array.from(set)
-  }, [requiredPermissions])
+  const ensureRequiredPermissions = useCallback(
+    (permissions: string[]) => {
+      const set = new Set(permissions)
+      for (const p of requiredPermissions) set.add(p)
+      return Array.from(set)
+    },
+    [requiredPermissions]
+  )
 
   const form = useForm<FormValues>({
     resolver: zodResolver(formSchema),
@@ -83,7 +94,11 @@ export function StaffPermissionForm({ staff, readOnly }: StaffPermissionFormProp
     updateMutation.mutate({
       id: staff.id,
       data: {
-        staffType: staff.staffType as 'DOCTOR' | 'TRAINER' | 'ADMIN' | 'SUPER_ADMIN',
+        staffType: staff.staffType as
+          | 'DOCTOR'
+          | 'TRAINER'
+          | 'ADMIN'
+          | 'SUPER_ADMIN',
         email: staff.email || '',
         fullName: staff.fullName || '',
         permissions: values.permissions,
@@ -119,7 +134,8 @@ export function StaffPermissionForm({ staff, readOnly }: StaffPermissionFormProp
 
     if (isFullySelected) {
       const newPermissions = selectedPermissions.filter(
-        (p) => !categoryPermissionIds.includes(p) || requiredPermissions.includes(p)
+        (p) =>
+          !categoryPermissionIds.includes(p) || requiredPermissions.includes(p)
       )
       form.setValue('permissions', newPermissions, { shouldDirty: true })
     } else {
@@ -137,7 +153,7 @@ export function StaffPermissionForm({ staff, readOnly }: StaffPermissionFormProp
 
   if (permissionCategories.length === 0) {
     return (
-      <div className='text-center py-8 text-muted-foreground'>
+      <div className="text-center py-8 text-muted-foreground">
         Không có quyền nào có thể cấu hình cho loại nhân viên này.
       </div>
     )
@@ -145,8 +161,8 @@ export function StaffPermissionForm({ staff, readOnly }: StaffPermissionFormProp
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className='space-y-4'>
-        <div className='rounded-lg border'>
+      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+        <div className="rounded-lg border">
           {permissionCategories.map((category, index) => {
             const { selected, total } = getCategorySelectedCount(category.id)
             const isFullySelected = selected === total
@@ -159,11 +175,11 @@ export function StaffPermissionForm({ staff, readOnly }: StaffPermissionFormProp
                     index !== 0 && 'border-t'
                   )}
                 >
-                  <CollapsibleTrigger className='flex items-center gap-2 group flex-1 text-left'>
-                    <ChevronDown className='h-4 w-4 text-muted-foreground transition-transform group-data-[state=closed]:-rotate-90' />
-                    <div className='flex-1'>
-                      <div className='flex items-center gap-2'>
-                        <span className='text-sm font-medium'>
+                  <CollapsibleTrigger className="flex items-center gap-2 group flex-1 text-left">
+                    <ChevronDown className="h-4 w-4 text-muted-foreground transition-transform group-data-[state=closed]:-rotate-90" />
+                    <div className="flex-1">
+                      <div className="flex items-center gap-2">
+                        <span className="text-sm font-medium">
                           {category.title}
                         </span>
                         <span
@@ -179,7 +195,7 @@ export function StaffPermissionForm({ staff, readOnly }: StaffPermissionFormProp
                           {selected}/{total}
                         </span>
                       </div>
-                      <p className='text-xs text-muted-foreground mt-0.5'>
+                      <p className="text-xs text-muted-foreground mt-0.5">
                         {category.description}
                       </p>
                     </div>
@@ -194,17 +210,21 @@ export function StaffPermissionForm({ staff, readOnly }: StaffPermissionFormProp
                 </div>
 
                 <CollapsibleContent>
-                  <div className='border-t bg-muted/30 px-4 py-4'>
-                    <div className='space-y-2'>
+                  <div className="border-t bg-muted/30 px-4 py-4">
+                    <div className="space-y-2">
                       {category.permissions.map((permission) => {
-                        const isRequired = requiredPermissions.includes(permission.id)
+                        const isRequired = requiredPermissions.includes(
+                          permission.id
+                        )
                         return (
                           <FormField
                             key={permission.id}
                             control={form.control}
-                            name='permissions'
+                            name="permissions"
                             render={({ field }) => {
-                              const isChecked = field.value.includes(permission.id)
+                              const isChecked = field.value.includes(
+                                permission.id
+                              )
                               return (
                                 <FormItem
                                   className={cn(
@@ -216,11 +236,13 @@ export function StaffPermissionForm({ staff, readOnly }: StaffPermissionFormProp
                                 >
                                   <label
                                     htmlFor={permission.id}
-                                    className='text-sm cursor-pointer flex-1'
+                                    className="text-sm cursor-pointer flex-1"
                                   >
                                     {permission.label}
                                     {isRequired && (
-                                      <span className='ml-2 text-xs text-muted-foreground'>(Bắt buộc)</span>
+                                      <span className="ml-2 text-xs text-muted-foreground">
+                                        (Bắt buộc)
+                                      </span>
                                     )}
                                   </label>
                                   <FormControl>
@@ -253,26 +275,26 @@ export function StaffPermissionForm({ staff, readOnly }: StaffPermissionFormProp
           })}
         </div>
 
-        <div className='flex items-center justify-between pt-2'>
-          <p className='text-sm text-muted-foreground'>
+        <div className="flex items-center justify-between pt-2">
+          <p className="text-sm text-muted-foreground">
             Đã chọn{' '}
-            <span className='font-medium text-foreground'>
+            <span className="font-medium text-foreground">
               {selectedPermissions.length}
             </span>{' '}
             quyền
           </p>
           {!readOnly && (
-            <div className='flex gap-2'>
+            <div className="flex gap-2">
               <Button
-                type='button'
-                variant='outline'
+                type="button"
+                variant="outline"
                 onClick={() => form.reset()}
                 disabled={!isDirty || updateMutation.isPending}
               >
                 Hủy
               </Button>
               <Button
-                type='submit'
+                type="submit"
                 disabled={!isDirty || updateMutation.isPending}
               >
                 {updateMutation.isPending ? 'Đang lưu...' : 'Lưu thay đổi'}

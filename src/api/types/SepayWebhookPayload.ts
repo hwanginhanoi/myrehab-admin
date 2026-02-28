@@ -7,49 +7,49 @@ export type SepayWebhookPayload = {
   /**
    * @type integer, int64
    */
-  id: number;
+  id: number
   /**
    * @type string
    */
-  gateway: string;
+  gateway: string
   /**
    * @type string
    */
-  transactionDate: string;
+  transactionDate: string
   /**
    * @type string | undefined
    */
-  accountNumber?: string;
+  accountNumber?: string
   /**
    * @type string | undefined
    */
-  code?: string;
+  code?: string
   /**
    * @type string | undefined
    */
-  content?: string;
+  content?: string
   /**
    * @type string
    */
-  transferType: string;
+  transferType: string
   /**
    * @type integer, int64
    */
-  transferAmount: number;
+  transferAmount: number
   /**
    * @type integer | undefined, int64
    */
-  accumulated?: number;
+  accumulated?: number
   /**
    * @type string | undefined
    */
-  subAccount?: string;
+  subAccount?: string
   /**
    * @type string | undefined
    */
-  referenceCode?: string;
+  referenceCode?: string
   /**
    * @type string | undefined
    */
-  description?: string;
-};
+  description?: string
+}

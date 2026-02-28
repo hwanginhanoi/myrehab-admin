@@ -3,20 +3,20 @@
  * Do not edit manually.
  */
 
-import type { CourseAssignmentRequestResponse } from "../CourseAssignmentRequestResponse.ts";
-import type { CreateCourseRequestRequest } from "../CreateCourseRequestRequest.ts";
+import type { CourseAssignmentRequestResponse } from '../CourseAssignmentRequestResponse.ts'
+import type { CreateCourseRequestRequest } from '../CreateCourseRequestRequest.ts'
 
 /**
  * @description OK
  */
-export type CreateCourseRequest200 = CourseAssignmentRequestResponse;
+export type CreateCourseRequest200 = CourseAssignmentRequestResponse
 
-export type CreateCourseRequestMutationRequest = CreateCourseRequestRequest;
+export type CreateCourseRequestMutationRequest = CreateCourseRequestRequest
 
-export type CreateCourseRequestMutationResponse = CreateCourseRequest200;
+export type CreateCourseRequestMutationResponse = CreateCourseRequest200
 
 export type CreateCourseRequestMutation = {
-  Response: CreateCourseRequest200;
-  Request: CreateCourseRequestMutationRequest;
-  Errors: any;
-};
+  Response: CreateCourseRequest200
+  Request: CreateCourseRequestMutationRequest
+  Errors: any
+}

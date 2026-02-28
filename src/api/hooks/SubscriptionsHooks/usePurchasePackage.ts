@@ -3,25 +3,25 @@
  * Do not edit manually.
  */
 
-import fetch from "@/lib/api-client";
+import fetch from '@/lib/api-client'
 import type {
   PurchasePackageMutationRequest,
   PurchasePackageMutationResponse,
-} from "../../types/subscriptionsController/PurchasePackage.ts";
-import type { RequestConfig, ResponseErrorConfig } from "@/lib/api-client";
+} from '../../types/subscriptionsController/PurchasePackage.ts'
+import type { RequestConfig, ResponseErrorConfig } from '@/lib/api-client'
 import type {
   UseMutationOptions,
   UseMutationResult,
   QueryClient,
-} from "@tanstack/react-query";
-import { mutationOptions, useMutation } from "@tanstack/react-query";
+} from '@tanstack/react-query'
+import { mutationOptions, useMutation } from '@tanstack/react-query'
 
 export const purchasePackageMutationKey = () =>
-  [{ url: "/api/subscriptions/package/purchase" }] as const;
+  [{ url: '/api/subscriptions/package/purchase' }] as const
 
 export type PurchasePackageMutationKey = ReturnType<
   typeof purchasePackageMutationKey
->;
+>
 
 /**
  * @description Purchase a subscription for an exercise package (monthly or yearly)
@@ -31,32 +31,32 @@ export type PurchasePackageMutationKey = ReturnType<
 export async function purchasePackage(
   data: PurchasePackageMutationRequest,
   config: Partial<RequestConfig<PurchasePackageMutationRequest>> & {
-    client?: typeof fetch;
-  } = {},
+    client?: typeof fetch
+  } = {}
 ) {
-  const { client: request = fetch, ...requestConfig } = config;
+  const { client: request = fetch, ...requestConfig } = config
 
-  const requestData = data;
+  const requestData = data
 
   const res = await request<
     PurchasePackageMutationResponse,
     ResponseErrorConfig<Error>,
     PurchasePackageMutationRequest
   >({
-    method: "POST",
+    method: 'POST',
     url: `/api/subscriptions/package/purchase`,
     data: requestData,
     ...requestConfig,
-  });
-  return res.data;
+  })
+  return res.data
 }
 
 export function purchasePackageMutationOptions(
   config: Partial<RequestConfig<PurchasePackageMutationRequest>> & {
-    client?: typeof fetch;
-  } = {},
+    client?: typeof fetch
+  } = {}
 ) {
-  const mutationKey = purchasePackageMutationKey();
+  const mutationKey = purchasePackageMutationKey()
   return mutationOptions<
     PurchasePackageMutationResponse,
     ResponseErrorConfig<Error>,
@@ -65,9 +65,9 @@ export function purchasePackageMutationOptions(
   >({
     mutationKey,
     mutationFn: async ({ data }) => {
-      return purchasePackage(data, config);
+      return purchasePackage(data, config)
     },
-  });
+  })
 }
 
 /**
@@ -82,25 +82,25 @@ export function usePurchasePackage<TContext>(
       ResponseErrorConfig<Error>,
       { data: PurchasePackageMutationRequest },
       TContext
-    > & { client?: QueryClient };
+    > & { client?: QueryClient }
     client?: Partial<RequestConfig<PurchasePackageMutationRequest>> & {
-      client?: typeof fetch;
-    };
-  } = {},
+      client?: typeof fetch
+    }
+  } = {}
 ) {
-  const { mutation = {}, client: config = {} } = options ?? {};
-  const { client: queryClient, ...mutationOptions } = mutation;
+  const { mutation = {}, client: config = {} } = options ?? {}
+  const { client: queryClient, ...mutationOptions } = mutation
   const mutationKey =
-    mutationOptions.mutationKey ?? purchasePackageMutationKey();
+    mutationOptions.mutationKey ?? purchasePackageMutationKey()
 
   const baseOptions = purchasePackageMutationOptions(
-    config,
+    config
   ) as UseMutationOptions<
     PurchasePackageMutationResponse,
     ResponseErrorConfig<Error>,
     { data: PurchasePackageMutationRequest },
     TContext
-  >;
+  >
 
   return useMutation<
     PurchasePackageMutationResponse,
@@ -113,11 +113,11 @@ export function usePurchasePackage<TContext>(
       mutationKey,
       ...mutationOptions,
     },
-    queryClient,
+    queryClient
   ) as UseMutationResult<
     PurchasePackageMutationResponse,
     ResponseErrorConfig<Error>,
     { data: PurchasePackageMutationRequest },
     TContext
-  >;
+  >
 }

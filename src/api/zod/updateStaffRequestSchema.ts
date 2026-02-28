@@ -3,11 +3,11 @@
  * Do not edit manually.
  */
 
-import { updateAdminRequestSchema } from "./updateAdminRequestSchema.ts";
-import { updateDoctorRequestSchema } from "./updateDoctorRequestSchema.ts";
-import { updateSuperAdminRequestSchema } from "./updateSuperAdminRequestSchema.ts";
-import { updateTrainerRequestSchema } from "./updateTrainerRequestSchema.ts";
-import { z } from "zod/v4";
+import { updateAdminRequestSchema } from './updateAdminRequestSchema.ts'
+import { updateDoctorRequestSchema } from './updateDoctorRequestSchema.ts'
+import { updateSuperAdminRequestSchema } from './updateSuperAdminRequestSchema.ts'
+import { updateTrainerRequestSchema } from './updateTrainerRequestSchema.ts'
+import { z } from 'zod/v4'
 
 /**
  * @description Base update request for staff
@@ -18,83 +18,83 @@ export const updateStaffRequestSchema = z
       .lazy(() => updateDoctorRequestSchema)
       .and(
         z.object({
-          staffType: z.literal("DOCTOR").describe("Staff type discriminator"),
-          email: z.string().describe("Staff email address"),
-          fullName: z.string().describe("Staff full name"),
-          phoneNumber: z.optional(z.string().describe("Staff phone number")),
+          staffType: z.literal('DOCTOR').describe('Staff type discriminator'),
+          email: z.string().describe('Staff email address'),
+          fullName: z.string().describe('Staff full name'),
+          phoneNumber: z.optional(z.string().describe('Staff phone number')),
           description: z.optional(
-            z.string().describe("Staff description or bio"),
+            z.string().describe('Staff description or bio')
           ),
           permissions: z.optional(
             z
               .array(z.string())
               .describe(
-                "List of permission codes assigned to this staff member",
-              ),
+                'List of permission codes assigned to this staff member'
+              )
           ),
-        }),
+        })
       ),
     z
       .lazy(() => updateTrainerRequestSchema)
       .and(
         z.object({
-          staffType: z.literal("TRAINER").describe("Staff type discriminator"),
-          email: z.string().describe("Staff email address"),
-          fullName: z.string().describe("Staff full name"),
-          phoneNumber: z.optional(z.string().describe("Staff phone number")),
+          staffType: z.literal('TRAINER').describe('Staff type discriminator'),
+          email: z.string().describe('Staff email address'),
+          fullName: z.string().describe('Staff full name'),
+          phoneNumber: z.optional(z.string().describe('Staff phone number')),
           description: z.optional(
-            z.string().describe("Staff description or bio"),
+            z.string().describe('Staff description or bio')
           ),
           permissions: z.optional(
             z
               .array(z.string())
               .describe(
-                "List of permission codes assigned to this staff member",
-              ),
+                'List of permission codes assigned to this staff member'
+              )
           ),
-        }),
+        })
       ),
     z
       .lazy(() => updateAdminRequestSchema)
       .and(
         z.object({
-          staffType: z.literal("ADMIN").describe("Staff type discriminator"),
-          email: z.string().describe("Staff email address"),
-          fullName: z.string().describe("Staff full name"),
-          phoneNumber: z.optional(z.string().describe("Staff phone number")),
+          staffType: z.literal('ADMIN').describe('Staff type discriminator'),
+          email: z.string().describe('Staff email address'),
+          fullName: z.string().describe('Staff full name'),
+          phoneNumber: z.optional(z.string().describe('Staff phone number')),
           description: z.optional(
-            z.string().describe("Staff description or bio"),
+            z.string().describe('Staff description or bio')
           ),
           permissions: z.optional(
             z
               .array(z.string())
               .describe(
-                "List of permission codes assigned to this staff member",
-              ),
+                'List of permission codes assigned to this staff member'
+              )
           ),
-        }),
+        })
       ),
     z
       .lazy(() => updateSuperAdminRequestSchema)
       .and(
         z.object({
           staffType: z
-            .literal("SUPER_ADMIN")
-            .describe("Staff type discriminator"),
-          email: z.string().describe("Staff email address"),
-          fullName: z.string().describe("Staff full name"),
-          phoneNumber: z.optional(z.string().describe("Staff phone number")),
+            .literal('SUPER_ADMIN')
+            .describe('Staff type discriminator'),
+          email: z.string().describe('Staff email address'),
+          fullName: z.string().describe('Staff full name'),
+          phoneNumber: z.optional(z.string().describe('Staff phone number')),
           description: z.optional(
-            z.string().describe("Staff description or bio"),
+            z.string().describe('Staff description or bio')
           ),
           permissions: z.optional(
             z
               .array(z.string())
               .describe(
-                "List of permission codes assigned to this staff member",
-              ),
+                'List of permission codes assigned to this staff member'
+              )
           ),
-        }),
+        })
       ),
   ])
-  .describe("Base update request for staff");
+  .describe('Base update request for staff')

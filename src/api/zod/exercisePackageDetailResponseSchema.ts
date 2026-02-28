@@ -3,8 +3,8 @@
  * Do not edit manually.
  */
 
-import { exerciseResponseSchema } from "./exerciseResponseSchema.ts";
-import { z } from "zod/v4";
+import { exerciseResponseSchema } from './exerciseResponseSchema.ts'
+import { z } from 'zod/v4'
 
 export const exercisePackageDetailResponseSchema = z.object({
   id: z.optional(z.int()),
@@ -12,10 +12,10 @@ export const exercisePackageDetailResponseSchema = z.object({
   description: z.optional(z.string()),
   imageUrl: z.optional(z.string()),
   get exercises() {
-    return z.array(exerciseResponseSchema).optional();
+    return z.array(exerciseResponseSchema).optional()
   },
   monthlyPrice: z.optional(z.int()),
   yearlyPrice: z.optional(z.int()),
   createdAt: z.optional(z.string().datetime()),
   updatedAt: z.optional(z.string().datetime()),
-});
+})

@@ -3,7 +3,7 @@
  * Do not edit manually.
  */
 
-import { z } from "zod/v4";
+import { z } from 'zod/v4'
 
 export const courseProgressHistoryResponseSchema = z.object({
   id: z.optional(z.int()),
@@ -17,10 +17,10 @@ export const courseProgressHistoryResponseSchema = z.object({
   completedAt: z.optional(z.string().datetime()),
   archivedAt: z.optional(z.string().datetime()),
   archivalReason: z.optional(
-    z.enum(["COMPLETED", "RESTARTED", "SUBSCRIPTION_EXPIRED", "REVOKED"]),
+    z.enum(['COMPLETED', 'RESTARTED', 'SUBSCRIPTION_EXPIRED', 'REVOKED'])
   ),
   progressPercentage: z.optional(z.number()),
   attemptNumber: z.optional(z.int()),
   createdAt: z.optional(z.string().datetime()),
   updatedAt: z.optional(z.string().datetime()),
-});
+})

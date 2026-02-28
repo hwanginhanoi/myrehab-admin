@@ -3,7 +3,7 @@
  * Do not edit manually.
  */
 
-import { z } from "zod/v4";
+import { z } from 'zod/v4'
 
 export const generateUploadUrlRequestSchema = z.object({
   fileName: z.string(),
@@ -11,6 +11,6 @@ export const generateUploadUrlRequestSchema = z.object({
   category: z
     .string()
     .regex(
-      /^(exercise-image|exercise-video|course-image|course-video|profile-image|news-image|exercise-package-image)$/,
+      /^(exercise-image|exercise-video|course-image|course-video|profile-image|news-image|exercise-package-image)$/
     ),
-});
+})

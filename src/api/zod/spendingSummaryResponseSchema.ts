@@ -3,8 +3,8 @@
  * Do not edit manually.
  */
 
-import { z } from "zod/v4";
+import { z } from 'zod/v4'
 
 export const spendingSummaryResponseSchema = z.object({
   totalSpending: z.optional(z.int()),
-});
+})

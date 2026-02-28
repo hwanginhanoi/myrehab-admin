@@ -3,26 +3,26 @@
  * Do not edit manually.
  */
 
-import { pageableSchema } from "../pageableSchema.ts";
-import { pagedModelSchema } from "../pagedModelSchema.ts";
-import { z } from "zod/v4";
+import { pageableSchema } from '../pageableSchema.ts'
+import { pagedModelSchema } from '../pagedModelSchema.ts'
+import { z } from 'zod/v4'
 
 export const getCourseRequestsQueryParamsSchema = z.object({
   status: z.optional(
     z
-      .enum(["PENDING", "APPROVED", "REJECTED"])
-      .describe("Filter by request status (PENDING, APPROVED, REJECTED)"),
+      .enum(['PENDING', 'APPROVED', 'REJECTED'])
+      .describe('Filter by request status (PENDING, APPROVED, REJECTED)')
   ),
   get pageable() {
-    return pageableSchema;
+    return pageableSchema
   },
-});
+})
 
 /**
  * @description OK
  */
-export const getCourseRequests200Schema = z.lazy(() => pagedModelSchema);
+export const getCourseRequests200Schema = z.lazy(() => pagedModelSchema)
 
 export const getCourseRequestsQueryResponseSchema = z.lazy(
-  () => getCourseRequests200Schema,
-);
+  () => getCourseRequests200Schema
+)

@@ -3,21 +3,21 @@
  * Do not edit manually.
  */
 
-import { verifyRegistrationOtpRequestSchema } from "../verifyRegistrationOtpRequestSchema.ts";
-import { verifyRegistrationOtpResponseSchema } from "../verifyRegistrationOtpResponseSchema.ts";
-import { z } from "zod/v4";
+import { verifyRegistrationOtpRequestSchema } from '../verifyRegistrationOtpRequestSchema.ts'
+import { verifyRegistrationOtpResponseSchema } from '../verifyRegistrationOtpResponseSchema.ts'
+import { z } from 'zod/v4'
 
 /**
  * @description OK
  */
 export const verifyRegistrationOtp200Schema = z.lazy(
-  () => verifyRegistrationOtpResponseSchema,
-);
+  () => verifyRegistrationOtpResponseSchema
+)
 
 export const verifyRegistrationOtpMutationRequestSchema = z.lazy(
-  () => verifyRegistrationOtpRequestSchema,
-);
+  () => verifyRegistrationOtpRequestSchema
+)
 
 export const verifyRegistrationOtpMutationResponseSchema = z.lazy(
-  () => verifyRegistrationOtp200Schema,
-);
+  () => verifyRegistrationOtp200Schema
+)

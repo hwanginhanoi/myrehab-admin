@@ -3,21 +3,21 @@
  * Do not edit manually.
  */
 
-import fetch from "@/lib/api-client";
-import type { GetMyQrCodeQueryResponse } from "../../types/paymentController/GetMyQrCode.ts";
-import type { RequestConfig, ResponseErrorConfig } from "@/lib/api-client";
+import fetch from '@/lib/api-client'
+import type { GetMyQrCodeQueryResponse } from '../../types/paymentController/GetMyQrCode.ts'
+import type { RequestConfig, ResponseErrorConfig } from '@/lib/api-client'
 import type {
   QueryKey,
   QueryClient,
   QueryObserverOptions,
   UseQueryResult,
-} from "@tanstack/react-query";
-import { queryOptions, useQuery } from "@tanstack/react-query";
+} from '@tanstack/react-query'
+import { queryOptions, useQuery } from '@tanstack/react-query'
 
 export const getMyQrCodeQueryKey = () =>
-  [{ url: "/api/payment/qr/my-qr" }] as const;
+  [{ url: '/api/payment/qr/my-qr' }] as const
 
-export type GetMyQrCodeQueryKey = ReturnType<typeof getMyQrCodeQueryKey>;
+export type GetMyQrCodeQueryKey = ReturnType<typeof getMyQrCodeQueryKey>
 
 /**
  * @description Generate a reusable VietQR code for depositing balance via bank transfer. The QR code contains a unique payment code that identifies the user. Can be saved and used multiple times with different amounts.
@@ -25,22 +25,22 @@ export type GetMyQrCodeQueryKey = ReturnType<typeof getMyQrCodeQueryKey>;
  * {@link /api/payment/qr/my-qr}
  */
 export async function getMyQrCode(
-  config: Partial<RequestConfig> & { client?: typeof fetch } = {},
+  config: Partial<RequestConfig> & { client?: typeof fetch } = {}
 ) {
-  const { client: request = fetch, ...requestConfig } = config;
+  const { client: request = fetch, ...requestConfig } = config
 
   const res = await request<
     GetMyQrCodeQueryResponse,
     ResponseErrorConfig<Error>,
     unknown
-  >({ method: "GET", url: `/api/payment/qr/my-qr`, ...requestConfig });
-  return res.data;
+  >({ method: 'GET', url: `/api/payment/qr/my-qr`, ...requestConfig })
+  return res.data
 }
 
 export function getMyQrCodeQueryOptions(
-  config: Partial<RequestConfig> & { client?: typeof fetch } = {},
+  config: Partial<RequestConfig> & { client?: typeof fetch } = {}
 ) {
-  const queryKey = getMyQrCodeQueryKey();
+  const queryKey = getMyQrCodeQueryKey()
   return queryOptions<
     GetMyQrCodeQueryResponse,
     ResponseErrorConfig<Error>,
@@ -49,10 +49,10 @@ export function getMyQrCodeQueryOptions(
   >({
     queryKey,
     queryFn: async ({ signal }) => {
-      config.signal = signal;
-      return getMyQrCode(config);
+      config.signal = signal
+      return getMyQrCode(config)
     },
-  });
+  })
 }
 
 /**
@@ -74,13 +74,13 @@ export function useGetMyQrCode<
         TQueryData,
         TQueryKey
       >
-    > & { client?: QueryClient };
-    client?: Partial<RequestConfig> & { client?: typeof fetch };
-  } = {},
+    > & { client?: QueryClient }
+    client?: Partial<RequestConfig> & { client?: typeof fetch }
+  } = {}
 ) {
-  const { query: queryConfig = {}, client: config = {} } = options ?? {};
-  const { client: queryClient, ...queryOptions } = queryConfig;
-  const queryKey = queryOptions?.queryKey ?? getMyQrCodeQueryKey();
+  const { query: queryConfig = {}, client: config = {} } = options ?? {}
+  const { client: queryClient, ...queryOptions } = queryConfig
+  const queryKey = queryOptions?.queryKey ?? getMyQrCodeQueryKey()
 
   const query = useQuery(
     {
@@ -88,12 +88,12 @@ export function useGetMyQrCode<
       queryKey,
       ...queryOptions,
     } as unknown as QueryObserverOptions,
-    queryClient,
+    queryClient
   ) as UseQueryResult<TData, ResponseErrorConfig<Error>> & {
-    queryKey: TQueryKey;
-  };
+    queryKey: TQueryKey
+  }
 
-  query.queryKey = queryKey as TQueryKey;
+  query.queryKey = queryKey as TQueryKey
 
-  return query;
+  return query
 }

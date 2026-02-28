@@ -3,23 +3,23 @@
  * Do not edit manually.
  */
 
-import type { NonCompulsoryHealthInsuranceResponse } from "../NonCompulsoryHealthInsuranceResponse.ts";
-import type { UpsertNonCompulsoryHealthInsuranceRequest } from "../UpsertNonCompulsoryHealthInsuranceRequest.ts";
+import type { NonCompulsoryHealthInsuranceResponse } from '../NonCompulsoryHealthInsuranceResponse.ts'
+import type { UpsertNonCompulsoryHealthInsuranceRequest } from '../UpsertNonCompulsoryHealthInsuranceRequest.ts'
 
 /**
  * @description OK
  */
 export type UpsertMyNonCompulsoryInsurance200 =
-  NonCompulsoryHealthInsuranceResponse;
+  NonCompulsoryHealthInsuranceResponse
 
 export type UpsertMyNonCompulsoryInsuranceMutationRequest =
-  UpsertNonCompulsoryHealthInsuranceRequest;
+  UpsertNonCompulsoryHealthInsuranceRequest
 
 export type UpsertMyNonCompulsoryInsuranceMutationResponse =
-  UpsertMyNonCompulsoryInsurance200;
+  UpsertMyNonCompulsoryInsurance200
 
 export type UpsertMyNonCompulsoryInsuranceMutation = {
-  Response: UpsertMyNonCompulsoryInsurance200;
-  Request: UpsertMyNonCompulsoryInsuranceMutationRequest;
-  Errors: any;
-};
+  Response: UpsertMyNonCompulsoryInsurance200
+  Request: UpsertMyNonCompulsoryInsuranceMutationRequest
+  Errors: any
+}

@@ -7,9 +7,9 @@ export type CheckPhoneResponse = {
   /**
    * @type boolean | undefined
    */
-  exists?: boolean;
+  exists?: boolean
   /**
    * @type string | undefined
    */
-  message?: string;
-};
+  message?: string
+}

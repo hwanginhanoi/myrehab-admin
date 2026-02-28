@@ -17,11 +17,20 @@ export function DoctorPatientSection({
 }: DoctorPatientSectionProps) {
   return (
     <DoctorContentSection
-      title='Quản lý Bệnh nhân'
-      desc={readOnly ? 'Xem các bệnh nhân được gán cho bác sĩ này.' : 'Xem và quản lý các bệnh nhân được gán cho bác sĩ này.'}
+      title="Quản lý Bệnh nhân"
+      desc={
+        readOnly
+          ? 'Xem các bệnh nhân được gán cho bác sĩ này.'
+          : 'Xem và quản lý các bệnh nhân được gán cho bác sĩ này.'
+      }
       fullWidth
     >
-      <PatientListCard doctorId={doctorId} search={search} navigate={navigate} readOnly={readOnly} />
+      <PatientListCard
+        doctorId={doctorId}
+        search={search}
+        navigate={navigate}
+        readOnly={readOnly}
+      />
     </DoctorContentSection>
   )
 }

@@ -3,24 +3,24 @@
  * Do not edit manually.
  */
 
-import fetch from "@/lib/api-client";
+import fetch from '@/lib/api-client'
 import type {
   GetStaffByIdQueryResponse,
   GetStaffByIdPathParams,
-} from "../../types/staffManagementController/GetStaffById.ts";
-import type { RequestConfig, ResponseErrorConfig } from "@/lib/api-client";
+} from '../../types/staffManagementController/GetStaffById.ts'
+import type { RequestConfig, ResponseErrorConfig } from '@/lib/api-client'
 import type {
   QueryKey,
   QueryClient,
   QueryObserverOptions,
   UseQueryResult,
-} from "@tanstack/react-query";
-import { queryOptions, useQuery } from "@tanstack/react-query";
+} from '@tanstack/react-query'
+import { queryOptions, useQuery } from '@tanstack/react-query'
 
-export const getStaffByIdQueryKey = (id: GetStaffByIdPathParams["id"]) =>
-  [{ url: "/api/admin/staff/:id", params: { id: id } }] as const;
+export const getStaffByIdQueryKey = (id: GetStaffByIdPathParams['id']) =>
+  [{ url: '/api/admin/staff/:id', params: { id: id } }] as const
 
-export type GetStaffByIdQueryKey = ReturnType<typeof getStaffByIdQueryKey>;
+export type GetStaffByIdQueryKey = ReturnType<typeof getStaffByIdQueryKey>
 
 /**
  * @description Retrieve a specific staff member's details
@@ -28,24 +28,24 @@ export type GetStaffByIdQueryKey = ReturnType<typeof getStaffByIdQueryKey>;
  * {@link /api/admin/staff/:id}
  */
 export async function getStaffById(
-  id: GetStaffByIdPathParams["id"],
-  config: Partial<RequestConfig> & { client?: typeof fetch } = {},
+  id: GetStaffByIdPathParams['id'],
+  config: Partial<RequestConfig> & { client?: typeof fetch } = {}
 ) {
-  const { client: request = fetch, ...requestConfig } = config;
+  const { client: request = fetch, ...requestConfig } = config
 
   const res = await request<
     GetStaffByIdQueryResponse,
     ResponseErrorConfig<Error>,
     unknown
-  >({ method: "GET", url: `/api/admin/staff/${id}`, ...requestConfig });
-  return res.data;
+  >({ method: 'GET', url: `/api/admin/staff/${id}`, ...requestConfig })
+  return res.data
 }
 
 export function getStaffByIdQueryOptions(
-  id: GetStaffByIdPathParams["id"],
-  config: Partial<RequestConfig> & { client?: typeof fetch } = {},
+  id: GetStaffByIdPathParams['id'],
+  config: Partial<RequestConfig> & { client?: typeof fetch } = {}
 ) {
-  const queryKey = getStaffByIdQueryKey(id);
+  const queryKey = getStaffByIdQueryKey(id)
   return queryOptions<
     GetStaffByIdQueryResponse,
     ResponseErrorConfig<Error>,
@@ -55,10 +55,10 @@ export function getStaffByIdQueryOptions(
     enabled: !!id,
     queryKey,
     queryFn: async ({ signal }) => {
-      config.signal = signal;
-      return getStaffById(id, config);
+      config.signal = signal
+      return getStaffById(id, config)
     },
-  });
+  })
 }
 
 /**
@@ -71,7 +71,7 @@ export function useGetStaffById<
   TQueryData = GetStaffByIdQueryResponse,
   TQueryKey extends QueryKey = GetStaffByIdQueryKey,
 >(
-  id: GetStaffByIdPathParams["id"],
+  id: GetStaffByIdPathParams['id'],
   options: {
     query?: Partial<
       QueryObserverOptions<
@@ -81,13 +81,13 @@ export function useGetStaffById<
         TQueryData,
         TQueryKey
       >
-    > & { client?: QueryClient };
-    client?: Partial<RequestConfig> & { client?: typeof fetch };
-  } = {},
+    > & { client?: QueryClient }
+    client?: Partial<RequestConfig> & { client?: typeof fetch }
+  } = {}
 ) {
-  const { query: queryConfig = {}, client: config = {} } = options ?? {};
-  const { client: queryClient, ...queryOptions } = queryConfig;
-  const queryKey = queryOptions?.queryKey ?? getStaffByIdQueryKey(id);
+  const { query: queryConfig = {}, client: config = {} } = options ?? {}
+  const { client: queryClient, ...queryOptions } = queryConfig
+  const queryKey = queryOptions?.queryKey ?? getStaffByIdQueryKey(id)
 
   const query = useQuery(
     {
@@ -95,12 +95,12 @@ export function useGetStaffById<
       queryKey,
       ...queryOptions,
     } as unknown as QueryObserverOptions,
-    queryClient,
+    queryClient
   ) as UseQueryResult<TData, ResponseErrorConfig<Error>> & {
-    queryKey: TQueryKey;
-  };
+    queryKey: TQueryKey
+  }
 
-  query.queryKey = queryKey as TQueryKey;
+  query.queryKey = queryKey as TQueryKey
 
-  return query;
+  return query
 }

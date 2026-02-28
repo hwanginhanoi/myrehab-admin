@@ -8,20 +8,20 @@ export const exerciseGroupsColumns: ColumnDef<GroupResponse>[] = [
   {
     accessorKey: 'name',
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title='Tên nhóm' />
+      <DataTableColumnHeader column={column} title="Tên nhóm" />
     ),
     cell: ({ row }) => (
-      <div className='font-medium'>{row.getValue('name') || '-'}</div>
+      <div className="font-medium">{row.getValue('name') || '-'}</div>
     ),
     enableHiding: false,
   },
   {
     accessorKey: 'description',
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title='Mô tả' />
+      <DataTableColumnHeader column={column} title="Mô tả" />
     ),
     cell: ({ row }) => (
-      <div className='text-muted-foreground truncate max-w-[300px]'>
+      <div className="text-muted-foreground truncate max-w-[300px]">
         {row.getValue('description') || '-'}
       </div>
     ),
@@ -29,20 +29,18 @@ export const exerciseGroupsColumns: ColumnDef<GroupResponse>[] = [
   {
     accessorKey: 'createdAt',
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title='Ngày thêm' />
+      <DataTableColumnHeader column={column} title="Ngày thêm" />
     ),
     cell: ({ row }) => {
       const createdAt = row.getValue('createdAt') as string | undefined
       return (
-        <div>
-          {createdAt ? format(new Date(createdAt), 'dd/MM/yyyy') : '-'}
-        </div>
+        <div>{createdAt ? format(new Date(createdAt), 'dd/MM/yyyy') : '-'}</div>
       )
     },
   },
   {
     id: 'actions',
-    header: () => <div className='text-right'>Thao tác</div>,
+    header: () => <div className="text-right">Thao tác</div>,
     cell: ExerciseGroupsTableRowActions,
     enableSorting: false,
     enableHiding: false,

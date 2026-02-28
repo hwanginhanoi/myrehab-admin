@@ -12,21 +12,25 @@ function TrainerPermissionsRoute() {
 
   if (isLoading) {
     return (
-      <div className='flex items-center justify-center h-32'>
-        <p className='text-muted-foreground'>Đang tải...</p>
+      <div className="flex items-center justify-center h-32">
+        <p className="text-muted-foreground">Đang tải...</p>
       </div>
     )
   }
 
   if (error || !trainer) {
     return (
-      <div className='flex items-center justify-center h-32'>
-        <p className='text-destructive'>Không thể tải thông tin huấn luyện viên</p>
+      <div className="flex items-center justify-center h-32">
+        <p className="text-destructive">
+          Không thể tải thông tin huấn luyện viên
+        </p>
       </div>
     )
   }
 
-  return <TrainerPermissionSection trainer={trainer} readOnly={mode === 'view'} />
+  return (
+    <TrainerPermissionSection trainer={trainer} readOnly={mode === 'view'} />
+  )
 }
 
 export const Route = createFileRoute(

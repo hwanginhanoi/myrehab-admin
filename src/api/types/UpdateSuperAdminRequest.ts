@@ -4,14 +4,14 @@
  */
 
 export const updateSuperAdminRequestStaffTypeEnum = {
-  DOCTOR: "DOCTOR",
-  TRAINER: "TRAINER",
-  ADMIN: "ADMIN",
-  SUPER_ADMIN: "SUPER_ADMIN",
-} as const;
+  DOCTOR: 'DOCTOR',
+  TRAINER: 'TRAINER',
+  ADMIN: 'ADMIN',
+  SUPER_ADMIN: 'SUPER_ADMIN',
+} as const
 
 export type UpdateSuperAdminRequestStaffTypeEnumKey =
-  (typeof updateSuperAdminRequestStaffTypeEnum)[keyof typeof updateSuperAdminRequestStaffTypeEnum];
+  (typeof updateSuperAdminRequestStaffTypeEnum)[keyof typeof updateSuperAdminRequestStaffTypeEnum]
 
 /**
  * @description Update request for Super Admin staff
@@ -21,15 +21,15 @@ export type UpdateSuperAdminRequest = {
    * @description Staff email address
    * @type string
    */
-  email: string;
+  email: string
   /**
    * @description Staff full name
    * @type string
    */
-  fullName: string;
+  fullName: string
   /**
    * @description Staff type discriminator
    * @type string
    */
-  staffType: UpdateSuperAdminRequestStaffTypeEnumKey;
-};
+  staffType: UpdateSuperAdminRequestStaffTypeEnumKey
+}
