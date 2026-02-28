@@ -120,7 +120,7 @@ export function DoctorCourseRequestsRowActions({
                   to: '/doctor-course-requests/$id',
                   params: { id: String(id) },
                   search: { mode: 'view' },
-                  state: { requestData: row.original },
+                  state: { requestData: row.original } as Record<string, unknown>,
                 })
               }}
             >
@@ -136,7 +136,7 @@ export function DoctorCourseRequestsRowActions({
                       to: '/doctor-course-requests/$id',
                       params: { id: String(id) },
                       search: { mode: 'review' },
-                      state: { requestData: row.original },
+                      state: { requestData: row.original } as Record<string, unknown>,
                     })
                   }}
                 >
