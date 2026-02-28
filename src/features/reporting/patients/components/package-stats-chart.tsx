@@ -1,7 +1,6 @@
 import {
   Bar,
   BarChart,
-  CartesianGrid,
   ResponsiveContainer,
   Tooltip,
   XAxis,
@@ -11,6 +10,7 @@ import {
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Skeleton } from '@/components/ui/skeleton'
 import type { ExercisePackageStatsResponse } from '@/api'
+import { ChartTooltip } from '../../components/chart-tooltip'
 
 interface PackageStatsChartProps {
   packages: ExercisePackageStatsResponse[]
@@ -50,11 +50,6 @@ export function PackageStatsChart({
             height={Math.max(300, packages.length * 50)}
           >
             <BarChart data={chartData} layout="vertical" margin={{ left: 20 }}>
-              <CartesianGrid
-                strokeDasharray="3 3"
-                className="stroke-border"
-                horizontal={false}
-              />
               <XAxis
                 type="number"
                 fontSize={12}
@@ -72,17 +67,15 @@ export function PackageStatsChart({
                 stroke="#888888"
               />
               <Tooltip
-                contentStyle={{
-                  borderRadius: '8px',
-                  border: '1px solid hsl(var(--border))',
-                  backgroundColor: 'hsl(var(--popover))',
-                  color: 'hsl(var(--popover-foreground))',
-                }}
-                labelFormatter={(_, payload) => {
-                  if (payload?.[0]?.payload?.fullName)
-                    return payload[0].payload.fullName
-                  return ''
-                }}
+                content={(props) => (
+                  <ChartTooltip
+                    {...props}
+                    label={
+                      props.payload?.[0]?.payload?.fullName ?? props.label
+                    }
+                  />
+                )}
+                cursor={{ fill: '#888888', opacity: 0.08 }}
               />
               <Legend />
               <Bar

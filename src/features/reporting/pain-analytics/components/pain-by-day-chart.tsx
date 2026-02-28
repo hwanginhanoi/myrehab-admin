@@ -2,7 +2,6 @@ import { useMemo } from 'react'
 import {
   Bar,
   BarChart,
-  CartesianGrid,
   ResponsiveContainer,
   Tooltip,
   XAxis,
@@ -48,14 +47,15 @@ export function PainByDayChart({ data, isLoading }: PainByDayChartProps) {
         ) : (
           <ResponsiveContainer width="100%" height={300}>
             <BarChart data={chartData}>
-              <CartesianGrid strokeDasharray="3 3" className="stroke-border" />
               <XAxis
                 dataKey="day"
+                stroke="#888888"
                 fontSize={12}
                 tickLine={false}
                 axisLine={false}
               />
               <YAxis
+                stroke="#888888"
                 fontSize={12}
                 tickLine={false}
                 axisLine={false}
@@ -72,7 +72,8 @@ export function PainByDayChart({ data, isLoading }: PainByDayChartProps) {
               />
               <Bar
                 dataKey="count"
-                fill="var(--chart-5)"
+                fill="currentColor"
+                className="fill-primary"
                 radius={[4, 4, 0, 0]}
               />
             </BarChart>

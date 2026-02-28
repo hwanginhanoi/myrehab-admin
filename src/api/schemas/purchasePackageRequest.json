@@ -1,9 +1,1 @@
-{
-  "type": "object",
-  "properties": {
-    "packageId": { "type": "integer", "format": "int64" },
-    "subscriptionType": { "type": "string", "enum": ["MONTHLY", "YEARLY"] }
-  },
-  "required": ["packageId", "subscriptionType"],
-  "x-readme-ref-name": "PurchasePackageRequest"
-}
+{"type":"object","properties":{"packageId":{"type":"integer","format":"int64"},"subscriptionType":{"type":"string","enum":["MONTHLY","YEARLY"]}},"required":["packageId","subscriptionType"],"x-readme-ref-name":"PurchasePackageRequest"}

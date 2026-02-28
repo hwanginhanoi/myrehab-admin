@@ -1,12 +1,1 @@
-{
-  "type": "object",
-  "properties": {
-    "insuranceNumber": { "type": "string", "maxLength": 50, "minLength": 0 },
-    "placeOfRegistration": {
-      "type": "string",
-      "maxLength": 200,
-      "minLength": 0
-    }
-  },
-  "x-readme-ref-name": "UpsertNationalHealthInsuranceRequest"
-}
+{"type":"object","properties":{"insuranceNumber":{"type":"string"},"placeOfRegistration":{"type":"string"}},"x-readme-ref-name":"UpsertNationalHealthInsuranceRequest"}

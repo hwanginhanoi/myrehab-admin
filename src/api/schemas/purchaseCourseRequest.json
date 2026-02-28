@@ -1,9 +1,1 @@
-{
-  "type": "object",
-  "properties": {
-    "userCourseId": { "type": "integer", "format": "int64" },
-    "subscriptionType": { "type": "string", "enum": ["MONTHLY", "YEARLY"] }
-  },
-  "required": ["subscriptionType", "userCourseId"],
-  "x-readme-ref-name": "PurchaseCourseRequest"
-}
+{"type":"object","properties":{"userCourseId":{"type":"integer","format":"int64"},"subscriptionType":{"type":"string","enum":["MONTHLY","YEARLY"]}},"required":["subscriptionType","userCourseId"],"x-readme-ref-name":"PurchaseCourseRequest"}

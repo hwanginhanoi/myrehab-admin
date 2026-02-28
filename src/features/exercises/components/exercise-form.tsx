@@ -80,7 +80,7 @@ export function ExerciseFormComponent({
     data: videoUrlData,
     refetch: fetchVideoUrl,
     isFetching: isVideoFetching,
-  } = useGetVideoUrl(exercise?.id!, {
+  } = useGetVideoUrl(exercise?.id ?? 0, {
     query: { enabled: isEdit && !!exercise?.id },
   })
 

@@ -3,6 +3,7 @@ import { Cell, Pie, PieChart, ResponsiveContainer, Tooltip } from 'recharts'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Skeleton } from '@/components/ui/skeleton'
 import { useGetRevenue } from '@/api'
+import { ChartTooltip } from '../../components/chart-tooltip'
 import {
   formatVND,
   TRANSACTION_TYPE_LABELS,
@@ -68,13 +69,9 @@ export function RevenueBreakdown() {
                   ))}
                 </Pie>
                 <Tooltip
-                  contentStyle={{
-                    borderRadius: '8px',
-                    border: '1px solid hsl(var(--border))',
-                    backgroundColor: 'hsl(var(--popover))',
-                    color: 'hsl(var(--popover-foreground))',
-                  }}
-                  formatter={(value: number) => formatVND(value)}
+                  content={
+                    <ChartTooltip valueFormatter={(v) => formatVND(v)} />
+                  }
                 />
               </PieChart>
             </ResponsiveContainer>

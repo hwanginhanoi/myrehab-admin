@@ -1,9 +1,1 @@
-{
-  "type": "object",
-  "properties": {
-    "id": { "type": "integer", "format": "int64" },
-    "title": { "type": "string" },
-    "totalDays": { "type": "integer", "format": "int32" }
-  },
-  "x-readme-ref-name": "CourseMetadataDto"
-}
+{"type":"object","properties":{"id":{"type":"integer","format":"int64"},"title":{"type":"string"},"totalDays":{"type":"integer","format":"int32"}},"x-readme-ref-name":"CourseMetadataDto"}

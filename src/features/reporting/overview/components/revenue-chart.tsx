@@ -2,7 +2,6 @@ import { useMemo, useState } from 'react'
 import {
   Area,
   AreaChart,
-  CartesianGrid,
   ResponsiveContainer,
   Tooltip,
   XAxis,
@@ -14,6 +13,7 @@ import { Button } from '@/components/ui/button'
 import { Skeleton } from '@/components/ui/skeleton'
 import { useGetRevenue } from '@/api'
 import { ReportingDateRange } from '../../components/reporting-date-range'
+import { ChartTooltip } from '../../components/chart-tooltip'
 import {
   formatVND,
   getDefaultDateRange,
@@ -85,43 +85,16 @@ export function RevenueChart() {
         ) : (
           <ResponsiveContainer width="100%" height={350}>
             <AreaChart data={chartData}>
-              <defs>
-                <linearGradient id="depositGrad" x1="0" y1="0" x2="0" y2="1">
-                  <stop
-                    offset="5%"
-                    stopColor="var(--chart-1)"
-                    stopOpacity={0.3}
-                  />
-                  <stop
-                    offset="95%"
-                    stopColor="var(--chart-1)"
-                    stopOpacity={0}
-                  />
-                </linearGradient>
-                <linearGradient id="spendingGrad" x1="0" y1="0" x2="0" y2="1">
-                  <stop
-                    offset="5%"
-                    stopColor="var(--chart-2)"
-                    stopOpacity={0.3}
-                  />
-                  <stop
-                    offset="95%"
-                    stopColor="var(--chart-2)"
-                    stopOpacity={0}
-                  />
-                </linearGradient>
-              </defs>
-              <CartesianGrid strokeDasharray="3 3" className="stroke-border" />
               <XAxis
                 dataKey="period"
-                stroke="hsl(var(--muted-foreground))"
+                stroke="#888888"
                 fontSize={12}
                 tickLine={false}
                 axisLine={false}
               />
               <YAxis
                 direction="ltr"
-                stroke="hsl(var(--muted-foreground))"
+                stroke="#888888"
                 fontSize={12}
                 tickLine={false}
                 axisLine={false}
@@ -134,29 +107,26 @@ export function RevenueChart() {
                 }
               />
               <Tooltip
-                contentStyle={{
-                  borderRadius: '8px',
-                  border: '1px solid hsl(var(--border))',
-                  backgroundColor: 'hsl(var(--popover))',
-                  color: 'hsl(var(--popover-foreground))',
-                }}
-                formatter={(value: number) => formatVND(value)}
+                content={<ChartTooltip valueFormatter={(v) => formatVND(v)} />}
+                cursor={{ stroke: 'hsl(var(--border))', strokeWidth: 1 }}
               />
               <Area
                 type="monotone"
                 dataKey="deposit"
                 name="Nạp tiền"
-                stroke="var(--chart-1)"
-                fill="url(#depositGrad)"
-                strokeWidth={2}
+                stroke="currentColor"
+                className="text-primary"
+                fill="currentColor"
+                fillOpacity={0.15}
               />
               <Area
                 type="monotone"
                 dataKey="total"
                 name="Tổng"
-                stroke="var(--chart-2)"
-                fill="url(#spendingGrad)"
-                strokeWidth={2}
+                stroke="currentColor"
+                className="text-muted-foreground"
+                fill="currentColor"
+                fillOpacity={0.1}
               />
             </AreaChart>
           </ResponsiveContainer>

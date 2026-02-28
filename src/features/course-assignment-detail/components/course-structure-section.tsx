@@ -1,7 +1,9 @@
 import { getRouteApi } from '@tanstack/react-router'
-import { BookOpen, Dumbbell, Clock } from 'lucide-react'
+import { BookOpen, Dumbbell, Clock, User } from 'lucide-react'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
+import { Progress } from '@/components/ui/progress'
+import { cn } from '@/lib/utils'
 import { useGetCourseStructure } from '@/api'
 import { AssignmentContentSection } from './assignment-content-section'
 
@@ -9,8 +11,7 @@ const route = getRouteApi('/_authenticated/course-assignments/$id')
 
 export function CourseStructureSection() {
   const search = route.useSearch()
-  const { courseId, courseTitle } = search
-
+  const { courseId, courseTitle, patientFullName, hasStarted, isCompleted } = search
   const { data: course, isLoading } = useGetCourseStructure(courseId)
 
   return (
@@ -20,6 +21,56 @@ export function CourseStructureSection() {
       fullWidth
     >
       <>
+        {/* Progress summary */}
+        {(() => {
+          const isInProgress = !!hasStarted && !isCompleted
+          const progressValue = isCompleted ? 100 : 0
+          const statusLabel = isCompleted
+            ? 'Hoàn thành'
+            : isInProgress
+              ? 'Đang thực hiện'
+              : 'Chưa bắt đầu'
+          return (
+            <Card className="mb-4">
+              <CardContent className="pt-4 pb-4 space-y-3">
+                <div className="flex items-center gap-2 text-sm">
+                  <User className="h-4 w-4 text-muted-foreground" />
+                  <span className="text-muted-foreground">Bệnh nhân:</span>
+                  <span className="font-medium">{patientFullName || '—'}</span>
+                </div>
+                <div className="space-y-1.5">
+                  <div className="flex items-center justify-between text-xs">
+                    <span className="text-muted-foreground">Tiến độ học tập</span>
+                    <span
+                      className={cn(
+                        'font-medium',
+                        isCompleted
+                          ? 'text-green-600'
+                          : isInProgress
+                            ? 'text-primary'
+                            : 'text-muted-foreground'
+                      )}
+                    >
+                      {statusLabel}
+                      {course?.durationDays != null &&
+                        ` · ${course.durationDays} ngày`}
+                    </span>
+                  </div>
+                  <Progress
+                    value={isInProgress ? 100 : progressValue}
+                    className={cn(
+                      isCompleted &&
+                        '[&>[data-slot=progress-indicator]]:bg-green-500',
+                      isInProgress &&
+                        '[&>[data-slot=progress-indicator]]:animate-pulse'
+                    )}
+                  />
+                </div>
+              </CardContent>
+            </Card>
+          )
+        })()}
+
         {isLoading ? (
           <div className="flex items-center justify-center h-64">
             <p className="text-muted-foreground">Đang tải...</p>
