@@ -1,10 +1,10 @@
-import type { TooltipProps } from 'recharts'
+import type { TooltipContentProps } from 'recharts'
 import type {
   NameType,
   ValueType,
 } from 'recharts/types/component/DefaultTooltipContent'
 
-type ChartTooltipProps = TooltipProps<ValueType, NameType> & {
+type ChartTooltipProps = TooltipContentProps<ValueType, NameType> & {
   valueFormatter?: (value: number, name: string) => string
 }
 
