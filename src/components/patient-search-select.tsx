@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react'
+import { useState, useEffect, useMemo, useRef } from 'react'
 import { Search, X } from 'lucide-react'
 import { Input } from '@/components/ui/input'
 import {
@@ -26,7 +26,7 @@ export function PatientSearchSelect({
 
   const [inputValue, setInputValue] = useState('')
   const [debouncedQuery, setDebouncedQuery] = useState('')
-  const [selectedPatient, setSelectedPatient] = useState<{
+  const [manuallySelected, setManuallySelected] = useState<{
     id: number
     fullName: string
     phoneNumber?: string
@@ -34,29 +34,35 @@ export function PatientSearchSelect({
   const [showDropdown, setShowDropdown] = useState(false)
   const containerRef = useRef<HTMLDivElement>(null)
 
+  // Reset manual selection when the external prop changes
+  const [prevPatientId, setPrevPatientId] = useState(selectedPatientId)
+  if (prevPatientId !== selectedPatientId) {
+    setPrevPatientId(selectedPatientId)
+    if (manuallySelected) {
+      setManuallySelected(null)
+    }
+  }
+
   // Fetch user by ID to restore selection on load
-  const { data: userById } = useGetUserById(selectedPatientId!, {
+  const { data: userById } = useGetUserById(selectedPatientId ?? 0, {
     query: {
-      enabled: !!selectedPatientId && !selectedPatient,
+      enabled: !!selectedPatientId,
     },
   })
 
-  useEffect(() => {
-    if (userById && selectedPatientId && !selectedPatient) {
-      setSelectedPatient({
+  // Derive selected patient from manual selection or fetched user data
+  const selectedPatient = useMemo(() => {
+    if (manuallySelected) return manuallySelected
+    if (!selectedPatientId) return null
+    if (userById) {
+      return {
         id: selectedPatientId,
         fullName: userById.fullName || String(selectedPatientId),
         phoneNumber: userById.phoneNumber,
-      })
+      }
     }
-  }, [userById, selectedPatientId, selectedPatient])
-
-  // Clear selected patient if selectedPatientId is removed externally
-  useEffect(() => {
-    if (!selectedPatientId && selectedPatient) {
-      setSelectedPatient(null)
-    }
-  }, [selectedPatientId, selectedPatient])
+    return null
+  }, [manuallySelected, selectedPatientId, userById])
 
   // Debounce input
   useEffect(() => {
@@ -105,7 +111,7 @@ export function PatientSearchSelect({
     fullName: string
     phoneNumber?: string
   }) => {
-    setSelectedPatient(patient)
+    setManuallySelected(patient)
     setInputValue('')
     setDebouncedQuery('')
     setShowDropdown(false)
@@ -113,7 +119,7 @@ export function PatientSearchSelect({
   }
 
   const handleClear = () => {
-    setSelectedPatient(null)
+    setManuallySelected(null)
     setInputValue('')
     setDebouncedQuery('')
     onSelect(null)
