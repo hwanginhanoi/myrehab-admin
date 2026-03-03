@@ -73,6 +73,7 @@ import { Route as AuthenticatedUsersIdCompanyInfoRouteImport } from './routes/_a
 import { Route as AuthenticatedCourseRequestsIdEditRouteImport } from './routes/_authenticated/course-requests/$id.edit'
 import { Route as AuthenticatedCourseAssignmentsIdFeedbackRouteImport } from './routes/_authenticated/course-assignments/$id.feedback'
 import { Route as AuthenticatedCourseAssignmentsIdCourseRouteImport } from './routes/_authenticated/course-assignments/$id.course'
+import { Route as AuthenticatedAppointmentsIdVideoCallRouteImport } from './routes/_authenticated/appointments/$id_.video-call'
 import { Route as AuthenticatedStaffTrainersTrainerIdRouteRouteImport } from './routes/_authenticated/staff/trainers/$trainerId.route'
 import { Route as AuthenticatedStaffDoctorsDoctorIdRouteRouteImport } from './routes/_authenticated/staff/doctors/$doctorId.route'
 import { Route as AuthenticatedStaffAdminsAdminIdRouteRouteImport } from './routes/_authenticated/staff/admins/$adminId.route'
@@ -450,6 +451,12 @@ const AuthenticatedCourseAssignmentsIdCourseRoute =
     path: '/course',
     getParentRoute: () => AuthenticatedCourseAssignmentsIdRouteRoute,
   } as any)
+const AuthenticatedAppointmentsIdVideoCallRoute =
+  AuthenticatedAppointmentsIdVideoCallRouteImport.update({
+    id: '/appointments/$id_/video-call',
+    path: '/appointments/$id/video-call',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
 const AuthenticatedStaffTrainersTrainerIdRouteRoute =
   AuthenticatedStaffTrainersTrainerIdRouteRouteImport.update({
     id: '/staff/trainers/$trainerId',
@@ -581,6 +588,7 @@ export interface FileRoutesByFullPath {
   '/staff/admins/$adminId': typeof AuthenticatedStaffAdminsAdminIdRouteRouteWithChildren
   '/staff/doctors/$doctorId': typeof AuthenticatedStaffDoctorsDoctorIdRouteRouteWithChildren
   '/staff/trainers/$trainerId': typeof AuthenticatedStaffTrainersTrainerIdRouteRouteWithChildren
+  '/appointments/$id/video-call': typeof AuthenticatedAppointmentsIdVideoCallRoute
   '/course-assignments/$id/course': typeof AuthenticatedCourseAssignmentsIdCourseRoute
   '/course-assignments/$id/feedback': typeof AuthenticatedCourseAssignmentsIdFeedbackRoute
   '/course-requests/$id/edit': typeof AuthenticatedCourseRequestsIdEditRoute
@@ -651,6 +659,7 @@ export interface FileRoutesByTo {
   '/tasks': typeof AuthenticatedTasksIndexRoute
   '/transactions': typeof AuthenticatedTransactionsIndexRoute
   '/users': typeof AuthenticatedUsersIndexRoute
+  '/appointments/$id/video-call': typeof AuthenticatedAppointmentsIdVideoCallRoute
   '/course-assignments/$id/course': typeof AuthenticatedCourseAssignmentsIdCourseRoute
   '/course-assignments/$id/feedback': typeof AuthenticatedCourseAssignmentsIdFeedbackRoute
   '/course-requests/$id/edit': typeof AuthenticatedCourseRequestsIdEditRoute
@@ -730,6 +739,7 @@ export interface FileRoutesById {
   '/_authenticated/staff/admins/$adminId': typeof AuthenticatedStaffAdminsAdminIdRouteRouteWithChildren
   '/_authenticated/staff/doctors/$doctorId': typeof AuthenticatedStaffDoctorsDoctorIdRouteRouteWithChildren
   '/_authenticated/staff/trainers/$trainerId': typeof AuthenticatedStaffTrainersTrainerIdRouteRouteWithChildren
+  '/_authenticated/appointments/$id_/video-call': typeof AuthenticatedAppointmentsIdVideoCallRoute
   '/_authenticated/course-assignments/$id/course': typeof AuthenticatedCourseAssignmentsIdCourseRoute
   '/_authenticated/course-assignments/$id/feedback': typeof AuthenticatedCourseAssignmentsIdFeedbackRoute
   '/_authenticated/course-requests/$id/edit': typeof AuthenticatedCourseRequestsIdEditRoute
@@ -809,6 +819,7 @@ export interface FileRouteTypes {
     | '/staff/admins/$adminId'
     | '/staff/doctors/$doctorId'
     | '/staff/trainers/$trainerId'
+    | '/appointments/$id/video-call'
     | '/course-assignments/$id/course'
     | '/course-assignments/$id/feedback'
     | '/course-requests/$id/edit'
@@ -879,6 +890,7 @@ export interface FileRouteTypes {
     | '/tasks'
     | '/transactions'
     | '/users'
+    | '/appointments/$id/video-call'
     | '/course-assignments/$id/course'
     | '/course-assignments/$id/feedback'
     | '/course-requests/$id/edit'
@@ -957,6 +969,7 @@ export interface FileRouteTypes {
     | '/_authenticated/staff/admins/$adminId'
     | '/_authenticated/staff/doctors/$doctorId'
     | '/_authenticated/staff/trainers/$trainerId'
+    | '/_authenticated/appointments/$id_/video-call'
     | '/_authenticated/course-assignments/$id/course'
     | '/_authenticated/course-assignments/$id/feedback'
     | '/_authenticated/course-requests/$id/edit'
@@ -1440,6 +1453,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedCourseAssignmentsIdCourseRouteImport
       parentRoute: typeof AuthenticatedCourseAssignmentsIdRouteRoute
     }
+    '/_authenticated/appointments/$id_/video-call': {
+      id: '/_authenticated/appointments/$id_/video-call'
+      path: '/appointments/$id/video-call'
+      fullPath: '/appointments/$id/video-call'
+      preLoaderRoute: typeof AuthenticatedAppointmentsIdVideoCallRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
     '/_authenticated/staff/trainers/$trainerId': {
       id: '/_authenticated/staff/trainers/$trainerId'
       path: '/staff/trainers/$trainerId'
@@ -1718,6 +1738,7 @@ interface AuthenticatedRouteRouteChildren {
   AuthenticatedStaffAdminsAdminIdRouteRoute: typeof AuthenticatedStaffAdminsAdminIdRouteRouteWithChildren
   AuthenticatedStaffDoctorsDoctorIdRouteRoute: typeof AuthenticatedStaffDoctorsDoctorIdRouteRouteWithChildren
   AuthenticatedStaffTrainersTrainerIdRouteRoute: typeof AuthenticatedStaffTrainersTrainerIdRouteRouteWithChildren
+  AuthenticatedAppointmentsIdVideoCallRoute: typeof AuthenticatedAppointmentsIdVideoCallRoute
 }
 
 const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
@@ -1777,6 +1798,8 @@ const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
     AuthenticatedStaffDoctorsDoctorIdRouteRouteWithChildren,
   AuthenticatedStaffTrainersTrainerIdRouteRoute:
     AuthenticatedStaffTrainersTrainerIdRouteRouteWithChildren,
+  AuthenticatedAppointmentsIdVideoCallRoute:
+    AuthenticatedAppointmentsIdVideoCallRoute,
 }
 
 const AuthenticatedRouteRouteWithChildren =

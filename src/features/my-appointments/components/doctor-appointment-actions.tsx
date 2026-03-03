@@ -1,7 +1,9 @@
 import { useState } from 'react'
 import { useQueryClient } from '@tanstack/react-query'
+import { useNavigate } from '@tanstack/react-router'
 import { toast } from 'sonner'
 import { Button } from '@/components/ui/button'
+import { Video } from 'lucide-react'
 import {
   useConfirmAppointment,
   useMarkComplete,
@@ -18,6 +20,7 @@ export function DoctorAppointmentActions({
 }: DoctorAppointmentActionsProps) {
   const [rejectOpen, setRejectOpen] = useState(false)
   const queryClient = useQueryClient()
+  const navigate = useNavigate()
 
   const invalidate = () => {
     queryClient.invalidateQueries({
@@ -78,13 +81,28 @@ export function DoctorAppointmentActions({
 
   if (appointment.status === 'CONFIRMED') {
     return (
-      <Button
-        size="sm"
-        onClick={() => markComplete.mutate({ id: appointment.id! })}
-        disabled={isPending}
-      >
-        Hoàn thành
-      </Button>
+      <div className="flex gap-2">
+        <Button
+          size="sm"
+          variant="outline"
+          onClick={() =>
+            navigate({
+              to: '/appointments/$id/video-call',
+              params: { id: String(appointment.id) },
+            })
+          }
+        >
+          <Video className="mr-1 h-4 w-4" />
+          Tham gia cuộc gọi
+        </Button>
+        <Button
+          size="sm"
+          onClick={() => markComplete.mutate({ id: appointment.id! })}
+          disabled={isPending}
+        >
+          Hoàn thành
+        </Button>
+      </div>
     )
   }
 

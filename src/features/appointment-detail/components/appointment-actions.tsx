@@ -8,6 +8,7 @@ import { ConfirmDialog } from './confirm-dialog'
 import { RejectDialog } from './reject-dialog'
 import { DisputeResolutionDialog } from './dispute-resolution-dialog'
 import { useQueryClient } from '@tanstack/react-query'
+import { useNavigate } from '@tanstack/react-router'
 import { toast } from 'sonner'
 
 type AppointmentActionsProps = {
@@ -18,6 +19,7 @@ export function AppointmentActions({ appointment }: AppointmentActionsProps) {
   const actions = getAvailableActions(appointment.status)
   const [openDialog, setOpenDialog] = useState<string | null>(null)
   const queryClient = useQueryClient()
+  const navigate = useNavigate()
 
   const confirmCompletion = useConfirmCompletion({
     mutation: {
@@ -46,6 +48,7 @@ export function AppointmentActions({ appointment }: AppointmentActionsProps) {
     reject: 'Từ chối',
     confirm_completion: 'Xác nhận hoàn thành',
     resolve_dispute: 'Giải quyết tranh chấp',
+    join_video_call: 'Tham gia cuộc gọi video',
   }
 
   return (
@@ -60,7 +63,12 @@ export function AppointmentActions({ appointment }: AppointmentActionsProps) {
               key={action}
               variant={action === 'reject' ? 'destructive' : 'default'}
               onClick={() => {
-                if (action === 'confirm_completion') {
+                if (action === 'join_video_call') {
+                  navigate({
+                    to: '/appointments/$id/video-call',
+                    params: { id: String(appointment.id) },
+                  })
+                } else if (action === 'confirm_completion') {
                   confirmCompletion.mutate({ id: appointment.id! })
                 } else {
                   setOpenDialog(action)

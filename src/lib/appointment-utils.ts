@@ -75,11 +75,14 @@ export type AppointmentAction =
   | 'reject'
   | 'confirm_completion'
   | 'resolve_dispute'
+  | 'join_video_call'
 
 export function getAvailableActions(status?: string): AppointmentAction[] {
   switch (status) {
     case 'PENDING_CONFIRMATION':
       return ['assign_doctor', 'confirm', 'reject']
+    case 'CONFIRMED':
+      return ['join_video_call']
     case 'DOCTOR_COMPLETED':
       return ['confirm_completion']
     case 'DISPUTED':

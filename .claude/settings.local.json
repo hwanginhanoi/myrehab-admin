@@ -28,7 +28,10 @@
       "Bash(npm run typecheck:*)",
       "Bash(ls:*)",
       "Bash(npx vite build:*)",
-      "Bash(pnpm build:*)"
+      "Bash(pnpm build:*)",
+      "Bash(pnpm add:*)",
+      "Bash(pnpm ls:*)",
+      "Bash(npx @tanstack/router-cli generate:*)"
     ]
   }
 }
