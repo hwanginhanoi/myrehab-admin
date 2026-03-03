@@ -1,1 +1,13 @@
-{"type":"object","properties":{"insuranceNumber":{"type":"string"},"placeOfRegistration":{"type":"string"},"expiryDate":{"type":"string","format":"date"}},"x-readme-ref-name":"UpsertNonCompulsoryHealthInsuranceRequest"}
+{
+  "type": "object",
+  "properties": {
+    "insuranceNumber": { "type": "string", "maxLength": 50, "minLength": 0 },
+    "placeOfRegistration": {
+      "type": "string",
+      "maxLength": 200,
+      "minLength": 0
+    },
+    "expiryDate": { "type": "string", "format": "date" }
+  },
+  "x-readme-ref-name": "UpsertNonCompulsoryHealthInsuranceRequest"
+}
