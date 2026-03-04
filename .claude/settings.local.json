@@ -31,7 +31,8 @@
       "Bash(pnpm build:*)",
       "Bash(pnpm add:*)",
       "Bash(pnpm ls:*)",
-      "Bash(npx @tanstack/router-cli generate:*)"
+      "Bash(npx @tanstack/router-cli generate:*)",
+      "WebFetch(domain:docs.agora.io)"
     ]
   }
 }

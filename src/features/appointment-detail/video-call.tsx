@@ -1,14 +1,14 @@
-import { useCallback, useState } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 import { getRouteApi, useNavigate } from '@tanstack/react-router'
 import AgoraRTC, {
   AgoraRTCProvider,
   useJoin,
-  useLocalCameraTrack,
-  useLocalMicrophoneTrack,
   usePublish,
   useRemoteUsers,
   RemoteUser,
   LocalVideoTrack,
+  type ICameraVideoTrack,
+  type IMicrophoneAudioTrack,
 } from 'agora-rtc-react'
 import { useGetVideoToken, useMarkComplete } from '@/api'
 import { useQueryClient } from '@tanstack/react-query'
@@ -85,13 +85,60 @@ function VideoCallRoom({
   const queryClient = useQueryClient()
   const [isMuted, setIsMuted] = useState(false)
   const [isCameraOff, setIsCameraOff] = useState(false)
+  const [cameraTrack, setCameraTrack] = useState<ICameraVideoTrack | null>(null)
+  const [micTrack, setMicTrack] = useState<IMicrophoneAudioTrack | null>(null)
+  const cameraTrackRef = useRef<ICameraVideoTrack | null>(null)
+  const micTrackRef = useRef<IMicrophoneAudioTrack | null>(null)
 
   useJoin({ appid: appId, channel: channelName, token, uid })
 
-  const { localCameraTrack } = useLocalCameraTrack(!isCameraOff)
-  const { localMicrophoneTrack } = useLocalMicrophoneTrack(!isMuted)
+  // Manage camera track manually to ensure hardware is released
+  useEffect(() => {
+    if (isCameraOff) return
+    let cancelled = false
+    AgoraRTC.createCameraVideoTrack().then((track) => {
+      if (cancelled) {
+        track.close()
+        return
+      }
+      cameraTrackRef.current = track
+      setCameraTrack(track)
+    })
+    return () => {
+      cancelled = true
+      if (cameraTrackRef.current) {
+        cameraTrackRef.current.stop()
+        cameraTrackRef.current.close()
+        cameraTrackRef.current = null
+        setCameraTrack(null)
+      }
+    }
+  }, [isCameraOff])
 
-  usePublish([localMicrophoneTrack, localCameraTrack])
+  // Manage mic track manually to ensure hardware is released
+  useEffect(() => {
+    if (isMuted) return
+    let cancelled = false
+    AgoraRTC.createMicrophoneAudioTrack().then((track) => {
+      if (cancelled) {
+        track.close()
+        return
+      }
+      micTrackRef.current = track
+      setMicTrack(track)
+    })
+    return () => {
+      cancelled = true
+      if (micTrackRef.current) {
+        micTrackRef.current.stop()
+        micTrackRef.current.close()
+        micTrackRef.current = null
+        setMicTrack(null)
+      }
+    }
+  }, [isMuted])
+
+  usePublish([micTrack, cameraTrack])
 
   const remoteUsers = useRemoteUsers()
 
@@ -122,26 +169,37 @@ function VideoCallRoom({
   })
 
   const handleEndCall = useCallback(() => {
-    localCameraTrack?.close()
-    localMicrophoneTrack?.close()
+    cameraTrack?.stop()
+    cameraTrack?.close()
+    micTrack?.stop()
+    micTrack?.close()
     navigate({
       to: '/appointments/$id',
       params: { id: String(appointmentId) },
     })
-  }, [localCameraTrack, localMicrophoneTrack, navigate, appointmentId])
+  }, [cameraTrack, micTrack, navigate, appointmentId])
 
   const handleMarkComplete = useCallback(() => {
     markComplete.mutate({ id: appointmentId })
   }, [markComplete, appointmentId])
 
   const toggleMic = useCallback(() => {
-    localMicrophoneTrack?.setEnabled(isMuted)
+    if (micTrack && !isMuted) {
+      micTrack.stop()
+      micTrack.close()
+      setMicTrack(null)
+    }
     setIsMuted((prev) => !prev)
-  }, [localMicrophoneTrack, isMuted])
+  }, [micTrack, isMuted])
 
   const toggleCamera = useCallback(() => {
+    if (cameraTrack && !isCameraOff) {
+      cameraTrack.stop()
+      cameraTrack.close()
+      setCameraTrack(null)
+    }
     setIsCameraOff((prev) => !prev)
-  }, [])
+  }, [cameraTrack, isCameraOff])
 
   return (
     <div className="relative h-screen w-full bg-black">
@@ -163,9 +221,9 @@ function VideoCallRoom({
 
       {/* Local video - PiP overlay */}
       <div className="absolute right-4 bottom-24 z-10 h-48 w-36 overflow-hidden rounded-lg border-2 border-white/30 shadow-lg">
-        {!isCameraOff && localCameraTrack ? (
+        {!isCameraOff && cameraTrack ? (
           <LocalVideoTrack
-            track={localCameraTrack}
+            track={cameraTrack}
             play={true}
             className="h-full w-full object-cover"
           />
