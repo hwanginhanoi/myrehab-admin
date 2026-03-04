@@ -162,7 +162,7 @@ function VideoCallRoom({
       </div>
 
       {/* Local video - PiP overlay */}
-      <div className="absolute right-4 bottom-24 h-48 w-36 overflow-hidden rounded-lg border-2 border-white/30 shadow-lg">
+      <div className="absolute right-4 bottom-24 z-10 h-48 w-36 overflow-hidden rounded-lg border-2 border-white/30 shadow-lg">
         {!isCameraOff && localCameraTrack ? (
           <LocalVideoTrack
             track={localCameraTrack}
@@ -177,7 +177,7 @@ function VideoCallRoom({
       </div>
 
       {/* Controls */}
-      <div className="absolute bottom-6 left-1/2 flex -translate-x-1/2 items-center gap-3">
+      <div className="absolute bottom-6 left-1/2 z-10 flex -translate-x-1/2 items-center gap-3">
         <Button
           variant={isMuted ? 'destructive' : 'secondary'}
           size="icon"
