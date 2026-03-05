@@ -1,5 +1,8 @@
 {
   "type": "object",
-  "properties": { "notes": { "type": "string" } },
+  "properties": {
+    "notes": { "type": "string" },
+    "doctorId": { "type": "integer", "format": "int64" }
+  },
   "x-readme-ref-name": "ConfirmAppointmentRequest"
 }

@@ -1,0 +1,11 @@
+{
+  "type": "object",
+  "properties": {
+    "fullName": { "type": "string" },
+    "gender": { "type": "string" },
+    "dateOfBirth": { "type": "string", "format": "date" },
+    "email": { "type": "string" }
+  },
+  "required": ["dateOfBirth", "fullName", "gender"],
+  "x-readme-ref-name": "UpdateUserProfileRequest"
+}

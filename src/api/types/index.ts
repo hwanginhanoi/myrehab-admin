@@ -210,6 +210,7 @@ export type {
   CategoryResponseTypeEnumKey,
   CategoryResponse,
 } from './CategoryResponse.ts'
+export type { ChangePinRequest } from './ChangePinRequest.ts'
 export type { CheckPhoneRequest } from './CheckPhoneRequest.ts'
 export type { CheckPhoneResponse } from './CheckPhoneResponse.ts'
 export type {
@@ -698,6 +699,12 @@ export type {
   GetFormsByUserIdQuery,
 } from './rehabilitationExaminationFormManagementController/GetFormsByUserId.ts'
 export type {
+  GetMyFormsQueryParams,
+  GetMyForms200,
+  GetMyFormsQueryResponse,
+  GetMyFormsQuery,
+} from './rehabilitationExaminationFormManagementController/GetMyForms.ts'
+export type {
   UpdateFormPathParams,
   UpdateForm200,
   UpdateFormMutationRequest,
@@ -968,6 +975,7 @@ export type {
   UpdateTrainerRequestStaffTypeEnumKey,
   UpdateTrainerRequest,
 } from './UpdateTrainerRequest.ts'
+export type { UpdateUserProfileRequest } from './UpdateUserProfileRequest.ts'
 export type { UpsertCompanyInfoRequest } from './UpsertCompanyInfoRequest.ts'
 export type { UpsertNationalHealthInsuranceRequest } from './UpsertNationalHealthInsuranceRequest.ts'
 export type { UpsertNonCompulsoryHealthInsuranceRequest } from './UpsertNonCompulsoryHealthInsuranceRequest.ts'
@@ -979,6 +987,21 @@ export type {
   GetCompanyInfoQueryResponse,
   GetCompanyInfoQuery,
 } from './userHealthInfoController/GetCompanyInfo.ts'
+export type {
+  GetMyCompanyInfo200,
+  GetMyCompanyInfoQueryResponse,
+  GetMyCompanyInfoQuery,
+} from './userHealthInfoController/GetMyCompanyInfo.ts'
+export type {
+  GetMyNationalInsurance200,
+  GetMyNationalInsuranceQueryResponse,
+  GetMyNationalInsuranceQuery,
+} from './userHealthInfoController/GetMyNationalInsurance.ts'
+export type {
+  GetMyNonCompulsoryInsurance200,
+  GetMyNonCompulsoryInsuranceQueryResponse,
+  GetMyNonCompulsoryInsuranceQuery,
+} from './userHealthInfoController/GetMyNonCompulsoryInsurance.ts'
 export type {
   GetNationalInsurancePathParams,
   GetNationalInsurance200,
@@ -1010,11 +1033,22 @@ export type {
   UpsertMyNonCompulsoryInsuranceMutation,
 } from './userHealthInfoController/UpsertMyNonCompulsoryInsurance.ts'
 export type {
+  ChangeMyPin200,
+  ChangeMyPinMutationRequest,
+  ChangeMyPinMutationResponse,
+  ChangeMyPinMutation,
+} from './userManagementController/ChangeMyPin.ts'
+export type {
   GetAllUsersQueryParams,
   GetAllUsers200,
   GetAllUsersQueryResponse,
   GetAllUsersQuery,
 } from './userManagementController/GetAllUsers.ts'
+export type {
+  GetMe200,
+  GetMeQueryResponse,
+  GetMeQuery,
+} from './userManagementController/GetMe.ts'
 export type {
   GetUserByIdPathParams,
   GetUserById200,
@@ -1027,7 +1061,20 @@ export type {
   SearchUsersByNameQueryResponse,
   SearchUsersByNameQuery,
 } from './userManagementController/SearchUsersByName.ts'
+export type {
+  UpdateMyProfile200,
+  UpdateMyProfileMutationRequest,
+  UpdateMyProfileMutationResponse,
+  UpdateMyProfileMutation,
+} from './userManagementController/UpdateMyProfile.ts'
+export type {
+  VerifyMyPin200,
+  VerifyMyPinMutationRequest,
+  VerifyMyPinMutationResponse,
+  VerifyMyPinMutation,
+} from './userManagementController/VerifyMyPin.ts'
 export type { UserResponse } from './UserResponse.ts'
+export type { VerifyPinRequest } from './VerifyPinRequest.ts'
 export type { VerifyPinResetOtpRequest } from './VerifyPinResetOtpRequest.ts'
 export type { VerifyRegistrationOtpRequest } from './VerifyRegistrationOtpRequest.ts'
 export type { VerifyRegistrationOtpResponse } from './VerifyRegistrationOtpResponse.ts'

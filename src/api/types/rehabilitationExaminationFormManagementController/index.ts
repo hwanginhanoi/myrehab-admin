@@ -24,6 +24,12 @@ export type {
   GetFormsByUserIdQuery,
 } from './GetFormsByUserId.ts'
 export type {
+  GetMyFormsQueryParams,
+  GetMyForms200,
+  GetMyFormsQueryResponse,
+  GetMyFormsQuery,
+} from './GetMyForms.ts'
+export type {
   UpdateFormPathParams,
   UpdateForm200,
   UpdateFormMutationRequest,

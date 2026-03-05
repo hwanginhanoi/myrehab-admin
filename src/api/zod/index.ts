@@ -172,6 +172,7 @@ export {
 export { balanceResponseSchema } from './balanceResponseSchema.ts'
 export { cancelAppointmentRequestSchema } from './cancelAppointmentRequestSchema.ts'
 export { categoryResponseSchema } from './categoryResponseSchema.ts'
+export { changePinRequestSchema } from './changePinRequestSchema.ts'
 export { checkPhoneRequestSchema } from './checkPhoneRequestSchema.ts'
 export { checkPhoneResponseSchema } from './checkPhoneResponseSchema.ts'
 export { clinicScheduleResponseSchema } from './clinicScheduleResponseSchema.ts'
@@ -572,6 +573,11 @@ export {
   getFormsByUserIdQueryResponseSchema,
 } from './rehabilitationExaminationFormManagementController/getFormsByUserIdSchema.ts'
 export {
+  getMyFormsQueryParamsSchema,
+  getMyForms200Schema,
+  getMyFormsQueryResponseSchema,
+} from './rehabilitationExaminationFormManagementController/getMyFormsSchema.ts'
+export {
   updateFormPathParamsSchema,
   updateForm200Schema,
   updateFormMutationRequestSchema,
@@ -775,6 +781,7 @@ export { updateRehabilitationExaminationFormRequestSchema } from './updateRehabi
 export { updateStaffRequestSchema } from './updateStaffRequestSchema.ts'
 export { updateSuperAdminRequestSchema } from './updateSuperAdminRequestSchema.ts'
 export { updateTrainerRequestSchema } from './updateTrainerRequestSchema.ts'
+export { updateUserProfileRequestSchema } from './updateUserProfileRequestSchema.ts'
 export { upsertCompanyInfoRequestSchema } from './upsertCompanyInfoRequestSchema.ts'
 export { upsertNationalHealthInsuranceRequestSchema } from './upsertNationalHealthInsuranceRequestSchema.ts'
 export { upsertNonCompulsoryHealthInsuranceRequestSchema } from './upsertNonCompulsoryHealthInsuranceRequestSchema.ts'
@@ -785,6 +792,18 @@ export {
   getCompanyInfo200Schema,
   getCompanyInfoQueryResponseSchema,
 } from './userHealthInfoController/getCompanyInfoSchema.ts'
+export {
+  getMyCompanyInfo200Schema,
+  getMyCompanyInfoQueryResponseSchema,
+} from './userHealthInfoController/getMyCompanyInfoSchema.ts'
+export {
+  getMyNationalInsurance200Schema,
+  getMyNationalInsuranceQueryResponseSchema,
+} from './userHealthInfoController/getMyNationalInsuranceSchema.ts'
+export {
+  getMyNonCompulsoryInsurance200Schema,
+  getMyNonCompulsoryInsuranceQueryResponseSchema,
+} from './userHealthInfoController/getMyNonCompulsoryInsuranceSchema.ts'
 export {
   getNationalInsurancePathParamsSchema,
   getNationalInsurance200Schema,
@@ -811,10 +830,19 @@ export {
   upsertMyNonCompulsoryInsuranceMutationResponseSchema,
 } from './userHealthInfoController/upsertMyNonCompulsoryInsuranceSchema.ts'
 export {
+  changeMyPin200Schema,
+  changeMyPinMutationRequestSchema,
+  changeMyPinMutationResponseSchema,
+} from './userManagementController/changeMyPinSchema.ts'
+export {
   getAllUsersQueryParamsSchema,
   getAllUsers200Schema,
   getAllUsersQueryResponseSchema,
 } from './userManagementController/getAllUsersSchema.ts'
+export {
+  getMe200Schema,
+  getMeQueryResponseSchema,
+} from './userManagementController/getMeSchema.ts'
 export {
   getUserByIdPathParamsSchema,
   getUserById200Schema,
@@ -825,7 +853,18 @@ export {
   searchUsersByName200Schema,
   searchUsersByNameQueryResponseSchema,
 } from './userManagementController/searchUsersByNameSchema.ts'
+export {
+  updateMyProfile200Schema,
+  updateMyProfileMutationRequestSchema,
+  updateMyProfileMutationResponseSchema,
+} from './userManagementController/updateMyProfileSchema.ts'
+export {
+  verifyMyPin200Schema,
+  verifyMyPinMutationRequestSchema,
+  verifyMyPinMutationResponseSchema,
+} from './userManagementController/verifyMyPinSchema.ts'
 export { userResponseSchema } from './userResponseSchema.ts'
+export { verifyPinRequestSchema } from './verifyPinRequestSchema.ts'
 export { verifyPinResetOtpRequestSchema } from './verifyPinResetOtpRequestSchema.ts'
 export { verifyRegistrationOtpRequestSchema } from './verifyRegistrationOtpRequestSchema.ts'
 export { verifyRegistrationOtpResponseSchema } from './verifyRegistrationOtpResponseSchema.ts'

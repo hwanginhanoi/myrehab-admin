@@ -82,7 +82,7 @@ export function getAvailableActions(status?: string): AppointmentAction[] {
     case 'PENDING_CONFIRMATION':
       return ['assign_doctor', 'confirm', 'reject']
     case 'CONFIRMED':
-      return ['join_video_call']
+      return []
     case 'DOCTOR_COMPLETED':
       return ['confirm_completion']
     case 'DISPUTED':

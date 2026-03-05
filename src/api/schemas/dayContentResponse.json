@@ -1,6 +1,7 @@
 {
   "type": "object",
   "properties": {
+    "courseDayId": { "type": "integer", "format": "int64" },
     "course": {
       "type": "object",
       "properties": {

@@ -9,14 +9,6 @@ export type PageableObject = {
   /**
    * @type boolean | undefined
    */
-  unpaged?: boolean
-  /**
-   * @type object | undefined
-   */
-  sort?: SortObject
-  /**
-   * @type boolean | undefined
-   */
   paged?: boolean
   /**
    * @type integer | undefined, int32
@@ -26,6 +18,14 @@ export type PageableObject = {
    * @type integer | undefined, int32
    */
   pageSize?: number
+  /**
+   * @type object | undefined
+   */
+  sort?: SortObject
+  /**
+   * @type boolean | undefined
+   */
+  unpaged?: boolean
   /**
    * @type integer | undefined, int64
    */

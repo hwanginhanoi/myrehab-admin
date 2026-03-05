@@ -8,6 +8,10 @@ import type { DayExerciseItemResponse } from './DayExerciseItemResponse.ts'
 
 export type DayContentResponse = {
   /**
+   * @type integer | undefined, int64
+   */
+  courseDayId?: number
+  /**
    * @type object | undefined
    */
   course?: CourseMetadataDto

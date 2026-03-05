@@ -8,7 +8,6 @@ import { ConfirmDialog } from './confirm-dialog'
 import { RejectDialog } from './reject-dialog'
 import { DisputeResolutionDialog } from './dispute-resolution-dialog'
 import { useQueryClient } from '@tanstack/react-query'
-import { useNavigate } from '@tanstack/react-router'
 import { toast } from 'sonner'
 
 type AppointmentActionsProps = {
@@ -19,7 +18,6 @@ export function AppointmentActions({ appointment }: AppointmentActionsProps) {
   const actions = getAvailableActions(appointment.status)
   const [openDialog, setOpenDialog] = useState<string | null>(null)
   const queryClient = useQueryClient()
-  const navigate = useNavigate()
 
   const confirmCompletion = useConfirmCompletion({
     mutation: {
@@ -48,7 +46,6 @@ export function AppointmentActions({ appointment }: AppointmentActionsProps) {
     reject: 'Từ chối',
     confirm_completion: 'Xác nhận hoàn thành',
     resolve_dispute: 'Giải quyết tranh chấp',
-    join_video_call: 'Tham gia cuộc gọi video',
   }
 
   return (
@@ -58,27 +55,31 @@ export function AppointmentActions({ appointment }: AppointmentActionsProps) {
           <CardTitle>Hành động</CardTitle>
         </CardHeader>
         <CardContent className="flex flex-wrap gap-2">
-          {actions.map((action) => (
-            <Button
-              key={action}
-              variant={action === 'reject' ? 'destructive' : 'default'}
-              onClick={() => {
-                if (action === 'join_video_call') {
-                  navigate({
-                    to: '/appointments/$id/video-call',
-                    params: { id: String(appointment.id) },
-                  })
-                } else if (action === 'confirm_completion') {
-                  confirmCompletion.mutate({ id: appointment.id! })
-                } else {
-                  setOpenDialog(action)
+          {actions.map((action) => {
+            const needsDoctor =
+              action === 'confirm' && !appointment.doctorId
+            return (
+              <Button
+                key={action}
+                variant={action === 'reject' ? 'destructive' : 'default'}
+                onClick={() => {
+                  if (action === 'confirm_completion') {
+                    confirmCompletion.mutate({ id: appointment.id! })
+                  } else {
+                    setOpenDialog(action)
+                  }
+                }}
+                disabled={confirmCompletion.isPending || needsDoctor}
+                title={
+                  needsDoctor
+                    ? 'Cần phân công bác sĩ trước khi xác nhận'
+                    : undefined
                 }
-              }}
-              disabled={confirmCompletion.isPending}
-            >
-              {actionLabels[action]}
-            </Button>
-          ))}
+              >
+                {actionLabels[action]}
+              </Button>
+            )
+          })}
         </CardContent>
       </Card>
 

@@ -7,4 +7,5 @@ import { z } from 'zod/v4'
 
 export const confirmAppointmentRequestSchema = z.object({
   notes: z.optional(z.string()),
+  doctorId: z.optional(z.int()),
 })

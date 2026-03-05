@@ -8,6 +8,7 @@ import { dayExerciseItemResponseSchema } from './dayExerciseItemResponseSchema.t
 import { z } from 'zod/v4'
 
 export const dayContentResponseSchema = z.object({
+  courseDayId: z.optional(z.int()),
   get course() {
     return courseMetadataDtoSchema.optional()
   },

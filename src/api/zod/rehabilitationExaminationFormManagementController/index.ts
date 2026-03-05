@@ -20,6 +20,11 @@ export {
   getFormsByUserIdQueryResponseSchema,
 } from './getFormsByUserIdSchema.ts'
 export {
+  getMyFormsQueryParamsSchema,
+  getMyForms200Schema,
+  getMyFormsQueryResponseSchema,
+} from './getMyFormsSchema.ts'
+export {
   updateFormPathParamsSchema,
   updateForm200Schema,
   updateFormMutationRequestSchema,

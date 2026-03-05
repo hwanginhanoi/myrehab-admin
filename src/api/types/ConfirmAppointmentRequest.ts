@@ -8,4 +8,8 @@ export type ConfirmAppointmentRequest = {
    * @type string | undefined
    */
   notes?: string
+  /**
+   * @type integer | undefined, int64
+   */
+  doctorId?: number
 }

@@ -5,6 +5,21 @@ export type {
   GetCompanyInfoQuery,
 } from './GetCompanyInfo.ts'
 export type {
+  GetMyCompanyInfo200,
+  GetMyCompanyInfoQueryResponse,
+  GetMyCompanyInfoQuery,
+} from './GetMyCompanyInfo.ts'
+export type {
+  GetMyNationalInsurance200,
+  GetMyNationalInsuranceQueryResponse,
+  GetMyNationalInsuranceQuery,
+} from './GetMyNationalInsurance.ts'
+export type {
+  GetMyNonCompulsoryInsurance200,
+  GetMyNonCompulsoryInsuranceQueryResponse,
+  GetMyNonCompulsoryInsuranceQuery,
+} from './GetMyNonCompulsoryInsurance.ts'
+export type {
   GetNationalInsurancePathParams,
   GetNationalInsurance200,
   GetNationalInsuranceQueryResponse,
