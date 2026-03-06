@@ -30,7 +30,7 @@ export type GetAvailablePackagesSuspenseQueryKey = ReturnType<
 >
 
 /**
- * @description Retrieve exercise packages available for the current user to purchase. Excludes packages the user already has active subscriptions for. Each package includes pricing information (threeMonthPrice and twelveMonthPrice in VND). Supports pagination and search by title. Examples: ?page=0&size=20 | ?query=shoulder
+ * @description Retrieve exercise packages available for the current user to purchase. Excludes packages the user already has active subscriptions for. Each package includes pricing information (threeMonthPrice and twelveMonthPrice in VND). Supports pagination, search by title, and filter by category ID. Examples: ?page=0&size=20 | ?query=shoulder | ?categoryId=3
  * @summary Get available exercise packages for current user
  * {@link /api/exercise-packages/me/available}
  */
@@ -74,7 +74,7 @@ export function getAvailablePackagesSuspenseQueryOptions(
 }
 
 /**
- * @description Retrieve exercise packages available for the current user to purchase. Excludes packages the user already has active subscriptions for. Each package includes pricing information (threeMonthPrice and twelveMonthPrice in VND). Supports pagination and search by title. Examples: ?page=0&size=20 | ?query=shoulder
+ * @description Retrieve exercise packages available for the current user to purchase. Excludes packages the user already has active subscriptions for. Each package includes pricing information (threeMonthPrice and twelveMonthPrice in VND). Supports pagination, search by title, and filter by category ID. Examples: ?page=0&size=20 | ?query=shoulder | ?categoryId=3
  * @summary Get available exercise packages for current user
  * {@link /api/exercise-packages/me/available}
  */

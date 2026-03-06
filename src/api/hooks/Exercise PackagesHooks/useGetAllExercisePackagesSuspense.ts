@@ -26,7 +26,7 @@ export type GetAllExercisePackagesSuspenseQueryKey = ReturnType<
 >
 
 /**
- * @description Retrieve exercise packages with pagination and optional search query. Search is performed on package title (case-insensitive). Examples: ?page=0&size=20 | ?query=beginner
+ * @description Retrieve exercise packages with pagination and optional search/filter. Search is performed on package title (case-insensitive). Filter by categoryId to return only packages tagged with that category. Examples: ?page=0&size=20 | ?query=beginner | ?categoryId=3
  * @summary Get all exercise packages with optional search
  * {@link /api/exercise-packages}
  */
@@ -65,7 +65,7 @@ export function getAllExercisePackagesSuspenseQueryOptions(
 }
 
 /**
- * @description Retrieve exercise packages with pagination and optional search query. Search is performed on package title (case-insensitive). Examples: ?page=0&size=20 | ?query=beginner
+ * @description Retrieve exercise packages with pagination and optional search/filter. Search is performed on package title (case-insensitive). Filter by categoryId to return only packages tagged with that category. Examples: ?page=0&size=20 | ?query=beginner | ?categoryId=3
  * @summary Get all exercise packages with optional search
  * {@link /api/exercise-packages}
  */

@@ -3,6 +3,7 @@
  * Do not edit manually.
  */
 
+import { categoryResponseSchema } from './categoryResponseSchema.ts'
 import { z } from 'zod/v4'
 
 export const exercisePackageResponseSchema = z.object({
@@ -10,6 +11,9 @@ export const exercisePackageResponseSchema = z.object({
   title: z.optional(z.string()),
   description: z.optional(z.string()),
   imageUrl: z.optional(z.string()),
+  get categories() {
+    return z.array(categoryResponseSchema).optional()
+  },
   exerciseCount: z.optional(z.int()),
   threeMonthPrice: z.optional(z.int()),
   twelveMonthPrice: z.optional(z.int()),
