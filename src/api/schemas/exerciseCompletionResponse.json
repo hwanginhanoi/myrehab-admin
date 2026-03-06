@@ -1,9 +1,1 @@
-{
-  "type": "object",
-  "properties": {
-    "dayExerciseId": { "type": "integer", "format": "int64" },
-    "isCompleted": { "type": "boolean" },
-    "message": { "type": "string" }
-  },
-  "x-readme-ref-name": "ExerciseCompletionResponse"
-}
+{"type":"object","properties":{"dayExerciseId":{"type":"integer","format":"int64"},"isCompleted":{"type":"boolean"},"message":{"type":"string"}},"x-readme-ref-name":"ExerciseCompletionResponse"}
