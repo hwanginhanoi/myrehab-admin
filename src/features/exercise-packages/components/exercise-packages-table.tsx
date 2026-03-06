@@ -83,7 +83,11 @@ export function ExercisePackagesTable({
         'flex flex-1 flex-col gap-4'
       )}
     >
-      <ExercisePackagesTableToolbar table={table} />
+      <ExercisePackagesTableToolbar
+        table={table}
+        search={search}
+        navigate={navigate}
+      />
       <div className="overflow-hidden rounded-md border">
         <Table>
           <TableHeader>

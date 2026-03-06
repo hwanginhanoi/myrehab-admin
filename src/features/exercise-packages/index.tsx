@@ -21,24 +21,33 @@ export function ExercisePackages() {
   const page = (search.page as number) || 1
   const pageSize = (search.pageSize as number) || 10
   const title = search.title as string | undefined
+  const categoryId = search.categoryId as number | undefined
 
   // Build query params - include filters if present
   const queryParams = useMemo(() => {
-    const params: { pageable: { page: number; size: number }; query?: string } =
-      {
-        pageable: {
-          page: page - 1, // Convert to 0-indexed for API
-          size: pageSize,
-        },
-      }
+    const params: {
+      pageable: { page: number; size: number }
+      query?: string
+      categoryId?: number
+    } = {
+      pageable: {
+        page: page - 1, // Convert to 0-indexed for API
+        size: pageSize,
+      },
+    }
 
     // Add search query if present
     if (title && title.trim()) {
       params.query = title.trim()
     }
 
+    // Add category filter if present
+    if (categoryId) {
+      params.categoryId = categoryId
+    }
+
     return params
-  }, [page, pageSize, title])
+  }, [page, pageSize, title, categoryId])
 
   // Fetch exercise packages with server-side filtering and pagination
   const { data: response, isLoading } = useGetAllExercisePackages(queryParams, {

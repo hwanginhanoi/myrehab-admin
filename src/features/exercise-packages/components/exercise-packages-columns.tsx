@@ -1,5 +1,6 @@
 import { type ColumnDef } from '@tanstack/react-table'
 import { cn } from '@/lib/utils'
+import { Badge } from '@/components/ui/badge'
 import { DataTableColumnHeader } from '@/components/data-table'
 import { LongText } from '@/components/long-text'
 import type { ExercisePackageResponse } from '@/api'
@@ -34,6 +35,31 @@ export const exercisePackagesColumns: ColumnDef<ExercisePackageResponse>[] = [
         {row.getValue('description') || '-'}
       </LongText>
     ),
+    enableSorting: false,
+  },
+  {
+    id: 'categories',
+    header: ({ column }) => (
+      <DataTableColumnHeader column={column} title="Danh mục" />
+    ),
+    cell: ({ row }) => {
+      const categories = row.original.categories
+      if (!categories || categories.length === 0) return <span>-</span>
+      return (
+        <div className="flex flex-wrap gap-1">
+          {categories.slice(0, 3).map((category) => (
+            <Badge key={category.id} variant="outline" className="text-xs">
+              {category.name}
+            </Badge>
+          ))}
+          {categories.length > 3 && (
+            <Badge variant="outline" className="text-xs">
+              +{categories.length - 3}
+            </Badge>
+          )}
+        </div>
+      )
+    },
     enableSorting: false,
   },
   {

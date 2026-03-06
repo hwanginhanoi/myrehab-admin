@@ -1,4 +1,4 @@
-import { useRef } from 'react'
+import { useMemo, useRef } from 'react'
 import { z } from 'zod'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
@@ -17,18 +17,25 @@ import { Input } from '@/components/ui/input'
 import { Textarea } from '@/components/ui/textarea'
 import { FileUpload, type FileUploadRef } from '@/components/file-upload'
 import {
+  type CategoryResponse,
   type ExercisePackageDetailResponse,
   type ExerciseResponse,
   useCreateExercisePackage,
+  useGetAllCategories,
   useUpdateExercisePackage,
 } from '@/api'
 import { toast } from 'sonner'
-import { ExerciseSelectorDND } from './exercise-selector-dnd'
+import {
+  ExerciseSelectorDND,
+  FilterButton,
+  getCategoryTypeLabel,
+} from './exercise-selector-dnd'
 
 const formSchema = z.object({
   title: z.string().min(1, 'Tên gói bài tập là bắt buộc'),
   description: z.string().min(1, 'Mô tả là bắt buộc'),
   imageUrl: z.string().optional(),
+  categoryIds: z.array(z.number()),
   exercises: z
     .array(z.custom<ExerciseResponse>())
     .min(1, 'Vui lòng chọn ít nhất một bài tập'),
@@ -52,6 +59,36 @@ export function ExercisePackageFormComponent({
 
   const imageUploadRef = useRef<FileUploadRef>(null)
 
+  // Fetch categories for the multi-select
+  const { data: categoriesResponse } = useGetAllCategories({
+    pageable: { page: 0, size: 10000 },
+  })
+
+  const categoryGroups = useMemo(() => {
+    const categories = (categoriesResponse?.content || []) as CategoryResponse[]
+    const groupsMap = new Map<string, CategoryResponse[]>()
+
+    categories.forEach((category) => {
+      const type = category.type
+      if (type && !groupsMap.has(type)) {
+        groupsMap.set(type, [])
+      }
+      if (type) {
+        groupsMap.get(type)?.push(category)
+      }
+    })
+
+    return Array.from(groupsMap.entries()).map(([type, cats]) => ({
+      label: getCategoryTypeLabel(type),
+      options: cats
+        .filter((cat) => cat.name && cat.id !== undefined)
+        .map((cat) => ({
+          label: cat.name!,
+          value: String(cat.id!),
+        })),
+    }))
+  }, [categoriesResponse])
+
   const form = useForm<ExercisePackageForm>({
     resolver: zodResolver(formSchema),
     defaultValues: exercisePackage
@@ -59,12 +96,16 @@ export function ExercisePackageFormComponent({
           title: exercisePackage.title || '',
           description: exercisePackage.description || '',
           imageUrl: exercisePackage.imageUrl || '',
+          categoryIds:
+            exercisePackage.categories?.map((cat) => cat.id!).filter(Boolean) ||
+            [],
           exercises: exercisePackage.exercises || [],
         }
       : {
           title: '',
           description: '',
           imageUrl: '',
+          categoryIds: [],
           exercises: [],
         },
   })
@@ -119,6 +160,7 @@ export function ExercisePackageFormComponent({
         title: values.title,
         description: values.description,
         imageUrl: imageUrl || undefined,
+        categoryIds: values.categoryIds || [],
         exerciseIds: values.exercises.map((ex) => ex.id!),
       }
 
@@ -217,6 +259,30 @@ export function ExercisePackageFormComponent({
                     disabled={isView}
                     {...field}
                   />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+
+          <FormField
+            control={form.control}
+            name="categoryIds"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Danh mục</FormLabel>
+                <FormControl>
+                  <div>
+                    <FilterButton
+                      title="Chọn danh mục"
+                      groups={categoryGroups}
+                      selectedValues={(field.value || []).map(String)}
+                      onChange={(values) =>
+                        field.onChange(values.map(Number))
+                      }
+                      disabled={isView}
+                    />
+                  </div>
                 </FormControl>
                 <FormMessage />
               </FormItem>

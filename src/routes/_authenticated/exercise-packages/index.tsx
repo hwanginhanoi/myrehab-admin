@@ -7,6 +7,8 @@ const exercisePackagesSearchSchema = z.object({
   pageSize: z.coerce.number().optional().catch(10),
   // Per-column text filter (search by title)
   title: z.string().optional().catch(''),
+  // Filter by category
+  categoryId: z.coerce.number().optional(),
 })
 
 export const Route = createFileRoute('/_authenticated/exercise-packages/')({

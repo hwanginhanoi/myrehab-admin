@@ -438,7 +438,7 @@ function SortableExerciseItem({
 }
 
 // Filter Button Component (styled like DataTableGroupedMultiSelectFilter)
-type OptionGroup = {
+export type OptionGroup = {
   label: string
   options: {
     label: string
@@ -454,7 +454,7 @@ interface FilterButtonProps {
   disabled?: boolean
 }
 
-function FilterButton({
+export function FilterButton({
   title,
   groups,
   selectedValues,
@@ -571,7 +571,7 @@ function FilterButton({
 }
 
 // Helper function to get Vietnamese labels for category types
-function getCategoryTypeLabel(type: string): string {
+export function getCategoryTypeLabel(type: string): string {
   const labels: Record<string, string> = {
     BODY_PART: 'Bộ phận cơ thể',
     HEALTH_CONDITION: 'Tình trạng sức khỏe',
