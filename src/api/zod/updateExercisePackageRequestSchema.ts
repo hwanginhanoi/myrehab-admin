@@ -9,5 +9,6 @@ export const updateExercisePackageRequestSchema = z.object({
     "title": z.string(),
 "description": z.string(),
 "imageUrl": z.optional(z.string()),
+"categoryIds": z.array(z.int()),
 "exerciseIds": z.array(z.int())
     })

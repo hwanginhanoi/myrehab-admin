@@ -13,6 +13,11 @@ export type GetAvailablePackagesQueryParams = {
     */
     query?: string;
     /**
+     * @description Filter by category ID
+     * @type integer | undefined, int64
+    */
+    categoryId?: number;
+    /**
      * @type object
     */
     pageable: Pageable;

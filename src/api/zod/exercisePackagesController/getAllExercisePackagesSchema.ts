@@ -9,6 +9,7 @@ import { z } from "zod/v4";
 
 export const getAllExercisePackagesQueryParamsSchema = z.object({
     "query": z.optional(z.string().describe("Search query for title (case-insensitive)")),
+"categoryId": z.optional(z.coerce.number().int().describe("Filter by category ID")),
 get "pageable"(){
                 return pageableSchema
               }

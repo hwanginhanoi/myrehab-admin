@@ -20,5 +20,9 @@ export type UpdateExercisePackageRequest = {
     /**
      * @type array
     */
+    categoryIds: number[];
+    /**
+     * @type array
+    */
     exerciseIds: number[];
 };

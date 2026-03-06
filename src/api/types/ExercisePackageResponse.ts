@@ -3,6 +3,7 @@
 * Do not edit manually.
 */
 
+import type { CategoryResponse } from "./CategoryResponse.ts";
 
 export type ExercisePackageResponse = {
     /**
@@ -21,6 +22,10 @@ export type ExercisePackageResponse = {
      * @type string | undefined
     */
     imageUrl?: string;
+    /**
+     * @type array | undefined
+    */
+    categories?: CategoryResponse[];
     /**
      * @type integer | undefined, int32
     */

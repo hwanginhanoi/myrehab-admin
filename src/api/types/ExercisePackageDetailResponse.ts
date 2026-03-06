@@ -3,6 +3,7 @@
 * Do not edit manually.
 */
 
+import type { CategoryResponse } from "./CategoryResponse.ts";
 import type { ExerciseResponse } from "./ExerciseResponse.ts";
 
 export type ExercisePackageDetailResponse = {
@@ -22,6 +23,10 @@ export type ExercisePackageDetailResponse = {
      * @type string | undefined
     */
     imageUrl?: string;
+    /**
+     * @type array | undefined
+    */
+    categories?: CategoryResponse[];
     /**
      * @type array | undefined
     */
