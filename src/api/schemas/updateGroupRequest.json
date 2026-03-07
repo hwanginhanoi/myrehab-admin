@@ -1,9 +1,1 @@
-{
-  "type": "object",
-  "properties": {
-    "name": { "type": "string" },
-    "description": { "type": "string" }
-  },
-  "required": ["name"],
-  "x-readme-ref-name": "UpdateGroupRequest"
-}
+{"type":"object","properties":{"name":{"type":"string"},"description":{"type":"string"}},"required":["name"],"x-readme-ref-name":"UpdateGroupRequest"}

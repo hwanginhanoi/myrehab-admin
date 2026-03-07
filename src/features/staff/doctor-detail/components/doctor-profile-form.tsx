@@ -1,3 +1,4 @@
+import { useRef, useEffect } from 'react'
 import { z } from 'zod'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
@@ -18,6 +19,10 @@ import { Textarea } from '@/components/ui/textarea'
 import { Switch } from '@/components/ui/switch'
 import { Badge } from '@/components/ui/badge'
 import { useUpdateStaff, type StaffResponse } from '@/api'
+import {
+  DoctorAvatarUpload,
+  type DoctorAvatarUploadRef,
+} from './doctor-avatar-upload'
 
 const doctorProfileFormSchema = z.object({
   fullName: z
@@ -36,6 +41,7 @@ const doctorProfileFormSchema = z.object({
     .optional()
     .or(z.literal('')),
   isPublic: z.boolean(),
+  profileImageUrl: z.string().optional(),
 })
 
 type DoctorProfileFormValues = z.infer<typeof doctorProfileFormSchema>
@@ -52,6 +58,7 @@ export function DoctorProfileForm({
   readOnly,
 }: DoctorProfileFormProps) {
   const queryClient = useQueryClient()
+  const imageUploadRef = useRef<DoctorAvatarUploadRef>(null)
 
   const form = useForm<DoctorProfileFormValues>({
     resolver: zodResolver(doctorProfileFormSchema),
@@ -61,9 +68,22 @@ export function DoctorProfileForm({
       specialization: doctor.specialization || '',
       bio: doctor.description || '',
       isPublic: doctor.isPublic ?? false,
+      profileImageUrl: doctor.profileImageUrl || '',
     },
     mode: 'onChange',
   })
+
+  // Reset form when doctor data changes to prevent showing stale values
+  useEffect(() => {
+    form.reset({
+      fullName: doctor.fullName || '',
+      email: doctor.email || '',
+      specialization: doctor.specialization || '',
+      bio: doctor.description || '',
+      isPublic: doctor.isPublic ?? false,
+      profileImageUrl: doctor.profileImageUrl || '',
+    })
+  }, [doctor, form])
 
   const updateMutation = useUpdateStaff({
     mutation: {
@@ -72,7 +92,9 @@ export function DoctorProfileForm({
           queryKey: [{ url: '/api/admin/staff' }],
         })
         queryClient.invalidateQueries({
-          queryKey: [{ url: `/api/admin/staff/${doctor.id}` }],
+          queryKey: [
+            { url: '/api/admin/staff/:id', params: { id: doctor.id } },
+          ],
         })
         toast.success('Đã cập nhật thông tin bác sĩ')
       },
@@ -82,8 +104,17 @@ export function DoctorProfileForm({
     },
   })
 
-  const onSubmit = (values: DoctorProfileFormValues) => {
+  const onSubmit = async (values: DoctorProfileFormValues) => {
     if (!doctor.id) return
+
+    let profileImageUrl = values.profileImageUrl
+
+    if (imageUploadRef.current?.hasFile()) {
+      const objectKey = await imageUploadRef.current.upload()
+      if (objectKey) {
+        profileImageUrl = objectKey
+      }
+    }
 
     updateMutation.mutate({
       id: doctor.id,
@@ -94,6 +125,7 @@ export function DoctorProfileForm({
         isPublic: values.isPublic,
         ...(values.specialization && { specialization: values.specialization }),
         ...(values.bio && { description: values.bio }),
+        profileImageUrl: profileImageUrl || undefined,
       },
     })
   }
@@ -109,6 +141,29 @@ export function DoctorProfileForm({
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+        <FormField
+          control={form.control}
+          name="profileImageUrl"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Ảnh đại diện</FormLabel>
+              <FormControl>
+                <DoctorAvatarUpload
+                  ref={imageUploadRef}
+                  value={field.value}
+                  onChange={field.onChange}
+                  disabled={readOnly}
+                />
+              </FormControl>
+              <FormDescription>
+                Ảnh đại diện hiển thị trên ứng dụng di động (JPEG, PNG, tối đa
+                10MB).
+              </FormDescription>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+
         <FormField
           control={form.control}
           name="fullName"
@@ -249,7 +304,10 @@ export function DoctorProfileForm({
         </div>
 
         {!readOnly && (
-          <Button type="submit" disabled={updateMutation.isPending}>
+          <Button
+            type="submit"
+            disabled={updateMutation.isPending}
+          >
             {updateMutation.isPending ? 'Đang lưu...' : 'Cập nhật thông tin'}
           </Button>
         )}

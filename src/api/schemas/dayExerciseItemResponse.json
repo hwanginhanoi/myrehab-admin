@@ -1,17 +1,1 @@
-{
-  "type": "object",
-  "properties": {
-    "dayExerciseId": { "type": "integer", "format": "int64" },
-    "exerciseId": { "type": "integer", "format": "int64" },
-    "exerciseTitle": { "type": "string" },
-    "exerciseDescription": { "type": "string" },
-    "exerciseImageUrl": { "type": "string" },
-    "exerciseVideoUrl": { "type": "string" },
-    "exerciseDurationMinutes": { "type": "integer", "format": "int32" },
-    "orderInDay": { "type": "integer", "format": "int32" },
-    "customRepetitions": { "type": "integer", "format": "int32" },
-    "isCompleted": { "type": "boolean" },
-    "completedAt": { "type": "string", "format": "date-time" }
-  },
-  "x-readme-ref-name": "DayExerciseItemResponse"
-}
+{"type":"object","properties":{"dayExerciseId":{"type":"integer","format":"int64"},"exerciseId":{"type":"integer","format":"int64"},"exerciseTitle":{"type":"string"},"exerciseDescription":{"type":"string"},"exerciseImageUrl":{"type":"string"},"exerciseVideoUrl":{"type":"string"},"exerciseDurationMinutes":{"type":"integer","format":"int32"},"orderInDay":{"type":"integer","format":"int32"},"customRepetitions":{"type":"integer","format":"int32"},"isCompleted":{"type":"boolean"},"completedAt":{"type":"string","format":"date-time"}},"x-readme-ref-name":"DayExerciseItemResponse"}
