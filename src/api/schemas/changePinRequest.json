@@ -1,1 +1,9 @@
-{"type":"object","properties":{"currentPin":{"type":"string","pattern":"^\\d{6}$"},"newPin":{"type":"string","pattern":"^\\d{6}$"}},"required":["currentPin","newPin"],"x-readme-ref-name":"ChangePinRequest"}
+{
+  "type": "object",
+  "properties": {
+    "currentPin": { "type": "string", "pattern": "^\\d{6}$" },
+    "newPin": { "type": "string", "pattern": "^\\d{6}$" }
+  },
+  "required": ["currentPin", "newPin"],
+  "x-readme-ref-name": "ChangePinRequest"
+}

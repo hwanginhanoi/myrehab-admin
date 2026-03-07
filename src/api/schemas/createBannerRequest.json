@@ -1,0 +1,11 @@
+{
+  "type": "object",
+  "properties": {
+    "title": { "type": "string" },
+    "imageUrl": { "type": "string" },
+    "displayOrder": { "type": "integer", "format": "int32" },
+    "status": { "type": "string", "enum": ["ACTIVE", "INACTIVE", "ARCHIVED"] }
+  },
+  "required": ["imageUrl", "title"],
+  "x-readme-ref-name": "CreateBannerRequest"
+}
