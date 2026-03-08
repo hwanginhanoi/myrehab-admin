@@ -23,7 +23,7 @@ export const getAllBannersQueryKey = (params: GetAllBannersQueryParams) =>
 export type GetAllBannersQueryKey = ReturnType<typeof getAllBannersQueryKey>
 
 /**
- * @description Returns all banners (active and inactive) with pagination. Staff only.
+ * @description Returns all banners with pagination and optional filters. Staff only.
  * @summary Get all banners
  * {@link /api/banners/all}
  */
@@ -62,7 +62,7 @@ export function getAllBannersQueryOptions(
 }
 
 /**
- * @description Returns all banners (active and inactive) with pagination. Staff only.
+ * @description Returns all banners with pagination and optional filters. Staff only.
  * @summary Get all banners
  * {@link /api/banners/all}
  */

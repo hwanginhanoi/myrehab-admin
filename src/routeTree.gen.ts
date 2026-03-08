@@ -42,6 +42,7 @@ import { Route as AuthenticatedCourseRequestsIndexRouteImport } from './routes/_
 import { Route as AuthenticatedCourseAssignmentsIndexRouteImport } from './routes/_authenticated/course-assignments/index'
 import { Route as AuthenticatedClinicScheduleIndexRouteImport } from './routes/_authenticated/clinic-schedule/index'
 import { Route as AuthenticatedChatsIndexRouteImport } from './routes/_authenticated/chats/index'
+import { Route as AuthenticatedBannersIndexRouteImport } from './routes/_authenticated/banners/index'
 import { Route as AuthenticatedAppsIndexRouteImport } from './routes/_authenticated/apps/index'
 import { Route as AuthenticatedAppointmentsIndexRouteImport } from './routes/_authenticated/appointments/index'
 import { Route as AuthenticatedSettingsNotificationsRouteImport } from './routes/_authenticated/settings/notifications'
@@ -268,6 +269,12 @@ const AuthenticatedChatsIndexRoute = AuthenticatedChatsIndexRouteImport.update({
   path: '/chats/',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
+const AuthenticatedBannersIndexRoute =
+  AuthenticatedBannersIndexRouteImport.update({
+    id: '/banners/',
+    path: '/banners/',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
 const AuthenticatedAppsIndexRoute = AuthenticatedAppsIndexRouteImport.update({
   id: '/apps/',
   path: '/apps/',
@@ -564,6 +571,7 @@ export interface FileRoutesByFullPath {
   '/settings/notifications': typeof AuthenticatedSettingsNotificationsRoute
   '/appointments': typeof AuthenticatedAppointmentsIndexRoute
   '/apps': typeof AuthenticatedAppsIndexRoute
+  '/banners': typeof AuthenticatedBannersIndexRoute
   '/chats': typeof AuthenticatedChatsIndexRoute
   '/clinic-schedule': typeof AuthenticatedClinicScheduleIndexRoute
   '/course-assignments': typeof AuthenticatedCourseAssignmentsIndexRoute
@@ -638,6 +646,7 @@ export interface FileRoutesByTo {
   '/settings/notifications': typeof AuthenticatedSettingsNotificationsRoute
   '/appointments': typeof AuthenticatedAppointmentsIndexRoute
   '/apps': typeof AuthenticatedAppsIndexRoute
+  '/banners': typeof AuthenticatedBannersIndexRoute
   '/chats': typeof AuthenticatedChatsIndexRoute
   '/clinic-schedule': typeof AuthenticatedClinicScheduleIndexRoute
   '/course-assignments': typeof AuthenticatedCourseAssignmentsIndexRoute
@@ -715,6 +724,7 @@ export interface FileRoutesById {
   '/_authenticated/settings/notifications': typeof AuthenticatedSettingsNotificationsRoute
   '/_authenticated/appointments/': typeof AuthenticatedAppointmentsIndexRoute
   '/_authenticated/apps/': typeof AuthenticatedAppsIndexRoute
+  '/_authenticated/banners/': typeof AuthenticatedBannersIndexRoute
   '/_authenticated/chats/': typeof AuthenticatedChatsIndexRoute
   '/_authenticated/clinic-schedule/': typeof AuthenticatedClinicScheduleIndexRoute
   '/_authenticated/course-assignments/': typeof AuthenticatedCourseAssignmentsIndexRoute
@@ -795,6 +805,7 @@ export interface FileRouteTypes {
     | '/settings/notifications'
     | '/appointments'
     | '/apps'
+    | '/banners'
     | '/chats'
     | '/clinic-schedule'
     | '/course-assignments'
@@ -869,6 +880,7 @@ export interface FileRouteTypes {
     | '/settings/notifications'
     | '/appointments'
     | '/apps'
+    | '/banners'
     | '/chats'
     | '/clinic-schedule'
     | '/course-assignments'
@@ -945,6 +957,7 @@ export interface FileRouteTypes {
     | '/_authenticated/settings/notifications'
     | '/_authenticated/appointments/'
     | '/_authenticated/apps/'
+    | '/_authenticated/banners/'
     | '/_authenticated/chats/'
     | '/_authenticated/clinic-schedule/'
     | '/_authenticated/course-assignments/'
@@ -1234,6 +1247,13 @@ declare module '@tanstack/react-router' {
       path: '/chats'
       fullPath: '/chats'
       preLoaderRoute: typeof AuthenticatedChatsIndexRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/banners/': {
+      id: '/_authenticated/banners/'
+      path: '/banners'
+      fullPath: '/banners'
+      preLoaderRoute: typeof AuthenticatedBannersIndexRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
     '/_authenticated/apps/': {
@@ -1715,6 +1735,7 @@ interface AuthenticatedRouteRouteChildren {
   AuthenticatedRehabilitationFormsNewRoute: typeof AuthenticatedRehabilitationFormsNewRoute
   AuthenticatedAppointmentsIndexRoute: typeof AuthenticatedAppointmentsIndexRoute
   AuthenticatedAppsIndexRoute: typeof AuthenticatedAppsIndexRoute
+  AuthenticatedBannersIndexRoute: typeof AuthenticatedBannersIndexRoute
   AuthenticatedChatsIndexRoute: typeof AuthenticatedChatsIndexRoute
   AuthenticatedClinicScheduleIndexRoute: typeof AuthenticatedClinicScheduleIndexRoute
   AuthenticatedCourseAssignmentsIndexRoute: typeof AuthenticatedCourseAssignmentsIndexRoute
@@ -1767,6 +1788,7 @@ const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
     AuthenticatedRehabilitationFormsNewRoute,
   AuthenticatedAppointmentsIndexRoute: AuthenticatedAppointmentsIndexRoute,
   AuthenticatedAppsIndexRoute: AuthenticatedAppsIndexRoute,
+  AuthenticatedBannersIndexRoute: AuthenticatedBannersIndexRoute,
   AuthenticatedChatsIndexRoute: AuthenticatedChatsIndexRoute,
   AuthenticatedClinicScheduleIndexRoute: AuthenticatedClinicScheduleIndexRoute,
   AuthenticatedCourseAssignmentsIndexRoute:

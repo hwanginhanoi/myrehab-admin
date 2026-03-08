@@ -223,6 +223,7 @@ export type {
   GetActiveBannersQuery,
 } from './bannerManagementController/GetActiveBanners.ts'
 export type {
+  GetAllBannersQueryParamsStatusEnumKey,
   GetAllBannersQueryParams,
   GetAllBanners200,
   GetAllBannersQueryResponse,
@@ -234,6 +235,12 @@ export type {
   GetBannerByIdQueryResponse,
   GetBannerByIdQuery,
 } from './bannerManagementController/GetBannerById.ts'
+export type {
+  ReorderBanners200,
+  ReorderBannersMutationRequest,
+  ReorderBannersMutationResponse,
+  ReorderBannersMutation,
+} from './bannerManagementController/ReorderBanners.ts'
 export type {
   UpdateBannerPathParams,
   UpdateBanner200,
@@ -757,6 +764,7 @@ export type {
 } from './rehabilitationExaminationFormManagementController/UpdateForm.ts'
 export type { RehabilitationExaminationFormResponse } from './RehabilitationExaminationFormResponse.ts'
 export type { RejectAppointmentRequest } from './RejectAppointmentRequest.ts'
+export type { ReorderBannerRequest } from './ReorderBannerRequest.ts'
 export type {
   GetAppointmentStatsQueryParams,
   GetAppointmentStats200,
@@ -1129,6 +1137,7 @@ export type { VerifyRegistrationOtpResponse } from './VerifyRegistrationOtpRespo
 export type { VideoTokenResponse } from './VideoTokenResponse.ts'
 export type { WebhookResponse } from './WebhookResponse.ts'
 export { appointmentResponseStatusEnum } from './AppointmentResponse.ts'
+export { getAllBannersQueryParamsStatusEnum } from './bannerManagementController/GetAllBanners.ts'
 export { bannerResponseStatusEnum } from './BannerResponse.ts'
 export { categoryResponseTypeEnum } from './CategoryResponse.ts'
 export { clinicScheduleResponseDayOfWeekEnum } from './ClinicScheduleResponse.ts'

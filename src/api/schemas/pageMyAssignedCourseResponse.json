@@ -41,8 +41,8 @@
       },
       "x-readme-ref-name": "PageableObject"
     },
-    "totalElements": { "type": "integer", "format": "int64" },
     "totalPages": { "type": "integer", "format": "int32" },
+    "totalElements": { "type": "integer", "format": "int64" },
     "last": { "type": "boolean" },
     "sort": {
       "type": "object",

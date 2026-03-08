@@ -6,7 +6,24 @@
 import type { Pageable } from '../Pageable.ts'
 import type { PagedModel } from '../PagedModel.ts'
 
+export const getAllBannersQueryParamsStatusEnum = {
+  ACTIVE: 'ACTIVE',
+  INACTIVE: 'INACTIVE',
+  ARCHIVED: 'ARCHIVED',
+} as const
+
+export type GetAllBannersQueryParamsStatusEnumKey =
+  (typeof getAllBannersQueryParamsStatusEnum)[keyof typeof getAllBannersQueryParamsStatusEnum]
+
 export type GetAllBannersQueryParams = {
+  /**
+   * @type string | undefined
+   */
+  status?: GetAllBannersQueryParamsStatusEnumKey
+  /**
+   * @type string | undefined
+   */
+  title?: string
   /**
    * @type object
    */

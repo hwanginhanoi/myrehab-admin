@@ -120,6 +120,7 @@ export const sidebarData: SidebarData = {
           title: 'Banner',
           url: '/banners',
           icon: Image,
+          requiredPermission: 'banners:view',
         },
         {
           title: 'Kho bài tập',

@@ -8,6 +8,8 @@ import { pagedModelSchema } from '../pagedModelSchema.ts'
 import { z } from 'zod/v4'
 
 export const getAllBannersQueryParamsSchema = z.object({
+  status: z.optional(z.enum(['ACTIVE', 'INACTIVE', 'ARCHIVED'])),
+  title: z.optional(z.string()),
   get pageable() {
     return pageableSchema
   },

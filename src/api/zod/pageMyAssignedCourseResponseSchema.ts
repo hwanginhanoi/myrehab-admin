@@ -15,8 +15,8 @@ export const pageMyAssignedCourseResponseSchema = z.object({
   get pageable() {
     return pageableObjectSchema.optional()
   },
-  totalElements: z.optional(z.int()),
   totalPages: z.optional(z.int()),
+  totalElements: z.optional(z.int()),
   last: z.optional(z.boolean()),
   get sort() {
     return sortObjectSchema.optional()

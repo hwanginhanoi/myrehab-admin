@@ -195,6 +195,11 @@ export {
   getBannerByIdQueryResponseSchema,
 } from './bannerManagementController/getBannerByIdSchema.ts'
 export {
+  reorderBanners200Schema,
+  reorderBannersMutationRequestSchema,
+  reorderBannersMutationResponseSchema,
+} from './bannerManagementController/reorderBannersSchema.ts'
+export {
   updateBannerPathParamsSchema,
   updateBanner200Schema,
   updateBannerMutationRequestSchema,
@@ -617,6 +622,7 @@ export {
 } from './rehabilitationExaminationFormManagementController/updateFormSchema.ts'
 export { rehabilitationExaminationFormResponseSchema } from './rehabilitationExaminationFormResponseSchema.ts'
 export { rejectAppointmentRequestSchema } from './rejectAppointmentRequestSchema.ts'
+export { reorderBannerRequestSchema } from './reorderBannerRequestSchema.ts'
 export {
   getAppointmentStatsQueryParamsSchema,
   getAppointmentStats200Schema,

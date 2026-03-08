@@ -26,7 +26,7 @@ export type GetAllBannersSuspenseQueryKey = ReturnType<
 >
 
 /**
- * @description Returns all banners (active and inactive) with pagination. Staff only.
+ * @description Returns all banners with pagination and optional filters. Staff only.
  * @summary Get all banners
  * {@link /api/banners/all}
  */
@@ -65,7 +65,7 @@ export function getAllBannersSuspenseQueryOptions(
 }
 
 /**
- * @description Returns all banners (active and inactive) with pagination. Staff only.
+ * @description Returns all banners with pagination and optional filters. Staff only.
  * @summary Get all banners
  * {@link /api/banners/all}
  */
