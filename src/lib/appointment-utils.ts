@@ -1,15 +1,19 @@
 import type { LocalTime } from '@/api'
 
-export function formatLocalTime(time?: LocalTime): string {
+export function formatLocalTime(time?: LocalTime | string): string {
   if (!time) return '--:--'
+  if (typeof time === 'string') {
+    const [h, m] = time.split(':')
+    return `${h}:${m}`
+  }
   const h = String(time.hour ?? 0).padStart(2, '0')
   const m = String(time.minute ?? 0).padStart(2, '0')
   return `${h}:${m}`
 }
 
-export function parseTimeString(timeStr: string): LocalTime {
-  const [h, m] = timeStr.split(':').map(Number)
-  return { hour: h, minute: m, second: 0, nano: 0 }
+export function parseTimeString(timeStr: string): string {
+  const [h, m] = timeStr.split(':')
+  return `${h}:${m}:00`
 }
 
 export function formatCurrency(value?: number): string {
