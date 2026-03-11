@@ -4,11 +4,6 @@ export {
   createPopupMutationResponseSchema,
 } from './createPopupSchema.ts'
 export {
-  deletePopupPathParamsSchema,
-  deletePopup200Schema,
-  deletePopupMutationResponseSchema,
-} from './deletePopupSchema.ts'
-export {
   getActivePopup200Schema,
   getActivePopupQueryResponseSchema,
 } from './getActivePopupSchema.ts'

@@ -9,7 +9,9 @@ import { z } from 'zod/v4'
 /**
  * @description OK
  */
-export const getActivePopup200Schema = z.lazy(() => startupPopupResponseSchema)
+export const getActivePopup200Schema = z.array(
+  z.lazy(() => startupPopupResponseSchema)
+)
 
 export const getActivePopupQueryResponseSchema = z.lazy(
   () => getActivePopup200Schema

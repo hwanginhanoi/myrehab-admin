@@ -8,7 +8,7 @@ import type { StartupPopupResponse } from '../StartupPopupResponse.ts'
 /**
  * @description OK
  */
-export type GetActivePopup200 = StartupPopupResponse
+export type GetActivePopup200 = StartupPopupResponse[]
 
 export type GetActivePopupQueryResponse = GetActivePopup200
 

@@ -192,7 +192,6 @@ export type { RemoveExerciseGroupFromDoctorMutationKey } from './hooks/Staff Man
 export type { RemoveTrainerFromDoctorMutationKey } from './hooks/Staff ManagementHooks/useRemoveTrainerFromDoctor.ts'
 export type { UpdateStaffMutationKey } from './hooks/Staff ManagementHooks/useUpdateStaff.ts'
 export type { CreatePopupMutationKey } from './hooks/Startup PopupHooks/useCreatePopup.ts'
-export type { DeletePopupMutationKey } from './hooks/Startup PopupHooks/useDeletePopup.ts'
 export type { GetActivePopupQueryKey } from './hooks/Startup PopupHooks/useGetActivePopup.ts'
 export type { GetActivePopupSuspenseQueryKey } from './hooks/Startup PopupHooks/useGetActivePopupSuspense.ts'
 export type { GetAllPopupsQueryKey } from './hooks/Startup PopupHooks/useGetAllPopups.ts'
@@ -1183,12 +1182,6 @@ export type {
   CreatePopupMutationResponse,
   CreatePopupMutation,
 } from './types/startupPopupController/CreatePopup.ts'
-export type {
-  DeletePopupPathParams,
-  DeletePopup200,
-  DeletePopupMutationResponse,
-  DeletePopupMutation,
-} from './types/startupPopupController/DeletePopup.ts'
 export type {
   GetActivePopup200,
   GetActivePopupQueryResponse,
@@ -2214,10 +2207,6 @@ export { createPopupMutationKey } from './hooks/Startup PopupHooks/useCreatePopu
 export { createPopup } from './hooks/Startup PopupHooks/useCreatePopup.ts'
 export { createPopupMutationOptions } from './hooks/Startup PopupHooks/useCreatePopup.ts'
 export { useCreatePopup } from './hooks/Startup PopupHooks/useCreatePopup.ts'
-export { deletePopupMutationKey } from './hooks/Startup PopupHooks/useDeletePopup.ts'
-export { deletePopup } from './hooks/Startup PopupHooks/useDeletePopup.ts'
-export { deletePopupMutationOptions } from './hooks/Startup PopupHooks/useDeletePopup.ts'
-export { useDeletePopup } from './hooks/Startup PopupHooks/useDeletePopup.ts'
 export { getActivePopupQueryKey } from './hooks/Startup PopupHooks/useGetActivePopup.ts'
 export { getActivePopup } from './hooks/Startup PopupHooks/useGetActivePopup.ts'
 export { getActivePopupQueryOptions } from './hooks/Startup PopupHooks/useGetActivePopup.ts'
@@ -3224,11 +3213,6 @@ export {
   createPopupMutationRequestSchema,
   createPopupMutationResponseSchema,
 } from './zod/startupPopupController/createPopupSchema.ts'
-export {
-  deletePopupPathParamsSchema,
-  deletePopup200Schema,
-  deletePopupMutationResponseSchema,
-} from './zod/startupPopupController/deletePopupSchema.ts'
 export {
   getActivePopup200Schema,
   getActivePopupQueryResponseSchema,

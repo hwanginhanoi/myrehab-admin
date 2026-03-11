@@ -24,11 +24,13 @@ import {
 import { Input } from '@/components/ui/input'
 import { Switch } from '@/components/ui/switch'
 import { useUpdateClinicSchedule, type ClinicScheduleResponse } from '@/api'
-import {
-  formatLocalTime,
-  parseTimeString,
-  dayOfWeekLabels,
-} from '@/lib/appointment-utils'
+import { formatLocalTime, dayOfWeekLabels } from '@/lib/appointment-utils'
+import type { LocalTime } from '@/api'
+
+function toLocalTime(timeStr: string): LocalTime {
+  const [h, m] = timeStr.split(':').map(Number)
+  return { hour: h, minute: m, second: 0, nano: 0 }
+}
 
 const formSchema = z.object({
   isOpen: z.boolean(),
@@ -94,8 +96,8 @@ export function EditScheduleDialog({
       data: {
         dayOfWeek: schedule.dayOfWeek,
         isOpen: values.isOpen,
-        openingTime: parseTimeString(values.openingTime),
-        closingTime: parseTimeString(values.closingTime),
+        openingTime: toLocalTime(values.openingTime),
+        closingTime: toLocalTime(values.closingTime),
         slotDurationMinutes: values.slotDurationMinutes,
       },
     })

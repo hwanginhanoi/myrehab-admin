@@ -5,12 +5,6 @@ export type {
   CreatePopupMutation,
 } from './CreatePopup.ts'
 export type {
-  DeletePopupPathParams,
-  DeletePopup200,
-  DeletePopupMutationResponse,
-  DeletePopupMutation,
-} from './DeletePopup.ts'
-export type {
   GetActivePopup200,
   GetActivePopupQueryResponse,
   GetActivePopupQuery,

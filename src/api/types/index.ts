@@ -933,12 +933,6 @@ export type {
   CreatePopupMutation,
 } from './startupPopupController/CreatePopup.ts'
 export type {
-  DeletePopupPathParams,
-  DeletePopup200,
-  DeletePopupMutationResponse,
-  DeletePopupMutation,
-} from './startupPopupController/DeletePopup.ts'
-export type {
   GetActivePopup200,
   GetActivePopupQueryResponse,
   GetActivePopupQuery,

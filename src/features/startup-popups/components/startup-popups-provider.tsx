@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import useDialogState from '@/hooks/use-dialog-state'
 import type { StartupPopupResponse } from '@/api'
 
-type StartupPopupDialogType = 'add' | 'edit' | 'view' | 'delete'
+type StartupPopupDialogType = 'add' | 'edit' | 'view'
 
 type StartupPopupsContextType = {
   open: StartupPopupDialogType | null

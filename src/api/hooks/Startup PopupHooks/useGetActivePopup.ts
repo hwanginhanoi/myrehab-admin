@@ -20,7 +20,7 @@ export const getActivePopupQueryKey = () =>
 export type GetActivePopupQueryKey = ReturnType<typeof getActivePopupQueryKey>
 
 /**
- * @description Returns the currently active popup, or 204 if none. Public endpoint used by the mobile app on startup.
+ * @description Returns a list with the active popup, or empty list if none. Public endpoint used by the mobile app on startup.
  * @summary Get active startup popup
  * {@link /api/startup-popup/active}
  */
@@ -56,7 +56,7 @@ export function getActivePopupQueryOptions(
 }
 
 /**
- * @description Returns the currently active popup, or 204 if none. Public endpoint used by the mobile app on startup.
+ * @description Returns a list with the active popup, or empty list if none. Public endpoint used by the mobile app on startup.
  * @summary Get active startup popup
  * {@link /api/startup-popup/active}
  */
