@@ -109,70 +109,77 @@ export function StartupPopupsActionDialog({
     queryClient.invalidateQueries({ queryKey: [{ url: '/api/startup-popup' }] })
   }, [queryClient])
 
-  const onSubmit = async (values: PopupForm) => {
+  // Handles mutations only — no ref access here
+  const onSubmit = useCallback(
+    async (values: PopupForm) => {
+      try {
+        const imageUrl = values.imageUrl || ''
+
+        if (!imageUrl) {
+          toast.error('Vui lòng chọn ảnh popup')
+          return
+        }
+
+        if (isAdd) {
+          createMutation.mutate(
+            { data: { title: values.title, imageUrl, active: values.active } },
+            {
+              onSuccess: () => {
+                toast.success('Tạo popup thành công')
+                form.reset()
+                onOpenChange(false)
+                invalidatePopups()
+              },
+              onError: (error) => {
+                toast.error('Tạo popup thất bại: ' + error.message)
+              },
+            }
+          )
+          return
+        }
+
+        if (isEdit && currentRow?.id) {
+          updateMutation.mutate(
+            {
+              id: currentRow.id,
+              data: { title: values.title, imageUrl, active: values.active },
+            },
+            {
+              onSuccess: () => {
+                toast.success('Cập nhật popup thành công')
+                form.reset()
+                onOpenChange(false)
+                invalidatePopups()
+              },
+              onError: (error) => {
+                toast.error('Cập nhật popup thất bại: ' + error.message)
+              },
+            }
+          )
+        }
+      } catch {
+        toast.error('Có lỗi xảy ra khi lưu popup')
+      }
+    },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [isAdd, isEdit, currentRow?.id, invalidatePopups]
+  )
+
+  // Upload happens here (direct event handler) — ref access is safe outside render
+  const handleSubmitClick = async () => {
     if (isView) {
       onOpenChange(false)
       return
     }
-
-    try {
-      let imageUrl = values.imageUrl || ''
-
-      if (imageUploadRef.current?.hasFile()) {
-        const uploadedImageKey = await imageUploadRef.current.upload()
-        if (uploadedImageKey) {
-          imageUrl = uploadedImageKey
-        } else {
-          toast.error('Không thể tải lên ảnh popup')
-          return
-        }
-      }
-
-      if (!imageUrl) {
-        toast.error('Vui lòng chọn ảnh popup')
+    if (imageUploadRef.current?.hasFile()) {
+      const uploaded = await imageUploadRef.current.upload()
+      if (!uploaded) {
+        toast.error('Không thể tải lên ảnh popup')
         return
       }
-
-      if (isAdd) {
-        createMutation.mutate(
-          { data: { title: values.title, imageUrl, active: values.active } },
-          {
-            onSuccess: () => {
-              toast.success('Tạo popup thành công')
-              form.reset()
-              onOpenChange(false)
-              invalidatePopups()
-            },
-            onError: (error) => {
-              toast.error('Tạo popup thất bại: ' + error.message)
-            },
-          }
-        )
-        return
-      }
-
-      if (isEdit && currentRow?.id) {
-        updateMutation.mutate(
-          {
-            id: currentRow.id,
-            data: { title: values.title, imageUrl, active: values.active },
-          },
-          {
-            onSuccess: () => {
-              toast.success('Cập nhật popup thành công')
-              form.reset()
-              onOpenChange(false)
-              invalidatePopups()
-            },
-            onError: (error) => {
-              toast.error('Cập nhật popup thất bại: ' + error.message)
-            },
-          }
-        )
-      }
-    } catch {
-      toast.error('Có lỗi xảy ra khi lưu popup')
+      form.setValue('imageUrl', uploaded)
     }
+    form.handleSubmit(onSubmit)()
   }
 
   const isPending = createMutation.isPending || updateMutation.isPending
@@ -187,11 +194,7 @@ export function StartupPopupsActionDialog({
     >
       <DialogContent className="gap-0 p-0 sm:max-w-2xl overflow-hidden">
         <Form {...form}>
-          <form
-            id="popup-form"
-            onSubmit={form.handleSubmit(onSubmit)}
-            className="flex h-full"
-          >
+          <div className="flex h-full">
           {/* Left — portrait image panel */}
           <div className="flex w-52 shrink-0 flex-col gap-3 bg-muted/40 p-4 border-r">
             <div className="flex items-center gap-2">
@@ -302,13 +305,17 @@ export function StartupPopupsActionDialog({
                 {isView ? 'Đóng' : 'Hủy'}
               </Button>
               {!isView && (
-                <Button type="submit" disabled={isPending}>
+                <Button
+                  type="button"
+                  disabled={isPending}
+                  onClick={handleSubmitClick}
+                >
                   {isPending ? 'Đang lưu...' : cfg.submit}
                 </Button>
               )}
             </div>
           </div>
-          </form>
+          </div>
         </Form>
       </DialogContent>
     </Dialog>
