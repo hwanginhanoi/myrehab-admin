@@ -133,6 +133,10 @@ export type { GetAllNewsQueryKey } from './hooks/NewsHooks/useGetAllNews.ts'
 export type { GetAllNewsSuspenseQueryKey } from './hooks/NewsHooks/useGetAllNewsSuspense.ts'
 export type { GetNewsByIdQueryKey } from './hooks/NewsHooks/useGetNewsById.ts'
 export type { GetNewsByIdSuspenseQueryKey } from './hooks/NewsHooks/useGetNewsByIdSuspense.ts'
+export type { GetPublishedNewsQueryKey } from './hooks/NewsHooks/useGetPublishedNews.ts'
+export type { GetPublishedNewsByIdQueryKey } from './hooks/NewsHooks/useGetPublishedNewsById.ts'
+export type { GetPublishedNewsByIdSuspenseQueryKey } from './hooks/NewsHooks/useGetPublishedNewsByIdSuspense.ts'
+export type { GetPublishedNewsSuspenseQueryKey } from './hooks/NewsHooks/useGetPublishedNewsSuspense.ts'
 export type { UpdateNewsMutationKey } from './hooks/NewsHooks/useUpdateNews.ts'
 export type { AssignPatientToDoctorMutationKey } from './hooks/Patient ManagementHooks/useAssignPatientToDoctor.ts'
 export type { GetDoctorPatientsQueryKey } from './hooks/Patient ManagementHooks/useGetDoctorPatients.ts'
@@ -187,6 +191,15 @@ export type { GetTrainersByDoctorSuspenseQueryKey } from './hooks/Staff Manageme
 export type { RemoveExerciseGroupFromDoctorMutationKey } from './hooks/Staff ManagementHooks/useRemoveExerciseGroupFromDoctor.ts'
 export type { RemoveTrainerFromDoctorMutationKey } from './hooks/Staff ManagementHooks/useRemoveTrainerFromDoctor.ts'
 export type { UpdateStaffMutationKey } from './hooks/Staff ManagementHooks/useUpdateStaff.ts'
+export type { CreatePopupMutationKey } from './hooks/Startup PopupHooks/useCreatePopup.ts'
+export type { DeletePopupMutationKey } from './hooks/Startup PopupHooks/useDeletePopup.ts'
+export type { GetActivePopupQueryKey } from './hooks/Startup PopupHooks/useGetActivePopup.ts'
+export type { GetActivePopupSuspenseQueryKey } from './hooks/Startup PopupHooks/useGetActivePopupSuspense.ts'
+export type { GetAllPopupsQueryKey } from './hooks/Startup PopupHooks/useGetAllPopups.ts'
+export type { GetAllPopupsSuspenseQueryKey } from './hooks/Startup PopupHooks/useGetAllPopupsSuspense.ts'
+export type { GetPopupByIdQueryKey } from './hooks/Startup PopupHooks/useGetPopupById.ts'
+export type { GetPopupByIdSuspenseQueryKey } from './hooks/Startup PopupHooks/useGetPopupByIdSuspense.ts'
+export type { UpdatePopupMutationKey } from './hooks/Startup PopupHooks/useUpdatePopup.ts'
 export type { GetMySubscriptionsQueryKey } from './hooks/SubscriptionsHooks/useGetMySubscriptions.ts'
 export type { GetMySubscriptionsSuspenseQueryKey } from './hooks/SubscriptionsHooks/useGetMySubscriptionsSuspense.ts'
 export type { GetPendingPurchasesQueryKey } from './hooks/SubscriptionsHooks/useGetPendingPurchases.ts'
@@ -644,6 +657,7 @@ export type {
   CreateStaffRequestStaffTypeEnumKey,
   CreateStaffRequest,
 } from './types/CreateStaffRequest.ts'
+export type { CreateStartupPopupRequest } from './types/CreateStartupPopupRequest.ts'
 export type { DayContentResponse } from './types/DayContentResponse.ts'
 export type { DayExerciseDto } from './types/DayExerciseDto.ts'
 export type { DayExerciseItemResponse } from './types/DayExerciseItemResponse.ts'
@@ -899,6 +913,18 @@ export type {
   GetNewsByIdQuery,
 } from './types/newsController/GetNewsById.ts'
 export type {
+  GetPublishedNewsQueryParams,
+  GetPublishedNews200,
+  GetPublishedNewsQueryResponse,
+  GetPublishedNewsQuery,
+} from './types/newsController/GetPublishedNews.ts'
+export type {
+  GetPublishedNewsByIdPathParams,
+  GetPublishedNewsById200,
+  GetPublishedNewsByIdQueryResponse,
+  GetPublishedNewsByIdQuery,
+} from './types/newsController/GetPublishedNewsById.ts'
+export type {
   UpdateNewsPathParams,
   UpdateNews200,
   UpdateNewsMutationRequest,
@@ -1151,6 +1177,43 @@ export type {
 } from './types/staffManagementController/UpdateStaff.ts'
 export type { StaffResponse } from './types/StaffResponse.ts'
 export type { StartCourseRequest } from './types/StartCourseRequest.ts'
+export type {
+  CreatePopup200,
+  CreatePopupMutationRequest,
+  CreatePopupMutationResponse,
+  CreatePopupMutation,
+} from './types/startupPopupController/CreatePopup.ts'
+export type {
+  DeletePopupPathParams,
+  DeletePopup200,
+  DeletePopupMutationResponse,
+  DeletePopupMutation,
+} from './types/startupPopupController/DeletePopup.ts'
+export type {
+  GetActivePopup200,
+  GetActivePopupQueryResponse,
+  GetActivePopupQuery,
+} from './types/startupPopupController/GetActivePopup.ts'
+export type {
+  GetAllPopupsQueryParams,
+  GetAllPopups200,
+  GetAllPopupsQueryResponse,
+  GetAllPopupsQuery,
+} from './types/startupPopupController/GetAllPopups.ts'
+export type {
+  GetPopupByIdPathParams,
+  GetPopupById200,
+  GetPopupByIdQueryResponse,
+  GetPopupByIdQuery,
+} from './types/startupPopupController/GetPopupById.ts'
+export type {
+  UpdatePopupPathParams,
+  UpdatePopup200,
+  UpdatePopupMutationRequest,
+  UpdatePopupMutationResponse,
+  UpdatePopupMutation,
+} from './types/startupPopupController/UpdatePopup.ts'
+export type { StartupPopupResponse } from './types/StartupPopupResponse.ts'
 export type { SubmitFeedbackRequest } from './types/SubmitFeedbackRequest.ts'
 export type {
   SubscriptionInfoSubscriptionTypeEnumKey,
@@ -1261,6 +1324,7 @@ export type {
 } from './types/UpdateNewsRequest.ts'
 export type { UpdateRehabilitationExaminationFormRequest } from './types/UpdateRehabilitationExaminationFormRequest.ts'
 export type { UpdateStaffRequest } from './types/UpdateStaffRequest.ts'
+export type { UpdateStartupPopupRequest } from './types/UpdateStartupPopupRequest.ts'
 export type {
   UpdateSuperAdminRequestStaffTypeEnumKey,
   UpdateSuperAdminRequest,
@@ -1914,6 +1978,22 @@ export { getNewsByIdSuspenseQueryKey } from './hooks/NewsHooks/useGetNewsByIdSus
 export { getNewsByIdSuspense } from './hooks/NewsHooks/useGetNewsByIdSuspense.ts'
 export { getNewsByIdSuspenseQueryOptions } from './hooks/NewsHooks/useGetNewsByIdSuspense.ts'
 export { useGetNewsByIdSuspense } from './hooks/NewsHooks/useGetNewsByIdSuspense.ts'
+export { getPublishedNewsQueryKey } from './hooks/NewsHooks/useGetPublishedNews.ts'
+export { getPublishedNews } from './hooks/NewsHooks/useGetPublishedNews.ts'
+export { getPublishedNewsQueryOptions } from './hooks/NewsHooks/useGetPublishedNews.ts'
+export { useGetPublishedNews } from './hooks/NewsHooks/useGetPublishedNews.ts'
+export { getPublishedNewsByIdQueryKey } from './hooks/NewsHooks/useGetPublishedNewsById.ts'
+export { getPublishedNewsById } from './hooks/NewsHooks/useGetPublishedNewsById.ts'
+export { getPublishedNewsByIdQueryOptions } from './hooks/NewsHooks/useGetPublishedNewsById.ts'
+export { useGetPublishedNewsById } from './hooks/NewsHooks/useGetPublishedNewsById.ts'
+export { getPublishedNewsByIdSuspenseQueryKey } from './hooks/NewsHooks/useGetPublishedNewsByIdSuspense.ts'
+export { getPublishedNewsByIdSuspense } from './hooks/NewsHooks/useGetPublishedNewsByIdSuspense.ts'
+export { getPublishedNewsByIdSuspenseQueryOptions } from './hooks/NewsHooks/useGetPublishedNewsByIdSuspense.ts'
+export { useGetPublishedNewsByIdSuspense } from './hooks/NewsHooks/useGetPublishedNewsByIdSuspense.ts'
+export { getPublishedNewsSuspenseQueryKey } from './hooks/NewsHooks/useGetPublishedNewsSuspense.ts'
+export { getPublishedNewsSuspense } from './hooks/NewsHooks/useGetPublishedNewsSuspense.ts'
+export { getPublishedNewsSuspenseQueryOptions } from './hooks/NewsHooks/useGetPublishedNewsSuspense.ts'
+export { useGetPublishedNewsSuspense } from './hooks/NewsHooks/useGetPublishedNewsSuspense.ts'
 export { updateNewsMutationKey } from './hooks/NewsHooks/useUpdateNews.ts'
 export { updateNews } from './hooks/NewsHooks/useUpdateNews.ts'
 export { updateNewsMutationOptions } from './hooks/NewsHooks/useUpdateNews.ts'
@@ -2130,6 +2210,42 @@ export { updateStaffMutationKey } from './hooks/Staff ManagementHooks/useUpdateS
 export { updateStaff } from './hooks/Staff ManagementHooks/useUpdateStaff.ts'
 export { updateStaffMutationOptions } from './hooks/Staff ManagementHooks/useUpdateStaff.ts'
 export { useUpdateStaff } from './hooks/Staff ManagementHooks/useUpdateStaff.ts'
+export { createPopupMutationKey } from './hooks/Startup PopupHooks/useCreatePopup.ts'
+export { createPopup } from './hooks/Startup PopupHooks/useCreatePopup.ts'
+export { createPopupMutationOptions } from './hooks/Startup PopupHooks/useCreatePopup.ts'
+export { useCreatePopup } from './hooks/Startup PopupHooks/useCreatePopup.ts'
+export { deletePopupMutationKey } from './hooks/Startup PopupHooks/useDeletePopup.ts'
+export { deletePopup } from './hooks/Startup PopupHooks/useDeletePopup.ts'
+export { deletePopupMutationOptions } from './hooks/Startup PopupHooks/useDeletePopup.ts'
+export { useDeletePopup } from './hooks/Startup PopupHooks/useDeletePopup.ts'
+export { getActivePopupQueryKey } from './hooks/Startup PopupHooks/useGetActivePopup.ts'
+export { getActivePopup } from './hooks/Startup PopupHooks/useGetActivePopup.ts'
+export { getActivePopupQueryOptions } from './hooks/Startup PopupHooks/useGetActivePopup.ts'
+export { useGetActivePopup } from './hooks/Startup PopupHooks/useGetActivePopup.ts'
+export { getActivePopupSuspenseQueryKey } from './hooks/Startup PopupHooks/useGetActivePopupSuspense.ts'
+export { getActivePopupSuspense } from './hooks/Startup PopupHooks/useGetActivePopupSuspense.ts'
+export { getActivePopupSuspenseQueryOptions } from './hooks/Startup PopupHooks/useGetActivePopupSuspense.ts'
+export { useGetActivePopupSuspense } from './hooks/Startup PopupHooks/useGetActivePopupSuspense.ts'
+export { getAllPopupsQueryKey } from './hooks/Startup PopupHooks/useGetAllPopups.ts'
+export { getAllPopups } from './hooks/Startup PopupHooks/useGetAllPopups.ts'
+export { getAllPopupsQueryOptions } from './hooks/Startup PopupHooks/useGetAllPopups.ts'
+export { useGetAllPopups } from './hooks/Startup PopupHooks/useGetAllPopups.ts'
+export { getAllPopupsSuspenseQueryKey } from './hooks/Startup PopupHooks/useGetAllPopupsSuspense.ts'
+export { getAllPopupsSuspense } from './hooks/Startup PopupHooks/useGetAllPopupsSuspense.ts'
+export { getAllPopupsSuspenseQueryOptions } from './hooks/Startup PopupHooks/useGetAllPopupsSuspense.ts'
+export { useGetAllPopupsSuspense } from './hooks/Startup PopupHooks/useGetAllPopupsSuspense.ts'
+export { getPopupByIdQueryKey } from './hooks/Startup PopupHooks/useGetPopupById.ts'
+export { getPopupById } from './hooks/Startup PopupHooks/useGetPopupById.ts'
+export { getPopupByIdQueryOptions } from './hooks/Startup PopupHooks/useGetPopupById.ts'
+export { useGetPopupById } from './hooks/Startup PopupHooks/useGetPopupById.ts'
+export { getPopupByIdSuspenseQueryKey } from './hooks/Startup PopupHooks/useGetPopupByIdSuspense.ts'
+export { getPopupByIdSuspense } from './hooks/Startup PopupHooks/useGetPopupByIdSuspense.ts'
+export { getPopupByIdSuspenseQueryOptions } from './hooks/Startup PopupHooks/useGetPopupByIdSuspense.ts'
+export { useGetPopupByIdSuspense } from './hooks/Startup PopupHooks/useGetPopupByIdSuspense.ts'
+export { updatePopupMutationKey } from './hooks/Startup PopupHooks/useUpdatePopup.ts'
+export { updatePopup } from './hooks/Startup PopupHooks/useUpdatePopup.ts'
+export { updatePopupMutationOptions } from './hooks/Startup PopupHooks/useUpdatePopup.ts'
+export { useUpdatePopup } from './hooks/Startup PopupHooks/useUpdatePopup.ts'
 export { getMySubscriptionsQueryKey } from './hooks/SubscriptionsHooks/useGetMySubscriptions.ts'
 export { getMySubscriptions } from './hooks/SubscriptionsHooks/useGetMySubscriptions.ts'
 export { getMySubscriptionsQueryOptions } from './hooks/SubscriptionsHooks/useGetMySubscriptions.ts'
@@ -2668,6 +2784,7 @@ export { createGroupRequestSchema } from './zod/createGroupRequestSchema.ts'
 export { createNewsRequestSchema } from './zod/createNewsRequestSchema.ts'
 export { createRehabilitationExaminationFormRequestSchema } from './zod/createRehabilitationExaminationFormRequestSchema.ts'
 export { createStaffRequestSchema } from './zod/createStaffRequestSchema.ts'
+export { createStartupPopupRequestSchema } from './zod/createStartupPopupRequestSchema.ts'
 export { dayContentResponseSchema } from './zod/dayContentResponseSchema.ts'
 export { dayExerciseDtoSchema } from './zod/dayExerciseDtoSchema.ts'
 export { dayExerciseItemResponseSchema } from './zod/dayExerciseItemResponseSchema.ts'
@@ -2884,6 +3001,16 @@ export {
   getNewsByIdQueryResponseSchema,
 } from './zod/newsController/getNewsByIdSchema.ts'
 export {
+  getPublishedNewsByIdPathParamsSchema,
+  getPublishedNewsById200Schema,
+  getPublishedNewsByIdQueryResponseSchema,
+} from './zod/newsController/getPublishedNewsByIdSchema.ts'
+export {
+  getPublishedNewsQueryParamsSchema,
+  getPublishedNews200Schema,
+  getPublishedNewsQueryResponseSchema,
+} from './zod/newsController/getPublishedNewsSchema.ts'
+export {
   updateNewsPathParamsSchema,
   updateNews200Schema,
   updateNewsMutationRequestSchema,
@@ -3092,6 +3219,37 @@ export {
 } from './zod/staffManagementController/updateStaffSchema.ts'
 export { staffResponseSchema } from './zod/staffResponseSchema.ts'
 export { startCourseRequestSchema } from './zod/startCourseRequestSchema.ts'
+export {
+  createPopup200Schema,
+  createPopupMutationRequestSchema,
+  createPopupMutationResponseSchema,
+} from './zod/startupPopupController/createPopupSchema.ts'
+export {
+  deletePopupPathParamsSchema,
+  deletePopup200Schema,
+  deletePopupMutationResponseSchema,
+} from './zod/startupPopupController/deletePopupSchema.ts'
+export {
+  getActivePopup200Schema,
+  getActivePopupQueryResponseSchema,
+} from './zod/startupPopupController/getActivePopupSchema.ts'
+export {
+  getAllPopupsQueryParamsSchema,
+  getAllPopups200Schema,
+  getAllPopupsQueryResponseSchema,
+} from './zod/startupPopupController/getAllPopupsSchema.ts'
+export {
+  getPopupByIdPathParamsSchema,
+  getPopupById200Schema,
+  getPopupByIdQueryResponseSchema,
+} from './zod/startupPopupController/getPopupByIdSchema.ts'
+export {
+  updatePopupPathParamsSchema,
+  updatePopup200Schema,
+  updatePopupMutationRequestSchema,
+  updatePopupMutationResponseSchema,
+} from './zod/startupPopupController/updatePopupSchema.ts'
+export { startupPopupResponseSchema } from './zod/startupPopupResponseSchema.ts'
 export { submitFeedbackRequestSchema } from './zod/submitFeedbackRequestSchema.ts'
 export { subscriptionInfoSchema } from './zod/subscriptionInfoSchema.ts'
 export { subscriptionResponseSchema } from './zod/subscriptionResponseSchema.ts'
@@ -3165,6 +3323,7 @@ export { updateGroupRequestSchema } from './zod/updateGroupRequestSchema.ts'
 export { updateNewsRequestSchema } from './zod/updateNewsRequestSchema.ts'
 export { updateRehabilitationExaminationFormRequestSchema } from './zod/updateRehabilitationExaminationFormRequestSchema.ts'
 export { updateStaffRequestSchema } from './zod/updateStaffRequestSchema.ts'
+export { updateStartupPopupRequestSchema } from './zod/updateStartupPopupRequestSchema.ts'
 export { updateSuperAdminRequestSchema } from './zod/updateSuperAdminRequestSchema.ts'
 export { updateTrainerRequestSchema } from './zod/updateTrainerRequestSchema.ts'
 export { updateUserProfileRequestSchema } from './zod/updateUserProfileRequestSchema.ts'

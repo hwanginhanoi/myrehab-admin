@@ -321,6 +321,7 @@ export { createGroupRequestSchema } from './createGroupRequestSchema.ts'
 export { createNewsRequestSchema } from './createNewsRequestSchema.ts'
 export { createRehabilitationExaminationFormRequestSchema } from './createRehabilitationExaminationFormRequestSchema.ts'
 export { createStaffRequestSchema } from './createStaffRequestSchema.ts'
+export { createStartupPopupRequestSchema } from './createStartupPopupRequestSchema.ts'
 export { dayContentResponseSchema } from './dayContentResponseSchema.ts'
 export { dayExerciseDtoSchema } from './dayExerciseDtoSchema.ts'
 export { dayExerciseItemResponseSchema } from './dayExerciseItemResponseSchema.ts'
@@ -537,6 +538,16 @@ export {
   getNewsByIdQueryResponseSchema,
 } from './newsController/getNewsByIdSchema.ts'
 export {
+  getPublishedNewsByIdPathParamsSchema,
+  getPublishedNewsById200Schema,
+  getPublishedNewsByIdQueryResponseSchema,
+} from './newsController/getPublishedNewsByIdSchema.ts'
+export {
+  getPublishedNewsQueryParamsSchema,
+  getPublishedNews200Schema,
+  getPublishedNewsQueryResponseSchema,
+} from './newsController/getPublishedNewsSchema.ts'
+export {
   updateNewsPathParamsSchema,
   updateNews200Schema,
   updateNewsMutationRequestSchema,
@@ -745,6 +756,37 @@ export {
 } from './staffManagementController/updateStaffSchema.ts'
 export { staffResponseSchema } from './staffResponseSchema.ts'
 export { startCourseRequestSchema } from './startCourseRequestSchema.ts'
+export {
+  createPopup200Schema,
+  createPopupMutationRequestSchema,
+  createPopupMutationResponseSchema,
+} from './startupPopupController/createPopupSchema.ts'
+export {
+  deletePopupPathParamsSchema,
+  deletePopup200Schema,
+  deletePopupMutationResponseSchema,
+} from './startupPopupController/deletePopupSchema.ts'
+export {
+  getActivePopup200Schema,
+  getActivePopupQueryResponseSchema,
+} from './startupPopupController/getActivePopupSchema.ts'
+export {
+  getAllPopupsQueryParamsSchema,
+  getAllPopups200Schema,
+  getAllPopupsQueryResponseSchema,
+} from './startupPopupController/getAllPopupsSchema.ts'
+export {
+  getPopupByIdPathParamsSchema,
+  getPopupById200Schema,
+  getPopupByIdQueryResponseSchema,
+} from './startupPopupController/getPopupByIdSchema.ts'
+export {
+  updatePopupPathParamsSchema,
+  updatePopup200Schema,
+  updatePopupMutationRequestSchema,
+  updatePopupMutationResponseSchema,
+} from './startupPopupController/updatePopupSchema.ts'
+export { startupPopupResponseSchema } from './startupPopupResponseSchema.ts'
 export { submitFeedbackRequestSchema } from './submitFeedbackRequestSchema.ts'
 export { subscriptionInfoSchema } from './subscriptionInfoSchema.ts'
 export { subscriptionResponseSchema } from './subscriptionResponseSchema.ts'
@@ -818,6 +860,7 @@ export { updateGroupRequestSchema } from './updateGroupRequestSchema.ts'
 export { updateNewsRequestSchema } from './updateNewsRequestSchema.ts'
 export { updateRehabilitationExaminationFormRequestSchema } from './updateRehabilitationExaminationFormRequestSchema.ts'
 export { updateStaffRequestSchema } from './updateStaffRequestSchema.ts'
+export { updateStartupPopupRequestSchema } from './updateStartupPopupRequestSchema.ts'
 export { updateSuperAdminRequestSchema } from './updateSuperAdminRequestSchema.ts'
 export { updateTrainerRequestSchema } from './updateTrainerRequestSchema.ts'
 export { updateUserProfileRequestSchema } from './updateUserProfileRequestSchema.ts'

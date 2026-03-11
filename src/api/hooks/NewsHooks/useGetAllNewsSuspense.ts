@@ -25,8 +25,8 @@ export type GetAllNewsSuspenseQueryKey = ReturnType<
 >
 
 /**
- * @description Retrieve a paginated list of news with optional status, category, and title filtering. Use query params: ?status=PUBLISHED&category=HEALTH_TIPS&title=exercise&page=0&size=10&sort=createdAt,desc
- * @summary Get paginated news with filtering
+ * @description Returns paginated news with full status filtering. Requires news:view permission.
+ * @summary Get all news (staff)
  * {@link /api/news}
  */
 export async function getAllNewsSuspense(
@@ -64,8 +64,8 @@ export function getAllNewsSuspenseQueryOptions(
 }
 
 /**
- * @description Retrieve a paginated list of news with optional status, category, and title filtering. Use query params: ?status=PUBLISHED&category=HEALTH_TIPS&title=exercise&page=0&size=10&sort=createdAt,desc
- * @summary Get paginated news with filtering
+ * @description Returns paginated news with full status filtering. Requires news:view permission.
+ * @summary Get all news (staff)
  * {@link /api/news}
  */
 export function useGetAllNewsSuspense<

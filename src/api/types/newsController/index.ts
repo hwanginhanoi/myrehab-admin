@@ -18,6 +18,18 @@ export type {
   GetNewsByIdQuery,
 } from './GetNewsById.ts'
 export type {
+  GetPublishedNewsQueryParams,
+  GetPublishedNews200,
+  GetPublishedNewsQueryResponse,
+  GetPublishedNewsQuery,
+} from './GetPublishedNews.ts'
+export type {
+  GetPublishedNewsByIdPathParams,
+  GetPublishedNewsById200,
+  GetPublishedNewsByIdQueryResponse,
+  GetPublishedNewsByIdQuery,
+} from './GetPublishedNewsById.ts'
+export type {
   UpdateNewsPathParams,
   UpdateNews200,
   UpdateNewsMutationRequest,

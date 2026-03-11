@@ -25,8 +25,8 @@ export type GetNewsByIdSuspenseQueryKey = ReturnType<
 >
 
 /**
- * @description Retrieve a specific news article by its ID
- * @summary Get news by ID
+ * @description Returns a news article regardless of status. Requires news:view permission.
+ * @summary Get news by ID (staff)
  * {@link /api/news/:id}
  */
 export async function getNewsByIdSuspense(
@@ -64,8 +64,8 @@ export function getNewsByIdSuspenseQueryOptions(
 }
 
 /**
- * @description Retrieve a specific news article by its ID
- * @summary Get news by ID
+ * @description Returns a news article regardless of status. Requires news:view permission.
+ * @summary Get news by ID (staff)
  * {@link /api/news/:id}
  */
 export function useGetNewsByIdSuspense<

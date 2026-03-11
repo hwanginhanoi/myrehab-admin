@@ -409,6 +409,7 @@ export type {
   CreateStaffRequestStaffTypeEnumKey,
   CreateStaffRequest,
 } from './CreateStaffRequest.ts'
+export type { CreateStartupPopupRequest } from './CreateStartupPopupRequest.ts'
 export type { DayContentResponse } from './DayContentResponse.ts'
 export type { DayExerciseDto } from './DayExerciseDto.ts'
 export type { DayExerciseItemResponse } from './DayExerciseItemResponse.ts'
@@ -664,6 +665,18 @@ export type {
   GetNewsByIdQuery,
 } from './newsController/GetNewsById.ts'
 export type {
+  GetPublishedNewsQueryParams,
+  GetPublishedNews200,
+  GetPublishedNewsQueryResponse,
+  GetPublishedNewsQuery,
+} from './newsController/GetPublishedNews.ts'
+export type {
+  GetPublishedNewsByIdPathParams,
+  GetPublishedNewsById200,
+  GetPublishedNewsByIdQueryResponse,
+  GetPublishedNewsByIdQuery,
+} from './newsController/GetPublishedNewsById.ts'
+export type {
   UpdateNewsPathParams,
   UpdateNews200,
   UpdateNewsMutationRequest,
@@ -913,6 +926,43 @@ export type {
 } from './staffManagementController/UpdateStaff.ts'
 export type { StaffResponse } from './StaffResponse.ts'
 export type { StartCourseRequest } from './StartCourseRequest.ts'
+export type {
+  CreatePopup200,
+  CreatePopupMutationRequest,
+  CreatePopupMutationResponse,
+  CreatePopupMutation,
+} from './startupPopupController/CreatePopup.ts'
+export type {
+  DeletePopupPathParams,
+  DeletePopup200,
+  DeletePopupMutationResponse,
+  DeletePopupMutation,
+} from './startupPopupController/DeletePopup.ts'
+export type {
+  GetActivePopup200,
+  GetActivePopupQueryResponse,
+  GetActivePopupQuery,
+} from './startupPopupController/GetActivePopup.ts'
+export type {
+  GetAllPopupsQueryParams,
+  GetAllPopups200,
+  GetAllPopupsQueryResponse,
+  GetAllPopupsQuery,
+} from './startupPopupController/GetAllPopups.ts'
+export type {
+  GetPopupByIdPathParams,
+  GetPopupById200,
+  GetPopupByIdQueryResponse,
+  GetPopupByIdQuery,
+} from './startupPopupController/GetPopupById.ts'
+export type {
+  UpdatePopupPathParams,
+  UpdatePopup200,
+  UpdatePopupMutationRequest,
+  UpdatePopupMutationResponse,
+  UpdatePopupMutation,
+} from './startupPopupController/UpdatePopup.ts'
+export type { StartupPopupResponse } from './StartupPopupResponse.ts'
 export type { SubmitFeedbackRequest } from './SubmitFeedbackRequest.ts'
 export type {
   SubscriptionInfoSubscriptionTypeEnumKey,
@@ -1023,6 +1073,7 @@ export type {
 } from './UpdateNewsRequest.ts'
 export type { UpdateRehabilitationExaminationFormRequest } from './UpdateRehabilitationExaminationFormRequest.ts'
 export type { UpdateStaffRequest } from './UpdateStaffRequest.ts'
+export type { UpdateStartupPopupRequest } from './UpdateStartupPopupRequest.ts'
 export type {
   UpdateSuperAdminRequestStaffTypeEnumKey,
   UpdateSuperAdminRequest,

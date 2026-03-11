@@ -14,6 +14,16 @@ export {
   getNewsByIdQueryResponseSchema,
 } from './getNewsByIdSchema.ts'
 export {
+  getPublishedNewsByIdPathParamsSchema,
+  getPublishedNewsById200Schema,
+  getPublishedNewsByIdQueryResponseSchema,
+} from './getPublishedNewsByIdSchema.ts'
+export {
+  getPublishedNewsQueryParamsSchema,
+  getPublishedNews200Schema,
+  getPublishedNewsQueryResponseSchema,
+} from './getPublishedNewsSchema.ts'
+export {
   updateNewsPathParamsSchema,
   updateNews200Schema,
   updateNewsMutationRequestSchema,
