@@ -17,6 +17,10 @@ export type PageMyAssignedCourseResponse = {
     */
     pageable?: PageableObject;
     /**
+     * @type boolean | undefined
+    */
+    last?: boolean;
+    /**
      * @type integer | undefined, int64
     */
     totalElements?: number;
@@ -27,19 +31,15 @@ export type PageMyAssignedCourseResponse = {
     /**
      * @type boolean | undefined
     */
-    last?: boolean;
-    /**
-     * @type object | undefined
-    */
-    sort?: SortObject;
-    /**
-     * @type boolean | undefined
-    */
     first?: boolean;
     /**
      * @type integer | undefined, int32
     */
     numberOfElements?: number;
+    /**
+     * @type object | undefined
+    */
+    sort?: SortObject;
     /**
      * @type integer | undefined, int32
     */

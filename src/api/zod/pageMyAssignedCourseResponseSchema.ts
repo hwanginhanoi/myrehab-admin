@@ -15,14 +15,14 @@ export const pageMyAssignedCourseResponseSchema = z.object({
 get "pageable"(){
                 return pageableObjectSchema.optional()
               },
+"last": z.optional(z.boolean()),
 "totalElements": z.optional(z.int()),
 "totalPages": z.optional(z.int()),
-"last": z.optional(z.boolean()),
+"first": z.optional(z.boolean()),
+"numberOfElements": z.optional(z.int()),
 get "sort"(){
                 return sortObjectSchema.optional()
               },
-"first": z.optional(z.boolean()),
-"numberOfElements": z.optional(z.int()),
 "size": z.optional(z.int()),
 "number": z.optional(z.int()),
 "empty": z.optional(z.boolean())

@@ -1,6 +1,6 @@
 import { DotsHorizontalIcon } from '@radix-ui/react-icons'
 import { type Row } from '@tanstack/react-table'
-import { Eye, Pencil, Power, Trash2 } from 'lucide-react'
+import { Eye, Pencil, Power } from 'lucide-react'
 import { useQueryClient } from '@tanstack/react-query'
 import { toast } from 'sonner'
 import { Button } from '@/components/ui/button'
@@ -26,7 +26,6 @@ export function DataTableRowActions({ row }: DataTableRowActionsProps) {
   const { hasPermission } = usePermissions()
   const queryClient = useQueryClient()
   const canUpdate = hasPermission('startup-popups:update')
-  const canDelete = hasPermission('startup-popups:delete')
 
   const toggleActiveMutation = useUpdatePopup()
 
@@ -103,23 +102,6 @@ export function DataTableRowActions({ row }: DataTableRowActionsProps) {
               {row.original.active ? 'Tắt hiển thị' : 'Bật hiển thị'}
               <DropdownMenuShortcut>
                 <Power size={16} />
-              </DropdownMenuShortcut>
-            </DropdownMenuItem>
-          </>
-        )}
-        {canDelete && (
-          <>
-            <DropdownMenuSeparator />
-            <DropdownMenuItem
-              onClick={() => {
-                setCurrentRow(row.original)
-                setOpen('delete')
-              }}
-              className="text-destructive focus:text-destructive"
-            >
-              Xóa
-              <DropdownMenuShortcut>
-                <Trash2 size={16} />
               </DropdownMenuShortcut>
             </DropdownMenuItem>
           </>

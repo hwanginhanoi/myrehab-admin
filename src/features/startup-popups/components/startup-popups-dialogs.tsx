@@ -1,5 +1,4 @@
 import { StartupPopupsActionDialog } from './startup-popups-action-dialog'
-import { StartupPopupsDeleteDialog } from './startup-popups-delete-dialog'
 import { useStartupPopups } from './startup-popups-provider'
 
 export function StartupPopupsDialogs() {
@@ -39,18 +38,6 @@ export function StartupPopupsDialogs() {
             }}
             currentRow={currentRow}
             mode="view"
-          />
-
-          <StartupPopupsDeleteDialog
-            key={`popup-delete-${currentRow.id}`}
-            open={open === 'delete'}
-            onOpenChange={() => {
-              setOpen('delete')
-              setTimeout(() => {
-                setCurrentRow(null)
-              }, 500)
-            }}
-            currentRow={currentRow}
           />
         </>
       )}
