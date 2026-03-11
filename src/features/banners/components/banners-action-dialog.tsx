@@ -1,4 +1,4 @@
-import { useCallback, useRef } from 'react'
+import { useCallback, useRef, type FormEvent } from 'react'
 import { z } from 'zod'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
@@ -81,71 +81,6 @@ export function BannersActionDialog({
     })
   }, [queryClient])
 
-  const onSubmit = async (values: BannerForm) => {
-    if (isView) {
-      onOpenChange(false)
-      return
-    }
-
-    try {
-      let imageUrl = values.imageUrl || ''
-
-      if (imageUploadRef.current?.hasFile()) {
-        const uploadedImageKey = await imageUploadRef.current.upload()
-        if (uploadedImageKey) {
-          imageUrl = uploadedImageKey
-        } else {
-          toast.error('Không thể tải lên ảnh banner')
-          return
-        }
-      }
-
-      if (!imageUrl) {
-        toast.error('Vui lòng chọn ảnh banner')
-        return
-      }
-
-      if (isAdd) {
-        // Don't call API yet — add as draft row in the table
-        setDraftBanner({
-          title: values.title,
-          imageUrl,
-          status: values.status,
-        })
-        toast.info('Banner đã được thêm vào danh sách. Kéo thả để sắp xếp vị trí, sau đó nhấn "Lưu thứ tự" để lưu.')
-        form.reset()
-        onOpenChange(false)
-        return
-      }
-
-      if (isEdit && currentRow?.id) {
-        updateMutation.mutate(
-          {
-            id: currentRow.id,
-            data: {
-              title: values.title,
-              imageUrl,
-              status: values.status as NonNullable<BannerResponse['status']>,
-            },
-          },
-          {
-            onSuccess: () => {
-              toast.success('Cập nhật banner thành công')
-              form.reset()
-              onOpenChange(false)
-              invalidateBanners()
-            },
-            onError: (error) => {
-              toast.error('Cập nhật banner thất bại: ' + error.message)
-            },
-          }
-        )
-      }
-    } catch {
-      toast.error('Có lỗi xảy ra khi lưu banner')
-    }
-  }
-
   const getTitle = () => {
     if (isView) return 'Xem banner'
     if (isEdit) return 'Chỉnh sửa banner'
@@ -160,6 +95,76 @@ export function BannersActionDialog({
   }
 
   const isPending = updateMutation.isPending
+
+  const handleFormSubmit = useCallback(
+    (e: FormEvent<HTMLFormElement>) => {
+      e.preventDefault()
+      void form.handleSubmit(async (values: BannerForm) => {
+        if (isView) {
+          onOpenChange(false)
+          return
+        }
+
+        try {
+          let imageUrl = values.imageUrl || ''
+
+          if (imageUploadRef.current?.hasFile()) {
+            const uploadedImageKey = await imageUploadRef.current.upload()
+            if (uploadedImageKey) {
+              imageUrl = uploadedImageKey
+            } else {
+              toast.error('Không thể tải lên ảnh banner')
+              return
+            }
+          }
+
+          if (!imageUrl) {
+            toast.error('Vui lòng chọn ảnh banner')
+            return
+          }
+
+          if (isAdd) {
+            setDraftBanner({
+              title: values.title,
+              imageUrl,
+              status: values.status,
+            })
+            toast.info('Banner đã được thêm vào danh sách. Kéo thả để sắp xếp vị trí, sau đó nhấn "Lưu thứ tự" để lưu.')
+            form.reset()
+            onOpenChange(false)
+            return
+          }
+
+          if (isEdit && currentRow?.id) {
+            updateMutation.mutate(
+              {
+                id: currentRow.id,
+                data: {
+                  title: values.title,
+                  imageUrl,
+                  status: values.status as NonNullable<BannerResponse['status']>,
+                },
+              },
+              {
+                onSuccess: () => {
+                  toast.success('Cập nhật banner thành công')
+                  form.reset()
+                  onOpenChange(false)
+                  invalidateBanners()
+                },
+                onError: (error) => {
+                  toast.error('Cập nhật banner thất bại: ' + error.message)
+                },
+              }
+            )
+          }
+        } catch {
+          toast.error('Có lỗi xảy ra khi lưu banner')
+        }
+      })(e)
+    },
+    [form, isView, isAdd, isEdit, currentRow, updateMutation, onOpenChange, invalidateBanners, setDraftBanner]
+  )
 
   return (
     <Dialog
@@ -177,7 +182,7 @@ export function BannersActionDialog({
         <Form {...form}>
           <form
             id="banner-form"
-            onSubmit={form.handleSubmit(onSubmit)}
+            onSubmit={handleFormSubmit}
             className="space-y-4"
           >
             <FormField

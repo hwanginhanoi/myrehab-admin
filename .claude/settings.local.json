@@ -35,7 +35,7 @@
       "WebFetch(domain:docs.agora.io)",
       "Bash(git add:*)",
       "Bash(git commit:*)",
-      "Bash(node -e \"const p = require\\('/Users/Acer/Documents/Myrehab/myrehab-admin/node_modules/eslint-plugin-react-hooks/package.json'\\); console.log\\(p.version\\); console.log\\(Object.keys\\(require\\('/Users/Acer/Documents/Myrehab/myrehab-admin/node_modules/eslint-plugin-react-hooks'\\).rules\\)\\)\")"
+      "Bash(pnpm lint:*)"
     ]
   }
 }
