@@ -24,6 +24,7 @@ import { Route as AuthenticatedSettingsRouteRouteImport } from './routes/_authen
 import { Route as AuthenticatedUsersIndexRouteImport } from './routes/_authenticated/users/index'
 import { Route as AuthenticatedTransactionsIndexRouteImport } from './routes/_authenticated/transactions/index'
 import { Route as AuthenticatedTasksIndexRouteImport } from './routes/_authenticated/tasks/index'
+import { Route as AuthenticatedStartupPopupsIndexRouteImport } from './routes/_authenticated/startup-popups/index'
 import { Route as AuthenticatedStaffIndexRouteImport } from './routes/_authenticated/staff/index'
 import { Route as AuthenticatedSettingsIndexRouteImport } from './routes/_authenticated/settings/index'
 import { Route as AuthenticatedReportingIndexRouteImport } from './routes/_authenticated/reporting/index'
@@ -164,6 +165,12 @@ const AuthenticatedTasksIndexRoute = AuthenticatedTasksIndexRouteImport.update({
   path: '/tasks/',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
+const AuthenticatedStartupPopupsIndexRoute =
+  AuthenticatedStartupPopupsIndexRouteImport.update({
+    id: '/startup-popups/',
+    path: '/startup-popups/',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
 const AuthenticatedStaffIndexRoute = AuthenticatedStaffIndexRouteImport.update({
   id: '/staff/',
   path: '/staff/',
@@ -590,6 +597,7 @@ export interface FileRoutesByFullPath {
   '/reporting': typeof AuthenticatedReportingIndexRoute
   '/settings/': typeof AuthenticatedSettingsIndexRoute
   '/staff': typeof AuthenticatedStaffIndexRoute
+  '/startup-popups': typeof AuthenticatedStartupPopupsIndexRoute
   '/tasks': typeof AuthenticatedTasksIndexRoute
   '/transactions': typeof AuthenticatedTransactionsIndexRoute
   '/users': typeof AuthenticatedUsersIndexRoute
@@ -665,6 +673,7 @@ export interface FileRoutesByTo {
   '/reporting': typeof AuthenticatedReportingIndexRoute
   '/settings': typeof AuthenticatedSettingsIndexRoute
   '/staff': typeof AuthenticatedStaffIndexRoute
+  '/startup-popups': typeof AuthenticatedStartupPopupsIndexRoute
   '/tasks': typeof AuthenticatedTasksIndexRoute
   '/transactions': typeof AuthenticatedTransactionsIndexRoute
   '/users': typeof AuthenticatedUsersIndexRoute
@@ -743,6 +752,7 @@ export interface FileRoutesById {
   '/_authenticated/reporting/': typeof AuthenticatedReportingIndexRoute
   '/_authenticated/settings/': typeof AuthenticatedSettingsIndexRoute
   '/_authenticated/staff/': typeof AuthenticatedStaffIndexRoute
+  '/_authenticated/startup-popups/': typeof AuthenticatedStartupPopupsIndexRoute
   '/_authenticated/tasks/': typeof AuthenticatedTasksIndexRoute
   '/_authenticated/transactions/': typeof AuthenticatedTransactionsIndexRoute
   '/_authenticated/users/': typeof AuthenticatedUsersIndexRoute
@@ -824,6 +834,7 @@ export interface FileRouteTypes {
     | '/reporting'
     | '/settings/'
     | '/staff'
+    | '/startup-popups'
     | '/tasks'
     | '/transactions'
     | '/users'
@@ -899,6 +910,7 @@ export interface FileRouteTypes {
     | '/reporting'
     | '/settings'
     | '/staff'
+    | '/startup-popups'
     | '/tasks'
     | '/transactions'
     | '/users'
@@ -976,6 +988,7 @@ export interface FileRouteTypes {
     | '/_authenticated/reporting/'
     | '/_authenticated/settings/'
     | '/_authenticated/staff/'
+    | '/_authenticated/startup-popups/'
     | '/_authenticated/tasks/'
     | '/_authenticated/transactions/'
     | '/_authenticated/users/'
@@ -1121,6 +1134,13 @@ declare module '@tanstack/react-router' {
       path: '/tasks'
       fullPath: '/tasks'
       preLoaderRoute: typeof AuthenticatedTasksIndexRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/startup-popups/': {
+      id: '/_authenticated/startup-popups/'
+      path: '/startup-popups'
+      fullPath: '/startup-popups'
+      preLoaderRoute: typeof AuthenticatedStartupPopupsIndexRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
     '/_authenticated/staff/': {
@@ -1753,6 +1773,7 @@ interface AuthenticatedRouteRouteChildren {
   AuthenticatedRehabilitationFormsIndexRoute: typeof AuthenticatedRehabilitationFormsIndexRoute
   AuthenticatedReportingIndexRoute: typeof AuthenticatedReportingIndexRoute
   AuthenticatedStaffIndexRoute: typeof AuthenticatedStaffIndexRoute
+  AuthenticatedStartupPopupsIndexRoute: typeof AuthenticatedStartupPopupsIndexRoute
   AuthenticatedTasksIndexRoute: typeof AuthenticatedTasksIndexRoute
   AuthenticatedTransactionsIndexRoute: typeof AuthenticatedTransactionsIndexRoute
   AuthenticatedUsersIndexRoute: typeof AuthenticatedUsersIndexRoute
@@ -1811,6 +1832,7 @@ const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
     AuthenticatedRehabilitationFormsIndexRoute,
   AuthenticatedReportingIndexRoute: AuthenticatedReportingIndexRoute,
   AuthenticatedStaffIndexRoute: AuthenticatedStaffIndexRoute,
+  AuthenticatedStartupPopupsIndexRoute: AuthenticatedStartupPopupsIndexRoute,
   AuthenticatedTasksIndexRoute: AuthenticatedTasksIndexRoute,
   AuthenticatedTransactionsIndexRoute: AuthenticatedTransactionsIndexRoute,
   AuthenticatedUsersIndexRoute: AuthenticatedUsersIndexRoute,
