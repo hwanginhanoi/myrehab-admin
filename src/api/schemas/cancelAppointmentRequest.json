@@ -1,5 +1,1 @@
-{
-  "type": "object",
-  "properties": { "cancellationReason": { "type": "string" } },
-  "x-readme-ref-name": "CancelAppointmentRequest"
-}
+{"type":"object","properties":{"cancellationReason":{"type":"string"}},"x-readme-ref-name":"CancelAppointmentRequest"}

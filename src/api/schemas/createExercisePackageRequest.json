@@ -1,18 +1,1 @@
-{
-  "type": "object",
-  "properties": {
-    "title": { "type": "string" },
-    "description": { "type": "string" },
-    "imageUrl": { "type": "string" },
-    "categoryIds": {
-      "type": "array",
-      "items": { "type": "integer", "format": "int64" }
-    },
-    "exerciseIds": {
-      "type": "array",
-      "items": { "type": "integer", "format": "int64" }
-    }
-  },
-  "required": ["categoryIds", "description", "exerciseIds", "title"],
-  "x-readme-ref-name": "CreateExercisePackageRequest"
-}
+{"type":"object","properties":{"title":{"type":"string"},"description":{"type":"string"},"imageUrl":{"type":"string"},"categoryIds":{"type":"array","items":{"type":"integer","format":"int64"}},"exerciseIds":{"type":"array","items":{"type":"integer","format":"int64"}}},"required":["categoryIds","description","exerciseIds","title"],"x-readme-ref-name":"CreateExercisePackageRequest"}

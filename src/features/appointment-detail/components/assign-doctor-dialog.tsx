@@ -1,8 +1,10 @@
+import { useState } from 'react'
 import { z } from 'zod'
 import { useForm, type Resolver } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useQueryClient } from '@tanstack/react-query'
 import { toast } from 'sonner'
+import { Check, ChevronsUpDown, Loader2 } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import {
   Dialog,
@@ -20,12 +22,25 @@ import {
   FormLabel,
   FormMessage,
 } from '@/components/ui/form'
-import { Input } from '@/components/ui/input'
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from '@/components/ui/popover'
+import {
+  Command,
+  CommandEmpty,
+  CommandGroup,
+  CommandInput,
+  CommandItem,
+  CommandList,
+} from '@/components/ui/command'
 import { Textarea } from '@/components/ui/textarea'
-import { useAssignDoctor } from '@/api'
+import { useAssignDoctor, useSearchDoctors } from '@/api'
+import { cn } from '@/lib/utils'
 
 const formSchema = z.object({
-  doctorId: z.coerce.number().min(1, 'ID bác sĩ là bắt buộc'),
+  doctorId: z.coerce.number().min(1, 'Vui lòng chọn bác sĩ'),
   adminNotes: z.string().optional(),
 })
 
@@ -43,13 +58,17 @@ export function AssignDoctorDialog({
   onOpenChange,
 }: AssignDoctorDialogProps) {
   const queryClient = useQueryClient()
+  const [comboOpen, setComboOpen] = useState(false)
+  const [search, setSearch] = useState('')
+
+  const { data: doctors = [], isFetching } = useSearchDoctors(
+    { query: search || undefined, enabled: true },
+    { query: { enabled: open } }
+  )
 
   const form = useForm<FormValues>({
     resolver: zodResolver(formSchema) as Resolver<FormValues>,
-    defaultValues: {
-      doctorId: 0,
-      adminNotes: '',
-    },
+    defaultValues: { doctorId: 0, adminNotes: '' },
   })
 
   const assignDoctor = useAssignDoctor({
@@ -66,6 +85,7 @@ export function AssignDoctorDialog({
         })
         onOpenChange(false)
         form.reset()
+        setSearch('')
       },
       onError: () => {
         toast.error('Có lỗi xảy ra khi phân công bác sĩ')
@@ -84,12 +104,21 @@ export function AssignDoctorDialog({
   }
 
   return (
-    <Dialog open={open} onOpenChange={onOpenChange}>
+    <Dialog
+      open={open}
+      onOpenChange={(o) => {
+        onOpenChange(o)
+        if (!o) {
+          form.reset()
+          setSearch('')
+        }
+      }}
+    >
       <DialogContent>
         <DialogHeader>
           <DialogTitle>Phân công bác sĩ</DialogTitle>
           <DialogDescription>
-            Chọn bác sĩ để phân công cho lịch hẹn này.
+            Tìm kiếm và chọn bác sĩ để phân công cho lịch hẹn này.
           </DialogDescription>
         </DialogHeader>
         <Form {...form}>
@@ -97,19 +126,87 @@ export function AssignDoctorDialog({
             <FormField
               control={form.control}
               name="doctorId"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>ID Bác sĩ</FormLabel>
-                  <FormControl>
-                    <Input
-                      type="number"
-                      placeholder="Nhập ID bác sĩ"
-                      {...field}
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
+              render={({ field }) => {
+                const selected = doctors.find((d) => d.id === field.value)
+                return (
+                  <FormItem className="flex flex-col">
+                    <FormLabel>Bác sĩ</FormLabel>
+                    <Popover open={comboOpen} onOpenChange={setComboOpen}>
+                      <PopoverTrigger asChild>
+                        <FormControl>
+                          <Button
+                            variant="outline"
+                            role="combobox"
+                            className={cn(
+                              'w-full justify-between font-normal',
+                              !selected && 'text-muted-foreground'
+                            )}
+                          >
+                            {selected ? selected.fullName : 'Tìm bác sĩ...'}
+                            <ChevronsUpDown className="ms-2 h-4 w-4 shrink-0 opacity-50" />
+                          </Button>
+                        </FormControl>
+                      </PopoverTrigger>
+                      <PopoverContent className="w-[--radix-popover-trigger-width] p-0" align="start">
+                        <Command shouldFilter={false}>
+                          <CommandInput
+                            placeholder="Nhập tên, email hoặc chuyên khoa..."
+                            value={search}
+                            onValueChange={setSearch}
+                          />
+                          <CommandList>
+                            {isFetching ? (
+                              <div className="flex items-center justify-center gap-2 py-4 text-sm text-muted-foreground">
+                                <Loader2 className="h-4 w-4 animate-spin" />
+                                Đang tìm kiếm...
+                              </div>
+                            ) : (
+                              <>
+                                <CommandEmpty>
+                                  Không tìm thấy bác sĩ
+                                </CommandEmpty>
+                                <CommandGroup>
+                                  {doctors.map((doctor) => (
+                                    <CommandItem
+                                      key={doctor.id}
+                                      value={String(doctor.id)}
+                                      onSelect={() => {
+                                        field.onChange(doctor.id)
+                                        setComboOpen(false)
+                                        setSearch('')
+                                      }}
+                                    >
+                                      <Check
+                                        className={cn(
+                                          'me-2 h-4 w-4 shrink-0',
+                                          field.value === doctor.id
+                                            ? 'opacity-100'
+                                            : 'opacity-0'
+                                        )}
+                                      />
+                                      <div className="flex flex-col">
+                                        <span className="text-sm font-medium">
+                                          {doctor.fullName}
+                                        </span>
+                                        {doctor.specialization && (
+                                          <span className="text-xs text-muted-foreground">
+                                            {doctor.specialization}
+                                          </span>
+                                        )}
+                                      </div>
+                                    </CommandItem>
+                                  ))}
+                                </CommandGroup>
+                              </>
+                            )}
+                          </CommandList>
+                        </Command>
+                      </PopoverContent>
+                    </Popover>
+                    <FormMessage />
+                  </FormItem>
+                )
+              }}
             />
             <FormField
               control={form.control}

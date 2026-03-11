@@ -1,11 +1,1 @@
-{
-  "type": "object",
-  "properties": {
-    "title": { "type": "string" },
-    "imageUrl": { "type": "string" },
-    "displayOrder": { "type": "integer", "format": "int32" },
-    "status": { "type": "string", "enum": ["ACTIVE", "INACTIVE", "ARCHIVED"] }
-  },
-  "required": ["imageUrl", "status", "title"],
-  "x-readme-ref-name": "UpdateBannerRequest"
-}
+{"type":"object","properties":{"title":{"type":"string"},"imageUrl":{"type":"string"},"displayOrder":{"type":"integer","format":"int32"},"status":{"type":"string","enum":["ACTIVE","INACTIVE","ARCHIVED"]}},"required":["imageUrl","status","title"],"x-readme-ref-name":"UpdateBannerRequest"}
