@@ -1,0 +1,1 @@
+{"type":"object","properties":{"title":{"type":"string","maxLength":255,"minLength":0},"imageUrl":{"type":"string","maxLength":500,"minLength":0},"active":{"type":"boolean"}},"required":["imageUrl","title"],"x-readme-ref-name":"UpdateStartupPopupRequest"}

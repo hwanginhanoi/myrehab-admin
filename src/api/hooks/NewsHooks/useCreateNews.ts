@@ -14,8 +14,8 @@ export const createNewsMutationKey = () => [{ url: '/api/news' }] as const
 export type CreateNewsMutationKey = ReturnType<typeof createNewsMutationKey>
 
 /**
- * @description Create a new news article. Requires news:create permission.
- * @summary Create new news article
+ * @description Creates a new news article. Requires news:create permission.
+ * @summary Create news article
  * {@link /api/news}
  */
 export async function createNews(data: CreateNewsMutationRequest, config: Partial<RequestConfig<CreateNewsMutationRequest>> & { client?: typeof fetch } = {}) {
@@ -38,8 +38,8 @@ export function createNewsMutationOptions(config: Partial<RequestConfig<CreateNe
 }
 
 /**
- * @description Create a new news article. Requires news:create permission.
- * @summary Create new news article
+ * @description Creates a new news article. Requires news:create permission.
+ * @summary Create news article
  * {@link /api/news}
  */
 export function useCreateNews<TContext>(options: 

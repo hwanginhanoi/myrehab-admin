@@ -14,7 +14,7 @@ export const updateNewsMutationKey = () => [{ url: '/api/news/:id' }] as const
 export type UpdateNewsMutationKey = ReturnType<typeof updateNewsMutationKey>
 
 /**
- * @description Update an existing news article. Requires news:update permission.
+ * @description Updates an existing news article. Requires news:update permission.
  * @summary Update news article
  * {@link /api/news/:id}
  */
@@ -38,7 +38,7 @@ export function updateNewsMutationOptions(config: Partial<RequestConfig<UpdateNe
 }
 
 /**
- * @description Update an existing news article. Requires news:update permission.
+ * @description Updates an existing news article. Requires news:update permission.
  * @summary Update news article
  * {@link /api/news/:id}
  */

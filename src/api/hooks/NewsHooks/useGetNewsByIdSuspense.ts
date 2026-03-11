@@ -14,8 +14,8 @@ export const getNewsByIdSuspenseQueryKey = (id: GetNewsByIdPathParams["id"]) => 
 export type GetNewsByIdSuspenseQueryKey = ReturnType<typeof getNewsByIdSuspenseQueryKey>
 
 /**
- * @description Retrieve a specific news article by its ID
- * @summary Get news by ID
+ * @description Returns a news article regardless of status. Requires news:view permission.
+ * @summary Get news by ID (staff)
  * {@link /api/news/:id}
  */
 export async function getNewsByIdSuspense(id: GetNewsByIdPathParams["id"], config: Partial<RequestConfig> & { client?: typeof fetch } = {}) {
@@ -38,8 +38,8 @@ export function getNewsByIdSuspenseQueryOptions(id: GetNewsByIdPathParams["id"],
 }
 
 /**
- * @description Retrieve a specific news article by its ID
- * @summary Get news by ID
+ * @description Returns a news article regardless of status. Requires news:view permission.
+ * @summary Get news by ID (staff)
  * {@link /api/news/:id}
  */
 export function useGetNewsByIdSuspense<TData = GetNewsByIdQueryResponse, TQueryKey extends QueryKey = GetNewsByIdSuspenseQueryKey>(id: GetNewsByIdPathParams["id"], options: 

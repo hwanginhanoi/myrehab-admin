@@ -33,13 +33,13 @@ export type PageMyAssignedCourseResponse = {
     */
     sort?: SortObject;
     /**
-     * @type integer | undefined, int32
-    */
-    numberOfElements?: number;
-    /**
      * @type boolean | undefined
     */
     first?: boolean;
+    /**
+     * @type integer | undefined, int32
+    */
+    numberOfElements?: number;
     /**
      * @type integer | undefined, int32
     */

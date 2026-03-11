@@ -10,6 +10,7 @@ export type FileCategory =
   | 'news-image'
   | 'exercise-package-image'
   | 'banner-image'
+  | 'startup-popup-image'
 
 export interface PresignedUploadUrlRequest {
   fileName: string

@@ -21,8 +21,8 @@ get "pageable"(){
 get "sort"(){
                 return sortObjectSchema.optional()
               },
-"numberOfElements": z.optional(z.int()),
 "first": z.optional(z.boolean()),
+"numberOfElements": z.optional(z.int()),
 "size": z.optional(z.int()),
 "number": z.optional(z.int()),
 "empty": z.optional(z.boolean())

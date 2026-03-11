@@ -32,6 +32,7 @@ import {
   Clock,
   BarChart3,
   BookCheck,
+  Megaphone,
 } from 'lucide-react'
 import { Logo } from '@/assets/logo'
 import { type SidebarData } from '../types'
@@ -116,6 +117,12 @@ export const sidebarData: SidebarData = {
           url: '/banners',
           icon: Image,
           requiredPermission: 'banners:view',
+        },
+        {
+          title: 'Startup Popup',
+          url: '/startup-popups',
+          icon: Megaphone,
+          requiredPermission: 'startup-popups:view',
         },
         {
           title: 'Kho bài tập',

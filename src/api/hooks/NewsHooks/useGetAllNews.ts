@@ -14,8 +14,8 @@ export const getAllNewsQueryKey = (params: GetAllNewsQueryParams) => [{ url: '/a
 export type GetAllNewsQueryKey = ReturnType<typeof getAllNewsQueryKey>
 
 /**
- * @description Retrieve a paginated list of news with optional status, category, and title filtering. Use query params: ?status=PUBLISHED&category=HEALTH_TIPS&title=exercise&page=0&size=10&sort=createdAt,desc
- * @summary Get paginated news with filtering
+ * @description Returns paginated news with full status filtering. Requires news:view permission.
+ * @summary Get all news (staff)
  * {@link /api/news}
  */
 export async function getAllNews(params: GetAllNewsQueryParams, config: Partial<RequestConfig> & { client?: typeof fetch } = {}) {
@@ -38,8 +38,8 @@ export function getAllNewsQueryOptions(params: GetAllNewsQueryParams, config: Pa
 }
 
 /**
- * @description Retrieve a paginated list of news with optional status, category, and title filtering. Use query params: ?status=PUBLISHED&category=HEALTH_TIPS&title=exercise&page=0&size=10&sort=createdAt,desc
- * @summary Get paginated news with filtering
+ * @description Returns paginated news with full status filtering. Requires news:view permission.
+ * @summary Get all news (staff)
  * {@link /api/news}
  */
 export function useGetAllNews<TData = GetAllNewsQueryResponse, TQueryData = GetAllNewsQueryResponse, TQueryKey extends QueryKey = GetAllNewsQueryKey>(params: GetAllNewsQueryParams, options: 
