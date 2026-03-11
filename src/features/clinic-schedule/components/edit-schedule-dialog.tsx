@@ -23,9 +23,8 @@ import {
 } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
 import { Switch } from '@/components/ui/switch'
-import { useUpdateClinicSchedule, type ClinicScheduleResponse } from '@/api'
+import { useUpdateClinicSchedule, type ClinicScheduleResponse, type LocalTime } from '@/api'
 import { formatLocalTime, dayOfWeekLabels } from '@/lib/appointment-utils'
-import type { LocalTime } from '@/api'
 
 function toLocalTime(timeStr: string): LocalTime {
   const [h, m] = timeStr.split(':').map(Number)
