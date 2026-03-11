@@ -3,14 +3,12 @@ import { z } from 'zod'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useQueryClient } from '@tanstack/react-query'
+import { ImageIcon, Pencil, Plus, Eye } from 'lucide-react'
 import { Button } from '@/components/ui/button'
+import { Badge } from '@/components/ui/badge'
 import {
   Dialog,
   DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
 } from '@/components/ui/dialog'
 import {
   Form,
@@ -19,9 +17,11 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
+  FormDescription,
 } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
 import { Switch } from '@/components/ui/switch'
+import { Separator } from '@/components/ui/separator'
 import { FileUpload, type FileUploadRef } from '@/components/file-upload'
 import {
   type StartupPopupResponse,
@@ -45,6 +45,33 @@ type StartupPopupsActionDialogProps = {
   mode: 'add' | 'edit' | 'view'
 }
 
+const modeConfig = {
+  add: {
+    icon: Plus,
+    label: 'Mới',
+    badgeVariant: 'default' as const,
+    title: 'Thêm popup mới',
+    description: 'Tạo popup hiển thị khi khởi động ứng dụng.',
+    submit: 'Tạo popup',
+  },
+  edit: {
+    icon: Pencil,
+    label: 'Chỉnh sửa',
+    badgeVariant: 'secondary' as const,
+    title: 'Chỉnh sửa popup',
+    description: 'Cập nhật thông tin và ảnh popup.',
+    submit: 'Lưu thay đổi',
+  },
+  view: {
+    icon: Eye,
+    label: 'Xem',
+    badgeVariant: 'outline' as const,
+    title: 'Chi tiết popup',
+    description: 'Thông tin popup hiện tại.',
+    submit: '',
+  },
+}
+
 export function StartupPopupsActionDialog({
   currentRow,
   open,
@@ -54,6 +81,7 @@ export function StartupPopupsActionDialog({
   const isAdd = mode === 'add'
   const isEdit = mode === 'edit'
   const isView = mode === 'view'
+  const cfg = modeConfig[mode]
 
   const queryClient = useQueryClient()
   const imageUploadRef = useRef<FileUploadRef>(null)
@@ -78,9 +106,7 @@ export function StartupPopupsActionDialog({
   const updateMutation = useUpdatePopup()
 
   const invalidatePopups = useCallback(() => {
-    queryClient.invalidateQueries({
-      queryKey: [{ url: '/api/startup-popup' }],
-    })
+    queryClient.invalidateQueries({ queryKey: [{ url: '/api/startup-popup' }] })
   }, [queryClient])
 
   const onSubmit = async (values: PopupForm) => {
@@ -109,13 +135,7 @@ export function StartupPopupsActionDialog({
 
       if (isAdd) {
         createMutation.mutate(
-          {
-            data: {
-              title: values.title,
-              imageUrl,
-              active: values.active,
-            },
-          },
+          { data: { title: values.title, imageUrl, active: values.active } },
           {
             onSuccess: () => {
               toast.success('Tạo popup thành công')
@@ -135,11 +155,7 @@ export function StartupPopupsActionDialog({
         updateMutation.mutate(
           {
             id: currentRow.id,
-            data: {
-              title: values.title,
-              imageUrl,
-              active: values.active,
-            },
+            data: { title: values.title, imageUrl, active: values.active },
           },
           {
             onSuccess: () => {
@@ -159,18 +175,6 @@ export function StartupPopupsActionDialog({
     }
   }
 
-  const getTitle = () => {
-    if (isView) return 'Xem popup'
-    if (isEdit) return 'Chỉnh sửa popup'
-    return 'Thêm popup mới'
-  }
-
-  const getDescription = () => {
-    if (isView) return 'Thông tin chi tiết popup.'
-    if (isEdit) return 'Cập nhật thông tin popup. Nhấn lưu khi hoàn thành.'
-    return 'Tạo popup mới. Nếu bật hiển thị, các popup khác sẽ tự động bị tắt.'
-  }
-
   const isPending = createMutation.isPending || updateMutation.isPending
 
   return (
@@ -181,47 +185,30 @@ export function StartupPopupsActionDialog({
         onOpenChange(state)
       }}
     >
-      <DialogContent className="sm:max-w-lg">
-        <DialogHeader className="text-start">
-          <DialogTitle>{getTitle()}</DialogTitle>
-          <DialogDescription>{getDescription()}</DialogDescription>
-        </DialogHeader>
+      <DialogContent className="gap-0 p-0 sm:max-w-2xl overflow-hidden">
         <Form {...form}>
           <form
             id="popup-form"
             onSubmit={form.handleSubmit(onSubmit)}
-            className="space-y-4"
+            className="flex h-full"
           >
-            <FormField
-              control={form.control}
-              name="title"
-              render={({ field }) => (
-                <FormItem className="grid grid-cols-6 items-center space-y-0 gap-x-4 gap-y-1">
-                  <FormLabel className="col-span-2 text-end">
-                    Tiêu đề
-                  </FormLabel>
-                  <FormControl>
-                    <Input
-                      placeholder="Nhập tiêu đề"
-                      className="col-span-4"
-                      disabled={isView}
-                      {...field}
-                    />
-                  </FormControl>
-                  <FormMessage className="col-span-4 col-start-3" />
-                </FormItem>
-              )}
-            />
+          {/* Left — portrait image panel */}
+          <div className="flex w-52 shrink-0 flex-col gap-3 bg-muted/40 p-4 border-r">
+            <div className="flex items-center gap-2">
+              <ImageIcon className="h-4 w-4 text-muted-foreground" />
+              <span className="text-xs font-medium text-muted-foreground uppercase tracking-wide">
+                Ảnh popup
+              </span>
+            </div>
+
             <FormField
               control={form.control}
               name="imageUrl"
               render={({ field }) => (
-                <FormItem className="grid grid-cols-6 items-start space-y-0 gap-x-4 gap-y-1">
-                  <FormLabel className="col-span-2 pt-2 text-end">
-                    Ảnh popup
-                  </FormLabel>
+                <FormItem className="flex-1 flex flex-col">
                   <FormControl>
-                    <div className="col-span-4 [&_.aspect-video]:aspect-[9/16]">
+                    {/* Override the default 16:9 aspect to 9:16 */}
+                    <div className="[&_.aspect-video]:aspect-[9/16] flex-1">
                       <FileUpload
                         ref={imageUploadRef}
                         category="startup-popup-image"
@@ -232,40 +219,97 @@ export function StartupPopupsActionDialog({
                       />
                     </div>
                   </FormControl>
-                  <FormMessage className="col-span-4 col-start-3" />
+                  <FormMessage />
                 </FormItem>
               )}
             />
-            <FormField
-              control={form.control}
-              name="active"
-              render={({ field }) => (
-                <FormItem className="grid grid-cols-6 items-center space-y-0 gap-x-4 gap-y-1">
-                  <FormLabel className="col-span-2 text-end">
-                    Hiển thị
-                  </FormLabel>
-                  <FormControl>
-                    <Switch
-                      checked={field.value}
-                      onCheckedChange={field.onChange}
-                      disabled={isView}
-                    />
-                  </FormControl>
-                  <FormMessage className="col-span-4 col-start-3" />
-                </FormItem>
+
+            <p className="text-[11px] text-muted-foreground leading-relaxed">
+              Tỉ lệ 9:16 · JPEG, PNG, WebP · Tối đa 10MB
+            </p>
+          </div>
+
+          {/* Right — form fields */}
+          <div className="flex flex-1 flex-col">
+            {/* Header */}
+            <div className="flex items-start justify-between px-6 py-5">
+              <div className="space-y-1">
+                <div className="flex items-center gap-2">
+                  <h2 className="text-base font-semibold">{cfg.title}</h2>
+                  <Badge variant={cfg.badgeVariant} className="text-xs">
+                    {cfg.label}
+                  </Badge>
+                </div>
+                <p className="text-sm text-muted-foreground">{cfg.description}</p>
+              </div>
+            </div>
+
+            <Separator />
+
+            {/* Form body */}
+            <div className="flex flex-1 flex-col gap-5 px-6 py-5">
+                <FormField
+                  control={form.control}
+                  name="title"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Tiêu đề</FormLabel>
+                      <FormControl>
+                        <Input
+                          placeholder="Nhập tiêu đề popup..."
+                          disabled={isView}
+                          {...field}
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+
+                <FormField
+                  control={form.control}
+                  name="active"
+                  render={({ field }) => (
+                    <FormItem className="flex items-start justify-between rounded-lg border p-4 gap-4">
+                      <div className="space-y-1">
+                        <FormLabel className="text-sm font-medium">
+                          Hiển thị popup
+                        </FormLabel>
+                        <FormDescription className="text-xs">
+                          Bật sẽ tắt tất cả popup đang hiển thị khác.
+                        </FormDescription>
+                      </div>
+                      <FormControl>
+                        <Switch
+                          checked={field.value}
+                          onCheckedChange={field.onChange}
+                          disabled={isView}
+                        />
+                      </FormControl>
+                    </FormItem>
+                  )}
+                />
+            </div>
+
+            {/* Footer */}
+            <Separator />
+            <div className="flex items-center justify-end gap-2 px-6 py-4">
+              <Button
+                type="button"
+                variant="outline"
+                onClick={() => onOpenChange(false)}
+              >
+                {isView ? 'Đóng' : 'Hủy'}
+              </Button>
+              {!isView && (
+                <Button type="submit" disabled={isPending}>
+                  {isPending ? 'Đang lưu...' : cfg.submit}
+                </Button>
               )}
-            />
+            </div>
+          </div>
           </form>
         </Form>
-
-        <DialogFooter>
-          {!isView && (
-            <Button type="submit" form="popup-form" disabled={isPending}>
-              {isPending ? 'Đang lưu...' : isAdd ? 'Thêm' : 'Lưu'}
-            </Button>
-          )}
-          {isView && <Button onClick={() => onOpenChange(false)}>Đóng</Button>}
-        </DialogFooter>
       </DialogContent>
     </Dialog>
   )
