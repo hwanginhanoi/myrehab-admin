@@ -34,7 +34,8 @@
       "Bash(npx @tanstack/router-cli generate:*)",
       "WebFetch(domain:docs.agora.io)",
       "Bash(git add:*)",
-      "Bash(git commit:*)"
+      "Bash(git commit:*)",
+      "Bash(pnpm lint:*)"
     ]
   }
 }

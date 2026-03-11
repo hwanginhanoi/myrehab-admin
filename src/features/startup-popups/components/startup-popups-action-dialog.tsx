@@ -1,4 +1,4 @@
-import { useCallback, useRef } from 'react'
+import { useCallback, useRef, type FormEvent } from 'react'
 import { z } from 'zod'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
@@ -83,82 +83,6 @@ export function StartupPopupsActionDialog({
     })
   }, [queryClient])
 
-  const onSubmit = async (values: PopupForm) => {
-    if (isView) {
-      onOpenChange(false)
-      return
-    }
-
-    try {
-      let imageUrl = values.imageUrl || ''
-
-      if (imageUploadRef.current?.hasFile()) {
-        const uploadedImageKey = await imageUploadRef.current.upload()
-        if (uploadedImageKey) {
-          imageUrl = uploadedImageKey
-        } else {
-          toast.error('Không thể tải lên ảnh popup')
-          return
-        }
-      }
-
-      if (!imageUrl) {
-        toast.error('Vui lòng chọn ảnh popup')
-        return
-      }
-
-      if (isAdd) {
-        createMutation.mutate(
-          {
-            data: {
-              title: values.title,
-              imageUrl,
-              active: values.active,
-            },
-          },
-          {
-            onSuccess: () => {
-              toast.success('Tạo popup thành công')
-              form.reset()
-              onOpenChange(false)
-              invalidatePopups()
-            },
-            onError: (error) => {
-              toast.error('Tạo popup thất bại: ' + error.message)
-            },
-          }
-        )
-        return
-      }
-
-      if (isEdit && currentRow?.id) {
-        updateMutation.mutate(
-          {
-            id: currentRow.id,
-            data: {
-              title: values.title,
-              imageUrl,
-              active: values.active,
-            },
-          },
-          {
-            onSuccess: () => {
-              toast.success('Cập nhật popup thành công')
-              form.reset()
-              onOpenChange(false)
-              invalidatePopups()
-            },
-            onError: (error) => {
-              toast.error('Cập nhật popup thất bại: ' + error.message)
-            },
-          }
-        )
-      }
-    } catch {
-      toast.error('Có lỗi xảy ra khi lưu popup')
-    }
-  }
-
   const getTitle = () => {
     if (isView) return 'Xem popup'
     if (isEdit) return 'Chỉnh sửa popup'
@@ -172,6 +96,88 @@ export function StartupPopupsActionDialog({
   }
 
   const isPending = createMutation.isPending || updateMutation.isPending
+
+  const handleFormSubmit = useCallback(
+    (e: FormEvent<HTMLFormElement>) => {
+      e.preventDefault()
+      void form.handleSubmit(async (values: PopupForm) => {
+        if (isView) {
+          onOpenChange(false)
+          return
+        }
+
+        try {
+          let imageUrl = values.imageUrl || ''
+
+          if (imageUploadRef.current?.hasFile()) {
+            const uploadedImageKey = await imageUploadRef.current.upload()
+            if (uploadedImageKey) {
+              imageUrl = uploadedImageKey
+            } else {
+              toast.error('Không thể tải lên ảnh popup')
+              return
+            }
+          }
+
+          if (!imageUrl) {
+            toast.error('Vui lòng chọn ảnh popup')
+            return
+          }
+
+          if (isAdd) {
+            createMutation.mutate(
+              {
+                data: {
+                  title: values.title,
+                  imageUrl,
+                  active: values.active,
+                },
+              },
+              {
+                onSuccess: () => {
+                  toast.success('Tạo popup thành công')
+                  form.reset()
+                  onOpenChange(false)
+                  invalidatePopups()
+                },
+                onError: (error) => {
+                  toast.error('Tạo popup thất bại: ' + error.message)
+                },
+              }
+            )
+            return
+          }
+
+          if (isEdit && currentRow?.id) {
+            updateMutation.mutate(
+              {
+                id: currentRow.id,
+                data: {
+                  title: values.title,
+                  imageUrl,
+                  active: values.active,
+                },
+              },
+              {
+                onSuccess: () => {
+                  toast.success('Cập nhật popup thành công')
+                  form.reset()
+                  onOpenChange(false)
+                  invalidatePopups()
+                },
+                onError: (error) => {
+                  toast.error('Cập nhật popup thất bại: ' + error.message)
+                },
+              }
+            )
+          }
+        } catch {
+          toast.error('Có lỗi xảy ra khi lưu popup')
+        }
+      })(e)
+    },
+    [form, isView, isAdd, isEdit, currentRow, createMutation, updateMutation, onOpenChange, invalidatePopups]
+  )
 
   return (
     <Dialog
@@ -189,7 +195,7 @@ export function StartupPopupsActionDialog({
         <Form {...form}>
           <form
             id="popup-form"
-            onSubmit={form.handleSubmit(onSubmit)}
+            onSubmit={handleFormSubmit}
             className="space-y-4"
           >
             <FormField

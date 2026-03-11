@@ -12,8 +12,7 @@ import {
   DropdownMenuShortcut,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
-import type { StartupPopupResponse } from '@/api'
-import { useUpdatePopup } from '@/api'
+import { useUpdatePopup, type StartupPopupResponse } from '@/api'
 import { usePermissions } from '@/hooks/use-permissions'
 import { useStartupPopups } from './startup-popups-provider'
 

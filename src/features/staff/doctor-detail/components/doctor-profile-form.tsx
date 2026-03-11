@@ -1,4 +1,4 @@
-import { useRef, useEffect } from 'react'
+import { useRef, useEffect, useCallback, type FormEvent } from 'react'
 import { z } from 'zod'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
@@ -104,31 +104,37 @@ export function DoctorProfileForm({
     },
   })
 
-  const onSubmit = async (values: DoctorProfileFormValues) => {
-    if (!doctor.id) return
+  const handleFormSubmit = useCallback(
+    (e: FormEvent<HTMLFormElement>) => {
+      e.preventDefault()
+      void form.handleSubmit(async (values: DoctorProfileFormValues) => {
+        if (!doctor.id) return
 
-    let profileImageUrl = values.profileImageUrl
+        let profileImageUrl = values.profileImageUrl
 
-    if (imageUploadRef.current?.hasFile()) {
-      const objectKey = await imageUploadRef.current.upload()
-      if (objectKey) {
-        profileImageUrl = objectKey
-      }
-    }
+        if (imageUploadRef.current?.hasFile()) {
+          const objectKey = await imageUploadRef.current.upload()
+          if (objectKey) {
+            profileImageUrl = objectKey
+          }
+        }
 
-    updateMutation.mutate({
-      id: doctor.id,
-      data: {
-        staffType: 'DOCTOR',
-        email: values.email,
-        fullName: values.fullName,
-        isPublic: values.isPublic,
-        ...(values.specialization && { specialization: values.specialization }),
-        ...(values.bio && { description: values.bio }),
-        profileImageUrl: profileImageUrl || undefined,
-      },
-    })
-  }
+        updateMutation.mutate({
+          id: doctor.id,
+          data: {
+            staffType: 'DOCTOR',
+            email: values.email,
+            fullName: values.fullName,
+            isPublic: values.isPublic,
+            ...(values.specialization && { specialization: values.specialization }),
+            ...(values.bio && { description: values.bio }),
+            profileImageUrl: profileImageUrl || undefined,
+          },
+        })
+      })(e)
+    },
+    [form, doctor.id, updateMutation]
+  )
 
   if (isLoading) {
     return (
@@ -140,7 +146,7 @@ export function DoctorProfileForm({
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+      <form onSubmit={handleFormSubmit} className="space-y-8">
         <FormField
           control={form.control}
           name="profileImageUrl"
