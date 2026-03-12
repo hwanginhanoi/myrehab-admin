@@ -1,0 +1,28 @@
+{
+  "type": "object",
+  "properties": {
+    "id": { "type": "integer", "format": "int64" },
+    "userName": { "type": "string" },
+    "phoneNumber": { "type": "string" },
+    "transactionType": {
+      "type": "string",
+      "enum": [
+        "BALANCE_ADD",
+        "BALANCE_ADD_SEPAY",
+        "COURSE_PURCHASE",
+        "PACKAGE_PURCHASE",
+        "REFUND",
+        "SUBSCRIPTION_RENEWAL",
+        "APPOINTMENT_BOOKING",
+        "APPOINTMENT_REFUND"
+      ]
+    },
+    "amount": { "type": "integer", "format": "int64" },
+    "balanceBefore": { "type": "integer", "format": "int64" },
+    "balanceAfter": { "type": "integer", "format": "int64" },
+    "description": { "type": "string" },
+    "subscriptionId": { "type": "integer", "format": "int64" },
+    "createdAt": { "type": "string", "format": "date-time" }
+  },
+  "x-readme-ref-name": "TransactionResponse"
+}

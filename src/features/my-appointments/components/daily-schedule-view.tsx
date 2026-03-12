@@ -7,9 +7,9 @@ type DailyScheduleViewProps = {
 
 export function DailyScheduleView({ appointments }: DailyScheduleViewProps) {
   const sorted = [...appointments].sort((a, b) => {
-    const aTime = (a.startTime?.hour ?? 0) * 60 + (a.startTime?.minute ?? 0)
-    const bTime = (b.startTime?.hour ?? 0) * 60 + (b.startTime?.minute ?? 0)
-    return aTime - bTime
+    const aTime = a.startTime ?? ''
+    const bTime = b.startTime ?? ''
+    return aTime.localeCompare(bTime)
   })
 
   if (sorted.length === 0) {
