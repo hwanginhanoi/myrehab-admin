@@ -1,23 +1,23 @@
 import {
-  Construction,
-  LayoutDashboard,
+  // Construction,
+  // LayoutDashboard,
   Monitor,
-  Bug,
-  ListTodo,
-  FileX,
+  // Bug,
+  // ListTodo,
+  // FileX,
   HelpCircle,
-  Lock,
+  // Lock,
   Bell,
   Package,
   Palette,
-  ServerOff,
+  // ServerOff,
   Settings,
   Wrench,
   UserCog,
-  UserX,
+  // UserX,
   Users,
   UserRound,
-  MessagesSquare,
+  // MessagesSquare,
   ShieldCheck,
   FolderTree,
   Layers,
@@ -55,24 +55,19 @@ export const sidebarData: SidebarData = {
       title: 'Tổng quan',
       items: [
         {
-          title: 'Trang chủ',
-          url: '/',
-          icon: LayoutDashboard,
+          title: 'Báo cáo & Thống kê',
+          url: '/reporting',
+          icon: BarChart3,
         },
+        // {
+        //   title: 'Trang chủ',
+        //   url: '/',
+        //   icon: LayoutDashboard,
+        // },
         {
           title: 'Quản trị giao dịch',
           url: '/transactions',
           icon: Receipt,
-        },
-        {
-          title: 'Lịch hẹn',
-          url: '/appointments',
-          icon: CalendarCheck,
-        },
-        {
-          title: 'Báo cáo & Thống kê',
-          url: '/reporting',
-          icon: BarChart3,
         },
       ],
     },
@@ -195,83 +190,90 @@ export const sidebarData: SidebarData = {
           title: 'Lịch phòng khám',
           url: '/clinic-schedule',
           icon: Clock,
+          allowedRoles: ['ADMIN', 'SUPER_ADMIN'],
         },
         {
-          title: 'Tasks',
-          url: '/tasks',
-          icon: ListTodo,
+          title: 'Lịch hẹn',
+          url: '/appointments',
+          icon: CalendarCheck,
+          allowedRoles: ['ADMIN', 'SUPER_ADMIN'],
         },
-        {
-          title: 'Apps',
-          url: '/apps',
-          icon: Package,
-        },
-        {
-          title: 'Chats',
-          url: '/chats',
-          badge: '3',
-          icon: MessagesSquare,
-        },
+        // {
+        //   title: 'Tasks',
+        //   url: '/tasks',
+        //   icon: ListTodo,
+        // },
+        // {
+        //   title: 'Apps',
+        //   url: '/apps',
+        //   icon: Package,
+        // },
+        // {
+        //   title: 'Chats',
+        //   url: '/chats',
+        //   badge: '3',
+        //   icon: MessagesSquare,
+        // },
       ],
     },
-    {
-      title: 'Pages',
-      items: [
-        {
-          title: 'Auth',
-          icon: ShieldCheck,
-          items: [
-            {
-              title: 'Login',
-              url: '/login',
-            },
-            {
-              title: 'Sign Up',
-              url: '/sign-up',
-            },
-            {
-              title: 'Forgot Password',
-              url: '/forgot-password',
-            },
-            {
-              title: 'OTP',
-              url: '/otp',
-            },
-          ],
-        },
-        {
-          title: 'Errors',
-          icon: Bug,
-          items: [
-            {
-              title: 'Unauthorized',
-              url: '/errors/unauthorized',
-              icon: Lock,
-            },
-            {
-              title: 'Forbidden',
-              url: '/errors/forbidden',
-              icon: UserX,
-            },
-            {
-              title: 'Not Found',
-              url: '/errors/not-found',
-              icon: FileX,
-            },
-            {
-              title: 'Internal Server Error',
-              url: '/errors/internal-server-error',
-              icon: ServerOff,
-            },
-            {
-              title: 'Maintenance Error',
-              url: '/errors/maintenance-error',
-              icon: Construction,
-            },
-          ],
-        },
-      ],
-    },
+    // {
+    //   title: 'Pages',
+    //   items: [
+    //     {
+    //       title: 'Auth',
+    //       icon: ShieldCheck,
+    //       items: [
+    //         {
+    //           title: 'Login',
+    //           url: '/login',
+    //         },
+    //         {
+    //           title: 'Sign Up',
+    //           url: '/sign-up',
+    //         },
+    //         {
+    //           title: 'Forgot Password',
+    //           url: '/forgot-password',
+    //         },
+    //         {
+    //           title: 'OTP',
+    //           url: '/otp',
+    //         },
+    //       ],
+    //     },
+    //     {
+    //       title: 'Errors',
+    //       icon: Bug,
+    //       items: [
+    //         {
+    //           title: 'Unauthorized',
+    //           url: '/errors/unauthorized',
+    //           icon: Lock,
+    //         },
+    //         {
+    //           title: 'Forbidden',
+    //           url: '/errors/forbidden',
+    //           icon: UserX,
+    //         },
+    //         {
+    //           title: 'Not Found',
+    //           url: '/errors/not-found',
+    //           icon: FileX,
+    //         },
+    //         {
+    //           title: 'Internal Server Error',
+    //           url: '/errors/internal-server-error',
+    //           icon: ServerOff,
+    //         },
+    //         {
+    //           title: 'Maintenance Error',
+    //           url: '/errors/maintenance-error',
+    //           icon: Construction,
+    //         },
+    //       ],
+    //     },
+    //   ],
+    // },
     {
       title: 'Other',
       items: [

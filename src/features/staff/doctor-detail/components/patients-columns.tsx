@@ -28,7 +28,14 @@ export const patientsColumns: ColumnDef<DoctorPatientResponse>[] = [
     header: ({ column }) => (
       <DataTableColumnHeader column={column} title="Số điện thoại" />
     ),
-    cell: ({ row }) => <div>{row.getValue('userPhoneNumber') || '-'}</div>,
+    cell: ({ row }) => (
+      <div>
+        {row.getValue('userPhoneNumber') ||
+          (row.original as DoctorPatientResponse & { phoneNumber?: string })
+            .phoneNumber ||
+          '-'}
+      </div>
+    ),
   },
   {
     accessorKey: 'assignedAt',

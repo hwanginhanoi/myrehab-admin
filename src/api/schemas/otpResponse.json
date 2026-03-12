@@ -1,9 +1,1 @@
-{
-  "type": "object",
-  "properties": {
-    "message": { "type": "string" },
-    "otpId": { "type": "string" },
-    "expiresInSeconds": { "type": "integer", "format": "int64" }
-  },
-  "x-readme-ref-name": "OtpResponse"
-}
+{"type":"object","properties":{"message":{"type":"string"},"otpId":{"type":"string"},"expiresInSeconds":{"type":"integer","format":"int64"}},"x-readme-ref-name":"OtpResponse"}
