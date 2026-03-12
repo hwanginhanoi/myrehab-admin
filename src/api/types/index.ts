@@ -268,6 +268,10 @@ export type { CompanyInfoResponse } from './CompanyInfoResponse.ts'
 export type { ConfirmAppointmentRequest } from './ConfirmAppointmentRequest.ts'
 export type { ContentStatsResponse } from './ContentStatsResponse.ts'
 export type {
+  CourseAssignmentListResponsePurchaseStatusEnumKey,
+  CourseAssignmentListResponse,
+} from './CourseAssignmentListResponse.ts'
+export type {
   CourseAssignmentRequestResponseStatusEnumKey,
   CourseAssignmentRequestResponse,
 } from './CourseAssignmentRequestResponse.ts'
@@ -343,12 +347,12 @@ export type {
   GetDayContentQuery,
 } from './courseProgressController/GetDayContent.ts'
 export type {
-  GetMyAssignedCourses1QueryParamsStatusEnumKey,
-  GetMyAssignedCourses1QueryParams,
-  GetMyAssignedCourses1200,
-  GetMyAssignedCourses1QueryResponse,
-  GetMyAssignedCourses1Query,
-} from './courseProgressController/GetMyAssignedCourses1.ts'
+  GetMyAssignedCoursesQueryParamsStatusEnumKey,
+  GetMyAssignedCoursesQueryParams,
+  GetMyAssignedCourses200,
+  GetMyAssignedCoursesQueryResponse,
+  GetMyAssignedCoursesQuery,
+} from './courseProgressController/GetMyAssignedCourses.ts'
 export type {
   GetProgressHistoryQueryParams,
   GetProgressHistory200,
@@ -444,11 +448,11 @@ export type {
   GetCourseRequestsQuery,
 } from './doctorController/GetCourseRequests.ts'
 export type {
-  GetMyAssignedCoursesQueryParams,
-  GetMyAssignedCourses200,
-  GetMyAssignedCoursesQueryResponse,
-  GetMyAssignedCoursesQuery,
-} from './doctorController/GetMyAssignedCourses.ts'
+  GetMyCourseAssignmentsQueryParams,
+  GetMyCourseAssignments200,
+  GetMyCourseAssignmentsQueryResponse,
+  GetMyCourseAssignmentsQuery,
+} from './doctorController/GetMyCourseAssignments.ts'
 export type {
   GetMyPatientsQueryParams,
   GetMyPatients200,
@@ -589,6 +593,7 @@ export type {
   UpdateExercisePackageMutation,
 } from './exercisePackagesController/UpdateExercisePackage.ts'
 export type { ExercisePackageStatsResponse } from './ExercisePackageStatsResponse.ts'
+export type { ExercisePackageWithSubscriptionResponse } from './ExercisePackageWithSubscriptionResponse.ts'
 export type { ExerciseResponse } from './ExerciseResponse.ts'
 export type {
   CreateExercise200,
@@ -638,7 +643,6 @@ export type {
 } from './fileManagementController/GenerateUploadUrl.ts'
 export type { GenerateUploadUrlRequest } from './GenerateUploadUrlRequest.ts'
 export type { GroupResponse } from './GroupResponse.ts'
-export type { LocalTime } from './LocalTime.ts'
 export type { LoginWithPasswordRequest } from './LoginWithPasswordRequest.ts'
 export type { LoginWithPinRequest } from './LoginWithPinRequest.ts'
 export type { LowEffortPatientResponse } from './LowEffortPatientResponse.ts'
@@ -688,10 +692,29 @@ export type { NonCompulsoryHealthInsuranceResponse } from './NonCompulsoryHealth
 export type { OtpResponse } from './OtpResponse.ts'
 export type { OverviewResponse } from './OverviewResponse.ts'
 export type { Pageable } from './Pageable.ts'
-export type { PageableObject } from './PageableObject.ts'
-export type { PagedModel } from './PagedModel.ts'
+export type { PagedModelAppointmentResponse } from './PagedModelAppointmentResponse.ts'
+export type { PagedModelBannerResponse } from './PagedModelBannerResponse.ts'
+export type { PagedModelCategoryResponse } from './PagedModelCategoryResponse.ts'
+export type { PagedModelCourseAssignmentListResponse } from './PagedModelCourseAssignmentListResponse.ts'
+export type { PagedModelCourseAssignmentRequestResponse } from './PagedModelCourseAssignmentRequestResponse.ts'
+export type { PagedModelCourseProgressHistoryResponse } from './PagedModelCourseProgressHistoryResponse.ts'
+export type { PagedModelCourseWithDaysResponse } from './PagedModelCourseWithDaysResponse.ts'
+export type { PagedModelExercisePackageResponse } from './PagedModelExercisePackageResponse.ts'
+export type { PagedModelExercisePackageWithSubscriptionResponse } from './PagedModelExercisePackageWithSubscriptionResponse.ts'
+export type { PagedModelExerciseResponse } from './PagedModelExerciseResponse.ts'
+export type { PagedModelGroupResponse } from './PagedModelGroupResponse.ts'
+export type { PagedModelMyAssignedCourseResponse } from './PagedModelMyAssignedCourseResponse.ts'
+export type { PagedModelMyPatientResponse } from './PagedModelMyPatientResponse.ts'
+export type { PagedModelNewsResponse } from './PagedModelNewsResponse.ts'
+export type { PagedModelPatientSummaryResponse } from './PagedModelPatientSummaryResponse.ts'
+export type { PagedModelRehabilitationExaminationFormResponse } from './PagedModelRehabilitationExaminationFormResponse.ts'
+export type { PagedModelStaffResponse } from './PagedModelStaffResponse.ts'
+export type { PagedModelStartupPopupResponse } from './PagedModelStartupPopupResponse.ts'
+export type { PagedModelTrainerResponse } from './PagedModelTrainerResponse.ts'
+export type { PagedModelTransactionResponse } from './PagedModelTransactionResponse.ts'
+export type { PagedModelUserCourseAssignmentResponse } from './PagedModelUserCourseAssignmentResponse.ts'
+export type { PagedModelUserResponse } from './PagedModelUserResponse.ts'
 export type { PageMetadata } from './PageMetadata.ts'
-export type { PageMyAssignedCourseResponse } from './PageMyAssignedCourseResponse.ts'
 export type { PainReportResponse } from './PainReportResponse.ts'
 export type {
   AssignPatientToDoctorPathParams,
@@ -713,6 +736,7 @@ export type {
   RemovePatientFromDoctorMutationResponse,
   RemovePatientFromDoctorMutation,
 } from './patientManagementController/RemovePatientFromDoctor.ts'
+export type { PatientSummaryResponse } from './PatientSummaryResponse.ts'
 export type {
   GetMyQrCode200,
   GetMyQrCodeQueryResponse,
@@ -839,7 +863,6 @@ export type { RevenueResponse } from './RevenueResponse.ts'
 export type { ReviewCourseRequestRequest } from './ReviewCourseRequestRequest.ts'
 export type { SendOtpRequest } from './SendOtpRequest.ts'
 export type { SepayWebhookPayload } from './SepayWebhookPayload.ts'
-export type { SortObject } from './SortObject.ts'
 export type { SpendingSummaryResponse } from './SpendingSummaryResponse.ts'
 export type { StaffAuthResponse } from './StaffAuthResponse.ts'
 export type {
@@ -917,6 +940,12 @@ export type {
   RemoveTrainerFromDoctorMutationResponse,
   RemoveTrainerFromDoctorMutation,
 } from './staffManagementController/RemoveTrainerFromDoctor.ts'
+export type {
+  SearchDoctorsQueryParams,
+  SearchDoctors200,
+  SearchDoctorsQueryResponse,
+  SearchDoctorsQuery,
+} from './staffManagementController/SearchDoctors.ts'
 export type {
   UpdateStaffPathParams,
   UpdateStaff200,
@@ -1021,6 +1050,11 @@ export type {
   UpdateCourseRequestMutationResponse,
   UpdateCourseRequestMutation,
 } from './trainerController/UpdateCourseRequest.ts'
+export type { TrainerResponse } from './TrainerResponse.ts'
+export type {
+  TransactionResponseTransactionTypeEnumKey,
+  TransactionResponse,
+} from './TransactionResponse.ts'
 export type {
   GetAllTransactionHistoryQueryParams,
   GetAllTransactionHistory200,
@@ -1186,9 +1220,10 @@ export { getAllBannersQueryParamsStatusEnum } from './bannerManagementController
 export { bannerResponseStatusEnum } from './BannerResponse.ts'
 export { categoryResponseTypeEnum } from './CategoryResponse.ts'
 export { clinicScheduleResponseDayOfWeekEnum } from './ClinicScheduleResponse.ts'
+export { courseAssignmentListResponsePurchaseStatusEnum } from './CourseAssignmentListResponse.ts'
 export { courseAssignmentRequestResponseStatusEnum } from './CourseAssignmentRequestResponse.ts'
 export { listCourseAssignmentsQueryParamsPurchaseStatusEnum } from './courseAssignmentsController/ListCourseAssignments.ts'
-export { getMyAssignedCourses1QueryParamsStatusEnum } from './courseProgressController/GetMyAssignedCourses1.ts'
+export { getMyAssignedCoursesQueryParamsStatusEnum } from './courseProgressController/GetMyAssignedCourses.ts'
 export { courseProgressHistoryResponseArchivalReasonEnum } from './CourseProgressHistoryResponse.ts'
 export { createBannerRequestStatusEnum } from './CreateBannerRequest.ts'
 export { createCategoryRequestTypeEnum } from './CreateCategoryRequest.ts'
@@ -1204,6 +1239,7 @@ export { getAllStaffQueryParamsStaffTypeEnum } from './staffManagementController
 export { subscriptionInfoSubscriptionTypeEnum } from './SubscriptionInfo.ts'
 export { subscriptionResponseSubscriptionTypeEnum } from './SubscriptionResponse.ts'
 export { getMyCourseRequestsQueryParamsStatusEnum } from './trainerController/GetMyCourseRequests.ts'
+export { transactionResponseTransactionTypeEnum } from './TransactionResponse.ts'
 export { updateAdminRequestStaffTypeEnum } from './UpdateAdminRequest.ts'
 export { updateBannerRequestStatusEnum } from './UpdateBannerRequest.ts'
 export { updateCategoryRequestTypeEnum } from './UpdateCategoryRequest.ts'

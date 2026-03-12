@@ -1,1 +1,9 @@
-{"type":"object","properties":{"doctorId":{"type":"integer","format":"int64"},"adminNotes":{"type":"string"}},"required":["doctorId"],"x-readme-ref-name":"AssignDoctorRequest"}
+{
+  "type": "object",
+  "properties": {
+    "doctorId": { "type": "integer", "format": "int64" },
+    "adminNotes": { "type": "string" }
+  },
+  "required": ["doctorId"],
+  "x-readme-ref-name": "AssignDoctorRequest"
+}

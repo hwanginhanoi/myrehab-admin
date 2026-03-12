@@ -1,13 +1,6 @@
-import type { LocalTime } from '@/api'
-
-export function formatLocalTime(time?: LocalTime | string): string {
+export function formatLocalTime(time?: string): string {
   if (!time) return '--:--'
-  if (typeof time === 'string') {
-    const [h, m] = time.split(':')
-    return `${h}:${m}`
-  }
-  const h = String(time.hour ?? 0).padStart(2, '0')
-  const m = String(time.minute ?? 0).padStart(2, '0')
+  const [h, m] = time.split(':')
   return `${h}:${m}`
 }
 

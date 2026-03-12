@@ -1,1 +1,8 @@
-{"type":"object","properties":{"pin":{"type":"string","pattern":"^\\d{6}$"}},"required":["pin"],"x-readme-ref-name":"VerifyPinRequest"}
+{
+  "type": "object",
+  "properties": {
+    "pin": { "type": "string", "minLength": 1, "pattern": "^\\d{6}$" }
+  },
+  "required": ["pin"],
+  "x-readme-ref-name": "VerifyPinRequest"
+}

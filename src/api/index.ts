@@ -67,8 +67,8 @@ export type { GetCurrentProgressQueryKey } from './hooks/Course ProgressHooks/us
 export type { GetCurrentProgressSuspenseQueryKey } from './hooks/Course ProgressHooks/useGetCurrentProgressSuspense.ts'
 export type { GetDayContentQueryKey } from './hooks/Course ProgressHooks/useGetDayContent.ts'
 export type { GetDayContentSuspenseQueryKey } from './hooks/Course ProgressHooks/useGetDayContentSuspense.ts'
-export type { GetMyAssignedCourses1QueryKey } from './hooks/Course ProgressHooks/useGetMyAssignedCourses1.ts'
-export type { GetMyAssignedCourses1SuspenseQueryKey } from './hooks/Course ProgressHooks/useGetMyAssignedCourses1Suspense.ts'
+export type { GetMyAssignedCoursesQueryKey } from './hooks/Course ProgressHooks/useGetMyAssignedCourses.ts'
+export type { GetMyAssignedCoursesSuspenseQueryKey } from './hooks/Course ProgressHooks/useGetMyAssignedCoursesSuspense.ts'
 export type { GetProgressHistoryQueryKey } from './hooks/Course ProgressHooks/useGetProgressHistory.ts'
 export type { GetProgressHistorySuspenseQueryKey } from './hooks/Course ProgressHooks/useGetProgressHistorySuspense.ts'
 export type { StartCourseMutationKey } from './hooks/Course ProgressHooks/useStartCourse.ts'
@@ -82,8 +82,8 @@ export type { AssignCourseToPatientMutationKey } from './hooks/DoctorHooks/useAs
 export type { CreateAndAssignCustomCourseMutationKey } from './hooks/DoctorHooks/useCreateAndAssignCustomCourse.ts'
 export type { GetCourseRequestsQueryKey } from './hooks/DoctorHooks/useGetCourseRequests.ts'
 export type { GetCourseRequestsSuspenseQueryKey } from './hooks/DoctorHooks/useGetCourseRequestsSuspense.ts'
-export type { GetMyAssignedCoursesQueryKey } from './hooks/DoctorHooks/useGetMyAssignedCourses.ts'
-export type { GetMyAssignedCoursesSuspenseQueryKey } from './hooks/DoctorHooks/useGetMyAssignedCoursesSuspense.ts'
+export type { GetMyCourseAssignmentsQueryKey } from './hooks/DoctorHooks/useGetMyCourseAssignments.ts'
+export type { GetMyCourseAssignmentsSuspenseQueryKey } from './hooks/DoctorHooks/useGetMyCourseAssignmentsSuspense.ts'
 export type { GetMyPatientsQueryKey } from './hooks/DoctorHooks/useGetMyPatients.ts'
 export type { GetMyPatientsSuspenseQueryKey } from './hooks/DoctorHooks/useGetMyPatientsSuspense.ts'
 export type { GetMyTrainersQueryKey } from './hooks/DoctorHooks/useGetMyTrainers.ts'
@@ -190,8 +190,9 @@ export type { GetTrainersByDoctorQueryKey } from './hooks/Staff ManagementHooks/
 export type { GetTrainersByDoctorSuspenseQueryKey } from './hooks/Staff ManagementHooks/useGetTrainersByDoctorSuspense.ts'
 export type { RemoveExerciseGroupFromDoctorMutationKey } from './hooks/Staff ManagementHooks/useRemoveExerciseGroupFromDoctor.ts'
 export type { RemoveTrainerFromDoctorMutationKey } from './hooks/Staff ManagementHooks/useRemoveTrainerFromDoctor.ts'
-export type { UpdateStaffMutationKey } from './hooks/Staff ManagementHooks/useUpdateStaff.ts'
 export type { SearchDoctorsQueryKey } from './hooks/Staff ManagementHooks/useSearchDoctors.ts'
+export type { SearchDoctorsSuspenseQueryKey } from './hooks/Staff ManagementHooks/useSearchDoctorsSuspense.ts'
+export type { UpdateStaffMutationKey } from './hooks/Staff ManagementHooks/useUpdateStaff.ts'
 export type { CreatePopupMutationKey } from './hooks/Startup PopupHooks/useCreatePopup.ts'
 export type { GetActivePopupQueryKey } from './hooks/Startup PopupHooks/useGetActivePopup.ts'
 export type { GetActivePopupSuspenseQueryKey } from './hooks/Startup PopupHooks/useGetActivePopupSuspense.ts'
@@ -516,6 +517,10 @@ export type { CompanyInfoResponse } from './types/CompanyInfoResponse.ts'
 export type { ConfirmAppointmentRequest } from './types/ConfirmAppointmentRequest.ts'
 export type { ContentStatsResponse } from './types/ContentStatsResponse.ts'
 export type {
+  CourseAssignmentListResponsePurchaseStatusEnumKey,
+  CourseAssignmentListResponse,
+} from './types/CourseAssignmentListResponse.ts'
+export type {
   CourseAssignmentRequestResponseStatusEnumKey,
   CourseAssignmentRequestResponse,
 } from './types/CourseAssignmentRequestResponse.ts'
@@ -591,12 +596,12 @@ export type {
   GetDayContentQuery,
 } from './types/courseProgressController/GetDayContent.ts'
 export type {
-  GetMyAssignedCourses1QueryParamsStatusEnumKey,
-  GetMyAssignedCourses1QueryParams,
-  GetMyAssignedCourses1200,
-  GetMyAssignedCourses1QueryResponse,
-  GetMyAssignedCourses1Query,
-} from './types/courseProgressController/GetMyAssignedCourses1.ts'
+  GetMyAssignedCoursesQueryParamsStatusEnumKey,
+  GetMyAssignedCoursesQueryParams,
+  GetMyAssignedCourses200,
+  GetMyAssignedCoursesQueryResponse,
+  GetMyAssignedCoursesQuery,
+} from './types/courseProgressController/GetMyAssignedCourses.ts'
 export type {
   GetProgressHistoryQueryParams,
   GetProgressHistory200,
@@ -692,11 +697,11 @@ export type {
   GetCourseRequestsQuery,
 } from './types/doctorController/GetCourseRequests.ts'
 export type {
-  GetMyAssignedCoursesQueryParams,
-  GetMyAssignedCourses200,
-  GetMyAssignedCoursesQueryResponse,
-  GetMyAssignedCoursesQuery,
-} from './types/doctorController/GetMyAssignedCourses.ts'
+  GetMyCourseAssignmentsQueryParams,
+  GetMyCourseAssignments200,
+  GetMyCourseAssignmentsQueryResponse,
+  GetMyCourseAssignmentsQuery,
+} from './types/doctorController/GetMyCourseAssignments.ts'
 export type {
   GetMyPatientsQueryParams,
   GetMyPatients200,
@@ -837,6 +842,7 @@ export type {
   UpdateExercisePackageMutation,
 } from './types/exercisePackagesController/UpdateExercisePackage.ts'
 export type { ExercisePackageStatsResponse } from './types/ExercisePackageStatsResponse.ts'
+export type { ExercisePackageWithSubscriptionResponse } from './types/ExercisePackageWithSubscriptionResponse.ts'
 export type { ExerciseResponse } from './types/ExerciseResponse.ts'
 export type {
   CreateExercise200,
@@ -886,7 +892,6 @@ export type {
 } from './types/fileManagementController/GenerateUploadUrl.ts'
 export type { GenerateUploadUrlRequest } from './types/GenerateUploadUrlRequest.ts'
 export type { GroupResponse } from './types/GroupResponse.ts'
-export type { LocalTime } from './types/LocalTime.ts'
 export type { LoginWithPasswordRequest } from './types/LoginWithPasswordRequest.ts'
 export type { LoginWithPinRequest } from './types/LoginWithPinRequest.ts'
 export type { LowEffortPatientResponse } from './types/LowEffortPatientResponse.ts'
@@ -939,10 +944,29 @@ export type { NonCompulsoryHealthInsuranceResponse } from './types/NonCompulsory
 export type { OtpResponse } from './types/OtpResponse.ts'
 export type { OverviewResponse } from './types/OverviewResponse.ts'
 export type { Pageable } from './types/Pageable.ts'
-export type { PageableObject } from './types/PageableObject.ts'
-export type { PagedModel } from './types/PagedModel.ts'
+export type { PagedModelAppointmentResponse } from './types/PagedModelAppointmentResponse.ts'
+export type { PagedModelBannerResponse } from './types/PagedModelBannerResponse.ts'
+export type { PagedModelCategoryResponse } from './types/PagedModelCategoryResponse.ts'
+export type { PagedModelCourseAssignmentListResponse } from './types/PagedModelCourseAssignmentListResponse.ts'
+export type { PagedModelCourseAssignmentRequestResponse } from './types/PagedModelCourseAssignmentRequestResponse.ts'
+export type { PagedModelCourseProgressHistoryResponse } from './types/PagedModelCourseProgressHistoryResponse.ts'
+export type { PagedModelCourseWithDaysResponse } from './types/PagedModelCourseWithDaysResponse.ts'
+export type { PagedModelExercisePackageResponse } from './types/PagedModelExercisePackageResponse.ts'
+export type { PagedModelExercisePackageWithSubscriptionResponse } from './types/PagedModelExercisePackageWithSubscriptionResponse.ts'
+export type { PagedModelExerciseResponse } from './types/PagedModelExerciseResponse.ts'
+export type { PagedModelGroupResponse } from './types/PagedModelGroupResponse.ts'
+export type { PagedModelMyAssignedCourseResponse } from './types/PagedModelMyAssignedCourseResponse.ts'
+export type { PagedModelMyPatientResponse } from './types/PagedModelMyPatientResponse.ts'
+export type { PagedModelNewsResponse } from './types/PagedModelNewsResponse.ts'
+export type { PagedModelPatientSummaryResponse } from './types/PagedModelPatientSummaryResponse.ts'
+export type { PagedModelRehabilitationExaminationFormResponse } from './types/PagedModelRehabilitationExaminationFormResponse.ts'
+export type { PagedModelStaffResponse } from './types/PagedModelStaffResponse.ts'
+export type { PagedModelStartupPopupResponse } from './types/PagedModelStartupPopupResponse.ts'
+export type { PagedModelTrainerResponse } from './types/PagedModelTrainerResponse.ts'
+export type { PagedModelTransactionResponse } from './types/PagedModelTransactionResponse.ts'
+export type { PagedModelUserCourseAssignmentResponse } from './types/PagedModelUserCourseAssignmentResponse.ts'
+export type { PagedModelUserResponse } from './types/PagedModelUserResponse.ts'
 export type { PageMetadata } from './types/PageMetadata.ts'
-export type { PageMyAssignedCourseResponse } from './types/PageMyAssignedCourseResponse.ts'
 export type { PainReportResponse } from './types/PainReportResponse.ts'
 export type {
   AssignPatientToDoctorPathParams,
@@ -964,6 +988,7 @@ export type {
   RemovePatientFromDoctorMutationResponse,
   RemovePatientFromDoctorMutation,
 } from './types/patientManagementController/RemovePatientFromDoctor.ts'
+export type { PatientSummaryResponse } from './types/PatientSummaryResponse.ts'
 export type {
   GetMyQrCode200,
   GetMyQrCodeQueryResponse,
@@ -1090,7 +1115,6 @@ export type { RevenueResponse } from './types/RevenueResponse.ts'
 export type { ReviewCourseRequestRequest } from './types/ReviewCourseRequestRequest.ts'
 export type { SendOtpRequest } from './types/SendOtpRequest.ts'
 export type { SepayWebhookPayload } from './types/SepayWebhookPayload.ts'
-export type { SortObject } from './types/SortObject.ts'
 export type { SpendingSummaryResponse } from './types/SpendingSummaryResponse.ts'
 export type { StaffAuthResponse } from './types/StaffAuthResponse.ts'
 export type {
@@ -1168,6 +1192,12 @@ export type {
   RemoveTrainerFromDoctorMutationResponse,
   RemoveTrainerFromDoctorMutation,
 } from './types/staffManagementController/RemoveTrainerFromDoctor.ts'
+export type {
+  SearchDoctorsQueryParams,
+  SearchDoctors200,
+  SearchDoctorsQueryResponse,
+  SearchDoctorsQuery,
+} from './types/staffManagementController/SearchDoctors.ts'
 export type {
   UpdateStaffPathParams,
   UpdateStaff200,
@@ -1272,6 +1302,11 @@ export type {
   UpdateCourseRequestMutationResponse,
   UpdateCourseRequestMutation,
 } from './types/trainerController/UpdateCourseRequest.ts'
+export type { TrainerResponse } from './types/TrainerResponse.ts'
+export type {
+  TransactionResponseTransactionTypeEnumKey,
+  TransactionResponse,
+} from './types/TransactionResponse.ts'
 export type {
   GetAllTransactionHistoryQueryParams,
   GetAllTransactionHistory200,
@@ -1708,14 +1743,14 @@ export { getDayContentSuspenseQueryKey } from './hooks/Course ProgressHooks/useG
 export { getDayContentSuspense } from './hooks/Course ProgressHooks/useGetDayContentSuspense.ts'
 export { getDayContentSuspenseQueryOptions } from './hooks/Course ProgressHooks/useGetDayContentSuspense.ts'
 export { useGetDayContentSuspense } from './hooks/Course ProgressHooks/useGetDayContentSuspense.ts'
-export { getMyAssignedCourses1QueryKey } from './hooks/Course ProgressHooks/useGetMyAssignedCourses1.ts'
-export { getMyAssignedCourses1 } from './hooks/Course ProgressHooks/useGetMyAssignedCourses1.ts'
-export { getMyAssignedCourses1QueryOptions } from './hooks/Course ProgressHooks/useGetMyAssignedCourses1.ts'
-export { useGetMyAssignedCourses1 } from './hooks/Course ProgressHooks/useGetMyAssignedCourses1.ts'
-export { getMyAssignedCourses1SuspenseQueryKey } from './hooks/Course ProgressHooks/useGetMyAssignedCourses1Suspense.ts'
-export { getMyAssignedCourses1Suspense } from './hooks/Course ProgressHooks/useGetMyAssignedCourses1Suspense.ts'
-export { getMyAssignedCourses1SuspenseQueryOptions } from './hooks/Course ProgressHooks/useGetMyAssignedCourses1Suspense.ts'
-export { useGetMyAssignedCourses1Suspense } from './hooks/Course ProgressHooks/useGetMyAssignedCourses1Suspense.ts'
+export { getMyAssignedCoursesQueryKey } from './hooks/Course ProgressHooks/useGetMyAssignedCourses.ts'
+export { getMyAssignedCourses } from './hooks/Course ProgressHooks/useGetMyAssignedCourses.ts'
+export { getMyAssignedCoursesQueryOptions } from './hooks/Course ProgressHooks/useGetMyAssignedCourses.ts'
+export { useGetMyAssignedCourses } from './hooks/Course ProgressHooks/useGetMyAssignedCourses.ts'
+export { getMyAssignedCoursesSuspenseQueryKey } from './hooks/Course ProgressHooks/useGetMyAssignedCoursesSuspense.ts'
+export { getMyAssignedCoursesSuspense } from './hooks/Course ProgressHooks/useGetMyAssignedCoursesSuspense.ts'
+export { getMyAssignedCoursesSuspenseQueryOptions } from './hooks/Course ProgressHooks/useGetMyAssignedCoursesSuspense.ts'
+export { useGetMyAssignedCoursesSuspense } from './hooks/Course ProgressHooks/useGetMyAssignedCoursesSuspense.ts'
 export { getProgressHistoryQueryKey } from './hooks/Course ProgressHooks/useGetProgressHistory.ts'
 export { getProgressHistory } from './hooks/Course ProgressHooks/useGetProgressHistory.ts'
 export { getProgressHistoryQueryOptions } from './hooks/Course ProgressHooks/useGetProgressHistory.ts'
@@ -1768,14 +1803,14 @@ export { getCourseRequestsSuspenseQueryKey } from './hooks/DoctorHooks/useGetCou
 export { getCourseRequestsSuspense } from './hooks/DoctorHooks/useGetCourseRequestsSuspense.ts'
 export { getCourseRequestsSuspenseQueryOptions } from './hooks/DoctorHooks/useGetCourseRequestsSuspense.ts'
 export { useGetCourseRequestsSuspense } from './hooks/DoctorHooks/useGetCourseRequestsSuspense.ts'
-export { getMyAssignedCoursesQueryKey } from './hooks/DoctorHooks/useGetMyAssignedCourses.ts'
-export { getMyAssignedCourses } from './hooks/DoctorHooks/useGetMyAssignedCourses.ts'
-export { getMyAssignedCoursesQueryOptions } from './hooks/DoctorHooks/useGetMyAssignedCourses.ts'
-export { useGetMyAssignedCourses } from './hooks/DoctorHooks/useGetMyAssignedCourses.ts'
-export { getMyAssignedCoursesSuspenseQueryKey } from './hooks/DoctorHooks/useGetMyAssignedCoursesSuspense.ts'
-export { getMyAssignedCoursesSuspense } from './hooks/DoctorHooks/useGetMyAssignedCoursesSuspense.ts'
-export { getMyAssignedCoursesSuspenseQueryOptions } from './hooks/DoctorHooks/useGetMyAssignedCoursesSuspense.ts'
-export { useGetMyAssignedCoursesSuspense } from './hooks/DoctorHooks/useGetMyAssignedCoursesSuspense.ts'
+export { getMyCourseAssignmentsQueryKey } from './hooks/DoctorHooks/useGetMyCourseAssignments.ts'
+export { getMyCourseAssignments } from './hooks/DoctorHooks/useGetMyCourseAssignments.ts'
+export { getMyCourseAssignmentsQueryOptions } from './hooks/DoctorHooks/useGetMyCourseAssignments.ts'
+export { useGetMyCourseAssignments } from './hooks/DoctorHooks/useGetMyCourseAssignments.ts'
+export { getMyCourseAssignmentsSuspenseQueryKey } from './hooks/DoctorHooks/useGetMyCourseAssignmentsSuspense.ts'
+export { getMyCourseAssignmentsSuspense } from './hooks/DoctorHooks/useGetMyCourseAssignmentsSuspense.ts'
+export { getMyCourseAssignmentsSuspenseQueryOptions } from './hooks/DoctorHooks/useGetMyCourseAssignmentsSuspense.ts'
+export { useGetMyCourseAssignmentsSuspense } from './hooks/DoctorHooks/useGetMyCourseAssignmentsSuspense.ts'
 export { getMyPatientsQueryKey } from './hooks/DoctorHooks/useGetMyPatients.ts'
 export { getMyPatients } from './hooks/DoctorHooks/useGetMyPatients.ts'
 export { getMyPatientsQueryOptions } from './hooks/DoctorHooks/useGetMyPatients.ts'
@@ -2200,14 +2235,18 @@ export { removeTrainerFromDoctorMutationKey } from './hooks/Staff ManagementHook
 export { removeTrainerFromDoctor } from './hooks/Staff ManagementHooks/useRemoveTrainerFromDoctor.ts'
 export { removeTrainerFromDoctorMutationOptions } from './hooks/Staff ManagementHooks/useRemoveTrainerFromDoctor.ts'
 export { useRemoveTrainerFromDoctor } from './hooks/Staff ManagementHooks/useRemoveTrainerFromDoctor.ts'
-export { updateStaffMutationKey } from './hooks/Staff ManagementHooks/useUpdateStaff.ts'
-export { updateStaff } from './hooks/Staff ManagementHooks/useUpdateStaff.ts'
-export { updateStaffMutationOptions } from './hooks/Staff ManagementHooks/useUpdateStaff.ts'
-export { useUpdateStaff } from './hooks/Staff ManagementHooks/useUpdateStaff.ts'
 export { searchDoctorsQueryKey } from './hooks/Staff ManagementHooks/useSearchDoctors.ts'
 export { searchDoctors } from './hooks/Staff ManagementHooks/useSearchDoctors.ts'
 export { searchDoctorsQueryOptions } from './hooks/Staff ManagementHooks/useSearchDoctors.ts'
 export { useSearchDoctors } from './hooks/Staff ManagementHooks/useSearchDoctors.ts'
+export { searchDoctorsSuspenseQueryKey } from './hooks/Staff ManagementHooks/useSearchDoctorsSuspense.ts'
+export { searchDoctorsSuspense } from './hooks/Staff ManagementHooks/useSearchDoctorsSuspense.ts'
+export { searchDoctorsSuspenseQueryOptions } from './hooks/Staff ManagementHooks/useSearchDoctorsSuspense.ts'
+export { useSearchDoctorsSuspense } from './hooks/Staff ManagementHooks/useSearchDoctorsSuspense.ts'
+export { updateStaffMutationKey } from './hooks/Staff ManagementHooks/useUpdateStaff.ts'
+export { updateStaff } from './hooks/Staff ManagementHooks/useUpdateStaff.ts'
+export { updateStaffMutationOptions } from './hooks/Staff ManagementHooks/useUpdateStaff.ts'
+export { useUpdateStaff } from './hooks/Staff ManagementHooks/useUpdateStaff.ts'
 export { createPopupMutationKey } from './hooks/Startup PopupHooks/useCreatePopup.ts'
 export { createPopup } from './hooks/Startup PopupHooks/useCreatePopup.ts'
 export { createPopupMutationOptions } from './hooks/Startup PopupHooks/useCreatePopup.ts'
@@ -2429,9 +2468,10 @@ export { getAllBannersQueryParamsStatusEnum } from './types/bannerManagementCont
 export { bannerResponseStatusEnum } from './types/BannerResponse.ts'
 export { categoryResponseTypeEnum } from './types/CategoryResponse.ts'
 export { clinicScheduleResponseDayOfWeekEnum } from './types/ClinicScheduleResponse.ts'
+export { courseAssignmentListResponsePurchaseStatusEnum } from './types/CourseAssignmentListResponse.ts'
 export { courseAssignmentRequestResponseStatusEnum } from './types/CourseAssignmentRequestResponse.ts'
 export { listCourseAssignmentsQueryParamsPurchaseStatusEnum } from './types/courseAssignmentsController/ListCourseAssignments.ts'
-export { getMyAssignedCourses1QueryParamsStatusEnum } from './types/courseProgressController/GetMyAssignedCourses1.ts'
+export { getMyAssignedCoursesQueryParamsStatusEnum } from './types/courseProgressController/GetMyAssignedCourses.ts'
 export { courseProgressHistoryResponseArchivalReasonEnum } from './types/CourseProgressHistoryResponse.ts'
 export { createBannerRequestStatusEnum } from './types/CreateBannerRequest.ts'
 export { createCategoryRequestTypeEnum } from './types/CreateCategoryRequest.ts'
@@ -2447,6 +2487,7 @@ export { getAllStaffQueryParamsStaffTypeEnum } from './types/staffManagementCont
 export { subscriptionInfoSubscriptionTypeEnum } from './types/SubscriptionInfo.ts'
 export { subscriptionResponseSubscriptionTypeEnum } from './types/SubscriptionResponse.ts'
 export { getMyCourseRequestsQueryParamsStatusEnum } from './types/trainerController/GetMyCourseRequests.ts'
+export { transactionResponseTransactionTypeEnum } from './types/TransactionResponse.ts'
 export { updateAdminRequestStaffTypeEnum } from './types/UpdateAdminRequest.ts'
 export { updateBannerRequestStatusEnum } from './types/UpdateBannerRequest.ts'
 export { updateCategoryRequestTypeEnum } from './types/UpdateCategoryRequest.ts'
@@ -2672,6 +2713,7 @@ export { clinicScheduleResponseSchema } from './zod/clinicScheduleResponseSchema
 export { companyInfoResponseSchema } from './zod/companyInfoResponseSchema.ts'
 export { confirmAppointmentRequestSchema } from './zod/confirmAppointmentRequestSchema.ts'
 export { contentStatsResponseSchema } from './zod/contentStatsResponseSchema.ts'
+export { courseAssignmentListResponseSchema } from './zod/courseAssignmentListResponseSchema.ts'
 export { courseAssignmentRequestResponseSchema } from './zod/courseAssignmentRequestResponseSchema.ts'
 export {
   listCourseAssignmentsQueryParamsSchema,
@@ -2734,10 +2776,10 @@ export {
   getDayContentQueryResponseSchema,
 } from './zod/courseProgressController/getDayContentSchema.ts'
 export {
-  getMyAssignedCourses1QueryParamsSchema,
-  getMyAssignedCourses1200Schema,
-  getMyAssignedCourses1QueryResponseSchema,
-} from './zod/courseProgressController/getMyAssignedCourses1Schema.ts'
+  getMyAssignedCoursesQueryParamsSchema,
+  getMyAssignedCourses200Schema,
+  getMyAssignedCoursesQueryResponseSchema,
+} from './zod/courseProgressController/getMyAssignedCoursesSchema.ts'
 export {
   getProgressHistoryQueryParamsSchema,
   getProgressHistory200Schema,
@@ -2808,10 +2850,10 @@ export {
   getCourseRequestsQueryResponseSchema,
 } from './zod/doctorController/getCourseRequestsSchema.ts'
 export {
-  getMyAssignedCoursesQueryParamsSchema,
-  getMyAssignedCourses200Schema,
-  getMyAssignedCoursesQueryResponseSchema,
-} from './zod/doctorController/getMyAssignedCoursesSchema.ts'
+  getMyCourseAssignmentsQueryParamsSchema,
+  getMyCourseAssignments200Schema,
+  getMyCourseAssignmentsQueryResponseSchema,
+} from './zod/doctorController/getMyCourseAssignmentsSchema.ts'
 export {
   getMyPatientsQueryParamsSchema,
   getMyPatients200Schema,
@@ -2930,6 +2972,7 @@ export {
   updateExercisePackageMutationResponseSchema,
 } from './zod/exercisePackagesController/updateExercisePackageSchema.ts'
 export { exercisePackageStatsResponseSchema } from './zod/exercisePackageStatsResponseSchema.ts'
+export { exercisePackageWithSubscriptionResponseSchema } from './zod/exercisePackageWithSubscriptionResponseSchema.ts'
 export { exerciseResponseSchema } from './zod/exerciseResponseSchema.ts'
 export {
   createExercise200Schema,
@@ -2972,7 +3015,6 @@ export {
 } from './zod/fileManagementController/generateUploadUrlSchema.ts'
 export { generateUploadUrlRequestSchema } from './zod/generateUploadUrlRequestSchema.ts'
 export { groupResponseSchema } from './zod/groupResponseSchema.ts'
-export { localTimeSchema } from './zod/localTimeSchema.ts'
 export { loginWithPasswordRequestSchema } from './zod/loginWithPasswordRequestSchema.ts'
 export { loginWithPinRequestSchema } from './zod/loginWithPinRequestSchema.ts'
 export { lowEffortPatientResponseSchema } from './zod/lowEffortPatientResponseSchema.ts'
@@ -3014,11 +3056,30 @@ export { newsResponseSchema } from './zod/newsResponseSchema.ts'
 export { nonCompulsoryHealthInsuranceResponseSchema } from './zod/nonCompulsoryHealthInsuranceResponseSchema.ts'
 export { otpResponseSchema } from './zod/otpResponseSchema.ts'
 export { overviewResponseSchema } from './zod/overviewResponseSchema.ts'
-export { pageableObjectSchema } from './zod/pageableObjectSchema.ts'
 export { pageableSchema } from './zod/pageableSchema.ts'
-export { pagedModelSchema } from './zod/pagedModelSchema.ts'
+export { pagedModelAppointmentResponseSchema } from './zod/pagedModelAppointmentResponseSchema.ts'
+export { pagedModelBannerResponseSchema } from './zod/pagedModelBannerResponseSchema.ts'
+export { pagedModelCategoryResponseSchema } from './zod/pagedModelCategoryResponseSchema.ts'
+export { pagedModelCourseAssignmentListResponseSchema } from './zod/pagedModelCourseAssignmentListResponseSchema.ts'
+export { pagedModelCourseAssignmentRequestResponseSchema } from './zod/pagedModelCourseAssignmentRequestResponseSchema.ts'
+export { pagedModelCourseProgressHistoryResponseSchema } from './zod/pagedModelCourseProgressHistoryResponseSchema.ts'
+export { pagedModelCourseWithDaysResponseSchema } from './zod/pagedModelCourseWithDaysResponseSchema.ts'
+export { pagedModelExercisePackageResponseSchema } from './zod/pagedModelExercisePackageResponseSchema.ts'
+export { pagedModelExercisePackageWithSubscriptionResponseSchema } from './zod/pagedModelExercisePackageWithSubscriptionResponseSchema.ts'
+export { pagedModelExerciseResponseSchema } from './zod/pagedModelExerciseResponseSchema.ts'
+export { pagedModelGroupResponseSchema } from './zod/pagedModelGroupResponseSchema.ts'
+export { pagedModelMyAssignedCourseResponseSchema } from './zod/pagedModelMyAssignedCourseResponseSchema.ts'
+export { pagedModelMyPatientResponseSchema } from './zod/pagedModelMyPatientResponseSchema.ts'
+export { pagedModelNewsResponseSchema } from './zod/pagedModelNewsResponseSchema.ts'
+export { pagedModelPatientSummaryResponseSchema } from './zod/pagedModelPatientSummaryResponseSchema.ts'
+export { pagedModelRehabilitationExaminationFormResponseSchema } from './zod/pagedModelRehabilitationExaminationFormResponseSchema.ts'
+export { pagedModelStaffResponseSchema } from './zod/pagedModelStaffResponseSchema.ts'
+export { pagedModelStartupPopupResponseSchema } from './zod/pagedModelStartupPopupResponseSchema.ts'
+export { pagedModelTrainerResponseSchema } from './zod/pagedModelTrainerResponseSchema.ts'
+export { pagedModelTransactionResponseSchema } from './zod/pagedModelTransactionResponseSchema.ts'
+export { pagedModelUserCourseAssignmentResponseSchema } from './zod/pagedModelUserCourseAssignmentResponseSchema.ts'
+export { pagedModelUserResponseSchema } from './zod/pagedModelUserResponseSchema.ts'
 export { pageMetadataSchema } from './zod/pageMetadataSchema.ts'
-export { pageMyAssignedCourseResponseSchema } from './zod/pageMyAssignedCourseResponseSchema.ts'
 export { painReportResponseSchema } from './zod/painReportResponseSchema.ts'
 export {
   assignPatientToDoctorPathParamsSchema,
@@ -3037,6 +3098,7 @@ export {
   removePatientFromDoctor200Schema,
   removePatientFromDoctorMutationResponseSchema,
 } from './zod/patientManagementController/removePatientFromDoctorSchema.ts'
+export { patientSummaryResponseSchema } from './zod/patientSummaryResponseSchema.ts'
 export {
   getMyQrCode200Schema,
   getMyQrCodeQueryResponseSchema,
@@ -3140,7 +3202,6 @@ export { revenueResponseSchema } from './zod/revenueResponseSchema.ts'
 export { reviewCourseRequestRequestSchema } from './zod/reviewCourseRequestRequestSchema.ts'
 export { sendOtpRequestSchema } from './zod/sendOtpRequestSchema.ts'
 export { sepayWebhookPayloadSchema } from './zod/sepayWebhookPayloadSchema.ts'
-export { sortObjectSchema } from './zod/sortObjectSchema.ts'
 export { spendingSummaryResponseSchema } from './zod/spendingSummaryResponseSchema.ts'
 export { staffAuthResponseSchema } from './zod/staffAuthResponseSchema.ts'
 export {
@@ -3205,6 +3266,11 @@ export {
   removeTrainerFromDoctor200Schema,
   removeTrainerFromDoctorMutationResponseSchema,
 } from './zod/staffManagementController/removeTrainerFromDoctorSchema.ts'
+export {
+  searchDoctorsQueryParamsSchema,
+  searchDoctors200Schema,
+  searchDoctorsQueryResponseSchema,
+} from './zod/staffManagementController/searchDoctorsSchema.ts'
 export {
   updateStaffPathParamsSchema,
   updateStaff200Schema,
@@ -3287,6 +3353,8 @@ export {
   updateCourseRequestMutationRequestSchema,
   updateCourseRequestMutationResponseSchema,
 } from './zod/trainerController/updateCourseRequestSchema.ts'
+export { trainerResponseSchema } from './zod/trainerResponseSchema.ts'
+export { transactionResponseSchema } from './zod/transactionResponseSchema.ts'
 export {
   getAllTransactionHistoryQueryParamsSchema,
   getAllTransactionHistory200Schema,

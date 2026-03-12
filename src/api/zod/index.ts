@@ -215,6 +215,7 @@ export { clinicScheduleResponseSchema } from './clinicScheduleResponseSchema.ts'
 export { companyInfoResponseSchema } from './companyInfoResponseSchema.ts'
 export { confirmAppointmentRequestSchema } from './confirmAppointmentRequestSchema.ts'
 export { contentStatsResponseSchema } from './contentStatsResponseSchema.ts'
+export { courseAssignmentListResponseSchema } from './courseAssignmentListResponseSchema.ts'
 export { courseAssignmentRequestResponseSchema } from './courseAssignmentRequestResponseSchema.ts'
 export {
   listCourseAssignmentsQueryParamsSchema,
@@ -277,10 +278,10 @@ export {
   getDayContentQueryResponseSchema,
 } from './courseProgressController/getDayContentSchema.ts'
 export {
-  getMyAssignedCourses1QueryParamsSchema,
-  getMyAssignedCourses1200Schema,
-  getMyAssignedCourses1QueryResponseSchema,
-} from './courseProgressController/getMyAssignedCourses1Schema.ts'
+  getMyAssignedCoursesQueryParamsSchema,
+  getMyAssignedCourses200Schema,
+  getMyAssignedCoursesQueryResponseSchema,
+} from './courseProgressController/getMyAssignedCoursesSchema.ts'
 export {
   getProgressHistoryQueryParamsSchema,
   getProgressHistory200Schema,
@@ -351,10 +352,10 @@ export {
   getCourseRequestsQueryResponseSchema,
 } from './doctorController/getCourseRequestsSchema.ts'
 export {
-  getMyAssignedCoursesQueryParamsSchema,
-  getMyAssignedCourses200Schema,
-  getMyAssignedCoursesQueryResponseSchema,
-} from './doctorController/getMyAssignedCoursesSchema.ts'
+  getMyCourseAssignmentsQueryParamsSchema,
+  getMyCourseAssignments200Schema,
+  getMyCourseAssignmentsQueryResponseSchema,
+} from './doctorController/getMyCourseAssignmentsSchema.ts'
 export {
   getMyPatientsQueryParamsSchema,
   getMyPatients200Schema,
@@ -473,6 +474,7 @@ export {
   updateExercisePackageMutationResponseSchema,
 } from './exercisePackagesController/updateExercisePackageSchema.ts'
 export { exercisePackageStatsResponseSchema } from './exercisePackageStatsResponseSchema.ts'
+export { exercisePackageWithSubscriptionResponseSchema } from './exercisePackageWithSubscriptionResponseSchema.ts'
 export { exerciseResponseSchema } from './exerciseResponseSchema.ts'
 export {
   createExercise200Schema,
@@ -515,7 +517,6 @@ export {
 } from './fileManagementController/generateUploadUrlSchema.ts'
 export { generateUploadUrlRequestSchema } from './generateUploadUrlRequestSchema.ts'
 export { groupResponseSchema } from './groupResponseSchema.ts'
-export { localTimeSchema } from './localTimeSchema.ts'
 export { loginWithPasswordRequestSchema } from './loginWithPasswordRequestSchema.ts'
 export { loginWithPinRequestSchema } from './loginWithPinRequestSchema.ts'
 export { lowEffortPatientResponseSchema } from './lowEffortPatientResponseSchema.ts'
@@ -557,11 +558,30 @@ export { newsResponseSchema } from './newsResponseSchema.ts'
 export { nonCompulsoryHealthInsuranceResponseSchema } from './nonCompulsoryHealthInsuranceResponseSchema.ts'
 export { otpResponseSchema } from './otpResponseSchema.ts'
 export { overviewResponseSchema } from './overviewResponseSchema.ts'
-export { pageableObjectSchema } from './pageableObjectSchema.ts'
 export { pageableSchema } from './pageableSchema.ts'
-export { pagedModelSchema } from './pagedModelSchema.ts'
+export { pagedModelAppointmentResponseSchema } from './pagedModelAppointmentResponseSchema.ts'
+export { pagedModelBannerResponseSchema } from './pagedModelBannerResponseSchema.ts'
+export { pagedModelCategoryResponseSchema } from './pagedModelCategoryResponseSchema.ts'
+export { pagedModelCourseAssignmentListResponseSchema } from './pagedModelCourseAssignmentListResponseSchema.ts'
+export { pagedModelCourseAssignmentRequestResponseSchema } from './pagedModelCourseAssignmentRequestResponseSchema.ts'
+export { pagedModelCourseProgressHistoryResponseSchema } from './pagedModelCourseProgressHistoryResponseSchema.ts'
+export { pagedModelCourseWithDaysResponseSchema } from './pagedModelCourseWithDaysResponseSchema.ts'
+export { pagedModelExercisePackageResponseSchema } from './pagedModelExercisePackageResponseSchema.ts'
+export { pagedModelExercisePackageWithSubscriptionResponseSchema } from './pagedModelExercisePackageWithSubscriptionResponseSchema.ts'
+export { pagedModelExerciseResponseSchema } from './pagedModelExerciseResponseSchema.ts'
+export { pagedModelGroupResponseSchema } from './pagedModelGroupResponseSchema.ts'
+export { pagedModelMyAssignedCourseResponseSchema } from './pagedModelMyAssignedCourseResponseSchema.ts'
+export { pagedModelMyPatientResponseSchema } from './pagedModelMyPatientResponseSchema.ts'
+export { pagedModelNewsResponseSchema } from './pagedModelNewsResponseSchema.ts'
+export { pagedModelPatientSummaryResponseSchema } from './pagedModelPatientSummaryResponseSchema.ts'
+export { pagedModelRehabilitationExaminationFormResponseSchema } from './pagedModelRehabilitationExaminationFormResponseSchema.ts'
+export { pagedModelStaffResponseSchema } from './pagedModelStaffResponseSchema.ts'
+export { pagedModelStartupPopupResponseSchema } from './pagedModelStartupPopupResponseSchema.ts'
+export { pagedModelTrainerResponseSchema } from './pagedModelTrainerResponseSchema.ts'
+export { pagedModelTransactionResponseSchema } from './pagedModelTransactionResponseSchema.ts'
+export { pagedModelUserCourseAssignmentResponseSchema } from './pagedModelUserCourseAssignmentResponseSchema.ts'
+export { pagedModelUserResponseSchema } from './pagedModelUserResponseSchema.ts'
 export { pageMetadataSchema } from './pageMetadataSchema.ts'
-export { pageMyAssignedCourseResponseSchema } from './pageMyAssignedCourseResponseSchema.ts'
 export { painReportResponseSchema } from './painReportResponseSchema.ts'
 export {
   assignPatientToDoctorPathParamsSchema,
@@ -580,6 +600,7 @@ export {
   removePatientFromDoctor200Schema,
   removePatientFromDoctorMutationResponseSchema,
 } from './patientManagementController/removePatientFromDoctorSchema.ts'
+export { patientSummaryResponseSchema } from './patientSummaryResponseSchema.ts'
 export {
   getMyQrCode200Schema,
   getMyQrCodeQueryResponseSchema,
@@ -683,7 +704,6 @@ export { revenueResponseSchema } from './revenueResponseSchema.ts'
 export { reviewCourseRequestRequestSchema } from './reviewCourseRequestRequestSchema.ts'
 export { sendOtpRequestSchema } from './sendOtpRequestSchema.ts'
 export { sepayWebhookPayloadSchema } from './sepayWebhookPayloadSchema.ts'
-export { sortObjectSchema } from './sortObjectSchema.ts'
 export { spendingSummaryResponseSchema } from './spendingSummaryResponseSchema.ts'
 export { staffAuthResponseSchema } from './staffAuthResponseSchema.ts'
 export {
@@ -748,6 +768,11 @@ export {
   removeTrainerFromDoctor200Schema,
   removeTrainerFromDoctorMutationResponseSchema,
 } from './staffManagementController/removeTrainerFromDoctorSchema.ts'
+export {
+  searchDoctorsQueryParamsSchema,
+  searchDoctors200Schema,
+  searchDoctorsQueryResponseSchema,
+} from './staffManagementController/searchDoctorsSchema.ts'
 export {
   updateStaffPathParamsSchema,
   updateStaff200Schema,
@@ -830,6 +855,8 @@ export {
   updateCourseRequestMutationRequestSchema,
   updateCourseRequestMutationResponseSchema,
 } from './trainerController/updateCourseRequestSchema.ts'
+export { trainerResponseSchema } from './trainerResponseSchema.ts'
+export { transactionResponseSchema } from './transactionResponseSchema.ts'
 export {
   getAllTransactionHistoryQueryParamsSchema,
   getAllTransactionHistory200Schema,
