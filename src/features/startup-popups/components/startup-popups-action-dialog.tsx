@@ -19,19 +19,25 @@ import {
   FormMessage,
   FormDescription,
 } from '@/components/ui/form'
-import { Input } from '@/components/ui/input'
 import { Switch } from '@/components/ui/switch'
 import { Separator } from '@/components/ui/separator'
 import { FileUpload, type FileUploadRef } from '@/components/file-upload'
+import { MultilangInput } from '@/components/multilang-input'
 import {
   type StartupPopupResponse,
   useCreatePopup,
   useUpdatePopup,
 } from '@/api'
 import { toast } from 'sonner'
+import {
+  multilangRequired,
+  emptyMultilang,
+  fromMultilang,
+  toMultilang,
+} from '@/lib/multilang'
 
 const formSchema = z.object({
-  title: z.string().min(1, 'Tiêu đề là bắt buộc').max(255),
+  title: multilangRequired('Tiêu đề là bắt buộc'),
   imageUrl: z.string().optional(),
   active: z.boolean(),
 })
@@ -91,12 +97,12 @@ export function StartupPopupsActionDialog({
     defaultValues:
       isEdit || isView
         ? {
-            title: currentRow?.title || '',
+            title: fromMultilang(currentRow?.title),
             imageUrl: currentRow?.imageUrl || '',
             active: currentRow?.active ?? false,
           }
         : {
-            title: '',
+            title: emptyMultilang,
             imageUrl: '',
             active: false,
           },
@@ -122,7 +128,7 @@ export function StartupPopupsActionDialog({
 
         if (isAdd) {
           createMutation.mutate(
-            { data: { title: values.title, imageUrl, active: values.active } },
+            { data: { title: toMultilang(values.title), imageUrl, active: values.active } },
             {
               onSuccess: () => {
                 toast.success('Tạo popup thành công')
@@ -142,7 +148,7 @@ export function StartupPopupsActionDialog({
           updateMutation.mutate(
             {
               id: currentRow.id,
-              data: { title: values.title, imageUrl, active: values.active },
+              data: { title: toMultilang(values.title), imageUrl, active: values.active },
             },
             {
               onSuccess: () => {
@@ -258,10 +264,11 @@ export function StartupPopupsActionDialog({
                     <FormItem>
                       <FormLabel>Tiêu đề</FormLabel>
                       <FormControl>
-                        <Input
-                          placeholder="Nhập tiêu đề popup..."
+                        <MultilangInput
+                          value={field.value}
+                          onChange={field.onChange}
+                          placeholder={{ vi: 'Nhập tiêu đề popup...', en: 'Enter popup title...' }}
                           disabled={isView}
-                          {...field}
                         />
                       </FormControl>
                       <FormMessage />

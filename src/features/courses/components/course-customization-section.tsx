@@ -20,6 +20,8 @@ import { DayContainer } from './day-container'
 import { ExerciseLibraryPanel } from './exercise-library-panel'
 import { ExerciseCustomizationDialog } from './exercise-customization-dialog'
 import type { ExerciseResponse } from '@/api'
+import { displayMultilang } from '@/lib/multilang'
+import type { MultilangValue } from '@/components/multilang-input'
 import type {
   DayWithExercises,
   CustomExercise,
@@ -60,7 +62,7 @@ type CourseAction =
   | { type: 'ADD_DAY' }
 
 type CourseCustomizationSectionProps = {
-  courseName: string
+  courseName: MultilangValue
   customizedDays: Map<number, DayWithExercises>
   dispatch: React.Dispatch<CourseAction>
 }
@@ -98,8 +100,8 @@ export function CourseCustomizationSection({
     return {
       id: crypto.randomUUID(),
       exerciseId: exercise.id!,
-      exerciseTitle: exercise.title || '',
-      exerciseDescription: exercise.description,
+      exerciseTitle: displayMultilang(exercise.title) || '',
+      exerciseDescription: displayMultilang(exercise.description),
       exerciseImageUrl: exercise.imageUrl,
       orderInDay: 1, // Will be recalculated by reducer when added to day
       customRepetitions: undefined,
@@ -372,13 +374,13 @@ export function CourseCustomizationSection({
               {activeExercise.imageUrl && (
                 <img
                   src={activeExercise.imageUrl}
-                  alt={activeExercise.title || ''}
+                  alt={displayMultilang(activeExercise.title)}
                   className="w-12 h-12 rounded object-cover"
                 />
               )}
               <div className="flex-1 min-w-0">
                 <p className="font-medium text-sm truncate">
-                  {activeExercise.title}
+                  {displayMultilang(activeExercise.title)}
                 </p>
                 {activeExercise.durationMinutes && (
                   <p className="text-xs text-muted-foreground">

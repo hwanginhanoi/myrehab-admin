@@ -3,6 +3,7 @@ import { cn } from '@/lib/utils'
 import { DataTableColumnHeader } from '@/components/data-table'
 import { LongText } from '@/components/long-text'
 import type { GroupResponse } from '@/api'
+import { displayMultilang } from '@/lib/multilang'
 import { DataTableRowActions } from './data-table-row-actions'
 
 export const groupsColumns: ColumnDef<GroupResponse>[] = [
@@ -13,7 +14,7 @@ export const groupsColumns: ColumnDef<GroupResponse>[] = [
     ),
     cell: ({ row }) => (
       <LongText className="max-w-48 ps-3 font-medium">
-        {row.getValue('name')}
+        {displayMultilang(row.original.name)}
       </LongText>
     ),
     meta: {
@@ -31,7 +32,7 @@ export const groupsColumns: ColumnDef<GroupResponse>[] = [
     ),
     cell: ({ row }) => (
       <LongText className="max-w-96">
-        {row.getValue('description') || '-'}
+        {displayMultilang(row.original.description) || '-'}
       </LongText>
     ),
     enableSorting: false,

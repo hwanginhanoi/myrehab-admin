@@ -3,7 +3,7 @@ import useDialogState from '@/hooks/use-dialog-state'
 import type { BannerResponse } from '@/api'
 
 export type DraftBanner = {
-  title: string
+  title: { [key: string]: string }
   imageUrl: string
   status: string
 }

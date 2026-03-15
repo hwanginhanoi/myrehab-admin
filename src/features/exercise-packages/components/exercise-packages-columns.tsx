@@ -4,6 +4,7 @@ import { Badge } from '@/components/ui/badge'
 import { DataTableColumnHeader } from '@/components/data-table'
 import { LongText } from '@/components/long-text'
 import type { ExercisePackageResponse } from '@/api'
+import { displayMultilang } from '@/lib/multilang'
 import { DataTableRowActions } from './data-table-row-actions'
 
 export const exercisePackagesColumns: ColumnDef<ExercisePackageResponse>[] = [
@@ -14,7 +15,7 @@ export const exercisePackagesColumns: ColumnDef<ExercisePackageResponse>[] = [
     ),
     cell: ({ row }) => (
       <LongText className="max-w-48 ps-3 font-medium">
-        {row.getValue('title')}
+        {displayMultilang(row.original.title)}
       </LongText>
     ),
     meta: {
@@ -32,7 +33,7 @@ export const exercisePackagesColumns: ColumnDef<ExercisePackageResponse>[] = [
     ),
     cell: ({ row }) => (
       <LongText className="max-w-96">
-        {row.getValue('description') || '-'}
+        {displayMultilang(row.original.description) || '-'}
       </LongText>
     ),
     enableSorting: false,
@@ -49,7 +50,7 @@ export const exercisePackagesColumns: ColumnDef<ExercisePackageResponse>[] = [
         <div className="flex flex-wrap gap-1">
           {categories.slice(0, 3).map((category) => (
             <Badge key={category.id} variant="outline" className="text-xs">
-              {category.name}
+              {displayMultilang(category.name)}
             </Badge>
           ))}
           {categories.length > 3 && (

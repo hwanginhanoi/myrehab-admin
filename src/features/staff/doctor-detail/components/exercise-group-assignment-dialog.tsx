@@ -19,6 +19,7 @@ import {
   getExerciseGroupsByDoctorQueryKey,
   type GroupResponse,
 } from '@/api'
+import { displayMultilang } from '@/lib/multilang'
 
 type ExerciseGroupAssignmentDialogProps = {
   doctorId: number
@@ -155,7 +156,7 @@ export function ExerciseGroupAssignmentDialog({
                   className="cursor-pointer"
                   onClick={() => toggleGroup(g)}
                 >
-                  {g.name} ✕
+                  {displayMultilang(g.name)} ✕
                 </Badge>
               ))}
             </div>
@@ -208,11 +209,11 @@ export function ExerciseGroupAssignmentDialog({
                       >
                         <div className="flex-1 min-w-0">
                           <p className="font-medium text-sm truncate">
-                            {group.name}
+                            {displayMultilang(group.name)}
                           </p>
                           {group.description && (
                             <p className="text-xs text-muted-foreground truncate">
-                              {group.description}
+                              {displayMultilang(group.description)}
                             </p>
                           )}
                         </div>

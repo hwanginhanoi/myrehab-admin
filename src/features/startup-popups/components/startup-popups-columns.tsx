@@ -3,6 +3,7 @@ import { Badge } from '@/components/ui/badge'
 import { DataTableColumnHeader } from '@/components/data-table'
 import { LongText } from '@/components/long-text'
 import type { StartupPopupResponse } from '@/api'
+import { displayMultilang } from '@/lib/multilang'
 import { DataTableRowActions } from './data-table-row-actions'
 
 export const startupPopupsColumns: ColumnDef<StartupPopupResponse>[] = [
@@ -25,7 +26,7 @@ export const startupPopupsColumns: ColumnDef<StartupPopupResponse>[] = [
       return imageUrl ? (
         <img
           src={imageUrl}
-          alt={row.getValue('title') as string}
+          alt={displayMultilang(row.original.title)}
           className="h-16 w-9 rounded object-cover"
         />
       ) : (
@@ -43,7 +44,7 @@ export const startupPopupsColumns: ColumnDef<StartupPopupResponse>[] = [
     ),
     cell: ({ row }) => (
       <LongText className="max-w-48 ps-3 font-medium">
-        {row.getValue('title')}
+        {displayMultilang(row.original.title)}
       </LongText>
     ),
     enableHiding: false,

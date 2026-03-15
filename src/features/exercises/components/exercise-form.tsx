@@ -14,9 +14,12 @@ import {
   FormMessage,
 } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
-import { Textarea } from '@/components/ui/textarea'
 import { GroupedMultiSelect } from '@/components/grouped-multi-select'
 import { FileUpload, type FileUploadRef } from '@/components/file-upload'
+import {
+  MultilangInput,
+  MultilangTextarea,
+} from '@/components/multilang-input'
 import {
   type ExerciseResponse,
   type CategoryResponse,
@@ -28,12 +31,20 @@ import {
   useGetVideoUrl,
 } from '@/api'
 import { getPublicImageUrl } from '@/lib/file-upload'
+import {
+  multilangRequired,
+  multilangOptional,
+  emptyMultilang,
+  fromMultilang,
+  toMultilang,
+  displayMultilang,
+} from '@/lib/multilang'
 import { FileVideo, Image as ImageIcon, Loader2, Play } from 'lucide-react'
 import { toast } from 'sonner'
 
 const formSchema = z.object({
-  title: z.string().min(1, 'Tên bài tập là bắt buộc'),
-  description: z.string(),
+  title: multilangRequired('Tên bài tập là bắt buộc'),
+  description: multilangOptional(),
   imageUrl: z.string(), // Can be empty if file is selected
   videoUrl: z.string(), // Can be empty if file is selected
   durationMinutes: z.number().min(1, 'Thời lượng phải lớn hơn 0'),
@@ -105,7 +116,7 @@ export function ExerciseFormComponent({
       options: cats
         .filter((cat) => cat.name !== undefined && cat.id !== undefined)
         .map((cat) => ({
-          label: String(cat.name),
+          label: displayMultilang(cat.name),
           value: String(cat.id),
         })),
     }))
@@ -118,7 +129,7 @@ export function ExerciseFormComponent({
       {
         label: 'Kho bài tập',
         options: groups.map((group) => ({
-          label: group.name || '',
+          label: displayMultilang(group.name),
           value: String(group.id),
         })),
       },
@@ -129,8 +140,8 @@ export function ExerciseFormComponent({
     resolver: zodResolver(formSchema),
     defaultValues: exercise
       ? {
-          title: exercise.title || '',
-          description: exercise.description || '',
+          title: fromMultilang(exercise.title),
+          description: fromMultilang(exercise.description),
           imageUrl: exercise.imageUrl || '',
           videoUrl: '', // not returned by API; existing video shown via previewUrl from useGetVideoUrl
           durationMinutes: exercise.durationMinutes || 0,
@@ -138,8 +149,8 @@ export function ExerciseFormComponent({
           groupIds: exercise.groups?.map((g) => String(g.id)) || [],
         }
       : {
-          title: '',
-          description: '',
+          title: emptyMultilang,
+          description: emptyMultilang,
           imageUrl: '',
           videoUrl: '',
           durationMinutes: 0,
@@ -233,8 +244,8 @@ export function ExerciseFormComponent({
       }
 
       const payload = {
-        title: values.title,
-        description: values.description,
+        title: toMultilang(values.title),
+        description: toMultilang(values.description),
         imageUrl,
         videoUrl,
         durationMinutes: values.durationMinutes,
@@ -290,10 +301,11 @@ export function ExerciseFormComponent({
                 <FormItem>
                   <FormLabel>Tên bài tập</FormLabel>
                   <FormControl>
-                    <Input
-                      placeholder="Nhập tên bài tập"
+                    <MultilangInput
+                      value={field.value}
+                      onChange={field.onChange}
+                      placeholder={{ vi: 'Nhập tên bài tập', en: 'Enter exercise name' }}
                       disabled={isView}
-                      {...field}
                     />
                   </FormControl>
                   <FormMessage />
@@ -370,11 +382,12 @@ export function ExerciseFormComponent({
               <FormItem>
                 <FormLabel>Mô tả</FormLabel>
                 <FormControl>
-                  <Textarea
-                    placeholder="Nhập mô tả bài tập"
-                    className="min-h-[120px]"
+                  <MultilangTextarea
+                    value={field.value}
+                    onChange={field.onChange}
+                    placeholder={{ vi: 'Nhập mô tả bài tập', en: 'Enter exercise description' }}
                     disabled={isView}
-                    {...field}
+                    textareaClassName="min-h-[120px]"
                   />
                 </FormControl>
                 <FormMessage />

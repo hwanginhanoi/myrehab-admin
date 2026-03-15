@@ -5,6 +5,7 @@ import { Badge } from '@/components/ui/badge'
 import { Progress } from '@/components/ui/progress'
 import { cn } from '@/lib/utils'
 import { useGetCourseStructure } from '@/api'
+import { displayMultilang } from '@/lib/multilang'
 import { AssignmentContentSection } from './assignment-content-section'
 
 const route = getRouteApi('/_authenticated/course-assignments/$id')
@@ -82,11 +83,11 @@ export function CourseStructureSection() {
                 <div>
                   <CardTitle className="flex items-center gap-2">
                     <BookOpen className="h-5 w-5" />
-                    {course.title || courseTitle || 'Khóa tập'}
+                    {displayMultilang(course.title) || courseTitle || 'Khóa tập'}
                   </CardTitle>
                   {course.description && (
                     <p className="text-muted-foreground text-sm mt-1">
-                      {course.description}
+                      {displayMultilang(course.description)}
                     </p>
                   )}
                 </div>
@@ -110,7 +111,7 @@ export function CourseStructureSection() {
                           </p>
                           {day.description && (
                             <p className="text-xs text-muted-foreground">
-                              {day.description}
+                              {displayMultilang(day.description)}
                             </p>
                           )}
                         </div>
@@ -130,7 +131,7 @@ export function CourseStructureSection() {
                               {ex.imageUrl ? (
                                 <img
                                   src={ex.imageUrl}
-                                  alt={ex.title}
+                                  alt={displayMultilang(ex.title)}
                                   className="h-12 w-12 rounded object-cover shrink-0"
                                 />
                               ) : (
@@ -140,11 +141,11 @@ export function CourseStructureSection() {
                               )}
                               <div className="flex-1 min-w-0">
                                 <p className="text-sm font-medium truncate">
-                                  {ex.title || 'Bài tập'}
+                                  {displayMultilang(ex.title) || 'Bài tập'}
                                 </p>
                                 {ex.description && (
                                   <p className="text-xs text-muted-foreground line-clamp-2 mt-0.5">
-                                    {ex.description}
+                                    {displayMultilang(ex.description)}
                                   </p>
                                 )}
                                 <div className="flex items-center gap-3 mt-1.5">

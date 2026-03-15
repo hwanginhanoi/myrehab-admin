@@ -19,9 +19,11 @@ import {
   FormLabel,
   FormMessage,
 } from '@/components/ui/form'
-import { Input } from '@/components/ui/input'
-import { Textarea } from '@/components/ui/textarea'
 import { SelectDropdown } from '@/components/select-dropdown'
+import {
+  MultilangInput,
+  MultilangTextarea,
+} from '@/components/multilang-input'
 import { categoryTypeOptions } from '@/lib/constants/category-type'
 import {
   type CategoryResponse,
@@ -29,11 +31,18 @@ import {
   useUpdateCategory,
 } from '@/api'
 import { toast } from 'sonner'
+import {
+  multilangRequired,
+  multilangOptional,
+  emptyMultilang,
+  fromMultilang,
+  toMultilang,
+} from '@/lib/multilang'
 
 const formSchema = z.object({
-  name: z.string().min(1, 'Tên danh mục là bắt buộc'),
+  name: multilangRequired('Tên danh mục là bắt buộc'),
   type: z.string().min(1, 'Phân loại là bắt buộc'),
-  description: z.string().optional(),
+  description: multilangOptional(),
   isEdit: z.boolean(),
 })
 
@@ -62,15 +71,15 @@ export function CategoriesActionDialog({
     defaultValues:
       isEdit || isView
         ? {
-            name: currentRow?.name || '',
+            name: fromMultilang(currentRow?.name),
             type: currentRow?.type || '',
-            description: currentRow?.description || '',
+            description: fromMultilang(currentRow?.description),
             isEdit,
           }
         : {
-            name: '',
+            name: emptyMultilang,
             type: '',
-            description: '',
+            description: emptyMultilang,
             isEdit: false,
           },
   })
@@ -114,9 +123,9 @@ export function CategoriesActionDialog({
     }
 
     const payload = {
-      name: values.name,
+      name: toMultilang(values.name),
       type: values.type as NonNullable<CategoryResponse['type']>,
-      description: values.description,
+      description: toMultilang(values.description),
     }
 
     if (isEdit && currentRow?.id) {
@@ -171,11 +180,12 @@ export function CategoriesActionDialog({
                     Tên danh mục
                   </FormLabel>
                   <FormControl>
-                    <Input
-                      placeholder="Nhập tên danh mục"
-                      className="col-span-4"
+                    <MultilangInput
+                      value={field.value}
+                      onChange={field.onChange}
+                      placeholder={{ vi: 'Nhập tên danh mục', en: 'Enter category name' }}
                       disabled={isView}
-                      {...field}
+                      className="col-span-4"
                     />
                   </FormControl>
                   <FormMessage className="col-span-4 col-start-3" />
@@ -211,11 +221,13 @@ export function CategoriesActionDialog({
                     Mô tả
                   </FormLabel>
                   <FormControl>
-                    <Textarea
-                      placeholder="Nhập mô tả danh mục"
-                      className="col-span-4 min-h-[100px]"
+                    <MultilangTextarea
+                      value={field.value}
+                      onChange={field.onChange}
+                      placeholder={{ vi: 'Nhập mô tả danh mục', en: 'Enter category description' }}
                       disabled={isView}
-                      {...field}
+                      className="col-span-4"
+                      textareaClassName="min-h-[100px]"
                     />
                   </FormControl>
                   <FormMessage className="col-span-4 col-start-3" />

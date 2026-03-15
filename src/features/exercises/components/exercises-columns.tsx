@@ -4,6 +4,7 @@ import { Badge } from '@/components/ui/badge'
 import { DataTableColumnHeader } from '@/components/data-table'
 import { LongText } from '@/components/long-text'
 import type { ExerciseResponse } from '@/api'
+import { displayMultilang } from '@/lib/multilang'
 import { DataTableRowActions } from './data-table-row-actions'
 
 export const exercisesColumns: ColumnDef<ExerciseResponse>[] = [
@@ -14,7 +15,7 @@ export const exercisesColumns: ColumnDef<ExerciseResponse>[] = [
     ),
     cell: ({ row }) => (
       <LongText className="max-w-48 ps-3 font-medium">
-        {row.getValue('title')}
+        {displayMultilang(row.original.title)}
       </LongText>
     ),
     meta: {
@@ -37,7 +38,7 @@ export const exercisesColumns: ColumnDef<ExerciseResponse>[] = [
           {categories.length > 0 ? (
             categories.map((category) => (
               <Badge key={category.id} variant="outline" className="text-xs">
-                {category.name}
+                {displayMultilang(category.name)}
               </Badge>
             ))
           ) : (
@@ -60,7 +61,7 @@ export const exercisesColumns: ColumnDef<ExerciseResponse>[] = [
           {groups.length > 0 ? (
             groups.map((group) => (
               <Badge key={group.id} variant="secondary" className="text-xs">
-                {group.name}
+                {displayMultilang(group.name)}
               </Badge>
             ))
           ) : (
@@ -86,7 +87,7 @@ export const exercisesColumns: ColumnDef<ExerciseResponse>[] = [
     ),
     cell: ({ row }) => (
       <LongText className="max-w-96">
-        {row.getValue('description') || '-'}
+        {displayMultilang(row.original.description) || '-'}
       </LongText>
     ),
     enableSorting: false,

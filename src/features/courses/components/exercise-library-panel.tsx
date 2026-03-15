@@ -30,6 +30,7 @@ import {
   type CategoryResponse,
 } from '@/api'
 import { cn } from '@/lib/utils'
+import { displayMultilang } from '@/lib/multilang'
 
 type ExerciseLibraryPanelProps = {
   onAddExercise?: (exercise: ExerciseResponse) => void
@@ -71,7 +72,7 @@ export function ExerciseLibraryPanel({
       options: cats
         .filter((cat: CategoryResponse) => cat.name && cat.id !== undefined)
         .map((cat: CategoryResponse) => ({
-          label: cat.name!,
+          label: displayMultilang(cat.name),
           value: String(cat.id!),
         })),
     }))
@@ -208,14 +209,14 @@ function LibraryExerciseCard({ exercise }: LibraryExerciseCardProps) {
       {exercise.imageUrl && (
         <img
           src={exercise.imageUrl}
-          alt={exercise.title || ''}
+          alt={displayMultilang(exercise.title)}
           className="w-12 h-12 rounded object-cover"
         />
       )}
 
       {/* Exercise info */}
       <div className="flex-1 min-w-0">
-        <p className="font-medium text-sm truncate">{exercise.title}</p>
+        <p className="font-medium text-sm truncate">{displayMultilang(exercise.title)}</p>
         {exercise.durationMinutes && (
           <p className="text-xs text-muted-foreground">
             {exercise.durationMinutes} phút
@@ -225,7 +226,7 @@ function LibraryExerciseCard({ exercise }: LibraryExerciseCardProps) {
           <div className="flex flex-wrap gap-1 mt-1">
             {exercise.categories.slice(0, 2).map((category) => (
               <Badge key={category.id} variant="outline" className="text-xs">
-                {category.name}
+                {displayMultilang(category.name)}
               </Badge>
             ))}
             {exercise.categories.length > 2 && (

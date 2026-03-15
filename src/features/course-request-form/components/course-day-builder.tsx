@@ -15,7 +15,7 @@ export function CourseDayBuilder({
 }: CourseDayBuilderProps) {
   return (
     <CourseCustomizationSection
-      courseName={courseName}
+      courseName={{ vi: courseName, en: '' }}
       customizedDays={customizedDays}
       dispatch={dispatch}
     />

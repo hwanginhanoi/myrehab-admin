@@ -34,7 +34,7 @@ export function DataTableRowActions({ row }: DataTableRowActionsProps) {
       {
         id: row.original.id,
         data: {
-          title: row.original.title || '',
+          title: row.original.title || undefined,
           imageUrl: row.original.imageUrl || '',
           active: !row.original.active,
         },

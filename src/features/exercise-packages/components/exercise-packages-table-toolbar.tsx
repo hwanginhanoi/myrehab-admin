@@ -14,6 +14,7 @@ import {
   FilterButton,
   getCategoryTypeLabel,
 } from './exercise-selector-dnd'
+import { displayMultilang } from '@/lib/multilang'
 
 type ExercisePackagesTableToolbarProps = {
   table: Table<ExercisePackageResponse>
@@ -52,7 +53,7 @@ export function ExercisePackagesTableToolbar({
       options: cats
         .filter((cat) => cat.name && cat.id !== undefined)
         .map((cat) => ({
-          label: cat.name!,
+          label: displayMultilang(cat.name),
           value: String(cat.id!),
         })),
     }))

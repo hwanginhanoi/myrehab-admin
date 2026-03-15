@@ -8,6 +8,7 @@ import {
   DataTableViewOptions,
 } from '@/components/server-data-table'
 import type { ExerciseResponse, CategoryResponse, GroupResponse } from '@/api'
+import { displayMultilang } from '@/lib/multilang'
 
 type ExercisesTableToolbarProps = {
   table: Table<ExerciseResponse>
@@ -43,7 +44,7 @@ export function ExercisesTableToolbar({
       options: categories
         .filter((cat) => cat.name && cat.id !== undefined)
         .map((cat) => ({
-          label: cat.name!,
+          label: displayMultilang(cat.name),
           value: String(cat.id!), // Convert to string for filter
         })),
     }))
@@ -57,7 +58,7 @@ export function ExercisesTableToolbar({
         options: allGroups
           .filter((group) => group.name && group.id !== undefined)
           .map((group) => ({
-            label: group.name!,
+            label: displayMultilang(group.name),
             value: String(group.id!),
           })),
       },

@@ -19,14 +19,23 @@ import {
   FormLabel,
   FormMessage,
 } from '@/components/ui/form'
-import { Input } from '@/components/ui/input'
-import { Textarea } from '@/components/ui/textarea'
+import {
+  MultilangInput,
+  MultilangTextarea,
+} from '@/components/multilang-input'
 import { type GroupResponse, useCreateGroup, useUpdateGroup } from '@/api'
 import { toast } from 'sonner'
+import {
+  multilangRequired,
+  multilangOptional,
+  emptyMultilang,
+  fromMultilang,
+  toMultilang,
+} from '@/lib/multilang'
 
 const formSchema = z.object({
-  name: z.string().min(1, 'Tên nhóm là bắt buộc'),
-  description: z.string().optional(),
+  name: multilangRequired('Tên nhóm là bắt buộc'),
+  description: multilangOptional(),
   isEdit: z.boolean(),
 })
 
@@ -55,13 +64,13 @@ export function GroupsActionDialog({
     defaultValues:
       isEdit || isView
         ? {
-            name: currentRow?.name || '',
-            description: currentRow?.description || '',
+            name: fromMultilang(currentRow?.name),
+            description: fromMultilang(currentRow?.description),
             isEdit,
           }
         : {
-            name: '',
-            description: '',
+            name: emptyMultilang,
+            description: emptyMultilang,
             isEdit: false,
           },
   })
@@ -105,8 +114,8 @@ export function GroupsActionDialog({
     }
 
     const payload = {
-      name: values.name,
-      description: values.description,
+      name: toMultilang(values.name),
+      description: toMultilang(values.description),
     }
 
     if (isEdit && currentRow?.id) {
@@ -161,11 +170,12 @@ export function GroupsActionDialog({
                     Tên nhóm
                   </FormLabel>
                   <FormControl>
-                    <Input
-                      placeholder="Nhập tên nhóm"
-                      className="col-span-4"
+                    <MultilangInput
+                      value={field.value}
+                      onChange={field.onChange}
+                      placeholder={{ vi: 'Nhập tên nhóm', en: 'Enter group name' }}
                       disabled={isView}
-                      {...field}
+                      className="col-span-4"
                     />
                   </FormControl>
                   <FormMessage className="col-span-4 col-start-3" />
@@ -181,11 +191,13 @@ export function GroupsActionDialog({
                     Mô tả
                   </FormLabel>
                   <FormControl>
-                    <Textarea
-                      placeholder="Nhập mô tả nhóm"
-                      className="col-span-4 min-h-[100px]"
+                    <MultilangTextarea
+                      value={field.value}
+                      onChange={field.onChange}
+                      placeholder={{ vi: 'Nhập mô tả nhóm', en: 'Enter group description' }}
                       disabled={isView}
-                      {...field}
+                      className="col-span-4"
+                      textareaClassName="min-h-[100px]"
                     />
                   </FormControl>
                   <FormMessage className="col-span-4 col-start-3" />

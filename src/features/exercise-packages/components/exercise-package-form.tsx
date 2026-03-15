@@ -13,9 +13,11 @@ import {
   FormLabel,
   FormMessage,
 } from '@/components/ui/form'
-import { Input } from '@/components/ui/input'
-import { Textarea } from '@/components/ui/textarea'
 import { FileUpload, type FileUploadRef } from '@/components/file-upload'
+import {
+  MultilangInput,
+  MultilangTextarea,
+} from '@/components/multilang-input'
 import {
   type CategoryResponse,
   type ExercisePackageDetailResponse,
@@ -30,10 +32,17 @@ import {
   FilterButton,
   getCategoryTypeLabel,
 } from './exercise-selector-dnd'
+import {
+  multilangRequired,
+  emptyMultilang,
+  fromMultilang,
+  toMultilang,
+  displayMultilang,
+} from '@/lib/multilang'
 
 const formSchema = z.object({
-  title: z.string().min(1, 'Tên gói bài tập là bắt buộc'),
-  description: z.string().min(1, 'Mô tả là bắt buộc'),
+  title: multilangRequired('Tên gói bài tập là bắt buộc'),
+  description: multilangRequired('Mô tả là bắt buộc'),
   imageUrl: z.string().optional(),
   categoryIds: z.array(z.number()),
   exercises: z
@@ -83,7 +92,7 @@ export function ExercisePackageFormComponent({
       options: cats
         .filter((cat) => cat.name && cat.id !== undefined)
         .map((cat) => ({
-          label: cat.name!,
+          label: displayMultilang(cat.name),
           value: String(cat.id!),
         })),
     }))
@@ -93,8 +102,8 @@ export function ExercisePackageFormComponent({
     resolver: zodResolver(formSchema),
     defaultValues: exercisePackage
       ? {
-          title: exercisePackage.title || '',
-          description: exercisePackage.description || '',
+          title: fromMultilang(exercisePackage.title),
+          description: fromMultilang(exercisePackage.description),
           imageUrl: exercisePackage.imageUrl || '',
           categoryIds:
             exercisePackage.categories?.map((cat) => cat.id!).filter(Boolean) ||
@@ -102,8 +111,8 @@ export function ExercisePackageFormComponent({
           exercises: exercisePackage.exercises || [],
         }
       : {
-          title: '',
-          description: '',
+          title: emptyMultilang,
+          description: emptyMultilang,
           imageUrl: '',
           categoryIds: [],
           exercises: [],
@@ -157,8 +166,8 @@ export function ExercisePackageFormComponent({
 
       // Transform exercises array to exerciseIds array
       const payload = {
-        title: values.title,
-        description: values.description,
+        title: toMultilang(values.title),
+        description: toMultilang(values.description),
         imageUrl: imageUrl || undefined,
         categoryIds: values.categoryIds || [],
         exerciseIds: values.exercises.map((ex) => ex.id!),
@@ -212,10 +221,11 @@ export function ExercisePackageFormComponent({
               <FormItem>
                 <FormLabel>Tên gói bài tập</FormLabel>
                 <FormControl>
-                  <Input
-                    placeholder="Nhập tên gói bài tập"
+                  <MultilangInput
+                    value={field.value}
+                    onChange={field.onChange}
+                    placeholder={{ vi: 'Nhập tên gói bài tập', en: 'Enter package name' }}
                     disabled={isView}
-                    {...field}
                   />
                 </FormControl>
                 <FormMessage />
@@ -253,11 +263,12 @@ export function ExercisePackageFormComponent({
               <FormItem>
                 <FormLabel>Mô tả</FormLabel>
                 <FormControl>
-                  <Textarea
-                    placeholder="Nhập mô tả gói bài tập"
-                    className="min-h-[120px]"
+                  <MultilangTextarea
+                    value={field.value}
+                    onChange={field.onChange}
+                    placeholder={{ vi: 'Nhập mô tả gói bài tập', en: 'Enter package description' }}
                     disabled={isView}
-                    {...field}
+                    textareaClassName="min-h-[120px]"
                   />
                 </FormControl>
                 <FormMessage />
