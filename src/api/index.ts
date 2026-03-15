@@ -117,6 +117,10 @@ export type { GetCurrentUserPackagesQueryKey } from './hooks/Exercise PackagesHo
 export type { GetCurrentUserPackagesSuspenseQueryKey } from './hooks/Exercise PackagesHooks/useGetCurrentUserPackagesSuspense.ts'
 export type { GetExercisePackageByIdQueryKey } from './hooks/Exercise PackagesHooks/useGetExercisePackageById.ts'
 export type { GetExercisePackageByIdSuspenseQueryKey } from './hooks/Exercise PackagesHooks/useGetExercisePackageByIdSuspense.ts'
+export type { GetLatestPublicPackagesQueryKey } from './hooks/Exercise PackagesHooks/useGetLatestPublicPackages.ts'
+export type { GetLatestPublicPackagesSuspenseQueryKey } from './hooks/Exercise PackagesHooks/useGetLatestPublicPackagesSuspense.ts'
+export type { GetRandomAvailablePackagesQueryKey } from './hooks/Exercise PackagesHooks/useGetRandomAvailablePackages.ts'
+export type { GetRandomAvailablePackagesSuspenseQueryKey } from './hooks/Exercise PackagesHooks/useGetRandomAvailablePackagesSuspense.ts'
 export type { UpdateExercisePackageMutationKey } from './hooks/Exercise PackagesHooks/useUpdateExercisePackage.ts'
 export type { CreateExerciseMutationKey } from './hooks/ExercisesHooks/useCreateExercise.ts'
 export type { GetAllExercisesQueryKey } from './hooks/ExercisesHooks/useGetAllExercises.ts'
@@ -834,6 +838,18 @@ export type {
   GetExercisePackageByIdQueryResponse,
   GetExercisePackageByIdQuery,
 } from './types/exercisePackagesController/GetExercisePackageById.ts'
+export type {
+  GetLatestPublicPackagesQueryParams,
+  GetLatestPublicPackages200,
+  GetLatestPublicPackagesQueryResponse,
+  GetLatestPublicPackagesQuery,
+} from './types/exercisePackagesController/GetLatestPublicPackages.ts'
+export type {
+  GetRandomAvailablePackagesQueryParams,
+  GetRandomAvailablePackages200,
+  GetRandomAvailablePackagesQueryResponse,
+  GetRandomAvailablePackagesQuery,
+} from './types/exercisePackagesController/GetRandomAvailablePackages.ts'
 export type {
   UpdateExercisePackagePathParams,
   UpdateExercisePackage200,
@@ -1943,6 +1959,22 @@ export { getExercisePackageByIdSuspenseQueryKey } from './hooks/Exercise Package
 export { getExercisePackageByIdSuspense } from './hooks/Exercise PackagesHooks/useGetExercisePackageByIdSuspense.ts'
 export { getExercisePackageByIdSuspenseQueryOptions } from './hooks/Exercise PackagesHooks/useGetExercisePackageByIdSuspense.ts'
 export { useGetExercisePackageByIdSuspense } from './hooks/Exercise PackagesHooks/useGetExercisePackageByIdSuspense.ts'
+export { getLatestPublicPackagesQueryKey } from './hooks/Exercise PackagesHooks/useGetLatestPublicPackages.ts'
+export { getLatestPublicPackages } from './hooks/Exercise PackagesHooks/useGetLatestPublicPackages.ts'
+export { getLatestPublicPackagesQueryOptions } from './hooks/Exercise PackagesHooks/useGetLatestPublicPackages.ts'
+export { useGetLatestPublicPackages } from './hooks/Exercise PackagesHooks/useGetLatestPublicPackages.ts'
+export { getLatestPublicPackagesSuspenseQueryKey } from './hooks/Exercise PackagesHooks/useGetLatestPublicPackagesSuspense.ts'
+export { getLatestPublicPackagesSuspense } from './hooks/Exercise PackagesHooks/useGetLatestPublicPackagesSuspense.ts'
+export { getLatestPublicPackagesSuspenseQueryOptions } from './hooks/Exercise PackagesHooks/useGetLatestPublicPackagesSuspense.ts'
+export { useGetLatestPublicPackagesSuspense } from './hooks/Exercise PackagesHooks/useGetLatestPublicPackagesSuspense.ts'
+export { getRandomAvailablePackagesQueryKey } from './hooks/Exercise PackagesHooks/useGetRandomAvailablePackages.ts'
+export { getRandomAvailablePackages } from './hooks/Exercise PackagesHooks/useGetRandomAvailablePackages.ts'
+export { getRandomAvailablePackagesQueryOptions } from './hooks/Exercise PackagesHooks/useGetRandomAvailablePackages.ts'
+export { useGetRandomAvailablePackages } from './hooks/Exercise PackagesHooks/useGetRandomAvailablePackages.ts'
+export { getRandomAvailablePackagesSuspenseQueryKey } from './hooks/Exercise PackagesHooks/useGetRandomAvailablePackagesSuspense.ts'
+export { getRandomAvailablePackagesSuspense } from './hooks/Exercise PackagesHooks/useGetRandomAvailablePackagesSuspense.ts'
+export { getRandomAvailablePackagesSuspenseQueryOptions } from './hooks/Exercise PackagesHooks/useGetRandomAvailablePackagesSuspense.ts'
+export { useGetRandomAvailablePackagesSuspense } from './hooks/Exercise PackagesHooks/useGetRandomAvailablePackagesSuspense.ts'
 export { updateExercisePackageMutationKey } from './hooks/Exercise PackagesHooks/useUpdateExercisePackage.ts'
 export { updateExercisePackage } from './hooks/Exercise PackagesHooks/useUpdateExercisePackage.ts'
 export { updateExercisePackageMutationOptions } from './hooks/Exercise PackagesHooks/useUpdateExercisePackage.ts'
@@ -2965,6 +2997,16 @@ export {
   getExercisePackageById200Schema,
   getExercisePackageByIdQueryResponseSchema,
 } from './zod/exercisePackagesController/getExercisePackageByIdSchema.ts'
+export {
+  getLatestPublicPackagesQueryParamsSchema,
+  getLatestPublicPackages200Schema,
+  getLatestPublicPackagesQueryResponseSchema,
+} from './zod/exercisePackagesController/getLatestPublicPackagesSchema.ts'
+export {
+  getRandomAvailablePackagesQueryParamsSchema,
+  getRandomAvailablePackages200Schema,
+  getRandomAvailablePackagesQueryResponseSchema,
+} from './zod/exercisePackagesController/getRandomAvailablePackagesSchema.ts'
 export {
   updateExercisePackagePathParamsSchema,
   updateExercisePackage200Schema,

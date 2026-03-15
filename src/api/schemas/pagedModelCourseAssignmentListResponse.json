@@ -10,7 +10,10 @@
           "patientId": { "type": "integer", "format": "int64" },
           "patientFullName": { "type": "string" },
           "courseId": { "type": "integer", "format": "int64" },
-          "courseTitle": { "type": "string" },
+          "courseTitle": {
+            "type": "object",
+            "additionalProperties": { "type": "string" }
+          },
           "assignedByDoctorId": { "type": "integer", "format": "int64" },
           "assignedByDoctorName": { "type": "string" },
           "assignedAt": { "type": "string", "format": "date-time" },

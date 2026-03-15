@@ -468,6 +468,16 @@ export {
   getExercisePackageByIdQueryResponseSchema,
 } from './exercisePackagesController/getExercisePackageByIdSchema.ts'
 export {
+  getLatestPublicPackagesQueryParamsSchema,
+  getLatestPublicPackages200Schema,
+  getLatestPublicPackagesQueryResponseSchema,
+} from './exercisePackagesController/getLatestPublicPackagesSchema.ts'
+export {
+  getRandomAvailablePackagesQueryParamsSchema,
+  getRandomAvailablePackages200Schema,
+  getRandomAvailablePackagesQueryResponseSchema,
+} from './exercisePackagesController/getRandomAvailablePackagesSchema.ts'
+export {
   updateExercisePackagePathParamsSchema,
   updateExercisePackage200Schema,
   updateExercisePackageMutationRequestSchema,

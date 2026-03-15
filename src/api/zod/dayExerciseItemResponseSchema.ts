@@ -8,8 +8,8 @@ import { z } from 'zod/v4'
 export const dayExerciseItemResponseSchema = z.object({
   dayExerciseId: z.optional(z.int()),
   exerciseId: z.optional(z.int()),
-  exerciseTitle: z.optional(z.string()),
-  exerciseDescription: z.optional(z.string()),
+  exerciseTitle: z.optional(z.object({}).catchall(z.string())),
+  exerciseDescription: z.optional(z.object({}).catchall(z.string())),
   exerciseImageUrl: z.optional(z.string()),
   exerciseVideoUrl: z.optional(z.string()),
   exerciseDurationMinutes: z.optional(z.int()),

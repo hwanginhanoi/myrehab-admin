@@ -22,7 +22,7 @@ export type GetPublicDoctorsSuspenseQueryKey = ReturnType<
 >
 
 /**
- * @description Returns all public and enabled doctors for mobile patients to browse during booking
+ * @description Returns all public and enabled doctors. Accessible without authentication for guest browsing.
  * @summary List available doctors
  * {@link /api/appointments/doctors}
  */
@@ -58,7 +58,7 @@ export function getPublicDoctorsSuspenseQueryOptions(
 }
 
 /**
- * @description Returns all public and enabled doctors for mobile patients to browse during booking
+ * @description Returns all public and enabled doctors. Accessible without authentication for guest browsing.
  * @summary List available doctors
  * {@link /api/appointments/doctors}
  */

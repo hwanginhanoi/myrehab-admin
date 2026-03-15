@@ -8,7 +8,7 @@ import { z } from 'zod/v4'
 
 export const courseDayDetailDtoSchema = z.object({
   dayNumber: z.optional(z.int()),
-  description: z.optional(z.string()),
+  description: z.optional(z.object({}).catchall(z.string())),
   get exercises() {
     return z.array(courseExerciseDtoSchema).optional()
   },

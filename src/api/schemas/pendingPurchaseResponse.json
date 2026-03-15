@@ -3,8 +3,14 @@
   "properties": {
     "userCourseId": { "type": "integer", "format": "int64" },
     "courseId": { "type": "integer", "format": "int64" },
-    "courseTitle": { "type": "string" },
-    "courseDescription": { "type": "string" },
+    "courseTitle": {
+      "type": "object",
+      "additionalProperties": { "type": "string" }
+    },
+    "courseDescription": {
+      "type": "object",
+      "additionalProperties": { "type": "string" }
+    },
     "durationDays": { "type": "integer", "format": "int32" },
     "assignedByDoctorName": { "type": "string" },
     "assignedAt": { "type": "string", "format": "date-time" },

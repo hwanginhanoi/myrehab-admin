@@ -12,13 +12,17 @@ export type ExerciseResponse = {
    */
   id?: number
   /**
-   * @type string | undefined
+   * @type object | undefined
    */
-  title?: string
+  title?: {
+    [key: string]: string
+  }
   /**
-   * @type string | undefined
+   * @type object | undefined
    */
-  description?: string
+  description?: {
+    [key: string]: string
+  }
   /**
    * @type string | undefined
    */

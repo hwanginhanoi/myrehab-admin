@@ -30,9 +30,11 @@ export type CourseAssignmentListResponse = {
    */
   courseId?: number
   /**
-   * @type string | undefined
+   * @type object | undefined
    */
-  courseTitle?: string
+  courseTitle?: {
+    [key: string]: string
+  }
   /**
    * @type integer | undefined, int64
    */

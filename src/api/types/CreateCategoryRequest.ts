@@ -16,14 +16,17 @@ export type CreateCategoryRequestTypeEnumKey =
 
 export type CreateCategoryRequest = {
   /**
-   * @minLength 1
-   * @type string
+   * @type object | undefined
    */
-  name: string
+  name?: {
+    [key: string]: string
+  }
   /**
-   * @type string | undefined
+   * @type object | undefined
    */
-  description?: string
+  description?: {
+    [key: string]: string
+  }
   /**
    * @type string
    */

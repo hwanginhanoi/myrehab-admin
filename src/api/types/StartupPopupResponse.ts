@@ -9,9 +9,11 @@ export type StartupPopupResponse = {
    */
   id?: number
   /**
-   * @type string | undefined
+   * @type object | undefined
    */
-  title?: string
+  title?: {
+    [key: string]: string
+  }
   /**
    * @type string | undefined
    */

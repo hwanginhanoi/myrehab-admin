@@ -6,6 +6,6 @@
 import { z } from 'zod/v4'
 
 export const updateGroupRequestSchema = z.object({
-  name: z.string().min(1),
-  description: z.optional(z.string()),
+  name: z.optional(z.object({}).catchall(z.string())),
+  description: z.optional(z.object({}).catchall(z.string())),
 })

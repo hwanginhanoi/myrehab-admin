@@ -1,10 +1,10 @@
 {
   "type": "object",
   "properties": {
-    "title": { "type": "string", "maxLength": 255, "minLength": 0 },
+    "title": { "type": "object", "additionalProperties": { "type": "string" } },
     "imageUrl": { "type": "string", "maxLength": 500, "minLength": 0 },
     "active": { "type": "boolean" }
   },
-  "required": ["imageUrl", "title"],
+  "required": ["imageUrl"],
   "x-readme-ref-name": "CreateStartupPopupRequest"
 }

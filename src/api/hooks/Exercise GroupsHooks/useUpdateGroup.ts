@@ -29,7 +29,7 @@ export type UpdateGroupMutationKey = ReturnType<typeof updateGroupMutationKey>
  */
 export async function updateGroup(
   id: UpdateGroupPathParams['id'],
-  data: UpdateGroupMutationRequest,
+  data?: UpdateGroupMutationRequest,
   config: Partial<RequestConfig<UpdateGroupMutationRequest>> & {
     client?: typeof fetch
   } = {}
@@ -60,7 +60,7 @@ export function updateGroupMutationOptions(
   return mutationOptions<
     UpdateGroupMutationResponse,
     ResponseErrorConfig<Error>,
-    { id: UpdateGroupPathParams['id']; data: UpdateGroupMutationRequest },
+    { id: UpdateGroupPathParams['id']; data?: UpdateGroupMutationRequest },
     typeof mutationKey
   >({
     mutationKey,
@@ -80,7 +80,7 @@ export function useUpdateGroup<TContext>(
     mutation?: UseMutationOptions<
       UpdateGroupMutationResponse,
       ResponseErrorConfig<Error>,
-      { id: UpdateGroupPathParams['id']; data: UpdateGroupMutationRequest },
+      { id: UpdateGroupPathParams['id']; data?: UpdateGroupMutationRequest },
       TContext
     > & { client?: QueryClient }
     client?: Partial<RequestConfig<UpdateGroupMutationRequest>> & {
@@ -95,14 +95,14 @@ export function useUpdateGroup<TContext>(
   const baseOptions = updateGroupMutationOptions(config) as UseMutationOptions<
     UpdateGroupMutationResponse,
     ResponseErrorConfig<Error>,
-    { id: UpdateGroupPathParams['id']; data: UpdateGroupMutationRequest },
+    { id: UpdateGroupPathParams['id']; data?: UpdateGroupMutationRequest },
     TContext
   >
 
   return useMutation<
     UpdateGroupMutationResponse,
     ResponseErrorConfig<Error>,
-    { id: UpdateGroupPathParams['id']; data: UpdateGroupMutationRequest },
+    { id: UpdateGroupPathParams['id']; data?: UpdateGroupMutationRequest },
     TContext
   >(
     {
@@ -114,7 +114,7 @@ export function useUpdateGroup<TContext>(
   ) as UseMutationResult<
     UpdateGroupMutationResponse,
     ResponseErrorConfig<Error>,
-    { id: UpdateGroupPathParams['id']; data: UpdateGroupMutationRequest },
+    { id: UpdateGroupPathParams['id']; data?: UpdateGroupMutationRequest },
     TContext
   >
 }

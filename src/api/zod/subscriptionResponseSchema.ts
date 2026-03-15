@@ -9,7 +9,7 @@ export const subscriptionResponseSchema = z.object({
   id: z.optional(z.int()),
   contentType: z.optional(z.string()),
   contentId: z.optional(z.int()),
-  contentTitle: z.optional(z.string()),
+  contentTitle: z.optional(z.object({}).catchall(z.string())),
   subscriptionType: z.optional(
     z.enum(['ONE_MONTH', 'THREE_MONTHS', 'TWELVE_MONTHS'])
   ),

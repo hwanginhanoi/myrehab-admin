@@ -7,8 +7,8 @@ import { z } from 'zod/v4'
 
 export const categoryResponseSchema = z.object({
   id: z.optional(z.int()),
-  name: z.optional(z.string()),
-  description: z.optional(z.string()),
+  name: z.optional(z.object({}).catchall(z.string())),
+  description: z.optional(z.object({}).catchall(z.string())),
   type: z.optional(
     z.enum([
       'BODY_PART',

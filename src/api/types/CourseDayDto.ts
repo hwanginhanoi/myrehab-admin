@@ -11,9 +11,11 @@ export type CourseDayDto = {
    */
   dayNumber: number
   /**
-   * @type string | undefined
+   * @type object | undefined
    */
-  description?: string
+  description?: {
+    [key: string]: string
+  }
   /**
    * @type array
    */
