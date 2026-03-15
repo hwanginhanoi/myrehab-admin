@@ -110,6 +110,9 @@ export function UserInfoSection({ user, isLoading }: UserInfoSectionProps) {
             <DescriptionRow label="Số điện thoại">
               {user.phoneNumber || '—'}
             </DescriptionRow>
+            <DescriptionRow label="CCCD/CMND">
+              {user.nationalId || '—'}
+            </DescriptionRow>
             <DescriptionRow label="Giới tính">
               {user.gender ? genderLabels[user.gender] || user.gender : '—'}
             </DescriptionRow>

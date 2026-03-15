@@ -89,6 +89,18 @@ export function CourseStructureSection() {
                       {course.description}
                     </p>
                   )}
+                  {course.courseTarget && (
+                    <p className="text-sm mt-2">
+                      <span className="font-medium text-muted-foreground">Mục tiêu: </span>
+                      {course.courseTarget}
+                    </p>
+                  )}
+                  {course.patientProblem && (
+                    <p className="text-sm mt-1">
+                      <span className="font-medium text-muted-foreground">Vấn đề bệnh nhân: </span>
+                      {course.patientProblem}
+                    </p>
+                  )}
                 </div>
                 {course.durationDays != null && (
                   <Badge variant="secondary" className="shrink-0">

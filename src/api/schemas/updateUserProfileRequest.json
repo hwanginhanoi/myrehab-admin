@@ -1,11 +1,1 @@
-{
-  "type": "object",
-  "properties": {
-    "fullName": { "type": "string", "minLength": 1 },
-    "gender": { "type": "string", "minLength": 1 },
-    "dateOfBirth": { "type": "string", "format": "date" },
-    "email": { "type": "string", "format": "email" }
-  },
-  "required": ["dateOfBirth", "fullName", "gender"],
-  "x-readme-ref-name": "UpdateUserProfileRequest"
-}
+{"type":"object","properties":{"fullName":{"type":"string","minLength":1},"gender":{"type":"string","minLength":1},"dateOfBirth":{"type":"string","format":"date"},"email":{"type":"string","format":"email"}},"required":["dateOfBirth","fullName","gender"],"x-readme-ref-name":"UpdateUserProfileRequest"}

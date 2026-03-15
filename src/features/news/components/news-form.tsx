@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react'
+import { useRef } from 'react'
 import { z } from 'zod'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
@@ -22,78 +22,6 @@ import { newsStatusOptions } from '@/lib/constants/news-status'
 import { newsCategoryTypeOptions } from '@/lib/constants/news-categories'
 import { type NewsResponse, useCreateNews, useUpdateNews } from '@/api'
 import { toast } from 'sonner'
-import {
-  requestPresignedUploadUrl,
-  uploadFileToMinIO,
-  getPublicImageUrl,
-} from '@/lib/file-upload'
-
-/**
- * Helper function to convert base64 string to File object
- */
-const base64ToFile = (base64String: string, filename: string): File => {
-  const arr = base64String.split(',')
-  const mime = arr[0].match(/:(.*?);/)?.[1] || 'image/png'
-  const bstr = atob(arr[1])
-  let n = bstr.length
-  const u8arr = new Uint8Array(n)
-  while (n--) {
-    u8arr[n] = bstr.charCodeAt(n)
-  }
-  return new File([u8arr], filename, { type: mime })
-}
-
-/**
- * Process HTML content and upload all base64 images to MinIO
- * Returns updated HTML with public URLs
- */
-const processAndUploadImages = async (htmlContent: string): Promise<string> => {
-  const parser = new DOMParser()
-  const doc = parser.parseFromString(htmlContent, 'text/html')
-  const images = doc.querySelectorAll('img')
-
-  let imageIndex = 0
-  const uploadPromises: Promise<void>[] = []
-
-  images.forEach((img) => {
-    const src = img.getAttribute('src')
-
-    // Check if image is base64
-    if (src && src.startsWith('data:image')) {
-      const uploadPromise = (async () => {
-        // Convert base64 to file
-        const file = base64ToFile(
-          src,
-          `news-image-${Date.now()}-${imageIndex}.png`
-        )
-        imageIndex++
-
-        // Upload to MinIO
-        const { presignedUrl, objectKey } = await requestPresignedUploadUrl({
-          fileName: file.name,
-          contentType: file.type,
-          category: 'news-image',
-        })
-
-        await uploadFileToMinIO(presignedUrl, file, file.type)
-
-        // Get public URL
-        const publicUrl = getPublicImageUrl(objectKey)
-
-        // Replace base64 with public URL
-        img.setAttribute('src', publicUrl)
-      })()
-
-      uploadPromises.push(uploadPromise)
-    }
-  })
-
-  // Wait for all uploads to complete
-  await Promise.all(uploadPromises)
-
-  // Return updated HTML
-  return doc.body.innerHTML
-}
 
 const formSchema = z.object({
   title: z.string().min(1, 'Tiêu đề là bắt buộc'),
@@ -118,7 +46,6 @@ export function NewsFormComponent({ news, mode }: NewsFormComponentProps) {
   const isEdit = mode === 'edit'
 
   const imageUploadRef = useRef<FileUploadRef>(null)
-  const [uploadingContentImages, setUploadingContentImages] = useState(false)
 
   const form = useForm<NewsForm>({
     resolver: zodResolver(formSchema),
@@ -186,23 +113,9 @@ export function NewsFormComponent({ news, mode }: NewsFormComponentProps) {
         }
       }
 
-      // Process content and upload any base64 images to MinIO
-      let processedContent = values.content
-      if (values.content && values.content.includes('data:image')) {
-        try {
-          setUploadingContentImages(true)
-          processedContent = await processAndUploadImages(values.content)
-        } catch {
-          toast.error('Không thể tải lên ảnh trong nội dung')
-          return
-        } finally {
-          setUploadingContentImages(false)
-        }
-      }
-
       const payload = {
         title: values.title,
-        content: processedContent,
+        content: values.content,
         summary: values.summary || undefined,
         thumbnailUrl: thumbnailUrl || undefined,
         status: values.status as NonNullable<NewsResponse['status']>,
@@ -377,17 +290,11 @@ export function NewsFormComponent({ news, mode }: NewsFormComponentProps) {
             {!isView && (
               <Button
                 type="submit"
-                disabled={
-                  createMutation.isPending ||
-                  updateMutation.isPending ||
-                  uploadingContentImages
-                }
+                disabled={createMutation.isPending || updateMutation.isPending}
               >
-                {uploadingContentImages
-                  ? 'Đang tải ảnh lên...'
-                  : createMutation.isPending || updateMutation.isPending
-                    ? 'Đang lưu...'
-                    : 'Lưu'}
+                {createMutation.isPending || updateMutation.isPending
+                  ? 'Đang lưu...'
+                  : 'Lưu'}
               </Button>
             )}
           </div>

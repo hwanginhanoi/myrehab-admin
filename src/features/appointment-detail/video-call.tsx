@@ -21,8 +21,11 @@ import {
   PhoneOff,
   CheckCircle,
   Loader2,
+  AlertTriangle,
+  Clock,
 } from 'lucide-react'
 import { toast } from 'sonner'
+import { AxiosError } from 'axios'
 
 const route = getRouteApi('/_authenticated/appointments/$id_/video-call')
 
@@ -30,6 +33,7 @@ const agoraClient = AgoraRTC.createClient({ mode: 'rtc', codec: 'vp8' })
 
 export function VideoCall() {
   const { id } = route.useParams()
+  const navigate = useNavigate()
   const { data: tokenData, isLoading, error } = useGetVideoToken(Number(id), {
     query: { staleTime: 0 },
   })
@@ -44,11 +48,58 @@ export function VideoCall() {
   }
 
   if (error || !tokenData?.token || !tokenData?.appId) {
+    const isTooEarly = (() => {
+      if (!(error instanceof AxiosError)) return false
+      const status = error.response?.status
+      if (status !== 400 && status !== 403) return false
+      const data = error.response?.data as Record<string, string> | undefined
+      const msg = (data?.message ?? data?.title ?? data?.detail ?? '').toLowerCase()
+      return (
+        msg.includes('early') ||
+        msg.includes('not started') ||
+        msg.includes('chưa') ||
+        msg.includes('sớm') ||
+        msg.includes('before')
+      )
+    })()
+
     return (
-      <div className="flex h-screen items-center justify-center">
-        <p className="text-destructive">
-          Không thể kết nối cuộc gọi video. Vui lòng thử lại.
-        </p>
+      <div className="flex h-screen items-center justify-center bg-background">
+        <div className="mx-4 flex max-w-md flex-col items-center gap-4 rounded-2xl border p-8 text-center shadow-lg">
+          {isTooEarly ? (
+            <>
+              <div className="flex h-16 w-16 items-center justify-center rounded-full bg-yellow-100 dark:bg-yellow-900/30">
+                <Clock className="h-8 w-8 text-yellow-600 dark:text-yellow-400" />
+              </div>
+              <h2 className="text-xl font-semibold">Chưa đến giờ hẹn</h2>
+              <p className="text-muted-foreground">
+                Bạn đang tham gia quá sớm. Vui lòng quay lại vào đúng giờ hẹn
+                để bắt đầu cuộc gọi. Hoặc đến trước giờ hẹn 15 phút để chuẩn bị !
+              </p>
+            </>
+          ) : (
+            <>
+              <div className="flex h-16 w-16 items-center justify-center rounded-full bg-destructive/10">
+                <AlertTriangle className="h-8 w-8 text-destructive" />
+              </div>
+              <h2 className="text-xl font-semibold">Không thể kết nối</h2>
+              <p className="text-muted-foreground">
+                Không thể kết nối cuộc gọi video. Vui lòng thử lại sau.
+              </p>
+            </>
+          )}
+          <Button
+            variant="outline"
+            onClick={() =>
+              navigate({
+                to: '/appointments/$id',
+                params: { id },
+              })
+            }
+          >
+            Quay lại
+          </Button>
+        </div>
       </div>
     )
   }
