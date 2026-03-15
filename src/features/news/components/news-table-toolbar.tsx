@@ -9,12 +9,15 @@ import {
 import { newsStatusOptions } from '@/lib/constants/news-status'
 import { newsCategoryTypeOptions } from '@/lib/constants/news-categories'
 import type { NewsResponse } from '@/api'
+import { MultilangLangToggle } from '@/components/multilang-lang-toggle'
 
 type NewsTableToolbarProps = {
   table: Table<NewsResponse>
+  lang: 'vi' | 'en'
+  onLangChange: (lang: 'vi' | 'en') => void
 }
 
-export function NewsTableToolbar({ table }: NewsTableToolbarProps) {
+export function NewsTableToolbar({ table, lang, onLangChange }: NewsTableToolbarProps) {
   const isFiltered =
     table.getState().columnFilters.length > 0 || table.getState().globalFilter
 
@@ -63,8 +66,11 @@ export function NewsTableToolbar({ table }: NewsTableToolbarProps) {
         )}
       </div>
 
-      {/* Column visibility toggle */}
-      <DataTableViewOptions table={table} />
+      <div className="flex items-center gap-2">
+        <MultilangLangToggle lang={lang} onLangChange={onLangChange} />
+        {/* Column visibility toggle */}
+        <DataTableViewOptions table={table} />
+      </div>
     </div>
   )
 }

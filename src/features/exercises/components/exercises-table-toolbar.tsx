@@ -9,17 +9,22 @@ import {
 } from '@/components/server-data-table'
 import type { ExerciseResponse, CategoryResponse, GroupResponse } from '@/api'
 import { displayMultilang } from '@/lib/multilang'
+import { MultilangLangToggle } from '@/components/multilang-lang-toggle'
 
 type ExercisesTableToolbarProps = {
   table: Table<ExerciseResponse>
   allCategories: CategoryResponse[]
   allGroups: GroupResponse[]
+  lang: 'vi' | 'en'
+  onLangChange: (lang: 'vi' | 'en') => void
 }
 
 export function ExercisesTableToolbar({
   table,
   allCategories,
   allGroups,
+  lang,
+  onLangChange,
 }: ExercisesTableToolbarProps) {
   const isFiltered =
     table.getState().columnFilters.length > 0 || table.getState().globalFilter
@@ -113,8 +118,11 @@ export function ExercisesTableToolbar({
         )}
       </div>
 
-      {/* Column visibility toggle */}
-      <DataTableViewOptions table={table} />
+      <div className="flex items-center gap-2">
+        <MultilangLangToggle lang={lang} onLangChange={onLangChange} />
+        {/* Column visibility toggle */}
+        <DataTableViewOptions table={table} />
+      </div>
     </div>
   )
 }

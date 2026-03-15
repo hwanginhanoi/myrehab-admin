@@ -24,6 +24,8 @@ import {
   MultilangInput,
   MultilangTextarea,
 } from '@/components/multilang-input'
+import { MultilangLangProvider } from '@/context/multilang-lang-context'
+import { MultilangFormMessage } from '@/components/multilang-form-message'
 import { categoryTypeOptions } from '@/lib/constants/category-type'
 import {
   type CategoryResponse,
@@ -165,6 +167,7 @@ export function CategoriesActionDialog({
           <DialogTitle>{getTitle()}</DialogTitle>
           <DialogDescription>{getDescription()}</DialogDescription>
         </DialogHeader>
+        <MultilangLangProvider>
         <Form {...form}>
           <form
             id="category-form"
@@ -186,9 +189,13 @@ export function CategoriesActionDialog({
                       placeholder={{ vi: 'Nhập tên danh mục', en: 'Enter category name' }}
                       disabled={isView}
                       className="col-span-4"
+                      errors={{
+                        vi: form.formState.errors.name?.vi?.message,
+                        en: form.formState.errors.name?.en?.message,
+                      }}
                     />
                   </FormControl>
-                  <FormMessage className="col-span-4 col-start-3" />
+                  <MultilangFormMessage errors={form.formState.errors.name} className="col-span-4 col-start-3" />
                 </FormItem>
               )}
             />
@@ -228,6 +235,10 @@ export function CategoriesActionDialog({
                       disabled={isView}
                       className="col-span-4"
                       textareaClassName="min-h-[100px]"
+                      errors={{
+                        vi: form.formState.errors.description?.vi?.message,
+                        en: form.formState.errors.description?.en?.message,
+                      }}
                     />
                   </FormControl>
                   <FormMessage className="col-span-4 col-start-3" />
@@ -250,6 +261,7 @@ export function CategoriesActionDialog({
           )}
           {isView && <Button onClick={() => onOpenChange(false)}>Đóng</Button>}
         </DialogFooter>
+        </MultilangLangProvider>
       </DialogContent>
     </Dialog>
   )

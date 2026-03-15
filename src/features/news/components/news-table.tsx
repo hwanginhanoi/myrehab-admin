@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import {
   type SortingState,
   type VisibilityState,
@@ -18,7 +18,7 @@ import {
 } from '@/components/ui/table'
 import { DataTablePagination } from '@/components/server-data-table'
 import type { NewsResponse } from '@/api'
-import { newsColumns as columns } from './news-columns'
+import { createNewsColumns } from './news-columns'
 import { NewsTableToolbar } from './news-table-toolbar'
 
 type DataTableProps = {
@@ -38,6 +38,7 @@ export function NewsTable({
   const [rowSelection, setRowSelection] = useState({})
   const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({})
   const [sorting, setSorting] = useState<SortingState>([])
+  const [lang, setLang] = useState<'vi' | 'en'>('vi')
 
   // Synced with URL states
   const {
@@ -57,6 +58,8 @@ export function NewsTable({
       { columnId: 'category', searchKey: 'category', type: 'string' },
     ],
   })
+
+  const columns = useMemo(() => createNewsColumns(lang), [lang])
 
   const table = useReactTable({
     data,
@@ -91,7 +94,7 @@ export function NewsTable({
         'flex flex-1 flex-col gap-4'
       )}
     >
-      <NewsTableToolbar table={table} />
+      <NewsTableToolbar table={table} lang={lang} onLangChange={setLang} />
       <div className="overflow-hidden rounded-md border">
         <Table>
           <TableHeader>

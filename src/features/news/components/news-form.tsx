@@ -20,6 +20,8 @@ import {
   MultilangTextarea,
 } from '@/components/multilang-input'
 import { MultilangTiptap } from '@/components/multilang-tiptap'
+import { MultilangLangProvider } from '@/context/multilang-lang-context'
+import { MultilangFormMessage } from '@/components/multilang-form-message'
 import { newsStatusOptions } from '@/lib/constants/news-status'
 import { newsCategoryTypeOptions } from '@/lib/constants/news-categories'
 import { type NewsResponse, useCreateNews, useUpdateNews } from '@/api'
@@ -249,6 +251,7 @@ export function NewsFormComponent({ news, mode }: NewsFormComponentProps) {
   }
 
   return (
+    <MultilangLangProvider>
     <div className="space-y-6">
       <div>
         <h2 className="text-2xl font-bold tracking-tight">{getTitle()}</h2>
@@ -269,9 +272,13 @@ export function NewsFormComponent({ news, mode }: NewsFormComponentProps) {
                     onChange={field.onChange}
                     placeholder={{ vi: 'Nhập tiêu đề', en: 'Enter title' }}
                     disabled={isView}
+                    errors={{
+                      vi: form.formState.errors.title?.vi?.message,
+                      en: form.formState.errors.title?.en?.message,
+                    }}
                   />
                 </FormControl>
-                <FormMessage />
+                <MultilangFormMessage errors={form.formState.errors.title} />
               </FormItem>
             )}
           />
@@ -289,6 +296,10 @@ export function NewsFormComponent({ news, mode }: NewsFormComponentProps) {
                     placeholder={{ vi: 'Nhập tóm tắt', en: 'Enter summary' }}
                     disabled={isView}
                     textareaClassName="min-h-[80px]"
+                    errors={{
+                      vi: form.formState.errors.summary?.vi?.message,
+                      en: form.formState.errors.summary?.en?.message,
+                    }}
                   />
                 </FormControl>
                 <FormMessage />
@@ -308,9 +319,13 @@ export function NewsFormComponent({ news, mode }: NewsFormComponentProps) {
                     onChange={field.onChange}
                     disabled={isView}
                     placeholder={{ vi: 'Nhập nội dung tin tức', en: 'Enter news content' }}
+                    errors={{
+                      vi: form.formState.errors.content?.vi?.message,
+                      en: form.formState.errors.content?.en?.message,
+                    }}
                   />
                 </FormControl>
-                <FormMessage />
+                <MultilangFormMessage errors={form.formState.errors.content} />
               </FormItem>
             )}
           />
@@ -408,5 +423,6 @@ export function NewsFormComponent({ news, mode }: NewsFormComponentProps) {
         </form>
       </Form>
     </div>
+    </MultilangLangProvider>
   )
 }

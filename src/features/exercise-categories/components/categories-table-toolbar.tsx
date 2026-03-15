@@ -8,12 +8,15 @@ import {
 } from '@/components/server-data-table'
 import { categoryTypeOptions } from '@/lib/constants/category-type'
 import type { CategoryResponse } from '@/api'
+import { MultilangLangToggle } from '@/components/multilang-lang-toggle'
 
 type CategoriesTableToolbarProps = {
   table: Table<CategoryResponse>
+  lang: 'vi' | 'en'
+  onLangChange: (lang: 'vi' | 'en') => void
 }
 
-export function CategoriesTableToolbar({ table }: CategoriesTableToolbarProps) {
+export function CategoriesTableToolbar({ table, lang, onLangChange }: CategoriesTableToolbarProps) {
   const isFiltered =
     table.getState().columnFilters.length > 0 || table.getState().globalFilter
 
@@ -55,8 +58,11 @@ export function CategoriesTableToolbar({ table }: CategoriesTableToolbarProps) {
         )}
       </div>
 
-      {/* Column visibility toggle */}
-      <DataTableViewOptions table={table} />
+      <div className="flex items-center gap-2">
+        <MultilangLangToggle lang={lang} onLangChange={onLangChange} />
+        {/* Column visibility toggle */}
+        <DataTableViewOptions table={table} />
+      </div>
     </div>
   )
 }

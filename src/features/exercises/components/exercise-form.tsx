@@ -20,6 +20,8 @@ import {
   MultilangInput,
   MultilangTextarea,
 } from '@/components/multilang-input'
+import { MultilangLangProvider } from '@/context/multilang-lang-context'
+import { MultilangFormMessage } from '@/components/multilang-form-message'
 import {
   type ExerciseResponse,
   type CategoryResponse,
@@ -281,6 +283,7 @@ export function ExerciseFormComponent({
   }
 
   return (
+    <MultilangLangProvider>
     <div className="space-y-6">
       <div>
         <h2 className="text-2xl font-bold tracking-tight">{getTitle()}</h2>
@@ -306,9 +309,13 @@ export function ExerciseFormComponent({
                       onChange={field.onChange}
                       placeholder={{ vi: 'Nhập tên bài tập', en: 'Enter exercise name' }}
                       disabled={isView}
+                      errors={{
+                        vi: form.formState.errors.title?.vi?.message,
+                        en: form.formState.errors.title?.en?.message,
+                      }}
                     />
                   </FormControl>
-                  <FormMessage />
+                  <MultilangFormMessage errors={form.formState.errors.title} />
                 </FormItem>
               )}
             />
@@ -388,6 +395,10 @@ export function ExerciseFormComponent({
                     placeholder={{ vi: 'Nhập mô tả bài tập', en: 'Enter exercise description' }}
                     disabled={isView}
                     textareaClassName="min-h-[120px]"
+                    errors={{
+                      vi: form.formState.errors.description?.vi?.message,
+                      en: form.formState.errors.description?.en?.message,
+                    }}
                   />
                 </FormControl>
                 <FormMessage />
@@ -489,6 +500,7 @@ export function ExerciseFormComponent({
         </form>
       </Form>
     </div>
+    </MultilangLangProvider>
   )
 }
 

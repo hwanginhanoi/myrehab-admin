@@ -18,7 +18,7 @@ import {
 } from '@/components/ui/table'
 import { DataTablePagination } from '@/components/server-data-table'
 import type { ExerciseResponse, CategoryResponse, GroupResponse } from '@/api'
-import { exercisesColumns } from './exercises-columns'
+import { createExercisesColumns } from './exercises-columns'
 import { ExercisesTableToolbar } from './exercises-table-toolbar'
 
 type DataTableProps = {
@@ -44,6 +44,7 @@ export function ExercisesTable({
     groupIds: false,
   })
   const [sorting, setSorting] = useState<SortingState>([])
+  const [lang, setLang] = useState<'vi' | 'en'>('vi')
 
   // Synced with URL states
   const {
@@ -79,9 +80,9 @@ export function ExercisesTable({
         cell: () => null,
         enableSorting: false,
       },
-      ...exercisesColumns,
+      ...createExercisesColumns(lang),
     ],
-    []
+    [lang]
   )
 
   const table = useReactTable({
@@ -118,6 +119,8 @@ export function ExercisesTable({
         table={table}
         allCategories={allCategories}
         allGroups={allGroups}
+        lang={lang}
+        onLangChange={setLang}
       />
       <div className="overflow-hidden rounded-md border">
         <Table>

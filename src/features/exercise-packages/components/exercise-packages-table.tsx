@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import {
   type SortingState,
   type VisibilityState,
@@ -18,7 +18,7 @@ import {
 } from '@/components/ui/table'
 import { DataTablePagination } from '@/components/server-data-table'
 import type { ExercisePackageResponse } from '@/api'
-import { exercisePackagesColumns } from './exercise-packages-columns'
+import { createExercisePackagesColumns } from './exercise-packages-columns'
 import { ExercisePackagesTableToolbar } from './exercise-packages-table-toolbar'
 
 type DataTableProps = {
@@ -37,6 +37,7 @@ export function ExercisePackagesTable({
   // Local UI-only states
   const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({})
   const [sorting, setSorting] = useState<SortingState>([])
+  const [lang, setLang] = useState<'vi' | 'en'>('vi')
 
   // Synced with URL states
   const {
@@ -53,9 +54,11 @@ export function ExercisePackagesTable({
     columnFilters: [{ columnId: 'title', searchKey: 'title', type: 'string' }],
   })
 
+  const columns = useMemo(() => createExercisePackagesColumns(lang), [lang])
+
   const table = useReactTable({
     data,
-    columns: exercisePackagesColumns,
+    columns,
     pageCount,
     state: {
       sorting,
@@ -87,6 +90,8 @@ export function ExercisePackagesTable({
         table={table}
         search={search}
         navigate={navigate}
+        lang={lang}
+        onLangChange={setLang}
       />
       <div className="overflow-hidden rounded-md border">
         <Table>
@@ -144,7 +149,7 @@ export function ExercisePackagesTable({
             ) : (
               <TableRow>
                 <TableCell
-                  colSpan={exercisePackagesColumns.length}
+                  colSpan={columns.length}
                   className="h-24 text-center"
                 >
                   Không có dữ liệu.
