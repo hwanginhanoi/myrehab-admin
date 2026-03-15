@@ -1,8 +1,11 @@
 {
   "type": "object",
   "properties": {
-    "title": { "type": "string", "minLength": 1 },
-    "description": { "type": "string", "minLength": 1 },
+    "title": { "type": "object", "additionalProperties": { "type": "string" } },
+    "description": {
+      "type": "object",
+      "additionalProperties": { "type": "string" }
+    },
     "imageUrl": { "type": "string" },
     "categoryIds": {
       "type": "array",
@@ -13,6 +16,6 @@
       "items": { "type": "integer", "format": "int64" }
     }
   },
-  "required": ["categoryIds", "description", "exerciseIds", "title"],
+  "required": ["categoryIds", "exerciseIds"],
   "x-readme-ref-name": "CreateExercisePackageRequest"
 }

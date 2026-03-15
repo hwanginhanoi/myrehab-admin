@@ -13,13 +13,17 @@ export type MyAssignedCourseResponse = {
    */
   courseId?: number
   /**
-   * @type string | undefined
+   * @type object | undefined
    */
-  courseTitle?: string
+  courseTitle?: {
+    [key: string]: string
+  }
   /**
-   * @type string | undefined
+   * @type object | undefined
    */
-  courseDescription?: string
+  courseDescription?: {
+    [key: string]: string
+  }
   /**
    * @type integer | undefined, int32
    */

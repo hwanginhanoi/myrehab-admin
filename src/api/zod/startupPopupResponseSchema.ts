@@ -7,7 +7,7 @@ import { z } from 'zod/v4'
 
 export const startupPopupResponseSchema = z.object({
   id: z.optional(z.int()),
-  title: z.optional(z.string()),
+  title: z.optional(z.object({}).catchall(z.string())),
   imageUrl: z.optional(z.string()),
   active: z.optional(z.boolean()),
   createdAt: z.optional(z.string().datetime()),

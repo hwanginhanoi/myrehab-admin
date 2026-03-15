@@ -29,6 +29,16 @@ export {
   getExercisePackageByIdQueryResponseSchema,
 } from './getExercisePackageByIdSchema.ts'
 export {
+  getLatestPublicPackagesQueryParamsSchema,
+  getLatestPublicPackages200Schema,
+  getLatestPublicPackagesQueryResponseSchema,
+} from './getLatestPublicPackagesSchema.ts'
+export {
+  getRandomAvailablePackagesQueryParamsSchema,
+  getRandomAvailablePackages200Schema,
+  getRandomAvailablePackagesQueryResponseSchema,
+} from './getRandomAvailablePackagesSchema.ts'
+export {
   updateExercisePackagePathParamsSchema,
   updateExercisePackage200Schema,
   updateExercisePackageMutationRequestSchema,

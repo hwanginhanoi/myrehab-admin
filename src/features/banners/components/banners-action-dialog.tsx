@@ -20,16 +20,22 @@ import {
   FormLabel,
   FormMessage,
 } from '@/components/ui/form'
-import { Input } from '@/components/ui/input'
 import { SelectDropdown } from '@/components/select-dropdown'
 import { FileUpload, type FileUploadRef } from '@/components/file-upload'
+import { MultilangInput } from '@/components/multilang-input'
 import { bannerStatusOptions } from '@/lib/constants/banner-status'
 import { type BannerResponse, useUpdateBanner } from '@/api'
 import { toast } from 'sonner'
 import { useBanners } from './banners-provider'
+import {
+  multilangRequired,
+  emptyMultilang,
+  fromMultilang,
+  toMultilang,
+} from '@/lib/multilang'
 
 const formSchema = z.object({
-  title: z.string().min(1, 'Tiêu đề là bắt buộc'),
+  title: multilangRequired('Tiêu đề là bắt buộc'),
   imageUrl: z.string().optional(),
   status: z.string().min(1, 'Trạng thái là bắt buộc'),
 })
@@ -62,12 +68,12 @@ export function BannersActionDialog({
     defaultValues:
       isEdit || isView
         ? {
-            title: currentRow?.title || '',
+            title: fromMultilang(currentRow?.title),
             imageUrl: currentRow?.imageUrl || '',
             status: currentRow?.status || '',
           }
         : {
-            title: '',
+            title: emptyMultilang,
             imageUrl: '',
             status: 'ACTIVE',
           },
@@ -125,7 +131,7 @@ export function BannersActionDialog({
 
           if (isAdd) {
             setDraftBanner({
-              title: values.title,
+              title: toMultilang(values.title),
               imageUrl,
               status: values.status,
             })
@@ -140,7 +146,7 @@ export function BannersActionDialog({
               {
                 id: currentRow.id,
                 data: {
-                  title: values.title,
+                  title: toMultilang(values.title),
                   imageUrl,
                   status: values.status as NonNullable<BannerResponse['status']>,
                 },
@@ -194,11 +200,12 @@ export function BannersActionDialog({
                     Tiêu đề
                   </FormLabel>
                   <FormControl>
-                    <Input
-                      placeholder="Nhập tiêu đề"
-                      className="col-span-4"
+                    <MultilangInput
+                      value={field.value}
+                      onChange={field.onChange}
+                      placeholder={{ vi: 'Nhập tiêu đề', en: 'Enter title' }}
                       disabled={isView}
-                      {...field}
+                      className="col-span-4"
                     />
                   </FormControl>
                   <FormMessage className="col-span-4 col-start-3" />

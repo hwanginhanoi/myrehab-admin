@@ -14,19 +14,23 @@ export type CreateNewsRequestStatusEnumKey =
 
 export type CreateNewsRequest = {
   /**
-   * @minLength 1
-   * @type string
+   * @type object | undefined
    */
-  title: string
+  title?: {
+    [key: string]: string
+  }
   /**
-   * @minLength 1
-   * @type string
+   * @type object | undefined
    */
-  content: string
+  content?: {
+    [key: string]: string
+  }
   /**
-   * @type string | undefined
+   * @type object | undefined
    */
-  summary?: string
+  summary?: {
+    [key: string]: string
+  }
   /**
    * @type string | undefined
    */

@@ -8,7 +8,10 @@
         "properties": {
           "id": { "type": "integer", "format": "int64" },
           "courseId": { "type": "integer", "format": "int64" },
-          "courseTitle": { "type": "string" },
+          "courseTitle": {
+            "type": "object",
+            "additionalProperties": { "type": "string" }
+          },
           "currentDayNumber": { "type": "integer", "format": "int32" },
           "totalDays": { "type": "integer", "format": "int32" },
           "isCompleted": { "type": "boolean" },

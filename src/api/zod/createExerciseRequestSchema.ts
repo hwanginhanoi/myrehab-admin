@@ -6,8 +6,8 @@
 import { z } from 'zod/v4'
 
 export const createExerciseRequestSchema = z.object({
-  title: z.string().min(1),
-  description: z.string().min(1),
+  title: z.optional(z.object({}).catchall(z.string())),
+  description: z.optional(z.object({}).catchall(z.string())),
   imageUrl: z.string().min(1),
   videoUrl: z.string().min(1),
   durationMinutes: z.int(),

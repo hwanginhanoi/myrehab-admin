@@ -35,6 +35,18 @@ export type {
   GetExercisePackageByIdQuery,
 } from './GetExercisePackageById.ts'
 export type {
+  GetLatestPublicPackagesQueryParams,
+  GetLatestPublicPackages200,
+  GetLatestPublicPackagesQueryResponse,
+  GetLatestPublicPackagesQuery,
+} from './GetLatestPublicPackages.ts'
+export type {
+  GetRandomAvailablePackagesQueryParams,
+  GetRandomAvailablePackages200,
+  GetRandomAvailablePackagesQueryResponse,
+  GetRandomAvailablePackagesQuery,
+} from './GetRandomAvailablePackages.ts'
+export type {
   UpdateExercisePackagePathParams,
   UpdateExercisePackage200,
   UpdateExercisePackageMutationRequest,

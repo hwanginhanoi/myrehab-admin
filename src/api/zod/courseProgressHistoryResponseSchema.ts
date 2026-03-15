@@ -8,7 +8,7 @@ import { z } from 'zod/v4'
 export const courseProgressHistoryResponseSchema = z.object({
   id: z.optional(z.int()),
   courseId: z.optional(z.int()),
-  courseTitle: z.optional(z.string()),
+  courseTitle: z.optional(z.object({}).catchall(z.string())),
   currentDayNumber: z.optional(z.int()),
   totalDays: z.optional(z.int()),
   isCompleted: z.optional(z.boolean()),

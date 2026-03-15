@@ -47,6 +47,7 @@ import {
   type GroupResponse,
 } from '@/api'
 import { cn } from '@/lib/utils'
+import { displayMultilang } from '@/lib/multilang'
 
 interface ExerciseSelectorDNDProps {
   selectedExercises: ExerciseResponse[]
@@ -100,7 +101,7 @@ export function ExerciseSelectorDND({
       options: cats
         .filter((cat) => cat.name && cat.id !== undefined)
         .map((cat) => ({
-          label: cat.name!,
+          label: displayMultilang(cat.name),
           value: String(cat.id!),
         })),
     }))
@@ -113,7 +114,7 @@ export function ExerciseSelectorDND({
       {
         label: 'Kho bài tập',
         options: groups.map((group) => ({
-          label: group.name || '',
+          label: displayMultilang(group.name),
           value: String(group.id),
         })),
       },
@@ -239,7 +240,7 @@ export function ExerciseSelectorDND({
                   >
                     <div className="flex-1 min-w-0">
                       <p className="font-medium text-sm truncate">
-                        {exercise.title}
+                        {displayMultilang(exercise.title)}
                       </p>
                       {exercise.categories &&
                         exercise.categories.length > 0 && (
@@ -250,7 +251,7 @@ export function ExerciseSelectorDND({
                                 variant="outline"
                                 className="text-xs"
                               >
-                                {category.name}
+                                {displayMultilang(category.name)}
                               </Badge>
                             ))}
                             {exercise.categories.length > 3 && (
@@ -414,7 +415,7 @@ function SortableExerciseItem({
 
       {/* Exercise Info */}
       <div className="flex-1 min-w-0">
-        <p className="font-medium text-sm truncate">{exercise.title}</p>
+        <p className="font-medium text-sm truncate">{displayMultilang(exercise.title)}</p>
         {exercise.durationMinutes && (
           <p className="text-xs text-muted-foreground">
             {exercise.durationMinutes} phút

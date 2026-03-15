@@ -6,7 +6,7 @@
 import { z } from 'zod/v4'
 
 export const createBannerRequestSchema = z.object({
-  title: z.string().min(1),
+  title: z.optional(z.object({}).catchall(z.string())),
   imageUrl: z.string().min(1),
   displayOrder: z.optional(z.int()),
   status: z.optional(z.enum(['ACTIVE', 'INACTIVE', 'ARCHIVED'])),

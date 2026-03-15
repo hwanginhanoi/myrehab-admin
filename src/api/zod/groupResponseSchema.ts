@@ -7,8 +7,8 @@ import { z } from 'zod/v4'
 
 export const groupResponseSchema = z.object({
   id: z.optional(z.int()),
-  name: z.optional(z.string()),
-  description: z.optional(z.string()),
+  name: z.optional(z.object({}).catchall(z.string())),
+  description: z.optional(z.object({}).catchall(z.string())),
   createdAt: z.optional(z.string().datetime()),
   updatedAt: z.optional(z.string().datetime()),
 })

@@ -5,6 +5,7 @@ import { DataTableColumnHeader } from '@/components/data-table'
 import { LongText } from '@/components/long-text'
 import type { CategoryResponse } from '@/api'
 import { categoryTypeLabels } from '@/lib/constants/category-type'
+import { displayMultilang } from '@/lib/multilang'
 import { DataTableRowActions } from './data-table-row-actions'
 
 export const categoriesColumns: ColumnDef<CategoryResponse>[] = [
@@ -15,7 +16,7 @@ export const categoriesColumns: ColumnDef<CategoryResponse>[] = [
     ),
     cell: ({ row }) => (
       <LongText className="max-w-48 ps-3 font-medium">
-        {row.getValue('name')}
+        {displayMultilang(row.original.name)}
       </LongText>
     ),
     meta: {
@@ -54,7 +55,7 @@ export const categoriesColumns: ColumnDef<CategoryResponse>[] = [
     ),
     cell: ({ row }) => (
       <LongText className="max-w-96">
-        {row.getValue('description') || '-'}
+        {displayMultilang(row.original.description) || '-'}
       </LongText>
     ),
     enableSorting: false,

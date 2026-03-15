@@ -10,7 +10,7 @@ export const courseAssignmentListResponseSchema = z.object({
   patientId: z.optional(z.int()),
   patientFullName: z.optional(z.string()),
   courseId: z.optional(z.int()),
-  courseTitle: z.optional(z.string()),
+  courseTitle: z.optional(z.object({}).catchall(z.string())),
   assignedByDoctorId: z.optional(z.int()),
   assignedByDoctorName: z.optional(z.string()),
   assignedAt: z.optional(z.string().datetime()),

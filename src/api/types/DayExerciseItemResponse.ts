@@ -13,13 +13,17 @@ export type DayExerciseItemResponse = {
    */
   exerciseId?: number
   /**
-   * @type string | undefined
+   * @type object | undefined
    */
-  exerciseTitle?: string
+  exerciseTitle?: {
+    [key: string]: string
+  }
   /**
-   * @type string | undefined
+   * @type object | undefined
    */
-  exerciseDescription?: string
+  exerciseDescription?: {
+    [key: string]: string
+  }
   /**
    * @type string | undefined
    */

@@ -13,11 +13,13 @@ import {
   FormLabel,
   FormMessage,
 } from '@/components/ui/form'
-import { Input } from '@/components/ui/input'
-import { Textarea } from '@/components/ui/textarea'
-import { Tiptap } from '@/components/tiptap'
 import { SelectDropdown } from '@/components/select-dropdown'
 import { FileUpload, type FileUploadRef } from '@/components/file-upload'
+import {
+  MultilangInput,
+  MultilangTextarea,
+} from '@/components/multilang-input'
+import { MultilangTiptap } from '@/components/multilang-tiptap'
 import { newsStatusOptions } from '@/lib/constants/news-status'
 import { newsCategoryTypeOptions } from '@/lib/constants/news-categories'
 import { type NewsResponse, useCreateNews, useUpdateNews } from '@/api'
@@ -27,6 +29,13 @@ import {
   uploadFileToMinIO,
   getPublicImageUrl,
 } from '@/lib/file-upload'
+import {
+  multilangRequired,
+  multilangOptional,
+  emptyMultilang,
+  fromMultilang,
+  toMultilang,
+} from '@/lib/multilang'
 
 /**
  * Helper function to convert base64 string to File object
@@ -96,9 +105,9 @@ const processAndUploadImages = async (htmlContent: string): Promise<string> => {
 }
 
 const formSchema = z.object({
-  title: z.string().min(1, 'Tiêu đề là bắt buộc'),
-  content: z.string().min(1, 'Nội dung là bắt buộc'),
-  summary: z.string().optional(),
+  title: multilangRequired('Tiêu đề là bắt buộc'),
+  content: multilangRequired('Nội dung là bắt buộc'),
+  summary: multilangOptional(),
   thumbnailUrl: z.string().optional(),
   status: z.string().min(1, 'Trạng thái là bắt buộc'),
   category: z.string().optional(),
@@ -124,17 +133,17 @@ export function NewsFormComponent({ news, mode }: NewsFormComponentProps) {
     resolver: zodResolver(formSchema),
     defaultValues: news
       ? {
-          title: news.title || '',
-          content: news.content || '',
-          summary: news.summary || '',
+          title: fromMultilang(news.title),
+          content: fromMultilang(news.content),
+          summary: fromMultilang(news.summary),
           thumbnailUrl: news.thumbnailUrl || '',
           status: news.status || '',
           category: news.category || '',
         }
       : {
-          title: '',
-          content: '',
-          summary: '',
+          title: emptyMultilang,
+          content: emptyMultilang,
+          summary: emptyMultilang,
           thumbnailUrl: '',
           status: 'DRAFT',
           category: '',
@@ -186,24 +195,27 @@ export function NewsFormComponent({ news, mode }: NewsFormComponentProps) {
         }
       }
 
-      // Process content and upload any base64 images to MinIO
-      let processedContent = values.content
-      if (values.content && values.content.includes('data:image')) {
-        try {
-          setUploadingContentImages(true)
-          processedContent = await processAndUploadImages(values.content)
-        } catch {
-          toast.error('Không thể tải lên ảnh trong nội dung')
-          return
-        } finally {
-          setUploadingContentImages(false)
+      // Process content and upload any base64 images to MinIO for both languages
+      const processedContent = { ...values.content }
+      try {
+        setUploadingContentImages(true)
+        if (processedContent.vi && processedContent.vi.includes('data:image')) {
+          processedContent.vi = await processAndUploadImages(processedContent.vi)
         }
+        if (processedContent.en && processedContent.en.includes('data:image')) {
+          processedContent.en = await processAndUploadImages(processedContent.en)
+        }
+      } catch {
+        toast.error('Không thể tải lên ảnh trong nội dung')
+        return
+      } finally {
+        setUploadingContentImages(false)
       }
 
       const payload = {
-        title: values.title,
-        content: processedContent,
-        summary: values.summary || undefined,
+        title: toMultilang(values.title),
+        content: toMultilang(processedContent),
+        summary: values.summary?.vi || values.summary?.en ? toMultilang(values.summary) : undefined,
         thumbnailUrl: thumbnailUrl || undefined,
         status: values.status as NonNullable<NewsResponse['status']>,
         category: values.category || undefined,
@@ -252,10 +264,11 @@ export function NewsFormComponent({ news, mode }: NewsFormComponentProps) {
               <FormItem>
                 <FormLabel>Tiêu đề</FormLabel>
                 <FormControl>
-                  <Input
-                    placeholder="Nhập tiêu đề"
+                  <MultilangInput
+                    value={field.value}
+                    onChange={field.onChange}
+                    placeholder={{ vi: 'Nhập tiêu đề', en: 'Enter title' }}
                     disabled={isView}
-                    {...field}
                   />
                 </FormControl>
                 <FormMessage />
@@ -270,11 +283,12 @@ export function NewsFormComponent({ news, mode }: NewsFormComponentProps) {
               <FormItem>
                 <FormLabel>Tóm tắt</FormLabel>
                 <FormControl>
-                  <Textarea
-                    placeholder="Nhập tóm tắt"
-                    className="min-h-[80px]"
+                  <MultilangTextarea
+                    value={field.value}
+                    onChange={field.onChange}
+                    placeholder={{ vi: 'Nhập tóm tắt', en: 'Enter summary' }}
                     disabled={isView}
-                    {...field}
+                    textareaClassName="min-h-[80px]"
                   />
                 </FormControl>
                 <FormMessage />
@@ -289,11 +303,11 @@ export function NewsFormComponent({ news, mode }: NewsFormComponentProps) {
               <FormItem>
                 <FormLabel>Nội dung</FormLabel>
                 <FormControl>
-                  <Tiptap
+                  <MultilangTiptap
                     value={field.value}
                     onChange={field.onChange}
                     disabled={isView}
-                    placeholder="Nhập nội dung tin tức"
+                    placeholder={{ vi: 'Nhập nội dung tin tức', en: 'Enter news content' }}
                   />
                 </FormControl>
                 <FormMessage />

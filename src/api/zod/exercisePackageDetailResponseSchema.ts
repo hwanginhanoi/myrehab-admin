@@ -9,8 +9,8 @@ import { z } from 'zod/v4'
 
 export const exercisePackageDetailResponseSchema = z.object({
   id: z.optional(z.int()),
-  title: z.optional(z.string()),
-  description: z.optional(z.string()),
+  title: z.optional(z.object({}).catchall(z.string())),
+  description: z.optional(z.object({}).catchall(z.string())),
   imageUrl: z.optional(z.string()),
   get categories() {
     return z.array(categoryResponseSchema).optional()

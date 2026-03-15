@@ -7,9 +7,9 @@ import { z } from 'zod/v4'
 
 export const newsResponseSchema = z.object({
   id: z.optional(z.int()),
-  title: z.optional(z.string()),
-  content: z.optional(z.string()),
-  summary: z.optional(z.string()),
+  title: z.optional(z.object({}).catchall(z.string())),
+  content: z.optional(z.object({}).catchall(z.string())),
+  summary: z.optional(z.object({}).catchall(z.string())),
   thumbnailUrl: z.optional(z.string()),
   authorId: z.optional(z.int()),
   status: z.optional(z.enum(['DRAFT', 'PUBLISHED', 'ARCHIVED'])),

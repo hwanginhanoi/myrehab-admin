@@ -10,7 +10,6 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/card'
-import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Skeleton } from '@/components/ui/skeleton'
 import {
@@ -30,6 +29,12 @@ import {
 } from '@/api'
 import { useAuthStore } from '@/stores/auth-store'
 import { CourseCustomizationSection } from './course-customization-section'
+import {
+  MultilangInput,
+  MultilangTextarea,
+  type MultilangValue,
+} from '@/components/multilang-input'
+import { emptyMultilang, toMultilang } from '@/lib/multilang'
 
 // Types
 export type CustomExercise = {
@@ -51,8 +56,8 @@ export type DayWithExercises = {
 
 type AssignmentState = {
   selectedPatient: UserResponse | null
-  courseName: string
-  courseDescription: string
+  courseName: MultilangValue
+  courseDescription: MultilangValue
   customizedDays: Map<number, DayWithExercises>
   notes: string
   assigningDoctorId: number | null
@@ -62,8 +67,8 @@ type AssignmentState = {
 
 type AssignmentAction =
   | { type: 'SELECT_PATIENT'; payload: UserResponse }
-  | { type: 'SET_COURSE_NAME'; payload: string }
-  | { type: 'SET_COURSE_DESCRIPTION'; payload: string }
+  | { type: 'SET_COURSE_NAME'; payload: MultilangValue }
+  | { type: 'SET_COURSE_DESCRIPTION'; payload: MultilangValue }
   | { type: 'SET_ASSIGNING_DOCTOR_ID'; payload: number | null }
   | { type: 'INITIALIZE_DAYS' }
   | { type: 'ADD_DAY' }
@@ -353,8 +358,8 @@ function assignmentReducer(
 // Initial state
 const initialState: AssignmentState = {
   selectedPatient: null,
-  courseName: '',
-  courseDescription: '',
+  courseName: emptyMultilang,
+  courseDescription: emptyMultilang,
   customizedDays: new Map(),
   notes: '',
   assigningDoctorId: null,
@@ -459,7 +464,7 @@ export function CourseAssignmentScreen({
   const validateStep = useCallback((): string | null => {
     if (state.currentStep === 1) {
       if (!state.selectedPatient) return 'Không tìm thấy bệnh nhân'
-      if (!state.courseName.trim()) return 'Vui lòng nhập tên khóa học'
+      if (!state.courseName.vi.trim()) return 'Vui lòng nhập tên khóa học'
       if (showDoctorSelector && !state.assigningDoctorId)
         return 'Vui lòng chọn bác sĩ phân công'
     }
@@ -511,7 +516,7 @@ export function CourseAssignmentScreen({
       .sort(([a], [b]) => a - b) // Sort by day number
       .map(([_, day]) => ({
         dayNumber: day.dayNumber,
-        description: day.description,
+        description: day.description ? toMultilang({ vi: day.description, en: '' }) : undefined,
         exercises: day.exercises.map((ex) => ({
           exerciseId: ex.exerciseId,
           orderInDay: ex.orderInDay,
@@ -523,8 +528,8 @@ export function CourseAssignmentScreen({
     assignMutation.mutate({
       userId: state.selectedPatient.id,
       data: {
-        title: state.courseName,
-        description: state.courseDescription,
+        title: toMultilang(state.courseName),
+        description: toMultilang(state.courseDescription),
         durationDays: state.customizedDays.size,
         notes: state.notes || undefined,
         assigningDoctorId: state.assigningDoctorId || undefined,
@@ -657,32 +662,30 @@ export function CourseAssignmentScreen({
 
               <div className="space-y-2">
                 <Label htmlFor="courseName">Tên khóa học *</Label>
-                <Input
-                  id="courseName"
-                  placeholder="Nhập tên khóa học..."
+                <MultilangInput
                   value={state.courseName}
-                  onChange={(e) =>
+                  onChange={(value) =>
                     dispatch({
                       type: 'SET_COURSE_NAME',
-                      payload: e.target.value,
+                      payload: value,
                     })
                   }
+                  placeholder={{ vi: 'Nhập tên khóa học...', en: 'Enter course name...' }}
                 />
               </div>
 
               <div className="space-y-2">
                 <Label htmlFor="courseDescription">Mô tả khóa học</Label>
-                <textarea
-                  id="courseDescription"
-                  placeholder="Nhập mô tả về khóa học..."
+                <MultilangTextarea
                   value={state.courseDescription}
-                  onChange={(e) =>
+                  onChange={(value) =>
                     dispatch({
                       type: 'SET_COURSE_DESCRIPTION',
-                      payload: e.target.value,
+                      payload: value,
                     })
                   }
-                  className="w-full min-h-[100px] p-3 border rounded-md resize-none focus:outline-none focus:ring-2 focus:ring-ring"
+                  placeholder={{ vi: 'Nhập mô tả về khóa học...', en: 'Enter course description...' }}
+                  textareaClassName="min-h-[100px]"
                 />
               </div>
             </CardContent>
@@ -763,8 +766,8 @@ function StepIndicator({
 // Assignment Review Component
 type AssignmentReviewProps = {
   patient: UserResponse
-  courseName: string
-  courseDescription: string
+  courseName: MultilangValue
+  courseDescription: MultilangValue
   customizedDays: Map<number, DayWithExercises>
   notes: string
   onNotesChange: (notes: string) => void
@@ -847,12 +850,12 @@ function AssignmentReview({
           <div className="space-y-2">
             <div className="flex justify-between">
               <span className="text-muted-foreground">Tên khóa học:</span>
-              <span className="font-medium">{courseName}</span>
+              <span className="font-medium">{courseName.vi}{courseName.en ? ` / ${courseName.en}` : ''}</span>
             </div>
-            {courseDescription && (
+            {(courseDescription.vi || courseDescription.en) && (
               <div className="flex flex-col gap-1">
                 <span className="text-muted-foreground">Mô tả:</span>
-                <span className="font-medium text-sm">{courseDescription}</span>
+                <span className="font-medium text-sm">{courseDescription.vi}{courseDescription.en ? ` / ${courseDescription.en}` : ''}</span>
               </div>
             )}
             <div className="flex justify-between">

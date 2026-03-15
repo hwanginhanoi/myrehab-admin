@@ -5,15 +5,17 @@
 
 export type UpdateExercisePackageRequest = {
   /**
-   * @minLength 1
-   * @type string
+   * @type object | undefined
    */
-  title: string
+  title?: {
+    [key: string]: string
+  }
   /**
-   * @minLength 1
-   * @type string
+   * @type object | undefined
    */
-  description: string
+  description?: {
+    [key: string]: string
+  }
   /**
    * @type string | undefined
    */

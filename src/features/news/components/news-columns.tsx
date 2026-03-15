@@ -7,6 +7,7 @@ import { LongText } from '@/components/long-text'
 import type { NewsResponse } from '@/api'
 import { newsStatusLabels } from '@/lib/constants/news-status'
 import { newsCategoryTypeLabels } from '@/lib/constants/news-categories'
+import { displayMultilang } from '@/lib/multilang'
 import { DataTableRowActions } from './data-table-row-actions'
 
 export const newsColumns: ColumnDef<NewsResponse>[] = [
@@ -47,7 +48,7 @@ export const newsColumns: ColumnDef<NewsResponse>[] = [
     ),
     cell: ({ row }) => (
       <LongText className="max-w-48 ps-3 font-medium">
-        {row.getValue('title')}
+        {displayMultilang(row.original.title)}
       </LongText>
     ),
     meta: {
@@ -118,7 +119,7 @@ export const newsColumns: ColumnDef<NewsResponse>[] = [
       <DataTableColumnHeader column={column} title="Tóm tắt" />
     ),
     cell: ({ row }) => (
-      <LongText className="max-w-96">{row.getValue('summary') || '-'}</LongText>
+      <LongText className="max-w-96">{displayMultilang(row.original.summary) || '-'}</LongText>
     ),
     enableSorting: false,
   },
