@@ -1,13 +1,1 @@
-{
-  "type": "object",
-  "properties": {
-    "id": { "type": "integer", "format": "int64" },
-    "title": { "type": "object", "additionalProperties": { "type": "string" } },
-    "imageUrl": { "type": "string" },
-    "displayOrder": { "type": "integer", "format": "int32" },
-    "status": { "type": "string", "enum": ["ACTIVE", "INACTIVE", "ARCHIVED"] },
-    "createdAt": { "type": "string", "format": "date-time" },
-    "updatedAt": { "type": "string", "format": "date-time" }
-  },
-  "x-readme-ref-name": "BannerResponse"
-}
+{"type":"object","properties":{"id":{"type":"integer","format":"int64"},"title":{"type":"string"},"imageUrl":{"type":"string"},"displayOrder":{"type":"integer","format":"int32"},"status":{"type":"string","enum":["ACTIVE","INACTIVE","ARCHIVED"]},"createdAt":{"type":"string","format":"date-time"},"updatedAt":{"type":"string","format":"date-time"}},"x-readme-ref-name":"BannerResponse"}

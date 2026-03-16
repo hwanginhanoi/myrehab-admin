@@ -116,6 +116,7 @@ export function BannersTable({
   navigate,
   pageCount,
 }: DataTableProps) {
+  'use no memo'
   const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({})
   const [sorting, setSorting] = useState<SortingState>([])
   const [localData, setLocalData] = useState(data)
@@ -174,6 +175,7 @@ export function BannersTable({
     ],
   })
 
+  // eslint-disable-next-line react-hooks/incompatible-library
   const table = useReactTable({
     data: localData,
     columns,
