@@ -29,12 +29,8 @@ import {
 } from '@/api'
 import { useAuthStore } from '@/stores/auth-store'
 import { CourseCustomizationSection } from './course-customization-section'
-import {
-  MultilangInput,
-  MultilangTextarea,
-  type MultilangValue,
-} from '@/components/multilang-input'
-import { emptyMultilang } from '@/lib/multilang'
+import { Input } from '@/components/ui/input'
+import { Textarea } from '@/components/ui/textarea'
 
 // Types
 export type CustomExercise = {
@@ -56,8 +52,8 @@ export type DayWithExercises = {
 
 type AssignmentState = {
   selectedPatient: UserResponse | null
-  courseName: MultilangValue
-  courseDescription: MultilangValue
+  courseName: string
+  courseDescription: string
   customizedDays: Map<number, DayWithExercises>
   notes: string
   assigningDoctorId: number | null
@@ -67,8 +63,8 @@ type AssignmentState = {
 
 type AssignmentAction =
   | { type: 'SELECT_PATIENT'; payload: UserResponse }
-  | { type: 'SET_COURSE_NAME'; payload: MultilangValue }
-  | { type: 'SET_COURSE_DESCRIPTION'; payload: MultilangValue }
+  | { type: 'SET_COURSE_NAME'; payload: string }
+  | { type: 'SET_COURSE_DESCRIPTION'; payload: string }
   | { type: 'SET_ASSIGNING_DOCTOR_ID'; payload: number | null }
   | { type: 'INITIALIZE_DAYS' }
   | { type: 'ADD_DAY' }
@@ -358,8 +354,8 @@ function assignmentReducer(
 // Initial state
 const initialState: AssignmentState = {
   selectedPatient: null,
-  courseName: emptyMultilang,
-  courseDescription: emptyMultilang,
+  courseName: '',
+  courseDescription: '',
   customizedDays: new Map(),
   notes: '',
   assigningDoctorId: null,
@@ -464,7 +460,7 @@ export function CourseAssignmentScreen({
   const validateStep = useCallback((): string | null => {
     if (state.currentStep === 1) {
       if (!state.selectedPatient) return 'Không tìm thấy bệnh nhân'
-      if (!state.courseName.vi.trim()) return 'Vui lòng nhập tên khóa học'
+      if (!state.courseName.trim()) return 'Vui lòng nhập tên khóa học'
       if (showDoctorSelector && !state.assigningDoctorId)
         return 'Vui lòng chọn bác sĩ phân công'
     }
@@ -528,8 +524,8 @@ export function CourseAssignmentScreen({
     assignMutation.mutate({
       userId: state.selectedPatient.id,
       data: {
-        title: state.courseName.vi,
-        description: state.courseDescription.vi || '',
+        title: state.courseName,
+        description: state.courseDescription || '',
         durationDays: state.customizedDays.size,
         notes: state.notes || undefined,
         assigningDoctorId: state.assigningDoctorId || undefined,
@@ -662,30 +658,30 @@ export function CourseAssignmentScreen({
 
               <div className="space-y-2">
                 <Label htmlFor="courseName">Tên khóa học *</Label>
-                <MultilangInput
+                <Input
                   value={state.courseName}
-                  onChange={(value) =>
+                  onChange={(e) =>
                     dispatch({
                       type: 'SET_COURSE_NAME',
-                      payload: value,
+                      payload: e.target.value,
                     })
                   }
-                  placeholder={{ vi: 'Nhập tên khóa học...', en: 'Enter course name...' }}
+                  placeholder="Nhập tên khóa học..."
                 />
               </div>
 
               <div className="space-y-2">
                 <Label htmlFor="courseDescription">Mô tả khóa học</Label>
-                <MultilangTextarea
+                <Textarea
                   value={state.courseDescription}
-                  onChange={(value) =>
+                  onChange={(e) =>
                     dispatch({
                       type: 'SET_COURSE_DESCRIPTION',
-                      payload: value,
+                      payload: e.target.value,
                     })
                   }
-                  placeholder={{ vi: 'Nhập mô tả về khóa học...', en: 'Enter course description...' }}
-                  textareaClassName="min-h-[100px]"
+                  placeholder="Nhập mô tả về khóa học..."
+                  className="min-h-[100px]"
                 />
               </div>
             </CardContent>
@@ -766,8 +762,8 @@ function StepIndicator({
 // Assignment Review Component
 type AssignmentReviewProps = {
   patient: UserResponse
-  courseName: MultilangValue
-  courseDescription: MultilangValue
+  courseName: string
+  courseDescription: string
   customizedDays: Map<number, DayWithExercises>
   notes: string
   onNotesChange: (notes: string) => void
@@ -850,12 +846,12 @@ function AssignmentReview({
           <div className="space-y-2">
             <div className="flex justify-between">
               <span className="text-muted-foreground">Tên khóa học:</span>
-              <span className="font-medium">{courseName.vi}{courseName.en ? ` / ${courseName.en}` : ''}</span>
+              <span className="font-medium">{courseName}</span>
             </div>
-            {(courseDescription.vi || courseDescription.en) && (
+            {courseDescription && (
               <div className="flex flex-col gap-1">
                 <span className="text-muted-foreground">Mô tả:</span>
-                <span className="font-medium text-sm">{courseDescription.vi}{courseDescription.en ? ` / ${courseDescription.en}` : ''}</span>
+                <span className="font-medium text-sm">{courseDescription}</span>
               </div>
             )}
             <div className="flex justify-between">

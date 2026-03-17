@@ -21,7 +21,6 @@ import { ExerciseLibraryPanel } from './exercise-library-panel'
 import { ExerciseCustomizationDialog } from './exercise-customization-dialog'
 import type { ExerciseResponse } from '@/api'
 import { displayMultilang } from '@/lib/multilang'
-import type { MultilangValue } from '@/components/multilang-input'
 import type {
   DayWithExercises,
   CustomExercise,
@@ -62,7 +61,7 @@ type CourseAction =
   | { type: 'ADD_DAY' }
 
 type CourseCustomizationSectionProps = {
-  courseName: MultilangValue
+  courseName: string
   customizedDays: Map<number, DayWithExercises>
   dispatch: React.Dispatch<CourseAction>
 }
