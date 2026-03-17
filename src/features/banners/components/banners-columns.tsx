@@ -6,7 +6,6 @@ import { DataTableColumnHeader } from '@/components/data-table'
 import { LongText } from '@/components/long-text'
 import type { BannerResponse } from '@/api'
 import { bannerStatusLabels, BannerStatus } from '@/lib/constants/banner-status'
-import { displayMultilang } from '@/lib/multilang'
 import { DataTableRowActions } from './data-table-row-actions'
 
 export const bannersColumns: ColumnDef<BannerResponse>[] = [
@@ -46,7 +45,7 @@ export const bannersColumns: ColumnDef<BannerResponse>[] = [
       return imageUrl ? (
         <img
           src={imageUrl}
-          alt={displayMultilang(row.original.title)}
+          alt={row.original.title ?? ''}
           className="h-12 w-20 rounded object-cover"
         />
       ) : (
@@ -64,7 +63,7 @@ export const bannersColumns: ColumnDef<BannerResponse>[] = [
     ),
     cell: ({ row }) => (
       <LongText className="max-w-48 ps-3 font-medium">
-        {displayMultilang(row.original.title)}
+        {row.original.title ?? ''}
       </LongText>
     ),
     meta: {

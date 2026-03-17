@@ -34,7 +34,7 @@ import {
   MultilangTextarea,
   type MultilangValue,
 } from '@/components/multilang-input'
-import { emptyMultilang, toMultilang } from '@/lib/multilang'
+import { emptyMultilang } from '@/lib/multilang'
 
 // Types
 export type CustomExercise = {
@@ -516,7 +516,7 @@ export function CourseAssignmentScreen({
       .sort(([a], [b]) => a - b) // Sort by day number
       .map(([_, day]) => ({
         dayNumber: day.dayNumber,
-        description: day.description ? toMultilang({ vi: day.description, en: '' }) : undefined,
+        description: day.description || undefined,
         exercises: day.exercises.map((ex) => ({
           exerciseId: ex.exerciseId,
           orderInDay: ex.orderInDay,
@@ -528,8 +528,8 @@ export function CourseAssignmentScreen({
     assignMutation.mutate({
       userId: state.selectedPatient.id,
       data: {
-        title: toMultilang(state.courseName),
-        description: toMultilang(state.courseDescription),
+        title: state.courseName.vi,
+        description: state.courseDescription.vi || '',
         durationDays: state.customizedDays.size,
         notes: state.notes || undefined,
         assigningDoctorId: state.assigningDoctorId || undefined,
