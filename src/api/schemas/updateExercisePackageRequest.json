@@ -1,1 +1,21 @@
-{"type":"object","properties":{"title":{"type":"object","additionalProperties":{"type":"string"}},"description":{"type":"object","additionalProperties":{"type":"string"}},"imageUrl":{"type":"string"},"categoryIds":{"type":"array","items":{"type":"integer","format":"int64"}},"exerciseIds":{"type":"array","items":{"type":"integer","format":"int64"}}},"required":["categoryIds","exerciseIds"],"x-readme-ref-name":"UpdateExercisePackageRequest"}
+{
+  "type": "object",
+  "properties": {
+    "title": { "type": "object", "additionalProperties": { "type": "string" } },
+    "description": {
+      "type": "object",
+      "additionalProperties": { "type": "string" }
+    },
+    "imageUrl": { "type": "string" },
+    "categoryIds": {
+      "type": "array",
+      "items": { "type": "integer", "format": "int64" }
+    },
+    "exerciseIds": {
+      "type": "array",
+      "items": { "type": "integer", "format": "int64" }
+    }
+  },
+  "required": ["categoryIds", "exerciseIds"],
+  "x-readme-ref-name": "UpdateExercisePackageRequest"
+}
