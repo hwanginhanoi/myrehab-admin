@@ -112,7 +112,7 @@ export function StartupPopupsActionDialog({
         const imageUrl = values.imageUrl || ''
 
         if (!imageUrl) {
-          toast.error('Vui lòng chọn ảnh popup')
+          form.setError('imageUrl', { message: 'Vui lòng chọn ảnh popup' })
           return
         }
 

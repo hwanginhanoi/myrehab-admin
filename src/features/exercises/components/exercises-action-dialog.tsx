@@ -49,8 +49,8 @@ const formSchema = z.object({
   imageUrl: z.string().min(1, 'Link ảnh là bắt buộc'),
   videoUrl: z.string().min(1, 'Link video là bắt buộc'),
   durationMinutes: z.number().min(1, 'Thời lượng phải lớn hơn 0'),
-  categoryIds: z.array(z.string()),
-  groupIds: z.array(z.string()),
+  categoryIds: z.array(z.string()).min(1, 'Vui lòng chọn ít nhất một danh mục'),
+  groupIds: z.array(z.string()).min(1, 'Vui lòng chọn ít nhất một kho bài tập'),
   isEdit: z.boolean(),
 })
 
@@ -216,8 +216,8 @@ export function ExercisesActionDialog({
               control={form.control}
               name="title"
               render={({ field }) => (
-                <FormItem className="grid grid-cols-6 items-center space-y-0 gap-x-4 gap-y-1">
-                  <FormLabel className="col-span-2 text-end">
+                <FormItem className="grid grid-cols-6 items-start space-y-0 gap-x-4 gap-y-1">
+                  <FormLabel className="col-span-2 text-end pt-2">
                     Tên bài tập
                   </FormLabel>
                   <FormControl>
@@ -296,8 +296,11 @@ export function ExercisesActionDialog({
                       placeholder="Nhập thời lượng"
                       className="col-span-4"
                       disabled={isView}
-                      {...field}
                       value={field.value || ''}
+                      onChange={(e) => field.onChange(e.target.valueAsNumber)}
+                      onBlur={field.onBlur}
+                      name={field.name}
+                      ref={field.ref}
                     />
                   </FormControl>
                   <FormMessage className="col-span-4 col-start-3" />

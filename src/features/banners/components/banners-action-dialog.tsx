@@ -130,7 +130,7 @@ export function BannersActionDialog({
           }
 
           if (!imageUrl) {
-            toast.error('Vui lòng chọn ảnh banner')
+            form.setError('imageUrl', { message: 'Vui lòng chọn ảnh banner' })
             return
           }
 

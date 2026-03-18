@@ -166,6 +166,11 @@ export function ExercisePackageFormComponent({
         }
       }
 
+      if (!imageUrl) {
+        form.setError('imageUrl', { message: 'Vui lòng chọn ảnh gói bài tập' })
+        return
+      }
+
       // Transform exercises array to exerciseIds array
       const payload = {
         title: toMultilang(values.title),

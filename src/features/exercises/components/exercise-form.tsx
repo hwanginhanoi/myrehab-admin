@@ -325,8 +325,8 @@ export function ExerciseFormComponent({
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Thời lượng (phút)</FormLabel>
-                  <FormControl>
-                    <Input
+                  <FormControl className="mt-8">
+                  <Input
                       type="number"
                       placeholder="Tự động từ video"
                       disabled={true}

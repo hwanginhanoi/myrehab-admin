@@ -117,7 +117,7 @@ const formSchema = z.object({
   summary: multilangOptional(),
   thumbnailUrl: z.string().optional(),
   status: z.string().min(1, 'Trạng thái là bắt buộc'),
-  category: z.string().optional(),
+  category: z.string().min(1, 'Danh mục là bắt buộc'),
   isEdit: z.boolean(),
 })
 
