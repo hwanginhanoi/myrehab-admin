@@ -7,8 +7,8 @@ import { courseDayDtoSchema } from './courseDayDtoSchema.ts'
 import { z } from 'zod/v4'
 
 export const createCustomCourseRequestSchema = z.object({
-  title: z.optional(z.object({}).catchall(z.string())),
-  description: z.optional(z.object({}).catchall(z.string())),
+  title: z.string().min(1),
+  description: z.string().min(1),
   durationDays: z.int(),
   notes: z.optional(z.string()),
   assigningDoctorId: z.optional(z.int()),

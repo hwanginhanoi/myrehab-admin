@@ -6,8 +6,8 @@ import { z } from 'zod'
  */
 export function multilangRequired(message: string) {
   return z.object({
-    vi: z.string().min(1, message),
-    en: z.string(),
+    vi: z.string().min(1, `${message} (VI)`),
+    en: z.string().min(1, `${message} (EN)`),
   })
 }
 
@@ -55,9 +55,11 @@ export function toMultilang(value: { vi: string; en: string }): {
  * Handles both object `{ vi: "...", en: "..." }` and legacy string values.
  */
 export function displayMultilang(
-  value: { [key: string]: string } | string | undefined | null
+  value: { [key: string]: string } | string | undefined | null,
+  lang: 'vi' | 'en' = 'vi'
 ): string {
   if (!value) return ''
   if (typeof value === 'string') return value
+  if (lang === 'en') return value.en || value.vi || Object.values(value)[0] || ''
   return value.vi || value.en || Object.values(value)[0] || ''
 }

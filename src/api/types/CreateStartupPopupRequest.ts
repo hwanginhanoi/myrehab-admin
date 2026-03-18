@@ -5,11 +5,10 @@
 
 export type CreateStartupPopupRequest = {
   /**
-   * @type object | undefined
+   * @minLength 1
+   * @type string
    */
-  title?: {
-    [key: string]: string
-  }
+  title: string
   /**
    * @minLength 0
    * @maxLength 500

@@ -13,17 +13,13 @@ export type PendingPurchaseResponse = {
    */
   courseId?: number
   /**
-   * @type object | undefined
+   * @type string | undefined
    */
-  courseTitle?: {
-    [key: string]: string
-  }
+  courseTitle?: string
   /**
-   * @type object | undefined
+   * @type string | undefined
    */
-  courseDescription?: {
-    [key: string]: string
-  }
+  courseDescription?: string
   /**
    * @type integer | undefined, int32
    */

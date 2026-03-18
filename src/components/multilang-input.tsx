@@ -1,8 +1,8 @@
-import { useState } from 'react'
 import { Input } from '@/components/ui/input'
 import { Textarea } from '@/components/ui/textarea'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { cn } from '@/lib/utils'
+import { useMultilangLang } from '@/context/multilang-lang-context'
 
 export type MultilangValue = {
   vi: string
@@ -15,6 +15,7 @@ type MultilangInputProps = {
   placeholder?: { vi?: string; en?: string }
   disabled?: boolean
   className?: string
+  errors?: { vi?: string; en?: string }
 }
 
 export function MultilangInput({
@@ -23,17 +24,24 @@ export function MultilangInput({
   placeholder,
   disabled,
   className,
+  errors,
 }: MultilangInputProps) {
-  const [tab, setTab] = useState('vi')
+  const { lang, setLang } = useMultilangLang()
 
   return (
-    <Tabs value={tab} onValueChange={setTab} className={cn('gap-1', className)}>
+    <Tabs value={lang} onValueChange={(v) => setLang(v as 'vi' | 'en')} className={cn('gap-1', className)}>
       <TabsList className="h-7">
-        <TabsTrigger value="vi" className="text-xs px-2 py-0.5">
+        <TabsTrigger value="vi" className="text-xs px-2 py-0.5 relative">
           VI
+          {errors?.vi && lang !== 'vi' && (
+            <span className="absolute top-0.5 right-0.5 h-1.5 w-1.5 rounded-full bg-destructive" />
+          )}
         </TabsTrigger>
-        <TabsTrigger value="en" className="text-xs px-2 py-0.5">
+        <TabsTrigger value="en" className="text-xs px-2 py-0.5 relative">
           EN
+          {errors?.en && lang !== 'en' && (
+            <span className="absolute top-0.5 right-0.5 h-1.5 w-1.5 rounded-full bg-destructive" />
+          )}
         </TabsTrigger>
       </TabsList>
       <TabsContent value="vi" className="mt-0">
@@ -63,6 +71,7 @@ type MultilangTextareaProps = {
   disabled?: boolean
   className?: string
   textareaClassName?: string
+  errors?: { vi?: string; en?: string }
 }
 
 export function MultilangTextarea({
@@ -72,17 +81,24 @@ export function MultilangTextarea({
   disabled,
   className,
   textareaClassName,
+  errors,
 }: MultilangTextareaProps) {
-  const [tab, setTab] = useState('vi')
+  const { lang, setLang } = useMultilangLang()
 
   return (
-    <Tabs value={tab} onValueChange={setTab} className={cn('gap-1', className)}>
+    <Tabs value={lang} onValueChange={(v) => setLang(v as 'vi' | 'en')} className={cn('gap-1', className)}>
       <TabsList className="h-7">
-        <TabsTrigger value="vi" className="text-xs px-2 py-0.5">
+        <TabsTrigger value="vi" className="text-xs px-2 py-0.5 relative">
           VI
+          {errors?.vi && lang !== 'vi' && (
+            <span className="absolute top-0.5 right-0.5 h-1.5 w-1.5 rounded-full bg-destructive" />
+          )}
         </TabsTrigger>
-        <TabsTrigger value="en" className="text-xs px-2 py-0.5">
+        <TabsTrigger value="en" className="text-xs px-2 py-0.5 relative">
           EN
+          {errors?.en && lang !== 'en' && (
+            <span className="absolute top-0.5 right-0.5 h-1.5 w-1.5 rounded-full bg-destructive" />
+          )}
         </TabsTrigger>
       </TabsList>
       <TabsContent value="vi" className="mt-0">

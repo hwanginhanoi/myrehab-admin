@@ -5,10 +5,7 @@
     "userId": { "type": "integer", "format": "int64" },
     "userPhoneNumber": { "type": "string" },
     "courseId": { "type": "integer", "format": "int64" },
-    "courseTitle": {
-      "type": "object",
-      "additionalProperties": { "type": "string" }
-    },
+    "courseTitle": { "type": "string" },
     "courseDurationDays": { "type": "integer", "format": "int32" },
     "assignedAt": { "type": "string", "format": "date-time" },
     "notes": { "type": "string" },

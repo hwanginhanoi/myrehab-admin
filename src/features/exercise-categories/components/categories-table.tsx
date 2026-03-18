@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import {
   type SortingState,
   type VisibilityState,
@@ -18,7 +18,7 @@ import {
 } from '@/components/ui/table'
 import { DataTablePagination } from '@/components/server-data-table'
 import type { CategoryResponse } from '@/api'
-import { categoriesColumns as columns } from './categories-columns'
+import { createCategoriesColumns } from './categories-columns'
 import { CategoriesTableToolbar } from './categories-table-toolbar'
 
 type DataTableProps = {
@@ -37,6 +37,7 @@ export function CategoriesTable({
   // Local UI-only states
   const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({})
   const [sorting, setSorting] = useState<SortingState>([])
+  const [lang, setLang] = useState<'vi' | 'en'>('vi')
 
   // Synced with URL states
   const {
@@ -55,6 +56,8 @@ export function CategoriesTable({
       { columnId: 'type', searchKey: 'type', type: 'string' },
     ],
   })
+
+  const columns = useMemo(() => createCategoriesColumns(lang), [lang])
 
   const table = useReactTable({
     data,
@@ -86,7 +89,7 @@ export function CategoriesTable({
         'flex flex-1 flex-col gap-4'
       )}
     >
-      <CategoriesTableToolbar table={table} />
+      <CategoriesTableToolbar table={table} lang={lang} onLangChange={setLang} />
       <div className="overflow-hidden rounded-md border">
         <Table>
           <TableHeader>

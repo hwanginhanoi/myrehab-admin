@@ -5,15 +5,12 @@
 
 export type UpdateGroupRequest = {
   /**
-   * @type object | undefined
+   * @minLength 1
+   * @type string
    */
-  name?: {
-    [key: string]: string
-  }
+  name: string
   /**
-   * @type object | undefined
+   * @type string | undefined
    */
-  description?: {
-    [key: string]: string
-  }
+  description?: string
 }

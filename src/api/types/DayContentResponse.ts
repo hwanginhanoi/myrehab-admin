@@ -20,11 +20,9 @@ export type DayContentResponse = {
    */
   dayNumber?: number
   /**
-   * @type object | undefined
+   * @type string | undefined
    */
-  dayDescription?: {
-    [key: string]: string
-  }
+  dayDescription?: string
   /**
    * @type array | undefined
    */

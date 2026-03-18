@@ -9,8 +9,8 @@ import { z } from 'zod/v4'
 export const courseWithDaysResponseSchema = z.object({
   id: z.optional(z.int()),
   userId: z.optional(z.int()),
-  title: z.optional(z.object({}).catchall(z.string())),
-  description: z.optional(z.object({}).catchall(z.string())),
+  title: z.optional(z.string()),
+  description: z.optional(z.string()),
   durationDays: z.optional(z.int()),
   isActive: z.optional(z.boolean()),
   get days() {

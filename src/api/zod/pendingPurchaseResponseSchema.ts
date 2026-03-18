@@ -8,8 +8,8 @@ import { z } from 'zod/v4'
 export const pendingPurchaseResponseSchema = z.object({
   userCourseId: z.optional(z.int()),
   courseId: z.optional(z.int()),
-  courseTitle: z.optional(z.object({}).catchall(z.string())),
-  courseDescription: z.optional(z.object({}).catchall(z.string())),
+  courseTitle: z.optional(z.string()),
+  courseDescription: z.optional(z.string()),
   durationDays: z.optional(z.int()),
   assignedByDoctorName: z.optional(z.string()),
   assignedAt: z.optional(z.string().datetime()),

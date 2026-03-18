@@ -3,11 +3,8 @@
   "properties": {
     "id": { "type": "integer", "format": "int64" },
     "userId": { "type": "integer", "format": "int64" },
-    "title": { "type": "object", "additionalProperties": { "type": "string" } },
-    "description": {
-      "type": "object",
-      "additionalProperties": { "type": "string" }
-    },
+    "title": { "type": "string" },
+    "description": { "type": "string" },
     "durationDays": { "type": "integer", "format": "int32" },
     "isActive": { "type": "boolean" },
     "days": {
@@ -16,10 +13,7 @@
         "type": "object",
         "properties": {
           "dayNumber": { "type": "integer", "format": "int32" },
-          "description": {
-            "type": "object",
-            "additionalProperties": { "type": "string" }
-          },
+          "description": { "type": "string" },
           "exercises": {
             "type": "array",
             "items": {

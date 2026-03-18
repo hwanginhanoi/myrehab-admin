@@ -10,7 +10,7 @@ export const userCourseAssignmentResponseSchema = z.object({
   userId: z.optional(z.int()),
   userPhoneNumber: z.optional(z.string()),
   courseId: z.optional(z.int()),
-  courseTitle: z.optional(z.object({}).catchall(z.string())),
+  courseTitle: z.optional(z.string()),
   courseDurationDays: z.optional(z.int()),
   assignedAt: z.optional(z.string().datetime()),
   notes: z.optional(z.string()),

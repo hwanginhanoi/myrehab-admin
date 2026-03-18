@@ -2,10 +2,7 @@
   "type": "object",
   "properties": {
     "dayNumber": { "type": "integer", "format": "int32" },
-    "description": {
-      "type": "object",
-      "additionalProperties": { "type": "string" }
-    },
+    "description": { "type": "string" },
     "exercises": {
       "type": "array",
       "items": {

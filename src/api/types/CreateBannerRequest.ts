@@ -14,11 +14,10 @@ export type CreateBannerRequestStatusEnumKey =
 
 export type CreateBannerRequest = {
   /**
-   * @type object | undefined
+   * @minLength 1
+   * @type string
    */
-  title?: {
-    [key: string]: string
-  }
+  title: string
   /**
    * @minLength 1
    * @type string

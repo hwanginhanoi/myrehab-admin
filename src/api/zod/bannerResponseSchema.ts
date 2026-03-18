@@ -7,7 +7,7 @@ import { z } from 'zod/v4'
 
 export const bannerResponseSchema = z.object({
   id: z.optional(z.int()),
-  title: z.optional(z.object({}).catchall(z.string())),
+  title: z.optional(z.string()),
   imageUrl: z.optional(z.string()),
   displayOrder: z.optional(z.int()),
   status: z.optional(z.enum(['ACTIVE', 'INACTIVE', 'ARCHIVED'])),

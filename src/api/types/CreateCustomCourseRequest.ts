@@ -7,17 +7,15 @@ import type { CourseDayDto } from './CourseDayDto.ts'
 
 export type CreateCustomCourseRequest = {
   /**
-   * @type object | undefined
+   * @minLength 1
+   * @type string
    */
-  title?: {
-    [key: string]: string
-  }
+  title: string
   /**
-   * @type object | undefined
+   * @minLength 1
+   * @type string
    */
-  description?: {
-    [key: string]: string
-  }
+  description: string
   /**
    * @type integer, int32
    */

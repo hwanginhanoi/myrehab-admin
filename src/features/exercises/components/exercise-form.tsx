@@ -20,6 +20,8 @@ import {
   MultilangInput,
   MultilangTextarea,
 } from '@/components/multilang-input'
+import { MultilangLangProvider } from '@/context/multilang-lang-context'
+import { MultilangFormMessage } from '@/components/multilang-form-message'
 import {
   type ExerciseResponse,
   type CategoryResponse,
@@ -33,7 +35,6 @@ import {
 import { getPublicImageUrl } from '@/lib/file-upload'
 import {
   multilangRequired,
-  multilangOptional,
   emptyMultilang,
   fromMultilang,
   toMultilang,
@@ -44,11 +45,11 @@ import { toast } from 'sonner'
 
 const formSchema = z.object({
   title: multilangRequired('Tên bài tập là bắt buộc'),
-  description: multilangOptional(),
+  description: multilangRequired('Mô tả là bắt buộc'),
   imageUrl: z.string(), // Can be empty if file is selected
   videoUrl: z.string(), // Can be empty if file is selected
   durationMinutes: z.number().min(1, 'Thời lượng phải lớn hơn 0'),
-  categoryIds: z.array(z.string()).max(6, 'Chỉ được chọn tối đa 6 danh mục'),
+  categoryIds: z.array(z.string()).min(1, 'Vui lòng chọn ít nhất một danh mục').max(6, 'Chỉ được chọn tối đa 6 danh mục'),
   groupIds: z.array(z.string()).min(1, 'Vui lòng chọn ít nhất một kho bài tập'),
 })
 
@@ -200,7 +201,7 @@ export function ExerciseFormComponent({
       // Check if image is provided (either uploaded or new file)
       const hasImage = values.imageUrl || imageUploadRef.current?.hasFile()
       if (!hasImage) {
-        toast.error('Vui lòng chọn ảnh bài tập')
+        form.setError('imageUrl', { message: 'Vui lòng chọn ảnh bài tập' })
         return
       }
 
@@ -211,7 +212,7 @@ export function ExerciseFormComponent({
         videoUploadRef.current?.hasFile() ||
         (isEdit && !!videoUrlData?.objectKey && !videoRemoved)
       if (!hasVideo) {
-        toast.error('Vui lòng chọn video bài tập')
+        form.setError('videoUrl', { message: 'Vui lòng chọn video bài tập' })
         return
       }
 
@@ -281,6 +282,7 @@ export function ExerciseFormComponent({
   }
 
   return (
+    <MultilangLangProvider>
     <div className="space-y-6">
       <div>
         <h2 className="text-2xl font-bold tracking-tight">{getTitle()}</h2>
@@ -306,9 +308,13 @@ export function ExerciseFormComponent({
                       onChange={field.onChange}
                       placeholder={{ vi: 'Nhập tên bài tập', en: 'Enter exercise name' }}
                       disabled={isView}
+                      errors={{
+                        vi: form.formState.errors.title?.vi?.message,
+                        en: form.formState.errors.title?.en?.message,
+                      }}
                     />
                   </FormControl>
-                  <FormMessage />
+                  <MultilangFormMessage errors={form.formState.errors.title} />
                 </FormItem>
               )}
             />
@@ -388,6 +394,10 @@ export function ExerciseFormComponent({
                     placeholder={{ vi: 'Nhập mô tả bài tập', en: 'Enter exercise description' }}
                     disabled={isView}
                     textareaClassName="min-h-[120px]"
+                    errors={{
+                      vi: form.formState.errors.description?.vi?.message,
+                      en: form.formState.errors.description?.en?.message,
+                    }}
                   />
                 </FormControl>
                 <FormMessage />
@@ -489,6 +499,7 @@ export function ExerciseFormComponent({
         </form>
       </Form>
     </div>
+    </MultilangLangProvider>
   )
 }
 

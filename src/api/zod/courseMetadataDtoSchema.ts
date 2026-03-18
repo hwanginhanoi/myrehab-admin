@@ -7,6 +7,6 @@ import { z } from 'zod/v4'
 
 export const courseMetadataDtoSchema = z.object({
   id: z.optional(z.int()),
-  title: z.optional(z.object({}).catchall(z.string())),
+  title: z.optional(z.string()),
   totalDays: z.optional(z.int()),
 })

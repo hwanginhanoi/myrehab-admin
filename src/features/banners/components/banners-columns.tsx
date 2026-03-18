@@ -6,7 +6,7 @@ import { DataTableColumnHeader } from '@/components/data-table'
 import { LongText } from '@/components/long-text'
 import type { BannerResponse } from '@/api'
 import { bannerStatusLabels, BannerStatus } from '@/lib/constants/banner-status'
-import { displayMultilang } from '@/lib/multilang'
+import { getPublicImageUrl } from '@/lib/file-upload'
 import { DataTableRowActions } from './data-table-row-actions'
 
 export const bannersColumns: ColumnDef<BannerResponse>[] = [
@@ -42,11 +42,16 @@ export const bannersColumns: ColumnDef<BannerResponse>[] = [
       <DataTableColumnHeader column={column} title="Ảnh" />
     ),
     cell: ({ row }) => {
-      const imageUrl = row.getValue('imageUrl') as string | undefined
-      return imageUrl ? (
+      const rawUrl = row.getValue('imageUrl') as string | undefined
+      const displayUrl = rawUrl
+        ? rawUrl.startsWith('http://') || rawUrl.startsWith('https://')
+          ? rawUrl
+          : getPublicImageUrl(rawUrl)
+        : null
+      return displayUrl ? (
         <img
-          src={imageUrl}
-          alt={displayMultilang(row.original.title)}
+          src={displayUrl}
+          alt={row.original.title ?? ''}
           className="h-12 w-20 rounded object-cover"
         />
       ) : (
@@ -64,7 +69,7 @@ export const bannersColumns: ColumnDef<BannerResponse>[] = [
     ),
     cell: ({ row }) => (
       <LongText className="max-w-48 ps-3 font-medium">
-        {displayMultilang(row.original.title)}
+        {row.original.title ?? ''}
       </LongText>
     ),
     meta: {

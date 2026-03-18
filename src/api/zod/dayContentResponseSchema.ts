@@ -13,7 +13,7 @@ export const dayContentResponseSchema = z.object({
     return courseMetadataDtoSchema.optional()
   },
   dayNumber: z.optional(z.int()),
-  dayDescription: z.optional(z.object({}).catchall(z.string())),
+  dayDescription: z.optional(z.string()),
   get exercises() {
     return z.array(dayExerciseItemResponseSchema).optional()
   },

@@ -27,7 +27,7 @@ export type CreateGroupMutationKey = ReturnType<typeof createGroupMutationKey>
  * {@link /api/exercise-groups}
  */
 export async function createGroup(
-  data?: CreateGroupMutationRequest,
+  data: CreateGroupMutationRequest,
   config: Partial<RequestConfig<CreateGroupMutationRequest>> & {
     client?: typeof fetch
   } = {}
@@ -58,7 +58,7 @@ export function createGroupMutationOptions(
   return mutationOptions<
     CreateGroupMutationResponse,
     ResponseErrorConfig<Error>,
-    { data?: CreateGroupMutationRequest },
+    { data: CreateGroupMutationRequest },
     typeof mutationKey
   >({
     mutationKey,
@@ -78,7 +78,7 @@ export function useCreateGroup<TContext>(
     mutation?: UseMutationOptions<
       CreateGroupMutationResponse,
       ResponseErrorConfig<Error>,
-      { data?: CreateGroupMutationRequest },
+      { data: CreateGroupMutationRequest },
       TContext
     > & { client?: QueryClient }
     client?: Partial<RequestConfig<CreateGroupMutationRequest>> & {
@@ -93,14 +93,14 @@ export function useCreateGroup<TContext>(
   const baseOptions = createGroupMutationOptions(config) as UseMutationOptions<
     CreateGroupMutationResponse,
     ResponseErrorConfig<Error>,
-    { data?: CreateGroupMutationRequest },
+    { data: CreateGroupMutationRequest },
     TContext
   >
 
   return useMutation<
     CreateGroupMutationResponse,
     ResponseErrorConfig<Error>,
-    { data?: CreateGroupMutationRequest },
+    { data: CreateGroupMutationRequest },
     TContext
   >(
     {
@@ -112,7 +112,7 @@ export function useCreateGroup<TContext>(
   ) as UseMutationResult<
     CreateGroupMutationResponse,
     ResponseErrorConfig<Error>,
-    { data?: CreateGroupMutationRequest },
+    { data: CreateGroupMutationRequest },
     TContext
   >
 }

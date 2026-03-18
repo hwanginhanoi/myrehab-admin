@@ -15,17 +15,13 @@ export type CourseWithDaysResponse = {
    */
   userId?: number
   /**
-   * @type object | undefined
+   * @type string | undefined
    */
-  title?: {
-    [key: string]: string
-  }
+  title?: string
   /**
-   * @type object | undefined
+   * @type string | undefined
    */
-  description?: {
-    [key: string]: string
-  }
+  description?: string
   /**
    * @type integer | undefined, int32
    */

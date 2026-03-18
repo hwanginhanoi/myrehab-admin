@@ -18,11 +18,9 @@ export type BannerResponse = {
    */
   id?: number
   /**
-   * @type object | undefined
+   * @type string | undefined
    */
-  title?: {
-    [key: string]: string
-  }
+  title?: string
   /**
    * @type string | undefined
    */

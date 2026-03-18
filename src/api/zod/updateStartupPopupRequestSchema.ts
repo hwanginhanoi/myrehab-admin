@@ -6,7 +6,7 @@
 import { z } from 'zod/v4'
 
 export const updateStartupPopupRequestSchema = z.object({
-  title: z.optional(z.object({}).catchall(z.string())),
+  title: z.string().min(1),
   imageUrl: z.string().min(0).max(500),
   active: z.optional(z.boolean()),
 })

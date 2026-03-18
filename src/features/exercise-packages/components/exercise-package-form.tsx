@@ -18,6 +18,8 @@ import {
   MultilangInput,
   MultilangTextarea,
 } from '@/components/multilang-input'
+import { MultilangLangProvider } from '@/context/multilang-lang-context'
+import { MultilangFormMessage } from '@/components/multilang-form-message'
 import {
   type CategoryResponse,
   type ExercisePackageDetailResponse,
@@ -201,6 +203,7 @@ export function ExercisePackageFormComponent({
   }
 
   return (
+    <MultilangLangProvider>
     <div className="space-y-6">
       <div>
         <h2 className="text-2xl font-bold tracking-tight">{getTitle()}</h2>
@@ -226,9 +229,13 @@ export function ExercisePackageFormComponent({
                     onChange={field.onChange}
                     placeholder={{ vi: 'Nhập tên gói bài tập', en: 'Enter package name' }}
                     disabled={isView}
+                    errors={{
+                      vi: form.formState.errors.title?.vi?.message,
+                      en: form.formState.errors.title?.en?.message,
+                    }}
                   />
                 </FormControl>
-                <FormMessage />
+                <MultilangFormMessage errors={form.formState.errors.title} />
               </FormItem>
             )}
           />
@@ -269,9 +276,13 @@ export function ExercisePackageFormComponent({
                     placeholder={{ vi: 'Nhập mô tả gói bài tập', en: 'Enter package description' }}
                     disabled={isView}
                     textareaClassName="min-h-[120px]"
+                    errors={{
+                      vi: form.formState.errors.description?.vi?.message,
+                      en: form.formState.errors.description?.en?.message,
+                    }}
                   />
                 </FormControl>
-                <FormMessage />
+                <MultilangFormMessage errors={form.formState.errors.description} />
               </FormItem>
             )}
           />
@@ -340,5 +351,6 @@ export function ExercisePackageFormComponent({
         </form>
       </Form>
     </div>
+    </MultilangLangProvider>
   )
 }

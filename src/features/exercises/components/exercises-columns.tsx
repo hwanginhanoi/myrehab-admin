@@ -7,93 +7,95 @@ import type { ExerciseResponse } from '@/api'
 import { displayMultilang } from '@/lib/multilang'
 import { DataTableRowActions } from './data-table-row-actions'
 
-export const exercisesColumns: ColumnDef<ExerciseResponse>[] = [
-  {
-    accessorKey: 'title',
-    header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Tên bài tập" />
-    ),
-    cell: ({ row }) => (
-      <LongText className="max-w-48 ps-3 font-medium">
-        {displayMultilang(row.original.title)}
-      </LongText>
-    ),
-    meta: {
-      className: cn(
-        'drop-shadow-[0_1px_2px_rgb(0_0_0_/_0.1)] dark:drop-shadow-[0_1px_2px_rgb(255_255_255_/_0.1)]',
-        'ps-0.5 max-md:sticky start-6 @4xl/content:table-cell @4xl/content:drop-shadow-none'
+export function createExercisesColumns(lang: 'vi' | 'en' = 'vi'): ColumnDef<ExerciseResponse>[] {
+  return [
+    {
+      accessorKey: 'title',
+      header: ({ column }) => (
+        <DataTableColumnHeader column={column} title="Tên bài tập" />
       ),
+      cell: ({ row }) => (
+        <LongText className="max-w-48 ps-3 font-medium">
+          {displayMultilang(row.original.title, lang)}
+        </LongText>
+      ),
+      meta: {
+        className: cn(
+          'drop-shadow-[0_1px_2px_rgb(0_0_0_/_0.1)] dark:drop-shadow-[0_1px_2px_rgb(255_255_255_/_0.1)]',
+          'ps-0.5 max-md:sticky start-6 @4xl/content:table-cell @4xl/content:drop-shadow-none'
+        ),
+      },
+      enableHiding: false,
     },
-    enableHiding: false,
-  },
-  {
-    accessorKey: 'categories',
-    header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Danh mục" />
-    ),
-    cell: ({ row }) => {
-      const categories = row.original.categories || []
-      return (
-        <div className="flex flex-wrap gap-1">
-          {categories.length > 0 ? (
-            categories.map((category) => (
-              <Badge key={category.id} variant="outline" className="text-xs">
-                {displayMultilang(category.name)}
-              </Badge>
-            ))
-          ) : (
-            <span className="text-muted-foreground">-</span>
-          )}
-        </div>
-      )
+    {
+      accessorKey: 'categories',
+      header: ({ column }) => (
+        <DataTableColumnHeader column={column} title="Danh mục" />
+      ),
+      cell: ({ row }) => {
+        const categories = row.original.categories || []
+        return (
+          <div className="flex flex-wrap gap-1">
+            {categories.length > 0 ? (
+              categories.map((category) => (
+                <Badge key={category.id} variant="outline" className="text-xs">
+                  {displayMultilang(category.name, lang)}
+                </Badge>
+              ))
+            ) : (
+              <span className="text-muted-foreground">-</span>
+            )}
+          </div>
+        )
+      },
+      enableSorting: false,
     },
-    enableSorting: false,
-  },
-  {
-    accessorKey: 'groups',
-    header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Kho bài tập" />
-    ),
-    cell: ({ row }) => {
-      const groups = row.original.groups || []
-      return (
-        <div className="flex flex-wrap gap-1">
-          {groups.length > 0 ? (
-            groups.map((group) => (
-              <Badge key={group.id} variant="secondary" className="text-xs">
-                {displayMultilang(group.name)}
-              </Badge>
-            ))
-          ) : (
-            <span className="text-muted-foreground">-</span>
-          )}
-        </div>
-      )
+    {
+      accessorKey: 'groups',
+      header: ({ column }) => (
+        <DataTableColumnHeader column={column} title="Kho bài tập" />
+      ),
+      cell: ({ row }) => {
+        const groups = row.original.groups || []
+        return (
+          <div className="flex flex-wrap gap-1">
+            {groups.length > 0 ? (
+              groups.map((group) => (
+                <Badge key={group.id} variant="secondary" className="text-xs">
+                  {displayMultilang(group.name, lang)}
+                </Badge>
+              ))
+            ) : (
+              <span className="text-muted-foreground">-</span>
+            )}
+          </div>
+        )
+      },
+      enableSorting: false,
     },
-    enableSorting: false,
-  },
-  {
-    accessorKey: 'durationMinutes',
-    header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Thời lượng (phút)" />
-    ),
-    cell: ({ row }) => <div>{row.getValue('durationMinutes') || '-'}</div>,
-    enableSorting: false,
-  },
-  {
-    accessorKey: 'description',
-    header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Mô tả" />
-    ),
-    cell: ({ row }) => (
-      <LongText className="max-w-96">
-        {displayMultilang(row.original.description) || '-'}
-      </LongText>
-    ),
-    enableSorting: false,
-  },
-  {
-    id: 'actions',
-    cell: DataTableRowActions,
-  },
-]
+    {
+      accessorKey: 'durationMinutes',
+      header: ({ column }) => (
+        <DataTableColumnHeader column={column} title="Thời lượng (phút)" />
+      ),
+      cell: ({ row }) => <div>{row.getValue('durationMinutes') || '-'}</div>,
+      enableSorting: false,
+    },
+    {
+      accessorKey: 'description',
+      header: ({ column }) => (
+        <DataTableColumnHeader column={column} title="Mô tả" />
+      ),
+      cell: ({ row }) => (
+        <LongText className="max-w-96">
+          {displayMultilang(row.original.description, lang) || '-'}
+        </LongText>
+      ),
+      enableSorting: false,
+    },
+    {
+      id: 'actions',
+      cell: DataTableRowActions,
+    },
+  ]
+}

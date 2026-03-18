@@ -9,17 +9,13 @@ export type GroupResponse = {
    */
   id?: number
   /**
-   * @type object | undefined
+   * @type string | undefined
    */
-  name?: {
-    [key: string]: string
-  }
+  name?: string
   /**
-   * @type object | undefined
+   * @type string | undefined
    */
-  description?: {
-    [key: string]: string
-  }
+  description?: string
   /**
    * @type string | undefined, date-time
    */

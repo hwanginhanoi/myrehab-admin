@@ -1,3 +1,4 @@
+import { useEffect } from 'react'
 import { z } from 'zod'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
@@ -19,23 +20,14 @@ import {
   FormLabel,
   FormMessage,
 } from '@/components/ui/form'
-import {
-  MultilangInput,
-  MultilangTextarea,
-} from '@/components/multilang-input'
+import { Input } from '@/components/ui/input'
+import { Textarea } from '@/components/ui/textarea'
 import { type GroupResponse, useCreateGroup, useUpdateGroup } from '@/api'
 import { toast } from 'sonner'
-import {
-  multilangRequired,
-  multilangOptional,
-  emptyMultilang,
-  fromMultilang,
-  toMultilang,
-} from '@/lib/multilang'
 
 const formSchema = z.object({
-  name: multilangRequired('Tên nhóm là bắt buộc'),
-  description: multilangOptional(),
+  name: z.string().min(1, 'Tên nhóm là bắt buộc').max(100, 'Tên nhóm không vượt quá 100 ký tự'),
+  description: z.string().max(500, 'Mô tả không vượt quá 500 ký tự').optional(),
   isEdit: z.boolean(),
 })
 
@@ -64,16 +56,30 @@ export function GroupsActionDialog({
     defaultValues:
       isEdit || isView
         ? {
-            name: fromMultilang(currentRow?.name),
-            description: fromMultilang(currentRow?.description),
+            name: currentRow?.name || '',
+            description: currentRow?.description || '',
             isEdit,
           }
         : {
-            name: emptyMultilang,
-            description: emptyMultilang,
+            name: '',
+            description: '',
             isEdit: false,
           },
   })
+
+  useEffect(() => {
+    if (open) {
+      form.reset(
+        isEdit || isView
+          ? {
+              name: currentRow?.name || '',
+              description: currentRow?.description || '',
+              isEdit,
+            }
+          : { name: '', description: '', isEdit: false }
+      )
+    }
+  }, [open]) // eslint-disable-line react-hooks/exhaustive-deps
 
   const createMutation = useCreateGroup({
     mutation: {
@@ -114,8 +120,8 @@ export function GroupsActionDialog({
     }
 
     const payload = {
-      name: toMultilang(values.name),
-      description: toMultilang(values.description),
+      name: values.name,
+      description: values.description || undefined,
     }
 
     if (isEdit && currentRow?.id) {
@@ -170,10 +176,10 @@ export function GroupsActionDialog({
                     Tên nhóm
                   </FormLabel>
                   <FormControl>
-                    <MultilangInput
+                    <Input
                       value={field.value}
                       onChange={field.onChange}
-                      placeholder={{ vi: 'Nhập tên nhóm', en: 'Enter group name' }}
+                      placeholder="Nhập tên nhóm"
                       disabled={isView}
                       className="col-span-4"
                     />
@@ -191,13 +197,12 @@ export function GroupsActionDialog({
                     Mô tả
                   </FormLabel>
                   <FormControl>
-                    <MultilangTextarea
-                      value={field.value}
+                    <Textarea
+                      value={field.value ?? ''}
                       onChange={field.onChange}
-                      placeholder={{ vi: 'Nhập mô tả nhóm', en: 'Enter group description' }}
+                      placeholder="Nhập mô tả nhóm"
                       disabled={isView}
-                      className="col-span-4"
-                      textareaClassName="min-h-[100px]"
+                      className="col-span-4 min-h-[100px]"
                     />
                   </FormControl>
                   <FormMessage className="col-span-4 col-start-3" />
