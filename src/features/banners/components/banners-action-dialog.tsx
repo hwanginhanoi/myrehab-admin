@@ -25,7 +25,7 @@ import { toast } from 'sonner'
 import { useBanners } from './banners-provider'
 
 const formSchema = z.object({
-  title: z.string().min(1, 'Tiêu đề là bắt buộc'),
+  title: z.string().min(1, 'Tiêu đề là bắt buộc').max(100, 'Tiêu đề không vượt quá 100 ký tự'),
   imageUrl: z.string().optional(),
   status: z.string().min(1, 'Trạng thái là bắt buộc'),
 })

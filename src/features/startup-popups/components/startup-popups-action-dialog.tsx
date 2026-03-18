@@ -28,7 +28,7 @@ import {
 import { toast } from 'sonner'
 
 const formSchema = z.object({
-  title: z.string().min(1, 'Tiêu đề là bắt buộc'),
+  title: z.string().min(1, 'Tiêu đề là bắt buộc').max(100, 'Tiêu đề không vượt quá 100 ký tự'),
   imageUrl: z.string().optional(),
   active: z.boolean(),
 })

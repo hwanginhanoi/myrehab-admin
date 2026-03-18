@@ -45,8 +45,12 @@ const formSchema = z
   .object({
     email: z.string().email('Email không hợp lệ'),
     password: z.string().optional(),
-    fullName: z.string().min(1, 'Họ tên là bắt buộc'),
-    phoneNumber: z.string().optional().or(z.literal('')),
+    fullName: z.string().min(1, 'Họ tên là bắt buộc').max(100, 'Họ tên không vượt quá 100 ký tự'),
+    phoneNumber: z
+      .string()
+      .regex(/^(0|\+84)[0-9]{9,10}$/, 'Số điện thoại không hợp lệ')
+      .optional()
+      .or(z.literal('')),
     description: z
       .string()
       .max(500, 'Mô tả không vượt quá 500 ký tự')

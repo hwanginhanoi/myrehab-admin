@@ -26,8 +26,8 @@ import { type GroupResponse, useCreateGroup, useUpdateGroup } from '@/api'
 import { toast } from 'sonner'
 
 const formSchema = z.object({
-  name: z.string().min(1, 'Tên nhóm là bắt buộc'),
-  description: z.string().optional(),
+  name: z.string().min(1, 'Tên nhóm là bắt buộc').max(100, 'Tên nhóm không vượt quá 100 ký tự'),
+  description: z.string().max(500, 'Mô tả không vượt quá 500 ký tự').optional(),
   isEdit: z.boolean(),
 })
 
