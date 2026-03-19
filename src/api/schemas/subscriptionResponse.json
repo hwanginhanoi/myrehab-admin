@@ -4,7 +4,10 @@
     "id": { "type": "integer", "format": "int64" },
     "contentType": { "type": "string" },
     "contentId": { "type": "integer", "format": "int64" },
-    "contentTitle": { "type": "string" },
+    "contentTitle": {
+      "type": "object",
+      "additionalProperties": { "type": "string" }
+    },
     "subscriptionType": {
       "type": "string",
       "enum": ["ONE_MONTH", "THREE_MONTHS", "TWELVE_MONTHS"]

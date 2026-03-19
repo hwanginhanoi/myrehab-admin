@@ -1,3 +1,4 @@
+import { useEffect } from 'react'
 import { z } from 'zod'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
@@ -25,8 +26,8 @@ import { type GroupResponse, useCreateGroup, useUpdateGroup } from '@/api'
 import { toast } from 'sonner'
 
 const formSchema = z.object({
-  name: z.string().min(1, 'Tên nhóm là bắt buộc'),
-  description: z.string().optional(),
+  name: z.string().min(1, 'Tên nhóm là bắt buộc').max(100, 'Tên nhóm không vượt quá 100 ký tự'),
+  description: z.string().max(500, 'Mô tả không vượt quá 500 ký tự').optional(),
   isEdit: z.boolean(),
 })
 
@@ -65,6 +66,20 @@ export function GroupsActionDialog({
             isEdit: false,
           },
   })
+
+  useEffect(() => {
+    if (open) {
+      form.reset(
+        isEdit || isView
+          ? {
+              name: currentRow?.name || '',
+              description: currentRow?.description || '',
+              isEdit,
+            }
+          : { name: '', description: '', isEdit: false }
+      )
+    }
+  }, [open]) // eslint-disable-line react-hooks/exhaustive-deps
 
   const createMutation = useCreateGroup({
     mutation: {
@@ -106,7 +121,7 @@ export function GroupsActionDialog({
 
     const payload = {
       name: values.name,
-      description: values.description,
+      description: values.description || undefined,
     }
 
     if (isEdit && currentRow?.id) {
@@ -162,10 +177,11 @@ export function GroupsActionDialog({
                   </FormLabel>
                   <FormControl>
                     <Input
+                      value={field.value}
+                      onChange={field.onChange}
                       placeholder="Nhập tên nhóm"
-                      className="col-span-4"
                       disabled={isView}
-                      {...field}
+                      className="col-span-4"
                     />
                   </FormControl>
                   <FormMessage className="col-span-4 col-start-3" />
@@ -182,10 +198,11 @@ export function GroupsActionDialog({
                   </FormLabel>
                   <FormControl>
                     <Textarea
+                      value={field.value ?? ''}
+                      onChange={field.onChange}
                       placeholder="Nhập mô tả nhóm"
-                      className="col-span-4 min-h-[100px]"
                       disabled={isView}
-                      {...field}
+                      className="col-span-4 min-h-[100px]"
                     />
                   </FormControl>
                   <FormMessage className="col-span-4 col-start-3" />

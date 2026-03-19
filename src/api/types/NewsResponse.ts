@@ -18,17 +18,23 @@ export type NewsResponse = {
    */
   id?: number
   /**
-   * @type string | undefined
+   * @type object | undefined
    */
-  title?: string
+  title?: {
+    [key: string]: string
+  }
   /**
-   * @type string | undefined
+   * @type object | undefined
    */
-  content?: string
+  content?: {
+    [key: string]: string
+  }
   /**
-   * @type string | undefined
+   * @type object | undefined
    */
-  summary?: string
+  summary?: {
+    [key: string]: string
+  }
   /**
    * @type string | undefined
    */

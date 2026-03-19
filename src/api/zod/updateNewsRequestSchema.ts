@@ -6,9 +6,9 @@
 import { z } from 'zod/v4'
 
 export const updateNewsRequestSchema = z.object({
-  title: z.string().min(1),
-  content: z.string().min(1),
-  summary: z.optional(z.string()),
+  title: z.optional(z.object({}).catchall(z.string())),
+  content: z.optional(z.object({}).catchall(z.string())),
+  summary: z.optional(z.object({}).catchall(z.string())),
   thumbnailUrl: z.optional(z.string()),
   authorId: z.optional(z.int()),
   status: z.enum(['DRAFT', 'PUBLISHED', 'ARCHIVED']),

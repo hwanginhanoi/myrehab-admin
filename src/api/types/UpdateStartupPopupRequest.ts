@@ -5,8 +5,7 @@
 
 export type UpdateStartupPopupRequest = {
   /**
-   * @minLength 0
-   * @maxLength 255
+   * @minLength 1
    * @type string
    */
   title: string

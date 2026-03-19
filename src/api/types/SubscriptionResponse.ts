@@ -26,9 +26,11 @@ export type SubscriptionResponse = {
    */
   contentId?: number
   /**
-   * @type string | undefined
+   * @type object | undefined
    */
-  contentTitle?: string
+  contentTitle?: {
+    [key: string]: string
+  }
   /**
    * @type string | undefined
    */

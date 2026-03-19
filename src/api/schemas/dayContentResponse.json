@@ -20,8 +20,14 @@
         "properties": {
           "dayExerciseId": { "type": "integer", "format": "int64" },
           "exerciseId": { "type": "integer", "format": "int64" },
-          "exerciseTitle": { "type": "string" },
-          "exerciseDescription": { "type": "string" },
+          "exerciseTitle": {
+            "type": "object",
+            "additionalProperties": { "type": "string" }
+          },
+          "exerciseDescription": {
+            "type": "object",
+            "additionalProperties": { "type": "string" }
+          },
           "exerciseImageUrl": { "type": "string" },
           "exerciseVideoUrl": { "type": "string" },
           "exerciseDurationMinutes": { "type": "integer", "format": "int32" },

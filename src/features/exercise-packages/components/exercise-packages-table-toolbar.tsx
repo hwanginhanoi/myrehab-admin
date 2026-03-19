@@ -14,17 +14,23 @@ import {
   FilterButton,
   getCategoryTypeLabel,
 } from './exercise-selector-dnd'
+import { displayMultilang } from '@/lib/multilang'
+import { MultilangLangToggle } from '@/components/multilang-lang-toggle'
 
 type ExercisePackagesTableToolbarProps = {
   table: Table<ExercisePackageResponse>
   search: Record<string, unknown>
   navigate: NavigateFn
+  lang: 'vi' | 'en'
+  onLangChange: (lang: 'vi' | 'en') => void
 }
 
 export function ExercisePackagesTableToolbar({
   table,
   search,
   navigate,
+  lang,
+  onLangChange,
 }: ExercisePackagesTableToolbarProps) {
   const categoryId = search.categoryId as number | undefined
 
@@ -52,7 +58,7 @@ export function ExercisePackagesTableToolbar({
       options: cats
         .filter((cat) => cat.name && cat.id !== undefined)
         .map((cat) => ({
-          label: cat.name!,
+          label: displayMultilang(cat.name),
           value: String(cat.id!),
         })),
     }))
@@ -117,8 +123,11 @@ export function ExercisePackagesTableToolbar({
         )}
       </div>
 
-      {/* Column visibility toggle */}
-      <DataTableViewOptions table={table} />
+      <div className="flex items-center gap-2">
+        <MultilangLangToggle lang={lang} onLangChange={onLangChange} />
+        {/* Column visibility toggle */}
+        <DataTableViewOptions table={table} />
+      </div>
     </div>
   )
 }

@@ -10,7 +10,6 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/card'
-import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Skeleton } from '@/components/ui/skeleton'
 import {
@@ -30,6 +29,8 @@ import {
 } from '@/api'
 import { useAuthStore } from '@/stores/auth-store'
 import { CourseCustomizationSection } from './course-customization-section'
+import { Input } from '@/components/ui/input'
+import { Textarea } from '@/components/ui/textarea'
 
 // Types
 export type CustomExercise = {
@@ -511,7 +512,7 @@ export function CourseAssignmentScreen({
       .sort(([a], [b]) => a - b) // Sort by day number
       .map(([_, day]) => ({
         dayNumber: day.dayNumber,
-        description: day.description,
+        description: day.description || undefined,
         exercises: day.exercises.map((ex) => ({
           exerciseId: ex.exerciseId,
           orderInDay: ex.orderInDay,
@@ -524,7 +525,7 @@ export function CourseAssignmentScreen({
       userId: state.selectedPatient.id,
       data: {
         title: state.courseName,
-        description: state.courseDescription,
+        description: state.courseDescription || '',
         durationDays: state.customizedDays.size,
         notes: state.notes || undefined,
         assigningDoctorId: state.assigningDoctorId || undefined,
@@ -658,8 +659,6 @@ export function CourseAssignmentScreen({
               <div className="space-y-2">
                 <Label htmlFor="courseName">Tên khóa học *</Label>
                 <Input
-                  id="courseName"
-                  placeholder="Nhập tên khóa học..."
                   value={state.courseName}
                   onChange={(e) =>
                     dispatch({
@@ -667,14 +666,13 @@ export function CourseAssignmentScreen({
                       payload: e.target.value,
                     })
                   }
+                  placeholder="Nhập tên khóa học..."
                 />
               </div>
 
               <div className="space-y-2">
                 <Label htmlFor="courseDescription">Mô tả khóa học</Label>
-                <textarea
-                  id="courseDescription"
-                  placeholder="Nhập mô tả về khóa học..."
+                <Textarea
                   value={state.courseDescription}
                   onChange={(e) =>
                     dispatch({
@@ -682,7 +680,8 @@ export function CourseAssignmentScreen({
                       payload: e.target.value,
                     })
                   }
-                  className="w-full min-h-[100px] p-3 border rounded-md resize-none focus:outline-none focus:ring-2 focus:ring-ring"
+                  placeholder="Nhập mô tả về khóa học..."
+                  className="min-h-[100px]"
                 />
               </div>
             </CardContent>

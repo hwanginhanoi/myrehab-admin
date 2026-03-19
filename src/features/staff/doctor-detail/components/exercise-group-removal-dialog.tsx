@@ -16,6 +16,7 @@ import {
   getExerciseGroupsByDoctorQueryKey,
   type GroupResponse,
 } from '@/api'
+import { displayMultilang } from '@/lib/multilang'
 
 type ExerciseGroupRemovalDialogProps = {
   doctorId: number
@@ -60,7 +61,7 @@ export function ExerciseGroupRemovalDialog({
           <AlertDialogDescription>
             Bạn có chắc chắn muốn xóa nhóm bài tập{' '}
             <span className="font-semibold text-foreground">
-              {group?.name || 'này'}
+              {displayMultilang(group?.name) || 'này'}
             </span>{' '}
             khỏi bác sĩ này? Nhóm bài tập sẽ không còn được liên kết với bác sĩ
             này nữa.

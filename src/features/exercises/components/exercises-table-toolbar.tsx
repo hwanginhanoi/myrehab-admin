@@ -8,17 +8,23 @@ import {
   DataTableViewOptions,
 } from '@/components/server-data-table'
 import type { ExerciseResponse, CategoryResponse, GroupResponse } from '@/api'
+import { displayMultilang } from '@/lib/multilang'
+import { MultilangLangToggle } from '@/components/multilang-lang-toggle'
 
 type ExercisesTableToolbarProps = {
   table: Table<ExerciseResponse>
   allCategories: CategoryResponse[]
   allGroups: GroupResponse[]
+  lang: 'vi' | 'en'
+  onLangChange: (lang: 'vi' | 'en') => void
 }
 
 export function ExercisesTableToolbar({
   table,
   allCategories,
   allGroups,
+  lang,
+  onLangChange,
 }: ExercisesTableToolbarProps) {
   const isFiltered =
     table.getState().columnFilters.length > 0 || table.getState().globalFilter
@@ -43,7 +49,7 @@ export function ExercisesTableToolbar({
       options: categories
         .filter((cat) => cat.name && cat.id !== undefined)
         .map((cat) => ({
-          label: cat.name!,
+          label: displayMultilang(cat.name),
           value: String(cat.id!), // Convert to string for filter
         })),
     }))
@@ -57,7 +63,7 @@ export function ExercisesTableToolbar({
         options: allGroups
           .filter((group) => group.name && group.id !== undefined)
           .map((group) => ({
-            label: group.name!,
+            label: displayMultilang(group.name),
             value: String(group.id!),
           })),
       },
@@ -112,8 +118,11 @@ export function ExercisesTableToolbar({
         )}
       </div>
 
-      {/* Column visibility toggle */}
-      <DataTableViewOptions table={table} />
+      <div className="flex items-center gap-2">
+        <MultilangLangToggle lang={lang} onLangChange={onLangChange} />
+        {/* Column visibility toggle */}
+        <DataTableViewOptions table={table} />
+      </div>
     </div>
   )
 }

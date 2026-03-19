@@ -20,8 +20,11 @@ import {
   FormMessage,
 } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
-import { Textarea } from '@/components/ui/textarea'
 import { MultiSelect } from '@/components/multi-select'
+import {
+  MultilangInput,
+  MultilangTextarea,
+} from '@/components/multilang-input'
 import {
   type ExerciseResponse,
   type CategoryResponse,
@@ -32,15 +35,22 @@ import {
   useGetAllGroups,
 } from '@/api'
 import { toast } from 'sonner'
+import {
+  multilangRequired,
+  emptyMultilang,
+  fromMultilang,
+  toMultilang,
+  displayMultilang,
+} from '@/lib/multilang'
 
 const formSchema = z.object({
-  title: z.string().min(1, 'Tên bài tập là bắt buộc'),
-  description: z.string().min(1, 'Mô tả là bắt buộc'),
+  title: multilangRequired('Tên bài tập là bắt buộc'),
+  description: multilangRequired('Mô tả là bắt buộc'),
   imageUrl: z.string().min(1, 'Link ảnh là bắt buộc'),
   videoUrl: z.string().min(1, 'Link video là bắt buộc'),
   durationMinutes: z.number().min(1, 'Thời lượng phải lớn hơn 0'),
-  categoryIds: z.array(z.string()),
-  groupIds: z.array(z.string()),
+  categoryIds: z.array(z.string()).min(1, 'Vui lòng chọn ít nhất một danh mục'),
+  groupIds: z.array(z.string()).min(1, 'Vui lòng chọn ít nhất một kho bài tập'),
   isEdit: z.boolean(),
 })
 
@@ -76,12 +86,12 @@ export function ExercisesActionDialog({
   const groups = (groupsResponse?.content as GroupResponse[]) || []
 
   const categoryOptions = categories.map((cat) => ({
-    label: cat.name || '',
+    label: displayMultilang(cat.name),
     value: String(cat.id),
   }))
 
   const groupOptions = groups.map((group) => ({
-    label: group.name || '',
+    label: displayMultilang(group.name),
     value: String(group.id),
   }))
 
@@ -90,8 +100,8 @@ export function ExercisesActionDialog({
     defaultValues:
       isEdit || isView
         ? {
-            title: currentRow?.title || '',
-            description: currentRow?.description || '',
+            title: fromMultilang(currentRow?.title),
+            description: fromMultilang(currentRow?.description),
             imageUrl: currentRow?.imageUrl || '',
             videoUrl: '',
             durationMinutes: currentRow?.durationMinutes || 0,
@@ -100,8 +110,8 @@ export function ExercisesActionDialog({
             isEdit,
           }
         : {
-            title: '',
-            description: '',
+            title: emptyMultilang,
+            description: emptyMultilang,
             imageUrl: '',
             videoUrl: '',
             durationMinutes: 0,
@@ -150,8 +160,8 @@ export function ExercisesActionDialog({
     }
 
     const payload = {
-      title: values.title,
-      description: values.description,
+      title: toMultilang(values.title),
+      description: toMultilang(values.description),
       imageUrl: values.imageUrl,
       videoUrl: values.videoUrl,
       durationMinutes: values.durationMinutes,
@@ -206,16 +216,17 @@ export function ExercisesActionDialog({
               control={form.control}
               name="title"
               render={({ field }) => (
-                <FormItem className="grid grid-cols-6 items-center space-y-0 gap-x-4 gap-y-1">
-                  <FormLabel className="col-span-2 text-end">
+                <FormItem className="grid grid-cols-6 items-start space-y-0 gap-x-4 gap-y-1">
+                  <FormLabel className="col-span-2 text-end pt-2">
                     Tên bài tập
                   </FormLabel>
                   <FormControl>
-                    <Input
-                      placeholder="Nhập tên bài tập"
-                      className="col-span-4"
+                    <MultilangInput
+                      value={field.value}
+                      onChange={field.onChange}
+                      placeholder={{ vi: 'Nhập tên bài tập', en: 'Enter exercise name' }}
                       disabled={isView}
-                      {...field}
+                      className="col-span-4"
                     />
                   </FormControl>
                   <FormMessage className="col-span-4 col-start-3" />
@@ -285,8 +296,11 @@ export function ExercisesActionDialog({
                       placeholder="Nhập thời lượng"
                       className="col-span-4"
                       disabled={isView}
-                      {...field}
                       value={field.value || ''}
+                      onChange={(e) => field.onChange(e.target.valueAsNumber)}
+                      onBlur={field.onBlur}
+                      name={field.name}
+                      ref={field.ref}
                     />
                   </FormControl>
                   <FormMessage className="col-span-4 col-start-3" />
@@ -303,11 +317,13 @@ export function ExercisesActionDialog({
                     Mô tả
                   </FormLabel>
                   <FormControl>
-                    <Textarea
-                      placeholder="Nhập mô tả bài tập"
-                      className="col-span-4 min-h-[100px]"
+                    <MultilangTextarea
+                      value={field.value}
+                      onChange={field.onChange}
+                      placeholder={{ vi: 'Nhập mô tả bài tập', en: 'Enter exercise description' }}
                       disabled={isView}
-                      {...field}
+                      className="col-span-4"
+                      textareaClassName="min-h-[100px]"
                     />
                   </FormControl>
                   <FormMessage className="col-span-4 col-start-3" />

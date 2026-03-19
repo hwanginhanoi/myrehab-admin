@@ -3,7 +3,7 @@
   "properties": {
     "channelName": { "type": "string" },
     "token": { "type": "string" },
-    "uid": { "type": "integer", "format": "int32" },
+    "userAccount": { "type": "string" },
     "appId": { "type": "string" },
     "expiresAt": { "type": "string", "format": "date-time" }
   },

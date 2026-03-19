@@ -71,7 +71,7 @@ function SortableTableRow({
     transform,
     transition,
     isDragging,
-  } = useSortable({ id: bannerId ?? row.index })
+  } = useSortable({ id: bannerId ?? 0 })
 
   const style = {
     transform: CSS.Transform.toString(transform),
@@ -116,6 +116,7 @@ export function BannersTable({
   navigate,
   pageCount,
 }: DataTableProps) {
+  'use no memo'
   const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({})
   const [sorting, setSorting] = useState<SortingState>([])
   const [localData, setLocalData] = useState(data)
@@ -129,12 +130,21 @@ export function BannersTable({
   // Track previous data ref to detect server data changes
   const prevDataRef = useRef(data)
 
-  // Sync local data when server data changes, but only if not dirty
+  // Sync local data when server data changes
   useEffect(() => {
     if (prevDataRef.current !== data) {
       prevDataRef.current = data
       if (!isDirty) {
         setLocalData(data)
+      } else {
+        // When dirty (draft in table), merge server updates into local state
+        // preserving the user's drag order while refreshing individual item data
+        setLocalData((prev) => {
+          const serverMap = new Map(data.map((b) => [b.id, b]))
+          return prev.map((b) =>
+            b.id === DRAFT_ID ? b : (serverMap.get(b.id) ?? b)
+          )
+        })
       }
     }
   }, [data, isDirty])
@@ -174,6 +184,7 @@ export function BannersTable({
     ],
   })
 
+  // eslint-disable-next-line react-hooks/incompatible-library
   const table = useReactTable({
     data: localData,
     columns,
@@ -208,15 +219,41 @@ export function BannersTable({
       const { active, over } = event
       if (!over || active.id === over.id) return
 
-      const oldIndex = localData.findIndex((b) => b.id === active.id)
-      const newIndex = localData.findIndex((b) => b.id === over.id)
+      const oldIndex = localData.findIndex((b) => Number(b.id) === Number(active.id))
+      const newIndex = localData.findIndex((b) => Number(b.id) === Number(over.id))
       if (oldIndex === -1 || newIndex === -1) return
 
       const newData = arrayMove(localData, oldIndex, newIndex)
       setLocalData(newData)
-      setIsDirty(true)
+
+      if (draftBanner) {
+        // Draft in table: show save bar, let user confirm
+        setIsDirty(true)
+      } else {
+        // No draft: auto-save immediately
+        const pageOffset = pagination.pageIndex * pagination.pageSize
+        const reorderPayload = newData.map((banner, index) => ({
+          id: banner.id!,
+          displayOrder: pageOffset + index,
+        }))
+        reorderMutation.mutate(
+          { data: reorderPayload },
+          {
+            onSuccess: () => {
+              queryClient.invalidateQueries({
+                queryKey: [{ url: '/api/banners/all' }],
+              })
+              toast.success('Cập nhật thứ tự thành công')
+            },
+            onError: (error) => {
+              setLocalData(localData) // revert on failure
+              toast.error('Sắp xếp lại thất bại: ' + error.message)
+            },
+          }
+        )
+      }
     },
-    [localData]
+    [localData, draftBanner, pagination, reorderMutation, queryClient]
   )
 
   const handleCancel = useCallback(() => {

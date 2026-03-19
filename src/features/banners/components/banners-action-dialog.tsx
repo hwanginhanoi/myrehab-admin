@@ -3,15 +3,12 @@ import { z } from 'zod'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useQueryClient } from '@tanstack/react-query'
+import { ImageIcon, Pencil, Plus, Eye } from 'lucide-react'
 import { Button } from '@/components/ui/button'
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-} from '@/components/ui/dialog'
+import { Input } from '@/components/ui/input'
+import { Badge } from '@/components/ui/badge'
+import { Separator } from '@/components/ui/separator'
+import { Dialog, DialogContent } from '@/components/ui/dialog'
 import {
   Form,
   FormControl,
@@ -20,7 +17,6 @@ import {
   FormLabel,
   FormMessage,
 } from '@/components/ui/form'
-import { Input } from '@/components/ui/input'
 import { SelectDropdown } from '@/components/select-dropdown'
 import { FileUpload, type FileUploadRef } from '@/components/file-upload'
 import { bannerStatusOptions } from '@/lib/constants/banner-status'
@@ -29,7 +25,7 @@ import { toast } from 'sonner'
 import { useBanners } from './banners-provider'
 
 const formSchema = z.object({
-  title: z.string().min(1, 'Tiêu đề là bắt buộc'),
+  title: z.string().min(1, 'Tiêu đề là bắt buộc').max(100, 'Tiêu đề không vượt quá 100 ký tự'),
   imageUrl: z.string().optional(),
   status: z.string().min(1, 'Trạng thái là bắt buộc'),
 })
@@ -43,6 +39,33 @@ type BannersActionDialogProps = {
   mode: 'add' | 'edit' | 'view'
 }
 
+const modeConfig = {
+  add: {
+    icon: Plus,
+    label: 'Mới',
+    badgeVariant: 'default' as const,
+    title: 'Thêm banner mới',
+    description: 'Banner sẽ được thêm vào cuối danh sách.',
+    submit: 'Thêm banner',
+  },
+  edit: {
+    icon: Pencil,
+    label: 'Chỉnh sửa',
+    badgeVariant: 'secondary' as const,
+    title: 'Chỉnh sửa banner',
+    description: 'Cập nhật thông tin và ảnh banner.',
+    submit: 'Lưu thay đổi',
+  },
+  view: {
+    icon: Eye,
+    label: 'Xem',
+    badgeVariant: 'outline' as const,
+    title: 'Chi tiết banner',
+    description: 'Thông tin banner hiện tại.',
+    submit: '',
+  },
+}
+
 export function BannersActionDialog({
   currentRow,
   open,
@@ -52,6 +75,7 @@ export function BannersActionDialog({
   const isAdd = mode === 'add'
   const isEdit = mode === 'edit'
   const isView = mode === 'view'
+  const cfg = modeConfig[mode]
 
   const queryClient = useQueryClient()
   const imageUploadRef = useRef<FileUploadRef>(null)
@@ -81,19 +105,6 @@ export function BannersActionDialog({
     })
   }, [queryClient])
 
-  const getTitle = () => {
-    if (isView) return 'Xem banner'
-    if (isEdit) return 'Chỉnh sửa banner'
-    return 'Thêm banner mới'
-  }
-
-  const getDescription = () => {
-    if (isView) return 'Thông tin chi tiết banner.'
-    if (isEdit)
-      return 'Cập nhật thông tin banner. Nhấn lưu khi hoàn thành.'
-    return 'Tạo banner mới. Banner sẽ được thêm vào cuối danh sách.'
-  }
-
   const isPending = updateMutation.isPending
 
   const handleFormSubmit = useCallback(
@@ -119,7 +130,7 @@ export function BannersActionDialog({
           }
 
           if (!imageUrl) {
-            toast.error('Vui lòng chọn ảnh banner')
+            form.setError('imageUrl', { message: 'Vui lòng chọn ảnh banner' })
             return
           }
 
@@ -129,7 +140,9 @@ export function BannersActionDialog({
               imageUrl,
               status: values.status,
             })
-            toast.info('Banner đã được thêm vào danh sách. Kéo thả để sắp xếp vị trí, sau đó nhấn "Lưu thứ tự" để lưu.')
+            toast.info(
+              'Banner đã được thêm vào danh sách. Kéo thả để sắp xếp vị trí, sau đó nhấn "Lưu thứ tự" để lưu.'
+            )
             form.reset()
             onOpenChange(false)
             return
@@ -163,7 +176,17 @@ export function BannersActionDialog({
         }
       })(e)
     },
-    [form, isView, isAdd, isEdit, currentRow, updateMutation, onOpenChange, invalidateBanners, setDraftBanner]
+    [
+      form,
+      isView,
+      isAdd,
+      isEdit,
+      currentRow,
+      updateMutation,
+      onOpenChange,
+      invalidateBanners,
+      setDraftBanner,
+    ]
   )
 
   return (
@@ -174,95 +197,126 @@ export function BannersActionDialog({
         onOpenChange(state)
       }}
     >
-      <DialogContent className="sm:max-w-lg">
-        <DialogHeader className="text-start">
-          <DialogTitle>{getTitle()}</DialogTitle>
-          <DialogDescription>{getDescription()}</DialogDescription>
-        </DialogHeader>
+      <DialogContent className="gap-0 overflow-hidden p-0 sm:max-w-xl">
         <Form {...form}>
           <form
             id="banner-form"
             onSubmit={handleFormSubmit}
-            className="space-y-4"
+            className="flex flex-col"
           >
-            <FormField
-              control={form.control}
-              name="title"
-              render={({ field }) => (
-                <FormItem className="grid grid-cols-6 items-center space-y-0 gap-x-4 gap-y-1">
-                  <FormLabel className="col-span-2 text-end">
-                    Tiêu đề
-                  </FormLabel>
-                  <FormControl>
-                    <Input
-                      placeholder="Nhập tiêu đề"
-                      className="col-span-4"
-                      disabled={isView}
-                      {...field}
-                    />
-                  </FormControl>
-                  <FormMessage className="col-span-4 col-start-3" />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name="imageUrl"
-              render={({ field }) => (
-                <FormItem className="grid grid-cols-6 items-start space-y-0 gap-x-4 gap-y-1">
-                  <FormLabel className="col-span-2 pt-2 text-end">
-                    Ảnh banner
-                  </FormLabel>
-                  <FormControl>
-                    <FileUpload
-                      ref={imageUploadRef}
-                      category="banner-image"
-                      value={field.value}
-                      onChange={field.onChange}
-                      disabled={isView}
-                      className="col-span-4"
-                      label={undefined}
-                    />
-                  </FormControl>
-                  <FormMessage className="col-span-4 col-start-3" />
-                </FormItem>
-              )}
-            />
-            {!isAdd && (
+            {/* ── Header ── */}
+            <div className="flex items-center gap-3 px-6 py-5">
+              <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg border bg-muted">
+                <cfg.icon className="h-4 w-4 text-muted-foreground" />
+              </div>
+              <div className="min-w-0 flex-1">
+                <div className="flex items-center gap-2">
+                  <h2 className="text-base font-semibold">{cfg.title}</h2>
+                  <Badge variant={cfg.badgeVariant} className="text-xs">
+                    {cfg.label}
+                  </Badge>
+                </div>
+                <p className="truncate text-sm text-muted-foreground">
+                  {cfg.description}
+                </p>
+              </div>
+            </div>
+
+            <Separator />
+
+            {/* ── Image section ── */}
+            <div className="bg-muted/30 px-6 py-4">
+              <div className="mb-3 flex items-center gap-2">
+                <ImageIcon className="h-3.5 w-3.5 text-muted-foreground" />
+                <span className="text-xs font-medium uppercase tracking-wide text-muted-foreground">
+                  Ảnh banner
+                </span>
+                <span className="ms-auto text-xs text-muted-foreground">
+                  Tỉ lệ 16:9 · JPEG, PNG, WebP · Tối đa 10MB
+                </span>
+              </div>
+              <FormField
+                control={form.control}
+                name="imageUrl"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormControl>
+                      <FileUpload
+                        ref={imageUploadRef}
+                        category="banner-image"
+                        value={field.value}
+                        onChange={field.onChange}
+                        disabled={isView}
+                        label={undefined}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            </div>
+
+            <Separator />
+
+            {/* ── Form fields ── */}
+            <div className="flex flex-col gap-4 px-6 py-5">
+              <FormField
+                control={form.control}
+                name="title"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Tiêu đề</FormLabel>
+                    <FormControl>
+                      <Input
+                        {...field}
+                        placeholder="Nhập tiêu đề banner..."
+                        disabled={isView}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+
               <FormField
                 control={form.control}
                 name="status"
                 render={({ field }) => (
-                  <FormItem className="grid grid-cols-6 items-center space-y-0 gap-x-4 gap-y-1">
-                    <FormLabel className="col-span-2 text-end">
-                      Trạng thái
-                    </FormLabel>
+                  <FormItem>
+                    <FormLabel>Trạng thái</FormLabel>
                     <FormControl>
                       <SelectDropdown
                         defaultValue={field.value}
                         onValueChange={field.onChange}
                         placeholder="Chọn trạng thái"
-                        className="col-span-4"
                         disabled={isView}
                         items={bannerStatusOptions}
                       />
                     </FormControl>
-                    <FormMessage className="col-span-4 col-start-3" />
+                    <FormMessage />
                   </FormItem>
                 )}
               />
-            )}
+            </div>
+
+            {/* ── Footer ── */}
+            <Separator />
+            <div className="flex items-center justify-end gap-2 px-6 py-4">
+              <Button
+                type="button"
+                variant="outline"
+                onClick={() => onOpenChange(false)}
+              >
+                {isView ? 'Đóng' : 'Hủy'}
+              </Button>
+              {!isView && (
+                <Button type="submit" disabled={isPending}>
+                  {isPending ? 'Đang lưu...' : cfg.submit}
+                </Button>
+              )}
+            </div>
           </form>
         </Form>
-
-        <DialogFooter>
-          {!isView && (
-            <Button type="submit" form="banner-form" disabled={isPending}>
-              {isPending ? 'Đang lưu...' : isAdd ? 'Thêm' : 'Lưu'}
-            </Button>
-          )}
-          {isView && <Button onClick={() => onOpenChange(false)}>Đóng</Button>}
-        </DialogFooter>
       </DialogContent>
     </Dialog>
   )

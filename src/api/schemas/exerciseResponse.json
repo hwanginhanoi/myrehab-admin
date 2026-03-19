@@ -2,8 +2,11 @@
   "type": "object",
   "properties": {
     "id": { "type": "integer", "format": "int64" },
-    "title": { "type": "string" },
-    "description": { "type": "string" },
+    "title": { "type": "object", "additionalProperties": { "type": "string" } },
+    "description": {
+      "type": "object",
+      "additionalProperties": { "type": "string" }
+    },
     "imageUrl": { "type": "string" },
     "durationMinutes": { "type": "integer", "format": "int32" },
     "categories": {
@@ -12,8 +15,14 @@
         "type": "object",
         "properties": {
           "id": { "type": "integer", "format": "int64" },
-          "name": { "type": "string" },
-          "description": { "type": "string" },
+          "name": {
+            "type": "object",
+            "additionalProperties": { "type": "string" }
+          },
+          "description": {
+            "type": "object",
+            "additionalProperties": { "type": "string" }
+          },
           "type": {
             "type": "string",
             "enum": [
