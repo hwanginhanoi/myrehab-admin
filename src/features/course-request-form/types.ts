@@ -10,6 +10,9 @@ export const courseRequestFormSchema = z.object({
   description: z.string().max(1000, 'Mô tả tối đa 1000 ký tự').optional(),
   durationDays: z.number().int().min(1, 'Số ngày phải lớn hơn 0'),
   trainerNotes: z.string().max(1000, 'Ghi chú tối đa 1000 ký tự').optional(),
+  patientProblems: z.string().max(2000).optional(),
+  objective: z.string().max(2000).optional(),
+  isFree: z.boolean().optional(),
 })
 
 export type CourseRequestFormValues = z.infer<typeof courseRequestFormSchema>

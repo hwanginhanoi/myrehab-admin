@@ -8,6 +8,7 @@ import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Textarea } from '@/components/ui/textarea'
+import { Switch } from '@/components/ui/switch'
 import {
   Form,
   FormControl,
@@ -311,6 +312,9 @@ export function CourseRequestForm({
       description: details?.description ?? '',
       durationDays: details?.durationDays ?? customizedDays.size,
       trainerNotes: existingRequest?.trainerNotes ?? '',
+      patientProblems: details?.patientProblems ?? '',
+      objective: details?.objective ?? '',
+      isFree: details?.isFree ?? false,
     },
   })
 
@@ -375,6 +379,8 @@ export function CourseRequestForm({
     const courseDetails = {
       courseName: values.courseName,
       description: values.description || undefined,
+      patientProblems: values.patientProblems || undefined,
+      objective: values.objective || undefined,
       durationDays: customizedDays.size,
       days,
     }
@@ -386,6 +392,7 @@ export function CourseRequestForm({
           patientId: values.patientId,
           courseDetails,
           trainerNotes: values.trainerNotes || undefined,
+          isFree: values.isFree,
         },
       })
     } else {
@@ -394,6 +401,7 @@ export function CourseRequestForm({
           patientId: values.patientId,
           courseDetails,
           trainerNotes: values.trainerNotes || undefined,
+          isFree: values.isFree,
         },
       })
     }
@@ -467,6 +475,63 @@ export function CourseRequestForm({
                     {...field}
                   />
                 </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+
+          <FormField
+            control={form.control}
+            name="patientProblems"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Vấn đề của bệnh nhân</FormLabel>
+                <FormControl>
+                  <Textarea
+                    placeholder="Mô tả vấn đề của bệnh nhân..."
+                    rows={3}
+                    maxLength={2000}
+                    {...field}
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+
+          <FormField
+            control={form.control}
+            name="objective"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Mục tiêu điều trị</FormLabel>
+                <FormControl>
+                  <Textarea
+                    placeholder="Nhập mục tiêu điều trị..."
+                    rows={3}
+                    maxLength={2000}
+                    {...field}
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+
+          <FormField
+            control={form.control}
+            name="isFree"
+            render={({ field }) => (
+              <FormItem>
+                <div className="flex items-center gap-3">
+                  <FormControl>
+                    <Switch
+                      checked={field.value ?? false}
+                      onCheckedChange={field.onChange}
+                    />
+                  </FormControl>
+                  <FormLabel className="!mt-0">Miễn phí cho bệnh nhân</FormLabel>
+                </div>
                 <FormMessage />
               </FormItem>
             )}

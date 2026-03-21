@@ -31,6 +31,7 @@ import { useAuthStore } from '@/stores/auth-store'
 import { CourseCustomizationSection } from './course-customization-section'
 import { Input } from '@/components/ui/input'
 import { Textarea } from '@/components/ui/textarea'
+import { Switch } from '@/components/ui/switch'
 
 // Types
 export type CustomExercise = {
@@ -54,6 +55,9 @@ type AssignmentState = {
   selectedPatient: UserResponse | null
   courseName: string
   courseDescription: string
+  patientProblems: string
+  objective: string
+  isFree: boolean
   customizedDays: Map<number, DayWithExercises>
   notes: string
   assigningDoctorId: number | null
@@ -100,6 +104,9 @@ type AssignmentAction =
       payload: { dayNumber: number; exercises: CustomExercise[] }
     }
   | { type: 'SET_NOTES'; payload: string }
+  | { type: 'SET_PATIENT_PROBLEMS'; payload: string }
+  | { type: 'SET_OBJECTIVE'; payload: string }
+  | { type: 'SET_IS_FREE'; payload: boolean }
   | { type: 'NEXT_STEP' }
   | { type: 'PREVIOUS_STEP' }
   | { type: 'RESET' }
@@ -317,6 +324,15 @@ function assignmentReducer(
     case 'SET_NOTES':
       return { ...state, notes: action.payload }
 
+    case 'SET_PATIENT_PROBLEMS':
+      return { ...state, patientProblems: action.payload }
+
+    case 'SET_OBJECTIVE':
+      return { ...state, objective: action.payload }
+
+    case 'SET_IS_FREE':
+      return { ...state, isFree: action.payload }
+
     case 'NEXT_STEP': {
       const nextStep = Math.min(3, state.currentStep + 1) as 1 | 2 | 3
       // Auto-initialize days when entering step 2
@@ -356,6 +372,9 @@ const initialState: AssignmentState = {
   selectedPatient: null,
   courseName: '',
   courseDescription: '',
+  patientProblems: '',
+  objective: '',
+  isFree: false,
   customizedDays: new Map(),
   notes: '',
   assigningDoctorId: null,
@@ -526,6 +545,9 @@ export function CourseAssignmentScreen({
       data: {
         title: state.courseName,
         description: state.courseDescription || '',
+        patientProblems: state.patientProblems || undefined,
+        objective: state.objective || undefined,
+        isFree: state.isFree,
         durationDays: state.customizedDays.size,
         notes: state.notes || undefined,
         assigningDoctorId: state.assigningDoctorId || undefined,
@@ -684,6 +706,47 @@ export function CourseAssignmentScreen({
                   className="min-h-[100px]"
                 />
               </div>
+
+              <div className="space-y-2">
+                <Label htmlFor="patientProblems">Vấn đề của bệnh nhân</Label>
+                <Textarea
+                  value={state.patientProblems}
+                  onChange={(e) =>
+                    dispatch({
+                      type: 'SET_PATIENT_PROBLEMS',
+                      payload: e.target.value,
+                    })
+                  }
+                  placeholder="Mô tả vấn đề của bệnh nhân..."
+                  className="min-h-[80px]"
+                />
+              </div>
+
+              <div className="space-y-2">
+                <Label htmlFor="objective">Mục tiêu điều trị</Label>
+                <Textarea
+                  value={state.objective}
+                  onChange={(e) =>
+                    dispatch({
+                      type: 'SET_OBJECTIVE',
+                      payload: e.target.value,
+                    })
+                  }
+                  placeholder="Nhập mục tiêu điều trị..."
+                  className="min-h-[80px]"
+                />
+              </div>
+
+              <div className="flex items-center gap-3">
+                <Switch
+                  id="isFree"
+                  checked={state.isFree}
+                  onCheckedChange={(checked) =>
+                    dispatch({ type: 'SET_IS_FREE', payload: checked })
+                  }
+                />
+                <Label htmlFor="isFree">Miễn phí cho bệnh nhân</Label>
+              </div>
             </CardContent>
           </Card>
         )}
@@ -701,6 +764,9 @@ export function CourseAssignmentScreen({
             patient={state.selectedPatient!}
             courseName={state.courseName}
             courseDescription={state.courseDescription}
+            patientProblems={state.patientProblems}
+            objective={state.objective}
+            isFree={state.isFree}
             customizedDays={state.customizedDays}
             notes={state.notes}
             onNotesChange={(notes) =>
@@ -764,6 +830,9 @@ type AssignmentReviewProps = {
   patient: UserResponse
   courseName: string
   courseDescription: string
+  patientProblems: string
+  objective: string
+  isFree: boolean
   customizedDays: Map<number, DayWithExercises>
   notes: string
   onNotesChange: (notes: string) => void
@@ -773,6 +842,9 @@ function AssignmentReview({
   patient,
   courseName,
   courseDescription,
+  patientProblems,
+  objective,
+  isFree,
   customizedDays,
   notes,
   onNotesChange,
@@ -854,6 +926,22 @@ function AssignmentReview({
                 <span className="font-medium text-sm">{courseDescription}</span>
               </div>
             )}
+            {patientProblems && (
+              <div className="flex flex-col gap-1">
+                <span className="text-muted-foreground">Vấn đề bệnh nhân:</span>
+                <span className="font-medium text-sm">{patientProblems}</span>
+              </div>
+            )}
+            {objective && (
+              <div className="flex flex-col gap-1">
+                <span className="text-muted-foreground">Mục tiêu điều trị:</span>
+                <span className="font-medium text-sm">{objective}</span>
+              </div>
+            )}
+            <div className="flex justify-between">
+              <span className="text-muted-foreground">Miễn phí:</span>
+              <span className="font-medium">{isFree ? 'Có' : 'Không'}</span>
+            </div>
             <div className="flex justify-between">
               <span className="text-muted-foreground">Số ngày:</span>
               <span className="font-medium">{customizedDays.size}</span>
