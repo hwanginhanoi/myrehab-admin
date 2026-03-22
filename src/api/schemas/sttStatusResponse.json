@@ -1,0 +1,10 @@
+{
+  "type": "object",
+  "properties": {
+    "agentId": { "type": "string" },
+    "status": { "type": "string" },
+    "channelName": { "type": "string" },
+    "sourceLanguages": { "type": "array", "items": { "type": "string" } }
+  },
+  "x-readme-ref-name": "SttStatusResponse"
+}
