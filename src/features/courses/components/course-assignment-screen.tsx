@@ -921,21 +921,21 @@ function AssignmentReview({
               <span className="font-medium">{courseName}</span>
             </div>
             {courseDescription && (
-              <div className="flex flex-col gap-1">
+              <div className="flex justify-between">
                 <span className="text-muted-foreground">Mô tả:</span>
-                <span className="font-medium text-sm">{courseDescription}</span>
+                <span className="font-medium">{courseDescription}</span>
               </div>
             )}
             {patientProblems && (
-              <div className="flex flex-col gap-1">
+              <div className="flex justify-between">
                 <span className="text-muted-foreground">Vấn đề bệnh nhân:</span>
-                <span className="font-medium text-sm">{patientProblems}</span>
+                <span className="font-medium">{patientProblems}</span>
               </div>
             )}
             {objective && (
-              <div className="flex flex-col gap-1">
+              <div className="flex justify-between">
                 <span className="text-muted-foreground">Mục tiêu điều trị:</span>
-                <span className="font-medium text-sm">{objective}</span>
+                <span className="font-medium">{objective}</span>
               </div>
             )}
             <div className="flex justify-between">
