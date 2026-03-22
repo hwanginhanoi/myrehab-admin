@@ -54,6 +54,14 @@ export function UserPreviewDialog({
             </div>
             <div className="grid grid-cols-3 items-center gap-4">
               <span className="text-sm font-medium text-muted-foreground">
+                Số CMND/CCCD
+              </span>
+              <span className="col-span-2 text-sm">
+                {user.nationalId || '-'}
+              </span>
+            </div>
+            <div className="grid grid-cols-3 items-center gap-4">
+              <span className="text-sm font-medium text-muted-foreground">
                 Giới tính
               </span>
               <span className="col-span-2 text-sm">

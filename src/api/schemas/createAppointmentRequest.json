@@ -1,11 +1,1 @@
-{
-  "type": "object",
-  "properties": {
-    "appointmentDate": { "type": "string", "format": "date" },
-    "startTime": { "type": "string" },
-    "doctorId": { "type": "integer", "format": "int64" },
-    "patientNotes": { "type": "string" }
-  },
-  "required": ["appointmentDate", "startTime"],
-  "x-readme-ref-name": "CreateAppointmentRequest"
-}
+{"type":"object","properties":{"appointmentDate":{"type":"string","format":"date"},"startTime":{"type":"string"},"doctorId":{"type":"integer","format":"int64"},"patientNotes":{"type":"string"}},"required":["appointmentDate","startTime"],"x-readme-ref-name":"CreateAppointmentRequest"}

@@ -7,6 +7,9 @@ export type CourseRequest = CourseAssignmentRequestResponse
 export type ParsedCourseDetails = {
   courseName?: string
   description?: string
+  patientProblems?: string
+  objective?: string
+  isFree?: boolean
   durationDays?: number
   days?: Array<{
     dayNumber: number
