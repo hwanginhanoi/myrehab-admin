@@ -4,7 +4,8 @@
     "appointmentDate": { "type": "string", "format": "date" },
     "startTime": { "type": "string" },
     "doctorId": { "type": "integer", "format": "int64" },
-    "patientNotes": { "type": "string" }
+    "patientNotes": { "type": "string" },
+    "sttLanguage": { "type": "string", "enum": ["EN_US", "VI_VN"] }
   },
   "required": ["appointmentDate", "startTime"],
   "x-readme-ref-name": "CreateAppointmentRequest"

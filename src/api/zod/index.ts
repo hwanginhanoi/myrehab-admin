@@ -74,6 +74,11 @@ export {
   getPublicDoctorsQueryResponseSchema,
 } from './appointmentsController/getPublicDoctorsSchema.ts'
 export {
+  getSttStatusPathParamsSchema,
+  getSttStatus200Schema,
+  getSttStatusQueryResponseSchema,
+} from './appointmentsController/getSttStatusSchema.ts'
+export {
   getVideoTokenPathParamsSchema,
   getVideoToken200Schema,
   getVideoTokenQueryResponseSchema,
@@ -95,6 +100,16 @@ export {
   resolveDisputeMutationRequestSchema,
   resolveDisputeMutationResponseSchema,
 } from './appointmentsController/resolveDisputeSchema.ts'
+export {
+  startSttPathParamsSchema,
+  startStt200Schema,
+  startSttMutationResponseSchema,
+} from './appointmentsController/startSttSchema.ts'
+export {
+  stopSttPathParamsSchema,
+  stopStt200Schema,
+  stopSttMutationResponseSchema,
+} from './appointmentsController/stopSttSchema.ts'
 export {
   updateClinicSchedule200Schema,
   updateClinicScheduleMutationRequestSchema,
@@ -849,6 +864,7 @@ export {
   updatePopupMutationResponseSchema,
 } from './startupPopupController/updatePopupSchema.ts'
 export { startupPopupResponseSchema } from './startupPopupResponseSchema.ts'
+export { sttStatusResponseSchema } from './sttStatusResponseSchema.ts'
 export { submitFeedbackRequestSchema } from './submitFeedbackRequestSchema.ts'
 export { subscriptionInfoSchema } from './subscriptionInfoSchema.ts'
 export { subscriptionResponseSchema } from './subscriptionResponseSchema.ts'

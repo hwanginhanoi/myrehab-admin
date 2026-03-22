@@ -1,4 +1,5 @@
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import { Badge } from '@/components/ui/badge'
 import type { AppointmentResponse } from '@/api'
 import { formatLocalTime, formatCurrency } from '@/lib/appointment-utils'
 import { AppointmentStatusBadge } from '@/features/appointments/components/appointment-status-badge'
@@ -67,6 +68,15 @@ export function AppointmentInfoCard({ appointment }: AppointmentInfoCardProps) {
           {appointment.cancellationReason && (
             <InfoItem label="Lý do hủy" className="sm:col-span-2 lg:col-span-3">
               {appointment.cancellationReason}
+            </InfoItem>
+          )}
+          {appointment.sttLanguage && (
+            <InfoItem label="Ngôn ngữ">
+              {appointment.sttLanguage === 'EN_US' ? (
+                <Badge variant="secondary">🌐 Tiếng Anh (Dịch thuật)</Badge>
+              ) : (
+                'Tiếng Việt'
+              )}
             </InfoItem>
           )}
           {appointment.confirmedByStaffName && (

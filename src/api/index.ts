@@ -20,11 +20,15 @@ export type { GetMyAppointmentsQueryKey } from './hooks/AppointmentsHooks/useGet
 export type { GetMyAppointmentsSuspenseQueryKey } from './hooks/AppointmentsHooks/useGetMyAppointmentsSuspense.ts'
 export type { GetPublicDoctorsQueryKey } from './hooks/AppointmentsHooks/useGetPublicDoctors.ts'
 export type { GetPublicDoctorsSuspenseQueryKey } from './hooks/AppointmentsHooks/useGetPublicDoctorsSuspense.ts'
+export type { GetSttStatusQueryKey } from './hooks/AppointmentsHooks/useGetSttStatus.ts'
+export type { GetSttStatusSuspenseQueryKey } from './hooks/AppointmentsHooks/useGetSttStatusSuspense.ts'
 export type { GetVideoTokenQueryKey } from './hooks/AppointmentsHooks/useGetVideoToken.ts'
 export type { GetVideoTokenSuspenseQueryKey } from './hooks/AppointmentsHooks/useGetVideoTokenSuspense.ts'
 export type { MarkCompleteMutationKey } from './hooks/AppointmentsHooks/useMarkComplete.ts'
 export type { RejectAppointmentMutationKey } from './hooks/AppointmentsHooks/useRejectAppointment.ts'
 export type { ResolveDisputeMutationKey } from './hooks/AppointmentsHooks/useResolveDispute.ts'
+export type { StartSttMutationKey } from './hooks/AppointmentsHooks/useStartStt.ts'
+export type { StopSttMutationKey } from './hooks/AppointmentsHooks/useStopStt.ts'
 export type { UpdateClinicScheduleMutationKey } from './hooks/AppointmentsHooks/useUpdateClinicSchedule.ts'
 export type { CheckPhoneMutationKey } from './hooks/AuthenticationHooks/useCheckPhone.ts'
 export type { LoginWithPasswordMutationKey } from './hooks/AuthenticationHooks/useLoginWithPassword.ts'
@@ -265,6 +269,7 @@ export type { AddBalanceRequest } from './types/AddBalanceRequest.ts'
 export type { AppointmentDataPointResponse } from './types/AppointmentDataPointResponse.ts'
 export type {
   AppointmentResponseStatusEnumKey,
+  AppointmentResponseSttLanguageEnumKey,
   AppointmentResponse,
 } from './types/AppointmentResponse.ts'
 export type {
@@ -354,6 +359,12 @@ export type {
   GetPublicDoctorsQuery,
 } from './types/appointmentsController/GetPublicDoctors.ts'
 export type {
+  GetSttStatusPathParams,
+  GetSttStatus200,
+  GetSttStatusQueryResponse,
+  GetSttStatusQuery,
+} from './types/appointmentsController/GetSttStatus.ts'
+export type {
   GetVideoTokenPathParams,
   GetVideoToken200,
   GetVideoTokenQueryResponse,
@@ -379,6 +390,18 @@ export type {
   ResolveDisputeMutationResponse,
   ResolveDisputeMutation,
 } from './types/appointmentsController/ResolveDispute.ts'
+export type {
+  StartSttPathParams,
+  StartStt200,
+  StartSttMutationResponse,
+  StartSttMutation,
+} from './types/appointmentsController/StartStt.ts'
+export type {
+  StopSttPathParams,
+  StopStt200,
+  StopSttMutationResponse,
+  StopSttMutation,
+} from './types/appointmentsController/StopStt.ts'
 export type {
   UpdateClinicSchedule200,
   UpdateClinicScheduleMutationRequest,
@@ -653,7 +676,10 @@ export type {
 } from './types/coursesController/GetCourseStructure.ts'
 export type { CourseStatsResponse } from './types/CourseStatsResponse.ts'
 export type { CourseWithDaysResponse } from './types/CourseWithDaysResponse.ts'
-export type { CreateAppointmentRequest } from './types/CreateAppointmentRequest.ts'
+export type {
+  CreateAppointmentRequestSttLanguageEnumKey,
+  CreateAppointmentRequest,
+} from './types/CreateAppointmentRequest.ts'
 export type {
   CreateBannerRequestStatusEnumKey,
   CreateBannerRequest,
@@ -1311,6 +1337,7 @@ export type {
   UpdatePopupMutation,
 } from './types/startupPopupController/UpdatePopup.ts'
 export type { StartupPopupResponse } from './types/StartupPopupResponse.ts'
+export type { SttStatusResponse } from './types/SttStatusResponse.ts'
 export type { SubmitFeedbackRequest } from './types/SubmitFeedbackRequest.ts'
 export type {
   SubscriptionInfoSubscriptionTypeEnumKey,
@@ -1628,6 +1655,14 @@ export { getPublicDoctorsSuspenseQueryKey } from './hooks/AppointmentsHooks/useG
 export { getPublicDoctorsSuspense } from './hooks/AppointmentsHooks/useGetPublicDoctorsSuspense.ts'
 export { getPublicDoctorsSuspenseQueryOptions } from './hooks/AppointmentsHooks/useGetPublicDoctorsSuspense.ts'
 export { useGetPublicDoctorsSuspense } from './hooks/AppointmentsHooks/useGetPublicDoctorsSuspense.ts'
+export { getSttStatusQueryKey } from './hooks/AppointmentsHooks/useGetSttStatus.ts'
+export { getSttStatus } from './hooks/AppointmentsHooks/useGetSttStatus.ts'
+export { getSttStatusQueryOptions } from './hooks/AppointmentsHooks/useGetSttStatus.ts'
+export { useGetSttStatus } from './hooks/AppointmentsHooks/useGetSttStatus.ts'
+export { getSttStatusSuspenseQueryKey } from './hooks/AppointmentsHooks/useGetSttStatusSuspense.ts'
+export { getSttStatusSuspense } from './hooks/AppointmentsHooks/useGetSttStatusSuspense.ts'
+export { getSttStatusSuspenseQueryOptions } from './hooks/AppointmentsHooks/useGetSttStatusSuspense.ts'
+export { useGetSttStatusSuspense } from './hooks/AppointmentsHooks/useGetSttStatusSuspense.ts'
 export { getVideoTokenQueryKey } from './hooks/AppointmentsHooks/useGetVideoToken.ts'
 export { getVideoToken } from './hooks/AppointmentsHooks/useGetVideoToken.ts'
 export { getVideoTokenQueryOptions } from './hooks/AppointmentsHooks/useGetVideoToken.ts'
@@ -1648,6 +1683,14 @@ export { resolveDisputeMutationKey } from './hooks/AppointmentsHooks/useResolveD
 export { resolveDispute } from './hooks/AppointmentsHooks/useResolveDispute.ts'
 export { resolveDisputeMutationOptions } from './hooks/AppointmentsHooks/useResolveDispute.ts'
 export { useResolveDispute } from './hooks/AppointmentsHooks/useResolveDispute.ts'
+export { startSttMutationKey } from './hooks/AppointmentsHooks/useStartStt.ts'
+export { startStt } from './hooks/AppointmentsHooks/useStartStt.ts'
+export { startSttMutationOptions } from './hooks/AppointmentsHooks/useStartStt.ts'
+export { useStartStt } from './hooks/AppointmentsHooks/useStartStt.ts'
+export { stopSttMutationKey } from './hooks/AppointmentsHooks/useStopStt.ts'
+export { stopStt } from './hooks/AppointmentsHooks/useStopStt.ts'
+export { stopSttMutationOptions } from './hooks/AppointmentsHooks/useStopStt.ts'
+export { useStopStt } from './hooks/AppointmentsHooks/useStopStt.ts'
 export { updateClinicScheduleMutationKey } from './hooks/AppointmentsHooks/useUpdateClinicSchedule.ts'
 export { updateClinicSchedule } from './hooks/AppointmentsHooks/useUpdateClinicSchedule.ts'
 export { updateClinicScheduleMutationOptions } from './hooks/AppointmentsHooks/useUpdateClinicSchedule.ts'
@@ -2593,6 +2636,7 @@ export { verifyMyPin } from './hooks/User ManagementHooks/useVerifyMyPin.ts'
 export { verifyMyPinMutationOptions } from './hooks/User ManagementHooks/useVerifyMyPin.ts'
 export { useVerifyMyPin } from './hooks/User ManagementHooks/useVerifyMyPin.ts'
 export { appointmentResponseStatusEnum } from './types/AppointmentResponse.ts'
+export { appointmentResponseSttLanguageEnum } from './types/AppointmentResponse.ts'
 export { getAllBannersQueryParamsStatusEnum } from './types/bannerManagementController/GetAllBanners.ts'
 export { bannerResponseStatusEnum } from './types/BannerResponse.ts'
 export { categoryResponseTypeEnum } from './types/CategoryResponse.ts'
@@ -2602,6 +2646,7 @@ export { courseAssignmentRequestResponseStatusEnum } from './types/CourseAssignm
 export { listCourseAssignmentsQueryParamsPurchaseStatusEnum } from './types/courseAssignmentsController/ListCourseAssignments.ts'
 export { getMyAssignedCoursesQueryParamsStatusEnum } from './types/courseProgressController/GetMyAssignedCourses.ts'
 export { courseProgressHistoryResponseArchivalReasonEnum } from './types/CourseProgressHistoryResponse.ts'
+export { createAppointmentRequestSttLanguageEnum } from './types/CreateAppointmentRequest.ts'
 export { createBannerRequestStatusEnum } from './types/CreateBannerRequest.ts'
 export { createCategoryRequestTypeEnum } from './types/CreateCategoryRequest.ts'
 export { createDiscountRequestApplicableTypeEnum } from './types/CreateDiscountRequest.ts'
@@ -2704,6 +2749,11 @@ export {
   getPublicDoctorsQueryResponseSchema,
 } from './zod/appointmentsController/getPublicDoctorsSchema.ts'
 export {
+  getSttStatusPathParamsSchema,
+  getSttStatus200Schema,
+  getSttStatusQueryResponseSchema,
+} from './zod/appointmentsController/getSttStatusSchema.ts'
+export {
   getVideoTokenPathParamsSchema,
   getVideoToken200Schema,
   getVideoTokenQueryResponseSchema,
@@ -2725,6 +2775,16 @@ export {
   resolveDisputeMutationRequestSchema,
   resolveDisputeMutationResponseSchema,
 } from './zod/appointmentsController/resolveDisputeSchema.ts'
+export {
+  startSttPathParamsSchema,
+  startStt200Schema,
+  startSttMutationResponseSchema,
+} from './zod/appointmentsController/startSttSchema.ts'
+export {
+  stopSttPathParamsSchema,
+  stopStt200Schema,
+  stopSttMutationResponseSchema,
+} from './zod/appointmentsController/stopSttSchema.ts'
 export {
   updateClinicSchedule200Schema,
   updateClinicScheduleMutationRequestSchema,
@@ -3479,6 +3539,7 @@ export {
   updatePopupMutationResponseSchema,
 } from './zod/startupPopupController/updatePopupSchema.ts'
 export { startupPopupResponseSchema } from './zod/startupPopupResponseSchema.ts'
+export { sttStatusResponseSchema } from './zod/sttStatusResponseSchema.ts'
 export { submitFeedbackRequestSchema } from './zod/submitFeedbackRequestSchema.ts'
 export { subscriptionInfoSchema } from './zod/subscriptionInfoSchema.ts'
 export { subscriptionResponseSchema } from './zod/subscriptionResponseSchema.ts'

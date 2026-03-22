@@ -43,6 +43,7 @@ export const appointmentResponseSchema = z.object({
   resolvedByAdminName: z.optional(z.string()),
   disputeResolutionNotes: z.optional(z.string()),
   resolvedAt: z.optional(z.string().datetime()),
+  sttLanguage: z.optional(z.enum(['EN_US', 'VI_VN'])),
   createdAt: z.optional(z.string().datetime()),
   updatedAt: z.optional(z.string().datetime()),
 })

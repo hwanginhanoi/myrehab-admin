@@ -3,6 +3,14 @@
  * Do not edit manually.
  */
 
+export const createAppointmentRequestSttLanguageEnum = {
+  EN_US: 'EN_US',
+  VI_VN: 'VI_VN',
+} as const
+
+export type CreateAppointmentRequestSttLanguageEnumKey =
+  (typeof createAppointmentRequestSttLanguageEnum)[keyof typeof createAppointmentRequestSttLanguageEnum]
+
 export type CreateAppointmentRequest = {
   /**
    * @type string, date
@@ -20,4 +28,8 @@ export type CreateAppointmentRequest = {
    * @type string | undefined
    */
   patientNotes?: string
+  /**
+   * @type string | undefined
+   */
+  sttLanguage?: CreateAppointmentRequestSttLanguageEnumKey
 }

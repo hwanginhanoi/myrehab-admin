@@ -10,4 +10,5 @@ export const createAppointmentRequestSchema = z.object({
   startTime: z.string(),
   doctorId: z.optional(z.int()),
   patientNotes: z.optional(z.string()),
+  sttLanguage: z.optional(z.enum(['EN_US', 'VI_VN'])),
 })

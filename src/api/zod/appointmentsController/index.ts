@@ -71,6 +71,11 @@ export {
   getPublicDoctorsQueryResponseSchema,
 } from './getPublicDoctorsSchema.ts'
 export {
+  getSttStatusPathParamsSchema,
+  getSttStatus200Schema,
+  getSttStatusQueryResponseSchema,
+} from './getSttStatusSchema.ts'
+export {
   getVideoTokenPathParamsSchema,
   getVideoToken200Schema,
   getVideoTokenQueryResponseSchema,
@@ -92,6 +97,16 @@ export {
   resolveDisputeMutationRequestSchema,
   resolveDisputeMutationResponseSchema,
 } from './resolveDisputeSchema.ts'
+export {
+  startSttPathParamsSchema,
+  startStt200Schema,
+  startSttMutationResponseSchema,
+} from './startSttSchema.ts'
+export {
+  stopSttPathParamsSchema,
+  stopStt200Schema,
+  stopSttMutationResponseSchema,
+} from './stopSttSchema.ts'
 export {
   updateClinicSchedule200Schema,
   updateClinicScheduleMutationRequestSchema,

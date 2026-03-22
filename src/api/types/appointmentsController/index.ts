@@ -85,6 +85,12 @@ export type {
   GetPublicDoctorsQuery,
 } from './GetPublicDoctors.ts'
 export type {
+  GetSttStatusPathParams,
+  GetSttStatus200,
+  GetSttStatusQueryResponse,
+  GetSttStatusQuery,
+} from './GetSttStatus.ts'
+export type {
   GetVideoTokenPathParams,
   GetVideoToken200,
   GetVideoTokenQueryResponse,
@@ -110,6 +116,18 @@ export type {
   ResolveDisputeMutationResponse,
   ResolveDisputeMutation,
 } from './ResolveDispute.ts'
+export type {
+  StartSttPathParams,
+  StartStt200,
+  StartSttMutationResponse,
+  StartSttMutation,
+} from './StartStt.ts'
+export type {
+  StopSttPathParams,
+  StopStt200,
+  StopSttMutationResponse,
+  StopSttMutation,
+} from './StopStt.ts'
 export type {
   UpdateClinicSchedule200,
   UpdateClinicScheduleMutationRequest,

@@ -1,15 +1,14 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
 import { getRouteApi, useNavigate } from '@tanstack/react-router'
-import AgoraRTC from 'agora-rtc-sdk-ng'
-import type {
-  IAgoraRTCClient,
-  ICameraVideoTrack,
-  IMicrophoneAudioTrack,
-  IAgoraRTCRemoteUser,
-  IRemoteVideoTrack,
-  IRemoteAudioTrack,
+import AgoraRTC, {
+  type IAgoraRTCClient,
+  type ICameraVideoTrack,
+  type IMicrophoneAudioTrack,
+  type IAgoraRTCRemoteUser,
+  type IRemoteVideoTrack,
+  type IRemoteAudioTrack,
 } from 'agora-rtc-sdk-ng'
-import { useGetVideoToken, useMarkComplete } from '@/api'
+import { useGetVideoToken, useMarkComplete, useGetAppointmentById, useStartStt, useStopStt } from '@/api'
 import { useQueryClient } from '@tanstack/react-query'
 import { Button } from '@/components/ui/button'
 import {
@@ -20,6 +19,7 @@ import {
   PhoneOff,
   CheckCircle,
   Loader2,
+  Captions,
 } from 'lucide-react'
 import { toast } from 'sonner'
 
@@ -39,6 +39,7 @@ export function VideoCall() {
   } = useGetVideoToken(Number(id), {
     query: { staleTime: 0 },
   })
+  const { data: appointment } = useGetAppointmentById(Number(id))
 
   if (isLoading) {
     return (
@@ -66,9 +67,13 @@ export function VideoCall() {
       token={tokenData.token}
       uid={tokenData.userAccount!}
       appointmentId={Number(id)}
+      sttLanguage={appointment?.sttLanguage}
     />
   )
 }
+
+const STT_TRANSLATION_BOT_UID = 1001
+const STT_SUBSCRIBER_BOT_UID = 1000
 
 type VideoCallRoomProps = {
   appId: string
@@ -76,6 +81,7 @@ type VideoCallRoomProps = {
   token: string
   uid: string
   appointmentId: number
+  sttLanguage?: string
 }
 
 function VideoCallRoom({
@@ -84,6 +90,7 @@ function VideoCallRoom({
   token,
   uid,
   appointmentId,
+  sttLanguage,
 }: VideoCallRoomProps) {
   const navigate = useNavigate()
   const queryClient = useQueryClient()
@@ -98,6 +105,12 @@ function VideoCallRoom({
   const [remoteAudioTrack, setRemoteAudioTrack] =
     useState<IRemoteAudioTrack | null>(null)
   const [hasRemoteUser, setHasRemoteUser] = useState(false)
+  const [isSttActive, setIsSttActive] = useState(false)
+  const [subtitle, setSubtitle] = useState<{
+    original: string
+    translated: string
+    isFinal: boolean
+  } | null>(null)
 
   const localVideoRef = useRef<HTMLDivElement>(null)
   const remoteVideoRef = useRef<HTMLDivElement>(null)
@@ -113,6 +126,7 @@ function VideoCallRoom({
       user: IAgoraRTCRemoteUser,
       mediaType: 'audio' | 'video'
     ) => {
+      if (user.uid === STT_SUBSCRIBER_BOT_UID || user.uid === STT_TRANSLATION_BOT_UID) return
       await agoraClient.subscribe(user, mediaType)
       if (mediaType === 'video') {
         setRemoteVideoTrack(user.videoTrack ?? null)
@@ -123,9 +137,10 @@ function VideoCallRoom({
     }
 
     const handleUserUnpublished = (
-      _user: IAgoraRTCRemoteUser,
+      user: IAgoraRTCRemoteUser,
       mediaType: 'audio' | 'video'
     ) => {
+      if (user.uid === STT_SUBSCRIBER_BOT_UID || user.uid === STT_TRANSLATION_BOT_UID) return
       if (mediaType === 'video') {
         setRemoteVideoTrack(null)
       }
@@ -134,20 +149,42 @@ function VideoCallRoom({
       }
     }
 
-    const handleUserJoined = () => {
+    const handleUserJoined = (user: IAgoraRTCRemoteUser) => {
+      if (user.uid === STT_SUBSCRIBER_BOT_UID || user.uid === STT_TRANSLATION_BOT_UID) return
       setHasRemoteUser(true)
     }
 
-    const handleUserLeft = () => {
+    const handleUserLeft = (user: IAgoraRTCRemoteUser) => {
+      if (user.uid === STT_SUBSCRIBER_BOT_UID || user.uid === STT_TRANSLATION_BOT_UID) return
       setRemoteVideoTrack(null)
       setRemoteAudioTrack(null)
       setHasRemoteUser(false)
+    }
+
+    const handleStreamMessage = (_user: IAgoraRTCRemoteUser, payload: Uint8Array) => {
+      if (_user.uid !== STT_TRANSLATION_BOT_UID) return
+      try {
+        const msg = JSON.parse(new TextDecoder().decode(payload)) as {
+          text: string
+          lang: string
+          flag: number
+          trans?: { lang: string; text: string }[]
+        }
+        const translated = msg.trans?.find((t) => t.lang !== msg.lang)
+        setSubtitle({
+          original: msg.text,
+          translated: translated?.text ?? '',
+          isFinal: msg.flag === 1,
+        })
+        if (msg.flag === 1) setTimeout(() => setSubtitle(null), 4000)
+      } catch { /* ignore malformed messages */ }
     }
 
     agoraClient.on('user-joined', handleUserJoined)
     agoraClient.on('user-published', handleUserPublished)
     agoraClient.on('user-unpublished', handleUserUnpublished)
     agoraClient.on('user-left', handleUserLeft)
+    agoraClient.on('stream-message', handleStreamMessage)
 
     async function init() {
       await agoraClient.join(appId, channelName, token, uid)
@@ -173,6 +210,7 @@ function VideoCallRoom({
       agoraClient.off('user-published', handleUserPublished)
       agoraClient.off('user-unpublished', handleUserUnpublished)
       agoraClient.off('user-left', handleUserLeft)
+      agoraClient.off('stream-message', handleStreamMessage)
       audioTrack?.close()
       videoTrack?.close()
       agoraClient.leave()
@@ -235,6 +273,20 @@ function VideoCallRoom({
     },
   })
 
+  const startStt = useStartStt()
+  const stopStt = useStopStt()
+
+  const toggleStt = useCallback(async () => {
+    if (isSttActive) {
+      await stopStt.mutateAsync({ id: appointmentId })
+      setIsSttActive(false)
+      setSubtitle(null)
+    } else {
+      await startStt.mutateAsync({ id: appointmentId })
+      setIsSttActive(true)
+    }
+  }, [isSttActive, startStt, stopStt, appointmentId])
+
   const handleEndCall = useCallback(() => {
     localVideoTrack?.close()
     localAudioTrack?.close()
@@ -294,6 +346,20 @@ function VideoCallRoom({
         )}
       </div>
 
+      {/* Subtitle overlay */}
+      {subtitle && (
+        <div className='absolute bottom-24 left-1/2 z-20 w-[80%] max-w-2xl -translate-x-1/2 rounded-lg bg-black/70 px-4 py-3 text-center'>
+          <p className={subtitle.isFinal ? 'text-sm text-white' : 'text-sm italic text-white/60'}>
+            {subtitle.original}
+          </p>
+          {subtitle.translated && (
+            <p className={subtitle.isFinal ? 'mt-1 text-sm text-yellow-300' : 'mt-1 text-sm italic text-yellow-300/60'}>
+              {subtitle.translated}
+            </p>
+          )}
+        </div>
+      )}
+
       {/* Controls */}
       <div className='absolute bottom-6 left-1/2 z-10 flex -translate-x-1/2 items-center gap-3'>
         <Button
@@ -321,6 +387,22 @@ function VideoCallRoom({
             <Video className='h-5 w-5' />
           )}
         </Button>
+
+        {sttLanguage === 'EN_US' && (
+          <Button
+            variant={isSttActive ? 'default' : 'secondary'}
+            size='icon'
+            className='h-12 w-12 rounded-full'
+            onClick={toggleStt}
+            disabled={startStt.isPending || stopStt.isPending}
+          >
+            {startStt.isPending || stopStt.isPending ? (
+              <Loader2 className='h-5 w-5 animate-spin' />
+            ) : (
+              <Captions className='h-5 w-5' />
+            )}
+          </Button>
+        )}
 
         <Button
           variant='secondary'

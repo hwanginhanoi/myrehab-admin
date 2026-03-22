@@ -44,6 +44,7 @@
           "resolvedByAdminName": { "type": "string" },
           "disputeResolutionNotes": { "type": "string" },
           "resolvedAt": { "type": "string", "format": "date-time" },
+          "sttLanguage": { "type": "string", "enum": ["EN_US", "VI_VN"] },
           "createdAt": { "type": "string", "format": "date-time" },
           "updatedAt": { "type": "string", "format": "date-time" }
         },

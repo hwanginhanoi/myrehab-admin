@@ -17,6 +17,14 @@ export const appointmentResponseStatusEnum = {
 export type AppointmentResponseStatusEnumKey =
   (typeof appointmentResponseStatusEnum)[keyof typeof appointmentResponseStatusEnum]
 
+export const appointmentResponseSttLanguageEnum = {
+  EN_US: 'EN_US',
+  VI_VN: 'VI_VN',
+} as const
+
+export type AppointmentResponseSttLanguageEnumKey =
+  (typeof appointmentResponseSttLanguageEnum)[keyof typeof appointmentResponseSttLanguageEnum]
+
 export type AppointmentResponse = {
   /**
    * @type integer | undefined, int64
@@ -122,6 +130,10 @@ export type AppointmentResponse = {
    * @type string | undefined, date-time
    */
   resolvedAt?: string
+  /**
+   * @type string | undefined
+   */
+  sttLanguage?: AppointmentResponseSttLanguageEnumKey
   /**
    * @type string | undefined, date-time
    */
