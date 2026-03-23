@@ -175,7 +175,7 @@ export function ExercisePackageFormComponent({
       const payload = {
         title: toMultilang(values.title),
         description: toMultilang(values.description),
-        imageUrl: imageUrl || undefined,
+        imageUrl: imageUrl || '',
         categoryIds: values.categoryIds || [],
         exerciseIds: values.exercises.map((ex) => ex.id!),
       }
