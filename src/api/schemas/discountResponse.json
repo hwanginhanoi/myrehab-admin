@@ -1,0 +1,22 @@
+{
+  "type": "object",
+  "properties": {
+    "id": { "type": "integer", "format": "int64" },
+    "applicableType": {
+      "type": "string",
+      "enum": [
+        "COURSE",
+        "PACKAGE_ONE_MONTH",
+        "PACKAGE_THREE_MONTHS",
+        "PACKAGE_TWELVE_MONTHS",
+        "APPOINTMENT"
+      ]
+    },
+    "percentage": { "type": "integer", "format": "int32" },
+    "endDate": { "type": "string", "format": "date" },
+    "isActive": { "type": "boolean" },
+    "createdAt": { "type": "string", "format": "date-time" },
+    "updatedAt": { "type": "string", "format": "date-time" }
+  },
+  "x-readme-ref-name": "DiscountResponse"
+}

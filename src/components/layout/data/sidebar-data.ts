@@ -10,6 +10,7 @@ import {
   Bell,
   Package,
   Palette,
+  Percent,
   // ServerOff,
   Settings,
   Wrench,
@@ -123,6 +124,12 @@ export const sidebarData: SidebarData = {
           url: '/startup-popups',
           icon: Megaphone,
           requiredPermission: 'startup-popups:view',
+        },
+        {
+          title: 'Quản lý giảm giá',
+          url: '/discounts',
+          icon: Percent,
+          allowedRoles: ['SUPER_ADMIN'],
         },
         {
           title: 'Kho bài tập',

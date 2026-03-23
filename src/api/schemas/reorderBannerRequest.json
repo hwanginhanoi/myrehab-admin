@@ -1,1 +1,9 @@
-{"type":"object","properties":{"id":{"type":"integer","format":"int64"},"displayOrder":{"type":"integer","format":"int32"}},"required":["id"],"x-readme-ref-name":"ReorderBannerRequest"}
+{
+  "type": "object",
+  "properties": {
+    "id": { "type": "integer", "format": "int64" },
+    "displayOrder": { "type": "integer", "format": "int32" }
+  },
+  "required": ["id"],
+  "x-readme-ref-name": "ReorderBannerRequest"
+}
