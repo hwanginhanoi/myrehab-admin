@@ -85,6 +85,8 @@ export type { GetByIdQueryKey } from './hooks/DiscountsHooks/useGetById.ts'
 export type { GetByIdSuspenseQueryKey } from './hooks/DiscountsHooks/useGetByIdSuspense.ts'
 export type { GetHistoryQueryKey } from './hooks/DiscountsHooks/useGetHistory.ts'
 export type { GetHistorySuspenseQueryKey } from './hooks/DiscountsHooks/useGetHistorySuspense.ts'
+export type { GetPricingQueryKey } from './hooks/DiscountsHooks/useGetPricing.ts'
+export type { GetPricingSuspenseQueryKey } from './hooks/DiscountsHooks/useGetPricingSuspense.ts'
 export type { ApproveCourseRequestMutationKey } from './hooks/DoctorHooks/useApproveCourseRequest.ts'
 export type { AssignCourseToPatientMutationKey } from './hooks/DoctorHooks/useAssignCourseToPatient.ts'
 export type { CreateAndAssignCustomCourseMutationKey } from './hooks/DoctorHooks/useCreateAndAssignCustomCourse.ts'
@@ -684,6 +686,10 @@ export type { DayExerciseDto } from './types/DayExerciseDto.ts'
 export type { DayExerciseItemResponse } from './types/DayExerciseItemResponse.ts'
 export type { DeleteFileRequest } from './types/DeleteFileRequest.ts'
 export type {
+  DiscountPricingResponseApplicableTypeEnumKey,
+  DiscountPricingResponse,
+} from './types/DiscountPricingResponse.ts'
+export type {
   DiscountResponseApplicableTypeEnumKey,
   DiscountResponse,
 } from './types/DiscountResponse.ts'
@@ -716,6 +722,11 @@ export type {
   GetHistoryQueryResponse,
   GetHistoryQuery,
 } from './types/discountsController/GetHistory.ts'
+export type {
+  GetPricing200,
+  GetPricingQueryResponse,
+  GetPricingQuery,
+} from './types/discountsController/GetPricing.ts'
 export type { DisputeAppointmentRequest } from './types/DisputeAppointmentRequest.ts'
 export type {
   ApproveCourseRequestPathParams,
@@ -1877,6 +1888,14 @@ export { getHistorySuspenseQueryKey } from './hooks/DiscountsHooks/useGetHistory
 export { getHistorySuspense } from './hooks/DiscountsHooks/useGetHistorySuspense.ts'
 export { getHistorySuspenseQueryOptions } from './hooks/DiscountsHooks/useGetHistorySuspense.ts'
 export { useGetHistorySuspense } from './hooks/DiscountsHooks/useGetHistorySuspense.ts'
+export { getPricingQueryKey } from './hooks/DiscountsHooks/useGetPricing.ts'
+export { getPricing } from './hooks/DiscountsHooks/useGetPricing.ts'
+export { getPricingQueryOptions } from './hooks/DiscountsHooks/useGetPricing.ts'
+export { useGetPricing } from './hooks/DiscountsHooks/useGetPricing.ts'
+export { getPricingSuspenseQueryKey } from './hooks/DiscountsHooks/useGetPricingSuspense.ts'
+export { getPricingSuspense } from './hooks/DiscountsHooks/useGetPricingSuspense.ts'
+export { getPricingSuspenseQueryOptions } from './hooks/DiscountsHooks/useGetPricingSuspense.ts'
+export { useGetPricingSuspense } from './hooks/DiscountsHooks/useGetPricingSuspense.ts'
 export { approveCourseRequestMutationKey } from './hooks/DoctorHooks/useApproveCourseRequest.ts'
 export { approveCourseRequest } from './hooks/DoctorHooks/useApproveCourseRequest.ts'
 export { approveCourseRequestMutationOptions } from './hooks/DoctorHooks/useApproveCourseRequest.ts'
@@ -2588,6 +2607,7 @@ export { createCategoryRequestTypeEnum } from './types/CreateCategoryRequest.ts'
 export { createDiscountRequestApplicableTypeEnum } from './types/CreateDiscountRequest.ts'
 export { createNewsRequestStatusEnum } from './types/CreateNewsRequest.ts'
 export { createStaffRequestStaffTypeEnum } from './types/CreateStaffRequest.ts'
+export { discountPricingResponseApplicableTypeEnum } from './types/DiscountPricingResponse.ts'
 export { discountResponseApplicableTypeEnum } from './types/DiscountResponse.ts'
 export { getCourseRequestsQueryParamsStatusEnum } from './types/doctorController/GetCourseRequests.ts'
 export { getAllCategoriesQueryParamsTypeEnum } from './types/exerciseCategoriesController/GetAllCategories.ts'
@@ -2938,6 +2958,7 @@ export { dayContentResponseSchema } from './zod/dayContentResponseSchema.ts'
 export { dayExerciseDtoSchema } from './zod/dayExerciseDtoSchema.ts'
 export { dayExerciseItemResponseSchema } from './zod/dayExerciseItemResponseSchema.ts'
 export { deleteFileRequestSchema } from './zod/deleteFileRequestSchema.ts'
+export { discountPricingResponseSchema } from './zod/discountPricingResponseSchema.ts'
 export { discountResponseSchema } from './zod/discountResponseSchema.ts'
 export {
   create200Schema,
@@ -2963,6 +2984,10 @@ export {
   getHistory200Schema,
   getHistoryQueryResponseSchema,
 } from './zod/discountsController/getHistorySchema.ts'
+export {
+  getPricing200Schema,
+  getPricingQueryResponseSchema,
+} from './zod/discountsController/getPricingSchema.ts'
 export { disputeAppointmentRequestSchema } from './zod/disputeAppointmentRequestSchema.ts'
 export {
   approveCourseRequestPathParamsSchema,

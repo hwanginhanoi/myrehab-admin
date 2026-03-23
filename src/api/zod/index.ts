@@ -328,6 +328,7 @@ export { dayContentResponseSchema } from './dayContentResponseSchema.ts'
 export { dayExerciseDtoSchema } from './dayExerciseDtoSchema.ts'
 export { dayExerciseItemResponseSchema } from './dayExerciseItemResponseSchema.ts'
 export { deleteFileRequestSchema } from './deleteFileRequestSchema.ts'
+export { discountPricingResponseSchema } from './discountPricingResponseSchema.ts'
 export { discountResponseSchema } from './discountResponseSchema.ts'
 export {
   create200Schema,
@@ -353,6 +354,10 @@ export {
   getHistory200Schema,
   getHistoryQueryResponseSchema,
 } from './discountsController/getHistorySchema.ts'
+export {
+  getPricing200Schema,
+  getPricingQueryResponseSchema,
+} from './discountsController/getPricingSchema.ts'
 export { disputeAppointmentRequestSchema } from './disputeAppointmentRequestSchema.ts'
 export {
   approveCourseRequestPathParamsSchema,

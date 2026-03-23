@@ -22,3 +22,7 @@ export {
   getHistory200Schema,
   getHistoryQueryResponseSchema,
 } from './getHistorySchema.ts'
+export {
+  getPricing200Schema,
+  getPricingQueryResponseSchema,
+} from './getPricingSchema.ts'

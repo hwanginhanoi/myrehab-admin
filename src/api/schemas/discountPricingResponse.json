@@ -1,0 +1,20 @@
+{
+  "type": "object",
+  "properties": {
+    "applicableType": {
+      "type": "string",
+      "enum": [
+        "COURSE",
+        "PACKAGE_ONE_MONTH",
+        "PACKAGE_THREE_MONTHS",
+        "PACKAGE_TWELVE_MONTHS",
+        "APPOINTMENT"
+      ]
+    },
+    "originalPrice": { "type": "integer", "format": "int64" },
+    "discountedPrice": { "type": "integer", "format": "int64" },
+    "discountPercentage": { "type": "integer", "format": "int32" },
+    "endDate": { "type": "string", "format": "date" }
+  },
+  "x-readme-ref-name": "DiscountPricingResponse"
+}

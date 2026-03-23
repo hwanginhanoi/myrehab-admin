@@ -423,6 +423,10 @@ export type { DayExerciseDto } from './DayExerciseDto.ts'
 export type { DayExerciseItemResponse } from './DayExerciseItemResponse.ts'
 export type { DeleteFileRequest } from './DeleteFileRequest.ts'
 export type {
+  DiscountPricingResponseApplicableTypeEnumKey,
+  DiscountPricingResponse,
+} from './DiscountPricingResponse.ts'
+export type {
   DiscountResponseApplicableTypeEnumKey,
   DiscountResponse,
 } from './DiscountResponse.ts'
@@ -455,6 +459,11 @@ export type {
   GetHistoryQueryResponse,
   GetHistoryQuery,
 } from './discountsController/GetHistory.ts'
+export type {
+  GetPricing200,
+  GetPricingQueryResponse,
+  GetPricingQuery,
+} from './discountsController/GetPricing.ts'
 export type { DisputeAppointmentRequest } from './DisputeAppointmentRequest.ts'
 export type {
   ApproveCourseRequestPathParams,
@@ -1280,6 +1289,7 @@ export { createCategoryRequestTypeEnum } from './CreateCategoryRequest.ts'
 export { createDiscountRequestApplicableTypeEnum } from './CreateDiscountRequest.ts'
 export { createNewsRequestStatusEnum } from './CreateNewsRequest.ts'
 export { createStaffRequestStaffTypeEnum } from './CreateStaffRequest.ts'
+export { discountPricingResponseApplicableTypeEnum } from './DiscountPricingResponse.ts'
 export { discountResponseApplicableTypeEnum } from './DiscountResponse.ts'
 export { getCourseRequestsQueryParamsStatusEnum } from './doctorController/GetCourseRequests.ts'
 export { getAllCategoriesQueryParamsTypeEnum } from './exerciseCategoriesController/GetAllCategories.ts'

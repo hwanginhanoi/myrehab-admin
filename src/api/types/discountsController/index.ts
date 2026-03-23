@@ -27,3 +27,8 @@ export type {
   GetHistoryQueryResponse,
   GetHistoryQuery,
 } from './GetHistory.ts'
+export type {
+  GetPricing200,
+  GetPricingQueryResponse,
+  GetPricingQuery,
+} from './GetPricing.ts'
