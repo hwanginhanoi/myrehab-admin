@@ -10,6 +10,7 @@ import AgoraRTC, {
 } from 'agora-rtc-sdk-ng'
 import { useGetVideoToken, useMarkComplete, useGetAppointmentById, useStartStt, useStopStt } from '@/api'
 import { useQueryClient } from '@tanstack/react-query'
+import { useAuthStore } from '@/stores/auth-store'
 import { Button } from '@/components/ui/button'
 import {
   Mic,
@@ -94,6 +95,7 @@ function VideoCallRoom({
 }: VideoCallRoomProps) {
   const navigate = useNavigate()
   const queryClient = useQueryClient()
+  const userType = useAuthStore((state) => state.userType)
   const [isMuted, setIsMuted] = useState(false)
   const [isCameraOff, setIsCameraOff] = useState(false)
   const [localAudioTrack, setLocalAudioTrack] =
@@ -262,10 +264,14 @@ function VideoCallRoom({
         queryClient.invalidateQueries({
           queryKey: [{ url: '/api/appointments/admin/all' }],
         })
-        navigate({
-          to: '/appointments/$id',
-          params: { id: String(appointmentId) },
-        })
+        if (userType === 'DOCTOR') {
+          navigate({ to: '/my-appointments' })
+        } else {
+          navigate({
+            to: '/appointments/$id',
+            params: { id: String(appointmentId) },
+          })
+        }
       },
       onError: () => {
         toast.error('Có lỗi xảy ra')
@@ -291,11 +297,15 @@ function VideoCallRoom({
     localVideoTrack?.close()
     localAudioTrack?.close()
     agoraClient.leave()
-    navigate({
-      to: '/appointments/$id',
-      params: { id: String(appointmentId) },
-    })
-  }, [localVideoTrack, localAudioTrack, navigate, appointmentId])
+    if (userType === 'DOCTOR') {
+      navigate({ to: '/my-appointments' })
+    } else {
+      navigate({
+        to: '/appointments/$id',
+        params: { id: String(appointmentId) },
+      })
+    }
+  }, [localVideoTrack, localAudioTrack, navigate, appointmentId, userType])
 
   const handleMarkComplete = useCallback(() => {
     markComplete.mutate({ id: appointmentId })
