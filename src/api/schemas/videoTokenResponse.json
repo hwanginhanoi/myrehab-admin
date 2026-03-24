@@ -1,1 +1,11 @@
-{"type":"object","properties":{"channelName":{"type":"string"},"token":{"type":"string"},"userAccount":{"type":"string"},"appId":{"type":"string"},"expiresAt":{"type":"string","format":"date-time"}},"x-readme-ref-name":"VideoTokenResponse"}
+{
+  "type": "object",
+  "properties": {
+    "channelName": { "type": "string" },
+    "token": { "type": "string" },
+    "userAccount": { "type": "string" },
+    "appId": { "type": "string" },
+    "expiresAt": { "type": "string", "format": "date-time" }
+  },
+  "x-readme-ref-name": "VideoTokenResponse"
+}

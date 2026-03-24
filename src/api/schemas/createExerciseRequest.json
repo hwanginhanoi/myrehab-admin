@@ -1,1 +1,31 @@
-{"type":"object","properties":{"title":{"type":"object","additionalProperties":{"type":"string"}},"description":{"type":"object","additionalProperties":{"type":"string"}},"imageUrl":{"type":"string","minLength":1},"videoUrl":{"type":"string","minLength":1},"durationMinutes":{"type":"integer","format":"int32"},"categoryIds":{"type":"array","items":{"type":"integer","format":"int64"},"maxItems":6,"minItems":0},"groupIds":{"type":"array","items":{"type":"integer","format":"int64"}}},"required":["categoryIds","durationMinutes","groupIds","imageUrl","videoUrl"],"x-readme-ref-name":"CreateExerciseRequest"}
+{
+  "type": "object",
+  "properties": {
+    "title": { "type": "object", "additionalProperties": { "type": "string" } },
+    "description": {
+      "type": "object",
+      "additionalProperties": { "type": "string" }
+    },
+    "imageUrl": { "type": "string", "minLength": 1 },
+    "videoUrl": { "type": "string", "minLength": 1 },
+    "durationMinutes": { "type": "integer", "format": "int32" },
+    "categoryIds": {
+      "type": "array",
+      "items": { "type": "integer", "format": "int64" },
+      "maxItems": 6,
+      "minItems": 0
+    },
+    "groupIds": {
+      "type": "array",
+      "items": { "type": "integer", "format": "int64" }
+    }
+  },
+  "required": [
+    "categoryIds",
+    "durationMinutes",
+    "groupIds",
+    "imageUrl",
+    "videoUrl"
+  ],
+  "x-readme-ref-name": "CreateExerciseRequest"
+}

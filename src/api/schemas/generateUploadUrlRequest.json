@@ -1,1 +1,18 @@
-{"type":"object","properties":{"fileName":{"type":"string","minLength":1},"contentType":{"type":"string","minLength":1,"pattern":"^(image|video)/.*"},"category":{"type":"string","minLength":1,"pattern":"^(exercise-image|exercise-video|course-image|course-video|profile-image|news-image|exercise-package-image|banner-image|startup-popup-image)$"}},"required":["category","contentType","fileName"],"x-readme-ref-name":"GenerateUploadUrlRequest"}
+{
+  "type": "object",
+  "properties": {
+    "fileName": { "type": "string", "minLength": 1 },
+    "contentType": {
+      "type": "string",
+      "minLength": 1,
+      "pattern": "^(image|video)/.*"
+    },
+    "category": {
+      "type": "string",
+      "minLength": 1,
+      "pattern": "^(exercise-image|exercise-video|course-image|course-video|profile-image|news-image|exercise-package-image|banner-image|startup-popup-image)$"
+    }
+  },
+  "required": ["category", "contentType", "fileName"],
+  "x-readme-ref-name": "GenerateUploadUrlRequest"
+}

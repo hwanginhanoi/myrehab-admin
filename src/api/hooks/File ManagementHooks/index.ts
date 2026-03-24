@@ -1,10 +1,10 @@
-export type { DeleteFileMutationKey } from "./useDeleteFile.ts";
-export type { GenerateUploadUrlMutationKey } from "./useGenerateUploadUrl.ts";
-export { deleteFileMutationKey } from "./useDeleteFile.ts";
-export { deleteFile } from "./useDeleteFile.ts";
-export { deleteFileMutationOptions } from "./useDeleteFile.ts";
-export { useDeleteFile } from "./useDeleteFile.ts";
-export { generateUploadUrlMutationKey } from "./useGenerateUploadUrl.ts";
-export { generateUploadUrl } from "./useGenerateUploadUrl.ts";
-export { generateUploadUrlMutationOptions } from "./useGenerateUploadUrl.ts";
-export { useGenerateUploadUrl } from "./useGenerateUploadUrl.ts";
+export type { DeleteFileMutationKey } from './useDeleteFile.ts'
+export type { GenerateUploadUrlMutationKey } from './useGenerateUploadUrl.ts'
+export { deleteFileMutationKey } from './useDeleteFile.ts'
+export { deleteFile } from './useDeleteFile.ts'
+export { deleteFileMutationOptions } from './useDeleteFile.ts'
+export { useDeleteFile } from './useDeleteFile.ts'
+export { generateUploadUrlMutationKey } from './useGenerateUploadUrl.ts'
+export { generateUploadUrl } from './useGenerateUploadUrl.ts'
+export { generateUploadUrlMutationOptions } from './useGenerateUploadUrl.ts'
+export { useGenerateUploadUrl } from './useGenerateUploadUrl.ts'

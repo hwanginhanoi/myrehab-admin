@@ -1,0 +1,24 @@
+{
+  "type": "object",
+  "properties": {
+    "applicableType": {
+      "type": "string",
+      "enum": [
+        "COURSE",
+        "PACKAGE_ONE_MONTH",
+        "PACKAGE_THREE_MONTHS",
+        "PACKAGE_TWELVE_MONTHS",
+        "APPOINTMENT"
+      ]
+    },
+    "percentage": {
+      "type": "integer",
+      "format": "int32",
+      "maximum": 99,
+      "minimum": 1
+    },
+    "endDate": { "type": "string", "format": "date" }
+  },
+  "required": ["applicableType", "endDate", "percentage"],
+  "x-readme-ref-name": "CreateDiscountRequest"
+}
