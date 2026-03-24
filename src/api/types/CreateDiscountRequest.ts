@@ -21,7 +21,7 @@ export type CreateDiscountRequest = {
   applicableType: CreateDiscountRequestApplicableTypeEnumKey
   /**
    * @minLength 1
-   * @maxLength 100
+   * @maxLength 99
    * @type integer, int32
    */
   percentage: number

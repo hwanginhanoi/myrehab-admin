@@ -13,6 +13,6 @@ export const createDiscountRequestSchema = z.object({
     'PACKAGE_TWELVE_MONTHS',
     'APPOINTMENT',
   ]),
-  percentage: z.int().min(1).max(100),
+  percentage: z.int().min(1).max(99),
   endDate: z.iso.date(),
 })
