@@ -22,6 +22,7 @@ import {
   Captions,
 } from 'lucide-react'
 import { toast } from 'sonner'
+import { decodeSttMessage } from '@/lib/stt-proto'
 
 const route = getRouteApi('/_authenticated/appointments/$id_/video-call')
 
@@ -164,19 +165,18 @@ function VideoCallRoom({
     const handleStreamMessage = (_user: IAgoraRTCRemoteUser, payload: Uint8Array) => {
       if (_user.uid !== STT_TRANSLATION_BOT_UID) return
       try {
-        const msg = JSON.parse(new TextDecoder().decode(payload)) as {
-          text: string
-          lang: string
-          flag: number
-          trans?: { lang: string; text: string }[]
-        }
-        const translated = msg.trans?.find((t) => t.lang !== msg.lang)
+        const msg = decodeSttMessage(payload)
+
+        const text = msg.words.map((w) => w.text).join('')
+        const isFinal = msg.words.length > 0 && msg.words[msg.words.length - 1].isFinal
+        const translated = msg.trans?.[0]?.texts?.join('') || ''
+
         setSubtitle({
-          original: msg.text,
-          translated: translated?.text ?? '',
-          isFinal: msg.flag === 1,
+          original: text,
+          translated,
+          isFinal,
         })
-        if (msg.flag === 1) setTimeout(() => setSubtitle(null), 4000)
+        if (isFinal) setTimeout(() => setSubtitle(null), 4000)
       } catch { /* ignore malformed messages */ }
     }
 
