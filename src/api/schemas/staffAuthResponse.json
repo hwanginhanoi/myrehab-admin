@@ -1,13 +1,1 @@
-{
-  "type": "object",
-  "properties": {
-    "accessToken": { "type": "string" },
-    "tokenType": { "type": "string" },
-    "expiresIn": { "type": "integer", "format": "int64" },
-    "userType": { "type": "string" },
-    "staffId": { "type": "integer", "format": "int64" },
-    "email": { "type": "string" },
-    "permissions": { "type": "array", "items": { "type": "string" } }
-  },
-  "x-readme-ref-name": "StaffAuthResponse"
-}
+{"type":"object","properties":{"accessToken":{"type":"string"},"tokenType":{"type":"string"},"expiresIn":{"type":"integer","format":"int64"},"userType":{"type":"string"},"staffId":{"type":"integer","format":"int64"},"email":{"type":"string"},"permissions":{"type":"array","items":{"type":"string"}}},"x-readme-ref-name":"StaffAuthResponse"}

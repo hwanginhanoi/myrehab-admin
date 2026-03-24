@@ -47,6 +47,12 @@ export function getDefaultDateRange() {
   return { from: start, to: end }
 }
 
+export const SUBSCRIPTION_TYPE_LABELS: Record<string, string> = {
+  ONE_MONTH: '1 tháng',
+  THREE_MONTHS: '3 tháng',
+  TWELVE_MONTHS: '12 tháng',
+}
+
 export const TRANSACTION_TYPE_LABELS: Record<string, string> = {
   BALANCE_ADD: 'Nạp tiền (Admin)',
   BALANCE_ADD_SEPAY: 'Nạp tiền (SePay)',
