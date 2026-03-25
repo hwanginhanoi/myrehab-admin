@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef, useState } from 'react'
+import { useCallback, useEffect, useRef, useState, useMemo } from 'react'
 import { getRouteApi, useNavigate } from '@tanstack/react-router'
 import AgoraRTC, {
   type IAgoraRTCClient,
@@ -26,11 +26,6 @@ import { toast } from 'sonner'
 import { decodeSttMessage } from '@/lib/stt-proto'
 
 const route = getRouteApi('/_authenticated/appointments/$id_/video-call')
-
-const agoraClient: IAgoraRTCClient = AgoraRTC.createClient({
-  mode: 'rtc',
-  codec: 'vp8',
-})
 
 export function VideoCall() {
   const { id } = route.useParams()
@@ -99,6 +94,11 @@ function VideoCallRoom({
   const userType = useAuthStore((state) => state.userType)
   const [isMuted, setIsMuted] = useState(false)
   const [isCameraOff, setIsCameraOff] = useState(false)
+  const agoraClient = useMemo<IAgoraRTCClient>(
+    () => AgoraRTC.createClient({ mode: 'rtc', codec: 'vp8' }),
+    []
+  )
+  const hasLeft = useRef(false)
   const [localAudioTrack, setLocalAudioTrack] =
     useState<IMicrophoneAudioTrack | null>(null)
   const [localVideoTrack, setLocalVideoTrack] =
@@ -213,11 +213,16 @@ function VideoCallRoom({
       agoraClient.off('user-unpublished', handleUserUnpublished)
       agoraClient.off('user-left', handleUserLeft)
       agoraClient.off('stream-message', handleStreamMessage)
-      audioTrack?.close()
-      videoTrack?.close()
-      agoraClient.leave()
+      if (!hasLeft.current) {
+        hasLeft.current = true
+        audioTrack?.stop()
+        audioTrack?.close()
+        videoTrack?.stop()
+        videoTrack?.close()
+        agoraClient.leave().catch(() => {})
+      }
     }
-  }, [appId, channelName, token, uid])
+  }, [appId, channelName, token, uid, agoraClient])
 
   // Play local video
   useEffect(() => {
@@ -293,10 +298,24 @@ function VideoCallRoom({
     }
   }, [isSttActive, startStt, stopStt, appointmentId])
 
-  const handleEndCall = useCallback(() => {
-    localVideoTrack?.close()
+  const handleEndCall = useCallback(async () => {
+    if (hasLeft.current) return
+    hasLeft.current = true
+
+    // Stop STT if active
+    if (isSttActive) {
+      stopStt.mutateAsync({ id: appointmentId }).catch(() => {})
+    }
+
+    // Stop and close local tracks
+    localAudioTrack?.stop()
     localAudioTrack?.close()
-    agoraClient.leave()
+    localVideoTrack?.stop()
+    localVideoTrack?.close()
+
+    // Await leave to ensure full cleanup before navigating
+    await agoraClient.leave().catch(() => {})
+
     if (userType === 'DOCTOR') {
       navigate({ to: '/my-appointments' })
     } else {
@@ -305,7 +324,7 @@ function VideoCallRoom({
         params: { id: String(appointmentId) },
       })
     }
-  }, [localVideoTrack, localAudioTrack, navigate, appointmentId, userType])
+  }, [localVideoTrack, localAudioTrack, navigate, appointmentId, userType, agoraClient, isSttActive, stopStt])
 
   const handleMarkComplete = useCallback(() => {
     markComplete.mutate({ id: appointmentId })
