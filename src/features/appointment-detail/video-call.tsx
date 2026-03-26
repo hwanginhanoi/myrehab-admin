@@ -109,10 +109,12 @@ function VideoCallRoom({
     useState<IRemoteAudioTrack | null>(null)
   const [hasRemoteUser, setHasRemoteUser] = useState(false)
   const [isSttActive, setIsSttActive] = useState(false)
+  const localUid = useRef<number | string>(0)
   const [subtitle, setSubtitle] = useState<{
     original: string
     translated: string
     isFinal: boolean
+    isLocal: boolean
   } | null>(null)
 
   const localVideoRef = useRef<HTMLDivElement>(null)
@@ -172,11 +174,16 @@ function VideoCallRoom({
         const text = msg.words.map((w) => w.text).join('')
         const isFinal = msg.words.length > 0 && msg.words[msg.words.length - 1].isFinal
         const translated = msg.trans?.[0]?.texts?.join('') || ''
+        const speakerUid = Number(msg.uid) || 0
+        const isLocal = speakerUid === Number(localUid.current)
+
+        console.log('[STT]', { speakerUid, isLocal, isFinal, text, translated, trans: msg.trans })
 
         setSubtitle({
           original: text,
           translated,
           isFinal,
+          isLocal,
         })
         if (isFinal) setTimeout(() => setSubtitle(null), 4000)
       } catch { /* ignore malformed messages */ }
@@ -189,7 +196,8 @@ function VideoCallRoom({
     agoraClient.on('stream-message', handleStreamMessage)
 
     async function init() {
-      await agoraClient.join(appId, channelName, token, uid)
+      const joinedUid = await agoraClient.join(appId, channelName, token, uid)
+      localUid.current = joinedUid
       audioTrack = await AgoraRTC.createMicrophoneAudioTrack()
       videoTrack = await AgoraRTC.createCameraVideoTrack()
 
@@ -377,7 +385,10 @@ function VideoCallRoom({
 
       {/* Subtitle overlay */}
       {subtitle && (
-        <div className='absolute bottom-24 left-1/2 z-20 w-[80%] max-w-2xl -translate-x-1/2 rounded-lg bg-black/70 px-4 py-3 text-center'>
+        <div className={`absolute bottom-24 left-1/2 z-20 w-[80%] max-w-2xl -translate-x-1/2 rounded-lg px-4 py-3 text-center ${subtitle.isLocal ? 'bg-blue-900/70' : 'bg-black/70'}`}>
+          <span className={`text-xs font-medium ${subtitle.isLocal ? 'text-blue-300' : 'text-gray-400'}`}>
+            {subtitle.isLocal ? 'Bạn' : 'Đối phương'}
+          </span>
           <p className={subtitle.isFinal ? 'text-sm text-white' : 'text-sm italic text-white/60'}>
             {subtitle.original}
           </p>
