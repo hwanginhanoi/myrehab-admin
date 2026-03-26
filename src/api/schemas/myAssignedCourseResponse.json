@@ -1,17 +1,1 @@
-{
-  "type": "object",
-  "properties": {
-    "userCourseId": { "type": "integer", "format": "int64" },
-    "courseId": { "type": "integer", "format": "int64" },
-    "courseTitle": { "type": "string" },
-    "courseDescription": { "type": "string" },
-    "durationDays": { "type": "integer", "format": "int32" },
-    "assignedByDoctorName": { "type": "string" },
-    "assignedAt": { "type": "string", "format": "date-time" },
-    "notes": { "type": "string" },
-    "canStart": { "type": "boolean" },
-    "hasStarted": { "type": "boolean" },
-    "isCompleted": { "type": "boolean" }
-  },
-  "x-readme-ref-name": "MyAssignedCourseResponse"
-}
+{"type":"object","properties":{"userCourseId":{"type":"integer","format":"int64"},"courseId":{"type":"integer","format":"int64"},"courseTitle":{"type":"string"},"courseDescription":{"type":"string"},"durationDays":{"type":"integer","format":"int32"},"assignedByDoctorName":{"type":"string"},"assignedAt":{"type":"string","format":"date-time"},"notes":{"type":"string"},"canStart":{"type":"boolean"},"hasStarted":{"type":"boolean"},"isCompleted":{"type":"boolean"}},"x-readme-ref-name":"MyAssignedCourseResponse"}
