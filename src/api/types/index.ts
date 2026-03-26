@@ -15,6 +15,7 @@ export type { GetClinicSchedule200, GetClinicScheduleQueryResponse, GetClinicSch
 export type { GetDisputedAppointmentsQueryParams, GetDisputedAppointments200, GetDisputedAppointmentsQueryResponse, GetDisputedAppointmentsQuery } from "./appointmentsController/GetDisputedAppointments.ts";
 export type { GetDoctorAppointmentsQueryParams, GetDoctorAppointments200, GetDoctorAppointmentsQueryResponse, GetDoctorAppointmentsQuery } from "./appointmentsController/GetDoctorAppointments.ts";
 export type { GetMyAppointmentsQueryParams, GetMyAppointments200, GetMyAppointmentsQueryResponse, GetMyAppointmentsQuery } from "./appointmentsController/GetMyAppointments.ts";
+export type { GetPatientAppointmentsForStaffPathParams, GetPatientAppointmentsForStaffQueryParams, GetPatientAppointmentsForStaff200, GetPatientAppointmentsForStaffQueryResponse, GetPatientAppointmentsForStaffQuery } from "./appointmentsController/GetPatientAppointmentsForStaff.ts";
 export type { GetPublicDoctors200, GetPublicDoctorsQueryResponse, GetPublicDoctorsQuery } from "./appointmentsController/GetPublicDoctors.ts";
 export type { GetSttStatusPathParams, GetSttStatus200, GetSttStatusQueryResponse, GetSttStatusQuery } from "./appointmentsController/GetSttStatus.ts";
 export type { GetVideoTokenPathParams, GetVideoToken200, GetVideoTokenQueryResponse, GetVideoTokenQuery } from "./appointmentsController/GetVideoToken.ts";
@@ -285,6 +286,7 @@ export type { CreateCourseRequest200, CreateCourseRequestMutationRequest, Create
 export type { GetCourseRequestByIdPathParams, GetCourseRequestById200, GetCourseRequestByIdQueryResponse, GetCourseRequestByIdQuery } from "./trainerController/GetCourseRequestById.ts";
 export type { GetDoctorPatients1QueryParams, GetDoctorPatients1200, GetDoctorPatients1QueryResponse, GetDoctorPatients1Query } from "./trainerController/GetDoctorPatients1.ts";
 export type { GetMyCourseRequestsQueryParamsStatusEnumKey, GetMyCourseRequestsQueryParams, GetMyCourseRequests200, GetMyCourseRequestsQueryResponse, GetMyCourseRequestsQuery } from "./trainerController/GetMyCourseRequests.ts";
+export type { SearchDoctorPatientsQueryParams, SearchDoctorPatients200, SearchDoctorPatientsQueryResponse, SearchDoctorPatientsQuery } from "./trainerController/SearchDoctorPatients.ts";
 export type { UpdateCourseRequestPathParams, UpdateCourseRequest200, UpdateCourseRequestMutationRequest, UpdateCourseRequestMutationResponse, UpdateCourseRequestMutation } from "./trainerController/UpdateCourseRequest.ts";
 export type { TrainerResponse } from "./TrainerResponse.ts";
 export type { TransactionResponseTransactionTypeEnumKey, TransactionResponse } from "./TransactionResponse.ts";

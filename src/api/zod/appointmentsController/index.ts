@@ -12,6 +12,7 @@ export { getClinicSchedule200Schema, getClinicScheduleQueryResponseSchema } from
 export { getDisputedAppointmentsQueryParamsSchema, getDisputedAppointments200Schema, getDisputedAppointmentsQueryResponseSchema } from "./getDisputedAppointmentsSchema.ts";
 export { getDoctorAppointmentsQueryParamsSchema, getDoctorAppointments200Schema, getDoctorAppointmentsQueryResponseSchema } from "./getDoctorAppointmentsSchema.ts";
 export { getMyAppointmentsQueryParamsSchema, getMyAppointments200Schema, getMyAppointmentsQueryResponseSchema } from "./getMyAppointmentsSchema.ts";
+export { getPatientAppointmentsForStaffPathParamsSchema, getPatientAppointmentsForStaffQueryParamsSchema, getPatientAppointmentsForStaff200Schema, getPatientAppointmentsForStaffQueryResponseSchema } from "./getPatientAppointmentsForStaffSchema.ts";
 export { getPublicDoctors200Schema, getPublicDoctorsQueryResponseSchema } from "./getPublicDoctorsSchema.ts";
 export { getSttStatusPathParamsSchema, getSttStatus200Schema, getSttStatusQueryResponseSchema } from "./getSttStatusSchema.ts";
 export { getVideoTokenPathParamsSchema, getVideoToken200Schema, getVideoTokenQueryResponseSchema } from "./getVideoTokenSchema.ts";

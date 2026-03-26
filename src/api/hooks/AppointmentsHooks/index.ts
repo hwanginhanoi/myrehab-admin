@@ -20,6 +20,8 @@ export type { GetDoctorAppointmentsQueryKey } from "./useGetDoctorAppointments.t
 export type { GetDoctorAppointmentsSuspenseQueryKey } from "./useGetDoctorAppointmentsSuspense.ts";
 export type { GetMyAppointmentsQueryKey } from "./useGetMyAppointments.ts";
 export type { GetMyAppointmentsSuspenseQueryKey } from "./useGetMyAppointmentsSuspense.ts";
+export type { GetPatientAppointmentsForStaffQueryKey } from "./useGetPatientAppointmentsForStaff.ts";
+export type { GetPatientAppointmentsForStaffSuspenseQueryKey } from "./useGetPatientAppointmentsForStaffSuspense.ts";
 export type { GetPublicDoctorsQueryKey } from "./useGetPublicDoctors.ts";
 export type { GetPublicDoctorsSuspenseQueryKey } from "./useGetPublicDoctorsSuspense.ts";
 export type { GetSttStatusQueryKey } from "./useGetSttStatus.ts";
@@ -120,6 +122,14 @@ export { getMyAppointmentsSuspenseQueryKey } from "./useGetMyAppointmentsSuspens
 export { getMyAppointmentsSuspense } from "./useGetMyAppointmentsSuspense.ts";
 export { getMyAppointmentsSuspenseQueryOptions } from "./useGetMyAppointmentsSuspense.ts";
 export { useGetMyAppointmentsSuspense } from "./useGetMyAppointmentsSuspense.ts";
+export { getPatientAppointmentsForStaffQueryKey } from "./useGetPatientAppointmentsForStaff.ts";
+export { getPatientAppointmentsForStaff } from "./useGetPatientAppointmentsForStaff.ts";
+export { getPatientAppointmentsForStaffQueryOptions } from "./useGetPatientAppointmentsForStaff.ts";
+export { useGetPatientAppointmentsForStaff } from "./useGetPatientAppointmentsForStaff.ts";
+export { getPatientAppointmentsForStaffSuspenseQueryKey } from "./useGetPatientAppointmentsForStaffSuspense.ts";
+export { getPatientAppointmentsForStaffSuspense } from "./useGetPatientAppointmentsForStaffSuspense.ts";
+export { getPatientAppointmentsForStaffSuspenseQueryOptions } from "./useGetPatientAppointmentsForStaffSuspense.ts";
+export { useGetPatientAppointmentsForStaffSuspense } from "./useGetPatientAppointmentsForStaffSuspense.ts";
 export { getPublicDoctorsQueryKey } from "./useGetPublicDoctors.ts";
 export { getPublicDoctors } from "./useGetPublicDoctors.ts";
 export { getPublicDoctorsQueryOptions } from "./useGetPublicDoctors.ts";

@@ -1,5 +1,5 @@
 import { format } from 'date-fns'
-import { type UserResponse, useGetAllAppointments } from '@/api'
+import { type UserResponse } from '@/api'
 import { Avatar, AvatarFallback } from '@/components/ui/avatar'
 import { Badge } from '@/components/ui/badge'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
@@ -66,16 +66,6 @@ type UserInfoSectionProps = {
 }
 
 export function UserInfoSection({ user, isLoading }: UserInfoSectionProps) {
-  const { data: appointmentsData } = useGetAllAppointments(
-    { pageable: { page: 0, size: 50, sort: ['createdAt,desc'] } },
-    { query: { enabled: !isLoading && !!user.id } }
-  )
-  const intakeAppointments = (appointmentsData?.content ?? []).filter(
-    (appt) =>
-      appt.userId === user.id &&
-      (appt.pastResultImageKeys?.length || appt.patientTarget || appt.existingProblems)
-  )
-
   if (isLoading) return <LoadingSkeleton />
 
   return (
@@ -145,50 +135,6 @@ export function UserInfoSection({ user, isLoading }: UserInfoSectionProps) {
         </CardContent>
       </Card>
 
-      {/* Intake History */}
-      {intakeAppointments.length > 0 && (
-        <Card>
-          <CardHeader className="pb-0">
-            <CardTitle className="text-xs font-semibold uppercase tracking-widest text-muted-foreground">
-              Lịch sử khám ban đầu
-            </CardTitle>
-          </CardHeader>
-          <CardContent className="pt-3 space-y-4">
-            {intakeAppointments.map((appt) => (
-              <div key={appt.id} className="border rounded-lg p-3 space-y-2">
-                <p className="text-xs text-muted-foreground">
-                  {appt.appointmentDate} · #{appt.id}
-                </p>
-                {appt.pastResultImageKeys && appt.pastResultImageKeys.length > 0 && (
-                  <div className="flex flex-wrap gap-1">
-                    {appt.pastResultImageKeys.map((key, idx) => (
-                      <a key={idx} href={key} target="_blank" rel="noopener noreferrer">
-                        <img
-                          src={key}
-                          alt={`Kết quả ${idx + 1}`}
-                          className="h-14 w-14 rounded object-cover border"
-                        />
-                      </a>
-                    ))}
-                  </div>
-                )}
-                {appt.patientTarget && (
-                  <div>
-                    <span className="text-xs text-muted-foreground">Mục tiêu: </span>
-                    <span className="text-sm">{appt.patientTarget}</span>
-                  </div>
-                )}
-                {appt.existingProblems && (
-                  <div>
-                    <span className="text-xs text-muted-foreground">Vấn đề: </span>
-                    <span className="text-sm">{appt.existingProblems}</span>
-                  </div>
-                )}
-              </div>
-            ))}
-          </CardContent>
-        </Card>
-      )}
     </div>
   )
 }

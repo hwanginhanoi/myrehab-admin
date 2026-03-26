@@ -20,6 +20,8 @@ export type { GetDoctorAppointmentsQueryKey } from "./AppointmentsHooks/useGetDo
 export type { GetDoctorAppointmentsSuspenseQueryKey } from "./AppointmentsHooks/useGetDoctorAppointmentsSuspense.ts";
 export type { GetMyAppointmentsQueryKey } from "./AppointmentsHooks/useGetMyAppointments.ts";
 export type { GetMyAppointmentsSuspenseQueryKey } from "./AppointmentsHooks/useGetMyAppointmentsSuspense.ts";
+export type { GetPatientAppointmentsForStaffQueryKey } from "./AppointmentsHooks/useGetPatientAppointmentsForStaff.ts";
+export type { GetPatientAppointmentsForStaffSuspenseQueryKey } from "./AppointmentsHooks/useGetPatientAppointmentsForStaffSuspense.ts";
 export type { GetPublicDoctorsQueryKey } from "./AppointmentsHooks/useGetPublicDoctors.ts";
 export type { GetPublicDoctorsSuspenseQueryKey } from "./AppointmentsHooks/useGetPublicDoctorsSuspense.ts";
 export type { GetSttStatusQueryKey } from "./AppointmentsHooks/useGetSttStatus.ts";
@@ -235,6 +237,8 @@ export type { GetDoctorPatients1QueryKey } from "./TrainerHooks/useGetDoctorPati
 export type { GetDoctorPatients1SuspenseQueryKey } from "./TrainerHooks/useGetDoctorPatients1Suspense.ts";
 export type { GetMyCourseRequestsQueryKey } from "./TrainerHooks/useGetMyCourseRequests.ts";
 export type { GetMyCourseRequestsSuspenseQueryKey } from "./TrainerHooks/useGetMyCourseRequestsSuspense.ts";
+export type { SearchDoctorPatientsQueryKey } from "./TrainerHooks/useSearchDoctorPatients.ts";
+export type { SearchDoctorPatientsSuspenseQueryKey } from "./TrainerHooks/useSearchDoctorPatientsSuspense.ts";
 export type { UpdateCourseRequestMutationKey } from "./TrainerHooks/useUpdateCourseRequest.ts";
 export type { GetAllTransactionHistoryQueryKey } from "./TransactionsHooks/useGetAllTransactionHistory.ts";
 export type { GetAllTransactionHistorySuspenseQueryKey } from "./TransactionsHooks/useGetAllTransactionHistorySuspense.ts";
@@ -356,6 +360,14 @@ export { getMyAppointmentsSuspenseQueryKey } from "./AppointmentsHooks/useGetMyA
 export { getMyAppointmentsSuspense } from "./AppointmentsHooks/useGetMyAppointmentsSuspense.ts";
 export { getMyAppointmentsSuspenseQueryOptions } from "./AppointmentsHooks/useGetMyAppointmentsSuspense.ts";
 export { useGetMyAppointmentsSuspense } from "./AppointmentsHooks/useGetMyAppointmentsSuspense.ts";
+export { getPatientAppointmentsForStaffQueryKey } from "./AppointmentsHooks/useGetPatientAppointmentsForStaff.ts";
+export { getPatientAppointmentsForStaff } from "./AppointmentsHooks/useGetPatientAppointmentsForStaff.ts";
+export { getPatientAppointmentsForStaffQueryOptions } from "./AppointmentsHooks/useGetPatientAppointmentsForStaff.ts";
+export { useGetPatientAppointmentsForStaff } from "./AppointmentsHooks/useGetPatientAppointmentsForStaff.ts";
+export { getPatientAppointmentsForStaffSuspenseQueryKey } from "./AppointmentsHooks/useGetPatientAppointmentsForStaffSuspense.ts";
+export { getPatientAppointmentsForStaffSuspense } from "./AppointmentsHooks/useGetPatientAppointmentsForStaffSuspense.ts";
+export { getPatientAppointmentsForStaffSuspenseQueryOptions } from "./AppointmentsHooks/useGetPatientAppointmentsForStaffSuspense.ts";
+export { useGetPatientAppointmentsForStaffSuspense } from "./AppointmentsHooks/useGetPatientAppointmentsForStaffSuspense.ts";
 export { getPublicDoctorsQueryKey } from "./AppointmentsHooks/useGetPublicDoctors.ts";
 export { getPublicDoctors } from "./AppointmentsHooks/useGetPublicDoctors.ts";
 export { getPublicDoctorsQueryOptions } from "./AppointmentsHooks/useGetPublicDoctors.ts";
@@ -1216,6 +1228,14 @@ export { getMyCourseRequestsSuspenseQueryKey } from "./TrainerHooks/useGetMyCour
 export { getMyCourseRequestsSuspense } from "./TrainerHooks/useGetMyCourseRequestsSuspense.ts";
 export { getMyCourseRequestsSuspenseQueryOptions } from "./TrainerHooks/useGetMyCourseRequestsSuspense.ts";
 export { useGetMyCourseRequestsSuspense } from "./TrainerHooks/useGetMyCourseRequestsSuspense.ts";
+export { searchDoctorPatientsQueryKey } from "./TrainerHooks/useSearchDoctorPatients.ts";
+export { searchDoctorPatients } from "./TrainerHooks/useSearchDoctorPatients.ts";
+export { searchDoctorPatientsQueryOptions } from "./TrainerHooks/useSearchDoctorPatients.ts";
+export { useSearchDoctorPatients } from "./TrainerHooks/useSearchDoctorPatients.ts";
+export { searchDoctorPatientsSuspenseQueryKey } from "./TrainerHooks/useSearchDoctorPatientsSuspense.ts";
+export { searchDoctorPatientsSuspense } from "./TrainerHooks/useSearchDoctorPatientsSuspense.ts";
+export { searchDoctorPatientsSuspenseQueryOptions } from "./TrainerHooks/useSearchDoctorPatientsSuspense.ts";
+export { useSearchDoctorPatientsSuspense } from "./TrainerHooks/useSearchDoctorPatientsSuspense.ts";
 export { updateCourseRequestMutationKey } from "./TrainerHooks/useUpdateCourseRequest.ts";
 export { updateCourseRequest } from "./TrainerHooks/useUpdateCourseRequest.ts";
 export { updateCourseRequestMutationOptions } from "./TrainerHooks/useUpdateCourseRequest.ts";

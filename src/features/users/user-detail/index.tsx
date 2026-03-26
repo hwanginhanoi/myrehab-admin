@@ -4,6 +4,7 @@ import { Separator } from '@/components/ui/separator'
 import {
   Building2,
   ChevronLeft,
+  ClipboardList,
   Shield,
   ShieldCheck,
   UserCog,
@@ -59,6 +60,11 @@ export function UserDetail() {
       title: 'Thông tin công ty',
       href: `/users/${id}/company-info`,
       icon: <Building2 size={18} />,
+    },
+    {
+      title: 'Lịch sử khám ban đầu',
+      href: `/users/${id}/intake-history`,
+      icon: <ClipboardList size={18} />,
     },
   ]
 

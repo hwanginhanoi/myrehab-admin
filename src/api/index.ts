@@ -20,6 +20,8 @@ export type { GetDoctorAppointmentsQueryKey } from "./hooks/AppointmentsHooks/us
 export type { GetDoctorAppointmentsSuspenseQueryKey } from "./hooks/AppointmentsHooks/useGetDoctorAppointmentsSuspense.ts";
 export type { GetMyAppointmentsQueryKey } from "./hooks/AppointmentsHooks/useGetMyAppointments.ts";
 export type { GetMyAppointmentsSuspenseQueryKey } from "./hooks/AppointmentsHooks/useGetMyAppointmentsSuspense.ts";
+export type { GetPatientAppointmentsForStaffQueryKey } from "./hooks/AppointmentsHooks/useGetPatientAppointmentsForStaff.ts";
+export type { GetPatientAppointmentsForStaffSuspenseQueryKey } from "./hooks/AppointmentsHooks/useGetPatientAppointmentsForStaffSuspense.ts";
 export type { GetPublicDoctorsQueryKey } from "./hooks/AppointmentsHooks/useGetPublicDoctors.ts";
 export type { GetPublicDoctorsSuspenseQueryKey } from "./hooks/AppointmentsHooks/useGetPublicDoctorsSuspense.ts";
 export type { GetSttStatusQueryKey } from "./hooks/AppointmentsHooks/useGetSttStatus.ts";
@@ -235,6 +237,8 @@ export type { GetDoctorPatients1QueryKey } from "./hooks/TrainerHooks/useGetDoct
 export type { GetDoctorPatients1SuspenseQueryKey } from "./hooks/TrainerHooks/useGetDoctorPatients1Suspense.ts";
 export type { GetMyCourseRequestsQueryKey } from "./hooks/TrainerHooks/useGetMyCourseRequests.ts";
 export type { GetMyCourseRequestsSuspenseQueryKey } from "./hooks/TrainerHooks/useGetMyCourseRequestsSuspense.ts";
+export type { SearchDoctorPatientsQueryKey } from "./hooks/TrainerHooks/useSearchDoctorPatients.ts";
+export type { SearchDoctorPatientsSuspenseQueryKey } from "./hooks/TrainerHooks/useSearchDoctorPatientsSuspense.ts";
 export type { UpdateCourseRequestMutationKey } from "./hooks/TrainerHooks/useUpdateCourseRequest.ts";
 export type { GetAllTransactionHistoryQueryKey } from "./hooks/TransactionsHooks/useGetAllTransactionHistory.ts";
 export type { GetAllTransactionHistorySuspenseQueryKey } from "./hooks/TransactionsHooks/useGetAllTransactionHistorySuspense.ts";
@@ -285,6 +289,7 @@ export type { GetClinicSchedule200, GetClinicScheduleQueryResponse, GetClinicSch
 export type { GetDisputedAppointmentsQueryParams, GetDisputedAppointments200, GetDisputedAppointmentsQueryResponse, GetDisputedAppointmentsQuery } from "./types/appointmentsController/GetDisputedAppointments.ts";
 export type { GetDoctorAppointmentsQueryParams, GetDoctorAppointments200, GetDoctorAppointmentsQueryResponse, GetDoctorAppointmentsQuery } from "./types/appointmentsController/GetDoctorAppointments.ts";
 export type { GetMyAppointmentsQueryParams, GetMyAppointments200, GetMyAppointmentsQueryResponse, GetMyAppointmentsQuery } from "./types/appointmentsController/GetMyAppointments.ts";
+export type { GetPatientAppointmentsForStaffPathParams, GetPatientAppointmentsForStaffQueryParams, GetPatientAppointmentsForStaff200, GetPatientAppointmentsForStaffQueryResponse, GetPatientAppointmentsForStaffQuery } from "./types/appointmentsController/GetPatientAppointmentsForStaff.ts";
 export type { GetPublicDoctors200, GetPublicDoctorsQueryResponse, GetPublicDoctorsQuery } from "./types/appointmentsController/GetPublicDoctors.ts";
 export type { GetSttStatusPathParams, GetSttStatus200, GetSttStatusQueryResponse, GetSttStatusQuery } from "./types/appointmentsController/GetSttStatus.ts";
 export type { GetVideoTokenPathParams, GetVideoToken200, GetVideoTokenQueryResponse, GetVideoTokenQuery } from "./types/appointmentsController/GetVideoToken.ts";
@@ -555,6 +560,7 @@ export type { CreateCourseRequest200, CreateCourseRequestMutationRequest, Create
 export type { GetCourseRequestByIdPathParams, GetCourseRequestById200, GetCourseRequestByIdQueryResponse, GetCourseRequestByIdQuery } from "./types/trainerController/GetCourseRequestById.ts";
 export type { GetDoctorPatients1QueryParams, GetDoctorPatients1200, GetDoctorPatients1QueryResponse, GetDoctorPatients1Query } from "./types/trainerController/GetDoctorPatients1.ts";
 export type { GetMyCourseRequestsQueryParamsStatusEnumKey, GetMyCourseRequestsQueryParams, GetMyCourseRequests200, GetMyCourseRequestsQueryResponse, GetMyCourseRequestsQuery } from "./types/trainerController/GetMyCourseRequests.ts";
+export type { SearchDoctorPatientsQueryParams, SearchDoctorPatients200, SearchDoctorPatientsQueryResponse, SearchDoctorPatientsQuery } from "./types/trainerController/SearchDoctorPatients.ts";
 export type { UpdateCourseRequestPathParams, UpdateCourseRequest200, UpdateCourseRequestMutationRequest, UpdateCourseRequestMutationResponse, UpdateCourseRequestMutation } from "./types/trainerController/UpdateCourseRequest.ts";
 export type { TrainerResponse } from "./types/TrainerResponse.ts";
 export type { TransactionResponseTransactionTypeEnumKey, TransactionResponse } from "./types/TransactionResponse.ts";
@@ -693,6 +699,14 @@ export { getMyAppointmentsSuspenseQueryKey } from "./hooks/AppointmentsHooks/use
 export { getMyAppointmentsSuspense } from "./hooks/AppointmentsHooks/useGetMyAppointmentsSuspense.ts";
 export { getMyAppointmentsSuspenseQueryOptions } from "./hooks/AppointmentsHooks/useGetMyAppointmentsSuspense.ts";
 export { useGetMyAppointmentsSuspense } from "./hooks/AppointmentsHooks/useGetMyAppointmentsSuspense.ts";
+export { getPatientAppointmentsForStaffQueryKey } from "./hooks/AppointmentsHooks/useGetPatientAppointmentsForStaff.ts";
+export { getPatientAppointmentsForStaff } from "./hooks/AppointmentsHooks/useGetPatientAppointmentsForStaff.ts";
+export { getPatientAppointmentsForStaffQueryOptions } from "./hooks/AppointmentsHooks/useGetPatientAppointmentsForStaff.ts";
+export { useGetPatientAppointmentsForStaff } from "./hooks/AppointmentsHooks/useGetPatientAppointmentsForStaff.ts";
+export { getPatientAppointmentsForStaffSuspenseQueryKey } from "./hooks/AppointmentsHooks/useGetPatientAppointmentsForStaffSuspense.ts";
+export { getPatientAppointmentsForStaffSuspense } from "./hooks/AppointmentsHooks/useGetPatientAppointmentsForStaffSuspense.ts";
+export { getPatientAppointmentsForStaffSuspenseQueryOptions } from "./hooks/AppointmentsHooks/useGetPatientAppointmentsForStaffSuspense.ts";
+export { useGetPatientAppointmentsForStaffSuspense } from "./hooks/AppointmentsHooks/useGetPatientAppointmentsForStaffSuspense.ts";
 export { getPublicDoctorsQueryKey } from "./hooks/AppointmentsHooks/useGetPublicDoctors.ts";
 export { getPublicDoctors } from "./hooks/AppointmentsHooks/useGetPublicDoctors.ts";
 export { getPublicDoctorsQueryOptions } from "./hooks/AppointmentsHooks/useGetPublicDoctors.ts";
@@ -1553,6 +1567,14 @@ export { getMyCourseRequestsSuspenseQueryKey } from "./hooks/TrainerHooks/useGet
 export { getMyCourseRequestsSuspense } from "./hooks/TrainerHooks/useGetMyCourseRequestsSuspense.ts";
 export { getMyCourseRequestsSuspenseQueryOptions } from "./hooks/TrainerHooks/useGetMyCourseRequestsSuspense.ts";
 export { useGetMyCourseRequestsSuspense } from "./hooks/TrainerHooks/useGetMyCourseRequestsSuspense.ts";
+export { searchDoctorPatientsQueryKey } from "./hooks/TrainerHooks/useSearchDoctorPatients.ts";
+export { searchDoctorPatients } from "./hooks/TrainerHooks/useSearchDoctorPatients.ts";
+export { searchDoctorPatientsQueryOptions } from "./hooks/TrainerHooks/useSearchDoctorPatients.ts";
+export { useSearchDoctorPatients } from "./hooks/TrainerHooks/useSearchDoctorPatients.ts";
+export { searchDoctorPatientsSuspenseQueryKey } from "./hooks/TrainerHooks/useSearchDoctorPatientsSuspense.ts";
+export { searchDoctorPatientsSuspense } from "./hooks/TrainerHooks/useSearchDoctorPatientsSuspense.ts";
+export { searchDoctorPatientsSuspenseQueryOptions } from "./hooks/TrainerHooks/useSearchDoctorPatientsSuspense.ts";
+export { useSearchDoctorPatientsSuspense } from "./hooks/TrainerHooks/useSearchDoctorPatientsSuspense.ts";
 export { updateCourseRequestMutationKey } from "./hooks/TrainerHooks/useUpdateCourseRequest.ts";
 export { updateCourseRequest } from "./hooks/TrainerHooks/useUpdateCourseRequest.ts";
 export { updateCourseRequestMutationOptions } from "./hooks/TrainerHooks/useUpdateCourseRequest.ts";
@@ -1740,6 +1762,7 @@ export { getClinicSchedule200Schema, getClinicScheduleQueryResponseSchema } from
 export { getDisputedAppointmentsQueryParamsSchema, getDisputedAppointments200Schema, getDisputedAppointmentsQueryResponseSchema } from "./zod/appointmentsController/getDisputedAppointmentsSchema.ts";
 export { getDoctorAppointmentsQueryParamsSchema, getDoctorAppointments200Schema, getDoctorAppointmentsQueryResponseSchema } from "./zod/appointmentsController/getDoctorAppointmentsSchema.ts";
 export { getMyAppointmentsQueryParamsSchema, getMyAppointments200Schema, getMyAppointmentsQueryResponseSchema } from "./zod/appointmentsController/getMyAppointmentsSchema.ts";
+export { getPatientAppointmentsForStaffPathParamsSchema, getPatientAppointmentsForStaffQueryParamsSchema, getPatientAppointmentsForStaff200Schema, getPatientAppointmentsForStaffQueryResponseSchema } from "./zod/appointmentsController/getPatientAppointmentsForStaffSchema.ts";
 export { getPublicDoctors200Schema, getPublicDoctorsQueryResponseSchema } from "./zod/appointmentsController/getPublicDoctorsSchema.ts";
 export { getSttStatusPathParamsSchema, getSttStatus200Schema, getSttStatusQueryResponseSchema } from "./zod/appointmentsController/getSttStatusSchema.ts";
 export { getVideoTokenPathParamsSchema, getVideoToken200Schema, getVideoTokenQueryResponseSchema } from "./zod/appointmentsController/getVideoTokenSchema.ts";
@@ -2010,6 +2033,7 @@ export { createCourseRequest200Schema, createCourseRequestMutationRequestSchema,
 export { getCourseRequestByIdPathParamsSchema, getCourseRequestById200Schema, getCourseRequestByIdQueryResponseSchema } from "./zod/trainerController/getCourseRequestByIdSchema.ts";
 export { getDoctorPatients1QueryParamsSchema, getDoctorPatients1200Schema, getDoctorPatients1QueryResponseSchema } from "./zod/trainerController/getDoctorPatients1Schema.ts";
 export { getMyCourseRequestsQueryParamsSchema, getMyCourseRequests200Schema, getMyCourseRequestsQueryResponseSchema } from "./zod/trainerController/getMyCourseRequestsSchema.ts";
+export { searchDoctorPatientsQueryParamsSchema, searchDoctorPatients200Schema, searchDoctorPatientsQueryResponseSchema } from "./zod/trainerController/searchDoctorPatientsSchema.ts";
 export { updateCourseRequestPathParamsSchema, updateCourseRequest200Schema, updateCourseRequestMutationRequestSchema, updateCourseRequestMutationResponseSchema } from "./zod/trainerController/updateCourseRequestSchema.ts";
 export { trainerResponseSchema } from "./zod/trainerResponseSchema.ts";
 export { transactionResponseSchema } from "./zod/transactionResponseSchema.ts";

@@ -15,7 +15,6 @@ export const uploadFileMutationKey = () => [{ url: '/api/files/upload' }] as con
 export type UploadFileMutationKey = ReturnType<typeof uploadFileMutationKey>
 
 /**
- * @description Upload a file as multipart/form-data. Backend saves to MinIO and returns the object key. Valid categories: intake-image, exercise-image, profile-image, etc.
  * @summary Upload a file through backend proxy
  * {@link /api/files/upload}
  */
@@ -39,7 +38,6 @@ export function uploadFileMutationOptions(config: Partial<RequestConfig<UploadFi
 }
 
 /**
- * @description Upload a file as multipart/form-data. Backend saves to MinIO and returns the object key. Valid categories: intake-image, exercise-image, profile-image, etc.
  * @summary Upload a file through backend proxy
  * {@link /api/files/upload}
  */

@@ -23,8 +23,11 @@ import {
   useCreateForm,
   useUpdateForm,
   useSearchUsersByName,
-  useGetAllAppointments,
+  useSearchMyPatients,
 } from '@/api'
+import { usePatientIntakeAppointments } from '@/hooks/usePatientIntakeAppointments'
+import { useSearchDoctorPatients } from '@/api/hooks/TrainerHooks/useSearchDoctorPatients'
+import { useAuthStore } from '@/stores/auth-store'
 import { toast } from 'sonner'
 import { Separator } from '@/components/ui/separator'
 import { ScrollArea } from '@/components/ui/scroll-area'
@@ -85,6 +88,9 @@ export function RehabilitationFormComponent({
   const queryClient = useQueryClient()
   const isView = mode === 'view'
   const isEdit = mode === 'edit'
+  const userType = useAuthStore((s) => s.userType)
+  const isDoctor = userType === 'DOCTOR'
+  const isTrainer = userType === 'TRAINER'
 
   // Search state for patient selection
   const [searchQuery, setSearchQuery] = useState('')
@@ -95,15 +101,11 @@ export function RehabilitationFormComponent({
   const searchContainerRef = useRef<HTMLDivElement>(null)
 
   // Fetch selected user's most recent appointment with intake data (create mode only)
-  const { data: userAppointmentsData } = useGetAllAppointments(
-    { pageable: { page: 0, size: 50, sort: ['createdAt,desc'] } },
-    { query: { enabled: !isView && !isEdit && selectedUser !== null } }
+  const { intakeAppointments: userIntakeAppointments } = usePatientIntakeAppointments(
+    selectedUser?.id,
+    !isView && !isEdit && selectedUser !== null
   )
-  const latestIntakeAppointment = userAppointmentsData?.content?.find(
-    (appt) =>
-      appt.userId === selectedUser?.id &&
-      (appt.pastResultImageKeys?.length || appt.patientTarget || appt.existingProblems)
-  )
+  const latestIntakeAppointment = userIntakeAppointments[0] ?? null
 
   // Debounce search query (300ms delay)
   useEffect(() => {
@@ -130,16 +132,38 @@ export function RehabilitationFormComponent({
     }
   }, [])
 
-  // Fetch patients using the new search API
-  const { data: searchResults = [], isLoading: isSearching } =
+  const canSearch = debouncedQuery.length > 0 && !isView && !isEdit
+
+  // Admin/Super Admin: search all users
+  const { data: adminSearchResults = [], isLoading: isAdminSearching } =
     useSearchUsersByName(
       { query: debouncedQuery || undefined },
-      {
-        query: {
-          enabled: debouncedQuery.length > 0 && !isView && !isEdit, // Only fetch in create mode when user types
-        },
-      }
+      { query: { enabled: canSearch && !isDoctor && !isTrainer } }
     )
+
+  // Doctor: search only their assigned patients
+  const { data: doctorSearchResults = [], isLoading: isDoctorSearching } =
+    useSearchMyPatients(
+      { query: debouncedQuery || undefined },
+      { query: { enabled: canSearch && isDoctor } }
+    )
+
+  // Trainer: search their doctor's patients
+  const { data: trainerSearchResults = [], isLoading: isTrainerSearching } =
+    useSearchDoctorPatients(
+      { query: debouncedQuery || undefined },
+      { query: { enabled: canSearch && isTrainer } }
+    )
+
+  const normalizePatientResults = (results: typeof doctorSearchResults): UserResponse[] =>
+    results.map((p) => ({ id: p.userId, fullName: p.fullName, phoneNumber: p.phoneNumber, gender: p.gender, dateOfBirth: p.dateOfBirth } as UserResponse))
+
+  const searchResults: UserResponse[] = isDoctor
+    ? normalizePatientResults(doctorSearchResults)
+    : isTrainer
+      ? normalizePatientResults(trainerSearchResults)
+      : adminSearchResults
+  const isSearching = isAdminSearching || isDoctorSearching || isTrainerSearching
 
   const form = useForm<RehabilitationFormType>({
     resolver: zodResolver(formSchema),

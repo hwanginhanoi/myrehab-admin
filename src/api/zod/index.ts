@@ -15,6 +15,7 @@ export { getClinicSchedule200Schema, getClinicScheduleQueryResponseSchema } from
 export { getDisputedAppointmentsQueryParamsSchema, getDisputedAppointments200Schema, getDisputedAppointmentsQueryResponseSchema } from "./appointmentsController/getDisputedAppointmentsSchema.ts";
 export { getDoctorAppointmentsQueryParamsSchema, getDoctorAppointments200Schema, getDoctorAppointmentsQueryResponseSchema } from "./appointmentsController/getDoctorAppointmentsSchema.ts";
 export { getMyAppointmentsQueryParamsSchema, getMyAppointments200Schema, getMyAppointmentsQueryResponseSchema } from "./appointmentsController/getMyAppointmentsSchema.ts";
+export { getPatientAppointmentsForStaffPathParamsSchema, getPatientAppointmentsForStaffQueryParamsSchema, getPatientAppointmentsForStaff200Schema, getPatientAppointmentsForStaffQueryResponseSchema } from "./appointmentsController/getPatientAppointmentsForStaffSchema.ts";
 export { getPublicDoctors200Schema, getPublicDoctorsQueryResponseSchema } from "./appointmentsController/getPublicDoctorsSchema.ts";
 export { getSttStatusPathParamsSchema, getSttStatus200Schema, getSttStatusQueryResponseSchema } from "./appointmentsController/getSttStatusSchema.ts";
 export { getVideoTokenPathParamsSchema, getVideoToken200Schema, getVideoTokenQueryResponseSchema } from "./appointmentsController/getVideoTokenSchema.ts";
@@ -285,6 +286,7 @@ export { createCourseRequest200Schema, createCourseRequestMutationRequestSchema,
 export { getCourseRequestByIdPathParamsSchema, getCourseRequestById200Schema, getCourseRequestByIdQueryResponseSchema } from "./trainerController/getCourseRequestByIdSchema.ts";
 export { getDoctorPatients1QueryParamsSchema, getDoctorPatients1200Schema, getDoctorPatients1QueryResponseSchema } from "./trainerController/getDoctorPatients1Schema.ts";
 export { getMyCourseRequestsQueryParamsSchema, getMyCourseRequests200Schema, getMyCourseRequestsQueryResponseSchema } from "./trainerController/getMyCourseRequestsSchema.ts";
+export { searchDoctorPatientsQueryParamsSchema, searchDoctorPatients200Schema, searchDoctorPatientsQueryResponseSchema } from "./trainerController/searchDoctorPatientsSchema.ts";
 export { updateCourseRequestPathParamsSchema, updateCourseRequest200Schema, updateCourseRequestMutationRequestSchema, updateCourseRequestMutationResponseSchema } from "./trainerController/updateCourseRequestSchema.ts";
 export { trainerResponseSchema } from "./trainerResponseSchema.ts";
 export { transactionResponseSchema } from "./transactionResponseSchema.ts";

@@ -72,6 +72,7 @@ import { Route as AuthenticatedCourseRequestsIdIndexRouteImport } from './routes
 import { Route as AuthenticatedCourseAssignmentsIdIndexRouteImport } from './routes/_authenticated/course-assignments/$id.index'
 import { Route as AuthenticatedUsersIdPrivateInsuranceRouteImport } from './routes/_authenticated/users/$id.private-insurance'
 import { Route as AuthenticatedUsersIdNationalInsuranceRouteImport } from './routes/_authenticated/users/$id.national-insurance'
+import { Route as AuthenticatedUsersIdIntakeHistoryRouteImport } from './routes/_authenticated/users/$id.intake-history'
 import { Route as AuthenticatedUsersIdCompanyInfoRouteImport } from './routes/_authenticated/users/$id.company-info'
 import { Route as AuthenticatedCourseRequestsIdEditRouteImport } from './routes/_authenticated/course-requests/$id.edit'
 import { Route as AuthenticatedCourseAssignmentsIdFeedbackRouteImport } from './routes/_authenticated/course-assignments/$id.feedback'
@@ -448,6 +449,12 @@ const AuthenticatedUsersIdNationalInsuranceRoute =
     path: '/national-insurance',
     getParentRoute: () => AuthenticatedUsersIdRouteRoute,
   } as any)
+const AuthenticatedUsersIdIntakeHistoryRoute =
+  AuthenticatedUsersIdIntakeHistoryRouteImport.update({
+    id: '/intake-history',
+    path: '/intake-history',
+    getParentRoute: () => AuthenticatedUsersIdRouteRoute,
+  } as any)
 const AuthenticatedUsersIdCompanyInfoRoute =
   AuthenticatedUsersIdCompanyInfoRouteImport.update({
     id: '/company-info',
@@ -617,6 +624,7 @@ export interface FileRoutesByFullPath {
   '/course-assignments/$id/feedback': typeof AuthenticatedCourseAssignmentsIdFeedbackRoute
   '/course-requests/$id/edit': typeof AuthenticatedCourseRequestsIdEditRoute
   '/users/$id/company-info': typeof AuthenticatedUsersIdCompanyInfoRoute
+  '/users/$id/intake-history': typeof AuthenticatedUsersIdIntakeHistoryRoute
   '/users/$id/national-insurance': typeof AuthenticatedUsersIdNationalInsuranceRoute
   '/users/$id/private-insurance': typeof AuthenticatedUsersIdPrivateInsuranceRoute
   '/course-assignments/$id/': typeof AuthenticatedCourseAssignmentsIdIndexRoute
@@ -691,6 +699,7 @@ export interface FileRoutesByTo {
   '/course-assignments/$id/feedback': typeof AuthenticatedCourseAssignmentsIdFeedbackRoute
   '/course-requests/$id/edit': typeof AuthenticatedCourseRequestsIdEditRoute
   '/users/$id/company-info': typeof AuthenticatedUsersIdCompanyInfoRoute
+  '/users/$id/intake-history': typeof AuthenticatedUsersIdIntakeHistoryRoute
   '/users/$id/national-insurance': typeof AuthenticatedUsersIdNationalInsuranceRoute
   '/users/$id/private-insurance': typeof AuthenticatedUsersIdPrivateInsuranceRoute
   '/course-assignments/$id': typeof AuthenticatedCourseAssignmentsIdIndexRoute
@@ -774,6 +783,7 @@ export interface FileRoutesById {
   '/_authenticated/course-assignments/$id/feedback': typeof AuthenticatedCourseAssignmentsIdFeedbackRoute
   '/_authenticated/course-requests/$id/edit': typeof AuthenticatedCourseRequestsIdEditRoute
   '/_authenticated/users/$id/company-info': typeof AuthenticatedUsersIdCompanyInfoRoute
+  '/_authenticated/users/$id/intake-history': typeof AuthenticatedUsersIdIntakeHistoryRoute
   '/_authenticated/users/$id/national-insurance': typeof AuthenticatedUsersIdNationalInsuranceRoute
   '/_authenticated/users/$id/private-insurance': typeof AuthenticatedUsersIdPrivateInsuranceRoute
   '/_authenticated/course-assignments/$id/': typeof AuthenticatedCourseAssignmentsIdIndexRoute
@@ -857,6 +867,7 @@ export interface FileRouteTypes {
     | '/course-assignments/$id/feedback'
     | '/course-requests/$id/edit'
     | '/users/$id/company-info'
+    | '/users/$id/intake-history'
     | '/users/$id/national-insurance'
     | '/users/$id/private-insurance'
     | '/course-assignments/$id/'
@@ -931,6 +942,7 @@ export interface FileRouteTypes {
     | '/course-assignments/$id/feedback'
     | '/course-requests/$id/edit'
     | '/users/$id/company-info'
+    | '/users/$id/intake-history'
     | '/users/$id/national-insurance'
     | '/users/$id/private-insurance'
     | '/course-assignments/$id'
@@ -1013,6 +1025,7 @@ export interface FileRouteTypes {
     | '/_authenticated/course-assignments/$id/feedback'
     | '/_authenticated/course-requests/$id/edit'
     | '/_authenticated/users/$id/company-info'
+    | '/_authenticated/users/$id/intake-history'
     | '/_authenticated/users/$id/national-insurance'
     | '/_authenticated/users/$id/private-insurance'
     | '/_authenticated/course-assignments/$id/'
@@ -1485,6 +1498,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedUsersIdNationalInsuranceRouteImport
       parentRoute: typeof AuthenticatedUsersIdRouteRoute
     }
+    '/_authenticated/users/$id/intake-history': {
+      id: '/_authenticated/users/$id/intake-history'
+      path: '/intake-history'
+      fullPath: '/users/$id/intake-history'
+      preLoaderRoute: typeof AuthenticatedUsersIdIntakeHistoryRouteImport
+      parentRoute: typeof AuthenticatedUsersIdRouteRoute
+    }
     '/_authenticated/users/$id/company-info': {
       id: '/_authenticated/users/$id/company-info'
       path: '/company-info'
@@ -1653,6 +1673,7 @@ const AuthenticatedCourseAssignmentsIdRouteRouteWithChildren =
 
 interface AuthenticatedUsersIdRouteRouteChildren {
   AuthenticatedUsersIdCompanyInfoRoute: typeof AuthenticatedUsersIdCompanyInfoRoute
+  AuthenticatedUsersIdIntakeHistoryRoute: typeof AuthenticatedUsersIdIntakeHistoryRoute
   AuthenticatedUsersIdNationalInsuranceRoute: typeof AuthenticatedUsersIdNationalInsuranceRoute
   AuthenticatedUsersIdPrivateInsuranceRoute: typeof AuthenticatedUsersIdPrivateInsuranceRoute
   AuthenticatedUsersIdIndexRoute: typeof AuthenticatedUsersIdIndexRoute
@@ -1661,6 +1682,8 @@ interface AuthenticatedUsersIdRouteRouteChildren {
 const AuthenticatedUsersIdRouteRouteChildren: AuthenticatedUsersIdRouteRouteChildren =
   {
     AuthenticatedUsersIdCompanyInfoRoute: AuthenticatedUsersIdCompanyInfoRoute,
+    AuthenticatedUsersIdIntakeHistoryRoute:
+      AuthenticatedUsersIdIntakeHistoryRoute,
     AuthenticatedUsersIdNationalInsuranceRoute:
       AuthenticatedUsersIdNationalInsuranceRoute,
     AuthenticatedUsersIdPrivateInsuranceRoute:

@@ -12,6 +12,7 @@ export type { GetClinicSchedule200, GetClinicScheduleQueryResponse, GetClinicSch
 export type { GetDisputedAppointmentsQueryParams, GetDisputedAppointments200, GetDisputedAppointmentsQueryResponse, GetDisputedAppointmentsQuery } from "./GetDisputedAppointments.ts";
 export type { GetDoctorAppointmentsQueryParams, GetDoctorAppointments200, GetDoctorAppointmentsQueryResponse, GetDoctorAppointmentsQuery } from "./GetDoctorAppointments.ts";
 export type { GetMyAppointmentsQueryParams, GetMyAppointments200, GetMyAppointmentsQueryResponse, GetMyAppointmentsQuery } from "./GetMyAppointments.ts";
+export type { GetPatientAppointmentsForStaffPathParams, GetPatientAppointmentsForStaffQueryParams, GetPatientAppointmentsForStaff200, GetPatientAppointmentsForStaffQueryResponse, GetPatientAppointmentsForStaffQuery } from "./GetPatientAppointmentsForStaff.ts";
 export type { GetPublicDoctors200, GetPublicDoctorsQueryResponse, GetPublicDoctorsQuery } from "./GetPublicDoctors.ts";
 export type { GetSttStatusPathParams, GetSttStatus200, GetSttStatusQueryResponse, GetSttStatusQuery } from "./GetSttStatus.ts";
 export type { GetVideoTokenPathParams, GetVideoToken200, GetVideoTokenQueryResponse, GetVideoTokenQuery } from "./GetVideoToken.ts";

@@ -2,4 +2,5 @@ export { createCourseRequest200Schema, createCourseRequestMutationRequestSchema,
 export { getCourseRequestByIdPathParamsSchema, getCourseRequestById200Schema, getCourseRequestByIdQueryResponseSchema } from "./getCourseRequestByIdSchema.ts";
 export { getDoctorPatients1QueryParamsSchema, getDoctorPatients1200Schema, getDoctorPatients1QueryResponseSchema } from "./getDoctorPatients1Schema.ts";
 export { getMyCourseRequestsQueryParamsSchema, getMyCourseRequests200Schema, getMyCourseRequestsQueryResponseSchema } from "./getMyCourseRequestsSchema.ts";
+export { searchDoctorPatientsQueryParamsSchema, searchDoctorPatients200Schema, searchDoctorPatientsQueryResponseSchema } from "./searchDoctorPatientsSchema.ts";
 export { updateCourseRequestPathParamsSchema, updateCourseRequest200Schema, updateCourseRequestMutationRequestSchema, updateCourseRequestMutationResponseSchema } from "./updateCourseRequestSchema.ts";
