@@ -8,7 +8,7 @@ import { z } from 'zod/v4'
 export const videoTokenResponseSchema = z.object({
   channelName: z.optional(z.string()),
   token: z.optional(z.string()),
-  userAccount: z.optional(z.string()),
+  uid: z.optional(z.int()),
   appId: z.optional(z.string()),
   expiresAt: z.optional(z.string().datetime()),
 })

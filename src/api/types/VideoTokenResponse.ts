@@ -13,9 +13,9 @@ export type VideoTokenResponse = {
    */
   token?: string
   /**
-   * @type string | undefined
+   * @type integer | undefined, int32
    */
-  userAccount?: string
+  uid?: number
   /**
    * @type string | undefined
    */
