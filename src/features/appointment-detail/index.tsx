@@ -1,4 +1,4 @@
-import { useNavigate, getRouteApi } from '@tanstack/react-router'
+import { useRouter, getRouteApi } from '@tanstack/react-router'
 import { ArrowLeft } from 'lucide-react'
 import { ConfigDrawer } from '@/components/config-drawer'
 import { Header } from '@/components/layout/header'
@@ -16,7 +16,7 @@ const route = getRouteApi('/_authenticated/appointments/$id')
 
 export function AppointmentDetail() {
   const { id } = route.useParams()
-  const navigate = useNavigate()
+  const router = useRouter()
 
   const { data: appointment, isLoading } = useGetAppointmentById(Number(id))
 
@@ -36,7 +36,7 @@ export function AppointmentDetail() {
           <Button
             variant="ghost"
             size="icon"
-            onClick={() => navigate({ to: '/appointments' })}
+            onClick={() => router.history.back()}
           >
             <ArrowLeft className="h-4 w-4" />
           </Button>

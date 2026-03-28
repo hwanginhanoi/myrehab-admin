@@ -11,6 +11,8 @@ import {
   type DoctorPatientResponse,
   type GetMyPatientsQueryParams,
 } from '@/api'
+import { useGetDoctorPatients1 } from '@/api/hooks/TrainerHooks/useGetDoctorPatients1'
+import { useAuthStore } from '@/stores/auth-store'
 import {
   MyPatientsProvider,
   useMyPatients,
@@ -24,6 +26,8 @@ function MyPatientsContent() {
   const search = route.useSearch()
   const navigate = route.useNavigate()
   const { open, setOpen, currentPatient } = useMyPatients()
+  const userType = useAuthStore((s) => s.userType)
+  const isTrainer = userType === 'TRAINER'
 
   const page = (search.page ?? 1) - 1
   const pageSize = search.pageSize ?? 10
@@ -31,21 +35,28 @@ function MyPatientsContent() {
 
   const queryParams = useMemo<GetMyPatientsQueryParams>(
     () => ({
-      pageable: {
-        page,
-        size: pageSize,
-      },
+      pageable: { page, size: pageSize },
       ...(query && { query }),
     }),
     [page, pageSize, query]
   )
 
-  const { data, isLoading } = useGetMyPatients(queryParams, {
+  const { data: doctorData, isLoading: isDoctorLoading } = useGetMyPatients(queryParams, {
     query: {
+      enabled: !isTrainer,
       placeholderData: (previousData) => previousData,
     },
   })
 
+  const { data: trainerData, isLoading: isTrainerLoading } = useGetDoctorPatients1(queryParams, {
+    query: {
+      enabled: isTrainer,
+      placeholderData: (previousData) => previousData,
+    },
+  })
+
+  const data = isTrainer ? trainerData : doctorData
+  const isLoading = isTrainer ? isTrainerLoading : isDoctorLoading
   const patients = (data?.content ?? []) as DoctorPatientResponse[]
   const totalPages = data?.page?.totalPages ?? 0
 
@@ -84,7 +95,6 @@ function MyPatientsContent() {
         )}
       </Main>
 
-      {/* Patient Preview Dialog */}
       <PatientPreviewDialog
         patient={currentPatient}
         open={open === 'preview'}

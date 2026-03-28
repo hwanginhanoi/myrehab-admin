@@ -134,6 +134,7 @@ export function UserInfoSection({ user, isLoading }: UserInfoSectionProps) {
           </dl>
         </CardContent>
       </Card>
+
     </div>
   )
 }
