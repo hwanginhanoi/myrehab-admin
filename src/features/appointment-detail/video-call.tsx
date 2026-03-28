@@ -8,8 +8,7 @@ import AgoraRTC, {
   type IRemoteVideoTrack,
   type IRemoteAudioTrack,
 } from 'agora-rtc-sdk-ng'
-import { useGetVideoToken, useMarkComplete, useGetAppointmentById, useStartStt, useStopStt } from '@/api'
-import { useQueryClient } from '@tanstack/react-query'
+import { useGetVideoToken, useGetAppointmentById, useStartStt, useStopStt } from '@/api'
 import { useAuthStore } from '@/stores/auth-store'
 import { Button } from '@/components/ui/button'
 import {
@@ -18,11 +17,9 @@ import {
   Video,
   VideoOff,
   PhoneOff,
-  CheckCircle,
   Loader2,
   Captions,
 } from 'lucide-react'
-import { toast } from 'sonner'
 import { decodeSttMessage } from '@/lib/stt-proto'
 
 const route = getRouteApi('/_authenticated/appointments/$id_/video-call')
@@ -47,7 +44,7 @@ export function VideoCall() {
     )
   }
 
-  if (error || !tokenData?.token || !tokenData?.appId) {
+  if (error || !tokenData?.token || !tokenData?.appId || !tokenData?.uid) {
     return (
       <div className='flex h-screen items-center justify-center'>
         <p className='text-destructive'>
@@ -62,7 +59,7 @@ export function VideoCall() {
       appId={tokenData.appId}
       channelName={tokenData.channelName!}
       token={tokenData.token}
-      uid={tokenData.userAccount!}
+      uid={tokenData.uid}
       appointmentId={Number(id)}
       sttLanguage={appointment?.sttLanguage}
     />
@@ -76,7 +73,7 @@ type VideoCallRoomProps = {
   appId: string
   channelName: string
   token: string
-  uid: string
+  uid: number
   appointmentId: number
   sttLanguage?: string
 }
@@ -90,7 +87,6 @@ function VideoCallRoom({
   sttLanguage,
 }: VideoCallRoomProps) {
   const navigate = useNavigate()
-  const queryClient = useQueryClient()
   const userType = useAuthStore((state) => state.userType)
   const [isMuted, setIsMuted] = useState(false)
   const [isCameraOff, setIsCameraOff] = useState(false)
@@ -109,7 +105,6 @@ function VideoCallRoom({
     useState<IRemoteAudioTrack | null>(null)
   const [hasRemoteUser, setHasRemoteUser] = useState(false)
   const [isSttActive, setIsSttActive] = useState(false)
-  const localUid = useRef<number | string>(0)
   const [subtitle, setSubtitle] = useState<{
     original: string
     translated: string
@@ -131,7 +126,12 @@ function VideoCallRoom({
       user: IAgoraRTCRemoteUser,
       mediaType: 'audio' | 'video'
     ) => {
-      if (user.uid === STT_SUBSCRIBER_BOT_UID || user.uid === STT_TRANSLATION_BOT_UID) return
+      if (user.uid === STT_SUBSCRIBER_BOT_UID) return
+      // Subscribe to translation bot so we receive stream-message data
+      if (user.uid === STT_TRANSLATION_BOT_UID) {
+        await agoraClient.subscribe(user, mediaType)
+        return
+      }
       await agoraClient.subscribe(user, mediaType)
       if (mediaType === 'video') {
         setRemoteVideoTrack(user.videoTrack ?? null)
@@ -166,8 +166,8 @@ function VideoCallRoom({
       setHasRemoteUser(false)
     }
 
-    const handleStreamMessage = (_user: IAgoraRTCRemoteUser, payload: Uint8Array) => {
-      if (_user.uid !== STT_TRANSLATION_BOT_UID) return
+    const handleStreamMessage = (senderUid: number, payload: Uint8Array) => {
+      if (senderUid !== STT_TRANSLATION_BOT_UID) return
       try {
         const msg = decodeSttMessage(payload)
 
@@ -175,9 +175,7 @@ function VideoCallRoom({
         const isFinal = msg.words.length > 0 && msg.words[msg.words.length - 1].isFinal
         const translated = msg.trans?.[0]?.texts?.join('') || ''
         const speakerUid = Number(msg.uid) || 0
-        const isLocal = speakerUid === Number(localUid.current)
-
-        console.log('[STT]', { speakerUid, isLocal, isFinal, text, translated, trans: msg.trans })
+        const isLocal = speakerUid === uid
 
         setSubtitle({
           original: text,
@@ -196,8 +194,7 @@ function VideoCallRoom({
     agoraClient.on('stream-message', handleStreamMessage)
 
     async function init() {
-      const joinedUid = await agoraClient.join(appId, channelName, token, uid)
-      localUid.current = joinedUid
+      await agoraClient.join(appId, channelName, token, uid)
       audioTrack = await AgoraRTC.createMicrophoneAudioTrack()
       videoTrack = await AgoraRTC.createCameraVideoTrack()
 
@@ -223,6 +220,9 @@ function VideoCallRoom({
       agoraClient.off('stream-message', handleStreamMessage)
       if (!hasLeft.current) {
         hasLeft.current = true
+        if (isSttActiveRef.current) {
+          stopSttRef.current({ id: appointmentId }).catch(() => {})
+        }
         audioTrack?.stop()
         audioTrack?.close()
         videoTrack?.stop()
@@ -230,7 +230,7 @@ function VideoCallRoom({
         agoraClient.leave().catch(() => {})
       }
     }
-  }, [appId, channelName, token, uid, agoraClient])
+  }, [appId, channelName, token, uid, agoraClient, appointmentId])
 
   // Play local video
   useEffect(() => {
@@ -262,56 +262,18 @@ function VideoCallRoom({
     }
   }, [remoteAudioTrack])
 
-  const markComplete = useMarkComplete({
-    mutation: {
-      onSuccess: () => {
-        toast.success('Đã đánh dấu hoàn thành')
-        queryClient.invalidateQueries({
-          queryKey: [
-            {
-              url: '/api/appointments/:id',
-              params: { id: appointmentId },
-            },
-          ],
-        })
-        queryClient.invalidateQueries({
-          queryKey: [{ url: '/api/appointments/admin/all' }],
-        })
-        if (userType === 'DOCTOR') {
-          navigate({ to: '/my-appointments' })
-        } else {
-          navigate({
-            to: '/appointments/$id',
-            params: { id: String(appointmentId) },
-          })
-        }
-      },
-      onError: () => {
-        toast.error('Có lỗi xảy ra')
-      },
-    },
-  })
-
   const startStt = useStartStt()
   const stopStt = useStopStt()
+  const isSttActiveRef = useRef(false)
+  const stopSttRef = useRef(stopStt.mutateAsync)
+  stopSttRef.current = stopStt.mutateAsync
 
-  const toggleStt = useCallback(async () => {
-    if (isSttActive) {
-      await stopStt.mutateAsync({ id: appointmentId })
-      setIsSttActive(false)
-      setSubtitle(null)
-    } else {
-      await startStt.mutateAsync({ id: appointmentId })
-      setIsSttActive(true)
-    }
-  }, [isSttActive, startStt, stopStt, appointmentId])
-
-  const handleEndCall = useCallback(async () => {
+  const leaveCall = useCallback(async () => {
     if (hasLeft.current) return
     hasLeft.current = true
 
     // Stop STT if active
-    if (isSttActive) {
+    if (isSttActiveRef.current) {
       stopStt.mutateAsync({ id: appointmentId }).catch(() => {})
     }
 
@@ -323,7 +285,23 @@ function VideoCallRoom({
 
     // Await leave to ensure full cleanup before navigating
     await agoraClient.leave().catch(() => {})
+  }, [localVideoTrack, localAudioTrack, agoraClient, stopStt, appointmentId])
 
+  const toggleStt = useCallback(async () => {
+    if (isSttActive) {
+      await stopStt.mutateAsync({ id: appointmentId })
+      setIsSttActive(false)
+      isSttActiveRef.current = false
+      setSubtitle(null)
+    } else {
+      await startStt.mutateAsync({ id: appointmentId })
+      setIsSttActive(true)
+      isSttActiveRef.current = true
+    }
+  }, [isSttActive, startStt, stopStt, appointmentId])
+
+  const handleEndCall = useCallback(async () => {
+    await leaveCall()
     if (userType === 'DOCTOR') {
       navigate({ to: '/my-appointments' })
     } else {
@@ -332,11 +310,7 @@ function VideoCallRoom({
         params: { id: String(appointmentId) },
       })
     }
-  }, [localVideoTrack, localAudioTrack, navigate, appointmentId, userType, agoraClient, isSttActive, stopStt])
-
-  const handleMarkComplete = useCallback(() => {
-    markComplete.mutate({ id: appointmentId })
-  }, [markComplete, appointmentId])
+  }, [leaveCall, navigate, appointmentId, userType])
 
   const toggleMic = useCallback(async () => {
     if (localAudioTrack) {
@@ -443,20 +417,6 @@ function VideoCallRoom({
             )}
           </Button>
         )}
-
-        <Button
-          variant='secondary'
-          size='icon'
-          className='h-12 w-12 rounded-full'
-          onClick={handleMarkComplete}
-          disabled={markComplete.isPending}
-        >
-          {markComplete.isPending ? (
-            <Loader2 className='h-5 w-5 animate-spin' />
-          ) : (
-            <CheckCircle className='h-5 w-5 text-green-500' />
-          )}
-        </Button>
 
         <Button
           variant='destructive'
