@@ -1,50 +1,50 @@
-export type { CreateNewsMutationKey } from './useCreateNews.ts'
-export type { GetAllNewsQueryKey } from './useGetAllNews.ts'
-export type { GetAllNewsSuspenseQueryKey } from './useGetAllNewsSuspense.ts'
-export type { GetNewsByIdQueryKey } from './useGetNewsById.ts'
-export type { GetNewsByIdSuspenseQueryKey } from './useGetNewsByIdSuspense.ts'
-export type { GetPublishedNewsQueryKey } from './useGetPublishedNews.ts'
-export type { GetPublishedNewsByIdQueryKey } from './useGetPublishedNewsById.ts'
-export type { GetPublishedNewsByIdSuspenseQueryKey } from './useGetPublishedNewsByIdSuspense.ts'
-export type { GetPublishedNewsSuspenseQueryKey } from './useGetPublishedNewsSuspense.ts'
-export type { UpdateNewsMutationKey } from './useUpdateNews.ts'
-export { createNewsMutationKey } from './useCreateNews.ts'
-export { createNews } from './useCreateNews.ts'
-export { createNewsMutationOptions } from './useCreateNews.ts'
-export { useCreateNews } from './useCreateNews.ts'
-export { getAllNewsQueryKey } from './useGetAllNews.ts'
-export { getAllNews } from './useGetAllNews.ts'
-export { getAllNewsQueryOptions } from './useGetAllNews.ts'
-export { useGetAllNews } from './useGetAllNews.ts'
-export { getAllNewsSuspenseQueryKey } from './useGetAllNewsSuspense.ts'
-export { getAllNewsSuspense } from './useGetAllNewsSuspense.ts'
-export { getAllNewsSuspenseQueryOptions } from './useGetAllNewsSuspense.ts'
-export { useGetAllNewsSuspense } from './useGetAllNewsSuspense.ts'
-export { getNewsByIdQueryKey } from './useGetNewsById.ts'
-export { getNewsById } from './useGetNewsById.ts'
-export { getNewsByIdQueryOptions } from './useGetNewsById.ts'
-export { useGetNewsById } from './useGetNewsById.ts'
-export { getNewsByIdSuspenseQueryKey } from './useGetNewsByIdSuspense.ts'
-export { getNewsByIdSuspense } from './useGetNewsByIdSuspense.ts'
-export { getNewsByIdSuspenseQueryOptions } from './useGetNewsByIdSuspense.ts'
-export { useGetNewsByIdSuspense } from './useGetNewsByIdSuspense.ts'
-export { getPublishedNewsQueryKey } from './useGetPublishedNews.ts'
-export { getPublishedNews } from './useGetPublishedNews.ts'
-export { getPublishedNewsQueryOptions } from './useGetPublishedNews.ts'
-export { useGetPublishedNews } from './useGetPublishedNews.ts'
-export { getPublishedNewsByIdQueryKey } from './useGetPublishedNewsById.ts'
-export { getPublishedNewsById } from './useGetPublishedNewsById.ts'
-export { getPublishedNewsByIdQueryOptions } from './useGetPublishedNewsById.ts'
-export { useGetPublishedNewsById } from './useGetPublishedNewsById.ts'
-export { getPublishedNewsByIdSuspenseQueryKey } from './useGetPublishedNewsByIdSuspense.ts'
-export { getPublishedNewsByIdSuspense } from './useGetPublishedNewsByIdSuspense.ts'
-export { getPublishedNewsByIdSuspenseQueryOptions } from './useGetPublishedNewsByIdSuspense.ts'
-export { useGetPublishedNewsByIdSuspense } from './useGetPublishedNewsByIdSuspense.ts'
-export { getPublishedNewsSuspenseQueryKey } from './useGetPublishedNewsSuspense.ts'
-export { getPublishedNewsSuspense } from './useGetPublishedNewsSuspense.ts'
-export { getPublishedNewsSuspenseQueryOptions } from './useGetPublishedNewsSuspense.ts'
-export { useGetPublishedNewsSuspense } from './useGetPublishedNewsSuspense.ts'
-export { updateNewsMutationKey } from './useUpdateNews.ts'
-export { updateNews } from './useUpdateNews.ts'
-export { updateNewsMutationOptions } from './useUpdateNews.ts'
-export { useUpdateNews } from './useUpdateNews.ts'
+export type { CreateNewsMutationKey } from "./useCreateNews.ts";
+export type { GetAllNewsQueryKey } from "./useGetAllNews.ts";
+export type { GetAllNewsSuspenseQueryKey } from "./useGetAllNewsSuspense.ts";
+export type { GetNewsByIdQueryKey } from "./useGetNewsById.ts";
+export type { GetNewsByIdSuspenseQueryKey } from "./useGetNewsByIdSuspense.ts";
+export type { GetPublishedNewsQueryKey } from "./useGetPublishedNews.ts";
+export type { GetPublishedNewsByIdQueryKey } from "./useGetPublishedNewsById.ts";
+export type { GetPublishedNewsByIdSuspenseQueryKey } from "./useGetPublishedNewsByIdSuspense.ts";
+export type { GetPublishedNewsSuspenseQueryKey } from "./useGetPublishedNewsSuspense.ts";
+export type { UpdateNewsMutationKey } from "./useUpdateNews.ts";
+export { createNewsMutationKey } from "./useCreateNews.ts";
+export { createNews } from "./useCreateNews.ts";
+export { createNewsMutationOptions } from "./useCreateNews.ts";
+export { useCreateNews } from "./useCreateNews.ts";
+export { getAllNewsQueryKey } from "./useGetAllNews.ts";
+export { getAllNews } from "./useGetAllNews.ts";
+export { getAllNewsQueryOptions } from "./useGetAllNews.ts";
+export { useGetAllNews } from "./useGetAllNews.ts";
+export { getAllNewsSuspenseQueryKey } from "./useGetAllNewsSuspense.ts";
+export { getAllNewsSuspense } from "./useGetAllNewsSuspense.ts";
+export { getAllNewsSuspenseQueryOptions } from "./useGetAllNewsSuspense.ts";
+export { useGetAllNewsSuspense } from "./useGetAllNewsSuspense.ts";
+export { getNewsByIdQueryKey } from "./useGetNewsById.ts";
+export { getNewsById } from "./useGetNewsById.ts";
+export { getNewsByIdQueryOptions } from "./useGetNewsById.ts";
+export { useGetNewsById } from "./useGetNewsById.ts";
+export { getNewsByIdSuspenseQueryKey } from "./useGetNewsByIdSuspense.ts";
+export { getNewsByIdSuspense } from "./useGetNewsByIdSuspense.ts";
+export { getNewsByIdSuspenseQueryOptions } from "./useGetNewsByIdSuspense.ts";
+export { useGetNewsByIdSuspense } from "./useGetNewsByIdSuspense.ts";
+export { getPublishedNewsQueryKey } from "./useGetPublishedNews.ts";
+export { getPublishedNews } from "./useGetPublishedNews.ts";
+export { getPublishedNewsQueryOptions } from "./useGetPublishedNews.ts";
+export { useGetPublishedNews } from "./useGetPublishedNews.ts";
+export { getPublishedNewsByIdQueryKey } from "./useGetPublishedNewsById.ts";
+export { getPublishedNewsById } from "./useGetPublishedNewsById.ts";
+export { getPublishedNewsByIdQueryOptions } from "./useGetPublishedNewsById.ts";
+export { useGetPublishedNewsById } from "./useGetPublishedNewsById.ts";
+export { getPublishedNewsByIdSuspenseQueryKey } from "./useGetPublishedNewsByIdSuspense.ts";
+export { getPublishedNewsByIdSuspense } from "./useGetPublishedNewsByIdSuspense.ts";
+export { getPublishedNewsByIdSuspenseQueryOptions } from "./useGetPublishedNewsByIdSuspense.ts";
+export { useGetPublishedNewsByIdSuspense } from "./useGetPublishedNewsByIdSuspense.ts";
+export { getPublishedNewsSuspenseQueryKey } from "./useGetPublishedNewsSuspense.ts";
+export { getPublishedNewsSuspense } from "./useGetPublishedNewsSuspense.ts";
+export { getPublishedNewsSuspenseQueryOptions } from "./useGetPublishedNewsSuspense.ts";
+export { useGetPublishedNewsSuspense } from "./useGetPublishedNewsSuspense.ts";
+export { updateNewsMutationKey } from "./useUpdateNews.ts";
+export { updateNews } from "./useUpdateNews.ts";
+export { updateNewsMutationOptions } from "./useUpdateNews.ts";
+export { useUpdateNews } from "./useUpdateNews.ts";
