@@ -1,6 +1,7 @@
 import { KpiCards } from './components/kpi-cards'
 import { RevenueChart } from './components/revenue-chart'
 import { RevenueBreakdown } from './components/revenue-breakdown'
+import { PackageRevenueBreakdown } from './components/package-revenue-breakdown'
 import { TopSpendersTable } from './components/top-spenders-table'
 
 export function OverviewTab() {
@@ -8,13 +9,11 @@ export function OverviewTab() {
     <div className="space-y-6">
       <KpiCards />
 
-      <div className="grid grid-cols-1 gap-6 lg:grid-cols-7">
-        <div className="lg:col-span-5">
-          <RevenueChart />
-        </div>
-        <div className="lg:col-span-2">
-          <RevenueBreakdown />
-        </div>
+      <RevenueChart />
+
+      <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
+        <RevenueBreakdown />
+        <PackageRevenueBreakdown />
       </div>
 
       <TopSpendersTable />
