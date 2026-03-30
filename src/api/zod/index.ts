@@ -1,5 +1,6 @@
 export { addBalanceRequestSchema } from './addBalanceRequestSchema.ts'
 export { appointmentDataPointResponseSchema } from './appointmentDataPointResponseSchema.ts'
+export { appointmentQrResponseSchema } from './appointmentQrResponseSchema.ts'
 export { appointmentResponseSchema } from './appointmentResponseSchema.ts'
 export {
   assignDoctorPathParamsSchema,
@@ -81,6 +82,11 @@ export {
   getPatientAppointmentsForStaff200Schema,
   getPatientAppointmentsForStaffQueryResponseSchema,
 } from './appointmentsController/getPatientAppointmentsForStaffSchema.ts'
+export {
+  getPaymentQrPathParamsSchema,
+  getPaymentQr200Schema,
+  getPaymentQrQueryResponseSchema,
+} from './appointmentsController/getPaymentQrSchema.ts'
 export {
   getPublicDoctors200Schema,
   getPublicDoctorsQueryResponseSchema,

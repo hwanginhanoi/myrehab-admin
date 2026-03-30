@@ -22,6 +22,8 @@ export type { GetMyAppointmentsQueryKey } from './hooks/AppointmentsHooks/useGet
 export type { GetMyAppointmentsSuspenseQueryKey } from './hooks/AppointmentsHooks/useGetMyAppointmentsSuspense.ts'
 export type { GetPatientAppointmentsForStaffQueryKey } from './hooks/AppointmentsHooks/useGetPatientAppointmentsForStaff.ts'
 export type { GetPatientAppointmentsForStaffSuspenseQueryKey } from './hooks/AppointmentsHooks/useGetPatientAppointmentsForStaffSuspense.ts'
+export type { GetPaymentQrQueryKey } from './hooks/AppointmentsHooks/useGetPaymentQr.ts'
+export type { GetPaymentQrSuspenseQueryKey } from './hooks/AppointmentsHooks/useGetPaymentQrSuspense.ts'
 export type { GetPublicDoctorsQueryKey } from './hooks/AppointmentsHooks/useGetPublicDoctors.ts'
 export type { GetPublicDoctorsSuspenseQueryKey } from './hooks/AppointmentsHooks/useGetPublicDoctorsSuspense.ts'
 export type { GetSttStatusQueryKey } from './hooks/AppointmentsHooks/useGetSttStatus.ts'
@@ -274,9 +276,11 @@ export type { UpdateMyProfileMutationKey } from './hooks/User ManagementHooks/us
 export type { VerifyMyPinMutationKey } from './hooks/User ManagementHooks/useVerifyMyPin.ts'
 export type { AddBalanceRequest } from './types/AddBalanceRequest.ts'
 export type { AppointmentDataPointResponse } from './types/AppointmentDataPointResponse.ts'
+export type { AppointmentQrResponse } from './types/AppointmentQrResponse.ts'
 export type {
   AppointmentResponseStatusEnumKey,
   AppointmentResponseSttLanguageEnumKey,
+  AppointmentResponsePaymentMethodEnumKey,
   AppointmentResponse,
 } from './types/AppointmentResponse.ts'
 export type {
@@ -374,6 +378,12 @@ export type {
   GetPatientAppointmentsForStaffQueryResponse,
   GetPatientAppointmentsForStaffQuery,
 } from './types/appointmentsController/GetPatientAppointmentsForStaff.ts'
+export type {
+  GetPaymentQrPathParams,
+  GetPaymentQr200,
+  GetPaymentQrQueryResponse,
+  GetPaymentQrQuery,
+} from './types/appointmentsController/GetPaymentQr.ts'
 export type {
   GetPublicDoctors200,
   GetPublicDoctorsQueryResponse,
@@ -699,6 +709,7 @@ export type { CourseStatsResponse } from './types/CourseStatsResponse.ts'
 export type { CourseWithDaysResponse } from './types/CourseWithDaysResponse.ts'
 export type {
   CreateAppointmentRequestSttLanguageEnumKey,
+  CreateAppointmentRequestPaymentMethodEnumKey,
   CreateAppointmentRequest,
 } from './types/CreateAppointmentRequest.ts'
 export type {
@@ -1698,6 +1709,14 @@ export { getPatientAppointmentsForStaffSuspenseQueryKey } from './hooks/Appointm
 export { getPatientAppointmentsForStaffSuspense } from './hooks/AppointmentsHooks/useGetPatientAppointmentsForStaffSuspense.ts'
 export { getPatientAppointmentsForStaffSuspenseQueryOptions } from './hooks/AppointmentsHooks/useGetPatientAppointmentsForStaffSuspense.ts'
 export { useGetPatientAppointmentsForStaffSuspense } from './hooks/AppointmentsHooks/useGetPatientAppointmentsForStaffSuspense.ts'
+export { getPaymentQrQueryKey } from './hooks/AppointmentsHooks/useGetPaymentQr.ts'
+export { getPaymentQr } from './hooks/AppointmentsHooks/useGetPaymentQr.ts'
+export { getPaymentQrQueryOptions } from './hooks/AppointmentsHooks/useGetPaymentQr.ts'
+export { useGetPaymentQr } from './hooks/AppointmentsHooks/useGetPaymentQr.ts'
+export { getPaymentQrSuspenseQueryKey } from './hooks/AppointmentsHooks/useGetPaymentQrSuspense.ts'
+export { getPaymentQrSuspense } from './hooks/AppointmentsHooks/useGetPaymentQrSuspense.ts'
+export { getPaymentQrSuspenseQueryOptions } from './hooks/AppointmentsHooks/useGetPaymentQrSuspense.ts'
+export { useGetPaymentQrSuspense } from './hooks/AppointmentsHooks/useGetPaymentQrSuspense.ts'
 export { getPublicDoctorsQueryKey } from './hooks/AppointmentsHooks/useGetPublicDoctors.ts'
 export { getPublicDoctors } from './hooks/AppointmentsHooks/useGetPublicDoctors.ts'
 export { getPublicDoctorsQueryOptions } from './hooks/AppointmentsHooks/useGetPublicDoctors.ts'
@@ -2700,6 +2719,7 @@ export { verifyMyPinMutationOptions } from './hooks/User ManagementHooks/useVeri
 export { useVerifyMyPin } from './hooks/User ManagementHooks/useVerifyMyPin.ts'
 export { appointmentResponseStatusEnum } from './types/AppointmentResponse.ts'
 export { appointmentResponseSttLanguageEnum } from './types/AppointmentResponse.ts'
+export { appointmentResponsePaymentMethodEnum } from './types/AppointmentResponse.ts'
 export { getAllBannersQueryParamsStatusEnum } from './types/bannerManagementController/GetAllBanners.ts'
 export { bannerResponseStatusEnum } from './types/BannerResponse.ts'
 export { categoryResponseTypeEnum } from './types/CategoryResponse.ts'
@@ -2710,6 +2730,7 @@ export { listCourseAssignmentsQueryParamsPurchaseStatusEnum } from './types/cour
 export { getMyAssignedCoursesQueryParamsStatusEnum } from './types/courseProgressController/GetMyAssignedCourses.ts'
 export { courseProgressHistoryResponseArchivalReasonEnum } from './types/CourseProgressHistoryResponse.ts'
 export { createAppointmentRequestSttLanguageEnum } from './types/CreateAppointmentRequest.ts'
+export { createAppointmentRequestPaymentMethodEnum } from './types/CreateAppointmentRequest.ts'
 export { createBannerRequestStatusEnum } from './types/CreateBannerRequest.ts'
 export { createCategoryRequestTypeEnum } from './types/CreateCategoryRequest.ts'
 export { createDiscountRequestApplicableTypeEnum } from './types/CreateDiscountRequest.ts'
@@ -2738,6 +2759,7 @@ export { updateSuperAdminRequestStaffTypeEnum } from './types/UpdateSuperAdminRe
 export { updateTrainerRequestStaffTypeEnum } from './types/UpdateTrainerRequest.ts'
 export { addBalanceRequestSchema } from './zod/addBalanceRequestSchema.ts'
 export { appointmentDataPointResponseSchema } from './zod/appointmentDataPointResponseSchema.ts'
+export { appointmentQrResponseSchema } from './zod/appointmentQrResponseSchema.ts'
 export { appointmentResponseSchema } from './zod/appointmentResponseSchema.ts'
 export {
   assignDoctorPathParamsSchema,
@@ -2819,6 +2841,11 @@ export {
   getPatientAppointmentsForStaff200Schema,
   getPatientAppointmentsForStaffQueryResponseSchema,
 } from './zod/appointmentsController/getPatientAppointmentsForStaffSchema.ts'
+export {
+  getPaymentQrPathParamsSchema,
+  getPaymentQr200Schema,
+  getPaymentQrQueryResponseSchema,
+} from './zod/appointmentsController/getPaymentQrSchema.ts'
 export {
   getPublicDoctors200Schema,
   getPublicDoctorsQueryResponseSchema,

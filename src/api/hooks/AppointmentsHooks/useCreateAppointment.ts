@@ -24,7 +24,7 @@ export type CreateAppointmentMutationKey = ReturnType<
 >
 
 /**
- * @description Patient books an appointment, deducting 200,000 VND from balance
+ * @description Patient books an appointment. Use paymentMethod BALANCE (default) to pay from balance, or QR to pay via bank transfer QR code.
  * @summary Book an appointment
  * {@link /api/appointments}
  */
@@ -71,7 +71,7 @@ export function createAppointmentMutationOptions(
 }
 
 /**
- * @description Patient books an appointment, deducting 200,000 VND from balance
+ * @description Patient books an appointment. Use paymentMethod BALANCE (default) to pay from balance, or QR to pay via bank transfer QR code.
  * @summary Book an appointment
  * {@link /api/appointments}
  */

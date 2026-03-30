@@ -79,6 +79,11 @@ export {
   getPatientAppointmentsForStaffQueryResponseSchema,
 } from './getPatientAppointmentsForStaffSchema.ts'
 export {
+  getPaymentQrPathParamsSchema,
+  getPaymentQr200Schema,
+  getPaymentQrQueryResponseSchema,
+} from './getPaymentQrSchema.ts'
+export {
   getPublicDoctors200Schema,
   getPublicDoctorsQueryResponseSchema,
 } from './getPublicDoctorsSchema.ts'

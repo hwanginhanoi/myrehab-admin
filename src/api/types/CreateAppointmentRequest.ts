@@ -11,6 +11,14 @@ export const createAppointmentRequestSttLanguageEnum = {
 export type CreateAppointmentRequestSttLanguageEnumKey =
   (typeof createAppointmentRequestSttLanguageEnum)[keyof typeof createAppointmentRequestSttLanguageEnum]
 
+export const createAppointmentRequestPaymentMethodEnum = {
+  BALANCE: 'BALANCE',
+  QR: 'QR',
+} as const
+
+export type CreateAppointmentRequestPaymentMethodEnumKey =
+  (typeof createAppointmentRequestPaymentMethodEnum)[keyof typeof createAppointmentRequestPaymentMethodEnum]
+
 export type CreateAppointmentRequest = {
   /**
    * @type string, date
@@ -44,4 +52,8 @@ export type CreateAppointmentRequest = {
    * @type string | undefined
    */
   existingProblems?: string
+  /**
+   * @type string | undefined
+   */
+  paymentMethod?: CreateAppointmentRequestPaymentMethodEnumKey
 }

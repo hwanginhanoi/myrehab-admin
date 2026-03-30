@@ -12,6 +12,7 @@
     "status": {
       "type": "string",
       "enum": [
+        "PENDING_PAYMENT",
         "PENDING_CONFIRMATION",
         "CONFIRMED",
         "DOCTOR_COMPLETED",
@@ -43,6 +44,8 @@
     "pastResultImageKeys": { "type": "array", "items": { "type": "string" } },
     "patientTarget": { "type": "string" },
     "existingProblems": { "type": "string" },
+    "paymentMethod": { "type": "string", "enum": ["BALANCE", "QR"] },
+    "paymentExpiresAt": { "type": "string", "format": "date-time" },
     "createdAt": { "type": "string", "format": "date-time" },
     "updatedAt": { "type": "string", "format": "date-time" }
   },

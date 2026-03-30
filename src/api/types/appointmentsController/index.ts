@@ -94,6 +94,12 @@ export type {
   GetPatientAppointmentsForStaffQuery,
 } from './GetPatientAppointmentsForStaff.ts'
 export type {
+  GetPaymentQrPathParams,
+  GetPaymentQr200,
+  GetPaymentQrQueryResponse,
+  GetPaymentQrQuery,
+} from './GetPaymentQr.ts'
+export type {
   GetPublicDoctors200,
   GetPublicDoctorsQueryResponse,
   GetPublicDoctorsQuery,

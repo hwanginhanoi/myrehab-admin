@@ -1,8 +1,10 @@
 export type { AddBalanceRequest } from './AddBalanceRequest.ts'
 export type { AppointmentDataPointResponse } from './AppointmentDataPointResponse.ts'
+export type { AppointmentQrResponse } from './AppointmentQrResponse.ts'
 export type {
   AppointmentResponseStatusEnumKey,
   AppointmentResponseSttLanguageEnumKey,
+  AppointmentResponsePaymentMethodEnumKey,
   AppointmentResponse,
 } from './AppointmentResponse.ts'
 export type {
@@ -100,6 +102,12 @@ export type {
   GetPatientAppointmentsForStaffQueryResponse,
   GetPatientAppointmentsForStaffQuery,
 } from './appointmentsController/GetPatientAppointmentsForStaff.ts'
+export type {
+  GetPaymentQrPathParams,
+  GetPaymentQr200,
+  GetPaymentQrQueryResponse,
+  GetPaymentQrQuery,
+} from './appointmentsController/GetPaymentQr.ts'
 export type {
   GetPublicDoctors200,
   GetPublicDoctorsQueryResponse,
@@ -425,6 +433,7 @@ export type { CourseStatsResponse } from './CourseStatsResponse.ts'
 export type { CourseWithDaysResponse } from './CourseWithDaysResponse.ts'
 export type {
   CreateAppointmentRequestSttLanguageEnumKey,
+  CreateAppointmentRequestPaymentMethodEnumKey,
   CreateAppointmentRequest,
 } from './CreateAppointmentRequest.ts'
 export type {
@@ -1327,6 +1336,7 @@ export type { VideoTokenResponse } from './VideoTokenResponse.ts'
 export type { WebhookResponse } from './WebhookResponse.ts'
 export { appointmentResponseStatusEnum } from './AppointmentResponse.ts'
 export { appointmentResponseSttLanguageEnum } from './AppointmentResponse.ts'
+export { appointmentResponsePaymentMethodEnum } from './AppointmentResponse.ts'
 export { getAllBannersQueryParamsStatusEnum } from './bannerManagementController/GetAllBanners.ts'
 export { bannerResponseStatusEnum } from './BannerResponse.ts'
 export { categoryResponseTypeEnum } from './CategoryResponse.ts'
@@ -1337,6 +1347,7 @@ export { listCourseAssignmentsQueryParamsPurchaseStatusEnum } from './courseAssi
 export { getMyAssignedCoursesQueryParamsStatusEnum } from './courseProgressController/GetMyAssignedCourses.ts'
 export { courseProgressHistoryResponseArchivalReasonEnum } from './CourseProgressHistoryResponse.ts'
 export { createAppointmentRequestSttLanguageEnum } from './CreateAppointmentRequest.ts'
+export { createAppointmentRequestPaymentMethodEnum } from './CreateAppointmentRequest.ts'
 export { createBannerRequestStatusEnum } from './CreateBannerRequest.ts'
 export { createCategoryRequestTypeEnum } from './CreateCategoryRequest.ts'
 export { createDiscountRequestApplicableTypeEnum } from './CreateDiscountRequest.ts'

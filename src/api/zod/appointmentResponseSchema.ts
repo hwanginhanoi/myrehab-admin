@@ -16,6 +16,7 @@ export const appointmentResponseSchema = z.object({
   endTime: z.optional(z.string()),
   status: z.optional(
     z.enum([
+      'PENDING_PAYMENT',
       'PENDING_CONFIRMATION',
       'CONFIRMED',
       'DOCTOR_COMPLETED',
@@ -47,6 +48,8 @@ export const appointmentResponseSchema = z.object({
   pastResultImageKeys: z.optional(z.array(z.string())),
   patientTarget: z.optional(z.string()),
   existingProblems: z.optional(z.string()),
+  paymentMethod: z.optional(z.enum(['BALANCE', 'QR'])),
+  paymentExpiresAt: z.optional(z.string().datetime()),
   createdAt: z.optional(z.string().datetime()),
   updatedAt: z.optional(z.string().datetime()),
 })

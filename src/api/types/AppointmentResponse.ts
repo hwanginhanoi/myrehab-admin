@@ -4,6 +4,7 @@
  */
 
 export const appointmentResponseStatusEnum = {
+  PENDING_PAYMENT: 'PENDING_PAYMENT',
   PENDING_CONFIRMATION: 'PENDING_CONFIRMATION',
   CONFIRMED: 'CONFIRMED',
   DOCTOR_COMPLETED: 'DOCTOR_COMPLETED',
@@ -24,6 +25,14 @@ export const appointmentResponseSttLanguageEnum = {
 
 export type AppointmentResponseSttLanguageEnumKey =
   (typeof appointmentResponseSttLanguageEnum)[keyof typeof appointmentResponseSttLanguageEnum]
+
+export const appointmentResponsePaymentMethodEnum = {
+  BALANCE: 'BALANCE',
+  QR: 'QR',
+} as const
+
+export type AppointmentResponsePaymentMethodEnumKey =
+  (typeof appointmentResponsePaymentMethodEnum)[keyof typeof appointmentResponsePaymentMethodEnum]
 
 export type AppointmentResponse = {
   /**
@@ -146,6 +155,14 @@ export type AppointmentResponse = {
    * @type string | undefined
    */
   existingProblems?: string
+  /**
+   * @type string | undefined
+   */
+  paymentMethod?: AppointmentResponsePaymentMethodEnumKey
+  /**
+   * @type string | undefined, date-time
+   */
+  paymentExpiresAt?: string
   /**
    * @type string | undefined, date-time
    */

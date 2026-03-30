@@ -8,7 +8,8 @@
     "sttLanguage": { "type": "string", "enum": ["EN_US", "VI_VN"] },
     "pastResultImageKeys": { "type": "array", "items": { "type": "string" } },
     "patientTarget": { "type": "string" },
-    "existingProblems": { "type": "string" }
+    "existingProblems": { "type": "string" },
+    "paymentMethod": { "type": "string", "enum": ["BALANCE", "QR"] }
   },
   "required": ["appointmentDate", "startTime"],
   "x-readme-ref-name": "CreateAppointmentRequest"

@@ -1,0 +1,15 @@
+{
+  "type": "object",
+  "properties": {
+    "appointmentId": { "type": "integer", "format": "int64" },
+    "qrCodeUrl": { "type": "string" },
+    "paymentCode": { "type": "string" },
+    "amount": { "type": "integer", "format": "int64" },
+    "accountNumber": { "type": "string" },
+    "accountName": { "type": "string" },
+    "bankCode": { "type": "string" },
+    "expiresAt": { "type": "string", "format": "date-time" },
+    "instruction": { "type": "string" }
+  },
+  "x-readme-ref-name": "AppointmentQrResponse"
+}
