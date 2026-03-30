@@ -36,7 +36,10 @@
       "Bash(git add:*)",
       "Bash(git commit:*)",
       "Bash(pnpm lint:*)",
-      "Bash(npx tsr:*)"
+      "Bash(npx tsr:*)",
+      "WebFetch(domain:docs-md.agora.io)",
+      "WebFetch(domain:github.com)",
+      "WebFetch(domain:api-ref.agora.io)"
     ]
   }
 }
