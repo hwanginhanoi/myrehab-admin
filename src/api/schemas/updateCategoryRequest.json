@@ -1,1 +1,22 @@
-{"type":"object","properties":{"name":{"type":"object","additionalProperties":{"type":"string"}},"description":{"type":"object","additionalProperties":{"type":"string"}},"type":{"type":"string","enum":["BODY_PART","HEALTH_CONDITION","EXERCISE_TYPE","EXERCISE_EQUIPMENTS","OTHERS"]}},"required":["type"],"x-readme-ref-name":"UpdateCategoryRequest"}
+{
+  "type": "object",
+  "properties": {
+    "name": { "type": "object", "additionalProperties": { "type": "string" } },
+    "description": {
+      "type": "object",
+      "additionalProperties": { "type": "string" }
+    },
+    "type": {
+      "type": "string",
+      "enum": [
+        "BODY_PART",
+        "HEALTH_CONDITION",
+        "EXERCISE_TYPE",
+        "EXERCISE_EQUIPMENTS",
+        "OTHERS"
+      ]
+    }
+  },
+  "required": ["type"],
+  "x-readme-ref-name": "UpdateCategoryRequest"
+}

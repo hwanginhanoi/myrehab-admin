@@ -1,1 +1,5 @@
-export { listCourseAssignmentsQueryParamsSchema, listCourseAssignments200Schema, listCourseAssignmentsQueryResponseSchema } from "./listCourseAssignmentsSchema.ts";
+export {
+  listCourseAssignmentsQueryParamsSchema,
+  listCourseAssignments200Schema,
+  listCourseAssignmentsQueryResponseSchema,
+} from './listCourseAssignmentsSchema.ts'
