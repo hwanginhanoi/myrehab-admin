@@ -1,0 +1,1 @@
+{"type":"object","properties":{"objectKey":{"type":"string"},"category":{"type":"string"}},"x-readme-ref-name":"UploadedFileResponse"}

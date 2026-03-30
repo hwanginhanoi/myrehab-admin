@@ -50,10 +50,26 @@ export function DoctorAppointmentActions({
 
   const isPending = confirmAppointment.isPending || markComplete.isPending
 
+  const viewDetailButton = (
+    <Button
+      size="sm"
+      variant="outline"
+      onClick={() =>
+        navigate({
+          to: '/appointments/$id',
+          params: { id: String(appointment.id) },
+        })
+      }
+    >
+      Xem chi tiết
+    </Button>
+  )
+
   if (appointment.status === 'PENDING_CONFIRMATION') {
     return (
       <>
         <div className="flex gap-2">
+          {viewDetailButton}
           <Button
             size="sm"
             onClick={() => confirmAppointment.mutate({ id: appointment.id! })}
@@ -82,6 +98,7 @@ export function DoctorAppointmentActions({
   if (appointment.status === 'CONFIRMED') {
     return (
       <div className="flex gap-2">
+        {viewDetailButton}
         <Button
           size="sm"
           variant="outline"
@@ -106,5 +123,5 @@ export function DoctorAppointmentActions({
     )
   }
 
-  return null
+  return viewDetailButton
 }

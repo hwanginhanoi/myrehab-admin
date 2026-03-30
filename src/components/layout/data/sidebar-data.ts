@@ -79,6 +79,7 @@ export const sidebarData: SidebarData = {
           title: 'Kỹ thuật viên của tôi',
           url: '/my-trainers',
           icon: Users,
+          allowedRoles: ['DOCTOR'],
         },
         {
           title: 'Bệnh nhân của tôi',
@@ -89,6 +90,7 @@ export const sidebarData: SidebarData = {
           title: 'Lịch hẹn của tôi',
           url: '/my-appointments',
           icon: CalendarDays,
+          allowedRoles: ['DOCTOR'],
         },
         {
           title: 'Yêu cầu khóa tập',
