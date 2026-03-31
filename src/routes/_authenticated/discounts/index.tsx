@@ -12,7 +12,7 @@ const discountsSearchSchema = z.object({
 export const Route = createFileRoute('/_authenticated/discounts/')({
   beforeLoad: async () => {
     const { userType } = useAuthStore.getState()
-    if (userType !== 'SUPER_ADMIN') {
+    if (userType !== 'SUPER_ADMIN' && userType !== 'ADMIN') {
       throw redirect({ to: '/' })
     }
   },
