@@ -1,11 +1,18 @@
 import { type ColumnDef } from '@tanstack/react-table'
 import { DataTableColumnHeader } from '@/components/data-table'
 import type { AppointmentResponse } from '@/api'
-import { formatLocalTime, formatCurrency } from '@/lib/appointment-utils'
+import { formatLocalTime } from '@/lib/appointment-utils'
 import { AppointmentStatusBadge } from './appointment-status-badge'
 import { AppointmentsRowActions } from './appointments-row-actions'
+import { Badge } from '@/components/ui/badge'
 
-export const appointmentsColumns: ColumnDef<AppointmentResponse>[] = [
+// Extend AppointmentResponse with fields pending API regeneration
+type AppointmentRow = AppointmentResponse & {
+  appointmentType?: 'ONLINE' | 'OFFLINE'
+  userPhoneNumber?: string
+}
+
+export const appointmentsColumns: ColumnDef<AppointmentRow>[] = [
   {
     accessorKey: 'id',
     header: ({ column }) => (
@@ -24,6 +31,18 @@ export const appointmentsColumns: ColumnDef<AppointmentResponse>[] = [
         {row.getValue('userName') || '-'}
       </div>
     ),
+  },
+  {
+    accessorKey: 'userPhoneNumber',
+    header: ({ column }) => (
+      <DataTableColumnHeader column={column} title="SĐT bệnh nhân" />
+    ),
+    cell: ({ row }) => (
+      <div className="whitespace-nowrap">
+        {row.getValue('userPhoneNumber') || '-'}
+      </div>
+    ),
+    enableSorting: false,
   },
   {
     accessorKey: 'doctorName',
@@ -69,11 +88,20 @@ export const appointmentsColumns: ColumnDef<AppointmentResponse>[] = [
     },
   },
   {
-    accessorKey: 'fee',
+    accessorKey: 'appointmentType',
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Phí" />
+      <DataTableColumnHeader column={column} title="Loại" />
     ),
-    cell: ({ row }) => <div>{formatCurrency(row.getValue('fee'))}</div>,
+    cell: ({ row }) => {
+      const type = row.getValue<string>('appointmentType')
+      if (!type) return <div>-</div>
+      return type === 'ONLINE' ? (
+        <Badge variant="secondary">Trực tuyến</Badge>
+      ) : (
+        <Badge variant="outline">Trực tiếp</Badge>
+      )
+    },
+    enableSorting: false,
   },
   {
     id: 'actions',
