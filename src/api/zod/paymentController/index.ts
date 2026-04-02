@@ -1,6 +1,7 @@
 export {
   getMyQrCode200Schema,
-  getMyQrCodeQueryResponseSchema,
+  getMyQrCodeMutationRequestSchema,
+  getMyQrCodeMutationResponseSchema,
 } from './getMyQrCodeSchema.ts'
 export {
   handleWebhook200Schema,

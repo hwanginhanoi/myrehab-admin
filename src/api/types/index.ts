@@ -751,6 +751,7 @@ export type {
   UploadFileMutationResponse,
   UploadFileMutation,
 } from './fileManagementController/UploadFile.ts'
+export type { GenerateQrRequest } from './GenerateQrRequest.ts'
 export type { GenerateUploadUrlRequest } from './GenerateUploadUrlRequest.ts'
 export type { GroupResponse } from './GroupResponse.ts'
 export type { LoginWithPasswordRequest } from './LoginWithPasswordRequest.ts'
@@ -850,8 +851,9 @@ export type {
 export type { PatientSummaryResponse } from './PatientSummaryResponse.ts'
 export type {
   GetMyQrCode200,
-  GetMyQrCodeQueryResponse,
-  GetMyQrCodeQuery,
+  GetMyQrCodeMutationRequest,
+  GetMyQrCodeMutationResponse,
+  GetMyQrCodeMutation,
 } from './paymentController/GetMyQrCode.ts'
 export type {
   HandleWebhook200,
@@ -1026,6 +1028,11 @@ export type {
   GetExerciseGroupsByDoctorQueryResponse,
   GetExerciseGroupsByDoctorQuery,
 } from './staffManagementController/GetExerciseGroupsByDoctor.ts'
+export type {
+  GetMyProfile200,
+  GetMyProfileQueryResponse,
+  GetMyProfileQuery,
+} from './staffManagementController/GetMyProfile.ts'
 export type {
   GetStaffByIdPathParams,
   GetStaffById200,

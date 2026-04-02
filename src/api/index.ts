@@ -167,8 +167,7 @@ export type { AssignPatientToDoctorMutationKey } from './hooks/Patient Managemen
 export type { GetDoctorPatientsQueryKey } from './hooks/Patient ManagementHooks/useGetDoctorPatients.ts'
 export type { GetDoctorPatientsSuspenseQueryKey } from './hooks/Patient ManagementHooks/useGetDoctorPatientsSuspense.ts'
 export type { RemovePatientFromDoctorMutationKey } from './hooks/Patient ManagementHooks/useRemovePatientFromDoctor.ts'
-export type { GetMyQrCodeQueryKey } from './hooks/PaymentHooks/useGetMyQrCode.ts'
-export type { GetMyQrCodeSuspenseQueryKey } from './hooks/PaymentHooks/useGetMyQrCodeSuspense.ts'
+export type { GetMyQrCodeMutationKey } from './hooks/PaymentHooks/useGetMyQrCode.ts'
 export type { HandleWebhookMutationKey } from './hooks/PaymentHooks/useHandleWebhook.ts'
 export type { CreateFormMutationKey } from './hooks/Rehabilitation Examination Form ManagementHooks/useCreateForm.ts'
 export type { GetAllFormsQueryKey } from './hooks/Rehabilitation Examination Form ManagementHooks/useGetAllForms.ts'
@@ -209,6 +208,8 @@ export type { GetAvailableTrainersForDoctorQueryKey } from './hooks/Staff Manage
 export type { GetAvailableTrainersForDoctorSuspenseQueryKey } from './hooks/Staff ManagementHooks/useGetAvailableTrainersForDoctorSuspense.ts'
 export type { GetExerciseGroupsByDoctorQueryKey } from './hooks/Staff ManagementHooks/useGetExerciseGroupsByDoctor.ts'
 export type { GetExerciseGroupsByDoctorSuspenseQueryKey } from './hooks/Staff ManagementHooks/useGetExerciseGroupsByDoctorSuspense.ts'
+export type { GetMyProfileQueryKey } from './hooks/Staff ManagementHooks/useGetMyProfile.ts'
+export type { GetMyProfileSuspenseQueryKey } from './hooks/Staff ManagementHooks/useGetMyProfileSuspense.ts'
 export type { GetStaffByIdQueryKey } from './hooks/Staff ManagementHooks/useGetStaffById.ts'
 export type { GetStaffByIdSuspenseQueryKey } from './hooks/Staff ManagementHooks/useGetStaffByIdSuspense.ts'
 export type { GetTrainersByDoctorQueryKey } from './hooks/Staff ManagementHooks/useGetTrainersByDoctor.ts'
@@ -1027,6 +1028,7 @@ export type {
   UploadFileMutationResponse,
   UploadFileMutation,
 } from './types/fileManagementController/UploadFile.ts'
+export type { GenerateQrRequest } from './types/GenerateQrRequest.ts'
 export type { GenerateUploadUrlRequest } from './types/GenerateUploadUrlRequest.ts'
 export type { GroupResponse } from './types/GroupResponse.ts'
 export type { LoginWithPasswordRequest } from './types/LoginWithPasswordRequest.ts'
@@ -1129,8 +1131,9 @@ export type {
 export type { PatientSummaryResponse } from './types/PatientSummaryResponse.ts'
 export type {
   GetMyQrCode200,
-  GetMyQrCodeQueryResponse,
-  GetMyQrCodeQuery,
+  GetMyQrCodeMutationRequest,
+  GetMyQrCodeMutationResponse,
+  GetMyQrCodeMutation,
 } from './types/paymentController/GetMyQrCode.ts'
 export type {
   HandleWebhook200,
@@ -1305,6 +1308,11 @@ export type {
   GetExerciseGroupsByDoctorQueryResponse,
   GetExerciseGroupsByDoctorQuery,
 } from './types/staffManagementController/GetExerciseGroupsByDoctor.ts'
+export type {
+  GetMyProfile200,
+  GetMyProfileQueryResponse,
+  GetMyProfileQuery,
+} from './types/staffManagementController/GetMyProfile.ts'
 export type {
   GetStaffByIdPathParams,
   GetStaffById200,
@@ -2289,14 +2297,10 @@ export { removePatientFromDoctorMutationKey } from './hooks/Patient ManagementHo
 export { removePatientFromDoctor } from './hooks/Patient ManagementHooks/useRemovePatientFromDoctor.ts'
 export { removePatientFromDoctorMutationOptions } from './hooks/Patient ManagementHooks/useRemovePatientFromDoctor.ts'
 export { useRemovePatientFromDoctor } from './hooks/Patient ManagementHooks/useRemovePatientFromDoctor.ts'
-export { getMyQrCodeQueryKey } from './hooks/PaymentHooks/useGetMyQrCode.ts'
+export { getMyQrCodeMutationKey } from './hooks/PaymentHooks/useGetMyQrCode.ts'
 export { getMyQrCode } from './hooks/PaymentHooks/useGetMyQrCode.ts'
-export { getMyQrCodeQueryOptions } from './hooks/PaymentHooks/useGetMyQrCode.ts'
+export { getMyQrCodeMutationOptions } from './hooks/PaymentHooks/useGetMyQrCode.ts'
 export { useGetMyQrCode } from './hooks/PaymentHooks/useGetMyQrCode.ts'
-export { getMyQrCodeSuspenseQueryKey } from './hooks/PaymentHooks/useGetMyQrCodeSuspense.ts'
-export { getMyQrCodeSuspense } from './hooks/PaymentHooks/useGetMyQrCodeSuspense.ts'
-export { getMyQrCodeSuspenseQueryOptions } from './hooks/PaymentHooks/useGetMyQrCodeSuspense.ts'
-export { useGetMyQrCodeSuspense } from './hooks/PaymentHooks/useGetMyQrCodeSuspense.ts'
 export { handleWebhookMutationKey } from './hooks/PaymentHooks/useHandleWebhook.ts'
 export { handleWebhook } from './hooks/PaymentHooks/useHandleWebhook.ts'
 export { handleWebhookMutationOptions } from './hooks/PaymentHooks/useHandleWebhook.ts'
@@ -2457,6 +2461,14 @@ export { getExerciseGroupsByDoctorSuspenseQueryKey } from './hooks/Staff Managem
 export { getExerciseGroupsByDoctorSuspense } from './hooks/Staff ManagementHooks/useGetExerciseGroupsByDoctorSuspense.ts'
 export { getExerciseGroupsByDoctorSuspenseQueryOptions } from './hooks/Staff ManagementHooks/useGetExerciseGroupsByDoctorSuspense.ts'
 export { useGetExerciseGroupsByDoctorSuspense } from './hooks/Staff ManagementHooks/useGetExerciseGroupsByDoctorSuspense.ts'
+export { getMyProfileQueryKey } from './hooks/Staff ManagementHooks/useGetMyProfile.ts'
+export { getMyProfile } from './hooks/Staff ManagementHooks/useGetMyProfile.ts'
+export { getMyProfileQueryOptions } from './hooks/Staff ManagementHooks/useGetMyProfile.ts'
+export { useGetMyProfile } from './hooks/Staff ManagementHooks/useGetMyProfile.ts'
+export { getMyProfileSuspenseQueryKey } from './hooks/Staff ManagementHooks/useGetMyProfileSuspense.ts'
+export { getMyProfileSuspense } from './hooks/Staff ManagementHooks/useGetMyProfileSuspense.ts'
+export { getMyProfileSuspenseQueryOptions } from './hooks/Staff ManagementHooks/useGetMyProfileSuspense.ts'
+export { useGetMyProfileSuspense } from './hooks/Staff ManagementHooks/useGetMyProfileSuspense.ts'
 export { getStaffByIdQueryKey } from './hooks/Staff ManagementHooks/useGetStaffById.ts'
 export { getStaffById } from './hooks/Staff ManagementHooks/useGetStaffById.ts'
 export { getStaffByIdQueryOptions } from './hooks/Staff ManagementHooks/useGetStaffById.ts'
@@ -3354,6 +3366,7 @@ export {
   uploadFileMutationRequestSchema,
   uploadFileMutationResponseSchema,
 } from './zod/fileManagementController/uploadFileSchema.ts'
+export { generateQrRequestSchema } from './zod/generateQrRequestSchema.ts'
 export { generateUploadUrlRequestSchema } from './zod/generateUploadUrlRequestSchema.ts'
 export { groupResponseSchema } from './zod/groupResponseSchema.ts'
 export { loginWithPasswordRequestSchema } from './zod/loginWithPasswordRequestSchema.ts'
@@ -3443,7 +3456,8 @@ export {
 export { patientSummaryResponseSchema } from './zod/patientSummaryResponseSchema.ts'
 export {
   getMyQrCode200Schema,
-  getMyQrCodeQueryResponseSchema,
+  getMyQrCodeMutationRequestSchema,
+  getMyQrCodeMutationResponseSchema,
 } from './zod/paymentController/getMyQrCodeSchema.ts'
 export {
   handleWebhook200Schema,
@@ -3587,6 +3601,10 @@ export {
   getExerciseGroupsByDoctor200Schema,
   getExerciseGroupsByDoctorQueryResponseSchema,
 } from './zod/staffManagementController/getExerciseGroupsByDoctorSchema.ts'
+export {
+  getMyProfile200Schema,
+  getMyProfileQueryResponseSchema,
+} from './zod/staffManagementController/getMyProfileSchema.ts'
 export {
   getStaffByIdPathParamsSchema,
   getStaffById200Schema,

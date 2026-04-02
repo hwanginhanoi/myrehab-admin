@@ -49,6 +49,11 @@ export type {
   GetExerciseGroupsByDoctorQuery,
 } from './GetExerciseGroupsByDoctor.ts'
 export type {
+  GetMyProfile200,
+  GetMyProfileQueryResponse,
+  GetMyProfileQuery,
+} from './GetMyProfile.ts'
+export type {
   GetStaffByIdPathParams,
   GetStaffById200,
   GetStaffByIdQueryResponse,

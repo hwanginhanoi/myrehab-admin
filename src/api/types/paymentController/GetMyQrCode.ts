@@ -3,6 +3,7 @@
  * Do not edit manually.
  */
 
+import type { GenerateQrRequest } from '../GenerateQrRequest.ts'
 import type { QrCodeResponse } from '../QrCodeResponse.ts'
 
 /**
@@ -10,9 +11,12 @@ import type { QrCodeResponse } from '../QrCodeResponse.ts'
  */
 export type GetMyQrCode200 = QrCodeResponse
 
-export type GetMyQrCodeQueryResponse = GetMyQrCode200
+export type GetMyQrCodeMutationRequest = GenerateQrRequest
 
-export type GetMyQrCodeQuery = {
+export type GetMyQrCodeMutationResponse = GetMyQrCode200
+
+export type GetMyQrCodeMutation = {
   Response: GetMyQrCode200
+  Request: GetMyQrCodeMutationRequest
   Errors: any
 }

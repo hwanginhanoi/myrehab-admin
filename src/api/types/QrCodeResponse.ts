@@ -11,10 +11,6 @@ export type QrCodeResponse = {
   /**
    * @type string | undefined
    */
-  qrCodeDataUrl?: string
-  /**
-   * @type string | undefined
-   */
   paymentCode?: string
   /**
    * @type string | undefined
@@ -32,4 +28,20 @@ export type QrCodeResponse = {
    * @type string | undefined
    */
   instruction?: string
+  /**
+   * @type integer | undefined, int64
+   */
+  transferAmount?: number
+  /**
+   * @type integer | undefined, int32
+   */
+  bonusPercent?: number
+  /**
+   * @type integer | undefined, int64
+   */
+  bonusAmount?: number
+  /**
+   * @type integer | undefined, int64
+   */
+  creditAmount?: number
 }

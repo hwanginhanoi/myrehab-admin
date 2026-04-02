@@ -4,96 +4,115 @@
  */
 
 import fetch from '@/lib/api-client'
-import type { GetMyQrCodeQueryResponse } from '../../types/paymentController/GetMyQrCode.ts'
+import type {
+  GetMyQrCodeMutationRequest,
+  GetMyQrCodeMutationResponse,
+} from '../../types/paymentController/GetMyQrCode.ts'
 import type { RequestConfig, ResponseErrorConfig } from '@/lib/api-client'
 import type {
-  QueryKey,
+  UseMutationOptions,
+  UseMutationResult,
   QueryClient,
-  QueryObserverOptions,
-  UseQueryResult,
 } from '@tanstack/react-query'
-import { queryOptions, useQuery } from '@tanstack/react-query'
+import { mutationOptions, useMutation } from '@tanstack/react-query'
 
-export const getMyQrCodeQueryKey = () =>
+export const getMyQrCodeMutationKey = () =>
   [{ url: '/api/payment/qr/my-qr' }] as const
 
-export type GetMyQrCodeQueryKey = ReturnType<typeof getMyQrCodeQueryKey>
+export type GetMyQrCodeMutationKey = ReturnType<typeof getMyQrCodeMutationKey>
 
 /**
- * @description Generate a reusable VietQR code for depositing balance via bank transfer. The QR code contains a unique payment code that identifies the user. Can be saved and used multiple times with different amounts.
- * @summary Get my payment QR code
+ * @description Generate a VietQR code pre-filled with the chosen top-up amount. transferAmount must be one of: 300000, 1000000, 2000000, 5000000. The response includes the bonus and total credit amount for that tier.
+ * @summary Generate top-up QR code
  * {@link /api/payment/qr/my-qr}
  */
 export async function getMyQrCode(
-  config: Partial<RequestConfig> & { client?: typeof fetch } = {}
+  data: GetMyQrCodeMutationRequest,
+  config: Partial<RequestConfig<GetMyQrCodeMutationRequest>> & {
+    client?: typeof fetch
+  } = {}
 ) {
   const { client: request = fetch, ...requestConfig } = config
 
+  const requestData = data
+
   const res = await request<
-    GetMyQrCodeQueryResponse,
+    GetMyQrCodeMutationResponse,
     ResponseErrorConfig<Error>,
-    unknown
-  >({ method: 'GET', url: `/api/payment/qr/my-qr`, ...requestConfig })
+    GetMyQrCodeMutationRequest
+  >({
+    method: 'POST',
+    url: `/api/payment/qr/my-qr`,
+    data: requestData,
+    ...requestConfig,
+  })
   return res.data
 }
 
-export function getMyQrCodeQueryOptions(
-  config: Partial<RequestConfig> & { client?: typeof fetch } = {}
+export function getMyQrCodeMutationOptions(
+  config: Partial<RequestConfig<GetMyQrCodeMutationRequest>> & {
+    client?: typeof fetch
+  } = {}
 ) {
-  const queryKey = getMyQrCodeQueryKey()
-  return queryOptions<
-    GetMyQrCodeQueryResponse,
+  const mutationKey = getMyQrCodeMutationKey()
+  return mutationOptions<
+    GetMyQrCodeMutationResponse,
     ResponseErrorConfig<Error>,
-    GetMyQrCodeQueryResponse,
-    typeof queryKey
+    { data: GetMyQrCodeMutationRequest },
+    typeof mutationKey
   >({
-    queryKey,
-    queryFn: async ({ signal }) => {
-      config.signal = signal
-      return getMyQrCode(config)
+    mutationKey,
+    mutationFn: async ({ data }) => {
+      return getMyQrCode(data, config)
     },
   })
 }
 
 /**
- * @description Generate a reusable VietQR code for depositing balance via bank transfer. The QR code contains a unique payment code that identifies the user. Can be saved and used multiple times with different amounts.
- * @summary Get my payment QR code
+ * @description Generate a VietQR code pre-filled with the chosen top-up amount. transferAmount must be one of: 300000, 1000000, 2000000, 5000000. The response includes the bonus and total credit amount for that tier.
+ * @summary Generate top-up QR code
  * {@link /api/payment/qr/my-qr}
  */
-export function useGetMyQrCode<
-  TData = GetMyQrCodeQueryResponse,
-  TQueryData = GetMyQrCodeQueryResponse,
-  TQueryKey extends QueryKey = GetMyQrCodeQueryKey,
->(
+export function useGetMyQrCode<TContext>(
   options: {
-    query?: Partial<
-      QueryObserverOptions<
-        GetMyQrCodeQueryResponse,
-        ResponseErrorConfig<Error>,
-        TData,
-        TQueryData,
-        TQueryKey
-      >
+    mutation?: UseMutationOptions<
+      GetMyQrCodeMutationResponse,
+      ResponseErrorConfig<Error>,
+      { data: GetMyQrCodeMutationRequest },
+      TContext
     > & { client?: QueryClient }
-    client?: Partial<RequestConfig> & { client?: typeof fetch }
+    client?: Partial<RequestConfig<GetMyQrCodeMutationRequest>> & {
+      client?: typeof fetch
+    }
   } = {}
 ) {
-  const { query: queryConfig = {}, client: config = {} } = options ?? {}
-  const { client: queryClient, ...queryOptions } = queryConfig
-  const queryKey = queryOptions?.queryKey ?? getMyQrCodeQueryKey()
+  const { mutation = {}, client: config = {} } = options ?? {}
+  const { client: queryClient, ...mutationOptions } = mutation
+  const mutationKey = mutationOptions.mutationKey ?? getMyQrCodeMutationKey()
 
-  const query = useQuery(
+  const baseOptions = getMyQrCodeMutationOptions(config) as UseMutationOptions<
+    GetMyQrCodeMutationResponse,
+    ResponseErrorConfig<Error>,
+    { data: GetMyQrCodeMutationRequest },
+    TContext
+  >
+
+  return useMutation<
+    GetMyQrCodeMutationResponse,
+    ResponseErrorConfig<Error>,
+    { data: GetMyQrCodeMutationRequest },
+    TContext
+  >(
     {
-      ...getMyQrCodeQueryOptions(config),
-      queryKey,
-      ...queryOptions,
-    } as unknown as QueryObserverOptions,
+      ...baseOptions,
+      mutationKey,
+      ...mutationOptions,
+    },
     queryClient
-  ) as UseQueryResult<TData, ResponseErrorConfig<Error>> & {
-    queryKey: TQueryKey
-  }
-
-  query.queryKey = queryKey as TQueryKey
-
-  return query
+  ) as UseMutationResult<
+    GetMyQrCodeMutationResponse,
+    ResponseErrorConfig<Error>,
+    { data: GetMyQrCodeMutationRequest },
+    TContext
+  >
 }

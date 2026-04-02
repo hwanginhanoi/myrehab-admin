@@ -3,6 +3,7 @@
  * Do not edit manually.
  */
 
+import { generateQrRequestSchema } from '../generateQrRequestSchema.ts'
 import { qrCodeResponseSchema } from '../qrCodeResponseSchema.ts'
 import { z } from 'zod/v4'
 
@@ -11,4 +12,10 @@ import { z } from 'zod/v4'
  */
 export const getMyQrCode200Schema = z.lazy(() => qrCodeResponseSchema)
 
-export const getMyQrCodeQueryResponseSchema = z.lazy(() => getMyQrCode200Schema)
+export const getMyQrCodeMutationRequestSchema = z.lazy(
+  () => generateQrRequestSchema
+)
+
+export const getMyQrCodeMutationResponseSchema = z.lazy(
+  () => getMyQrCode200Schema
+)

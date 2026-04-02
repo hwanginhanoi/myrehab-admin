@@ -40,6 +40,10 @@ export {
   getExerciseGroupsByDoctorQueryResponseSchema,
 } from './getExerciseGroupsByDoctorSchema.ts'
 export {
+  getMyProfile200Schema,
+  getMyProfileQueryResponseSchema,
+} from './getMyProfileSchema.ts'
+export {
   getStaffByIdPathParamsSchema,
   getStaffById200Schema,
   getStaffByIdQueryResponseSchema,

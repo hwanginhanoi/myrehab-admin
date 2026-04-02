@@ -595,6 +595,7 @@ export {
   uploadFileMutationRequestSchema,
   uploadFileMutationResponseSchema,
 } from './fileManagementController/uploadFileSchema.ts'
+export { generateQrRequestSchema } from './generateQrRequestSchema.ts'
 export { generateUploadUrlRequestSchema } from './generateUploadUrlRequestSchema.ts'
 export { groupResponseSchema } from './groupResponseSchema.ts'
 export { loginWithPasswordRequestSchema } from './loginWithPasswordRequestSchema.ts'
@@ -684,7 +685,8 @@ export {
 export { patientSummaryResponseSchema } from './patientSummaryResponseSchema.ts'
 export {
   getMyQrCode200Schema,
-  getMyQrCodeQueryResponseSchema,
+  getMyQrCodeMutationRequestSchema,
+  getMyQrCodeMutationResponseSchema,
 } from './paymentController/getMyQrCodeSchema.ts'
 export {
   handleWebhook200Schema,
@@ -828,6 +830,10 @@ export {
   getExerciseGroupsByDoctor200Schema,
   getExerciseGroupsByDoctorQueryResponseSchema,
 } from './staffManagementController/getExerciseGroupsByDoctorSchema.ts'
+export {
+  getMyProfile200Schema,
+  getMyProfileQueryResponseSchema,
+} from './staffManagementController/getMyProfileSchema.ts'
 export {
   getStaffByIdPathParamsSchema,
   getStaffById200Schema,
