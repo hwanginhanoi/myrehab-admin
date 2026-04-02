@@ -6,7 +6,6 @@ import {
   // FileX,
   // Lock,
   Package,
-  Palette,
   Percent,
   // ServerOff,
   // UserX,
