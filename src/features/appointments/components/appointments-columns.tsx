@@ -12,15 +12,13 @@ type AppointmentRow = AppointmentResponse & {
   userPhoneNumber?: string
 }
 
+const paymentMethodLabels: Record<string, string> = {
+  BALANCE: 'Số dư tài khoản',
+  QR: 'QR Code',
+  PAY_AT_CLINIC: 'Tại phòng khám',
+}
+
 export const appointmentsColumns: ColumnDef<AppointmentRow>[] = [
-  {
-    accessorKey: 'id',
-    header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="ID" />
-    ),
-    cell: ({ row }) => <div className="w-10">#{row.getValue('id')}</div>,
-    enableHiding: false,
-  },
   {
     accessorKey: 'userName',
     header: ({ column }) => (
@@ -100,6 +98,17 @@ export const appointmentsColumns: ColumnDef<AppointmentRow>[] = [
       ) : (
         <Badge variant="outline">Trực tiếp</Badge>
       )
+    },
+    enableSorting: false,
+  },
+  {
+    accessorKey: 'paymentMethod',
+    header: ({ column }) => (
+      <DataTableColumnHeader column={column} title="Hình thức thanh toán" />
+    ),
+    cell: ({ row }) => {
+      const method = row.getValue<string>('paymentMethod')
+      return <div>{method ? paymentMethodLabels[method] ?? method : '-'}</div>
     },
     enableSorting: false,
   },

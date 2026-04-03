@@ -34,7 +34,8 @@ export type AppointmentResponseSttLanguageEnumKey = (typeof appointmentResponseS
 
 export const appointmentResponsePaymentMethodEnum = {
     "BALANCE": "BALANCE",
-    "QR": "QR"
+    "QR": "QR",
+    "PAY_AT_CLINIC": "PAY_AT_CLINIC"
 } as const;
 
 export type AppointmentResponsePaymentMethodEnumKey = (typeof appointmentResponsePaymentMethodEnum)[keyof typeof appointmentResponsePaymentMethodEnum];

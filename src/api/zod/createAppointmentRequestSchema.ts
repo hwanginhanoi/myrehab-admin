@@ -15,5 +15,5 @@ export const createAppointmentRequestSchema = z.object({
 "pastResultImageKeys": z.optional(z.array(z.string())),
 "patientTarget": z.optional(z.string()),
 "existingProblems": z.optional(z.string()),
-"paymentMethod": z.optional(z.enum(["BALANCE", "QR"]))
+"paymentMethod": z.optional(z.enum(["BALANCE", "QR", "PAY_AT_CLINIC"]))
     })

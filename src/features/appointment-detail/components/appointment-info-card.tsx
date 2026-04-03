@@ -4,6 +4,12 @@ import type { AppointmentResponse } from '@/api'
 import { formatLocalTime, formatCurrency } from '@/lib/appointment-utils'
 import { AppointmentStatusBadge } from '@/features/appointments/components/appointment-status-badge'
 
+const paymentMethodLabels: Record<string, string> = {
+  BALANCE: 'Số dư tài khoản',
+  QR: 'QR Code',
+  PAY_AT_CLINIC: 'Tại phòng khám',
+}
+
 
 type AppointmentInfoCardProps = {
   appointment: AppointmentResponse
@@ -34,11 +40,13 @@ export function AppointmentInfoCard({ appointment }: AppointmentInfoCardProps) {
           <InfoItem label="Phí khám">
             {formatCurrency(appointment.fee)}
           </InfoItem>
+          <InfoItem label="Hình thức thanh toán">
+            {appointment.paymentMethod
+              ? paymentMethodLabels[appointment.paymentMethod] ?? appointment.paymentMethod
+              : '-'}
+          </InfoItem>
           {appointment.patientNotes && (
-            <InfoItem
-              label="Ghi chú bệnh nhân"
-              className="sm:col-span-2 lg:col-span-3"
-            >
+            <InfoItem label="Ghi chú bệnh nhân">
               {appointment.patientNotes}
             </InfoItem>
           )}
