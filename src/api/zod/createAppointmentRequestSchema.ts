@@ -6,6 +6,7 @@
 import { z } from 'zod/v4'
 
 export const createAppointmentRequestSchema = z.object({
+  appointmentType: z.optional(z.enum(['ONLINE', 'OFFLINE'])),
   appointmentDate: z.iso.date(),
   startTime: z.string(),
   doctorId: z.optional(z.int()),
@@ -14,5 +15,5 @@ export const createAppointmentRequestSchema = z.object({
   pastResultImageKeys: z.optional(z.array(z.string())),
   patientTarget: z.optional(z.string()),
   existingProblems: z.optional(z.string()),
-  paymentMethod: z.optional(z.enum(['BALANCE', 'QR'])),
+  paymentMethod: z.optional(z.enum(['BALANCE', 'QR', 'PAY_AT_CLINIC'])),
 })

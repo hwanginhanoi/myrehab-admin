@@ -9,6 +9,7 @@
           "id": { "type": "integer", "format": "int64" },
           "userId": { "type": "integer", "format": "int64" },
           "userName": { "type": "string" },
+          "userPhoneNumber": { "type": "string" },
           "doctorId": { "type": "integer", "format": "int64" },
           "doctorName": { "type": "string" },
           "appointmentDate": { "type": "string", "format": "date" },
@@ -27,6 +28,10 @@
               "DISPUTED",
               "REFUNDED"
             ]
+          },
+          "appointmentType": {
+            "type": "string",
+            "enum": ["ONLINE", "OFFLINE"]
           },
           "fee": { "type": "integer", "format": "int64" },
           "originalFee": { "type": "integer", "format": "int64" },
@@ -52,7 +57,10 @@
           },
           "patientTarget": { "type": "string" },
           "existingProblems": { "type": "string" },
-          "paymentMethod": { "type": "string", "enum": ["BALANCE", "QR"] },
+          "paymentMethod": {
+            "type": "string",
+            "enum": ["BALANCE", "QR", "PAY_AT_CLINIC"]
+          },
           "paymentExpiresAt": { "type": "string", "format": "date-time" },
           "createdAt": { "type": "string", "format": "date-time" },
           "updatedAt": { "type": "string", "format": "date-time" }

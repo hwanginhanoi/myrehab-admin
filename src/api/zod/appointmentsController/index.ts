@@ -109,6 +109,12 @@ export {
   rejectAppointmentMutationResponseSchema,
 } from './rejectAppointmentSchema.ts'
 export {
+  rescheduleAppointmentPathParamsSchema,
+  rescheduleAppointment200Schema,
+  rescheduleAppointmentMutationRequestSchema,
+  rescheduleAppointmentMutationResponseSchema,
+} from './rescheduleAppointmentSchema.ts'
+export {
   resolveDisputePathParamsSchema,
   resolveDispute200Schema,
   resolveDisputeMutationRequestSchema,

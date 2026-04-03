@@ -6,6 +6,12 @@ export type {
   CheckFeedbackExistsQuery,
 } from './CheckFeedbackExists.ts'
 export type {
+  GetAllFeedbackForCourseQueryParams,
+  GetAllFeedbackForCourse200,
+  GetAllFeedbackForCourseQueryResponse,
+  GetAllFeedbackForCourseQuery,
+} from './GetAllFeedbackForCourse.ts'
+export type {
   GetMyFeedback200,
   GetMyFeedback404,
   GetMyFeedbackQueryResponse,

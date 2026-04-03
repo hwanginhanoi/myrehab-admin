@@ -148,6 +148,8 @@ export const client = async <TData, TError = unknown, TVariables = unknown>(
     })
 }
 
+export type Client = typeof client
+
 client.getConfig = getConfig
 client.setConfig = setConfig
 

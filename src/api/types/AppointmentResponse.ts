@@ -18,6 +18,14 @@ export const appointmentResponseStatusEnum = {
 export type AppointmentResponseStatusEnumKey =
   (typeof appointmentResponseStatusEnum)[keyof typeof appointmentResponseStatusEnum]
 
+export const appointmentResponseAppointmentTypeEnum = {
+  ONLINE: 'ONLINE',
+  OFFLINE: 'OFFLINE',
+} as const
+
+export type AppointmentResponseAppointmentTypeEnumKey =
+  (typeof appointmentResponseAppointmentTypeEnum)[keyof typeof appointmentResponseAppointmentTypeEnum]
+
 export const appointmentResponseSttLanguageEnum = {
   EN_US: 'EN_US',
   VI_VN: 'VI_VN',
@@ -29,6 +37,7 @@ export type AppointmentResponseSttLanguageEnumKey =
 export const appointmentResponsePaymentMethodEnum = {
   BALANCE: 'BALANCE',
   QR: 'QR',
+  PAY_AT_CLINIC: 'PAY_AT_CLINIC',
 } as const
 
 export type AppointmentResponsePaymentMethodEnumKey =
@@ -47,6 +56,10 @@ export type AppointmentResponse = {
    * @type string | undefined
    */
   userName?: string
+  /**
+   * @type string | undefined
+   */
+  userPhoneNumber?: string
   /**
    * @type integer | undefined, int64
    */
@@ -71,6 +84,10 @@ export type AppointmentResponse = {
    * @type string | undefined
    */
   status?: AppointmentResponseStatusEnumKey
+  /**
+   * @type string | undefined
+   */
+  appointmentType?: AppointmentResponseAppointmentTypeEnumKey
   /**
    * @type integer | undefined, int64
    */

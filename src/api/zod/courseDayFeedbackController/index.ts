@@ -5,6 +5,11 @@ export {
   checkFeedbackExistsQueryResponseSchema,
 } from './checkFeedbackExistsSchema.ts'
 export {
+  getAllFeedbackForCourseQueryParamsSchema,
+  getAllFeedbackForCourse200Schema,
+  getAllFeedbackForCourseQueryResponseSchema,
+} from './getAllFeedbackForCourseSchema.ts'
+export {
   getMyFeedback200Schema,
   getMyFeedback404Schema,
   getMyFeedbackQueryResponseSchema,

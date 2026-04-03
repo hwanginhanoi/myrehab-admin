@@ -16,5 +16,6 @@ export const feedbackResponseSchema = z.object({
   hardestExercise: z.optional(z.string()),
   hardestExerciseReason: z.optional(z.string()),
   generalNotes: z.optional(z.string()),
+  patientName: z.optional(z.string()),
   createdAt: z.optional(z.string().datetime()),
 })

@@ -130,6 +130,13 @@ export type {
   RejectAppointmentMutation,
 } from './RejectAppointment.ts'
 export type {
+  RescheduleAppointmentPathParams,
+  RescheduleAppointment200,
+  RescheduleAppointmentMutationRequest,
+  RescheduleAppointmentMutationResponse,
+  RescheduleAppointmentMutation,
+} from './RescheduleAppointment.ts'
+export type {
   ResolveDisputePathParams,
   ResolveDispute200,
   ResolveDisputeMutationRequest,

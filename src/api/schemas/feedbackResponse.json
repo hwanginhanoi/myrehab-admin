@@ -11,6 +11,7 @@
     "hardestExercise": { "type": "string" },
     "hardestExerciseReason": { "type": "string" },
     "generalNotes": { "type": "string" },
+    "patientName": { "type": "string" },
     "createdAt": { "type": "string", "format": "date-time" }
   },
   "x-readme-ref-name": "FeedbackResponse"

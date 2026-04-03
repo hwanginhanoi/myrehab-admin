@@ -45,6 +45,10 @@ export type FeedbackResponse = {
    */
   generalNotes?: string
   /**
+   * @type string | undefined
+   */
+  patientName?: string
+  /**
    * @type string | undefined, date-time
    */
   createdAt?: string

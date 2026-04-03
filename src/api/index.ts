@@ -32,6 +32,7 @@ export type { GetVideoTokenQueryKey } from './hooks/AppointmentsHooks/useGetVide
 export type { GetVideoTokenSuspenseQueryKey } from './hooks/AppointmentsHooks/useGetVideoTokenSuspense.ts'
 export type { MarkCompleteMutationKey } from './hooks/AppointmentsHooks/useMarkComplete.ts'
 export type { RejectAppointmentMutationKey } from './hooks/AppointmentsHooks/useRejectAppointment.ts'
+export type { RescheduleAppointmentMutationKey } from './hooks/AppointmentsHooks/useRescheduleAppointment.ts'
 export type { ResolveDisputeMutationKey } from './hooks/AppointmentsHooks/useResolveDispute.ts'
 export type { StartSttMutationKey } from './hooks/AppointmentsHooks/useStartStt.ts'
 export type { StopSttMutationKey } from './hooks/AppointmentsHooks/useStopStt.ts'
@@ -68,6 +69,8 @@ export type { ListCourseAssignmentsQueryKey } from './hooks/Course AssignmentsHo
 export type { ListCourseAssignmentsSuspenseQueryKey } from './hooks/Course AssignmentsHooks/useListCourseAssignmentsSuspense.ts'
 export type { CheckFeedbackExistsQueryKey } from './hooks/Course Day FeedbackHooks/useCheckFeedbackExists.ts'
 export type { CheckFeedbackExistsSuspenseQueryKey } from './hooks/Course Day FeedbackHooks/useCheckFeedbackExistsSuspense.ts'
+export type { GetAllFeedbackForCourseQueryKey } from './hooks/Course Day FeedbackHooks/useGetAllFeedbackForCourse.ts'
+export type { GetAllFeedbackForCourseSuspenseQueryKey } from './hooks/Course Day FeedbackHooks/useGetAllFeedbackForCourseSuspense.ts'
 export type { GetMyFeedbackQueryKey } from './hooks/Course Day FeedbackHooks/useGetMyFeedback.ts'
 export type { GetMyFeedbackSuspenseQueryKey } from './hooks/Course Day FeedbackHooks/useGetMyFeedbackSuspense.ts'
 export type { SubmitFeedbackMutationKey } from './hooks/Course Day FeedbackHooks/useSubmitFeedback.ts'
@@ -284,6 +287,7 @@ export type { AppointmentDataPointResponse } from './types/AppointmentDataPointR
 export type { AppointmentQrResponse } from './types/AppointmentQrResponse.ts'
 export type {
   AppointmentResponseStatusEnumKey,
+  AppointmentResponseAppointmentTypeEnumKey,
   AppointmentResponseSttLanguageEnumKey,
   AppointmentResponsePaymentMethodEnumKey,
   AppointmentResponse,
@@ -419,6 +423,13 @@ export type {
   RejectAppointmentMutationResponse,
   RejectAppointmentMutation,
 } from './types/appointmentsController/RejectAppointment.ts'
+export type {
+  RescheduleAppointmentPathParams,
+  RescheduleAppointment200,
+  RescheduleAppointmentMutationRequest,
+  RescheduleAppointmentMutationResponse,
+  RescheduleAppointmentMutation,
+} from './types/appointmentsController/RescheduleAppointment.ts'
 export type {
   ResolveDisputePathParams,
   ResolveDispute200,
@@ -628,6 +639,12 @@ export type {
   CheckFeedbackExistsQuery,
 } from './types/courseDayFeedbackController/CheckFeedbackExists.ts'
 export type {
+  GetAllFeedbackForCourseQueryParams,
+  GetAllFeedbackForCourse200,
+  GetAllFeedbackForCourseQueryResponse,
+  GetAllFeedbackForCourseQuery,
+} from './types/courseDayFeedbackController/GetAllFeedbackForCourse.ts'
+export type {
   GetMyFeedback200,
   GetMyFeedback404,
   GetMyFeedbackQueryResponse,
@@ -727,6 +744,7 @@ export type {
 export type { CourseStatsResponse } from './types/CourseStatsResponse.ts'
 export type { CourseWithDaysResponse } from './types/CourseWithDaysResponse.ts'
 export type {
+  CreateAppointmentRequestAppointmentTypeEnumKey,
   CreateAppointmentRequestSttLanguageEnumKey,
   CreateAppointmentRequestPaymentMethodEnumKey,
   CreateAppointmentRequest,
@@ -1265,6 +1283,7 @@ export type {
   GetTopSpendersQueryResponse,
   GetTopSpendersQuery,
 } from './types/reportsController/GetTopSpenders.ts'
+export type { RescheduleAppointmentRequest } from './types/RescheduleAppointmentRequest.ts'
 export type { ResetPinRequest } from './types/ResetPinRequest.ts'
 export type {
   ResolveDisputeRequestResolutionEnumKey,
@@ -1776,6 +1795,10 @@ export { rejectAppointmentMutationKey } from './hooks/AppointmentsHooks/useRejec
 export { rejectAppointment } from './hooks/AppointmentsHooks/useRejectAppointment.ts'
 export { rejectAppointmentMutationOptions } from './hooks/AppointmentsHooks/useRejectAppointment.ts'
 export { useRejectAppointment } from './hooks/AppointmentsHooks/useRejectAppointment.ts'
+export { rescheduleAppointmentMutationKey } from './hooks/AppointmentsHooks/useRescheduleAppointment.ts'
+export { rescheduleAppointment } from './hooks/AppointmentsHooks/useRescheduleAppointment.ts'
+export { rescheduleAppointmentMutationOptions } from './hooks/AppointmentsHooks/useRescheduleAppointment.ts'
+export { useRescheduleAppointment } from './hooks/AppointmentsHooks/useRescheduleAppointment.ts'
 export { resolveDisputeMutationKey } from './hooks/AppointmentsHooks/useResolveDispute.ts'
 export { resolveDispute } from './hooks/AppointmentsHooks/useResolveDispute.ts'
 export { resolveDisputeMutationOptions } from './hooks/AppointmentsHooks/useResolveDispute.ts'
@@ -1920,6 +1943,14 @@ export { checkFeedbackExistsSuspenseQueryKey } from './hooks/Course Day Feedback
 export { checkFeedbackExistsSuspense } from './hooks/Course Day FeedbackHooks/useCheckFeedbackExistsSuspense.ts'
 export { checkFeedbackExistsSuspenseQueryOptions } from './hooks/Course Day FeedbackHooks/useCheckFeedbackExistsSuspense.ts'
 export { useCheckFeedbackExistsSuspense } from './hooks/Course Day FeedbackHooks/useCheckFeedbackExistsSuspense.ts'
+export { getAllFeedbackForCourseQueryKey } from './hooks/Course Day FeedbackHooks/useGetAllFeedbackForCourse.ts'
+export { getAllFeedbackForCourse } from './hooks/Course Day FeedbackHooks/useGetAllFeedbackForCourse.ts'
+export { getAllFeedbackForCourseQueryOptions } from './hooks/Course Day FeedbackHooks/useGetAllFeedbackForCourse.ts'
+export { useGetAllFeedbackForCourse } from './hooks/Course Day FeedbackHooks/useGetAllFeedbackForCourse.ts'
+export { getAllFeedbackForCourseSuspenseQueryKey } from './hooks/Course Day FeedbackHooks/useGetAllFeedbackForCourseSuspense.ts'
+export { getAllFeedbackForCourseSuspense } from './hooks/Course Day FeedbackHooks/useGetAllFeedbackForCourseSuspense.ts'
+export { getAllFeedbackForCourseSuspenseQueryOptions } from './hooks/Course Day FeedbackHooks/useGetAllFeedbackForCourseSuspense.ts'
+export { useGetAllFeedbackForCourseSuspense } from './hooks/Course Day FeedbackHooks/useGetAllFeedbackForCourseSuspense.ts'
 export { getMyFeedbackQueryKey } from './hooks/Course Day FeedbackHooks/useGetMyFeedback.ts'
 export { getMyFeedback } from './hooks/Course Day FeedbackHooks/useGetMyFeedback.ts'
 export { getMyFeedbackQueryOptions } from './hooks/Course Day FeedbackHooks/useGetMyFeedback.ts'
@@ -2765,6 +2796,7 @@ export { verifyMyPin } from './hooks/User ManagementHooks/useVerifyMyPin.ts'
 export { verifyMyPinMutationOptions } from './hooks/User ManagementHooks/useVerifyMyPin.ts'
 export { useVerifyMyPin } from './hooks/User ManagementHooks/useVerifyMyPin.ts'
 export { appointmentResponseStatusEnum } from './types/AppointmentResponse.ts'
+export { appointmentResponseAppointmentTypeEnum } from './types/AppointmentResponse.ts'
 export { appointmentResponseSttLanguageEnum } from './types/AppointmentResponse.ts'
 export { appointmentResponsePaymentMethodEnum } from './types/AppointmentResponse.ts'
 export { getAllBannersQueryParamsStatusEnum } from './types/bannerManagementController/GetAllBanners.ts'
@@ -2776,6 +2808,7 @@ export { courseAssignmentRequestResponseStatusEnum } from './types/CourseAssignm
 export { listCourseAssignmentsQueryParamsPurchaseStatusEnum } from './types/courseAssignmentsController/ListCourseAssignments.ts'
 export { getMyAssignedCoursesQueryParamsStatusEnum } from './types/courseProgressController/GetMyAssignedCourses.ts'
 export { courseProgressHistoryResponseArchivalReasonEnum } from './types/CourseProgressHistoryResponse.ts'
+export { createAppointmentRequestAppointmentTypeEnum } from './types/CreateAppointmentRequest.ts'
 export { createAppointmentRequestSttLanguageEnum } from './types/CreateAppointmentRequest.ts'
 export { createAppointmentRequestPaymentMethodEnum } from './types/CreateAppointmentRequest.ts'
 export { createBannerRequestStatusEnum } from './types/CreateBannerRequest.ts'
@@ -2918,6 +2951,12 @@ export {
   rejectAppointmentMutationRequestSchema,
   rejectAppointmentMutationResponseSchema,
 } from './zod/appointmentsController/rejectAppointmentSchema.ts'
+export {
+  rescheduleAppointmentPathParamsSchema,
+  rescheduleAppointment200Schema,
+  rescheduleAppointmentMutationRequestSchema,
+  rescheduleAppointmentMutationResponseSchema,
+} from './zod/appointmentsController/rescheduleAppointmentSchema.ts'
 export {
   resolveDisputePathParamsSchema,
   resolveDispute200Schema,
@@ -3081,6 +3120,11 @@ export {
   checkFeedbackExists404Schema,
   checkFeedbackExistsQueryResponseSchema,
 } from './zod/courseDayFeedbackController/checkFeedbackExistsSchema.ts'
+export {
+  getAllFeedbackForCourseQueryParamsSchema,
+  getAllFeedbackForCourse200Schema,
+  getAllFeedbackForCourseQueryResponseSchema,
+} from './zod/courseDayFeedbackController/getAllFeedbackForCourseSchema.ts'
 export {
   getMyFeedback200Schema,
   getMyFeedback404Schema,
@@ -3599,6 +3643,7 @@ export {
   getTopSpenders200Schema,
   getTopSpendersQueryResponseSchema,
 } from './zod/reportsController/getTopSpendersSchema.ts'
+export { rescheduleAppointmentRequestSchema } from './zod/rescheduleAppointmentRequestSchema.ts'
 export { resetPinRequestSchema } from './zod/resetPinRequestSchema.ts'
 export { resolveDisputeRequestSchema } from './zod/resolveDisputeRequestSchema.ts'
 export { revenueDataPointResponseSchema } from './zod/revenueDataPointResponseSchema.ts'

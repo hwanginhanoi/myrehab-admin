@@ -3,6 +3,7 @@ export type { AppointmentDataPointResponse } from './AppointmentDataPointRespons
 export type { AppointmentQrResponse } from './AppointmentQrResponse.ts'
 export type {
   AppointmentResponseStatusEnumKey,
+  AppointmentResponseAppointmentTypeEnumKey,
   AppointmentResponseSttLanguageEnumKey,
   AppointmentResponsePaymentMethodEnumKey,
   AppointmentResponse,
@@ -138,6 +139,13 @@ export type {
   RejectAppointmentMutationResponse,
   RejectAppointmentMutation,
 } from './appointmentsController/RejectAppointment.ts'
+export type {
+  RescheduleAppointmentPathParams,
+  RescheduleAppointment200,
+  RescheduleAppointmentMutationRequest,
+  RescheduleAppointmentMutationResponse,
+  RescheduleAppointmentMutation,
+} from './appointmentsController/RescheduleAppointment.ts'
 export type {
   ResolveDisputePathParams,
   ResolveDispute200,
@@ -347,6 +355,12 @@ export type {
   CheckFeedbackExistsQuery,
 } from './courseDayFeedbackController/CheckFeedbackExists.ts'
 export type {
+  GetAllFeedbackForCourseQueryParams,
+  GetAllFeedbackForCourse200,
+  GetAllFeedbackForCourseQueryResponse,
+  GetAllFeedbackForCourseQuery,
+} from './courseDayFeedbackController/GetAllFeedbackForCourse.ts'
+export type {
   GetMyFeedback200,
   GetMyFeedback404,
   GetMyFeedbackQueryResponse,
@@ -446,6 +460,7 @@ export type {
 export type { CourseStatsResponse } from './CourseStatsResponse.ts'
 export type { CourseWithDaysResponse } from './CourseWithDaysResponse.ts'
 export type {
+  CreateAppointmentRequestAppointmentTypeEnumKey,
   CreateAppointmentRequestSttLanguageEnumKey,
   CreateAppointmentRequestPaymentMethodEnumKey,
   CreateAppointmentRequest,
@@ -981,6 +996,7 @@ export type {
   GetTopSpendersQueryResponse,
   GetTopSpendersQuery,
 } from './reportsController/GetTopSpenders.ts'
+export type { RescheduleAppointmentRequest } from './RescheduleAppointmentRequest.ts'
 export type { ResetPinRequest } from './ResetPinRequest.ts'
 export type {
   ResolveDisputeRequestResolutionEnumKey,
@@ -1357,6 +1373,7 @@ export type { VerifyRegistrationOtpResponse } from './VerifyRegistrationOtpRespo
 export type { VideoTokenResponse } from './VideoTokenResponse.ts'
 export type { WebhookResponse } from './WebhookResponse.ts'
 export { appointmentResponseStatusEnum } from './AppointmentResponse.ts'
+export { appointmentResponseAppointmentTypeEnum } from './AppointmentResponse.ts'
 export { appointmentResponseSttLanguageEnum } from './AppointmentResponse.ts'
 export { appointmentResponsePaymentMethodEnum } from './AppointmentResponse.ts'
 export { getAllBannersQueryParamsStatusEnum } from './bannerManagementController/GetAllBanners.ts'
@@ -1368,6 +1385,7 @@ export { courseAssignmentRequestResponseStatusEnum } from './CourseAssignmentReq
 export { listCourseAssignmentsQueryParamsPurchaseStatusEnum } from './courseAssignmentsController/ListCourseAssignments.ts'
 export { getMyAssignedCoursesQueryParamsStatusEnum } from './courseProgressController/GetMyAssignedCourses.ts'
 export { courseProgressHistoryResponseArchivalReasonEnum } from './CourseProgressHistoryResponse.ts'
+export { createAppointmentRequestAppointmentTypeEnum } from './CreateAppointmentRequest.ts'
 export { createAppointmentRequestSttLanguageEnum } from './CreateAppointmentRequest.ts'
 export { createAppointmentRequestPaymentMethodEnum } from './CreateAppointmentRequest.ts'
 export { createBannerRequestStatusEnum } from './CreateBannerRequest.ts'

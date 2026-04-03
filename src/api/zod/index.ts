@@ -113,6 +113,12 @@ export {
   rejectAppointmentMutationResponseSchema,
 } from './appointmentsController/rejectAppointmentSchema.ts'
 export {
+  rescheduleAppointmentPathParamsSchema,
+  rescheduleAppointment200Schema,
+  rescheduleAppointmentMutationRequestSchema,
+  rescheduleAppointmentMutationResponseSchema,
+} from './appointmentsController/rescheduleAppointmentSchema.ts'
+export {
   resolveDisputePathParamsSchema,
   resolveDispute200Schema,
   resolveDisputeMutationRequestSchema,
@@ -275,6 +281,11 @@ export {
   checkFeedbackExists404Schema,
   checkFeedbackExistsQueryResponseSchema,
 } from './courseDayFeedbackController/checkFeedbackExistsSchema.ts'
+export {
+  getAllFeedbackForCourseQueryParamsSchema,
+  getAllFeedbackForCourse200Schema,
+  getAllFeedbackForCourseQueryResponseSchema,
+} from './courseDayFeedbackController/getAllFeedbackForCourseSchema.ts'
 export {
   getMyFeedback200Schema,
   getMyFeedback404Schema,
@@ -793,6 +804,7 @@ export {
   getTopSpenders200Schema,
   getTopSpendersQueryResponseSchema,
 } from './reportsController/getTopSpendersSchema.ts'
+export { rescheduleAppointmentRequestSchema } from './rescheduleAppointmentRequestSchema.ts'
 export { resetPinRequestSchema } from './resetPinRequestSchema.ts'
 export { resolveDisputeRequestSchema } from './resolveDisputeRequestSchema.ts'
 export { revenueDataPointResponseSchema } from './revenueDataPointResponseSchema.ts'
