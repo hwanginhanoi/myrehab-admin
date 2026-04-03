@@ -99,6 +99,8 @@ function VideoCallRoom({
     useState<IMicrophoneAudioTrack | null>(null)
   const [localVideoTrack, setLocalVideoTrack] =
     useState<ICameraVideoTrack | null>(null)
+  const localAudioTrackRef = useRef<IMicrophoneAudioTrack | null>(null)
+  const localVideoTrackRef = useRef<ICameraVideoTrack | null>(null)
   const [remoteVideoTrack, setRemoteVideoTrack] =
     useState<IRemoteVideoTrack | null>(null)
   const [remoteAudioTrack, setRemoteAudioTrack] =
@@ -117,6 +119,8 @@ function VideoCallRoom({
 
   // Join channel, set up event listeners, create & publish local tracks
   useEffect(() => {
+    // Reset on each mount so StrictMode's fake unmount doesn't poison the flag
+    hasLeft.current = false
     let cancelled = false
     let audioTrack: IMicrophoneAudioTrack | null = null
     let videoTrack: ICameraVideoTrack | null = null
@@ -205,6 +209,8 @@ function VideoCallRoom({
       }
 
       await agoraClient.publish([audioTrack, videoTrack])
+      localAudioTrackRef.current = audioTrack
+      localVideoTrackRef.current = videoTrack
       setLocalAudioTrack(audioTrack)
       setLocalVideoTrack(videoTrack)
     }
@@ -282,10 +288,27 @@ function VideoCallRoom({
     localAudioTrack?.close()
     localVideoTrack?.stop()
     localVideoTrack?.close()
+    localAudioTrackRef.current = null
+    localVideoTrackRef.current = null
 
     // Await leave to ensure full cleanup before navigating
     await agoraClient.leave().catch(() => {})
   }, [localVideoTrack, localAudioTrack, agoraClient, stopStt, appointmentId])
+
+  // Clean up camera/mic if user closes or refreshes the browser tab
+  useEffect(() => {
+    const handleBeforeUnload = () => {
+      if (hasLeft.current) return
+      hasLeft.current = true
+      localAudioTrackRef.current?.stop()
+      localAudioTrackRef.current?.close()
+      localVideoTrackRef.current?.stop()
+      localVideoTrackRef.current?.close()
+      agoraClient.leave().catch(() => {})
+    }
+    window.addEventListener('beforeunload', handleBeforeUnload)
+    return () => window.removeEventListener('beforeunload', handleBeforeUnload)
+  }, [agoraClient])
 
   const toggleStt = useCallback(async () => {
     if (isSttActive) {

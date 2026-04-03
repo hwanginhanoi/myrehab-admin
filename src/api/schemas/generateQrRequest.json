@@ -1,0 +1,6 @@
+{
+  "type": "object",
+  "properties": { "transferAmount": { "type": "integer", "format": "int64" } },
+  "required": ["transferAmount"],
+  "x-readme-ref-name": "GenerateQrRequest"
+}
