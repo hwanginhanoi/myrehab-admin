@@ -90,6 +90,18 @@ export const ALL_PERMISSIONS = {
   REHAB_FORMS_VIEW: 'rehab_forms:view',
   REHAB_FORMS_CREATE: 'rehab_forms:create',
   REHAB_FORMS_UPDATE: 'rehab_forms:update',
+
+  // Appointments
+  APPOINTMENTS_VIEW: 'appointments:view',
+  APPOINTMENTS_CONFIRM: 'appointments:confirm',
+  APPOINTMENTS_REJECT: 'appointments:reject',
+  APPOINTMENTS_COMPLETE: 'appointments:complete',
+  APPOINTMENTS_MANAGE: 'appointments:manage',
+  APPOINTMENTS_EDIT: 'appointments:edit',
+
+  // Startup Popup
+  STARTUP_POPUP_VIEW: 'startup_popup:view',
+  STARTUP_POPUP_MANAGE: 'startup_popup:manage',
 } as const
 
 // Doctor permission categories
@@ -430,6 +442,28 @@ export const ADMIN_PERMISSION_CATEGORIES: PermissionCategory[] = [
       { id: ALL_PERMISSIONS.REHAB_FORMS_VIEW, label: 'Xem phiếu khám' },
       { id: ALL_PERMISSIONS.REHAB_FORMS_CREATE, label: 'Tạo phiếu khám' },
       { id: ALL_PERMISSIONS.REHAB_FORMS_UPDATE, label: 'Cập nhật phiếu khám' },
+    ],
+  },
+  {
+    id: 'appointments',
+    title: 'Quản lý Lịch hẹn',
+    description: 'Quyền quản lý lịch hẹn khám bệnh',
+    permissions: [
+      { id: ALL_PERMISSIONS.APPOINTMENTS_VIEW, label: 'Xem lịch hẹn' },
+      { id: ALL_PERMISSIONS.APPOINTMENTS_CONFIRM, label: 'Xác nhận lịch hẹn' },
+      { id: ALL_PERMISSIONS.APPOINTMENTS_REJECT, label: 'Từ chối lịch hẹn' },
+      { id: ALL_PERMISSIONS.APPOINTMENTS_COMPLETE, label: 'Hoàn thành lịch hẹn' },
+      { id: ALL_PERMISSIONS.APPOINTMENTS_MANAGE, label: 'Quản lý lịch hẹn' },
+      { id: ALL_PERMISSIONS.APPOINTMENTS_EDIT, label: 'Dời lịch hẹn (đổi ngày/giờ/bác sĩ)' },
+    ],
+  },
+  {
+    id: 'startup_popup',
+    title: 'Quản lý Popup Khởi động',
+    description: 'Quyền quản lý popup hiển thị khi khởi động ứng dụng',
+    permissions: [
+      { id: ALL_PERMISSIONS.STARTUP_POPUP_VIEW, label: 'Xem popup khởi động' },
+      { id: ALL_PERMISSIONS.STARTUP_POPUP_MANAGE, label: 'Quản lý popup khởi động' },
     ],
   },
 ]

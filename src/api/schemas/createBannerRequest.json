@@ -1,11 +1,1 @@
-{
-  "type": "object",
-  "properties": {
-    "title": { "type": "string", "minLength": 1 },
-    "imageUrl": { "type": "string", "minLength": 1 },
-    "displayOrder": { "type": "integer", "format": "int32" },
-    "status": { "type": "string", "enum": ["ACTIVE", "INACTIVE", "ARCHIVED"] }
-  },
-  "required": ["imageUrl", "title"],
-  "x-readme-ref-name": "CreateBannerRequest"
-}
+{"type":"object","properties":{"title":{"type":"string","minLength":1},"imageUrl":{"type":"string","minLength":1},"displayOrder":{"type":"integer","format":"int32"},"status":{"type":"string","enum":["ACTIVE","INACTIVE","ARCHIVED"]}},"required":["imageUrl","title"],"x-readme-ref-name":"CreateBannerRequest"}

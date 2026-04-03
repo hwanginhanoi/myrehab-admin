@@ -1,10 +1,1 @@
-{
-  "type": "object",
-  "properties": {
-    "verificationToken": { "type": "string" },
-    "message": { "type": "string" },
-    "expiresInSeconds": { "type": "integer", "format": "int64" },
-    "phoneNumber": { "type": "string" }
-  },
-  "x-readme-ref-name": "VerifyRegistrationOtpResponse"
-}
+{"type":"object","properties":{"verificationToken":{"type":"string"},"message":{"type":"string"},"expiresInSeconds":{"type":"integer","format":"int64"},"phoneNumber":{"type":"string"}},"x-readme-ref-name":"VerifyRegistrationOtpResponse"}

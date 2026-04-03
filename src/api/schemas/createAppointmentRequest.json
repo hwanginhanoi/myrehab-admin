@@ -1,16 +1,1 @@
-{
-  "type": "object",
-  "properties": {
-    "appointmentDate": { "type": "string", "format": "date" },
-    "startTime": { "type": "string" },
-    "doctorId": { "type": "integer", "format": "int64" },
-    "patientNotes": { "type": "string" },
-    "sttLanguage": { "type": "string", "enum": ["EN_US", "VI_VN"] },
-    "pastResultImageKeys": { "type": "array", "items": { "type": "string" } },
-    "patientTarget": { "type": "string" },
-    "existingProblems": { "type": "string" },
-    "paymentMethod": { "type": "string", "enum": ["BALANCE", "QR"] }
-  },
-  "required": ["appointmentDate", "startTime"],
-  "x-readme-ref-name": "CreateAppointmentRequest"
-}
+{"type":"object","properties":{"appointmentType":{"type":"string","enum":["ONLINE","OFFLINE"]},"appointmentDate":{"type":"string","format":"date"},"startTime":{"type":"string"},"doctorId":{"type":"integer","format":"int64"},"patientNotes":{"type":"string"},"sttLanguage":{"type":"string","enum":["EN_US","VI_VN"]},"pastResultImageKeys":{"type":"array","items":{"type":"string"}},"patientTarget":{"type":"string"},"existingProblems":{"type":"string"},"paymentMethod":{"type":"string","enum":["BALANCE","QR","PAY_AT_CLINIC"]}},"required":["appointmentDate","startTime"],"x-readme-ref-name":"CreateAppointmentRequest"}

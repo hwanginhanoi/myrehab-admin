@@ -1,19 +1,24 @@
 import { type ColumnDef } from '@tanstack/react-table'
 import { DataTableColumnHeader } from '@/components/data-table'
 import type { AppointmentResponse } from '@/api'
-import { formatLocalTime, formatCurrency } from '@/lib/appointment-utils'
+import { formatLocalTime } from '@/lib/appointment-utils'
 import { AppointmentStatusBadge } from './appointment-status-badge'
 import { AppointmentsRowActions } from './appointments-row-actions'
+import { Badge } from '@/components/ui/badge'
 
-export const appointmentsColumns: ColumnDef<AppointmentResponse>[] = [
-  {
-    accessorKey: 'id',
-    header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="ID" />
-    ),
-    cell: ({ row }) => <div className="w-10">#{row.getValue('id')}</div>,
-    enableHiding: false,
-  },
+// Extend AppointmentResponse with fields pending API regeneration
+type AppointmentRow = AppointmentResponse & {
+  appointmentType?: 'ONLINE' | 'OFFLINE'
+  userPhoneNumber?: string
+}
+
+const paymentMethodLabels: Record<string, string> = {
+  BALANCE: 'Số dư tài khoản',
+  QR: 'QR Code',
+  PAY_AT_CLINIC: 'Tại phòng khám',
+}
+
+export const appointmentsColumns: ColumnDef<AppointmentRow>[] = [
   {
     accessorKey: 'userName',
     header: ({ column }) => (
@@ -24,6 +29,18 @@ export const appointmentsColumns: ColumnDef<AppointmentResponse>[] = [
         {row.getValue('userName') || '-'}
       </div>
     ),
+  },
+  {
+    accessorKey: 'userPhoneNumber',
+    header: ({ column }) => (
+      <DataTableColumnHeader column={column} title="SĐT bệnh nhân" />
+    ),
+    cell: ({ row }) => (
+      <div className="whitespace-nowrap">
+        {row.getValue('userPhoneNumber') || '-'}
+      </div>
+    ),
+    enableSorting: false,
   },
   {
     accessorKey: 'doctorName',
@@ -69,11 +86,31 @@ export const appointmentsColumns: ColumnDef<AppointmentResponse>[] = [
     },
   },
   {
-    accessorKey: 'fee',
+    accessorKey: 'appointmentType',
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Phí" />
+      <DataTableColumnHeader column={column} title="Loại" />
     ),
-    cell: ({ row }) => <div>{formatCurrency(row.getValue('fee'))}</div>,
+    cell: ({ row }) => {
+      const type = row.getValue<string>('appointmentType')
+      if (!type) return <div>-</div>
+      return type === 'ONLINE' ? (
+        <Badge variant="secondary">Trực tuyến</Badge>
+      ) : (
+        <Badge variant="outline">Trực tiếp</Badge>
+      )
+    },
+    enableSorting: false,
+  },
+  {
+    accessorKey: 'paymentMethod',
+    header: ({ column }) => (
+      <DataTableColumnHeader column={column} title="Hình thức thanh toán" />
+    ),
+    cell: ({ row }) => {
+      const method = row.getValue<string>('paymentMethod')
+      return <div>{method ? paymentMethodLabels[method] ?? method : '-'}</div>
+    },
+    enableSorting: false,
   },
   {
     id: 'actions',

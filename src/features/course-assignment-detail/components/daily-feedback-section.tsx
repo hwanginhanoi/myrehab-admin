@@ -1,31 +1,66 @@
+import { useQuery } from '@tanstack/react-query'
 import { getRouteApi } from '@tanstack/react-router'
-import { MessageSquare, AlertTriangle, Calendar } from 'lucide-react'
+import {
+  MessageSquare,
+  AlertTriangle,
+  Calendar,
+  CheckCircle2,
+  Flame,
+  Dumbbell,
+  StickyNote,
+} from 'lucide-react'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
-import { useGetPainReports } from '@/api'
 import { formatDateTime } from '@/lib/course-assignment-utils'
 import { AssignmentContentSection } from './assignment-content-section'
+import client from '@/lib/api-client'
+
+type FeedbackResponse = {
+  id?: number
+  courseDayId?: number
+  dayNumber?: number
+  completionPercentage?: number
+  effortPercentage?: number
+  hasPain?: boolean
+  painDetails?: string
+  hardestExercise?: string
+  hardestExerciseReason?: string
+  generalNotes?: string
+  patientName?: string
+  createdAt?: string
+}
 
 const route = getRouteApi('/_authenticated/course-assignments/$id')
+
+function useAdminCourseFeedback(courseId: number | undefined) {
+  return useQuery({
+    queryKey: ['admin-course-feedback', courseId],
+    queryFn: async () => {
+      const response = await client<FeedbackResponse[]>({
+        method: 'GET',
+        url: '/api/course-progress/admin/feedback',
+        params: { courseId },
+      })
+      return response.data
+    },
+    enabled: !!courseId,
+  })
+}
 
 export function DailyFeedbackSection() {
   const search = route.useSearch()
   const { courseId, patientFullName } = search
 
-  const { data: painReports, isLoading } = useGetPainReports(
-    { courseId },
-    { query: { enabled: !!courseId } }
-  )
+  const { data: feedbackList, isLoading } = useAdminCourseFeedback(courseId)
 
-  // Filter pain reports to only show reports for this specific patient
-  const patientReports = (painReports ?? []).filter(
-    (report) => !patientFullName || report.patientName === patientFullName
+  const patientFeedback = (feedbackList ?? []).filter(
+    (f) => !patientFullName || f.patientName === patientFullName
   )
 
   return (
     <AssignmentContentSection
       title="Đánh giá hằng ngày"
-      desc="Phản hồi và báo cáo đau của bệnh nhân theo từng ngày tập."
+      desc="Phản hồi của bệnh nhân sau mỗi ngày tập luyện."
       fullWidth
     >
       <>
@@ -33,48 +68,90 @@ export function DailyFeedbackSection() {
           <div className="flex items-center justify-center h-64">
             <p className="text-muted-foreground">Đang tải...</p>
           </div>
-        ) : patientReports.length > 0 ? (
+        ) : patientFeedback.length > 0 ? (
           <div className="space-y-3">
-            {patientReports.map((report) => (
-              <Card key={report.feedbackId}>
+            {patientFeedback.map((feedback) => (
+              <Card key={feedback.id}>
                 <CardHeader className="pb-3">
                   <div className="flex items-center justify-between">
                     <CardTitle className="text-sm font-medium flex items-center gap-2">
                       <MessageSquare className="h-4 w-4" />
-                      Ngày {report.dayNumber}
+                      Ngày {feedback.dayNumber}
                     </CardTitle>
                     <div className="flex items-center gap-2">
-                      {report.date && (
+                      {feedback.createdAt && (
                         <span className="flex items-center gap-1 text-xs text-muted-foreground">
                           <Calendar className="h-3 w-3" />
-                          {formatDateTime(report.date)}
+                          {formatDateTime(feedback.createdAt)}
                         </span>
                       )}
-                      <Badge variant="destructive" className="gap-1">
-                        <AlertTriangle className="h-3 w-3" />
-                        Có đau
-                      </Badge>
+                      {feedback.hasPain && (
+                        <Badge variant="destructive" className="gap-1">
+                          <AlertTriangle className="h-3 w-3" />
+                          Có đau
+                        </Badge>
+                      )}
                     </div>
                   </div>
                 </CardHeader>
                 <CardContent>
-                  <div className="space-y-2">
-                    {report.painDetails && (
+                  <div className="space-y-3">
+                    {/* Completion & Effort */}
+                    <div className="flex gap-4">
+                      {feedback.completionPercentage != null && (
+                        <div className="flex items-center gap-1.5">
+                          <CheckCircle2 className="h-4 w-4 text-green-500" />
+                          <span className="text-xs text-muted-foreground">Hoàn thành:</span>
+                          <span className="text-sm font-semibold">{feedback.completionPercentage}%</span>
+                        </div>
+                      )}
+                      {feedback.effortPercentage != null && (
+                        <div className="flex items-center gap-1.5">
+                          <Flame className="h-4 w-4 text-orange-500" />
+                          <span className="text-xs text-muted-foreground">Nỗ lực:</span>
+                          <span className="text-sm font-semibold">{feedback.effortPercentage}%</span>
+                        </div>
+                      )}
+                    </div>
+
+                    {/* Pain details */}
+                    {feedback.hasPain && feedback.painDetails && (
                       <div>
-                        <p className="text-xs text-muted-foreground mb-1">
-                          Chi tiết đau
-                        </p>
-                        <p className="text-sm">{report.painDetails}</p>
+                        <p className="text-xs text-muted-foreground mb-1">Chi tiết đau</p>
+                        <p className="text-sm">{feedback.painDetails}</p>
                       </div>
                     )}
-                    {report.patientName && (
+
+                    {/* Hardest exercise */}
+                    {feedback.hardestExercise && (
                       <div>
-                        <p className="text-xs text-muted-foreground mb-1">
-                          Bệnh nhân
-                        </p>
-                        <p className="text-sm font-medium">
-                          {report.patientName}
-                        </p>
+                        <div className="flex items-center gap-1.5 mb-1">
+                          <Dumbbell className="h-3.5 w-3.5 text-muted-foreground" />
+                          <p className="text-xs text-muted-foreground">Bài tập khó nhất</p>
+                        </div>
+                        <p className="text-sm font-medium">{feedback.hardestExercise}</p>
+                        {feedback.hardestExerciseReason && (
+                          <p className="text-xs text-muted-foreground mt-0.5">{feedback.hardestExerciseReason}</p>
+                        )}
+                      </div>
+                    )}
+
+                    {/* General notes */}
+                    {feedback.generalNotes && (
+                      <div>
+                        <div className="flex items-center gap-1.5 mb-1">
+                          <StickyNote className="h-3.5 w-3.5 text-muted-foreground" />
+                          <p className="text-xs text-muted-foreground">Ghi chú</p>
+                        </div>
+                        <p className="text-sm">{feedback.generalNotes}</p>
+                      </div>
+                    )}
+
+                    {/* Patient name */}
+                    {feedback.patientName && (
+                      <div>
+                        <p className="text-xs text-muted-foreground mb-1">Bệnh nhân</p>
+                        <p className="text-sm font-medium">{feedback.patientName}</p>
                       </div>
                     )}
                   </div>
@@ -87,11 +164,10 @@ export function DailyFeedbackSection() {
             <CardContent className="flex flex-col items-center justify-center py-12">
               <MessageSquare className="h-12 w-12 text-muted-foreground/50 mb-4" />
               <p className="text-sm text-muted-foreground text-center">
-                Chưa có báo cáo đau nào từ bệnh nhân.
+                Chưa có đánh giá nào từ bệnh nhân.
               </p>
               <p className="text-xs text-muted-foreground text-center mt-1">
-                Báo cáo sẽ xuất hiện khi bệnh nhân phản hồi có đau trong quá
-                trình tập.
+                Đánh giá sẽ xuất hiện sau khi bệnh nhân hoàn thành các ngày tập.
               </p>
             </CardContent>
           </Card>
