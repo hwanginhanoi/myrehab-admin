@@ -28,6 +28,7 @@ import {
   BookCheck,
   Megaphone,
   UserCog,
+  ScrollText,
 } from 'lucide-react'
 import { Logo } from '@/assets/logo'
 import { type SidebarData } from '../types'
@@ -183,6 +184,12 @@ export const sidebarData: SidebarData = {
           url: '/appointments',
           icon: CalendarCheck,
           allowedRoles: ['ADMIN', 'SUPER_ADMIN'],
+        },
+        {
+          title: 'Nhật ký hoạt động',
+          url: '/admin/audit-logs',
+          icon: ScrollText,
+          allowedRoles: ['SUPER_ADMIN'],
         },
         // {
         //   title: 'Tasks',

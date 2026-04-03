@@ -167,6 +167,20 @@ export type { AppointmentStatsResponse } from './AppointmentStatsResponse.ts'
 export type { AssignCourseToPatientRequest } from './AssignCourseToPatientRequest.ts'
 export type { AssignDoctorRequest } from './AssignDoctorRequest.ts'
 export type { AssignPatientToDoctorRequest } from './AssignPatientToDoctorRequest.ts'
+export type { AuditLogResponse } from './AuditLogResponse.ts'
+export type {
+  GetAuditLogsQueryParams,
+  GetAuditLogs200,
+  GetAuditLogsQueryResponse,
+  GetAuditLogsQuery,
+} from './auditLogsController/GetAuditLogs.ts'
+export type {
+  GetEntityAuditHistoryPathParams,
+  GetEntityAuditHistoryQueryParams,
+  GetEntityAuditHistory200,
+  GetEntityAuditHistoryQueryResponse,
+  GetEntityAuditHistoryQuery,
+} from './auditLogsController/GetEntityAuditHistory.ts'
 export type {
   CheckPhone200,
   CheckPhoneMutationRequest,
@@ -804,6 +818,7 @@ export type { OtpResponse } from './OtpResponse.ts'
 export type { OverviewResponse } from './OverviewResponse.ts'
 export type { Pageable } from './Pageable.ts'
 export type { PagedModelAppointmentResponse } from './PagedModelAppointmentResponse.ts'
+export type { PagedModelAuditLogResponse } from './PagedModelAuditLogResponse.ts'
 export type { PagedModelBannerResponse } from './PagedModelBannerResponse.ts'
 export type { PagedModelCategoryResponse } from './PagedModelCategoryResponse.ts'
 export type { PagedModelCourseAssignmentListResponse } from './PagedModelCourseAssignmentListResponse.ts'

@@ -137,6 +137,18 @@ export { appointmentStatsResponseSchema } from './appointmentStatsResponseSchema
 export { assignCourseToPatientRequestSchema } from './assignCourseToPatientRequestSchema.ts'
 export { assignDoctorRequestSchema } from './assignDoctorRequestSchema.ts'
 export { assignPatientToDoctorRequestSchema } from './assignPatientToDoctorRequestSchema.ts'
+export { auditLogResponseSchema } from './auditLogResponseSchema.ts'
+export {
+  getAuditLogsQueryParamsSchema,
+  getAuditLogs200Schema,
+  getAuditLogsQueryResponseSchema,
+} from './auditLogsController/getAuditLogsSchema.ts'
+export {
+  getEntityAuditHistoryPathParamsSchema,
+  getEntityAuditHistoryQueryParamsSchema,
+  getEntityAuditHistory200Schema,
+  getEntityAuditHistoryQueryResponseSchema,
+} from './auditLogsController/getEntityAuditHistorySchema.ts'
 export {
   checkPhone200Schema,
   checkPhoneMutationRequestSchema,
@@ -641,6 +653,7 @@ export { otpResponseSchema } from './otpResponseSchema.ts'
 export { overviewResponseSchema } from './overviewResponseSchema.ts'
 export { pageableSchema } from './pageableSchema.ts'
 export { pagedModelAppointmentResponseSchema } from './pagedModelAppointmentResponseSchema.ts'
+export { pagedModelAuditLogResponseSchema } from './pagedModelAuditLogResponseSchema.ts'
 export { pagedModelBannerResponseSchema } from './pagedModelBannerResponseSchema.ts'
 export { pagedModelCategoryResponseSchema } from './pagedModelCategoryResponseSchema.ts'
 export { pagedModelCourseAssignmentListResponseSchema } from './pagedModelCourseAssignmentListResponseSchema.ts'

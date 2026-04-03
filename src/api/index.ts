@@ -36,6 +36,10 @@ export type { ResolveDisputeMutationKey } from './hooks/AppointmentsHooks/useRes
 export type { StartSttMutationKey } from './hooks/AppointmentsHooks/useStartStt.ts'
 export type { StopSttMutationKey } from './hooks/AppointmentsHooks/useStopStt.ts'
 export type { UpdateClinicScheduleMutationKey } from './hooks/AppointmentsHooks/useUpdateClinicSchedule.ts'
+export type { GetAuditLogsQueryKey } from './hooks/Audit LogsHooks/useGetAuditLogs.ts'
+export type { GetAuditLogsSuspenseQueryKey } from './hooks/Audit LogsHooks/useGetAuditLogsSuspense.ts'
+export type { GetEntityAuditHistoryQueryKey } from './hooks/Audit LogsHooks/useGetEntityAuditHistory.ts'
+export type { GetEntityAuditHistorySuspenseQueryKey } from './hooks/Audit LogsHooks/useGetEntityAuditHistorySuspense.ts'
 export type { CheckPhoneMutationKey } from './hooks/AuthenticationHooks/useCheckPhone.ts'
 export type { LoginWithPasswordMutationKey } from './hooks/AuthenticationHooks/useLoginWithPassword.ts'
 export type { LoginWithPinMutationKey } from './hooks/AuthenticationHooks/useLoginWithPin.ts'
@@ -444,6 +448,20 @@ export type { AppointmentStatsResponse } from './types/AppointmentStatsResponse.
 export type { AssignCourseToPatientRequest } from './types/AssignCourseToPatientRequest.ts'
 export type { AssignDoctorRequest } from './types/AssignDoctorRequest.ts'
 export type { AssignPatientToDoctorRequest } from './types/AssignPatientToDoctorRequest.ts'
+export type { AuditLogResponse } from './types/AuditLogResponse.ts'
+export type {
+  GetAuditLogsQueryParams,
+  GetAuditLogs200,
+  GetAuditLogsQueryResponse,
+  GetAuditLogsQuery,
+} from './types/auditLogsController/GetAuditLogs.ts'
+export type {
+  GetEntityAuditHistoryPathParams,
+  GetEntityAuditHistoryQueryParams,
+  GetEntityAuditHistory200,
+  GetEntityAuditHistoryQueryResponse,
+  GetEntityAuditHistoryQuery,
+} from './types/auditLogsController/GetEntityAuditHistory.ts'
 export type {
   CheckPhone200,
   CheckPhoneMutationRequest,
@@ -1084,6 +1102,7 @@ export type { OtpResponse } from './types/OtpResponse.ts'
 export type { OverviewResponse } from './types/OverviewResponse.ts'
 export type { Pageable } from './types/Pageable.ts'
 export type { PagedModelAppointmentResponse } from './types/PagedModelAppointmentResponse.ts'
+export type { PagedModelAuditLogResponse } from './types/PagedModelAuditLogResponse.ts'
 export type { PagedModelBannerResponse } from './types/PagedModelBannerResponse.ts'
 export type { PagedModelCategoryResponse } from './types/PagedModelCategoryResponse.ts'
 export type { PagedModelCourseAssignmentListResponse } from './types/PagedModelCourseAssignmentListResponse.ts'
@@ -1773,6 +1792,22 @@ export { updateClinicScheduleMutationKey } from './hooks/AppointmentsHooks/useUp
 export { updateClinicSchedule } from './hooks/AppointmentsHooks/useUpdateClinicSchedule.ts'
 export { updateClinicScheduleMutationOptions } from './hooks/AppointmentsHooks/useUpdateClinicSchedule.ts'
 export { useUpdateClinicSchedule } from './hooks/AppointmentsHooks/useUpdateClinicSchedule.ts'
+export { getAuditLogsQueryKey } from './hooks/Audit LogsHooks/useGetAuditLogs.ts'
+export { getAuditLogs } from './hooks/Audit LogsHooks/useGetAuditLogs.ts'
+export { getAuditLogsQueryOptions } from './hooks/Audit LogsHooks/useGetAuditLogs.ts'
+export { useGetAuditLogs } from './hooks/Audit LogsHooks/useGetAuditLogs.ts'
+export { getAuditLogsSuspenseQueryKey } from './hooks/Audit LogsHooks/useGetAuditLogsSuspense.ts'
+export { getAuditLogsSuspense } from './hooks/Audit LogsHooks/useGetAuditLogsSuspense.ts'
+export { getAuditLogsSuspenseQueryOptions } from './hooks/Audit LogsHooks/useGetAuditLogsSuspense.ts'
+export { useGetAuditLogsSuspense } from './hooks/Audit LogsHooks/useGetAuditLogsSuspense.ts'
+export { getEntityAuditHistoryQueryKey } from './hooks/Audit LogsHooks/useGetEntityAuditHistory.ts'
+export { getEntityAuditHistory } from './hooks/Audit LogsHooks/useGetEntityAuditHistory.ts'
+export { getEntityAuditHistoryQueryOptions } from './hooks/Audit LogsHooks/useGetEntityAuditHistory.ts'
+export { useGetEntityAuditHistory } from './hooks/Audit LogsHooks/useGetEntityAuditHistory.ts'
+export { getEntityAuditHistorySuspenseQueryKey } from './hooks/Audit LogsHooks/useGetEntityAuditHistorySuspense.ts'
+export { getEntityAuditHistorySuspense } from './hooks/Audit LogsHooks/useGetEntityAuditHistorySuspense.ts'
+export { getEntityAuditHistorySuspenseQueryOptions } from './hooks/Audit LogsHooks/useGetEntityAuditHistorySuspense.ts'
+export { useGetEntityAuditHistorySuspense } from './hooks/Audit LogsHooks/useGetEntityAuditHistorySuspense.ts'
 export { checkPhoneMutationKey } from './hooks/AuthenticationHooks/useCheckPhone.ts'
 export { checkPhone } from './hooks/AuthenticationHooks/useCheckPhone.ts'
 export { checkPhoneMutationOptions } from './hooks/AuthenticationHooks/useCheckPhone.ts'
@@ -2908,6 +2943,18 @@ export { appointmentStatsResponseSchema } from './zod/appointmentStatsResponseSc
 export { assignCourseToPatientRequestSchema } from './zod/assignCourseToPatientRequestSchema.ts'
 export { assignDoctorRequestSchema } from './zod/assignDoctorRequestSchema.ts'
 export { assignPatientToDoctorRequestSchema } from './zod/assignPatientToDoctorRequestSchema.ts'
+export { auditLogResponseSchema } from './zod/auditLogResponseSchema.ts'
+export {
+  getAuditLogsQueryParamsSchema,
+  getAuditLogs200Schema,
+  getAuditLogsQueryResponseSchema,
+} from './zod/auditLogsController/getAuditLogsSchema.ts'
+export {
+  getEntityAuditHistoryPathParamsSchema,
+  getEntityAuditHistoryQueryParamsSchema,
+  getEntityAuditHistory200Schema,
+  getEntityAuditHistoryQueryResponseSchema,
+} from './zod/auditLogsController/getEntityAuditHistorySchema.ts'
 export {
   checkPhone200Schema,
   checkPhoneMutationRequestSchema,
@@ -3412,6 +3459,7 @@ export { otpResponseSchema } from './zod/otpResponseSchema.ts'
 export { overviewResponseSchema } from './zod/overviewResponseSchema.ts'
 export { pageableSchema } from './zod/pageableSchema.ts'
 export { pagedModelAppointmentResponseSchema } from './zod/pagedModelAppointmentResponseSchema.ts'
+export { pagedModelAuditLogResponseSchema } from './zod/pagedModelAuditLogResponseSchema.ts'
 export { pagedModelBannerResponseSchema } from './zod/pagedModelBannerResponseSchema.ts'
 export { pagedModelCategoryResponseSchema } from './zod/pagedModelCategoryResponseSchema.ts'
 export { pagedModelCourseAssignmentListResponseSchema } from './zod/pagedModelCourseAssignmentListResponseSchema.ts'
