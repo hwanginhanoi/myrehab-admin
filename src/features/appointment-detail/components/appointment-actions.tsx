@@ -5,6 +5,7 @@ import {
   XCircle,
   ClipboardCheck,
   Scale,
+  CalendarClock,
   ChevronRight,
   Loader2,
 } from 'lucide-react'
@@ -22,9 +23,12 @@ import { AssignDoctorDialog } from './assign-doctor-dialog'
 import { ConfirmDialog } from './confirm-dialog'
 import { RejectDialog } from './reject-dialog'
 import { DisputeResolutionDialog } from './dispute-resolution-dialog'
+import { RescheduleDialog } from './reschedule-dialog'
 import { useQueryClient } from '@tanstack/react-query'
 import { toast } from 'sonner'
 import { cn } from '@/lib/utils'
+import { usePermissions } from '@/hooks/use-permissions'
+import { ALL_PERMISSIONS } from '@/features/staff/data/permissions'
 
 type AppointmentActionsProps = {
   appointment: AppointmentResponse
@@ -52,6 +56,17 @@ const actionConfigs: ActionConfig[] = [
     iconBg: 'bg-blue-100 dark:bg-blue-950',
     iconColor: 'text-blue-600 dark:text-blue-400',
     buttonLabel: 'Phân công',
+    buttonVariant: 'outline',
+    group: 'primary',
+  },
+  {
+    key: 'reschedule',
+    label: 'Dời lịch hẹn',
+    description: 'Thay đổi ngày, giờ hoặc bác sĩ (chỉ khi chờ xác nhận)',
+    icon: <CalendarClock className="h-4 w-4" />,
+    iconBg: 'bg-purple-100 dark:bg-purple-950',
+    iconColor: 'text-purple-600 dark:text-purple-400',
+    buttonLabel: 'Dời lịch',
     buttonVariant: 'outline',
     group: 'primary',
   },
@@ -106,6 +121,7 @@ export function AppointmentActions({ appointment }: AppointmentActionsProps) {
   const actions = getAvailableActions(appointment.status)
   const [openDialog, setOpenDialog] = useState<string | null>(null)
   const queryClient = useQueryClient()
+  const { hasPermission } = usePermissions()
 
   const confirmCompletion = useConfirmCompletion({
     mutation: {
@@ -126,13 +142,20 @@ export function AppointmentActions({ appointment }: AppointmentActionsProps) {
     },
   })
 
-  if (actions.length === 0) return null
+  // Reschedule: only shown when PENDING_CONFIRMATION + appointments:edit permission
+  const canReschedule =
+    appointment.status === 'PENDING_CONFIRMATION' &&
+    hasPermission(ALL_PERMISSIONS.APPOINTMENTS_EDIT)
+
+  if (actions.length === 0 && !canReschedule) return null
+
+  const allActions = canReschedule ? [...actions, 'reschedule'] : actions
 
   const primaryActions = actionConfigs.filter(
-    (cfg) => actions.includes(cfg.key as never) && cfg.group === 'primary'
+    (cfg) => allActions.includes(cfg.key as never) && cfg.group === 'primary'
   )
   const dangerActions = actionConfigs.filter(
-    (cfg) => actions.includes(cfg.key as never) && cfg.group === 'danger'
+    (cfg) => allActions.includes(cfg.key as never) && cfg.group === 'danger'
   )
 
   function handleAction(cfg: ActionConfig) {
@@ -172,8 +195,7 @@ export function AppointmentActions({ appointment }: AppointmentActionsProps) {
               {primaryActions.map((cfg, i) => {
                 const disabled = isDisabled(cfg.key)
                 const reason = getDisabledReason(cfg.key)
-                const isPendingThis =
-                  cfg.inline && confirmCompletion.isPending
+                const isPendingThis = cfg.inline && confirmCompletion.isPending
 
                 return (
                   <TooltipProvider key={cfg.key}>
@@ -311,6 +333,12 @@ export function AppointmentActions({ appointment }: AppointmentActionsProps) {
         </CardContent>
       </Card>
 
+      <RescheduleDialog
+        appointmentId={appointment.id!}
+        currentDoctorId={appointment.doctorId}
+        open={openDialog === 'reschedule'}
+        onOpenChange={(open) => !open && setOpenDialog(null)}
+      />
       <AssignDoctorDialog
         appointmentId={appointment.id!}
         open={openDialog === 'assign_doctor'}

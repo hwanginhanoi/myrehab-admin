@@ -1,16 +1,1 @@
-{
-  "type": "object",
-  "properties": {
-    "qrCodeUrl": { "type": "string" },
-    "paymentCode": { "type": "string" },
-    "accountNumber": { "type": "string" },
-    "accountName": { "type": "string" },
-    "bankCode": { "type": "string" },
-    "instruction": { "type": "string" },
-    "transferAmount": { "type": "integer", "format": "int64" },
-    "bonusPercent": { "type": "integer", "format": "int32" },
-    "bonusAmount": { "type": "integer", "format": "int64" },
-    "creditAmount": { "type": "integer", "format": "int64" }
-  },
-  "x-readme-ref-name": "QrCodeResponse"
-}
+{"type":"object","properties":{"qrCodeUrl":{"type":"string"},"paymentCode":{"type":"string"},"accountNumber":{"type":"string"},"accountName":{"type":"string"},"bankCode":{"type":"string"},"instruction":{"type":"string"},"transferAmount":{"type":"integer","format":"int64"},"bonusPercent":{"type":"integer","format":"int32"},"bonusAmount":{"type":"integer","format":"int64"},"creditAmount":{"type":"integer","format":"int64"}},"x-readme-ref-name":"QrCodeResponse"}

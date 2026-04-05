@@ -1,13 +1,1 @@
-{
-  "type": "object",
-  "properties": {
-    "companyName": { "type": "string", "maxLength": 200, "minLength": 0 },
-    "companyTaxNumber": { "type": "string", "maxLength": 50, "minLength": 0 },
-    "invoiceIssuanceAddress": {
-      "type": "string",
-      "maxLength": 500,
-      "minLength": 0
-    }
-  },
-  "x-readme-ref-name": "UpsertCompanyInfoRequest"
-}
+{"type":"object","properties":{"companyName":{"type":"string","maxLength":200,"minLength":0},"companyTaxNumber":{"type":"string","maxLength":50,"minLength":0},"invoiceIssuanceAddress":{"type":"string","maxLength":500,"minLength":0}},"x-readme-ref-name":"UpsertCompanyInfoRequest"}
