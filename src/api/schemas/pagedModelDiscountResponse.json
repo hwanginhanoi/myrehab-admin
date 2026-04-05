@@ -1,1 +1,41 @@
-{"type":"object","properties":{"content":{"type":"array","items":{"type":"object","properties":{"id":{"type":"integer","format":"int64"},"applicableType":{"type":"string","enum":["COURSE","PACKAGE_ONE_MONTH","PACKAGE_THREE_MONTHS","PACKAGE_TWELVE_MONTHS","APPOINTMENT"]},"percentage":{"type":"integer","format":"int32"},"endDate":{"type":"string","format":"date"},"isActive":{"type":"boolean"},"createdAt":{"type":"string","format":"date-time"},"updatedAt":{"type":"string","format":"date-time"}},"x-readme-ref-name":"DiscountResponse"}},"page":{"type":"object","properties":{"size":{"type":"integer","format":"int64"},"number":{"type":"integer","format":"int64"},"totalElements":{"type":"integer","format":"int64"},"totalPages":{"type":"integer","format":"int64"}},"x-readme-ref-name":"PageMetadata"}},"x-readme-ref-name":"PagedModelDiscountResponse"}
+{
+  "type": "object",
+  "properties": {
+    "content": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "integer", "format": "int64" },
+          "applicableType": {
+            "type": "string",
+            "enum": [
+              "COURSE",
+              "PACKAGE_ONE_MONTH",
+              "PACKAGE_THREE_MONTHS",
+              "PACKAGE_TWELVE_MONTHS",
+              "APPOINTMENT"
+            ]
+          },
+          "percentage": { "type": "integer", "format": "int32" },
+          "endDate": { "type": "string", "format": "date" },
+          "isActive": { "type": "boolean" },
+          "createdAt": { "type": "string", "format": "date-time" },
+          "updatedAt": { "type": "string", "format": "date-time" }
+        },
+        "x-readme-ref-name": "DiscountResponse"
+      }
+    },
+    "page": {
+      "type": "object",
+      "properties": {
+        "size": { "type": "integer", "format": "int64" },
+        "number": { "type": "integer", "format": "int64" },
+        "totalElements": { "type": "integer", "format": "int64" },
+        "totalPages": { "type": "integer", "format": "int64" }
+      },
+      "x-readme-ref-name": "PageMetadata"
+    }
+  },
+  "x-readme-ref-name": "PagedModelDiscountResponse"
+}

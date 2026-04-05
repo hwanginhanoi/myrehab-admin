@@ -1,2 +1,12 @@
-export type { GetMyQrCode200, GetMyQrCodeMutationRequest, GetMyQrCodeMutationResponse, GetMyQrCodeMutation } from "./GetMyQrCode.ts";
-export type { HandleWebhook200, HandleWebhookMutationRequest, HandleWebhookMutationResponse, HandleWebhookMutation } from "./HandleWebhook.ts";
+export type {
+  GetMyQrCode200,
+  GetMyQrCodeMutationRequest,
+  GetMyQrCodeMutationResponse,
+  GetMyQrCodeMutation,
+} from './GetMyQrCode.ts'
+export type {
+  HandleWebhook200,
+  HandleWebhookMutationRequest,
+  HandleWebhookMutationResponse,
+  HandleWebhookMutation,
+} from './HandleWebhook.ts'
