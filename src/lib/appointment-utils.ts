@@ -15,6 +15,11 @@ export function formatCurrency(value?: number): string {
 }
 
 export const appointmentStatusConfig = {
+  PENDING_PAYMENT: {
+    label: 'Chờ thanh toán',
+    variant: 'secondary' as const,
+    color: 'bg-amber-400',
+  },
   PENDING_CONFIRMATION: {
     label: 'Chờ xác nhận',
     variant: 'secondary' as const,

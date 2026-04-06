@@ -1,6 +1,6 @@
 /**
  * List of available font names (visit the url `/settings/appearance`).
- * This array is used to generate dynamic font classes (e.g., `font-inter`, `font-manrope`).
+ * This array is used to generate dynamic font classes (e.g., `font-inter`, `font-manrope`, `font-comfortaa`).
  *
  * 📝 How to Add a New Font (Tailwind v4+):
  * 1. Add the font name here.
@@ -16,4 +16,4 @@
  *      --font-roboto: 'Roboto', var(--font-sans);
  *   }
  */
-export const fonts = ['inter', 'manrope', 'system'] as const
+export const fonts = ['inter', 'manrope', 'comfortaa', 'system'] as const

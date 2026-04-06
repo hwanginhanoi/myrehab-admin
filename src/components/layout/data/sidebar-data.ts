@@ -1,20 +1,13 @@
 import {
   // Construction,
   // LayoutDashboard,
-  Monitor,
   // Bug,
   // ListTodo,
   // FileX,
-  HelpCircle,
   // Lock,
-  Bell,
   Package,
-  Palette,
   Percent,
   // ServerOff,
-  Settings,
-  Wrench,
-  UserCog,
   // UserX,
   Users,
   UserRound,
@@ -34,6 +27,7 @@ import {
   BarChart3,
   BookCheck,
   Megaphone,
+  UserCog,
 } from 'lucide-react'
 import { Logo } from '@/assets/logo'
 import { type SidebarData } from '../types'
@@ -131,7 +125,7 @@ export const sidebarData: SidebarData = {
           title: 'Quản lý giảm giá',
           url: '/discounts',
           icon: Percent,
-          allowedRoles: ['SUPER_ADMIN'],
+            allowedRoles: ['SUPER_ADMIN', 'ADMIN'],
         },
         {
           title: 'Kho bài tập',
@@ -176,23 +170,6 @@ export const sidebarData: SidebarData = {
       ],
     },
     {
-      title: 'Quản trị người dùng',
-      items: [
-        {
-          title: 'Quản trị nhân viên',
-          url: '/staff',
-          icon: UserCog,
-          allowedRoles: ['ADMIN', 'SUPER_ADMIN'],
-        },
-        {
-          title: 'Quản trị người dùng',
-          url: '/users',
-          icon: Users,
-          allowedRoles: ['ADMIN', 'SUPER_ADMIN'],
-        },
-      ],
-    },
-    {
       title: 'Hệ thống',
       items: [
         {
@@ -223,6 +200,23 @@ export const sidebarData: SidebarData = {
         //   badge: '3',
         //   icon: MessagesSquare,
         // },
+      ],
+    },
+    {
+      title: 'Quản trị người dùng',
+      items: [
+        {
+          title: 'Quản trị nhân viên',
+          url: '/staff',
+          icon: UserCog,
+          allowedRoles: ['ADMIN', 'SUPER_ADMIN'],
+        },
+        {
+          title: 'Quản trị người dùng',
+          url: '/users',
+          icon: Users,
+          allowedRoles: ['ADMIN', 'SUPER_ADMIN'],
+        },
       ],
     },
     // {
@@ -283,46 +277,5 @@ export const sidebarData: SidebarData = {
     //     },
     //   ],
     // },
-    {
-      title: 'Other',
-      items: [
-        {
-          title: 'Settings',
-          icon: Settings,
-          items: [
-            {
-              title: 'Profile',
-              url: '/settings',
-              icon: UserCog,
-            },
-            {
-              title: 'Account',
-              url: '/settings/account',
-              icon: Wrench,
-            },
-            {
-              title: 'Appearance',
-              url: '/settings/appearance',
-              icon: Palette,
-            },
-            {
-              title: 'Notifications',
-              url: '/settings/notifications',
-              icon: Bell,
-            },
-            {
-              title: 'Display',
-              url: '/settings/display',
-              icon: Monitor,
-            },
-          ],
-        },
-        {
-          title: 'Help Center',
-          url: '/help-center',
-          icon: HelpCircle,
-        },
-      ],
-    },
   ],
 }
