@@ -71,6 +71,7 @@ import { Route as AuthenticatedCourseAssignmentsIdRouteRouteImport } from './rou
 import { Route as AuthenticatedUsersIdIndexRouteImport } from './routes/_authenticated/users/$id.index'
 import { Route as AuthenticatedCourseRequestsIdIndexRouteImport } from './routes/_authenticated/course-requests/$id.index'
 import { Route as AuthenticatedCourseAssignmentsIdIndexRouteImport } from './routes/_authenticated/course-assignments/$id.index'
+import { Route as AuthenticatedAdminAuditLogsIndexRouteImport } from './routes/_authenticated/admin/audit-logs/index'
 import { Route as AuthenticatedUsersIdPrivateInsuranceRouteImport } from './routes/_authenticated/users/$id.private-insurance'
 import { Route as AuthenticatedUsersIdNationalInsuranceRouteImport } from './routes/_authenticated/users/$id.national-insurance'
 import { Route as AuthenticatedUsersIdIntakeHistoryRouteImport } from './routes/_authenticated/users/$id.intake-history'
@@ -444,6 +445,12 @@ const AuthenticatedCourseAssignmentsIdIndexRoute =
     path: '/',
     getParentRoute: () => AuthenticatedCourseAssignmentsIdRouteRoute,
   } as any)
+const AuthenticatedAdminAuditLogsIndexRoute =
+  AuthenticatedAdminAuditLogsIndexRouteImport.update({
+    id: '/admin/audit-logs/',
+    path: '/admin/audit-logs/',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
 const AuthenticatedUsersIdPrivateInsuranceRoute =
   AuthenticatedUsersIdPrivateInsuranceRouteImport.update({
     id: '/private-insurance',
@@ -635,6 +642,7 @@ export interface FileRoutesByFullPath {
   '/users/$id/intake-history': typeof AuthenticatedUsersIdIntakeHistoryRoute
   '/users/$id/national-insurance': typeof AuthenticatedUsersIdNationalInsuranceRoute
   '/users/$id/private-insurance': typeof AuthenticatedUsersIdPrivateInsuranceRoute
+  '/admin/audit-logs': typeof AuthenticatedAdminAuditLogsIndexRoute
   '/course-assignments/$id/': typeof AuthenticatedCourseAssignmentsIdIndexRoute
   '/course-requests/$id/': typeof AuthenticatedCourseRequestsIdIndexRoute
   '/users/$id/': typeof AuthenticatedUsersIdIndexRoute
@@ -711,6 +719,7 @@ export interface FileRoutesByTo {
   '/users/$id/intake-history': typeof AuthenticatedUsersIdIntakeHistoryRoute
   '/users/$id/national-insurance': typeof AuthenticatedUsersIdNationalInsuranceRoute
   '/users/$id/private-insurance': typeof AuthenticatedUsersIdPrivateInsuranceRoute
+  '/admin/audit-logs': typeof AuthenticatedAdminAuditLogsIndexRoute
   '/course-assignments/$id': typeof AuthenticatedCourseAssignmentsIdIndexRoute
   '/course-requests/$id': typeof AuthenticatedCourseRequestsIdIndexRoute
   '/users/$id': typeof AuthenticatedUsersIdIndexRoute
@@ -796,6 +805,7 @@ export interface FileRoutesById {
   '/_authenticated/users/$id/intake-history': typeof AuthenticatedUsersIdIntakeHistoryRoute
   '/_authenticated/users/$id/national-insurance': typeof AuthenticatedUsersIdNationalInsuranceRoute
   '/_authenticated/users/$id/private-insurance': typeof AuthenticatedUsersIdPrivateInsuranceRoute
+  '/_authenticated/admin/audit-logs/': typeof AuthenticatedAdminAuditLogsIndexRoute
   '/_authenticated/course-assignments/$id/': typeof AuthenticatedCourseAssignmentsIdIndexRoute
   '/_authenticated/course-requests/$id/': typeof AuthenticatedCourseRequestsIdIndexRoute
   '/_authenticated/users/$id/': typeof AuthenticatedUsersIdIndexRoute
@@ -881,6 +891,7 @@ export interface FileRouteTypes {
     | '/users/$id/intake-history'
     | '/users/$id/national-insurance'
     | '/users/$id/private-insurance'
+    | '/admin/audit-logs'
     | '/course-assignments/$id/'
     | '/course-requests/$id/'
     | '/users/$id/'
@@ -957,6 +968,7 @@ export interface FileRouteTypes {
     | '/users/$id/intake-history'
     | '/users/$id/national-insurance'
     | '/users/$id/private-insurance'
+    | '/admin/audit-logs'
     | '/course-assignments/$id'
     | '/course-requests/$id'
     | '/users/$id'
@@ -1041,6 +1053,7 @@ export interface FileRouteTypes {
     | '/_authenticated/users/$id/intake-history'
     | '/_authenticated/users/$id/national-insurance'
     | '/_authenticated/users/$id/private-insurance'
+    | '/_authenticated/admin/audit-logs/'
     | '/_authenticated/course-assignments/$id/'
     | '/_authenticated/course-requests/$id/'
     | '/_authenticated/users/$id/'
@@ -1504,6 +1517,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedCourseAssignmentsIdIndexRouteImport
       parentRoute: typeof AuthenticatedCourseAssignmentsIdRouteRoute
     }
+    '/_authenticated/admin/audit-logs/': {
+      id: '/_authenticated/admin/audit-logs/'
+      path: '/admin/audit-logs'
+      fullPath: '/admin/audit-logs'
+      preLoaderRoute: typeof AuthenticatedAdminAuditLogsIndexRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
     '/_authenticated/users/$id/private-insurance': {
       id: '/_authenticated/users/$id/private-insurance'
       path: '/private-insurance'
@@ -1848,6 +1868,7 @@ interface AuthenticatedRouteRouteChildren {
   AuthenticatedStaffDoctorsDoctorIdRouteRoute: typeof AuthenticatedStaffDoctorsDoctorIdRouteRouteWithChildren
   AuthenticatedStaffTrainersTrainerIdRouteRoute: typeof AuthenticatedStaffTrainersTrainerIdRouteRouteWithChildren
   AuthenticatedAppointmentsIdVideoCallRoute: typeof AuthenticatedAppointmentsIdVideoCallRoute
+  AuthenticatedAdminAuditLogsIndexRoute: typeof AuthenticatedAdminAuditLogsIndexRoute
 }
 
 const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
@@ -1912,6 +1933,7 @@ const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
     AuthenticatedStaffTrainersTrainerIdRouteRouteWithChildren,
   AuthenticatedAppointmentsIdVideoCallRoute:
     AuthenticatedAppointmentsIdVideoCallRoute,
+  AuthenticatedAdminAuditLogsIndexRoute: AuthenticatedAdminAuditLogsIndexRoute,
 }
 
 const AuthenticatedRouteRouteWithChildren =
